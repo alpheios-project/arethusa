@@ -7,13 +7,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.initConfig({
     jasmine: {
-      customTemplate: {
-        src: srcFiles,
-        options: {
-          specs: specFiles,
-          // helpers: 'spec/*Helper.js',
-          // template: 'custom.tmpl'
-        }
+      src: srcFiles,
+      options: {
+        specs: specFiles,
+        // helpers: 'spec/*Helper.js',
+        // template: 'custom.tmpl'
       }
     },
     watch: {
@@ -24,5 +22,5 @@ module.exports = function(grunt) {
       all: ['*.js', srcFiles, specFiles]
     }
   });
-  grunt.registerTask('default', ['jasmine']);
+  grunt.registerTask('default', ['jasmine', 'jshint']);
 };
