@@ -1,0 +1,4 @@
+{ "name" : "my-project",
+  "version" : "1.0.0" ,
+  "dependencies" : { "grunt-contrib-jasmine" : "0.6.3",
+                     "grunt-contrib-watch" : "0.6.1" } }
