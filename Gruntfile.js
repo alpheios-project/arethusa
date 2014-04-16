@@ -45,5 +45,5 @@ module.exports = function(grunt) {
       },
     }
   });
-  grunt.registerTask('default', ['jasmine', 'jshint']);
+  grunt.registerTask('default', ['karma:spec', 'jshint']);
 };
