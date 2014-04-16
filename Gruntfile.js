@@ -1,5 +1,6 @@
 var srcFiles = 'src/**/*.js';
 var specFiles = 'spec/**/*.js';
+
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -7,16 +8,18 @@ module.exports = function(grunt) {
   grunt.initConfig({
     jasmine: {
       customTemplate: {
-          src: srcFiles,
+        src: srcFiles,
         options: {
           specs: specFiles,
           // helpers: 'spec/*Helper.js',
           // template: 'custom.tmpl'
-        } } },
+        }
+      }
+    },
     watch: {
-        files: [srcFiles, specFiles],
-        tasks: 'jasmine'
-    }, 
+      files: [srcFiles, specFiles],
+      tasks: 'jasmine'
+    },
     jshint: {
       all: ['*.js', srcFiles, specFiles]
     }
