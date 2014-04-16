@@ -5,6 +5,8 @@ Make sure [node.js](http://nodejs.org) is installed.
 
 ```
 sudo npm install grunt-cli -g
+sudo npm install bower -g
+
 npm install
 bower install
 ```
