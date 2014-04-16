@@ -1,6 +1,9 @@
 { "name" : "my-project",
   "version" : "1.0.0" ,
-  "devDependencies" : { 
+  "dependencies" : {
+    "angular" : "1.2.15"
+  },
+  "devDependencies" : {
     "grunt-contrib-jasmine" : "0.6.3",
     "grunt-contrib-watch" : "0.6.1",
     "grunt-contrib-jshint" : "0.10.0"
