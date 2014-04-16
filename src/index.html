@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html ng-app="annotationApp">
+<head>
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="./text_controller.js"></script>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body ng-controller="TextController">
+  <span ng-repeat="token in tokens">
+    {{ token.string }}
+  </span>
+</body>
+</html>
