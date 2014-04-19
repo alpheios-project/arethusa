@@ -24,24 +24,24 @@ module.exports = function(grunt) {
     },
     karma: {
       spec: {
-/*        options: {
-          files: [
-            './node_modules/angular/lib/angular.min.js',
-            specFiles,
-          ],
-        },
-       */
-        configFile: 'karma.conf.js',
         autoWatch: false,
-        singleRun: true
-        /*background: true,
-        frameworks: ['jasmine'],
-        browsers: ['PhantomJS'],
-        plugins: [
-          'karma-phantomjs-launcher',
-          'karma-jasmine'
-        ]
-       */
+        singleRun: true,
+        options: {
+          files : [
+            './bower_components/angular/angular.js',
+            './bower_components/angular-mocks/angular-mocks.js',
+            srcFiles,
+            specFiles
+          ],
+          frameworks: ['jasmine'],
+          browsers : ['PhantomJS'],
+          plugins : [
+            'karma-chrome-launcher',
+            'karma-phantomjs-launcher',
+            'karma-firefox-launcher',
+            'karma-jasmine'
+          ],
+        }
       },
     }
   });
