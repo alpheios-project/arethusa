@@ -1,4 +1,4 @@
-var srcFiles = 'src/**/*.js';
+var srcFiles = 'app/**/*.js';
 var specFiles = 'spec/**/*.js';
 
 module.exports = function(grunt) {
