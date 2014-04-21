@@ -53,9 +53,7 @@ module.exports = function(grunt) {
         noColor: false, // If true, protractor will not use colors in its output.
         args: {
           seleniumAddress: 'http://localhost:4444/wd/hub',
-          capabilities: {
-            'browserName': 'chrome'
-          },
+          capabilities: { 'browserName': 'chrome' },
           specs: [specE2eFiles]
         },
       },
