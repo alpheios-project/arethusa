@@ -2,28 +2,32 @@
 <html ng-app="annotationApp">
 <head>
   <script src="../bower_components/angular/angular.js"></script>
+  <script src="./js/app.js"></script>
   <script src="./js/controllers/text_controller.js"></script>
+  <script src="./js/controllers/main_controller.js"></script>
   <meta charset="UTF-8">
   <title></title>
 </head>
-<body ng-controller="TextController">
-  <table>
-    <tr>
-      <td ng-repeat="token in tokens | orderBy:orderProp">
-        {{ token.id }}
-      </td>
-    </tr>
-    <tr>
-      <td ng-repeat="token in tokens | orderBy:orderProp">
-        {{ token.string }}
-      </td>
-    </tr>
-  </table>
-  Sort:
-  <select ng-model="selectedToken">
-    <option ng-repeat="token in tokens" value="{{ token.id }}">{{ token.id }}</option>
-  </select>
+<body ng-controller="MainController">
+  <div ng-controller="TextController">
+    <table>
+      <tr>
+        <td ng-repeat="token in tokens | orderBy:orderProp">
+          {{ token.id }}
+        </td>
+      </tr>
+      <tr>
+        <td ng-repeat="token in tokens | orderBy:orderProp">
+          {{ token.string }}
+        </td>
+      </tr>
+    </table>
+    Sort:
+    <select ng-model="selectedToken">
+      <option ng-repeat="token in tokens" value="{{ token.id }}">{{ token.id }}</option>
+    </select>
 
-  Selected token: {{ tokens[selectedToken - 1].string }}
+    Selected token: {{ tokens[selectedToken - 1].string }}
+  </div>
 </body>
 </html>

@@ -1,5 +1,4 @@
-var annotationApp = angular.module('annotationApp', []);
-angular.module('annotationApp');
+var annotationApp = angular.module('annotationApp');
 
 annotationApp.controller('TextController', function($scope) {
   $scope.tokens = [
