@@ -14,5 +14,5 @@ annotationApp.controller('MainController', function($scope) {
 
   $scope.selectToken = function(id) {
     $scope.selectedToken.id = id
-  }
+  };
 });
