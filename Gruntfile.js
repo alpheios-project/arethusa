@@ -49,9 +49,15 @@ module.exports = function(grunt) {
     },
     protractor: {
       options: {
-        configFile: "protractorConf.js",
         keepAlive: true, // If false, the grunt process stops when the test fails.
-        noColor: false // If true, protractor will not use colors in its output.
+        noColor: false, // If true, protractor will not use colors in its output.
+        args: {
+          seleniumAddress: 'http://localhost:4444/wd/hub',
+          capabilities: {
+            'browserName': 'chrome'
+          },
+          specs: [specE2eFiles]
+        },
       },
       all: {}, // A target needs to be defined, otherwise protractor won't run
     },
