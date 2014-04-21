@@ -13,12 +13,12 @@
   <div ng-controller="TextController">
     <table>
       <tr>
-        <td ng-repeat="token in tokens | orderBy:orderProp">
+        <td ng-repeat="token in tokens">
           {{ token.id }}
         </td>
       </tr>
       <tr>
-        <td ng-repeat="token in tokens | orderBy:orderProp">
+        <td ng-repeat="token in tokens">
           {{ token.string }}
         </td>
       </tr>
