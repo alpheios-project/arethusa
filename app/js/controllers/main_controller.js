@@ -6,5 +6,9 @@ annotationApp.controller('MainController', function($scope) {
     { 'string' : '.', 'id' : '4' }
   ];
 
-  $scope.selectedToken = ''
+  $scope.selectedToken = { id: '1' };
+
+  $scope.currentToken = function() {
+    return $scope.tokens[$scope.selectedToken.id - 1]
+  };
 });

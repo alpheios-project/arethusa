@@ -5,6 +5,7 @@
   <script src="./js/app.js"></script>
   <script src="./js/controllers/text_controller.js"></script>
   <script src="./js/controllers/main_controller.js"></script>
+  <script src="./js/controllers/morph_controller.js"></script>
   <meta charset="UTF-8">
   <title></title>
 </head>
@@ -23,11 +24,15 @@
       </tr>
     </table>
     Sort:
-    <select ng-model="selectedToken">
+    <select ng-model="selectedToken.id">
       <option ng-repeat="token in tokens" value="{{ token.id }}">{{ token.id }}</option>
     </select>
 
-    Selected token: {{ tokens[selectedToken - 1].string }}
+    Selected token: {{ currentToken().string }}
+  </div>
+  <br>
+  <div ng-controller="MorphController">
+    Part of Speech: {{ currentAnalysis().pos }}
   </div>
 </body>
 </html>
