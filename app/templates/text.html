@@ -1,0 +1,13 @@
+<table>
+  <tr>
+    <td ng-repeat="token in tokens">
+      {{ token.id }}
+    </td>
+  </tr>
+  <tr>
+    <td ng-repeat="token in tokens" ng-click="selectToken(token.id)">
+      {{ token.string }}
+    </td>
+  </tr>
+</table>
+

@@ -8,5 +8,7 @@ annotationApp.controller('MorphController', function($scope) {
 
   $scope.currentAnalysis = function() {
     return $scope.analyses[$scope.selectedToken.id - 1]
-  }
+  };
+
+  $scope.template = 'templates/morph.html';
 });

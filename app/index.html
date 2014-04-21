@@ -10,25 +10,9 @@
   <title></title>
 </head>
 <body ng-controller="MainController">
-  <div ng-controller="TextController">
-    <table>
-      <tr>
-        <td ng-repeat="token in tokens">
-          {{ token.id }}
-        </td>
-      </tr>
-      <tr>
-        <td ng-repeat="token in tokens" ng-click="selectToken(token.id)">
-          {{ token.string }}
-        </td>
-      </tr>
-    </table>
+  Selected token: {{ currentToken().string }}
 
-    Selected token: {{ currentToken().string }}
-  </div>
-  <br>
-  <div ng-controller="MorphController">
-    Part of Speech: {{ currentAnalysis().pos }}
-  </div>
+  <div ng-controller="TextController" ng-include="template"></div>
+  <div ng-controller="MorphController" ng-include="template"></div>
 </body>
 </html>
