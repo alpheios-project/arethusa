@@ -7,7 +7,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-protractor-webdriver');
   grunt.loadNpmTasks('grunt-protractor-runner');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -56,13 +55,6 @@ module.exports = function(grunt) {
       },
       all: {}, // A target needs to be defined, otherwise protractor won't run
     },
-    protractor_webdriver: {
-      startSelenium: {
-        options: {
-          command: 'webdriver-manager start'
-        },
-      },
-    }
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
