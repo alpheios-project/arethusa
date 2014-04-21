@@ -50,22 +50,11 @@ module.exports = function(grunt) {
     },
     protractor: {
       options: {
+        configFile: "protractorConf.js",
         keepAlive: true, // If false, the grunt process stops when the test fails.
-        noColor: false, // If true, protractor will not use colors in its output.
-        args: {
-          specs: [ specE2eFiles ],
-          capabilities: {
-            'browserName': 'chrome'
-          },
-          seleniumAddress: "127.0.0.1:4444/wd/hub",
-          // seleniumServerJar: ""
-          // Arguments passed to the command
-          framework: "jasmine",
-          jasmineNodeOpts: {
-            showColors: true, // Use colors in the command line report.
-          }
-        }
+        noColor: false // If true, protractor will not use colors in its output.
       },
+      all: {}, // A target needs to be defined, otherwise protractor won't run
     },
     protractor_webdriver: {
       startSelenium: {
