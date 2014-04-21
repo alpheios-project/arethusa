@@ -23,10 +23,6 @@
         </td>
       </tr>
     </table>
-    Sort:
-    <select ng-model="selectedToken.id">
-      <option ng-repeat="token in tokens" value="{{ token.id }}">{{ token.id }}</option>
-    </select>
 
     Selected token: {{ currentToken().string }}
   </div>
