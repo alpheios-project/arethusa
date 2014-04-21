@@ -9,10 +9,10 @@ annotationApp.controller('MainController', function($scope) {
   $scope.selectedToken = { id: '1' };
 
   $scope.currentToken = function() {
-    return $scope.tokens[$scope.selectedToken.id - 1]
+    return $scope.tokens[$scope.selectedToken.id - 1];
   };
 
   $scope.selectToken = function(id) {
-    $scope.selectedToken.id = id
+    $scope.selectedToken.id = id;
   };
 });

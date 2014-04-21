@@ -1,3 +1,3 @@
 annotationApp.controller('TextController', function($scope) {
-  $scope.template = 'templates/text.html'
+  $scope.template = 'templates/text.html';
 });
