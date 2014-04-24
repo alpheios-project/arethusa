@@ -1,6 +1,5 @@
-annotationApp.controller('MorphController', function($scope, $http) {
-  $http.get('./js/controllers/analyses.json')
-       .then(function(res){
+annotationApp.controller('MorphController', function($scope, morphRetriever) {
+  morphRetriever.getAnalyses(function(res) {
     $scope.analyses = res.data;
   });
 
