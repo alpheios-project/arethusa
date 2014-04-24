@@ -3,6 +3,6 @@
     "retriever" : "morphRetriever"
   },
   "MainController" : {
-    "retriever" : "textRetriever"
+    "retriever" : "tokenRetriever"
   }
 }
