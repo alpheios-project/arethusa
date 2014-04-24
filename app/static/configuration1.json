@@ -1,5 +1,8 @@
 {
   "MorphController" : {
     "retriever" : "morphRetriever"
+  },
+  "MainController" : {
+    "retriever" : "textRetriever"
   }
 }
