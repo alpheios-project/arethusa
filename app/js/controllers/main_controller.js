@@ -1,10 +1,10 @@
-annotationApp.controller('MainController', function($scope) {
-  $scope.tokens = [
-    { 'string' : 'Marcus', 'id' : '1' },
-    { 'string' : 'rosam', 'id' : '2' },
-    { 'string' : 'videt', 'id' : '3' },
-    { 'string' : '.', 'id' : '4' }
-  ];
+annotationApp.controller('MainController', function($scope, configurator) {
+  var conf = configurator.conf_for('MainController');
+  textRetriever = configurator.getService(conf.retriever);
+
+  textRetriever.getAnalyses(function(res) {
+    $scope.tokens = res.data;
+  });
 
   $scope.selectedToken = { id: '1' };
 
