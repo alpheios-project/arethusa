@@ -18,9 +18,7 @@
 <body ng-controller="MainController">
   Selected token: {{ state.currentToken().string }}
 
-  <div class="plugins">
-    <plugin name="text"></plugin>
-    <plugin name="morph"></plugin>
-  </div>
+  <div ng-repeat="pl in plugins" name="{{ pl }}"></div>
+  
 </body>
 </html>
