@@ -1,8 +1,21 @@
 {
+  "morph" : {
+    "retriever" : "morphRetriever",
+    "template"  : "templates/morph.html"
+  },
+  "text" : {
+    "template"  : "templates/text.html"
+  },
   "MorphController" : {
     "retriever" : "morphRetriever"
   },
-  "MainController" : {
+  "state" : {
     "retriever" : "tokenRetriever"
+  },
+  "MainController" : {
+    "plugins" : [
+      "morph",
+      "TextController"
+    ]
   }
 }
