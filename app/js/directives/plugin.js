@@ -3,8 +3,10 @@ annotationApp.directive('plugin', function () {
     restrict: 'E',
     scope: true,
     controller: function($scope, $element, $attrs, $injector) {
-      $scope.plugin = $injector.get($attrs.name);
+      $scope.fetch = function() {
+        $scope.plugin = $injector.get($attrs.name);
+      };
     },
-    template: '<div ng-include="plugin.template"></div>'
+    template: '<div ng-init="fetch()" ng-include="plugin.template"></div>'
   };
 });
