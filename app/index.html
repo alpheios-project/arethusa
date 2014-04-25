@@ -16,9 +16,14 @@
   <title></title>
 </head>
 <body ng-controller="MainController">
+  <h3>OUTPUT of Main Controller</h3>
   Selected token: {{ state.currentToken().string }}
 
-  <div ng-repeat="pl in plugins" name="{{ pl }}"></div>
+  <div ng-repeat="pl in plugins" >
+    <h3>OUTPUT of {{ pl }} plugin</h3>
+    <plugin name="{{ pl }}"></plugin>
+  </div>
+    
   
 </body>
 </html>
