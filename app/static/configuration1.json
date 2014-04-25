@@ -6,9 +6,6 @@
   "text" : {
     "template"  : "templates/text.html"
   },
-  "MorphController" : {
-    "retriever" : "morphRetriever"
-  },
   "state" : {
     "retriever" : "tokenRetriever"
   },
