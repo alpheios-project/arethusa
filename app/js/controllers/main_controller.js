@@ -3,4 +3,9 @@ annotationApp.controller('MainController', function($scope, state, configurator)
 
   $scope.state = state;
   $scope.plugins = conf.plugins;
+  $scope.template = conf.template;
+
+  $scope.addPlugin = function() {
+    $scope.plugins.push("comment");
+  };
 });
