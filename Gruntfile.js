@@ -8,6 +8,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-protractor-runner');
+  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -59,7 +60,15 @@ module.exports = function(grunt) {
       },
       all: {}, // A target needs to be defined, otherwise protractor won't run
     },
+    connect: {
+      devserver: {
+        options: {
+          keepalive: true,
+        }
+      }
+    }
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
+  grunt.registerTask('server', 'connect');
 };
