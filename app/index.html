@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html ng-app="annotationApp">
 <head>
-  <script src="../bower_components/angular/angular.js"></script>
   <script src="../bower_components/jquery/jquery.js"></script>
+  <script src="../bower_components/angular/angular.js"></script>
   <script src="./js/app.js"></script>
   <script src="./js/services/configurator.js"></script>
+  <script src="./js/services/state.js"></script>
+  <script src="./js/services/text.js"></script>
+  <script src="./js/services/morph.js"></script>
   <script src="./js/services/morph_retriever.js"></script>
   <script src="./js/services/token_retriever.js"></script>
-  <script src="./js/controllers/text_controller.js"></script>
-  <script src="./js/controllers/morph_controller.js"></script>
+  <script src="./js/directives/plugin.js"></script>
   <script src="./js/controllers/main_controller.js"></script>
   <meta charset="UTF-8">
   <title></title>
 </head>
 <body ng-controller="MainController">
-  Selected token: {{ currentToken().string }}
+  Selected token: {{ state.currentToken().string }}
 
-  <div ng-controller="TextController" ng-include="template"></div>
-  <div ng-controller="MorphController" ng-include="template"></div>
+  <div class="plugins">
+    <plugin name="text"></plugin>
+    <plugin name="morph"></plugin>
+  </div>
 </body>
 </html>
