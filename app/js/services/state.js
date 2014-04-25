@@ -4,7 +4,6 @@ annotationApp.service('state', function(configurator) {
 
   var tokens;
   tokenRetriever.getData(function(res) {
-    console.log(res);
     tokens = res;
   });
   this.tokens = tokens;
