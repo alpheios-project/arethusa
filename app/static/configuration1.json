@@ -1,18 +1,26 @@
 {
-  "morph" : {
-    "retriever" : "morphRetriever",
-    "template"  : "templates/morph.html"
-  },
-  "text" : {
-    "template"  : "templates/text.html"
-  },
   "state" : {
     "retriever" : "tokenRetriever"
   },
+
   "MainController" : {
+    "template"  : "templates/main.html",
     "plugins" : [
       "text",
       "morph"
     ]
+  },
+
+  "text" : {
+    "template"  : "templates/text.html"
+  },
+
+  "morph" : {
+    "retriever" : "morphRetriever",
+    "template"  : "templates/morph.html"
+  },
+
+  "comment" : {
+    "template" : "templates/comment.html"
   }
 }
