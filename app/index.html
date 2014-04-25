@@ -8,6 +8,7 @@
   <script src="./js/services/state.js"></script>
   <script src="./js/services/text.js"></script>
   <script src="./js/services/morph.js"></script>
+  <script src="./js/services/comment.js"></script>
   <script src="./js/services/morph_retriever.js"></script>
   <script src="./js/services/token_retriever.js"></script>
   <script src="./js/directives/plugin.js"></script>
@@ -16,14 +17,6 @@
   <title></title>
 </head>
 <body ng-controller="MainController">
-  <h3>OUTPUT of Main Controller</h3>
-  Selected token: {{ state.currentToken().string }}
-
-  <div ng-repeat="pl in plugins" >
-    <h3>OUTPUT of {{ pl }} plugin</h3>
-    <plugin name="{{ pl }}"></plugin>
-  </div>
-    
-  
+  <div ng-include="template"></div>
 </body>
 </html>
