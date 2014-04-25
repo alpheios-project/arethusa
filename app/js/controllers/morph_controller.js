@@ -2,7 +2,7 @@ annotationApp.controller('MorphController', function($scope, configurator) {
   var conf = configurator.conf_for('MorphController');
   morphRetriever = configurator.getService(conf.retriever);
 
-  morphRetriever.getAnalyses(function(res) {
+  morphRetriever.getData(function(res) {
     $scope.analyses = res.data;
   });
 
