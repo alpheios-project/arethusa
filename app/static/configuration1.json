@@ -11,8 +11,8 @@
   },
   "MainController" : {
     "plugins" : [
-      "morph",
-      "text"
+      "text",
+      "morph"
     ]
   }
 }
