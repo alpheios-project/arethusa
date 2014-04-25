@@ -1,18 +1,6 @@
-annotationApp.controller('MainController', function($scope, configurator) {
+annotationApp.controller('MainController', function($scope, state, configurator) {
   var conf = configurator.conf_for('MainController');
-  tokenRetriever = configurator.getService(conf.retriever);
 
-  tokenRetriever.getData(function(res) {
-    $scope.tokens = res.data;
-  });
-
-  $scope.selectedToken = { id: '1' };
-
-  $scope.currentToken = function() {
-    return $scope.tokens[$scope.selectedToken.id - 1];
-  };
-
-  $scope.selectToken = function(id) {
-    $scope.selectedToken.id = id;
-  };
+  $scope.state = state;
+  $scope.plugins = conf.plugins;
 });
