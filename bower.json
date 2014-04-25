@@ -1,11 +1,12 @@
 {
   "name": "llt-annotation_environment",
-  "version":"0.0.1",
+  "version": "0.0.1",
   "dependencies": {
-    "jquery": "~2.0.3",
+    "jquery": "~2.1.0",
     "angular": "1.2.15",
     "angular-route": "1.2.15",
     "angular-animate": "1.2.15",
-    "angular-mocks": "1.2.15"
+    "angular-mocks": "1.2.15",
+    "foundation": "~5.2.2"
   }
 }
