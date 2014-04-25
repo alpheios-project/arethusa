@@ -1,8 +1,8 @@
 annotationApp.controller('MainController', function($scope, configurator) {
   var conf = configurator.conf_for('MainController');
-  textRetriever = configurator.getService(conf.retriever);
+  tokenRetriever = configurator.getService(conf.retriever);
 
-  textRetriever.getAnalyses(function(res) {
+  tokenRetriever.getAnalyses(function(res) {
     $scope.tokens = res.data;
   });
 
