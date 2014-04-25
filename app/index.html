@@ -21,7 +21,11 @@
 <body ng-controller="MainController">
   <div ng-include="template"></div>
 
-  <button ng-click="addPlugin()">Add Plugin</button>
+  <div class="row">
+    <div class="columns small-12">
+      <button ng-click="addPlugin()">Add Plugin</button>
+    </div>
+  </div>
   <script src="../bower_components/foundation/js/foundation.min.js"></script>
   <script>
     $(document).foundation();

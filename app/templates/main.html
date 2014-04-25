@@ -1,5 +1,12 @@
-<h3>OUTPUT of Main Controller</h3>
-Selected token: {{ state.currentToken().string }}
+<div class="row panel">
+  <div class="columns small-12">
+    <h3>OUTPUT of Main Controller</h3>
+    Selected token: {{ state.currentToken().string }}
+  </div>
+</div>
 
-  <plugin ng-repeat="pl in plugins" name="{{ pl }}"></plugin>
+<div ng-repeat="pl in plugins" class="row panel">
+  <div class="columns small-12">
+    <plugin name="{{ pl }}"/>
+  </div>
 </div>
