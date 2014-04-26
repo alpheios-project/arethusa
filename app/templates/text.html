@@ -1,0 +1,13 @@
+<h3>Text plugin</h3>
+<table>
+  <tr>
+    <td ng-repeat="token in state.tokens">
+      {{ token.id }}
+    </td>
+  </tr>
+  <tr>
+    <td ng-repeat="token in state.tokens" ng-click="state.selectToken(token.id)">
+      {{ token.string }}
+    </td>
+  </tr>
+</table>
