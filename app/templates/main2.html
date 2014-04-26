@@ -9,15 +9,17 @@
 
 
 <div class="row panel">
-  <div ng-repeat="pl in mainPlugins">
-    <div class="columns small-6">
+  <div class="columns small-6">
+    <div ng-repeat="pl in mainPlugins">
       <plugin name="{{ pl }}"/>
     </div>
   </div>
 
-  <tabset class="colums small-6">
-    <tab ng-repeat="pl in subPlugins" heading="{{ pl }}">
-      <plugin name="{{ pl }}"/>
-    </tab>
-  </tabset>
+  <div class="columns small-6">
+    <tabset>
+      <tab ng-repeat="pl in subPlugins" heading="{{ pl }}">
+        <plugin name="{{ pl }}"/>
+      </tab>
+    </tabset>
+  </div>
 </div>
