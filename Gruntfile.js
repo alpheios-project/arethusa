@@ -1,6 +1,10 @@
 var srcFiles = 'app/**/*.js';
+var htmlFiles = 'app/**/*.html';
 var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
+var mountFolder = function(connect, dir) {
+  return connect.static(require('path').resolve(dir));
+};
 
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
@@ -20,8 +24,16 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: [srcFiles, specFiles],
-      tasks: 'default'
+      default: {
+        files: [srcFiles, specFiles],
+        tasks: 'default'
+      },
+      server: {
+        files: [srcFiles, htmlFiles],
+        options: {
+          livereload: true
+        }
+      }
     },
     jshint: {
       all: ['*.js', srcFiles, specFiles]
@@ -64,7 +76,15 @@ module.exports = function(grunt) {
       devserver: {
         options: {
           port: 8084,
+          debug: true,
           keepalive: true,
+          livereload: true,
+          middleware: function(connect) {
+            return [
+              require('connect-livereload')(),
+              mountFolder(connect, './')
+            ];
+          }
         }
       }
     }
