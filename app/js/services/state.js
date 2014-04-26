@@ -46,6 +46,10 @@ annotationApp.service('state', function(configurator) {
   };
 
   this.toggleSelection = function(id) {
-    id in this.selectedTokens ? this.deselectToken(id) : this.selectToken(id);
+    if (this.isSelected(id)) {
+      this.deselectToken(id);
+    } else {
+      this.selectToken(id);
+    }
   };
 });
