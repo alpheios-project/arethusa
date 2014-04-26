@@ -1,3 +1,5 @@
+"use strict";
+
 annotationApp.directive('morphForm', function() {
   return {
     restrict: 'E',
