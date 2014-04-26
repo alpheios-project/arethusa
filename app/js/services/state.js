@@ -1,6 +1,8 @@
+"use strict";
+
 annotationApp.service('state', function(configurator) {
   var conf = configurator.conf_for('state');
-  tokenRetriever = configurator.getService(conf.retriever);
+  var tokenRetriever = configurator.getService(conf.retriever);
 
   var tokens;
   tokenRetriever.getData(function(res) {

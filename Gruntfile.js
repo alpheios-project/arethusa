@@ -1,3 +1,5 @@
+"use strict";
+
 var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
 var specFiles = 'spec/**/*.js';
@@ -36,6 +38,9 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
+      options: {
+        jshintrc: true,
+      },
       all: ['*.js', srcFiles, specFiles]
     },
     karma: {

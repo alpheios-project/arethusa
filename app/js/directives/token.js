@@ -1,3 +1,5 @@
+"use strict";
+
 annotationApp.directive('token', function() {
   return {
     restrict: 'E',

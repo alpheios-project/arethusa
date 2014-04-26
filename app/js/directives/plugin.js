@@ -1,3 +1,5 @@
+"use strict";
+
 annotationApp.directive('plugin', function () {
   return {
     restrict: 'E',

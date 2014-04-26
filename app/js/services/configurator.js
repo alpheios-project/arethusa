@@ -1,9 +1,11 @@
+"use strict";
+
 annotationApp.factory('configurator', function($http, $injector) {
   var fac = {};
 
   fac.path = './static/configuration1.json';
 
-  request = $.ajax({
+  var request = $.ajax({
     url: fac.path,
     async: false
   });

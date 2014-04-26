@@ -1,3 +1,5 @@
+"use strict";
+
 describe('MainController', function() {
   beforeEach(module('annotationApp'));
 
