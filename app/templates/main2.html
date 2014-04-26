@@ -15,9 +15,9 @@
     </div>
   </div>
 
-  <div ng-repeat="pl in subPlugins">
-    <div class="columns small-6">
+  <tabset class="colums small-6">
+    <tab ng-repeat="pl in subPlugins" heading="{{ pl }}">
       <plugin name="{{ pl }}"/>
-    </div>
-  </div>
+    </tab>
+  </tabset>
 </div>
