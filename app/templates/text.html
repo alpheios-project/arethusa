@@ -7,7 +7,7 @@
   </tr>
   <tr>
     <td ng-repeat="token in state.tokens" ng-click="state.toggleSelection(token.id)">
-      <token></token>
+      <token ng-class="{selected: state.isSelected(token)}"></token>
     </td>
   </tr>
 </table>
