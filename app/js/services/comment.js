@@ -1,3 +1,5 @@
+"use strict";
+
 annotationApp.service('comment', function(state, configurator) {
   this.conf = configurator.conf_for('comment');
   this.comments = [

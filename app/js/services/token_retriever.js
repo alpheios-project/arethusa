@@ -1,3 +1,5 @@
+"use strict";
+
 annotationApp.service('tokenRetriever', function($http) {
   this.getData = function(callback) {
     var result;

@@ -1,3 +1,5 @@
+"use strict";
+
 var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
 var specFiles = 'spec/**/*.js';

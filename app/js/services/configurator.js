@@ -1,3 +1,5 @@
+"use strict";
+
 annotationApp.factory('configurator', function($http, $injector) {
   var fac = {};
 
