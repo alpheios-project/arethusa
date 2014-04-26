@@ -4,15 +4,19 @@ annotationApp.service('comment', function(state, configurator) {
   this.conf = configurator.conf_for('comment');
   this.comments = {
     "1" : {
+      "id" : 1,
       "comment": "Marcus was someone."
     },
     "2" : {
+      "id" : 2,
       "comment": "Nothing to see here."
     },
     "3" : {
+      "id" : 3,
       "comment": "-"
     },
     "4" : {
+      "id" : 4,
       "comment": "-"
     },
   };

@@ -1,9 +1,9 @@
 <h3>Comment plugin</h3>
 <ul>
-  <li ng-repeat="(id, el) in plugin.currentComments()">
-    Comments for {{ id }}
+  <li ng-repeat="com in plugin.currentComments()">
+    Comments for {{ com.id }}
     <ol>
-      <li>{{ el.comment }}</li>
+      <li>{{ com.comment }}</li>
     </ol>
   </li>
 </ul>
