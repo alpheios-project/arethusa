@@ -10,7 +10,7 @@ annotationApp.service('state', function(configurator) {
   });
   this.tokens = tokens;
 
-  this.selectedTokens = { '1' : true }; // ids will be inserted here
+  this.selectedTokens = {}; // ids will be inserted here
 
   this.isSelected = function(id) {
     return id in this.selectedTokens;
@@ -31,7 +31,9 @@ annotationApp.service('state', function(configurator) {
   this.currentTokensAsStringList = function() {
     return $.map(
       this.currentTokens(),
-      function(el, i) { return el.string}
+      function(el, i) {
+        return el.string;
+      }
     ).join(', ');
   };
 
