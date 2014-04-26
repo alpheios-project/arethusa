@@ -1,7 +1,7 @@
 "use strict";
 
 annotationApp.service('morphRetriever', function($http) {
-  this.getData = function(callback) {
+  this.getStubData = function(callback) {
     var result;
     var request = $.ajax({
       url: './static/analyses.json',
