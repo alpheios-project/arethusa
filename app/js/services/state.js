@@ -10,10 +10,10 @@ annotationApp.service('state', function(configurator) {
   });
   this.tokens = tokens;
 
-  this.selectedToken = { id: '1' };
+  this.selectedToken = {};
 
   this.currentToken = function() {
-    return this.tokens[this.selectedToken.id];
+    return this.tokens[this.selectedToken.id] || {};
   };
 
   this.selectToken = function(id) {

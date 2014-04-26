@@ -33,7 +33,7 @@ annotationApp.service('morph', function(state, configurator) {
   this.analyses = this.loadInitalAnalyses(this);
 
   this.currentAnalysis = function() {
-    return this.analyses[state.selectedToken.id];
+    return this.analyses[state.selectedToken.id] || {};
   };
 
   this.currentForms = function() {
