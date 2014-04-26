@@ -5,7 +5,7 @@ annotationApp.factory('configurator', function($http, $injector) {
 
   fac.path = './static/configuration1.json';
 
-  request = $.ajax({
+  var request = $.ajax({
     url: fac.path,
     async: false
   });

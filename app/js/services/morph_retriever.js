@@ -2,8 +2,7 @@
 
 annotationApp.service('morphRetriever', function($http) {
   this.getData = function(callback) {
-    var result;
-    request = $.ajax({
+    var request = $.ajax({
       url: './static/analyses.json',
       async: false
     });

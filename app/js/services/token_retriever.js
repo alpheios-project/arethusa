@@ -2,8 +2,7 @@
 
 annotationApp.service('tokenRetriever', function($http) {
   this.getData = function(callback) {
-    var result;
-    request = $.ajax({
+    var request = $.ajax({
       url: './static/tokens.json',
       async: false
     });
