@@ -32,8 +32,16 @@ annotationApp.service('morph', function(state, configurator) {
 
   this.analyses = this.loadInitalAnalyses(this);
 
-  this.currentAnalysis = function() {
-    return this.analyses[state.selectedToken.id] || {};
+  this.currentAnalyses = function() {
+    var res = [];
+    that = this;
+    angular.forEach(state.selectedTokens, function(val, id) {
+      var token = that.analyses[id];
+      if (token) {
+        res.push(token);
+      }
+    });
+    return res;
   };
 
   this.currentForms = function() {
