@@ -5,6 +5,7 @@
   "undef" : true,
   "globals" : {
     "angular" : false,
+    "annotationApp" : false,
     "inject" : false,
     "module" : false,
     "require" : false,
