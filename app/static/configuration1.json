@@ -4,23 +4,31 @@
   },
 
   "MainController" : {
-    "template"  : "templates/main.html",
-    "plugins" : [
-      "text",
-      "morph"
-    ]
-  },
+    "template"  : "templates/main2.html",
+    "plugins" : {
+      "text" : {
+        "main" : true,
+        "template"  : "templates/text.html"
+      },
 
-  "text" : {
-    "template"  : "templates/text.html"
-  },
+      "morph" : {
+        "retriever" : "morphRetriever",
+        "template"  : "templates/morph.html",
+        "attributes" : {
+          "pos" : {
+            "long" : "Part of Speech",
+            "short" : "pos"
+          },
+          "casus" : {
+            "long" : "Case",
+            "short" : "casus"
+          }
+        }
+      },
 
-  "morph" : {
-    "retriever" : "morphRetriever",
-    "template"  : "templates/morph.html"
-  },
-
-  "comment" : {
-    "template" : "templates/comment.html"
+      "comment" : {
+        "template" : "templates/comment.html"
+      }
+    }
   }
 }

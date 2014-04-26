@@ -10,13 +10,46 @@ annotationApp.service('state', function(configurator) {
   });
   this.tokens = tokens;
 
-  this.selectedToken = { id: '1' };
+  this.selectedTokens = {}; // ids will be inserted here
 
-  this.currentToken = function() {
-    return this.tokens[this.selectedToken.id - 1];
+  this.isSelected = function(id) {
+    return id in this.selectedTokens;
+  };
+
+  this.currentTokens = function() {
+    var res = [];
+    var that = this;
+    angular.forEach(that.selectedTokens, function(val, id) {
+      var token = that.tokens[id];
+      if (token) {
+        res.push(token);
+      }
+    });
+    return res;
+  };
+
+  this.currentTokensAsStringList = function() {
+    return $.map(
+      this.currentTokens(),
+      function(el, i) {
+        return el.string;
+      }
+    ).join(', ');
   };
 
   this.selectToken = function(id) {
-    this.selectedToken.id = id;
+    this.selectedTokens[id] = true;
+  };
+
+  this.deselectToken = function(id) {
+    delete this.selectedTokens[id];
+  };
+
+  this.toggleSelection = function(id) {
+    if (this.isSelected(id)) {
+      this.deselectToken(id);
+    } else {
+      this.selectToken(id);
+    }
   };
 });

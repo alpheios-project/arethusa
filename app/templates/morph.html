@@ -1,2 +1,11 @@
 <h3>Morph plugin</h3>
-<p>Part of Speech: {{ plugin.currentAnalysis().pos }}</p>
+<ul>
+  <li ng-repeat="analysis in plugin.currentAnalyses()">
+    Forms of {{ analysis.string}}
+    <ol>
+      <li ng-repeat="form in analysis.forms">
+        <morph-form></morph-form>
+      </li>
+    </ol>
+  </li>
+</ul>

@@ -8,12 +8,12 @@ describe('MainController', function() {
     var mystate = { "mystate": "state"};
     var ctrl = $controller('MainController', {$scope:scope, state:mystate, configurator: {
       conf_for : function(name) {
-        return { plugins: "plugins", template: "template"};
+        return { plugins: { "plugin1" : {}, "plugin2" : {} }, template: "template"};
       }
     }});
 
     expect(scope.state).toBe(mystate);
-    expect(scope.plugins).toEqual("plugins");
+    expect(scope.plugins).toEqual(['plugin1', 'plugin2']);
     expect(scope.template).toBe("template");
   }));
 });

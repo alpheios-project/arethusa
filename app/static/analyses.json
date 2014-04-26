@@ -1,18 +1,27 @@
-[
-  {
-  "id": "1",
-  "pos": "noun"
-},
 {
-  "id": "2",
-  "pos": "noun"
-},
-{
-  "id": "3",
-  "pos": "verb"
-},
-{
-  "id": "4",
-  "pos": "punct"
+  "Homo" : [
+    {
+      "pos": "noun",
+      "casus": "1"
+    },
+    {
+      "pos": "noun",
+      "casus": "5"
+    }
+  ],
+
+  "rosam" : [
+    {
+      "pos": "noun",
+      "casus": "4"
+    }
+  ],
+
+  "videt" : [
+    { "pos": "verb" }
+  ],
+
+  "." : [
+    { "pos": "punct" }
+  ]
 }
-]

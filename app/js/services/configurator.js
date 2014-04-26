@@ -19,7 +19,8 @@ annotationApp.factory('configurator', function($http, $injector) {
   };
 
   fac.conf_for = function(plugin) {
-    return fac.configuration[plugin];
+    var conf = fac.configuration;
+    return conf[plugin] || conf.MainController.plugins[plugin];
   };
 
   return fac;

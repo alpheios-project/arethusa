@@ -2,27 +2,35 @@
 
 annotationApp.service('comment', function(state, configurator) {
   this.conf = configurator.conf_for('comment');
-  this.comments = [
-    {
-      "id": "1",
+  this.comments = {
+    "1" : {
+      "id" : 1,
       "comment": "Marcus was someone."
     },
-    {
-      "id": "2",
+    "2" : {
+      "id" : 2,
       "comment": "Nothing to see here."
     },
-    {
-      "id": "3",
+    "3" : {
+      "id" : 3,
       "comment": "-"
     },
-    {
-      "id": "4",
+    "4" : {
+      "id" : 4,
       "comment": "-"
     },
-  ];
+  };
 
-  this.currentComment = function() {
-    return this.comments[state.selectedToken.id - 1];
+  this.currentComments = function() {
+    var res = [];
+    var that = this;
+    angular.forEach(state.selectedTokens, function(val, id) {
+      var token = that.comments[id];
+      if (token) {
+        res.push(token);
+      }
+    });
+    return res;
   };
 
   this.template = this.conf.template;

@@ -1,0 +1,23 @@
+<div class="row panel">
+  <div class="columns small-12">
+    <div>
+      <h3>Main Controller</h3>
+      Selected tokens: {{ state.currentTokensAsStringList() }}
+    </div>
+  </div>
+</div>
+
+
+<div class="row panel">
+  <div ng-repeat="pl in mainPlugins">
+    <div class="columns small-6">
+      <plugin name="{{ pl }}"/>
+    </div>
+  </div>
+
+  <div ng-repeat="pl in subPlugins">
+    <div class="columns small-6">
+      <plugin name="{{ pl }}"/>
+    </div>
+  </div>
+</div>
