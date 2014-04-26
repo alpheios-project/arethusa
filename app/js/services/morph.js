@@ -11,7 +11,7 @@ annotationApp.service('morph', function(state, configurator) {
   this.analyses = analyses;
 
   this.currentAnalysis = function() {
-    return this.analyses[state.selectedToken.id - 1];
+    return this.analyses[state.selectedToken.id];
   };
 
   this.template = this.conf.template;

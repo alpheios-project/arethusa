@@ -13,7 +13,7 @@ annotationApp.service('state', function(configurator) {
   this.selectedToken = { id: '1' };
 
   this.currentToken = function() {
-    return this.tokens[this.selectedToken.id - 1];
+    return this.tokens[this.selectedToken.id];
   };
 
   this.selectToken = function(id) {
