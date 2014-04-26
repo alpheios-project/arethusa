@@ -24,4 +24,12 @@ annotationApp.controller('MainController', function($scope, state, configurator)
   $scope.plugins = Object.keys(conf.plugins);
   $scope.partitionPlugins();
   $scope.template = conf.template;
+
+  $scope.switchTemplate = function() {
+    if ($scope.template === "templates/main.html") {
+      $scope.template = "templates/main2.html";
+    } else {
+      $scope.template = "templates/main.html";
+    }
+  };
 });
