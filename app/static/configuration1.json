@@ -5,33 +5,29 @@
 
   "MainController" : {
     "template"  : "templates/main.html",
-    "plugins" : [
-      "text",
-      "morph",
-      "comment"
-    ]
-  },
-
-  "text" : {
-    "template"  : "templates/text.html"
-  },
-
-  "morph" : {
-    "retriever" : "morphRetriever",
-    "template"  : "templates/morph.html",
-    "attributes" : {
-      "pos" : {
-        "long" : "Part of Speech",
-        "short" : "pos"
+    "plugins" : {
+      "text" : {
+        "template"  : "templates/text.html"
       },
-      "casus" : {
-        "long" : "Case",
-        "short" : "casus"
+
+      "morph" : {
+        "retriever" : "morphRetriever",
+        "template"  : "templates/morph.html",
+        "attributes" : {
+          "pos" : {
+            "long" : "Part of Speech",
+            "short" : "pos"
+          },
+          "casus" : {
+            "long" : "Case",
+            "short" : "casus"
+          }
+        }
+      },
+
+      "comment" : {
+        "template" : "templates/comment.html"
       }
     }
-  },
-
-  "comment" : {
-    "template" : "templates/comment.html"
   }
 }
