@@ -17,7 +17,17 @@
 
   "morph" : {
     "retriever" : "morphRetriever",
-    "template"  : "templates/morph.html"
+    "template"  : "templates/morph.html",
+    "attributes" : {
+      "pos" : {
+        "long" : "Part of Speech",
+        "short" : "pos"
+      },
+      "casus" : {
+        "long" : "Case",
+        "short" : "casus"
+      }
+    }
   },
 
   "comment" : {
