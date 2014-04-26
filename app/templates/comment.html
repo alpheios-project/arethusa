@@ -1,2 +1,9 @@
 <h3>Comment plugin</h3>
-<p>{{ plugin.currentComment().comment }}</p>
+<ul>
+  <li ng-repeat="(id, el) in plugin.currentComments()">
+    Comments for {{ id }}
+    <ol>
+      <li>{{ el.comment }}</li>
+    </ol>
+  </li>
+</ul>
