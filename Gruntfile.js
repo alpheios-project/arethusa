@@ -63,6 +63,7 @@ module.exports = function(grunt) {
     connect: {
       devserver: {
         options: {
+          port: 8084,
           keepalive: true,
         }
       }
