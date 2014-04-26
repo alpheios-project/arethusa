@@ -19,4 +19,12 @@ annotationApp.service('state', function(configurator) {
   this.selectToken = function(id) {
     this.selectedToken.id = id;
   };
+
+  this.deselectToken = function() {
+    this.selectedToken = {};
+  };
+
+  this.toggleSelection = function(id) {
+    this.selectedToken.id === id ? this.deselectToken() : this.selectToken(id);
+  };
 });
