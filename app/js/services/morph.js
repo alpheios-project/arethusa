@@ -31,12 +31,20 @@ annotationApp.service('morph', function(state, configurator) {
   };
 
   this.analyses = this.loadInitalAnalyses(this);
-  console.log(this.analyses);
 
   this.currentAnalysis = function() {
     return this.analyses[state.selectedToken.id];
   };
 
+  this.currentForms = function() {
+    return this.currentAnalysis().forms;
+  };
+
+  this.longAttributeName = function(attr) {
+    return this.attributes[attr].long;
+  };
+
+  this.attributes = this.conf.attributes;
   this.template = this.conf.template;
 });
 
