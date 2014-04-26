@@ -23,7 +23,7 @@ annotationApp.service('comment', function(state, configurator) {
 
   this.currentComments = function() {
     var res = [];
-    that = this;
+    var that = this;
     angular.forEach(state.selectedTokens, function(val, id) {
       var token = that.comments[id];
       if (token) {
