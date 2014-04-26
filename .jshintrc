@@ -1,0 +1,17 @@
+{
+  "globalstrict" : true,
+  "browser" : true,
+  "jquery" : true,
+  "undef" : true,
+  "globals" : {
+    "angular" : false,
+    "inject" : false,
+    "module" : false,
+    "require" : false,
+    "describe" : false,
+    "beforeEach" : false,
+    "it" : false,
+    "xit" : false,
+    "expect" : false
+  }
+}
