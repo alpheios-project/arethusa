@@ -51,6 +51,7 @@ module.exports = function(grunt) {
           files : [
             './bower_components/angular/angular.js',
             './bower_components/angular-mocks/angular-mocks.js',
+            './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
             srcFiles,
             specFiles
           ],
