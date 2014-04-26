@@ -4,7 +4,7 @@
   },
 
   "MainController" : {
-    "template"  : "templates/main.html",
+    "template"  : "templates/main2.html",
     "plugins" : {
       "text" : {
         "main" : true,
