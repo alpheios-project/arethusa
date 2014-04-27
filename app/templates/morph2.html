@@ -1,0 +1,12 @@
+<ul>
+  <prev-token>prev</prev-token>
+  <next-token>next</next-token>
+  <li ng-repeat="analysis in plugin.currentAnalyses()">
+    Forms of {{ analysis.string}}
+    <ol>
+      <li ng-repeat="form in analysis.forms">
+        <morph-form></morph-form>
+      </li>
+    </ol>
+  </li>
+</ul>
