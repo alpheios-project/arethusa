@@ -53,6 +53,10 @@ annotationApp.service('state', function(configurator) {
     }
   };
 
+  this.deselectAll = function() {
+    for (var el in this.selectedTokens) delete this.selectedTokens[el];
+  };
+
   this.selectSurroundingToken = function(direction) {
     // take the first current selection
     var firstId = Object.keys(this.selectedTokens)[0];
@@ -69,7 +73,7 @@ annotationApp.service('state', function(configurator) {
     }
 
     // deselect all previously selected tokens
-    for (var el in this.selectedTokens) delete this.selectedTokens[el];
+    this.deselectAll();
     // and select the new one
     this.selectToken(newId);
   };
