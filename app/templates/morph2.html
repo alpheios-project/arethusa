@@ -1,12 +1,13 @@
-<ul>
-  <prev-token>prev</prev-token>
-  <next-token>next</next-token>
-  <li ng-repeat="analysis in plugin.currentAnalyses()">
-    Forms of {{ analysis.string}}
-    <ol>
-      <li ng-repeat="form in analysis.forms">
-        <morph-form></morph-form>
-      </li>
-    </ol>
-  </li>
-</ul>
+<prev-token>prev</prev-token>
+<next-token>next</next-token>
+<div ng-repeat="analysis in plugin.currentAnalyses()">
+  <div class="text-center">{{ analysis.string}}</div>
+  <accordion close-others="oneAtATime">
+    <accordion-group
+      ng-repeat="form in analysis.forms"
+      heading="• {{ plugin.concatenatedAttributes(form) }}"
+    >
+      <morph-form-edit></morph-form-edit>
+    </accordion-group>
+  </accordion>
+</div>
