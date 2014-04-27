@@ -6,7 +6,13 @@
     </td>
   </tr>
   <tr>
-    <td ng-repeat="token in state.tokens" ng-click="state.toggleSelection(token.id)">
+      <!--this mouse behavior should get moved
+          inside the token directive eventually-->
+    <td
+      ng-repeat="token in state.tokens"
+      ng-click="state.toggleSelection(token.id, 'click')"
+      ng-mouseenter="state.selectToken(token.id, 'hover')"
+      ng-mouseleave="state.deselectToken(token.id, 'hover')">
       <token ng-class="{selected: state.isSelected(token.id)}"></token>
     </td>
   </tr>
