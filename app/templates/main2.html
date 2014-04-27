@@ -2,7 +2,10 @@
   <div class="columns small-12">
     <div>
       <h3>Main Controller</h3>
-      Selected tokens: {{ state.currentTokensAsStringList() }}
+      <span>Selected tokens: {{ state.currentTokensAsStringList() }}</span>
+      <deselector>
+        <button class="right small">Deselect all</button>
+      </deselector>
     </div>
   </div>
 </div>
