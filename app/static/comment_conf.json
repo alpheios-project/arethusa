@@ -1,0 +1,4 @@
+{
+  "name" : "comment",
+  "template" : "templates/comment.html"
+}

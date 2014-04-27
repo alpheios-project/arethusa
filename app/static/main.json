@@ -1,0 +1,12 @@
+{
+  "state" : {
+    "retriever" : "tokenRetriever"
+  },
+
+  "MainController" : {
+    "template"  : "templates/main2.html",
+    "plugins" : {
+
+    }
+  }
+}
