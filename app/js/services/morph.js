@@ -56,8 +56,22 @@ annotationApp.service('morph', function(state, configurator) {
     return this.selectAttribute(attr).values;
   };
 
+  this.longAttributeValue = function(attr, val) {
+    return this.attributeValues(attr)[val].long;
+  };
+
   this.abbrevAttributeValue = function(attr, val) {
     return this.attributeValues(attr)[val].short;
+  };
+
+  this.concatenatedAttributes = function(form) {
+    var res = [];
+    var that = this;
+    delete form.$$hashKey; // when angular interferes
+    angular.forEach(form, function(value, key) {
+      res.push(that.abbrevAttributeValue(key, value));
+    });
+    return res.join('.');
   };
 
   this.attributes = this.conf.attributes;
