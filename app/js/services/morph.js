@@ -44,12 +44,20 @@ annotationApp.service('morph', function(state, configurator) {
     return res;
   };
 
-  this.currentForms = function() {
-    return this.currentAnalysis().forms;
+  this.selectAttribute = function(attr) {
+    return this.attributes[attr];
   };
 
   this.longAttributeName = function(attr) {
-    return this.attributes[attr].long;
+    return this.selectAttribute(attr).long;
+  };
+
+  this.attributeValues = function(attr) {
+    return this.selectAttribute(attr).values;
+  };
+
+  this.abbrevAttributeValue = function(attr, val) {
+    return this.attributeValues(attr)[val].short;
   };
 
   this.attributes = this.conf.attributes;
