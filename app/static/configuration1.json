@@ -13,15 +13,51 @@
 
       "morph" : {
         "retriever" : "morphRetriever",
-        "template"  : "templates/morph.html",
+        "template"  : "templates/morph2.html",
         "attributes" : {
           "pos" : {
             "long" : "Part of Speech",
-            "short" : "pos"
+            "short" : "pos",
+            "values" : {
+              "noun" : {
+                "long" : "noun",
+                "short" : "noun"
+              },
+              "verb" : {
+                "long" : "verb",
+                "short" : "verb"
+              }
+            }
           },
           "casus" : {
             "long" : "Case",
-            "short" : "casus"
+            "short" : "casus",
+            "values" : {
+              "1" : {
+                "long" : "nominative",
+                "short" : "nom"
+              },
+              "2" : {
+                "long" : "genitive",
+                "short" : "gen"
+              },
+              "3" : {
+                "long" : "dative",
+                "short" : "dat"
+              },
+              "4" : {
+                "long" : "accusative",
+                "short" : "acc"
+              },
+              "5" : {
+                "long" : "vocative",
+                "short" : "voc"
+              },
+              "6" : {
+                "long" : "ablative",
+                "short" : "abl"
+              }
+            }
           }
         }
       },
