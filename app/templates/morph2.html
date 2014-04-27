@@ -1,0 +1,16 @@
+<div class="right">
+  <prev-token><span class="label radius">prev</span></prev-token>
+  <next-token><span class="label radius">next</span></next-token>
+</div>
+
+<div ng-repeat="analysis in plugin.currentAnalyses()">
+  <div>{{ analysis.string }}</div>
+  <accordion close-others="oneAtATime">
+    <accordion-group
+      ng-repeat="form in analysis.forms"
+      heading="• {{ plugin.concatenatedAttributes(form) }}"
+    >
+      <morph-form-edit></morph-form-edit>
+    </accordion-group>
+  </accordion>
+</div>

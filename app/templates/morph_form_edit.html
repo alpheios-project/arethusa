@@ -1,0 +1,13 @@
+<div class="row" ng-repeat="(attr, val) in form">
+  <div class="small-3 columns">
+    <label class="right">{{ plugin.longAttributeName(attr) }}</label>
+  </div>
+
+  <div class="small-9 columns">
+    <select
+      ng-model="form[attr]"
+      ng-init="opt.short"
+      ng-options="id as opt.long for (id, opt) in plugin.attributeValues(attr)">
+    </select>
+  </div>
+</div>
