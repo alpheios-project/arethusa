@@ -37,19 +37,40 @@ annotationApp.service('state', function(configurator) {
     ).join(', ');
   };
 
-  this.selectToken = function(id) {
-    this.selectedTokens[id] = true;
+  // type should be either 'click' or 'hover'
+  this.selectToken = function(id, type) {
+    if (this.isSelectable(this.selectionType(id), type)) {
+      this.selectedTokens[id] = type;
+    }
   };
 
-  this.deselectToken = function(id) {
-    delete this.selectedTokens[id];
+  this.selectionType = function(id) {
+    return this.selectedTokens[id];
   };
 
-  this.toggleSelection = function(id) {
-    if (this.isSelected(id)) {
-      this.deselectToken(id);
+  this.isSelectable = function(oldVal, newVal) {
+    // if an element was hovered, we only select it when another
+    // selection type is present (such as 'click'), if there was
+    // no selection at all (oldVal === undefined), we select too
+    return (oldVal === 'hover' && newVal !== 'hover') || (! oldVal);
+  };
+
+  this.deselectToken = function(id, type) {
+    // only deselect when the old selection type is the same as
+    // the argument, i.e. a hover selection can only deselect a
+    // hover selection, but not a click selection
+    if (this.selectionType(id) === type) {
+      delete this.selectedTokens[id];
+    }
+  };
+
+  this.toggleSelection = function(id, type) {
+    // only deselect when the selectionType is the same.
+    // a hovered selection can still be selected by click.
+    if (this.isSelected(id) && this.selectionType(id) == type) {
+      this.deselectToken(id, type);
     } else {
-      this.selectToken(id);
+      this.selectToken(id, type);
     }
   };
 
@@ -75,7 +96,7 @@ annotationApp.service('state', function(configurator) {
     // deselect all previously selected tokens
     this.deselectAll();
     // and select the new one
-    this.selectToken(newId);
+    this.selectToken(newId, 'click');
   };
 
   this.selectNextToken = function() { this.selectSurroundingToken('next'); };
