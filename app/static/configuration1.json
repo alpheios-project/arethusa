@@ -26,6 +26,10 @@
               "verb" : {
                 "long" : "verb",
                 "short" : "verb"
+              },
+              "punct" : {
+                "long" : "punctuation",
+                "short" : "punc"
               }
             }
           },
