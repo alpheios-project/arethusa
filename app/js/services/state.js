@@ -52,4 +52,28 @@ annotationApp.service('state', function(configurator) {
       this.selectToken(id);
     }
   };
+
+  this.selectSurroundingToken = function(direction) {
+    // take the first current selection
+    var firstId = Object.keys(this.selectedTokens)[0];
+    var allIds  = Object.keys(this.tokens);
+    var index = allIds.indexOf(firstId);
+
+    // select newId - make a roundtrip if we reached the bounds of the array
+    var newId;
+    switch(direction) {
+      case "next": 
+        newId = allIds[index + 1] || allIds[0]; break;
+      case "prev":
+        newId = allIds[index - 1] || allIds[allIds.length - 1]; break;
+    }
+
+    // deselect all previously selected tokens
+    for (var el in this.selectedTokens) delete this.selectedTokens[el];
+    // and select the new one
+    this.selectToken(newId);
+  };
+
+  this.selectNextToken = function() { this.selectSurroundingToken('next'); };
+  this.selectPrevToken = function() { this.selectSurroundingToken('prev'); };
 });
