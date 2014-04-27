@@ -3,16 +3,23 @@
 annotationApp.factory('configurator', function($http, $injector) {
   var fac = {};
 
-  fac.path = './static/configuration1.json';
+  var confs = ['text', 'morph', 'comment', 'main'];
+  angular.forEach(confs, function(conf, key){
+    // creating paths
+    fac[conf + "_path"] = './static/' + conf + '_conf.json';
 
-  var request = $.ajax({
-    url: fac.path,
-    async: false
-  });
+    // requesting files
+    var request = $.ajax({
+      url: fac[conf + "_path"],
+      async: false
+    });
 
-  request.done(function(data) {
-    fac.configuration = data;
+    // store responses
+    request.done(function(data) {
+      fac[conf] = data;
+    });
   });
+  console.log(fac);
 
   fac.getService = function(serviceName) {
     return $injector.get(serviceName);
