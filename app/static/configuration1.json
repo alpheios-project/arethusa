@@ -67,7 +67,7 @@
       },
 
       "comment" : {
-        "template" : "templates/comment.html"
+        "template" : "templates/comment2.html"
       }
     }
   }

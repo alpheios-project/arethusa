@@ -10,6 +10,10 @@ annotationApp.service('state', function(configurator) {
   });
   this.tokens = tokens;
 
+  this.asString = function(id) {
+    return this.tokens[id].string;
+  };
+
   this.selectedTokens = {}; // ids will be inserted here
 
   this.isSelected = function(id) {
