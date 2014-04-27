@@ -29,7 +29,7 @@
               },
               "punct" : {
                 "long" : "punctuation",
-                "short" : "punc"
+                "short" : "punct"
               }
             }
           },
