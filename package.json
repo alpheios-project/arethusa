@@ -20,6 +20,6 @@
     "connect-livereload" : "0.4.0"
   },
   "scripts" : {
-    "test" : "grunt karma:spec jshint"
+    "test" : "grunt karma:spec coveralls jshint"
   }
 }
