@@ -5,3 +5,7 @@
 .full-height {
   height: 100vh;
 }
+
+.row {
+  max-width: 100vw;
+}
