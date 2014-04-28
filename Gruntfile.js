@@ -61,8 +61,19 @@ module.exports = function(grunt) {
             'karma-chrome-launcher',
             'karma-phantomjs-launcher',
             'karma-firefox-launcher',
-            'karma-jasmine'
+            'karma-jasmine',
+            'karma-coverage'
           ],
+          reporters: ['progress', 'coverage'],
+          preprocessors: {
+            'app/**/*.js': ['coverage']
+          },
+          coverageReporter: {
+            reporters: [
+              {type: 'html', dir:'coverage/'},
+              {type: 'lcov'},
+            ]
+          }
         }
       },
     },
