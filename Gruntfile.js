@@ -15,6 +15,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-protractor-runner');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-coveralls');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -76,6 +77,9 @@ module.exports = function(grunt) {
           }
         }
       },
+    },
+    coveralls: {
+      src: 'coverage/**/lcov.info'
     },
     protractor: {
       options: {
