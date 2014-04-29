@@ -20,8 +20,22 @@ annotationApp.controller('MainController', function($scope, state, configurator)
     $scope.plugins.push("comment");
   };
 
+  $scope.loadPlugin = function(plugin) {
+    configurator.loadPlugin(plugin);
+  };
+
   $scope.state = state;
-  $scope.plugins = Object.keys(conf.plugins);
+  $scope.plugins = function () {
+    var res = [];
+    for (var key in conf.plugins) {
+      var value = conf.plugins[key];
+      res.push(value);
+    }
+    return res;
+  };
+  $scope.loadPlugin("text");
+  $scope.loadPlugin("morph");
+
   $scope.partitionPlugins();
   $scope.template = conf.template;
 
