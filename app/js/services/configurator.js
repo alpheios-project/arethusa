@@ -3,7 +3,9 @@
 annotationApp.factory('configurator', function($http, $injector) {
   var fac = {};
 
-  fac.listAvailableConfs = ['text', 'morph', 'comment'];
+  fac.listAvailableConfs = function(){
+    return ['text', 'morph', 'comment'];
+  };
 
   // loads main and plugin config files
   // params: confs is array of plugins;

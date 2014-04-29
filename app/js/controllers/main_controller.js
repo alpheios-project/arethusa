@@ -22,7 +22,10 @@ annotationApp.controller('MainController', function($scope, state, configurator)
 
   $scope.loadPlugin = function(plugin, path) {
     configurator.loadPlugin(plugin, path);
+    $scope.partitionPlugins();
   };
+
+  $scope.availableConfs = configurator.listAvailableConfs();
 
   $scope.state = state;
   $scope.plugins = function () {
@@ -33,8 +36,8 @@ annotationApp.controller('MainController', function($scope, state, configurator)
     }
     return res;
   };
-  $scope.loadPlugin("text", './static/text_conf.json');
-  $scope.loadPlugin("morph");
+//  $scope.loadPlugin("text", './static/text_conf.json');
+//  $scope.loadPlugin("morph");
 
   $scope.partitionPlugins();
   $scope.template = conf.template;
