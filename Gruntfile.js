@@ -15,6 +15,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-protractor-runner');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-coveralls');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -61,10 +62,24 @@ module.exports = function(grunt) {
             'karma-chrome-launcher',
             'karma-phantomjs-launcher',
             'karma-firefox-launcher',
-            'karma-jasmine'
+            'karma-jasmine',
+            'karma-coverage'
           ],
+          reporters: ['progress', 'coverage'],
+          preprocessors: {
+            'app/**/*.js': ['coverage']
+          },
+          coverageReporter: {
+            reporters: [
+              {type: 'html', dir:'coverage/'},
+              {type: 'lcov'},
+            ]
+          }
         }
       },
+    },
+    coveralls: {
+      src: 'coverage/**/lcov.info'
     },
     protractor: {
       options: {
