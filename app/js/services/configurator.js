@@ -9,8 +9,13 @@ annotationApp.factory('configurator', function($http, $injector) {
   // loads main and plugin config files
   // params: confs is array of plugins;
   var loadConfiguration = function(conf, path) {
+
     // creating paths
-    fac[conf + "_path"] = './static/' + conf + '_conf.json';
+    if (path) {
+      fac[conf + "_path"] = path;
+    } else {
+      fac[conf + "_path"] = './static/' + conf + '_conf.json';
+    }
 
     // requesting files
     var request = $.ajax({
@@ -31,8 +36,8 @@ annotationApp.factory('configurator', function($http, $injector) {
 
   loadConfiguration('main');
 
-  fac.loadPlugin = function(plugin) {
-    loadConfiguration(plugin);
+  fac.loadPlugin = function(plugin, path) {
+    loadConfiguration(plugin, path);
     registerPlugins(plugin);
   };
 
