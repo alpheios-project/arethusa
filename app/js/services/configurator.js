@@ -7,16 +7,15 @@ annotationApp.factory('configurator', function($http, $injector) {
   var confs = ['text', 'morph', 'comment'];
 
   // loads main and plugin config files
-  // params: confs is array of plugins; if sync is false,
-  // files are loaded asynchronously (obliged for main!)
-  var loadConfiguration = function(conf, sync) {
+  // params: confs is array of plugins;
+  var loadConfiguration = function(conf, path) {
     // creating paths
     fac[conf + "_path"] = './static/' + conf + '_conf.json';
 
     // requesting files
     var request = $.ajax({
       url: fac[conf + "_path"],
-      async: sync
+      async: false
     });
 
     // store responses
@@ -30,10 +29,10 @@ annotationApp.factory('configurator', function($http, $injector) {
     fac.main.MainController.plugins[plugin] = fac[plugin];
   };
 
-  loadConfiguration('main', false);
+  loadConfiguration('main');
 
   fac.loadPlugin = function(plugin) {
-    loadConfiguration(plugin, false);
+    loadConfiguration(plugin);
     registerPlugins(plugin);
   };
 
