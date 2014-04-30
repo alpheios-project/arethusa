@@ -4,6 +4,7 @@ var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
 var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
+var devServerPort = 8084;
 var mountFolder = function(connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
@@ -89,7 +90,8 @@ module.exports = function(grunt) {
         args: {
           seleniumAddress: 'http://localhost:4444/wd/hub',
           capabilities: { 'browserName': 'chrome' },
-          specs: [specE2eFiles]
+          specs: [specE2eFiles],
+          baseUrl: 'http://localhost:' + devServerPort
         },
       },
       all: {}, // A target needs to be defined, otherwise protractor won't run
@@ -97,7 +99,7 @@ module.exports = function(grunt) {
     connect: {
       devserver: {
         options: {
-          port: 8084,
+          port: devServerPort,
           debug: true,
           keepalive: true,
           livereload: true,
