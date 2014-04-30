@@ -1,4 +1,7 @@
 # llt-annotation_environment
+
+Be sure to check out our [wiki](https://github.com/latin-language-toolkit/llt-annotation_environment/wiki) for conceptual notes.
+
 ## Install
 
 Make sure [node.js](http://nodejs.org) is installed.
