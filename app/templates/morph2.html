@@ -9,9 +9,9 @@
     <accordion-group ng-repeat="form in analysis.forms" >
       <accordion-heading>
         • {{ plugin.concatenatedAttributes(form) }}
+        <form-selector class="right">
       </accordion-heading>
       <morph-form-edit></morph-form-edit>
-      <form-selector class="right label radius">
     </accordion-group>
   </accordion>
 </div>
