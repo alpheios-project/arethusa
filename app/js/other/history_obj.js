@@ -1,6 +1,6 @@
 "use strict";
 
-var Queue = function(maxSize) {
+var HistoryObj= function(maxSize) {
   this.maxSize = maxSize;
   this.elements = [];
   this.push = function(obj) {
