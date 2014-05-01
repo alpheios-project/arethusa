@@ -1,7 +1,6 @@
 "use strict";
 
-/* global annotationApp:true */
-var annotationApp = angular.module(
+angular.module(
   'arethusa',
   ['mm.foundation', 'ngRoute', 'arethusa-core', 'arethusa-conf'],
   function($routeProvider) {
