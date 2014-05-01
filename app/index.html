@@ -36,6 +36,12 @@
         </li>
       </ul>
       <button class="right" ng-click="switchTemplate()">Switch Template</button>
+      <a class="button split">Add Plugins<span dropdown-toggle="add-plugins"></span></a>
+      <ul id="add-plugins" class="f-dropdown">
+        <li ng-repeat="plugin in availableConfs">
+          <a ng-click="loadPlugin(plugin)">{{ plugin }}<a>
+        </li>
+      </ul>
     </nav>
   </div>
 

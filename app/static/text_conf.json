@@ -1,0 +1,6 @@
+{
+  "name" : "text",
+  "main" : true,
+  "window" : "main",
+  "template"  : "templates/text.html"
+}
