@@ -11,6 +11,11 @@
         "template"  : "templates/text.html"
       },
 
+      "history" : {
+        "main" : true,
+        "template" : "templates/history.html"
+      },
+
       "morph" : {
         "retriever" : "morphRetriever",
         "template"  : "templates/morph2.html",
