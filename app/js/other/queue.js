@@ -10,4 +10,7 @@ var Queue = function(maxSize) {
     this.elements.push(obj);
   };
 
+  this.last = function() {
+    return this.elements[this.elements.length - 1];
+  };
 };
