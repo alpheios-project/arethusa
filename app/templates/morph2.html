@@ -3,14 +3,15 @@
   <next-token><span class="label radius">next</span></next-token>
 </div>
 
-<div ng-repeat="analysis in plugin.currentAnalyses()">
+<div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
   <div>{{ analysis.string }}</div>
   <accordion close-others="oneAtATime">
-    <accordion-group
-      ng-repeat="form in analysis.forms"
-      heading="• {{ plugin.concatenatedAttributes(form) }}"
-    >
+    <accordion-group ng-repeat="form in analysis.forms" >
+      <accordion-heading>
+        • {{ plugin.concatenatedAttributes(form) }}
+      </accordion-heading>
       <morph-form-edit></morph-form-edit>
+      <form-selector class="right label radius">
     </accordion-group>
   </accordion>
 </div>
