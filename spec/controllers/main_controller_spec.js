@@ -1,13 +1,13 @@
 "use strict";
 
 describe('MainController', function() {
-  beforeEach(module('annotationApp'));
+  beforeEach(module('arethusa'));
 
   it('sets scope values', inject(function($controller) {
     var scope = {};
     var mystate = { "mystate": "state"};
     var ctrl = $controller('MainController', {$scope:scope, state:mystate, configurator: {
-      conf_for : function(name) {
+      configurationFor : function(name) {
         return { plugins: { "plugin1" : {}, "plugin2" : {} }, template: "template"};
       }
     }});

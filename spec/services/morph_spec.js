@@ -3,7 +3,7 @@
 describe('morph', function() {
   var mockState = {};
   var mockConfigurator = {
-    conf_for: function(name) {
+    configurationFor: function(name) {
       return {};
     },
     getService: function(name) {
@@ -11,7 +11,7 @@ describe('morph', function() {
     }
   };
 
-  beforeEach(module('annotationApp', function($provide) {
+  beforeEach(module('arethusa', function($provide) {
     $provide.value('state', mockState);
     $provide.value('configurator', mockConfigurator);
   }));
