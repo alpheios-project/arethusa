@@ -2,7 +2,7 @@
 
 angular.module(
   'arethusa',
-  ['mm.foundation', 'ngRoute', 'arethusa-core', 'arethusa-conf'],
+  ['mm.foundation', 'ngRoute', 'arethusa-core'],
   function($routeProvider) {
     $routeProvider.when('/', {
       controller: 'MainController',
