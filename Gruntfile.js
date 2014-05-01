@@ -17,6 +17,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-protractor-runner');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-coveralls');
+  grunt.loadNpmTasks('grunt-sauce-connect-launcher');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -87,14 +88,30 @@ module.exports = function(grunt) {
       options: {
         keepAlive: true, // If false, the grunt process stops when the test fails.
         noColor: false, // If true, protractor will not use colors in its output.
-        args: {
-          seleniumAddress: 'http://localhost:4444/wd/hub',
-          capabilities: { 'browserName': 'chrome' },
-          specs: [specE2eFiles],
-          baseUrl: 'http://localhost:' + devServerPort
-        },
       },
-      all: {}, // A target needs to be defined, otherwise protractor won't run
+      all: {
+        options: {
+          args: {
+            seleniumAddress: 'http://localhost:4444/wd/hub',
+            capabilities: { 'browserName': 'chrome' },
+            specs: [specE2eFiles],
+            baseUrl: 'http://localhost:' + devServerPort
+          }},
+      }, // A target needs to be defined, otherwise protractor won't run
+      travis: {
+        options: {
+          args: {
+            sauceUser: 'arethusa',
+            sauceKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
+            specs: [specE2eFiles],
+            baseUrl: 'http://localhost:' + devServerPort,
+            capabilities: {
+              'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+              'build': process.env.TRAVIS_BUILD_NUMBER
+            }
+          }
+        }
+      }
     },
     connect: {
       devserver: {
@@ -110,10 +127,20 @@ module.exports = function(grunt) {
             ];
           }
         }
+      },
+    },
+    sauce_connect: {
+      your_target: {
+        options: {
+          username: 'arethusa',
+          accessKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
+          verbose: true
+        }
       }
     }
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
-  grunt.registerTask('server', 'connect');
+  grunt.registerTask('server', 'connect:devserver');
+  grunt.registerTask('sauce', ['sauce_connect:your_target', 'protractor:travis', 'sauce-connect-close']);
 };
