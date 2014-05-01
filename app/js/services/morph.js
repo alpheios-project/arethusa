@@ -74,6 +74,18 @@ annotationApp.service('morph', function(state, configurator) {
     return res.join('.');
   };
 
+  this.setState = function(id, form) {
+    state.setState(id, 'morphology', form);
+  };
+
+  this.unsetState = function(id) {
+    state.unsetState(id, 'morphology');
+  };
+
+  this.isFormSelected = function(id, form) {
+    return state.tokens[id].morphology == form;
+  };
+
   this.attributes = this.conf.attributes;
   this.template = this.conf.template;
 });

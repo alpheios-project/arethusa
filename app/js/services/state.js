@@ -105,4 +105,12 @@ annotationApp.service('state', function(configurator) {
 
   this.selectNextToken = function() { this.selectSurroundingToken('next'); };
   this.selectPrevToken = function() { this.selectSurroundingToken('prev'); };
+
+  this.setState = function(id, category, val) {
+    tokens[id][category] = val;
+  };
+
+  this.unsetState = function(id, category) {
+    delete tokens[id][category];
+  };
 });
