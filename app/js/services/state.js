@@ -1,7 +1,7 @@
 "use strict";
 
-annotationApp.service('state', function(configurator) {
-  var conf = configurator.conf_for('state');
+angular.module('arethusa-core').service('state', function(configurator) {
+  var conf = configurator.configurationFor('state');
   var tokenRetriever = configurator.getService(conf.retriever);
 
   var tokens;

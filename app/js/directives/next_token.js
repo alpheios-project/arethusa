@@ -1,6 +1,6 @@
 "use strict";
 
-annotationApp.directive('nextToken', function() {
+angular.module('arethusa').directive('nextToken', function() {
   return {
     restrict: 'E',
     link: function(scope, element, attrs) {

@@ -1,7 +1,7 @@
 "use strict";
 
-annotationApp.service('comment', function(state, configurator) {
-  this.conf = configurator.conf_for('comment');
+angular.module('arethusa').service('comment', function(state, configurator) {
+  this.conf = configurator.configurationFor('comment');
   this.comments = {
     "1" : {
       "id" : 1,

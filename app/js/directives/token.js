@@ -1,6 +1,6 @@
 "use strict";
 
-annotationApp.directive('token', function() {
+angular.module('arethusa').directive('token', function() {
   return {
     restrict: 'E',
     scope: true,

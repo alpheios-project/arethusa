@@ -1,6 +1,6 @@
 "use strict";
 
-annotationApp.service('morphRetriever', function($http) {
+angular.module('arethusa').service('morphRetriever', function($http) {
   this.getStubData = function(callback) {
     var result;
     var request = $.ajax({

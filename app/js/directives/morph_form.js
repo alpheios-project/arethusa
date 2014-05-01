@@ -1,6 +1,6 @@
 "use strict";
 
-annotationApp.directive('morphForm', function() {
+angular.module('arethusa').directive('morphForm', function() {
   return {
     restrict: 'E',
     scope: true,
