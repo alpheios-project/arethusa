@@ -25,8 +25,6 @@ angular.module('arethusa-core').controller('MainController', function($scope, co
   $scope.partitionPlugins();
   $scope.template = conf.template;
 
-  console.log($scope.mainPlugins);
-
   $scope.switchTemplate = function() {
     if ($scope.template === "templates/main.html") {
       $scope.template = "templates/main2.html";
