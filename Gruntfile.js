@@ -1,5 +1,6 @@
 "use strict";
 
+var process;
 var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
 var specFiles = 'spec/**/*.js';
