@@ -7,7 +7,7 @@
     <select
       ng-model="form[attr]"
       ng-init="opt.short"
-      ng-options="id as opt.long for (id, opt) in plugin.attributeValues(attr)">
+      ng-options="name as opt.long for (name, opt) in plugin.attributeValues(attr)">
     </select>
   </div>
 </div>

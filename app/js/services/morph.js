@@ -33,12 +33,12 @@ annotationApp.service('morph', function(state, configurator) {
   this.analyses = this.loadInitalAnalyses(this);
 
   this.currentAnalyses = function() {
-    var res = [];
+    var res = {};
     var that = this;
     angular.forEach(state.selectedTokens, function(val, id) {
       var token = that.analyses[id];
       if (token) {
-        res.push(token);
+        res[id] = token;
       }
     });
     return res;
@@ -72,6 +72,18 @@ annotationApp.service('morph', function(state, configurator) {
       res.push(that.abbrevAttributeValue(key, value));
     });
     return res.join('.');
+  };
+
+  this.setState = function(id, form) {
+    state.setState(id, 'morphology', form);
+  };
+
+  this.unsetState = function(id) {
+    state.unsetState(id, 'morphology');
+  };
+
+  this.isFormSelected = function(id, form) {
+    return state.tokens[id].morphology == form;
   };
 
   this.attributes = this.conf.attributes;
