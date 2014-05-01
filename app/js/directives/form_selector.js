@@ -1,6 +1,6 @@
 "use strict";
 
-annotationApp.directive('formSelector', function() {
+angular.module('arethusa').directive('formSelector', function() {
   return {
     restrict: 'E',
     replace: true,

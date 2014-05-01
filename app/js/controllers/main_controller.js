@@ -1,7 +1,7 @@
 "use strict";
 
-annotationApp.controller('MainController', function($scope, state, configurator) {
-  var conf = configurator.conf_for('MainController');
+angular.module('arethusa-core').controller('MainController', function($scope, configurator, state) {
+   var conf = configurator.configurationFor('MainController');
 
   $scope.partitionPlugins = function() {
     $scope.mainPlugins = [];

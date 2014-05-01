@@ -1,6 +1,6 @@
 "use strict";
 
-annotationApp.directive('deselector', function() {
+angular.module('arethusa').directive('deselector', function() {
   return {
     restrict: 'E',
     link: function(scope, element, attrs) {

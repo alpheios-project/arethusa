@@ -1,6 +1,6 @@
 "use strict";
 
-annotationApp.service('text', function(state, configurator) {
-  this.conf = configurator.conf_for('text');
+angular.module('arethusa').service('text', function(state, configurator) {
+  this.conf = configurator.configurationFor('text');
   this.template = this.conf.template;
 });

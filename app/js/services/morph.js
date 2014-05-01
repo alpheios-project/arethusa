@@ -1,7 +1,7 @@
 "use strict";
 
-annotationApp.service('morph', function(state, configurator) {
-  this.conf = configurator.conf_for('morph');
+angular.module('arethusa').service('morph', function(state, configurator) {
+  this.conf = configurator.configurationFor('morph');
   var morphRetriever = configurator.getService(this.conf.retriever);
 
   this.seedAnalyses = function(tokens) {
