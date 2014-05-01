@@ -1,9 +1,9 @@
 <div class="row panel">
   <div class="columns small-12">
     <div>
-      <h3>Main Controller</h3>
+      <h3>Main State</h3>
       <p>
-        <span>Selected tokens: {{ state.currentTokensAsStringList() }}</span>
+        {{ state.selectedTokens }}
         <deselector>
           <button class="right small">Deselect all</button>
         </deselector>
