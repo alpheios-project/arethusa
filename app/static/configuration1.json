@@ -13,6 +13,7 @@
 
       "history" : {
         "main" : true,
+        "maxSize" : 20,
         "template" : "templates/history.html"
       },
 
