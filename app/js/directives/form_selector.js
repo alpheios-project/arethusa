@@ -8,7 +8,8 @@ annotationApp.directive('formSelector', function() {
       var id = $scope.id;
       var form = $scope.form;
       $scope.text = 'Select';
-      $scope.action = function() {
+      $scope.action = function(event) {
+        event.stopPropagation();
         if ($scope.plugin.isFormSelected(id, form)) {
           $scope.text = "Select";
           $scope.plugin.unsetState(id);
@@ -18,7 +19,7 @@ annotationApp.directive('formSelector', function() {
         }
       };
     },
-    template: '<span ng-click="action()">{{ text }}</span>'
+    template: '<span ng-click="action($event)">{{ text }}</span>'
   };
   
 });
