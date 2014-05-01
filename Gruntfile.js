@@ -1,6 +1,5 @@
 "use strict";
 
-var process;
 var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
 var specFiles = 'spec/**/*.js';
@@ -107,6 +106,7 @@ module.exports = function(grunt) {
             specs: [specE2eFiles],
             baseUrl: 'http://localhost:' + devServerPort,
             capabilities: {
+              /* global process:true */
               'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
               'build': process.env.TRAVIS_BUILD_NUMBER
             }
