@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('arethusa').directive('trackHistory', function(history) {
-return {
+  return {
     restrict: 'A',
     controller: function($scope, $element, $attrs, $parse) {
       var attrs = $scope.$eval($attrs.trackHistory);
@@ -14,5 +14,4 @@ return {
       });
     },
   };
-  
 });
