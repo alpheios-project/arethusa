@@ -9,7 +9,7 @@ angular.module('arethusa').directive('fireEvent', function(state) {
       var property = $scope[attrs.property];
       $scope.$watch(attrs.value, function(newVal, oldVal) {
         if (oldVal !== newVal) {
-          state.fireEvent(target, property, newVal);
+          state.fireEvent(target, property, oldVal, newVal);
         }
       });
     },
