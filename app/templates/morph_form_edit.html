@@ -8,7 +8,7 @@
       ng-model="form[attr]"
       ng-init="opt.short"
       ng-options="name as opt.long for (name, opt) in plugin.attributeValues(attr)"
-      track-history="{target: 'form', property: 'attr', value: 'val'}">
+      fire-event="{target: 'form', property: 'attr', value: 'val'}">
     </select>
   </div>
 </div>

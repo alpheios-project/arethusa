@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa-core').service('state', function(configurator) {
+angular.module('arethusa-core').service('state', function(configurator, history) {
   var conf = configurator.configurationFor('state');
   var tokenRetriever = configurator.getService(conf.retriever);
 
@@ -106,11 +106,20 @@ angular.module('arethusa-core').service('state', function(configurator) {
   this.selectNextToken = function() { this.selectSurroundingToken('next'); };
   this.selectPrevToken = function() { this.selectSurroundingToken('prev'); };
 
+  this.fireEvent = function(target, property, newVal) {
+    var oldVal = target[property];
+    history.save(target, property, oldVal, newVal);
+  };
+
   this.setState = function(id, category, val) {
-    this.tokens[id][category] = val;
+    var token = this.tokens[id];
+    this.fireEvent(token, category, val);
+    token[category] = val;
   };
 
   this.unsetState = function(id, category) {
-    delete this.tokens[id][category];
+    var token = this.tokens[id];
+    this.fireEvent(token, category, null);
+    delete token[category];
   };
 });
