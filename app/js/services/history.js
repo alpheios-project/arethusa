@@ -8,13 +8,25 @@ angular.module('arethusa').service('history', function(configurator) {
   /* global HistoryObj */
   var hist = new HistoryObj(this.maxSize);
 
+  /* If the history is triggered by a watch, undo/redo will immediately
+   * fire another event once it's done - it's just another change after
+   * all. That's not helpful for our cause though, we therefore skip one
+   * digest cycle and make changes without propagating the second change
+   * to history. The event still fires - others might want to listen. */
+  var skipCycle = false;
+
   this.history = hist.elements;
 
   this.save = function(event) {
-    hist.save(event);
+    if (skipCycle) {
+      skipCycle = false;
+    } else {
+      hist.save(event);
+    }
   };
 
   this.undo = function() {
+    skipCycle = true;
     hist.undo();
   };
 
@@ -23,6 +35,7 @@ angular.module('arethusa').service('history', function(configurator) {
   };
 
   this.redo = function() {
+    skipCycle = true;
     hist.redo();
   };
 
