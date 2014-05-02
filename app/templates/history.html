@@ -4,6 +4,6 @@
   <span ng-click="plugin.undo()" class="label radius" ng-show="plugin.canBeUndone()">Undo</span>
   <span ng-click="plugin.redo()" class="label radius" ng-show="plugin.canBeRedone()">Redo</span>
   <ol>
-    <li ng-repeat="el in plugin.history.elements" history-element="el"></li>
+    <li ng-repeat="el in plugin.history" history-element="el"></li>
   </ol>
 </div>
