@@ -1,8 +1,8 @@
 <h3>History</h3>
 
 <div>
-  <span ng-click="plugin.undo()" class="label radius">Undo</span>
-  <span ng-click="plugin.redo()" class="label radius">Redo</span>
+  <span ng-click="plugin.undo()" class="label radius" ng-show="plugin.canBeUndone()">Undo</span>
+  <span ng-click="plugin.redo()" class="label radius" ng-show="plugin.canBeRedone()">Redo</span>
   <ol>
     <li ng-repeat="el in plugin.history.elements" history-element="el"></li>
   </ol>
