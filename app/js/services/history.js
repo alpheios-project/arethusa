@@ -4,11 +4,18 @@ angular.module('arethusa').service('history', function(state, configurator) {
   this.conf = configurator.configurationFor('history');
   this.template = this.conf.template;
   this.maxSize = this.conf.maxSize || 20;
+
   /* global HistoryObj */
   this.history = new HistoryObj(this.maxSize);
-  this.save = function(event) {
-    this.history.unshift(event);
+  this.position = 0;
+
+  this.save = function(target, property, oldVal, newVal) {
+    this.history.unshift([target, property, oldVal, newVal]);
   };
 
-  this.save(state.tokens); // hold the intial state
+  this.undo = function() {
+    var hist = this.history.elements.shift();
+    var obj  = hist[0];
+    obj[hist[1]] = hist[2];
+  };
 });
