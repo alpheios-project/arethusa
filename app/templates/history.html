@@ -1,1 +1,10 @@
 <h3>History</h3>
+
+<div>
+  <span ng-click="plugin.undo()" class="label radius">Undo</span>
+  <ol>
+    <li ng-repeat="el in plugin.history.elements">
+      {{ el }}
+    </li>
+  </ol>
+</div>
