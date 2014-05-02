@@ -106,20 +106,21 @@ angular.module('arethusa-core').service('state', function(configurator, history)
   this.selectNextToken = function() { this.selectSurroundingToken('next'); };
   this.selectPrevToken = function() { this.selectSurroundingToken('prev'); };
 
-  this.fireEvent = function(target, property, newVal) {
-    var oldVal = target[property];
-    history.save(target, property, oldVal, newVal);
+  this.fireEvent = function(target, property, oldVal, newVal) {
+    history.save(target, property, oldVal, newVal); // needs to be abstracted to a listener
   };
 
   this.setState = function(id, category, val) {
     var token = this.tokens[id];
-    this.fireEvent(token, category, val);
+    var oldVal = token[category];
+    this.fireEvent(token, category, oldVal, val);
     token[category] = val;
   };
 
   this.unsetState = function(id, category) {
     var token = this.tokens[id];
-    this.fireEvent(token, category, null);
+    var oldVal = token[category];
+    this.fireEvent(token, category, oldVal,  null);
     delete token[category];
   };
 });
