@@ -3,11 +3,11 @@
 var HistoryObj = function(maxSize) {
   this.maxSize = maxSize;
   this.elements = [];
+  this.position = 0;
+
   this.isFull = function() {
     return this.maxSize == this.elements.length;
   };
-
-  this.position = 0;
 
   this.save = function(event) {
     this.clearObsoleteHistory();
@@ -44,9 +44,7 @@ var HistoryObj = function(maxSize) {
   };
 
   this.push = function(obj) {
-    if (this.isFull()) {
-      this.shift();
-    }
+    if (this.isFull()) { this.shift(); }
     this.elements.push(obj);
   };
 
@@ -59,9 +57,7 @@ var HistoryObj = function(maxSize) {
   };
 
   this.unshift = function(obj) {
-    if (this.isFull()) {
-      this.pop();
-    }
+    if (this.isFull()) { this.pop(); }
     this.elements.unshift(obj);
   };
 
