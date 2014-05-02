@@ -6,40 +6,27 @@ angular.module('arethusa').service('history', function(configurator) {
   this.maxSize = this.conf.maxSize || 20;
 
   /* global HistoryObj */
-  this.history = new HistoryObj(this.maxSize);
-  this.position = 0;
+  var hist = new HistoryObj(this.maxSize);
+
+  this.history = hist.elements;
 
   this.save = function(event) {
-    this.clearObsoleteHistory();
-    this.position = 0;
-    this.history.unshift(event);
-  };
-
-  this.clearObsoleteHistory = function() {
-    this.history.elements.splice(0, this.position);
+    hist.save(event);
   };
 
   this.undo = function() {
-    if (this.canBeUndone()) {
-      var event = this.history.elements[this.position];
-      this.position++;
-      event.target[event.property] = event.oldVal;
-    }
+    hist.undo();
   };
 
   this.canBeUndone = function() {
-    return ! (this.history.isEmpty() || this.history.size() === this.position);
+    return hist.canBeUndone();
   };
 
   this.redo = function() {
-    if (this.canBeRedone()) {
-      this.position--;
-      var event = this.history.elements[this.position];
-      event.target[event.property] = event.newVal;
-    }
+    hist.redo();
   };
 
   this.canBeRedone = function() {
-    return this.position !== 0;
+    return hist.canBeRedone();
   };
 });
