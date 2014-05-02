@@ -28,4 +28,12 @@ var HistoryObj = function(maxSize) {
     }
     this.elements.unshift(obj);
   };
+
+  this.isEmpty = function() {
+    return this.elements.length === 0;
+  };
+
+  this.size = function() {
+    return this.elements.length;
+  };
 };
