@@ -9,13 +9,13 @@ angular.module('arethusa').service('history', function(configurator) {
   this.history = new HistoryObj(this.maxSize);
   this.position = 0;
 
-  this.save = function(target, property, oldVal, newVal) {
-    this.history.unshift([target, property, oldVal, newVal]);
+  this.save = function(event) {
+    this.history.unshift(event);
   };
 
   this.undo = function() {
-    var hist = this.history.elements.shift();
-    var obj  = hist[0];
-    obj[hist[1]] = hist[2];
+    var event= this.history.elements.shift();
+    var obj  = event.target;
+    obj[event.property] = event.oldVal;
   };
 });

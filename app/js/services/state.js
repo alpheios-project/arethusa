@@ -107,7 +107,9 @@ angular.module('arethusa-core').service('state', function(configurator, history)
   this.selectPrevToken = function() { this.selectSurroundingToken('prev'); };
 
   this.fireEvent = function(target, property, oldVal, newVal) {
-    history.save(target, property, oldVal, newVal); // needs to be abstracted to a listener
+    var obj = { target: target, property: property, oldVal: oldVal, newVal: newVal };
+    obj.time = new Date();
+    history.save(obj); // needs to be abstracted to a listener
   };
 
   this.setState = function(id, category, val) {
