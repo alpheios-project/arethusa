@@ -1,6 +1,6 @@
 "use strict";
 
-var HistoryObj= function(maxSize) {
+var HistoryObj = function(maxSize) {
   this.maxSize = maxSize;
   this.elements = [];
   this.isFull = function() {
