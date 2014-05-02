@@ -107,10 +107,10 @@ angular.module('arethusa-core').service('state', function(configurator) {
   this.selectPrevToken = function() { this.selectSurroundingToken('prev'); };
 
   this.setState = function(id, category, val) {
-    tokens[id][category] = val;
+    this.tokens[id][category] = val;
   };
 
   this.unsetState = function(id, category) {
-    delete tokens[id][category];
+    delete this.tokens[id][category];
   };
 });
