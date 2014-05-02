@@ -20,20 +20,26 @@ angular.module('arethusa').service('history', function(configurator) {
   };
 
   this.undo = function() {
-    if (this.history.isEmpty() || this.history.size() === this.position ) {
-      return false;
+    if (this.canBeUndone()) {
+      var event = this.history.elements[this.position];
+      this.position++;
+      event.target[event.property] = event.oldVal;
     }
-    var event = this.history.elements[this.position];
-    this.position++;
-    event.target[event.property] = event.oldVal;
+  };
+
+  this.canBeUndone = function() {
+    return ! (this.history.isEmpty() || this.history.size() === this.position);
   };
 
   this.redo = function() {
-    if (this.position === 0) {
-      return false;
+    if (this.canBeRedone()) {
+      this.position--;
+      var event = this.history.elements[this.position];
+      event.target[event.property] = event.newVal;
     }
-    this.position--;
-    var event = this.history.elements[this.position];
-    event.target[event.property] = event.newVal;
+  };
+
+  this.canBeRedone = function() {
+    return this.position !== 0;
   };
 });
