@@ -1,6 +1,7 @@
 "use strict";
 
 describe('HistoryObj', function(){
+  var eventMock = { target : {}, property: 'x', oldVal: 0, newVal: 1};
   describe('new', function(){
     it('takes a max size as init value', function() {
       /* global HistoryObj */
@@ -9,11 +10,11 @@ describe('HistoryObj', function(){
     });
   });
 
-  describe('push', function(){
-    it('adds an element to the history', function() {
+  describe('save', function(){
+    it('saves an event to the history', function() {
       var hist = new HistoryObj(2);
-      hist.push({});
-      expect(hist.elements[0]).toEqual({});
+      hist.save(eventMock);
+      expect(hist.lastEvent()).toEqual(eventMock);
     });
   });
 
@@ -25,7 +26,7 @@ describe('HistoryObj', function(){
 
     it('returns true when there is something to be undone', function() {
       var hist = new HistoryObj(2);
-      hist.unshift({});
+      hist.save(eventMock);
       expect(hist.canBeUndone()).toBeTruthy();
     });
   });
@@ -38,8 +39,7 @@ describe('HistoryObj', function(){
 
     it('returns true when something can be redone', function() {
       var hist = new HistoryObj(2);
-      var event = { target : {}, property: 'x', oldVal: 0, newVal: 1};
-      hist.save({target: {}, property: 'x', });
+      hist.save(eventMock);
       hist.undo();
       expect(hist.canBeRedone()).toBeTruthy();
     });
