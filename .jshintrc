@@ -11,9 +11,15 @@
     "module" : false,
     "require" : false,
     "describe" : false,
+    "ddescribe" : false,
+    "xdescribe" : false,
     "beforeEach" : false,
     "it" : false,
+    "iit" : false,
     "xit" : false,
-    "expect" : false
+    "expect" : false,
+    "browser" : false,
+    "by" : false,
+    "element" : false
   }
 }
