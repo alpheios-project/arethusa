@@ -21,6 +21,6 @@
     "grunt-sauce-connect-launcher": "^0.3.0"
   },
   "scripts": {
-    "test": "grunt karma:spec coveralls jshint sauce"
+    "test": "grunt karma:spec coveralls jshint protractor:travis"
   }
 }

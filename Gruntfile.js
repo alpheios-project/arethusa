@@ -143,5 +143,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
   grunt.registerTask('server', 'connect:devserver');
-  grunt.registerTask('sauce', ['protractor:travis', 'sauce-connect-close']);
+  grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
