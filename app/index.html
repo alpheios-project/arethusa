@@ -14,6 +14,7 @@
   <script src="./js/arethusa_logger.js"></script>
 
   <script src="./js/arethusa.core.js"></script>
+  <script src="./js/controllers/search_controller.js"></script>
   <script src="./js/arethusa.core/main_ctrl.controller.js"></script>
   <script src="./js/arethusa.core/configurator.service.js"></script>
   <script src="./js/arethusa.core/state.service.js"></script>
@@ -41,6 +42,8 @@
   <script src="./js/arethusa.hist/directives/history_element.js"></script>
   <script src="./js/arethusa.hist/directives/history_undo.js"></script>
   <script src="./js/arethusa.hist/directives/history_redo.js"></script>
+  <script src="./js/services/configurator.js"></script>
+  <script src="./js/services/state.js"></script>
 
   <script src="./js/arethusa.js"></script>
   <script src="./js/services/text.js"></script>
@@ -56,20 +59,44 @@
   <meta charset="UTF-8">
   <title></title>
 </head>
-<body>
-  <div class="contain-to-grid">
+<body >
+  <div>
     <nav class="top-bar" data-topbar>
       <ul class="title-area">
         <li class="name">
           <h1><a href="#">LLT Annotation Environment <em>(Arethusa)</em></a></h1>
         </li>
       </ul>
-      <button class="right" ng-click="switchTemplate()">Switch Template</button>
+      <section class="top-bar-section">
+        <ul class="left">
+          <li class="has-form" ng-controller="SearchController">
+            <div class="row collapse">
+              <div class="large-8 small-9 columns">
+                <input type="text" ng-model="query" placeholder="Search for text...">
+              </div>
+              <div class="large-4 small-3 columns">
+                <button class="alert button expand" ng-click="search()">Search</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul class="right">
+          <li class="divider"></li>
+          <li class="has-form">
+            <a href="#" class="button" ng-click="switchTemplate()">Switch Template</a>
+          </li>
+        </ul>
+      </section>
     </nav>
   </div>
 
-  <p/>
-
   <div id="arethusa-main-view" ng-view></div>
+  <!--<div ng-include="template"></div>-->
+
+  <!--<div class="row">-->
+    <!--<div class="columns small-12">-->
+      <!--<button ng-click="addPlugin()">Add Plugin</button>-->
+    <!--</div>-->
+  <!--</div>-->
 </body>
 </html>
