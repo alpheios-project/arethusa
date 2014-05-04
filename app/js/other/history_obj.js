@@ -68,4 +68,8 @@ var HistoryObj = function(maxSize) {
   this.size = function() {
     return this.elements.length;
   };
+
+  this.lastEvent = function() {
+    return this.elements[0];
+  };
 };
