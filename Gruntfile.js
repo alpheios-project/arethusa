@@ -4,6 +4,7 @@ var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
 var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
+var devServerPort = 8084;
 var mountFolder = function(connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
@@ -16,6 +17,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-protractor-runner');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-coveralls');
+  grunt.loadNpmTasks('grunt-sauce-connect-launcher');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -86,18 +88,36 @@ module.exports = function(grunt) {
       options: {
         keepAlive: true, // If false, the grunt process stops when the test fails.
         noColor: false, // If true, protractor will not use colors in its output.
-        args: {
-          seleniumAddress: 'http://localhost:4444/wd/hub',
-          capabilities: { 'browserName': 'chrome' },
-          specs: [specE2eFiles]
-        },
       },
-      all: {}, // A target needs to be defined, otherwise protractor won't run
+      all: {
+        options: {
+          args: {
+            seleniumAddress: 'http://localhost:4444/wd/hub',
+            capabilities: { 'browserName': 'chrome' },
+            specs: [specE2eFiles],
+            baseUrl: 'http://localhost:' + devServerPort
+          }},
+      }, // A target needs to be defined, otherwise protractor won't run
+      travis: {
+        options: {
+          args: {
+            sauceUser: 'arethusa',
+            sauceKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
+            specs: [specE2eFiles],
+            baseUrl: 'http://localhost:' + devServerPort,
+            capabilities: {
+              /* global process:true */
+              'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+              'build': process.env.TRAVIS_BUILD_NUMBER
+            }
+          }
+        }
+      }
     },
     connect: {
       devserver: {
         options: {
-          port: 8084,
+          port: devServerPort,
           debug: true,
           keepalive: true,
           livereload: true,
@@ -108,10 +128,20 @@ module.exports = function(grunt) {
             ];
           }
         }
+      },
+    },
+    sauce_connect: {
+      your_target: {
+        options: {
+          username: 'arethusa',
+          accessKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
+          verbose: true
+        }
       }
     }
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
-  grunt.registerTask('server', 'connect');
+  grunt.registerTask('server', 'connect:devserver');
+  grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };

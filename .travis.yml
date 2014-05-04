@@ -1,3 +1,10 @@
 language: node_js
+addons:
+  sauce_connect:
+    username: "arethusa"
+    access_key: "8e76fe91-f0f5-4e47-b839-0b04305a5a5c"
 before_install: npm install -g grunt-cli
+before_script:
+  - grunt server &
+  - sleep 2
 install: npm install && bower install
