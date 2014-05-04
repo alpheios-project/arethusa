@@ -1,12 +1,34 @@
 "use strict";
 
+/* global HistoryObj */
+
 describe('HistoryObj', function(){
   var eventMock = { target : {}, property: 'x', oldVal: 0, newVal: 1};
   describe('new', function(){
     it('takes a max size as init value', function() {
-      /* global HistoryObj */
+      var hist = new HistoryObj(1);
+      expect(hist.maxSize).toEqual(1);
+    });
+
+    it("never exceeds it's maxSize", function() {
       var hist = new HistoryObj(2);
-      expect(hist.maxSize).toEqual(2);
+      hist.save(eventMock);
+      hist.save(eventMock);
+      hist.save(eventMock);
+      expect(hist.size()).toEqual(2);
+    });
+
+    it('discards older events when maxSize is reached', function() {
+      var hist = new HistoryObj(2);
+      var e1 = { e1: 1 };
+      var e2 = { e2: 2 };
+      var e3 = { e3: 3 };
+      hist.save(e1);
+      hist.save(e2);
+      hist.save(e3);
+      expect(hist.lastEvent()).toEqual(e3);
+      expect(hist.elements).not.toContain(e1);
+      expect(hist.elements).toContain(e2);
     });
   });
 
