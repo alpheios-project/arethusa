@@ -1,19 +1,34 @@
 "use strict";
 
 angular.module('arethusa-core').controller('MainController', function($scope, configurator, state) {
-   var conf = configurator.configurationFor('MainController');
+  var conf = configurator.configurationFor('MainController');
 
-  $scope.partitionPlugins = function() {
+  // This is a really really bad solution right now. Using the controller
+  // to insert stuff into the state object is not good. Can only stay as
+  // a temporary prototype solution.
+  var partitionPlugins = function(plugins) {
     $scope.mainPlugins = [];
     $scope.subPlugins = [];
 
-    angular.forEach(conf.plugins, function(el, name) {
-      if (el.main) {
-        $scope.mainPlugins.push(name);
+    angular.forEach(plugins, function(plugin, name) {
+      var toPush;
+      if (plugin.external) {
+        /* global externalPlugins */
+        toPush = window.externalPlugins[name];
+        toPush = angular.extend(toPush, configurator.configurationFor(name));
+        $scope.pushPlugin(toPush, toPush.main);
       } else {
-        $scope.subPlugins.push(name);
+        $scope.pushPlugin(name, plugin.main);
       }
     });
+  };
+
+  $scope.pushPlugin = function(plugin, main) {
+    if (main) {
+      $scope.mainPlugins.push(plugin);
+    } else {
+      $scope.subPlugins.push(plugin);
+    }
   };
 
   $scope.addPlugin = function() {
@@ -22,7 +37,9 @@ angular.module('arethusa-core').controller('MainController', function($scope, co
 
   $scope.state = state;
   $scope.plugins = Object.keys(conf.plugins);
-  $scope.partitionPlugins();
+
+  partitionPlugins(conf.plugins);
+
   $scope.template = conf.template;
 
   $scope.switchTemplate = function() {
