@@ -7,6 +7,4 @@ var ExternalHistory = function() {
   return obj;
 };
 
-/* global externalPlugins */
-window.externalPlugins = {};
-window.externalPlugins.external_history = new ExternalHistory();
+window.ArethusaExternalPlugins.add(new ExternalHistory());
