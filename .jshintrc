@@ -14,6 +14,7 @@
     "ddescribe" : false,
     "xdescribe" : false,
     "beforeEach" : false,
+    "afterEach" : false,
     "it" : false,
     "iit" : false,
     "xit" : false,
