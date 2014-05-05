@@ -106,10 +106,39 @@ angular.module('arethusa-core').service('state', function(configurator, history)
   this.selectNextToken = function() { this.selectSurroundingToken('next'); };
   this.selectPrevToken = function() { this.selectSurroundingToken('prev'); };
 
+  // Listeners can be internal (angular-implementation) or external (everything
+  // else). The future might bring a further distinction between different
+  // of events listeners listen to - we'll see.
+  this.listeners = [];
+  this.externalListeners= [];
+
+  this.registerListener = function(listener) {
+    if (listener.external) {
+      this.externalListeners.push(listener);
+    } else {
+      this.listeners.push(listener);
+    }
+  };
+
   this.fireEvent = function(target, property, oldVal, newVal) {
-    var obj = { target: target, property: property, oldVal: oldVal, newVal: newVal };
-    obj.time = new Date();
-    history.save(obj); // needs to be abstracted to a listener
+    var event = { target: target, property: property, oldVal: oldVal, newVal: newVal };
+    event.time = new Date();
+    this.notifyListeners(event);
+  };
+
+  this.notifyListeners = function(event) {
+    this.notifyAngularListeners(event);
+    this.notifyExternalListeners(event);
+  };
+
+  this.notifyAngularListeners = function(event) {
+    angular.forEach(this.listeners, function(obj, i) {
+      obj.catchEvent(event);
+    });
+  };
+
+  this.notifyExternalListeners = function(event) {
+    // tbd
   };
 
   this.setState = function(id, category, val) {
