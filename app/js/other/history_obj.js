@@ -4,16 +4,41 @@ var HistoryObj = function(maxSize) {
   this.maxSize = maxSize;
   this.elements = [];
   this.position = 0;
+  this.lastEvent = null;
+
+
+  this.setLastEvent = function(event) {
+    this.lastEvent = event;
+  };
 
   this.isFull = function() {
     return this.maxSize == this.elements.length;
   };
 
+  // We don't want to save an undo/redo event to the history. This
+  // can be fired if the history is triggered by an angular directive
+  // that uses a $watch, which would immediately fire again, if undo/redo
+  // is applied.
   this.save = function(event) {
-    this.clearObsoleteHistory();
-    this.position = 0;
-    this.unshift(event);
+    if (! this.eventUndoneOrRedone(event)) {
+      this.clearObsoleteHistory();
+      this.position = 0;
+      this.setLastEvent(event);
+      this.unshift(event);
+    }
   };
+
+  this.eventUndoneOrRedone = function(event) {
+    if (this.lastEvent) {
+      return this.lastEvent.target === event.target &&
+        this.lastEvent.property === event.property &&
+        ((this.lastEvent.oldVal === event.newVal &&
+        this.lastEvent.newVal === event.oldVal) ||
+        (this.lastEvent.oldVal === event.oldVal &&
+         this.lastEvent.newVal ===  event.newVal));
+    }
+  };
+
 
   this.clearObsoleteHistory = function() {
     this.elements.splice(0, this.position);
@@ -67,9 +92,5 @@ var HistoryObj = function(maxSize) {
 
   this.size = function() {
     return this.elements.length;
-  };
-
-  this.lastEvent = function() {
-    return this.elements[0];
   };
 };
