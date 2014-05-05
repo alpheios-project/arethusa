@@ -3,6 +3,8 @@
   <next-token><span class="label radius">next</span></next-token>
 </div>
 
+<!--{{ plugin.analyses }}-->
+
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
   <div>{{ analysis.string }}</div>
   <accordion close-others="oneAtATime">
