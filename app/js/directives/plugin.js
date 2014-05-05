@@ -1,14 +1,13 @@
 "use strict";
 
-angular.module('arethusa').directive('plugin', function () {
+angular.module('arethusa').directive('plugin', function ($injector) {
   return {
     restrict: 'E',
     scope: true,
-    controller: function($scope, $element, $attrs, $injector) {
-      $scope.fetch = function() {
-        $scope.plugin = $injector.get($attrs.name);
-      };
+    link: function(scope, element, attrs) {
+      var name = scope.$eval(attrs.name);
+      scope.plugin = $injector.get(name);
     },
-    template: '<div ng-init="fetch()" ng-include="plugin.template"></div>'
+    template: '<div ng-include="plugin.template"></div>'
   };
 });
