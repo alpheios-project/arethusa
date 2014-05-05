@@ -4,11 +4,11 @@ angular.module('arethusa-core').service('state', function(configurator, history)
   var conf = configurator.configurationFor('state');
   var tokenRetriever = configurator.getService(conf.retriever);
 
-  var tokens;
+  var temp_tokens;
   tokenRetriever.getData(function(res) {
-    tokens = res;
+    temp_tokens = res;
   });
-  this.tokens = tokens;
+  this.tokens = temp_tokens;
 
   this.asString = function(id) {
     return this.tokens[id].string;
@@ -91,7 +91,7 @@ angular.module('arethusa-core').service('state', function(configurator, history)
     // select newId - make a roundtrip if we reached the bounds of the array
     var newId;
     switch(direction) {
-      case "next": 
+      case "next":
         newId = allIds[index + 1] || allIds[0]; break;
       case "prev":
         newId = allIds[index - 1] || allIds[allIds.length - 1]; break;
