@@ -4,6 +4,8 @@ angular.module('arethusa').service('history', function(configurator) {
   this.conf = configurator.configurationFor('history');
   this.template = this.conf.template;
   this.maxSize = this.conf.maxSize || 20;
+  this.main = this.conf.main;
+  this.listener = this.conf.listener;
 
   /* global HistoryObj */
   var hist = new HistoryObj(this.maxSize);
@@ -29,4 +31,6 @@ angular.module('arethusa').service('history', function(configurator) {
   this.canBeRedone = function() {
     return hist.canBeRedone();
   };
+
+  this.catchEvent = this.save;
 });

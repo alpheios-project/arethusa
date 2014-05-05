@@ -34,4 +34,5 @@ angular.module('arethusa').service('comment', function(state, configurator) {
   };
 
   this.template = this.conf.template;
+  this.name = this.conf.name;
 });
