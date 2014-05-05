@@ -1,46 +1,49 @@
 "use strict";
 
-angular.module('arethusa-core').controller('MainController', function($scope, configurator, state) {
+angular.module('arethusa-core').controller('MainController', function($scope, $injector, configurator, state) {
   var conf = configurator.configurationFor('MainController');
 
-  // This is a really really bad solution right now. Using the controller
-  // to insert stuff into the state object is not good. Can only stay as
-  // a temporary prototype solution.
   var partitionPlugins = function(plugins) {
     $scope.mainPlugins = [];
     $scope.subPlugins = [];
 
     angular.forEach(plugins, function(plugin, name) {
-      var toPush;
-      if (plugin.external) {
-        /* global externalPlugins */
-        toPush = window.externalPlugins[name];
-        toPush = angular.extend(toPush, configurator.configurationFor(name));
-        $scope.pushPlugin(toPush, toPush.main);
-      } else {
-        $scope.pushPlugin(name, plugin.main);
-      }
+      var toPush = $scope.retrievePlugin(name, plugin);
+
+      $scope.pushPlugin(toPush);
+      $scope.registerListener(toPush);
     });
   };
 
-  $scope.pushPlugin = function(plugin, main) {
-    if (main) {
+  $scope.retrievePlugin = function(name, plugin) {
+    if (plugin.external) {
+      return angular.extend(window.externalPlugins[name],
+                            configurator.configurationFor(name));
+    } else {
+      return  $injector.get(name);
+    }
+  };
+
+  $scope.pushPlugin = function(plugin) {
+    if (plugin.main) {
       $scope.mainPlugins.push(plugin);
     } else {
       $scope.subPlugins.push(plugin);
     }
   };
 
+  // This is a really really bad solution right now. Using the controller
+  // to insert stuff into the state object is not good. Can only stay as
+  // a temporary prototype solution.
+  $scope.registerListener = function(plugin) {
+    if (plugin.listener) {
+      state.registerListener(plugin);
+    }
+  };
+
   $scope.addPlugin = function() {
     $scope.plugins.push("comment");
   };
-
-  $scope.state = state;
-  $scope.plugins = Object.keys(conf.plugins);
-
-  partitionPlugins(conf.plugins);
-
-  $scope.template = conf.template;
 
   $scope.switchTemplate = function() {
     if ($scope.template === "templates/main.html") {
@@ -49,4 +52,10 @@ angular.module('arethusa-core').controller('MainController', function($scope, co
       $scope.template = "templates/main.html";
     }
   };
+
+  $scope.state = state;
+  $scope.plugins = Object.keys(conf.plugins);
+  $scope.template = conf.template;
+
+  partitionPlugins(conf.plugins);
 });
