@@ -1,8 +1,8 @@
 "use strict";
 
-window.ArethusaExternalPlugins.add('external_history', function() {
+window.arethusaInitPlugin('external_history', function() {
   var obj = {};
-  obj.name = "external_history";
+  obj.name = 'external_history';
   obj.api = window.arethusaExternalApi();
   /* global HistoryObj */
   obj.hist = new HistoryObj(2);
@@ -27,6 +27,16 @@ window.ArethusaExternalPlugins.add('external_history', function() {
     obj.hist.save(event);
     obj.renderHistory();
   };
+
+  $('#undo').click(function(e) {
+    obj.api.apply(obj.hist.undo());
+    obj.renderHistory();
+  });
+
+  $('#redo').click(function(e) {
+    obj.api.apply(obj.hist.redo());
+    obj.renderHistory();
+  });
 
   return obj;
 });
