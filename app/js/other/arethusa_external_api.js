@@ -1,6 +1,6 @@
 "use strict";
 
-window.ArethusaExternalApi = function () {
+window.arethusaExternalApi = function () {
   var obj = {};
 
   obj.isArethusaLoaded = function() {
