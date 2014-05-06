@@ -1,6 +1,6 @@
 "use strict";
 
-window.ArethusaExternalApi = (function () {
+window.ArethusaExternalApi = function () {
   var obj = {};
 
   obj.isArethusaLoaded = function() {
@@ -16,17 +16,16 @@ window.ArethusaExternalApi = (function () {
   // if it's not, we provide a mock object that just does nothing.
   if (obj.isArethusaLoaded) {
     angular.element(document.body).ready(function() {
-      obj.state = angular.element(document.body).injector().get('state');
-      console.log(obj.state);
+      obj.injector = angular.element(document.body).injector();
+      obj.state = obj.injector.get('state');
+      obj.fireEvent = function(token, category, oldVal, newVal) {
+        obj.state.fireEvent(token, category, oldVal, newVal);
+      };
     });
 
-    //obj.state = injector().get('state');
-    //obj.fireEvent = function(token, category, oldVal, newVal) {
-      //obj.state.fireEvent(token, category, oldVal, newVal);
-    //};
   } else {
     // tbd - BlackHole object
   }
 
   return obj;
-}());
+};
