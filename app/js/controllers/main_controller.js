@@ -50,18 +50,6 @@ angular.module('arethusa-core').controller('MainController', function($scope, $i
     }
   };
 
-  $scope.addPlugin = function() {
-    $scope.plugins.push("comment");
-  };
-
-  $scope.switchTemplate = function() {
-    if ($scope.template === "templates/main.html") {
-      $scope.template = "templates/main2.html";
-    } else {
-      $scope.template = "templates/main.html";
-    }
-  };
-
   $scope.state = state;
   $scope.plugins = $scope.retrievePlugins(conf.plugins);
   $scope.template = conf.template;
