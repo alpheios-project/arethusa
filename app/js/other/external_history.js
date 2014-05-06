@@ -31,6 +31,9 @@ window.arethusaInitPlugin('external_history', function() {
     },
 
     apply: function() {
+      // this Law of Demeter violation needs to be delegated, however it does
+      // act werid. If I try to wrap scope.$apply() in a apply() function an
+      // exception is thrown (no $eval for an unknown Object).
       obj.arethusa.scope.$apply();
     }
   };
