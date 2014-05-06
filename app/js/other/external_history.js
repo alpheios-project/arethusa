@@ -35,6 +35,11 @@ window.arethusaInitPlugin('external_history', function() {
       // act werid. If I try to wrap scope.$apply() in a apply() function an
       // exception is thrown (no $eval for an unknown Object).
       obj.arethusa.scope.$apply();
+    },
+
+    update: function() {
+      obj.renderHistory();
+      obj.apply();
     }
   };
 
@@ -42,14 +47,12 @@ window.arethusaInitPlugin('external_history', function() {
 
   $('#undo').click(function(e) {
     obj.hist.undo();
-    obj.renderHistory();
-    obj.apply();
+    obj.update();
   });
 
   $('#redo').click(function(e) {
     obj.hist.redo();
-    obj.renderHistory();
-    obj.apply();
+    obj.update();
   });
 
   return obj;
