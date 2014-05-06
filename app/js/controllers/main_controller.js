@@ -27,7 +27,7 @@ angular.module('arethusa-core').controller('MainController', function($scope, $i
 
   $scope.retrievePlugin = function(name, plugin) {
     if (plugin.external) {
-      return configurator.configurationFor(name);
+      return angular.copy(configurator.configurationFor(name));
     } else {
       return  $injector.get(name);
     }
