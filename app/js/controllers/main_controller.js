@@ -9,16 +9,18 @@ angular.module('arethusa-core').controller('MainController', function($scope, $i
 
     angular.forEach(plugins, function(plugin, name) {
       var toPush = $scope.retrievePlugin(name, plugin);
-
-      $scope.pushPlugin(toPush);
-      $scope.registerListener(toPush);
+      $scope.registerPlugin(toPush);
     });
+  };
+
+  $scope.registerPlugin = function(plugin) {
+    $scope.pushPlugin(plugin);
+    $scope.registerListener(plugin);
   };
 
   $scope.retrievePlugin = function(name, plugin) {
     if (plugin.external) {
-      return angular.extend(window.ArethusaExternalPlugins[name](),
-                            configurator.configurationFor(name));
+      return configurator.configurationFor(name);
     } else {
       return  $injector.get(name);
     }
