@@ -19,7 +19,7 @@ window.arethusaExternalApi = function () {
     angular.element(document.body).ready(function() {
       obj.injector = angular.element(document.body).injector();
       obj.state = obj.injector.get('state');
-      obj.scope = angular.element(document.getElementById('arethusa-main-scope')).scope();
+      obj.scope = angular.element(document.getElementById('arethusa-main-view')).scope();
       obj.apply = obj.scope.$apply;
       obj.fireEvent = function(token, category, oldVal, newVal) {
         obj.state.fireEvent(token, category, oldVal, newVal);
