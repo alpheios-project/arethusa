@@ -27,6 +27,9 @@ angular.module('arethusa-core').controller('MainController', function($scope, $i
 
   $scope.retrievePlugin = function(name, plugin) {
     if (plugin.external) {
+      // We copy because this object will be extended once the plugin
+      // is really initialized through the inclusion of its template
+      // by the plugin directive.
       return angular.copy(configurator.configurationFor(name));
     } else {
       return  $injector.get(name);
