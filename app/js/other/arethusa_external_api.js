@@ -6,6 +6,7 @@ window.arethusaExternalApi = function () {
   obj.isArethusaLoaded = function() {
     try {
       angular.module('arethusa');
+      return true;
     } catch(err) {
       return false;
     }
