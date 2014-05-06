@@ -5,7 +5,7 @@ window.arethusaInitPlugin('external_history', function() {
   var obj = {
     name: 'external_history',
 
-    api: window.arethusaExternalApi(),
+    arethusa: window.arethusaExternalApi(),
 
     hist: new HistoryObj(2),
 
@@ -29,18 +29,24 @@ window.arethusaInitPlugin('external_history', function() {
       obj.hist.save(event);
       obj.renderHistory();
     },
+
+    apply: function() {
+      obj.arethusa.scope.$apply();
+    }
   };
 
   // Event handling code
 
   $('#undo').click(function(e) {
-    obj.api.apply(obj.hist.undo());
+    obj.hist.undo();
     obj.renderHistory();
+    obj.apply();
   });
 
   $('#redo').click(function(e) {
-    obj.api.apply(obj.hist.redo());
+    obj.hist.redo();
     obj.renderHistory();
+    obj.apply();
   });
 
   return obj;
