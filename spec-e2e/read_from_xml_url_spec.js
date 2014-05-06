@@ -9,10 +9,14 @@ describe('Read tokens from xml url', function(){
     element(by.buttonText('Search')).click();
   });
 
-  iit('changes the url', function() {
+  it('changes the url', function() {
     // change %3A to : because angular doesn't encode it
     var expectedParameterUrl = encodeURIComponent(url).replace("%3A", ":");
     expect(browser.getCurrentUrl()).toContain("?input=" + expectedParameterUrl);
+  });
+
+  xit('displays the data from the given xml', function() {
+    expect(element(by.css("token")).getText()).toEqual("Cum");
   });
 
 });
