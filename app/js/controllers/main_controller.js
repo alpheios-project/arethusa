@@ -8,9 +8,16 @@ angular.module('arethusa-core').controller('MainController', function($scope, $i
     $scope.subPlugins = [];
 
     angular.forEach(plugins, function(plugin, name) {
-      var toPush = $scope.retrievePlugin(name, plugin);
-      $scope.registerPlugin(toPush);
+      $scope.registerPlugin(plugin);
     });
+  };
+
+  $scope.retrievePlugins = function(plugins) {
+    var obj = {};
+    angular.forEach(plugins, function(conf, name) {
+      obj[name] = $scope.retrievePlugin(name, conf);
+    });
+    return obj;
   };
 
   $scope.registerPlugin = function(plugin) {
@@ -56,8 +63,8 @@ angular.module('arethusa-core').controller('MainController', function($scope, $i
   };
 
   $scope.state = state;
-  $scope.plugins = Object.keys(conf.plugins);
+  $scope.plugins = $scope.retrievePlugins(conf.plugins);
   $scope.template = conf.template;
 
-  partitionPlugins(conf.plugins);
+  partitionPlugins($scope.plugins);
 });
