@@ -138,7 +138,9 @@ angular.module('arethusa-core').service('state', function(configurator) {
   };
 
   this.notifyExternalListeners = function(event) {
-    // tbd
+    angular.forEach(this.externalListeners, function(obj, i) {
+      obj.catchArethusaEvent(event);
+    });
   };
 
   this.setState = function(id, category, val) {
