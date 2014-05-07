@@ -14,10 +14,7 @@ angular.module('arethusa.hist').directive('historyElement', function() {
       scope.output = el.property + ' changed from ' + el.oldVal +
         ' to ' + JSON.stringify(el.newVal, null, 2) + ' in object ' +
         JSON.stringify(el.target, null, 2) + ' at ' + [year, month, day].join('/');
-
-
     },
     template: "<span>{{ output }}</span>"
   };
-
 });
