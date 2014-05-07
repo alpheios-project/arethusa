@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa-core').directive('plugin', function() {
+angular.module('arethusa.core').directive('plugin', function() {
   return {
     restrict: 'E',
     scope: true,

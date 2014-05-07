@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa-core').controller('MainCtrl', function($scope, $injector, configurator, state) {
+angular.module('arethusa.core').controller('MainCtrl', function($scope, $injector, configurator, state) {
   var conf = configurator.configurationFor('MainCtrl');
 
   var partitionPlugins = function(plugins) {
