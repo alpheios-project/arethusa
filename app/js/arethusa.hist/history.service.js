@@ -6,6 +6,7 @@ angular.module('arethusa.hist').service('history', function(configurator) {
   this.maxSize = this.conf.maxSize || 20;
   this.main = this.conf.main;
   this.listener = this.conf.listener;
+  this.name = this.conf.name;
 
   /* global HistoryObj */
   var hist = new HistoryObj(this.maxSize);
