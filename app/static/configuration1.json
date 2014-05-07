@@ -9,7 +9,7 @@
       "text" : {
         "name" : "text",
         "main" : true,
-        "template"  : "templates/text.html"
+        "template"  : "templates/text2.html"
       },
 
       "morph" : {
