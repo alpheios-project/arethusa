@@ -15,7 +15,16 @@ angular.module('arethusa').service('tokenRetriever', function($http) {
     // Remember that attributes of the converted xml are prefixed with underscore
     return {
       id: arethusaUtil.formatNumber(token._id, 4),
-      string: token._form
+      string: token._form,
+      morphology: {
+        postag: token._postag
+      },
+      relation: {
+        label: token._relation
+      },
+      head: {
+        id: token._head
+      }
     };
   };
 
