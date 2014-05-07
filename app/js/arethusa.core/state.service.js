@@ -1,14 +1,37 @@
 "use strict";
 
 angular.module('arethusa.core').service('state', function(configurator) {
-  var conf = configurator.configurationFor('state');
-  var tokenRetriever = configurator.getService(conf.retriever);
+  this.tokens = {};
 
-  var temp_tokens;
-  tokenRetriever.getData(function(res) {
-    temp_tokens = res;
-  });
-  this.tokens = temp_tokens;
+  var conf = configurator.configurationFor('state');
+  var tokenRetrievers = configurator.getServices(conf.retrievers);
+  var saveTokens = function(container, tokens) {
+    angular.forEach(tokens, function(token, id) {
+      var updatedToken;
+      var savedToken = container[id];
+      if (savedToken) {
+        updatedToken = angular.extend(savedToken, token);
+      } else {
+        updatedToken = token;
+      }
+      container[id] = token;
+    });
+  };
+
+  var retrieveTokens = function(container) {
+    angular.forEach(tokenRetrievers, function(retriever, i) {
+      retriever.getData(function(data) {
+        saveTokens(container, data);
+      });
+    });
+  };
+
+  retrieveTokens(this.tokens);
+
+  // This is of course quite slow! Hardcoding it is a possibility, we have to
+  // watch for id and other changes then though.
+  this.sortedTokens = function() {};
+
 
   this.asString = function(id) {
     return this.tokens[id].string;
