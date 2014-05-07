@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa-core').directive('deselector', function() {
+angular.module('arethusa.core').directive('deselector', function() {
   return {
     restrict: 'E',
     link: function(scope, element, attrs) {

@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa-core').service('state', function(configurator) {
+angular.module('arethusa.core').service('state', function(configurator) {
   var conf = configurator.configurationFor('state');
   var tokenRetriever = configurator.getService(conf.retriever);
 
