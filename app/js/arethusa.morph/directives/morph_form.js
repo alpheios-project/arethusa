@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').directive('morphForm', function() {
+angular.module('arethusa.morph').directive('morphForm', function() {
   return {
     restrict: 'E',
     scope: true,

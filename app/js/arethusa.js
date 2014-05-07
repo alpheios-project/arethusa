@@ -1,8 +1,12 @@
 "use strict";
 
 angular.module(
-  'arethusa',
-  ['mm.foundation', 'ngRoute', 'arethusa.core'],
+  'arethusa', [
+    'mm.foundation',
+    'ngRoute',
+    'arethusa.core',
+    'arethusa.morph'
+  ],
   function($routeProvider) {
     $routeProvider.when('/', {
       controller: 'MainCtrl',
