@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').directive('historyElement', function() {
+angular.module('arethusa.hist').directive('historyElement', function() {
   return {
     restrict: 'A',
     scope: {
@@ -19,5 +19,5 @@ angular.module('arethusa').directive('historyElement', function() {
     },
     template: "<span>{{ output }}</span>"
   };
-  
+
 });

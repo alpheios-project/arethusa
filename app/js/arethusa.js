@@ -5,7 +5,8 @@ angular.module(
     'mm.foundation',
     'ngRoute',
     'arethusa.core',
-    'arethusa.morph'
+    'arethusa.morph',
+    'arethusa.hist'
   ],
   function($routeProvider) {
     $routeProvider.when('/', {
