@@ -3,7 +3,7 @@
     "retriever" : "tokenRetriever"
   },
 
-  "MainController" : {
+  "MainCtrl" : {
     "template"  : "templates/main2.html",
     "plugins" : {
       "text" : {

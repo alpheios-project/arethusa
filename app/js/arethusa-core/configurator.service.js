@@ -8,6 +8,6 @@ angular.module('arethusa-core').service('configurator', function($injector) {
   // this.configuration is set from outside on page load
   this.configurationFor = function(plugin) {
     var conf = this.configuration;
-    return conf[plugin] || conf.MainController.plugins[plugin];
+    return conf[plugin] || conf.MainCtrl.plugins[plugin];
   };
 });
