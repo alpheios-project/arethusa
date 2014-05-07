@@ -10,7 +10,7 @@
   <accordion close-others="oneAtATime">
     <accordion-group ng-repeat="form in analysis.forms" >
       <accordion-heading>
-        • {{ plugin.concatenatedAttributes(form) }}
+        • {{ plugin.concatenatedAttributes(form) }} ({{ form.postag }})
         <form-selector class="right">
       </accordion-heading>
       <morph-form-edit></morph-form-edit>
