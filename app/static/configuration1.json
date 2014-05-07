@@ -12,22 +12,6 @@
         "template"  : "templates/text.html"
       },
 
-      "history" : {
-        "name" : "history",
-        "main" : true,
-        "listener" : true,
-        "maxSize" : 5,
-        "template" : "templates/history.html"
-      },
-
-      "external_history" : {
-        "name" : "external_history",
-        "main" : true,
-        "listener" : true,
-        "external" : true,
-        "template" : "templates/external_history.html"
-      },
-
       "morph" : {
         "name" : "morph",
         "retriever" : "morphRetriever",
@@ -82,6 +66,20 @@
             }
           }
         }
+      },
+
+      "history" : {
+        "name" : "history",
+        "listener" : true,
+        "maxSize" : 5,
+        "template" : "templates/history.html"
+      },
+
+      "external_history" : {
+        "name" : "external_history",
+        "listener" : true,
+        "external" : true,
+        "template" : "templates/external_history.html"
       },
 
       "comment" : {
