@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').service('morph', function(state, configurator) {
+angular.module('arethusa.morph').service('morph', function(state, configurator) {
   this.conf = configurator.configurationFor('morph');
   var morphRetriever = configurator.getService(this.conf.retriever);
 

@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').directive('formSelector', function() {
+angular.module('arethusa.morph').directive('formSelector', function() {
   return {
     restrict: 'E',
     replace: true,
@@ -24,5 +24,5 @@ angular.module('arethusa').directive('formSelector', function() {
     },
     template: '<span ng-click="action($event)">{{ text() }}</span>'
   };
-  
+
 });
