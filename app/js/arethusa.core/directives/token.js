@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').directive('token', function() {
+angular.module('arethusa.core').directive('token', function() {
   return {
     restrict: 'E',
     scope: true,
