@@ -16,6 +16,17 @@
         "name" : "morph",
         "retriever" : "morphRetriever",
         "template"  : "templates/morph2.html",
+        "postagSchema" : [
+          "pos",
+          "pers",
+          "num",
+          "temp",
+          "mood",
+          "genus",
+          "sex",
+          "casus",
+          "comp"
+        ],
         "attributes" : {
           "pos" : {
             "long" : "Part of Speech",
