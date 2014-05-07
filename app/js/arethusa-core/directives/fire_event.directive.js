@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').directive('fireEvent', function(state) {
+angular.module('arethusa-core').directive('fireEvent', function(state) {
   return {
     restrict: 'A',
     controller: function($scope, $element, $attrs) {
