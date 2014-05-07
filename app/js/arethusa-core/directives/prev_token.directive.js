@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').directive('prevToken', function() {
+angular.module('arethusa-core').directive('prevToken', function() {
   return {
     restrict: 'E',
     link: function(scope, element, attrs) {
