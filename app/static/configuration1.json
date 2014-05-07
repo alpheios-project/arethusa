@@ -1,6 +1,6 @@
 {
   "state" : {
-    "retriever" : "tokenRetriever"
+    "retrievers" : [ "tokenRetriever" ]
   },
 
   "MainCtrl" : {
