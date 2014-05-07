@@ -21,6 +21,13 @@
     { "pos": "verb" }
   ],
 
+  "Caesar" : [
+    {
+      "pos": "noun",
+      "casus": "1"
+    }
+  ],
+
   "." : [
     { "pos": "punct" }
   ]
