@@ -57,4 +57,14 @@ describe("arethusaUtil", function() {
       expect(arethusaUtil.findObj(coll, fn)).toEqual(obj1);
     });
   });
+
+  describe('toAry', function() {
+    it('wraps an object in an array', function() {
+      expect(arethusaUtil.toAry({})).toEqual([{}]);
+    });
+
+    it("doesn't wrap it if the obj is already an array", function() {
+      expect(arethusaUtil.toAry([{}])).toEqual([{}]);
+    });
+  });
 });

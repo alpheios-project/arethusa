@@ -37,6 +37,15 @@ var arethusaUtil = {
     }
   },
 
+  // wraps an
+  toAry: function(el){
+    if (Object.prototype.toString.call(el) === '[object Array]') {
+      return el;
+    } else {
+      return [el];
+    }
+  },
+
   /* global X2JS */
   xmlParser: new X2JS(),
 
