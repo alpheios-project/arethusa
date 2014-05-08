@@ -5,9 +5,10 @@
       <p>
         {{ state.selectedTokens }}
         <button deselector class="right small">Deselect all</button>
+        <button ng-click="toggleDebugMode()" class="right small">Debug</button>
       </p>
-      <p ng-show="debug">{{ state.tokens }}</p>
     </div>
+    <div state-debug></div>
   </div>
 </div>
 
@@ -26,4 +27,5 @@
       </tab>
     </tabset>
   </div>
+
 </div>
