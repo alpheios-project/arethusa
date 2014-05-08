@@ -21,6 +21,11 @@ var arethusaUtil = {
     return result;
   },
 
+  // flat push
+  pushAll: function(target, pusher) {
+    target.push.apply(target, pusher);
+  },
+
   /* global X2JS */
   xmlParser: new X2JS(),
 
