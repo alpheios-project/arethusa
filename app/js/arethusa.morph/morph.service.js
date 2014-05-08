@@ -37,6 +37,13 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     form.attributes = attrs;
   };
 
+  // Probably not useful to calculate this everytime...
+  this.emptyPostag = function() {
+    return arethusaUtil.map(this.postagSchema, function(el) {
+      return '-';
+    }).join('');
+  };
+
   this.attributesToPostag = function(attrs) {
     var postag = "";
     var that = this;
