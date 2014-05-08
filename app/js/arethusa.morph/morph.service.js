@@ -55,16 +55,14 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   // template, we have to take it inside the morph plugin.
   // In the concrete use case of treebanking this would mean that
   // we have a postag value sitting there, which we have to expand.
-  this.getAnalysisFromState = function(id) {
+  this.getAnalysisFromState = function(val, id) {
     var analysis = state.tokens[id].morphology;
     // We could always have no analysis sitting in the data we are
     // looking at.
     if (analysis) {
       this.postagToAttributes(analysis);
       analysis.origin = 'document';
-      return analysis;
-    } else {
-      return [];
+      val.forms.push(analysis);
     }
   };
 
@@ -72,8 +70,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     morphRetrievers.forEach(function(retriever) {
       retriever.getData(analysisObj.string, function(res) {
         // need to parse the attributes now
-        var externalForms = res;
-        externalForms.forEach(function(el) {
+        res.forEach(function(el) {
           el.postag = that.attributesToPostag(el.attributes);
         });
         arethusaUtil.pushAll(analysisObj.forms, res);
@@ -85,7 +82,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     var analyses = that.seedAnalyses(state.tokens);
     angular.forEach(analyses, function(val, id) {
       that.getExternalAnalyses(val, that);
-      val.forms.push(that.getAnalysisFromState(id));
+      that.getAnalysisFromState(val, id);
       val.analyzed = true;
     });
     return analyses;
