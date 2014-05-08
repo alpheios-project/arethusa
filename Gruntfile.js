@@ -33,6 +33,10 @@ module.exports = function(grunt) {
         files: [srcFiles, specFiles],
         tasks: 'default'
       },
+      spec: {
+        files: [srcFiles, specFiles],
+        tasks: 'spec'
+      },
       server: {
         files: [srcFiles, htmlFiles],
         options: {
@@ -148,6 +152,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
+  grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('server', 'connect:devserver');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
