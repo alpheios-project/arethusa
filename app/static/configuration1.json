@@ -34,15 +34,239 @@
             "values" : {
               "noun" : {
                 "long" : "noun",
-                "short" : "noun"
+                "short" : "noun",
+                "postag" : "n",
+                "style" : {
+                  "color" : "black"
+                }
+              },
+              "adj" : {
+                "long" : "adjective",
+                "short" : "adj",
+                "postag" : "a",
+                "style" : {
+                  "color" : "blue"
+                }
+              },
+              "adv" : {
+                "long" : "adverb",
+                "short" : "adv",
+                "postag" : "a",
+                "style" : {
+                  "color" : "darkorange"
+                }
+              },
+              "part" : {
+                "long" : "participle",
+                "short" : "part",
+                "postag" : "t",
+                "style" : {
+                  "color" : "darkred"
+                }
+              },
+              "conj" : {
+                "long" : "conjunction",
+                "short" : "conj",
+                "postag" : "c",
+                "style" : {
+                  "color" : "deeppink"
+                }
+              },
+              "prep" : {
+                "long" : "preposition",
+                "short" : "prep",
+                "postag" : "r",
+                "style" : {
+                  "color" : "green"
+                }
+              },
+              "pron" : {
+                "long" : "pronoun",
+                "short" : "pron",
+                "postag" : "p",
+                "style" : {
+                  "color" : "purple"
+                }
+              },
+              "interj" : {
+                "long" : "interjection",
+                "short" : "interj",
+                "postag" : "i",
+                "style" : {
+                  "color" : "gold"
+                }
+              },
+              "excl" : {
+                "long" : "exclamation",
+                "short" : "excl",
+                "postag" : "e",
+                "style" : {
+                  "color" : "gold"
+                }
               },
               "verb" : {
                 "long" : "verb",
-                "short" : "verb"
+                "short" : "verb",
+                "postag" : "v",
+                "style" : {
+                  "color" : "red"
+                }
               },
               "punct" : {
                 "long" : "punctuation",
-                "short" : "punct"
+                "short" : "punct",
+                "postag" : "u"
+              }
+            }
+          },
+          "pers" : {
+            "long" : "Person",
+            "short" : "pers",
+            "values" : {
+              "1st" : {
+                "long" : "first person",
+                "short" : "1st",
+                "postag" : "1"
+              },
+              "2nd" : {
+                "long" : "second person",
+                "short" : "2nd",
+                "postag" : "2"
+              },
+              "3rd" : {
+                "long" : "third person",
+                "short" : "3rd",
+                "postag" : "3"
+              }
+            }
+          },
+          "num" : {
+            "long" : "Number",
+            "short" : "num",
+            "values" : {
+              "sg" : {
+                "long" : "singular",
+                "short" : "sg",
+                "postag" : "s"
+              },
+              "pl" : {
+                "long" : "plural",
+                "short" : "pl",
+                "postag" : "p"
+              }
+            }
+          },
+          "temp" : {
+            "long" : "Tense",
+            "short" : "temp",
+            "values" : {
+              "pr" : {
+                "long" : "present",
+                "short" : "pr",
+                "postag" : "p"
+              },
+              "imp" : {
+                "long" : "imperfect",
+                "short" : "imp",
+                "postag" : "i"
+              },
+              "perf" : {
+                "long" : "perfect",
+                "short" : "perf",
+                "postag" : "r"
+              },
+              "pqpf" : {
+                "long" : "plusquamperfect",
+                "short" : "pqpf",
+                "postag" : "l"
+              },
+              "fex" : {
+                "long" : "future perfect",
+                "short" : "fex",
+                "postag" : "t"
+              },
+              "fut" : {
+                "long" : "future",
+                "short" : "fut",
+                "postag" : "f"
+              }
+            }
+          },
+          "mood" : {
+            "long" : "Mood",
+            "short" : "mood",
+            "values" : {
+              "ind" : {
+                "long" : "indicative",
+                "short" : "ind",
+                "postag" : "i"
+              },
+              "sub" : {
+                "long" : "subjunctive",
+                "short" : "sub",
+                "postag" : "s"
+              },
+              "inf" : {
+                "long" : "infinitive",
+                "short" : "inf",
+                "postag" : "i"
+              },
+              "imp" : {
+                "long" : "imperative",
+                "short" : "imp",
+                "postag" : "m"
+              },
+              "gerund" : {
+                "long" : "gerundive",
+                "short" : "gerund",
+                "postag" : "g"
+              },
+              "part" : {
+                "long" : "participle",
+                "short" : "part",
+                "postag" : "p"
+              }
+            }
+          },
+          "genus" : {
+            "long" : "voice",
+            "short" : "genus",
+            "values" : {
+              "act" : {
+                "long" : "active",
+                "short" : "act",
+                "postag" : "a"
+              },
+              "pass" : {
+                "long" : "passive",
+                "short" : "pass",
+                "postag" : "p"
+              },
+              "dep" : {
+                "long" : "deponens",
+                "short" : "dep",
+                "postag" : "d"
+              }
+            }
+          },
+          "sex" : {
+            "long" : "gender",
+            "short" : "sex",
+            "values" : {
+              "masc" : {
+                "long" : "masculine",
+                "short" : "masc",
+                "postag" : "m"
+              },
+              "fem" : {
+                "long" : "feminine",
+                "short" : "fem",
+                "postag" : "f"
+              },
+              "neut" : {
+                "long" : "neuter",
+                "short" : "neut",
+                "postag" : "n"
               }
             }
           },
@@ -50,29 +274,56 @@
             "long" : "Case",
             "short" : "casus",
             "values" : {
-              "1" : {
+              "nom" : {
                 "long" : "nominative",
-                "short" : "nom"
+                "short" : "nom",
+                "postag" : "n"
               },
-              "2" : {
+              "gen" : {
                 "long" : "genitive",
-                "short" : "gen"
+                "short" : "gen",
+                "postag" : "g"
               },
-              "3" : {
+              "dat" : {
                 "long" : "dative",
-                "short" : "dat"
+                "short" : "dat",
+                "postag" : "d"
               },
-              "4" : {
+              "acc" : {
                 "long" : "accusative",
-                "short" : "acc"
+                "short" : "acc",
+                "postag" : "a"
               },
-              "5" : {
+              "voc" : {
                 "long" : "vocative",
-                "short" : "voc"
+                "short" : "voc",
+                "postag" : "v"
               },
-              "6" : {
+              "abl" : {
                 "long" : "ablative",
-                "short" : "abl"
+                "short" : "abl",
+                "postag" : "b"
+              }
+            }
+          },
+          "degree" : {
+            "long" : "Degree",
+            "short" : "degree",
+            "values" : {
+              "pos" : {
+                "long" : "positive",
+                "short" : "pos",
+                "postag" : "p"
+              },
+              "comp" : {
+                "long" : "comparative",
+                "short" : "comp",
+                "postag" : "c"
+              },
+              "sup" : {
+                "long" : "superlative",
+                "short" : "sup",
+                "postag" : "s"
               }
             }
           }
