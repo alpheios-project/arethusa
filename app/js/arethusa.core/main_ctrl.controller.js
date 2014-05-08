@@ -2,6 +2,9 @@
 
 angular.module('arethusa.core').controller('MainCtrl', function($scope, $injector, configurator, state) {
   $scope.debug = false;
+  $scope.toggleDebugMode = function() {
+    $scope.debug = !$scope.debug;
+  };
 
   var conf = configurator.configurationFor('MainCtrl');
 
