@@ -1,12 +1,12 @@
 "use strict";
 
-describe('MainController', function() {
+describe('MainCtrl', function() {
   beforeEach(module('arethusa'));
 
   it('sets scope values', inject(function($controller) {
     var scope = {};
     var mystate = { "mystate": "state"};
-    var ctrl = $controller('MainController', {$scope:scope, state:mystate, configurator: {
+    var ctrl = $controller('MainCtrl', {$scope:scope, state:mystate, configurator: {
       configurationFor : function(name) {
         return { plugins: {}, template: "template"};
       }
