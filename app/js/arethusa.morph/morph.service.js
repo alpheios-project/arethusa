@@ -9,7 +9,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.name = this.conf.name;
   this.postagSchema = this.conf.postagSchema;
 
-  var morphRetriever = configurator.getService(this.conf.retriever);
+  var morphRetrievers = configurator.getServices(this.conf.retrievers);
 
   this.seedAnalyses = function(tokens) {
     var analyses = {};
@@ -65,9 +65,11 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   // We'll deal with that soon - and also use this chance to solve
   // this in a more functional programming style.
   this.getExternalAnalyses = function(string) {
-    var result;
-    morphRetriever.getData(string, function(res) {
-      result = res;
+    var result = [];
+    morphRetrievers.forEach(function(retriever) {
+      retriever.getData(string, function(res) {
+        arethusaUtil.pushAll(result, res);
+      });
     });
     return result;
   };
