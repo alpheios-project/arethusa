@@ -21,6 +21,15 @@ var arethusaUtil = {
     return result;
   },
 
+  // inject like ruby - or more like each_with_object
+  // Take care - will not work with immutable memos!
+  inject: function(memo, container, fn){
+    container.forEach(function(el) {
+      fn(memo, el);
+    });
+    return memo;
+  },
+
   // flat push
   pushAll: function(target, pusher) {
     target.push.apply(target, pusher);

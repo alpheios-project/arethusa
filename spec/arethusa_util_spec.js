@@ -35,6 +35,26 @@ describe("arethusaUtil", function() {
     });
   });
 
+  describe('inject', function() {
+    it('works like a ruby each_with_object', function() {
+      var coll = [1, 2, 3];
+      var fn = function(memo, el) {
+        memo.push(el + 1);
+      };
+      var res = [2, 3, 4];
+      expect(arethusaUtil.inject([], coll, fn)).toEqual(res);
+    });
+
+    it("will not work with immutable objects", function() {
+      var coll = [1, 2, 3];
+      var fn = function(memo, el) {
+        memo += el;
+      };
+      expect(arethusaUtil.inject(0, coll, fn)).toEqual(0);
+      expect(arethusaUtil.inject(0, coll, fn)).not.toEqual(6);
+    });
+  });
+
   describe('pushAll', function() {
     it('flat-pushes all elements of an array into another', function() {
       var arr1 = [1, 2];
