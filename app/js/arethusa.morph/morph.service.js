@@ -81,8 +81,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.concatenatedAttributes = function(form) {
     var res = [];
     var that = this;
-    delete form.$$hashKey; // when angular interferes
-    angular.forEach(form, function(value, key) {
+    angular.forEach(form.attributes, function(value, key) {
       res.push(that.abbrevAttributeValue(key, value));
     });
     return res.join('.');

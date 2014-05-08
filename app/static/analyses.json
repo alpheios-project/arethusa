@@ -1,34 +1,42 @@
 {
   "Homo" : [
     {
-      "pos": "noun",
-      "casus": "1"
+      "attributes": {
+        "pos": "noun",
+        "casus": "1"
+      }
     },
     {
-      "pos": "noun",
-      "casus": "5"
+      "attributes": {
+        "pos": "noun",
+        "casus": "5"
+      }
     }
   ],
 
   "rosam" : [
     {
-      "pos": "noun",
-      "casus": "4"
+      "attributes": {
+        "pos": "noun",
+        "casus": "4"
+      }
     }
   ],
 
   "videt" : [
-    { "pos": "verb" }
+    { "attributes": { "pos": "verb" } }
   ],
 
   "Caesar" : [
     {
-      "pos": "noun",
-      "casus": "1"
+      "attributes": {
+        "pos": "noun",
+        "casus": "1"
+      }
     }
   ],
 
   "." : [
-    { "pos": "punct" }
+    { "attributes": { "pos": "punct" } }
   ]
 }
