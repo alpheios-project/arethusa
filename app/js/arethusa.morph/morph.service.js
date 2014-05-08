@@ -57,8 +57,14 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   // we have a postag value sitting there, which we have to expand.
   this.getAnalysisFromState = function(id) {
     var analysis = state.tokens[id].morphology;
-    this.postagToAttributes(analysis);
-    return analysis;
+    // We could always have no analysis sitting in the data we are
+    // looking at.
+    if (analysis) {
+      this.postagToAttributes(analysis);
+      return analysis;
+    } else {
+      return [];
+    }
   };
 
   // Calls the external morph retriever - this should be asynchronous.
