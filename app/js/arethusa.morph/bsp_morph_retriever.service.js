@@ -35,8 +35,7 @@ angular.module('arethusa.morph').service('bspMorphRetriever', function($resource
         // eventually - and we will end up in catch path and just return
         // an empty array.
         var entries = arethusaUtil.toAry(res.RDF.Annotation.Body);
-        var results = [];
-        return arethusaUtil.inject([], entries, function(results, el) {
+        var results = arethusaUtil.inject([], entries, function(results, el) {
           var entry = el.rest.entry;
           var lemma = entry.dict.hdwd.$;
           var lexInvUri = entry.uri;
@@ -49,19 +48,20 @@ angular.module('arethusa.morph').service('bspMorphRetriever', function($resource
             // information.
             // There are actually more than these original 3 - we might want to do
             // this differently at some point.
-            deleteUnwantedKeys(form, ['term', 'pofs', 'stemtype']);
+            deleteUnwantedKeys(form, ['term', 'stemtype']);
 
             // If the form has a case attribute, it wrapped in another object we
             // don't want and need. Flatten it to a plain expression.
             flattenCaseObject(form);
-
             results.push({
               lexInvUri: lexInvUri,
               lemma: lemma,
-              attributes: form
+              attributes: form,
+              origin: 'bsp/morpheus'
             });
           });
         });
+        callback(results);
       } catch(err) {
         return [];
       }
