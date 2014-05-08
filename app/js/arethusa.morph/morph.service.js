@@ -7,6 +7,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.attributes = this.conf.attributes;
   this.template = this.conf.template;
   this.name = this.conf.name;
+  this.postagSchema = this.conf.postagSchema;
 
   var morphRetriever = configurator.getService(this.conf.retriever);
 
@@ -22,7 +23,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     var that = this;
     var attrs = {};
     angular.forEach(form.postag, function(postagVal, i) {
-      var postagClass  = that.conf.postagSchema[i];
+      var postagClass  = that.postagSchema[i];
       var possibleVals = that.attributeValues(postagClass);
       var attrObj = arethusaUtil.findObj(possibleVals, function(obj) {
         return obj.postag === postagVal;
@@ -39,7 +40,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.attributesToPostag = function(attrs) {
     var postag = "";
     var that = this;
-    var postagArr =  arethusaUtil.map(this.conf.postagSchema, function(el) {
+    var postagArr =  arethusaUtil.map(this.postagSchema, function(el) {
       var attrVals = that.attributeValues(el);
       var val = attrs[el];
       var valObj = arethusaUtil.findObj(attrVals, function(e) {
