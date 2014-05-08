@@ -34,4 +34,14 @@ describe("arethusaUtil", function() {
       expect(arethusaUtil.map(coll, fn)).toEqual(result);
     });
   });
+
+  describe('pushAll', function(){
+    it('flat-pushes all elements of an array into another', function() {
+      var arr1 = [1, 2];
+      var arr2 = [3, 4];
+      var res  = [1, 2, 3, 4];
+      arethusaUtil.pushAll(arr1, arr2);
+      expect(arr1).toEqual(res);
+    });
+  });
 });
