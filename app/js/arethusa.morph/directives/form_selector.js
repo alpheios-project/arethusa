@@ -2,7 +2,7 @@
 
 angular.module('arethusa.morph').directive('formSelector', function() {
   return {
-    restrict: 'E',
+    restrict: 'AE',
     replace: true,
     controller: function($scope, $element, $attrs) {
       var id = $scope.id;
