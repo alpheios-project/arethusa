@@ -3,13 +3,13 @@
     {
       "attributes": {
         "pos": "noun",
-        "casus": "1"
+        "casus": "nom"
       }
     },
     {
       "attributes": {
         "pos": "noun",
-        "casus": "5"
+        "casus": "voc"
       }
     }
   ],
@@ -18,7 +18,7 @@
     {
       "attributes": {
         "pos": "noun",
-        "casus": "4"
+        "casus": "acc"
       }
     }
   ],
@@ -31,7 +31,7 @@
     {
       "attributes": {
         "pos": "noun",
-        "casus": "1"
+        "casus": "nom"
       }
     }
   ],
