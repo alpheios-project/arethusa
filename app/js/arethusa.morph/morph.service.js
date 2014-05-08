@@ -4,6 +4,10 @@
 
 angular.module('arethusa.morph').service('morph', function(state, configurator) {
   this.conf = configurator.configurationFor('morph');
+  this.attributes = this.conf.attributes;
+  this.template = this.conf.template;
+  this.name = this.conf.name;
+
   var morphRetriever = configurator.getService(this.conf.retriever);
 
   this.seedAnalyses = function(tokens) {
@@ -42,8 +46,6 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     });
     return analyses;
   };
-
-  this.analyses = this.loadInitalAnalyses(this);
 
   this.currentAnalyses = function() {
     var res = {};
