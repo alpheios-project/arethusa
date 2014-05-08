@@ -33,6 +33,10 @@ module.exports = function(grunt) {
         files: [srcFiles, specFiles],
         tasks: 'default'
       },
+      spec: {
+        files: [srcFiles, specFiles],
+        tasks: 'spec'
+      },
       server: {
         files: [srcFiles, htmlFiles],
         options: {
@@ -55,8 +59,14 @@ module.exports = function(grunt) {
             './bower_components/angular/angular.js',
             './bower_components/angular-mocks/angular-mocks.js',
             './bower_components/angular-route/angular-route.js',
+            './bower_components/x2js/xml2json.min.js',
+            './bower_components/jquery/dist/jquery.min.js',
             './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
-            srcFiles,
+            // Some source files we'll need to include manually, otherwise
+            // the load order is wrong
+            'app/js/other/history_obj.js',
+            'app/js/*.js',
+            'app/js/arethusa*/**/*.js',
             specFiles
           ],
           frameworks: ['jasmine'],
@@ -142,6 +152,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
+  grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('server', 'connect:devserver');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };

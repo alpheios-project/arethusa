@@ -6,31 +6,51 @@
   <script src="../bower_components/jquery/dist/jquery.min.js"></script>
   <script src="../bower_components/angular/angular.js"></script>
   <script src="../bower_components/angular-route/angular-route.min.js"></script>
+  <script src="../bower_components/x2js/xml2json.min.js"></script>
   <script src="../vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js"></script>
 
-  <script src="./js/arethusa-core.js"></script>
-  <script src="./js/controllers/main_controller.js"></script>
-  <script src="./js/services/configurator.js"></script>
-  <script src="./js/services/state.js"></script>
+  <script src="./js/arethusa_util.js"></script>
+
+  <script src="./js/arethusa.core.js"></script>
+  <script src="./js/arethusa.core/main_ctrl.controller.js"></script>
+  <script src="./js/arethusa.core/configurator.service.js"></script>
+  <script src="./js/arethusa.core/state.service.js"></script>
+  <script src="./js/arethusa.core/directives/deselector.directive.js"></script>
+  <script src="./js/arethusa.core/directives/plugin.directive.js"></script>
+  <script src="./js/arethusa.core/directives/next_token.directive.js"></script>
+  <script src="./js/arethusa.core/directives/prev_token.directive.js"></script>
+  <script src="./js/arethusa.core/directives/fire_event.directive.js"></script>
+  <script src="./js/arethusa.core/directives/token.js"></script>
+  <script src="./js/arethusa.core/directives/state_debug.js"></script>
+
+  <script src="./js/arethusa.morph.js"></script>
+  <script src="./js/arethusa.morph/morph.service.js"></script>
+  <script src="./js/arethusa.morph/morph_retriever.service.js"></script>
+  <script src="./js/arethusa.morph/directives/morph_form.js"></script>
+  <script src="./js/arethusa.morph/directives/morph_form_edit.js"></script>
+  <script src="./js/arethusa.morph/directives/morph_form_create.js"></script>
+  <script src="./js/arethusa.morph/directives/form_selector.js"></script>
+
+  <script src="./js/arethusa.hist.js"></script>
+  <script src="./js/arethusa.hist/history.service.js"></script>
+  <script src="./js/arethusa.hist/directives/history_element.js"></script>
+  <script src="./js/arethusa.hist/directives/history_undo.js"></script>
+  <script src="./js/arethusa.hist/directives/history_redo.js"></script>
 
   <script src="./js/arethusa.js"></script>
   <script src="./js/services/text.js"></script>
-  <script src="./js/services/morph.js"></script>
   <script src="./js/services/comment.js"></script>
-  <script src="./js/services/morph_retriever.js"></script>
-  <script src="./js/services/token_retriever.js"></script>
-  <script src="./js/directives/plugin.js"></script>
-  <script src="./js/directives/token.js"></script>
-  <script src="./js/directives/morph_form.js"></script>
-  <script src="./js/directives/morph_form_edit.js"></script>
-  <script src="./js/directives/next_token.js"></script>
-  <script src="./js/directives/prev_token.js"></script>
-  <script src="./js/directives/deselector.js"></script>
-  <script src="./js/directives/form_selector.js"></script>
+  <script src="./js/services/treebank_retriever.js"></script>
+
+  <script src="./js/external/arethusa_init_plugin.js"></script>
+  <script src="./js/external/arethusa_external_api.js"></script>
+
+  <script src="./js/other/history_obj.js"></script>
+
   <meta charset="UTF-8">
   <title></title>
 </head>
-<body >
+<body>
   <div class="contain-to-grid">
     <nav class="top-bar" data-topbar>
       <ul class="title-area">
@@ -44,7 +64,7 @@
 
   <p/>
 
-  <div ng-view></div>
+  <div id="arethusa-main-view" ng-view></div>
   <!--<div ng-include="template"></div>-->
 
   <!--<div class="row">-->

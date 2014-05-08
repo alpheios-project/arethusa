@@ -1,14 +1,37 @@
 "use strict";
 
-angular.module('arethusa-core').service('state', function(configurator) {
-  var conf = configurator.configurationFor('state');
-  var tokenRetriever = configurator.getService(conf.retriever);
+angular.module('arethusa.core').service('state', function(configurator) {
+  this.tokens = {};
 
-  var tokens;
-  tokenRetriever.getData(function(res) {
-    tokens = res;
-  });
-  this.tokens = tokens;
+  var conf = configurator.configurationFor('state');
+  var tokenRetrievers = configurator.getServices(conf.retrievers);
+  var saveTokens = function(container, tokens) {
+    angular.forEach(tokens, function(token, id) {
+      var updatedToken;
+      var savedToken = container[id];
+      if (savedToken) {
+        updatedToken = angular.extend(savedToken, token);
+      } else {
+        updatedToken = token;
+      }
+      container[id] = token;
+    });
+  };
+
+  var retrieveTokens = function(container) {
+    angular.forEach(tokenRetrievers, function(retriever, i) {
+      retriever.getData(function(data) {
+        saveTokens(container, data);
+      });
+    });
+  };
+
+  retrieveTokens(this.tokens);
+
+  // This is of course quite slow! Hardcoding it is a possibility, we have to
+  // watch for id and other changes then though.
+  this.sortedTokens = function() {};
+
 
   this.asString = function(id) {
     return this.tokens[id].string;
@@ -91,7 +114,7 @@ angular.module('arethusa-core').service('state', function(configurator) {
     // select newId - make a roundtrip if we reached the bounds of the array
     var newId;
     switch(direction) {
-      case "next": 
+      case "next":
         newId = allIds[index + 1] || allIds[0]; break;
       case "prev":
         newId = allIds[index - 1] || allIds[allIds.length - 1]; break;
@@ -106,11 +129,54 @@ angular.module('arethusa-core').service('state', function(configurator) {
   this.selectNextToken = function() { this.selectSurroundingToken('next'); };
   this.selectPrevToken = function() { this.selectSurroundingToken('prev'); };
 
+  // Listeners can be internal (angular-implementation) or external (everything
+  // else). The future might bring a further distinction between different
+  // of events listeners listen to - we'll see.
+  this.listeners = [];
+  this.externalListeners= [];
+
+  this.registerListener = function(listener) {
+    if (listener.external) {
+      this.externalListeners.push(listener);
+    } else {
+      this.listeners.push(listener);
+    }
+  };
+
+  this.fireEvent = function(target, property, oldVal, newVal) {
+    var event = { target: target, property: property, oldVal: oldVal, newVal: newVal };
+    event.time = new Date();
+    this.notifyListeners(event);
+  };
+
+  this.notifyListeners = function(event) {
+    this.notifyAngularListeners(event);
+    this.notifyExternalListeners(event);
+  };
+
+  this.notifyAngularListeners = function(event) {
+    angular.forEach(this.listeners, function(obj, i) {
+      obj.catchEvent(event);
+    });
+  };
+
+  this.notifyExternalListeners = function(event) {
+    angular.forEach(this.externalListeners, function(obj, i) {
+      obj.catchArethusaEvent(event);
+    });
+  };
+
   this.setState = function(id, category, val) {
-    tokens[id][category] = val;
+    var token = this.tokens[id];
+    var oldVal = token[category];
+    this.fireEvent(token, category, oldVal, val);
+    token[category] = val;
   };
 
   this.unsetState = function(id, category) {
-    delete tokens[id][category];
+    var token = this.tokens[id];
+    var oldVal = token[category];
+    this.fireEvent(token, category, oldVal,  null);
+    delete token[category];
   };
 });

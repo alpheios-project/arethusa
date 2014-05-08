@@ -1,11 +1,11 @@
 "use strict";
 
-angular.module('arethusa').directive('deselector', function() {
+angular.module('arethusa.core').directive('prevToken', function() {
   return {
     restrict: 'E',
     link: function(scope, element, attrs) {
       element.bind('click', function(e) {
-        scope.state.deselectAll();
+        scope.state.selectPrevToken();
         scope.$apply();
       });
     }
