@@ -14,7 +14,7 @@
 
       "morph" : {
         "name" : "morph",
-        "retriever" : "morphRetriever",
+        "retriever" : "fakeMorphRetriever",
         "template"  : "templates/morph2.html",
         "postagSchema" : [
           "pos",
