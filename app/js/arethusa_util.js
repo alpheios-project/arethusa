@@ -26,6 +26,17 @@ var arethusaUtil = {
     target.push.apply(target, pusher);
   },
 
+  findObj: function(object, fn) {
+    for (var key in object) {
+      if (object.hasOwnProperty(key)) {
+        var val = object[key];
+        if (fn(val)) {
+          return val;
+        }
+      }
+    }
+  },
+
   /* global X2JS */
   xmlParser: new X2JS(),
 

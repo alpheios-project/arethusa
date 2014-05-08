@@ -14,7 +14,7 @@ describe("arethusaUtil", function() {
     });
   });
 
-  describe('map', function(){
+  describe('map', function() {
     it('iterates over an array and applies a given function I', function() {
       var coll = [1, 2, 3];
       var fn = function(el) {
@@ -35,13 +35,26 @@ describe("arethusaUtil", function() {
     });
   });
 
-  describe('pushAll', function(){
+  describe('pushAll', function() {
     it('flat-pushes all elements of an array into another', function() {
       var arr1 = [1, 2];
       var arr2 = [3, 4];
       var res  = [1, 2, 3, 4];
       arethusaUtil.pushAll(arr1, arr2);
       expect(arr1).toEqual(res);
+    });
+  });
+
+  describe('findObj', function(){
+    it('finds an object based on an assumtion given in a function', function() {
+      var val = '1';
+      var obj1 = { prop: '1'};
+      var obj2 = { prop: '2'};
+      var coll = { a: obj1, b: obj2 };
+      var fn = function(el) {
+        return el.prop === val;
+      };
+      expect(arethusaUtil.findObj(coll, fn)).toEqual(obj1);
     });
   });
 });
