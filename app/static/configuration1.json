@@ -15,7 +15,8 @@
       "morph" : {
         "name" : "morph",
         "retrievers" : [
-          "fakeMorphRetriever"
+          "fakeMorphRetriever",
+          "bspMorphRetriever"
         ],
         "template"  : "templates/morph2.html",
         "postagSchema" : [
