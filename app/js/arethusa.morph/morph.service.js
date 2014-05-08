@@ -12,7 +12,18 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     return analyses;
   };
 
-  this.getAnalyses = function(string) {
+  // Gets a from the inital state - if we load an already annotated
+  // template, we have to take it inside the morph plugin.
+  // In the concrete use case of treebanking this would mean that
+  // we have a postag value sitting there, which we have to expand.
+  this.getAnalysisFromState = function(id) {
+    return state.tokens[id].morphology;
+  };
+
+  // Calls the external morph retriever - this should be asynchronous.
+  // We'll deal with that soon - and also use this chance to solve
+  // this in a more functional programming style.
+  this.getExternalAnalyses = function(string) {
     var result;
     morphRetriever.getData(string, function(res) {
       result = res;
@@ -23,9 +34,9 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.loadInitalAnalyses = function(that) {
     var analyses = that.seedAnalyses(state.tokens);
     angular.forEach(analyses, function(val, id) {
-      var forms = that.getAnalyses(val.string);
+      val.forms.push(that.getAnalysisFromState(id));
+      val.forms.push.apply(val.forms,that.getExternalAnalyses(val.string));
       val.analyzed = true;
-      val.forms = val.forms.concat(forms);
     });
     return analyses;
   };
@@ -45,7 +56,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   };
 
   this.selectAttribute = function(attr) {
-    return this.attributes[attr];
+    return this.attributes[attr] || {};
   };
 
   this.longAttributeName = function(attr) {
@@ -53,15 +64,18 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   };
 
   this.attributeValues = function(attr) {
-    return this.selectAttribute(attr).values;
+    return this.selectAttribute(attr).values || {};
+  };
+  this.attributeValueObj = function(attr, val) {
+    return this.attributeValues(attr)[val] || {};
   };
 
   this.longAttributeValue = function(attr, val) {
-    return this.attributeValues(attr)[val].long;
+    return this.attributeValueObj(attr, val).long;
   };
 
   this.abbrevAttributeValue = function(attr, val) {
-    return this.attributeValues(attr)[val].short;
+    return this.attributeValueObj(attr, val).short;
   };
 
   this.concatenatedAttributes = function(form) {
