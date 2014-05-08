@@ -36,8 +36,18 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     form.attributes = attrs;
   };
 
-  this.attributesToPostag = function(form) {
-
+  this.attributesToPostag = function(attrs) {
+    var postag = "";
+    var that = this;
+    var postagArr =  arethusaUtil.map(this.conf.postagSchema, function(el) {
+      var attrVals = that.attributeValues(el);
+      var val = attrs[el];
+      var valObj = arethusaUtil.findObj(attrVals, function(e) {
+        return e.short === val;
+      });
+      return (valObj ? valObj.postag : '-');
+    });
+    return postagArr.join('');
   };
 
   // Gets a from the inital state - if we load an already annotated
@@ -64,8 +74,12 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.loadInitalAnalyses = function(that) {
     var analyses = that.seedAnalyses(state.tokens);
     angular.forEach(analyses, function(val, id) {
+      var externalForms = that.getExternalAnalyses(val.string);
+      externalForms.forEach(function(el) {
+        el.postag = that.attributesToPostag(el.attributes);
+      });
       val.forms.push(that.getAnalysisFromState(id));
-      arethusaUtil.pushAll(val.forms, that.getExternalAnalyses(val.string));
+      arethusaUtil.pushAll(val.forms, externalForms);
       val.analyzed = true;
     });
     return analyses;
