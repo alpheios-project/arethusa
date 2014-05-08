@@ -22,7 +22,11 @@ angular.module('arethusa.morph').directive('formSelector', function() {
         }
       };
     },
-    template: '<span ng-click="action($event)">{{ text() }}</span>'
+    template: '<button class="tiny small"' +
+                 'ng-click="action($event)"' +
+                 'ng-class="{success: selected()}">' +
+                 '{{ text() }}' +
+               '</button>'
   };
 
 });
