@@ -67,28 +67,24 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     }
   };
 
-  // Calls the external morph retriever - this should be asynchronous.
-  // We'll deal with that soon - and also use this chance to solve
-  // this in a more functional programming style.
-  this.getExternalAnalyses = function(string) {
-    var result = [];
+  this.getExternalAnalyses = function(analysisObj, that) {
     morphRetrievers.forEach(function(retriever) {
-      retriever.getData(string, function(res) {
-        arethusaUtil.pushAll(result, res);
+      retriever.getData(analysisObj.string, function(res) {
+        // need to parse the attributes now
+        var externalForms = res;
+        externalForms.forEach(function(el) {
+          el.postag = that.attributesToPostag(el.attributes);
+        });
+        arethusaUtil.pushAll(analysisObj.forms, res);
       });
     });
-    return result;
   };
 
   this.loadInitalAnalyses = function(that) {
     var analyses = that.seedAnalyses(state.tokens);
     angular.forEach(analyses, function(val, id) {
-      var externalForms = that.getExternalAnalyses(val.string);
-      externalForms.forEach(function(el) {
-        el.postag = that.attributesToPostag(el.attributes);
-      });
+      that.getExternalAnalyses(val, that);
       val.forms.push(that.getAnalysisFromState(id));
-      arethusaUtil.pushAll(val.forms, externalForms);
       val.analyzed = true;
     });
     return analyses;
