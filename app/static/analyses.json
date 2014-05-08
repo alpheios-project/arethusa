@@ -1,6 +1,7 @@
 {
   "Homo" : [
     {
+      "lemma": "homo",
       "attributes": {
         "pos": "noun",
         "casus": "nom"
@@ -16,6 +17,7 @@
 
   "rosam" : [
     {
+      "lemma": "rosa",
       "attributes": {
         "pos": "noun",
         "casus": "acc"
@@ -24,11 +26,15 @@
   ],
 
   "videt" : [
-    { "attributes": { "pos": "verb" } }
+    {
+      "lemma": "video",
+      "attributes": { "pos": "verb" }
+    }
   ],
 
   "Caesar" : [
     {
+      "lemma": "Caesar",
       "attributes": {
         "pos": "noun",
         "casus": "nom"
@@ -37,6 +43,9 @@
   ],
 
   "." : [
-    { "attributes": { "pos": "punct" } }
+    {
+      "lemma": ".",
+      "attributes": { "pos": "punct" }
+    }
   ]
 }
