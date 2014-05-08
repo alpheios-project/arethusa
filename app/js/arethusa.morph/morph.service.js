@@ -18,12 +18,36 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     return analyses;
   };
 
+  this.postagToAttributes = function(form) {
+    var that = this;
+    var attrs = {};
+    angular.forEach(form.postag, function(postagVal, i) {
+      var postagClass  = that.conf.postagSchema[i];
+      var possibleVals = that.attributeValues(postagClass);
+      var attrObj = arethusaUtil.findObj(possibleVals, function(obj) {
+        return obj.postag === postagVal;
+      });
+
+      // attrObj can be undefined when the postag is -
+      if (attrObj) {
+        attrs[postagClass] = attrObj.short;
+      }
+    });
+    form.attributes = attrs;
+  };
+
+  this.attributesToPostag = function(form) {
+
+  };
+
   // Gets a from the inital state - if we load an already annotated
   // template, we have to take it inside the morph plugin.
   // In the concrete use case of treebanking this would mean that
   // we have a postag value sitting there, which we have to expand.
   this.getAnalysisFromState = function(id) {
-    return state.tokens[id].morphology;
+    var analysis = state.tokens[id].morphology;
+    this.postagToAttributes(analysis);
+    return analysis;
   };
 
   // Calls the external morph retriever - this should be asynchronous.
