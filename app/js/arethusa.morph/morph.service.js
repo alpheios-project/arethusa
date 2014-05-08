@@ -61,6 +61,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     // looking at.
     if (analysis) {
       this.postagToAttributes(analysis);
+      analysis.origin = 'document';
       return analysis;
     } else {
       return [];
