@@ -12,6 +12,15 @@ var arethusaUtil = {
     return n;
   },
 
+  // Apply a map/collect function over an Array
+  map: function(container, fn) {
+    var result = [];
+    container.forEach(function(e) {
+      result.push(fn(e));
+    });
+    return result;
+  },
+
   /* global X2JS */
   xmlParser: new X2JS(),
 

@@ -13,4 +13,25 @@ describe("arethusaUtil", function() {
       });
     });
   });
+
+  describe('map', function(){
+    it('iterates over an array and applies a given function I', function() {
+      var coll = [1, 2, 3];
+      var fn = function(el) {
+        return el + 1;
+      };
+      var result = [2, 3, 4];
+      expect(arethusaUtil.map(coll, fn)).toEqual(result);
+    });
+
+    it('iterates over an array and applies a given function II', function() {
+      var coll = ['a', 'b', 'c'];
+      var obj = { a: 1, b: 2, c: 3};
+      var fn = function(el) {
+        return obj[el];
+      };
+      var result = [1, 2, 3];
+      expect(arethusaUtil.map(coll, fn)).toEqual(result);
+    });
+  });
 });
