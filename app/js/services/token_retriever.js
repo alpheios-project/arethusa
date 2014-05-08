@@ -17,6 +17,7 @@ angular.module('arethusa').service('tokenRetriever', function($http) {
       id: arethusaUtil.formatNumber(token._id, 4),
       string: token._form,
       morphology: {
+        lemma: token._lemma,
         postag: token._postag
       },
       relation: {
