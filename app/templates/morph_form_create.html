@@ -1,0 +1,14 @@
+<div class="row" ng-repeat="(attr, val) in plugin.attributes">
+  <div class="small-3 columns">
+    <label class="right">{{ plugin.longAttributeName(attr) }}</label>
+  </div>
+
+  <div class="small-9 columns">
+    <select
+      ng-model="form.attributes[attr]"
+      ng-init="opt.short"
+      ng-options="name as opt.long for (name, opt) in plugin.attributeValues(attr)"
+      fire-event="{target: 'form', property: 'attr', value: 'val'}">
+    </select>
+  </div>
+</div>
