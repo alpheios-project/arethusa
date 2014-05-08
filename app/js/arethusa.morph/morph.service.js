@@ -1,5 +1,7 @@
 "use strict";
 
+/* global arethusaUtil */
+
 angular.module('arethusa.morph').service('morph', function(state, configurator) {
   this.conf = configurator.configurationFor('morph');
   var morphRetriever = configurator.getService(this.conf.retriever);
@@ -35,7 +37,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     var analyses = that.seedAnalyses(state.tokens);
     angular.forEach(analyses, function(val, id) {
       val.forms.push(that.getAnalysisFromState(id));
-      val.forms.push.apply(val.forms,that.getExternalAnalyses(val.string));
+      arethusaUtil.pushAll(val.forms, that.getExternalAnalyses(val.string));
       val.analyzed = true;
     });
     return analyses;
