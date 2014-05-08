@@ -1,3 +1,3 @@
 "use strict";
 
-angular.module('arethusa.morph', ['arethusa.core']);
+angular.module('arethusa.morph', ['arethusa.core', 'ngResource']);
