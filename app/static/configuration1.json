@@ -1,6 +1,6 @@
 {
   "state" : {
-    "retrievers" : [ "tokenRetriever" ]
+    "retrievers" : [ "treebankRetriever" ]
   },
 
   "MainCtrl" : {
