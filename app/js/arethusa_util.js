@@ -24,9 +24,15 @@ var arethusaUtil = {
   // inject like ruby - or more like each_with_object
   // Take care - will not work with immutable memos!
   inject: function(memo, container, fn){
-    container.forEach(function(el) {
-      fn(memo, el);
-    });
+    if (arethusaUtil.isArray(container)) {
+      container.forEach(function(el) {
+        fn(memo, el);
+      });
+    } else {
+      for (var key in container) {
+        fn(memo, key, container[key]);
+      }
+    }
     return memo;
   },
 
@@ -45,10 +51,13 @@ var arethusaUtil = {
       }
     }
   },
+  isArray: function(obj){
+    return Object.prototype.toString.call(obj) === '[object Array]'
+  },
 
   // wraps an
   toAry: function(el){
-    if (Object.prototype.toString.call(el) === '[object Array]') {
+    if (arethusaUtil.isArray(el)) {
       return el;
     } else {
       return [el];

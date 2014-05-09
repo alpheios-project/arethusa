@@ -53,6 +53,16 @@ describe("arethusaUtil", function() {
       expect(arethusaUtil.inject(0, coll, fn)).toEqual(0);
       expect(arethusaUtil.inject(0, coll, fn)).not.toEqual(6);
     });
+
+    it('works with object as collection too', function() {
+      var coll = { a: 1, b: 2};
+      var fn = function(memo, key, value) {
+        memo.push(value);
+        memo.push(key);
+      };
+      var res = [1, 'a', 2, 'b'];
+      expect(arethusaUtil.inject([], coll, fn)).toEqual(res);
+    });
   });
 
   describe('pushAll', function() {
