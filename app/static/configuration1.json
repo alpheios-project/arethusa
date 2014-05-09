@@ -1,6 +1,6 @@
 {
   "state" : {
-    "retrievers" : [ "tokenRetriever" ]
+    "retrievers" : [ "treebankRetriever" ]
   },
 
   "MainCtrl" : {
@@ -335,6 +335,7 @@
 
       "history" : {
         "name" : "history",
+        "main" : true,
         "listener" : true,
         "maxSize" : 5,
         "template" : "templates/history.html"
