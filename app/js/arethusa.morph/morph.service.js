@@ -106,7 +106,6 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
         res.forEach(function(el) {
           // need to parse the attributes now
           el.attributes = mapAttributes(el.attributes, that);
-          console.log(el.attributes);
           // and build a postag
           el.postag = that.attributesToPostag(el.attributes);
         });
