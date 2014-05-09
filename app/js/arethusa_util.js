@@ -55,6 +55,12 @@ var arethusaUtil = {
     }
   },
 
+  replaceAt: function(str, i, replacement) {
+    return str.substring(0, i) + replacement + str.substring(i + 1);
+  },
+
+
+
   /* global X2JS */
   xmlParser: new X2JS(),
 

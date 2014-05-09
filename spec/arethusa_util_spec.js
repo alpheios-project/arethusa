@@ -87,4 +87,10 @@ describe("arethusaUtil", function() {
       expect(arethusaUtil.toAry([{}])).toEqual([{}]);
     });
   });
+
+  describe('replaceAt', function() {
+    it('replaces a char in a string at an index', function() {
+      expect(arethusaUtil.replaceAt('abc', 1, 'B')).toEqual('aBc');
+    });
+  });
 });
