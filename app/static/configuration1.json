@@ -23,11 +23,11 @@
           "pos",
           "pers",
           "num",
-          "temp",
+          "tense",
           "mood",
-          "genus",
-          "sex",
-          "casus",
+          "voice",
+          "gend",
+          "case",
           "degree"
         ],
         "attributes" : {
@@ -159,9 +159,9 @@
               }
             }
           },
-          "temp" : {
+          "tense" : {
             "long" : "Tense",
-            "short" : "temp",
+            "short" : "tense",
             "values" : {
               "pr" : {
                 "long" : "present",
@@ -231,9 +231,9 @@
               }
             }
           },
-          "genus" : {
-            "long" : "voice",
-            "short" : "genus",
+          "voice" : {
+            "long" : "Voice",
+            "short" : "voice",
             "values" : {
               "act" : {
                 "long" : "active",
@@ -252,9 +252,9 @@
               }
             }
           },
-          "sex" : {
+          "gend" : {
             "long" : "gender",
-            "short" : "sex",
+            "short" : "gend",
             "values" : {
               "masc" : {
                 "long" : "masculine",
@@ -273,9 +273,9 @@
               }
             }
           },
-          "casus" : {
-            "long" : "Case",
-            "short" : "casus",
+          "case" : {
+            "long" : "Casus",
+            "short" : "case",
             "values" : {
               "nom" : {
                 "long" : "nominative",
