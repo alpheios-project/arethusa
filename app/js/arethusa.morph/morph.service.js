@@ -79,11 +79,35 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     }
   };
 
+  var mapAttributes = function(attrs, that) {
+    // We could use inject on attrs directly, but this wouldn't give us
+    // the correct order of properties inside the newly built object.
+    // Let's iterate over the postag schema for to guarantee it.
+    // Sorting of objects is a problem we need a solution for in other
+    // places as well.
+    // This solution comes at a price - if we cannot find a key (not every
+    // form has a tense attribute for example), we might stuff lots of undefined
+    // stuff into this object. We pass over this with a conditional.
+    return arethusaUtil.inject({}, that.postagSchema, function(memo, k) {
+      var v = attrs[k];
+      if (v) {
+        var values = that.attributeValues(k);
+        var obj = arethusaUtil.findObj(values, function(el) {
+          return (el.short === v || el.long === v);
+        });
+        memo[k] = (obj ? obj.short : v);
+      }
+    });
+  };
+
   this.getExternalAnalyses = function(analysisObj, that) {
     morphRetrievers.forEach(function(retriever) {
       retriever.getData(analysisObj.string, function(res) {
-        // need to parse the attributes now
         res.forEach(function(el) {
+          // need to parse the attributes now
+          el.attributes = mapAttributes(el.attributes, that);
+          console.log(el.attributes);
+          // and build a postag
           el.postag = that.attributesToPostag(el.attributes);
         });
         arethusaUtil.pushAll(analysisObj.forms, res);
