@@ -20,10 +20,31 @@ angular.module('arethusa.morph').service('bspMorphRetriever', function($resource
     });
   };
 
-  var flattenCaseObject = function(form) {
-    var casus = form.case;
-    if (casus) {
-      form.case = casus.$;
+  var flattenAttributes= function(form, toFlatten) {
+    toFlatten.forEach(function(el) {
+      var attr = form[el];
+      if (attr) {
+        form[el] = attr.$;
+      }
+    });
+  };
+
+  var renameAttributes = function(form, renamers) {
+    for (var oldName in renamers) {
+      var newName = renamers[oldName];
+      var val = form[oldName];
+      delete form[oldName];
+      form[newName] = val;
+    }
+  };
+
+  var renameValues = function(form, renamers) {
+    for (var key in renamers) {
+      var val = form[key];
+      var naming = renamers[key];
+      if (val === naming[0]) {
+        form[key] = naming[1];
+      }
     }
   };
 
@@ -52,7 +73,11 @@ angular.module('arethusa.morph').service('bspMorphRetriever', function($resource
 
             // If the form has a case attribute, it wrapped in another object we
             // don't want and need. Flatten it to a plain expression.
-            flattenCaseObject(form);
+            // The same goes for part of speech.
+            flattenAttributes(form, ['case', 'pofs']);
+            renameAttributes(form, {'pofs': 'pos'});
+            renameValues(form, { 'pos' : ['verb\nparticiple', 'participle']});
+
             results.push({
               lexInvUri: lexInvUri,
               lemma: lemma,
