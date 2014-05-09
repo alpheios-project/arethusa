@@ -44,6 +44,12 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     }).join('');
   };
 
+  this.updatePostag = function(form, attr, val) {
+    var index = this.postagSchema.indexOf(attr);
+    var postag = this.postagValue(attr, val);
+    form.postag = arethusaUtil.replaceAt(form.postag, index, postag);
+  };
+
   this.attributesToPostag = function(attrs) {
     var postag = "";
     var that = this;
@@ -128,6 +134,10 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
 
   this.abbrevAttributeValue = function(attr, val) {
     return this.attributeValueObj(attr, val).short;
+  };
+
+  this.postagValue = function(attr, val) {
+    return this.attributeValueObj(attr, val).postag;
   };
 
   this.concatenatedAttributes = function(form) {
