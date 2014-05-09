@@ -75,6 +75,8 @@ angular.module('arethusa.morph').service('bspMorphRetriever', function($resource
             // don't want and need. Flatten it to a plain expression.
             // The same goes for part of speech.
             flattenAttributes(form, ['case', 'pofs']);
+
+            // These renaming stuff could probably be configurable...
             renameAttributes(form, {'pofs': 'pos'});
             renameValues(form, { 'pos' : ['verb\nparticiple', 'participle']});
 
