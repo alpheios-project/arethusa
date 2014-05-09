@@ -52,7 +52,7 @@ var arethusaUtil = {
     }
   },
   isArray: function(obj){
-    return Object.prototype.toString.call(obj) === '[object Array]'
+    return Object.prototype.toString.call(obj) === '[object Array]';
   },
 
   // wraps an
