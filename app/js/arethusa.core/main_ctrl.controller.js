@@ -68,9 +68,20 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     }
   });
 
+  $scope.initPlugins = function() {
+    for (var plugin in $scope.plugins) {
+      try {
+        $scope.plugins[plugin].init();
+      } catch(err) {
+        // implement init function for all plugins
+      }
+    }
+  };
+
   $scope.init = function() {
     $scope.plugins = $scope.retrievePlugins(conf.plugins);
     partitionPlugins($scope.plugins);
+    $scope.initPlugins();
     deregisterWatch();
   };
 });

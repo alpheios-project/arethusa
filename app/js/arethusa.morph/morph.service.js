@@ -182,6 +182,8 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     return state.tokens[id].morphology == form;
   };
 
-  this.analyses = this.loadInitalAnalyses(this);
+  this.init = function() {
+    this.analyses = this.loadInitalAnalyses(this);
+  };
 });
 
