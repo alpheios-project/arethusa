@@ -8,20 +8,7 @@ angular.module(
     'arethusa.morph',
     'arethusa.hist'
   ],
-  function($routeProvider) {
-    $routeProvider.when('/', {
-      controller: 'MainCtrl',
-      templateUrl: 'templates/main2.html',
-      resolve: {
-        loadConfiguration: function($q, $http, configurator) {
-          return $http({
-            method: 'GET',
-            url: './static/configuration1.json'
-          }).then(function(result) {
-            configurator.configuration = result.data;
-          });
-        }
-      }
-    }
-  );
-});
+  function($routeProvider, MAIN_ROUTE) {
+    $routeProvider.when('/', MAIN_ROUTE);
+  }
+);

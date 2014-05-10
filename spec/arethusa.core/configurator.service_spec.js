@@ -30,5 +30,10 @@ describe('configurator', function() {
       expect(services).toContain(mock1);
       expect(services).toContain(mock2);
     }));
+
+    it('returns an empty array when no service names are given', inject(function(configurator) {
+      var services = configurator.getServices(undefined);
+      expect(services).toEqual([]);
+    }));
   });
 });
