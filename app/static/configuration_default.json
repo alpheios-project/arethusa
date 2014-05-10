@@ -1,0 +1,8 @@
+{
+  "state" : {
+    "retrievers" : [ "tokenRetriever" ] },
+
+  "MainCtrl" : {
+    "template"  : "templates/main3.html"
+  }
+}
