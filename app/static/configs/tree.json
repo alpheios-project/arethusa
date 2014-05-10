@@ -1,0 +1,23 @@
+{
+  "state" : {
+    "retrievers" : [ "treebankRetriever" ]
+  },
+
+  "MainCtrl" : {
+    "template"  : "templates/main2.html",
+    "plugins" : {
+      "text" : {
+        "name" : "text",
+        "main" : true,
+        "template"  : "templates/text2.html"
+      },
+      "history" : {
+        "name" : "history",
+        "listener" : true,
+        "maxSize" : 5,
+        "template" : "templates/history.html"
+      }
+    }
+  }
+}
+
