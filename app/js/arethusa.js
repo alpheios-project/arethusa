@@ -10,5 +10,6 @@ angular.module(
   ],
   function($routeProvider, MAIN_ROUTE) {
     $routeProvider.when('/', MAIN_ROUTE);
+    $routeProvider.when('/:conf', MAIN_ROUTE);
   }
 );
