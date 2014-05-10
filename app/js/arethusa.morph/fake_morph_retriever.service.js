@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.morph').service('morphRetriever', function($http) {
+angular.module('arethusa.morph').service('fakeMorphRetriever', function() {
   this.getStubData = function(callback) {
     var result;
     var request = $.ajax({

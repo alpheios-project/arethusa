@@ -9,7 +9,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.name = this.conf.name;
   this.postagSchema = this.conf.postagSchema;
 
-  var morphRetriever = configurator.getService(this.conf.retriever);
+  var morphRetrievers = configurator.getServices(this.conf.retrievers);
 
   this.seedAnalyses = function(tokens) {
     var analyses = {};
@@ -37,6 +37,19 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     form.attributes = attrs;
   };
 
+  // Probably not useful to calculate this everytime...
+  this.emptyPostag = function() {
+    return arethusaUtil.map(this.postagSchema, function(el) {
+      return '-';
+    }).join('');
+  };
+
+  this.updatePostag = function(form, attr, val) {
+    var index = this.postagSchema.indexOf(attr);
+    var postag = this.postagValue(attr, val);
+    form.postag = arethusaUtil.replaceAt(form.postag, index, postag);
+  };
+
   this.attributesToPostag = function(attrs) {
     var postag = "";
     var that = this;
@@ -55,32 +68,57 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   // template, we have to take it inside the morph plugin.
   // In the concrete use case of treebanking this would mean that
   // we have a postag value sitting there, which we have to expand.
-  this.getAnalysisFromState = function(id) {
+  this.getAnalysisFromState = function(val, id) {
     var analysis = state.tokens[id].morphology;
-    this.postagToAttributes(analysis);
-    return analysis;
+    // We could always have no analysis sitting in the data we are
+    // looking at.
+    if (analysis) {
+      this.postagToAttributes(analysis);
+      analysis.origin = 'document';
+      val.forms.push(analysis);
+    }
   };
 
-  // Calls the external morph retriever - this should be asynchronous.
-  // We'll deal with that soon - and also use this chance to solve
-  // this in a more functional programming style.
-  this.getExternalAnalyses = function(string) {
-    var result;
-    morphRetriever.getData(string, function(res) {
-      result = res;
+  var mapAttributes = function(attrs, that) {
+    // We could use inject on attrs directly, but this wouldn't give us
+    // the correct order of properties inside the newly built object.
+    // Let's iterate over the postag schema for to guarantee it.
+    // Sorting of objects is a problem we need a solution for in other
+    // places as well.
+    // This solution comes at a price - if we cannot find a key (not every
+    // form has a tense attribute for example), we might stuff lots of undefined
+    // stuff into this object. We pass over this with a conditional.
+    return arethusaUtil.inject({}, that.postagSchema, function(memo, k) {
+      var v = attrs[k];
+      if (v) {
+        var values = that.attributeValues(k);
+        var obj = arethusaUtil.findObj(values, function(el) {
+          return (el.short === v || el.long === v);
+        });
+        memo[k] = (obj ? obj.short : v);
+      }
     });
-    return result;
+  };
+
+  this.getExternalAnalyses = function(analysisObj, that) {
+    morphRetrievers.forEach(function(retriever) {
+      retriever.getData(analysisObj.string, function(res) {
+        res.forEach(function(el) {
+          // need to parse the attributes now
+          el.attributes = mapAttributes(el.attributes, that);
+          // and build a postag
+          el.postag = that.attributesToPostag(el.attributes);
+        });
+        arethusaUtil.pushAll(analysisObj.forms, res);
+      });
+    });
   };
 
   this.loadInitalAnalyses = function(that) {
     var analyses = that.seedAnalyses(state.tokens);
     angular.forEach(analyses, function(val, id) {
-      var externalForms = that.getExternalAnalyses(val.string);
-      externalForms.forEach(function(el) {
-        el.postag = that.attributesToPostag(el.attributes);
-      });
-      val.forms.push(that.getAnalysisFromState(id));
-      arethusaUtil.pushAll(val.forms, externalForms);
+      that.getExternalAnalyses(val, that);
+      that.getAnalysisFromState(val, id);
       val.analyzed = true;
     });
     return analyses;
@@ -119,6 +157,10 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
 
   this.abbrevAttributeValue = function(attr, val) {
     return this.attributeValueObj(attr, val).short;
+  };
+
+  this.postagValue = function(attr, val) {
+    return this.attributeValueObj(attr, val).postag;
   };
 
   this.concatenatedAttributes = function(form) {

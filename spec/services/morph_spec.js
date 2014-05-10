@@ -6,8 +6,8 @@ describe('morph', function() {
     configurationFor: function(name) {
       return {};
     },
-    getService: function(name) {
-      return {};
+    getServices: function(name) {
+      return [];
     }
   };
 

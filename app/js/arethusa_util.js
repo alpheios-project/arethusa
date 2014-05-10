@@ -21,6 +21,21 @@ var arethusaUtil = {
     return result;
   },
 
+  // inject like ruby - or more like each_with_object
+  // Take care - will not work with immutable memos!
+  inject: function(memo, container, fn){
+    if (arethusaUtil.isArray(container)) {
+      container.forEach(function(el) {
+        fn(memo, el);
+      });
+    } else {
+      for (var key in container) {
+        fn(memo, key, container[key]);
+      }
+    }
+    return memo;
+  },
+
   // flat push
   pushAll: function(target, pusher) {
     target.push.apply(target, pusher);
@@ -36,6 +51,24 @@ var arethusaUtil = {
       }
     }
   },
+  isArray: function(obj){
+    return Object.prototype.toString.call(obj) === '[object Array]';
+  },
+
+  // wraps an
+  toAry: function(el){
+    if (arethusaUtil.isArray(el)) {
+      return el;
+    } else {
+      return [el];
+    }
+  },
+
+  replaceAt: function(str, i, replacement) {
+    return str.substring(0, i) + replacement + str.substring(i + 1);
+  },
+
+
 
   /* global X2JS */
   xmlParser: new X2JS(),

@@ -35,6 +35,36 @@ describe("arethusaUtil", function() {
     });
   });
 
+  describe('inject', function() {
+    it('works like a ruby each_with_object', function() {
+      var coll = [1, 2, 3];
+      var fn = function(memo, el) {
+        memo.push(el + 1);
+      };
+      var res = [2, 3, 4];
+      expect(arethusaUtil.inject([], coll, fn)).toEqual(res);
+    });
+
+    it("will not work with immutable objects", function() {
+      var coll = [1, 2, 3];
+      var fn = function(memo, el) {
+        memo += el;
+      };
+      expect(arethusaUtil.inject(0, coll, fn)).toEqual(0);
+      expect(arethusaUtil.inject(0, coll, fn)).not.toEqual(6);
+    });
+
+    it('works with object as collection too', function() {
+      var coll = { a: 1, b: 2};
+      var fn = function(memo, key, value) {
+        memo.push(value);
+        memo.push(key);
+      };
+      var res = [1, 'a', 2, 'b'];
+      expect(arethusaUtil.inject([], coll, fn)).toEqual(res);
+    });
+  });
+
   describe('pushAll', function() {
     it('flat-pushes all elements of an array into another', function() {
       var arr1 = [1, 2];
@@ -55,6 +85,22 @@ describe("arethusaUtil", function() {
         return el.prop === val;
       };
       expect(arethusaUtil.findObj(coll, fn)).toEqual(obj1);
+    });
+  });
+
+  describe('toAry', function() {
+    it('wraps an object in an array', function() {
+      expect(arethusaUtil.toAry({})).toEqual([{}]);
+    });
+
+    it("doesn't wrap it if the obj is already an array", function() {
+      expect(arethusaUtil.toAry([{}])).toEqual([{}]);
+    });
+  });
+
+  describe('replaceAt', function() {
+    it('replaces a char in a string at an index', function() {
+      expect(arethusaUtil.replaceAt('abc', 1, 'B')).toEqual('aBc');
     });
   });
 });
