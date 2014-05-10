@@ -32,8 +32,7 @@ describe('configurator', function() {
     }));
 
     it('returns an empty array when no service names are given', inject(function(configurator) {
-      var names = undefined;
-      var services = configurator.getServices(names);
+      var services = configurator.getServices(undefined);
       expect(services).toEqual([]);
     }));
   });
