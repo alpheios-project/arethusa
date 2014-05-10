@@ -6,8 +6,8 @@ angular.module('arethusa.core').constant('MAIN_ROUTE', {
   resolve: {
     loadConfiguration: function($q, $http, $route, configurator) {
       var files = {
-        default: './static/configuration_default.json',
-        staging: './static/configuration1.json'
+        default: './static/configs/default.json',
+        staging: './static/configs/staging.json'
       };
       var params = $route.current.params;
       var confUrl;
