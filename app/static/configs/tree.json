@@ -11,6 +11,11 @@
         "main" : true,
         "template"  : "templates/text2.html"
       },
+      "depTree" : {
+        "name" : "depTree",
+        "main" : true,
+        "template" : "templates/dep_tree.html"
+      },
       "history" : {
         "name" : "history",
         "listener" : true,
