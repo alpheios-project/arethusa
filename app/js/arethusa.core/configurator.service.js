@@ -8,10 +8,14 @@ angular.module('arethusa.core').service('configurator', function($injector) {
   };
 
   this.getServices = function(serviceNames) {
-    var that = this;
-    return arethusaUtil.map(serviceNames, function(name) {
-      return that.getService(name);
-    });
+    if (serviceNames) {
+      var that = this;
+      return arethusaUtil.map(serviceNames, function(name) {
+        return that.getService(name);
+      });
+    } else {
+      return [];
+    }
   };
 
   // this.configuration is set from outside on page load
