@@ -28,7 +28,6 @@ angular.module('arethusa').service('treebankRetriever', function($http) {
   };
 
   var parseXml = function(data) {
-    /* global xml2json */
     var tokens = {};
     var xml = arethusaUtil.xml2json(data);
     var words = xml.treebank.sentence.word;
@@ -39,9 +38,11 @@ angular.module('arethusa').service('treebankRetriever', function($http) {
     return tokens;
   };
 
-  this.getData = function(callback) {
-    $http.get('./static/example_treebank.xml').then(function(res) {
-      callback(parseXml(res.data));
-    });
+  return {
+    getData: function(callback) {
+      $http.get('./static/example_treebank.xml').then(function(res) {
+        callback(parseXml(res.data));
+      });
+    }
   };
 });
