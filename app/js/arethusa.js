@@ -17,7 +17,7 @@ angular.module(
           console.log($route.current.params.conf);
           return $http({
             method: 'GET',
-            url: $route.current.params.conf
+            url: $route.current.params.conf || './static/configuration_default.json'
           }).then(function(result) {
             configurator.configuration = result.data;
           });
