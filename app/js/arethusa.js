@@ -13,10 +13,11 @@ angular.module(
       controller: 'MainCtrl',
       templateUrl: 'templates/main2.html',
       resolve: {
-        loadConfiguration: function($q, $http, configurator) {
+        loadConfiguration: function($q, $http, $route, configurator) {
+          console.log($route.current.params.conf);
           return $http({
             method: 'GET',
-            url: './static/configuration1.json'
+            url: $route.current.params.conf
           }).then(function(result) {
             configurator.configuration = result.data;
           });
