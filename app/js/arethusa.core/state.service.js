@@ -18,15 +18,29 @@ angular.module('arethusa.core').service('state', function(configurator) {
     });
   };
 
-  var retrieveTokens = function(container) {
+  this.retrieveTokens = function() {
+    var container = this.tokens;
+    var that = this;
     angular.forEach(tokenRetrievers, function(retriever, i) {
       retriever.getData(function(data) {
         saveTokens(container, data);
+        declareLoaded(retriever, that);
       });
     });
   };
 
-  retrieveTokens(this.tokens);
+  this.checkLoadStatus = function() {
+    var loaded = true;
+    tokenRetrievers.forEach(function(el) {
+      loaded = loaded && el.loaded;
+    });
+    return loaded;
+  };
+
+  var declareLoaded = function(retriever, that) {
+    retriever.loaded = true;
+    that.allLoaded = that.checkLoadStatus();
+  };
 
   // This is of course quite slow! Hardcoding it is a possibility, we have to
   // watch for id and other changes then though.
@@ -178,5 +192,9 @@ angular.module('arethusa.core').service('state', function(configurator) {
     var oldVal = token[category];
     this.fireEvent(token, category, oldVal,  null);
     delete token[category];
+  };
+
+  this.init = function() {
+    this.retrieveTokens();
   };
 });

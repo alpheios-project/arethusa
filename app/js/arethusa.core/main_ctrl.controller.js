@@ -59,8 +59,18 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
   };
 
   $scope.state = state;
-  $scope.plugins = $scope.retrievePlugins(conf.plugins);
+  $scope.state.init();
   $scope.template = conf.template;
 
-  partitionPlugins($scope.plugins);
+  var deregisterWatch = $scope.$watch('state.allLoaded', function(newVal, oldVal) {
+    if (newVal) {
+      $scope.init();
+    }
+  });
+
+  $scope.init = function() {
+    $scope.plugins = $scope.retrievePlugins(conf.plugins);
+    partitionPlugins($scope.plugins);
+    deregisterWatch();
+  };
 });
