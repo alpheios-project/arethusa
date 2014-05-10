@@ -39,8 +39,8 @@ angular.module('arethusa').service('treebankRetriever', function($http) {
   };
 
   return {
-    getData: function(callback) {
-      $http.get('./static/example_treebank.xml').then(function(res) {
+    getData: function(url, callback) {
+      $http.get(url).then(function(res) {
         callback(parseXml(res.data));
       });
     }
