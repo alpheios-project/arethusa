@@ -1,12 +1,12 @@
 "use strict";
 
-describe('SearchController', function(){
-  beforeEach(module('arethusa-core'));
+describe('SearchCtrl', function(){
+  beforeEach(module('arethusa.core'));
 
   describe('search', function(){
     it('adds a parameter to the url', inject(function($controller, $location) {
       var scope = { query : "my query"};
-      var ctrl = $controller('SearchController',
+      var ctrl = $controller('SearchCtrl',
                              { $scope: scope, $location: $location});
 
       scope.search();
