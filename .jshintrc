@@ -6,6 +6,7 @@
   "globals" : {
     "angular" : false,
     "arethusaUtil" : false,
+    "arethusaLogger" : false,
     "inject" : false,
     "module" : false,
     "require" : false,
