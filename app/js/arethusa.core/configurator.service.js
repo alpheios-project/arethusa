@@ -8,11 +8,12 @@ angular.module('arethusa.core').service('configurator', function($injector) {
   this.getServices = function(serviceNames) {
     if (serviceNames) {
       var that = this;
-      return arethusaUtil.map(serviceNames, function(name) {
-        return that.getService(name);
+      // inject to an object, we want the names as well
+      return arethusaUtil.inject({}, serviceNames, function(obj, name) {
+        obj[name] = that.getService(name);
       });
     } else {
-      return [];
+      return {};
     }
   };
 
