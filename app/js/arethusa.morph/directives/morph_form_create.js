@@ -1,6 +1,5 @@
 "use strict";
 
-/* global arethusaUtil */
 angular.module('arethusa.morph').directive('morphFormCreate', function() {
   return {
     restrict: 'E',

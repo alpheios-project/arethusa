@@ -1,6 +1,5 @@
 "use strict";
 
-/* global arethusaUtil */
 describe("arethusaUtil", function() {
   describe("formatNumber", function() {
     describe('pads a number with zeros', function() {

@@ -1,7 +1,5 @@
 "use strict";
 
-/* global arethusaUtil */
-
 angular.module('arethusa.core').service('configurator', function($injector) {
   this.getService = function(serviceName) {
     return $injector.get(serviceName);

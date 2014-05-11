@@ -1,7 +1,5 @@
 "use strict";
 
-/* global arethusaUtil */
-
 angular.module('arethusa.morph').service('morph', function(state, configurator) {
   this.conf = configurator.configurationFor('morph');
   this.attributes = this.conf.attributes;

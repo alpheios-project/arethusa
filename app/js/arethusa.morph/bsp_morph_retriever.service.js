@@ -1,6 +1,5 @@
 "use strict";
 
-/* global arethusaUtil */
 angular.module('arethusa.morph').service('bspMorphRetriever', function($resource) {
   // Might want to read in language and engine dynamically later
   // also make factory out of it, so that we could use several
