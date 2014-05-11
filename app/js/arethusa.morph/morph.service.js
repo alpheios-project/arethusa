@@ -99,7 +99,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   };
 
   this.getExternalAnalyses = function(analysisObj, that) {
-    morphRetrievers.forEach(function(retriever) {
+    angular.forEach(morphRetrievers, function(retriever, name) {
       retriever.getData(analysisObj.string, function(res) {
         res.forEach(function(el) {
           // need to parse the attributes now

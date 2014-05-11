@@ -31,7 +31,7 @@ angular.module('arethusa.core').service('state', function(configurator, $locatio
 
   this.checkLoadStatus = function() {
     var loaded = true;
-    tokenRetrievers.forEach(function(el) {
+    angular.forEach(tokenRetrievers, function(el, name) {
       loaded = loaded && el.loaded;
     });
     return loaded;
