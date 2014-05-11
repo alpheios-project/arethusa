@@ -5,8 +5,8 @@
   "undef" : true,
   "globals" : {
     "angular" : false,
-    "arethusaUtil" : false,
-    "arethusaLogger" : false,
+    "arethusaUtil" : true,
+    "arethusaLogger" : true,
     "inject" : false,
     "module" : false,
     "require" : false,
