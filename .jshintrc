@@ -5,7 +5,7 @@
   "undef" : true,
   "globals" : {
     "angular" : false,
-    "annotationApp" : false,
+    "arethusaUtil" : false,
     "inject" : false,
     "module" : false,
     "require" : false,
