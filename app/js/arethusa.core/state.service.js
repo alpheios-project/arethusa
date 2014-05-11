@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.core').service('state', function(configurator, $location) {
+angular.module('arethusa.core').service('state', function(configurator, locator) {
   this.tokens = {};
 
   var conf = configurator.configurationFor('state');
@@ -21,11 +21,14 @@ angular.module('arethusa.core').service('state', function(configurator, $locatio
   this.retrieveTokens = function() {
     var container = this.tokens;
     var that = this;
-    angular.forEach(tokenRetrievers, function(retriever, i) {
-      retriever.getData($location.search().input, function(data) {
-        saveTokens(container, data);
-        declareLoaded(retriever, that);
-      });
+    angular.forEach(tokenRetrievers, function(retriever, name) {
+      var uri = locator.getUri(name);
+      if (uri) {
+        retriever.getData(locator.getUri(name), function(data) {
+          saveTokens(container, data);
+          declareLoaded(retriever, that);
+        });
+      } // else: log a message
     });
   };
 
