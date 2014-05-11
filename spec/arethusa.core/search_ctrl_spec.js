@@ -11,7 +11,7 @@ describe('SearchCtrl', function(){
 
       scope.search();
 
-      expect($location.search()).toEqual({ input: scope.query});
+      expect($location.search()).toEqual({ treebank: scope.query});
     }));
   });
 });
