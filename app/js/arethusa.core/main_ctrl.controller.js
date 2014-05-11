@@ -62,7 +62,7 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
   $scope.state.init();
   $scope.template = conf.template;
 
-  var deregisterWatch = $scope.$watch('state.allLoaded', function(newVal, oldVal) {
+  $scope.$watch('state.allLoaded', function(newVal, oldVal) {
     if (newVal) {
       $scope.init();
     }
@@ -82,6 +82,5 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     $scope.plugins = $scope.retrievePlugins(conf.plugins);
     partitionPlugins($scope.plugins);
     $scope.initPlugins();
-    deregisterWatch();
   };
 });
