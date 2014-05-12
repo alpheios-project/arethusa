@@ -6,9 +6,6 @@ angular.module('arethusa').service('treebankRetriever', function($http) {
 
   var xmlToState = function(token) {
     // One could formalize this to real rules that are configurable...
-    // We might also need to apply some padding to ids at some point, otherwise
-    // we loose the ability to sort them, when treebank xmls use a 'sentence-word'
-    // schema such as 1-10.
     //
     // Remember that attributes of the converted xml are prefixed with underscore
     return {
