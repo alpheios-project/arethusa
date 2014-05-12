@@ -23,12 +23,10 @@ describe('configurator', function() {
   });
 
   describe('this.getServices', function() {
-    it('retrieves an array of angular instance by name', inject(function(configurator) {
+    it('retrieves an object of angular instances by name', inject(function(configurator) {
       var names = ['x', 'y'];
       var services = configurator.getServices(names);
-      expect(services.length).toEqual(2);
-      expect(services).toContain(mock1);
-      expect(services).toContain(mock2);
+      expect(services).toEqual({ 'x' : mock1, 'y' : mock2 });
     }));
 
     it('returns an empty array when no service names are given', inject(function(configurator) {

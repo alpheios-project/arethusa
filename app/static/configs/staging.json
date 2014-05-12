@@ -1,6 +1,8 @@
 {
   "state" : {
-    "retrievers" : [ "treebankRetriever" ]
+    "retrievers" : {
+      "treebankRetriever" : {}
+    }
   },
 
   "MainCtrl" : {
@@ -14,10 +16,10 @@
 
       "morph" : {
         "name" : "morph",
-        "retrievers" : [
-          "fakeMorphRetriever",
-          "bspMorphRetriever"
-        ],
+        "retrievers" : {
+          "fakeMorphRetriever" : {},
+          "bspMorphRetriever" : {}
+        },
         "template"  : "templates/morph2.html",
         "postagSchema" : [
           "pos",

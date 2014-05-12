@@ -59,8 +59,35 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
   };
 
   $scope.state = state;
-  $scope.plugins = $scope.retrievePlugins(conf.plugins);
+  $scope.state.init();
   $scope.template = conf.template;
 
-  partitionPlugins($scope.plugins);
+  $scope.$watch('state.allLoaded', function(newVal, oldVal) {
+    if (newVal) {
+      if ($scope.arethusaLoaded) {
+        // We don't have to retrieve all plugins again, but we have
+        // to reload them so that they can update their internal state
+        $scope.initPlugins();
+      } else {
+        $scope.init();
+      }
+    }
+  });
+
+  $scope.initPlugins = function() {
+    for (var plugin in $scope.plugins) {
+      try {
+        $scope.plugins[plugin].init();
+      } catch(err) {
+        // implement init function for all plugins
+      }
+    }
+  };
+
+  $scope.init = function() {
+    $scope.plugins = $scope.retrievePlugins(conf.plugins);
+    partitionPlugins($scope.plugins);
+    $scope.initPlugins();
+    $scope.arethusaLoaded = true;
+  };
 });

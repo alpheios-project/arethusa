@@ -1,14 +1,14 @@
 "use strict";
 
-angular.module('arethusa').service('tokenRetriever', function($http) {
-  // tokens should always be loaded synchronous - the app should
-  // not start anything without knowing an initial state
-  this.getData = function(callback) {
-    var request = $.ajax({
-      url: './static/tokens.json',
-      async: false
-    });
+// Deprecated and not working - we won't need this anymore I guess.
+// Keeping it for now in case I change my mind.
 
-    request.done(callback);
+angular.module('arethusa').factory('tokenRetriever', function($http) {
+  return {
+    getData:  function(callback) {
+      $http.get('./static/tokens.json').then(function(res) {
+        callback(res.data);
+      });
+    }
   };
 });

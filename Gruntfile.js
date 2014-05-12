@@ -42,6 +42,10 @@ module.exports = function(grunt) {
         options: {
           livereload: true
         }
+      },
+      e2e: {
+        files: [srcFiles, specE2eFiles],
+        tasks: 'protractor:all'
       }
     },
     jshint: {

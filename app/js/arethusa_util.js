@@ -74,6 +74,6 @@ var arethusaUtil = {
   xmlParser: new X2JS(),
 
   xml2json: function(xml) {
-    return arethusaUtil.xmlParser.xml2json(xml);
+    return arethusaUtil.xmlParser.xml_str2json(xml);
   }
 };

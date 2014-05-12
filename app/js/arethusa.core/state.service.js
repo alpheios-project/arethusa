@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.core').service('state', function(configurator) {
+angular.module('arethusa.core').service('state', function(configurator, locator) {
   this.tokens = {};
 
   var conf = configurator.configurationFor('state');
@@ -18,15 +18,34 @@ angular.module('arethusa.core').service('state', function(configurator) {
     });
   };
 
-  var retrieveTokens = function(container) {
-    angular.forEach(tokenRetrievers, function(retriever, i) {
-      retriever.getData(function(data) {
-        saveTokens(container, data);
-      });
+  this.retrieveTokens = function() {
+    this.allLoaded = false;
+    var container = {};
+    var that = this;
+    angular.forEach(tokenRetrievers, function(retriever, name) {
+      var uri = locator.getUri(name);
+      if (uri) {
+        retriever.getData(locator.getUri(name), function(data) {
+          saveTokens(container, data);
+          declareLoaded(retriever, that);
+        });
+      } // else: log a message
     });
+    this.tokens = container;
   };
 
-  retrieveTokens(this.tokens);
+  this.checkLoadStatus = function() {
+    var loaded = true;
+    angular.forEach(tokenRetrievers, function(el, name) {
+      loaded = loaded && el.loaded;
+    });
+    return loaded;
+  };
+
+  var declareLoaded = function(retriever, that) {
+    retriever.loaded = true;
+    that.allLoaded = that.checkLoadStatus();
+  };
 
   // This is of course quite slow! Hardcoding it is a possibility, we have to
   // watch for id and other changes then though.
@@ -178,5 +197,9 @@ angular.module('arethusa.core').service('state', function(configurator) {
     var oldVal = token[category];
     this.fireEvent(token, category, oldVal,  null);
     delete token[category];
+  };
+
+  this.init = function() {
+    this.retrieveTokens();
   };
 });

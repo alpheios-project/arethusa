@@ -6,6 +6,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.template = this.conf.template;
   this.name = this.conf.name;
   this.postagSchema = this.conf.postagSchema;
+  this.analyses = {};
 
   var morphRetrievers = configurator.getServices(this.conf.retrievers);
 
@@ -99,7 +100,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   };
 
   this.getExternalAnalyses = function(analysisObj, that) {
-    morphRetrievers.forEach(function(retriever) {
+    angular.forEach(morphRetrievers, function(retriever, name) {
       retriever.getData(analysisObj.string, function(res) {
         res.forEach(function(el) {
           // need to parse the attributes now
@@ -182,6 +183,8 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     return state.tokens[id].morphology == form;
   };
 
-  this.analyses = this.loadInitalAnalyses(this);
+  this.init = function() {
+    this.analyses = this.loadInitalAnalyses(this);
+  };
 });
 
