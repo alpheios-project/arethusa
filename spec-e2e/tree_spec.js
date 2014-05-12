@@ -13,7 +13,7 @@ describe('Read tokens from xml url', function(){
       element(by.buttonText('Search')).click();
     });
 
-    iit('displays a dependency tree', function() {
+    xit('displays a dependency tree', function() {
       var nodes = element.all(by.css("token"));
       var cum = nodes.first();
       var que = nodes.get(0);
