@@ -64,7 +64,13 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
 
   $scope.$watch('state.allLoaded', function(newVal, oldVal) {
     if (newVal) {
-      $scope.init();
+      if ($scope.arethusaLoaded) {
+        // We don't have to retrieve all plugins again, but we have
+        // to reload them so that they can update their internal state
+        $scope.initPlugins();
+      } else {
+        $scope.init();
+      }
     }
   });
 
@@ -82,5 +88,6 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     $scope.plugins = $scope.retrievePlugins(conf.plugins);
     partitionPlugins($scope.plugins);
     $scope.initPlugins();
+    $scope.arethusaLoaded = true;
   };
 });

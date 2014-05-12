@@ -19,7 +19,8 @@ angular.module('arethusa.core').service('state', function(configurator, locator)
   };
 
   this.retrieveTokens = function() {
-    var container = this.tokens;
+    this.allLoaded = false;
+    var container = {};
     var that = this;
     angular.forEach(tokenRetrievers, function(retriever, name) {
       var uri = locator.getUri(name);
@@ -30,6 +31,7 @@ angular.module('arethusa.core').service('state', function(configurator, locator)
         });
       } // else: log a message
     });
+    this.tokens = container;
   };
 
   this.checkLoadStatus = function() {
