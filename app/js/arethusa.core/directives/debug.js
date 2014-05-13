@@ -1,9 +1,10 @@
 "use strict";
 
-angular.module('arethusa.core').directive('stateDebug', function(state) {
+angular.module('arethusa.core').directive('debug', function() {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
+      var obj = scope.$eval(attrs.debug);
       scope.$watch('debug', function(newVal, oldVal) {
         if (newVal) {
           element.show();
@@ -13,7 +14,7 @@ angular.module('arethusa.core').directive('stateDebug', function(state) {
       });
 
       scope.prettyTokens = function() {
-        return JSON.stringify(state.tokens, null, 2);
+        return JSON.stringify(obj, null, 2);
       };
     },
     template: '<pre>{{ prettyTokens() }}</pre>'
