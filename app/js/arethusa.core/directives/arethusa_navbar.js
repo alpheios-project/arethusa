@@ -6,10 +6,16 @@ angular.module('arethusa.core').directive('arethusaNavbar', function(configurato
     scope: true,
     link: function(scope, element, attrs) {
       var conf = configurator.configurationFor('navbar');
-      scope.template = 'templates/navbar1.html';
-      scope.search = conf.search;
+      scope.template = conf.template;
       scope.hide   = conf.hide;
-      scope.navigation = conf.navigation;
+
+      scope.showSearch = function() {
+        return conf.search;
+      };
+
+      scope.showNavigation = function() {
+        return conf.navigation;
+      };
     },
     template: '<div ng-hide="hide" ng-include="template"></div>'
   };

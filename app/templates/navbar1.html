@@ -6,7 +6,7 @@
       </li>
     </ul>
     <section class="top-bar-section">
-      <ul class="left" ng-controller="SearchCtrl">
+      <ul ng-show="showSearch()" class="left" ng-controller="SearchCtrl">
         <li class="has-form">
           <div class="row collapse">
             <div class="large-9 small-10 columns">
@@ -20,7 +20,7 @@
           </div>
         </li>
       </ul>
-      <ul class="left" ng-controller="NavigatorCtrl">
+      <ul ng-show="showNavigation()" class="left" ng-controller="NavigatorCtrl">
         <li>
           <div><a ng-click="prev()">&laquo</a></div>
         </li>
