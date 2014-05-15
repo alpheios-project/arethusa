@@ -28,6 +28,7 @@
   <script src="./js/arethusa.core/directives/fire_event.directive.js"></script>
   <script src="./js/arethusa.core/directives/token.js"></script>
   <script src="./js/arethusa.core/directives/state_debug.js"></script>
+  <script src="./js/arethusa.core/directives/arethusa_navbar.js"></script>
   <script src="./js/arethusa.core/routes/main.constant.js"></script>
 
   <script src="./js/arethusa.morph.js"></script>
@@ -61,49 +62,6 @@
   <title></title>
 </head>
 <body >
-  <div>
-    <nav class="top-bar" data-topbar>
-      <ul class="title-area">
-        <li class="name">
-          <h1><a href="#">LLT Annotation Environment <em>(Arethusa)</em></a></h1>
-        </li>
-      </ul>
-      <section class="top-bar-section">
-        <ul class="left">
-          <li class="has-form" ng-controller="SearchCtrl">
-            <div class="row collapse">
-              <div class="large-9 small-10 columns">
-                <form ng-submit="search()">
-                  <input type="text" ng-model="query" placeholder="Search for text...">
-                </form>
-              </div>
-              <div class="large-3 small-2 columns">
-                <button class="alert button expand" ng-click="search()">Search</button>
-              </div>
-            </div>
-          </li>
-        </ul>
-        <ul class="left" ng-controller="NavigatorCtrl">
-          <li>
-            <div><a ng-click="prev()">&laquo</a></div>
-          </li>
-          <li>
-            <div><a>{{ navStat.currentId }}</a></div>
-          </li>
-          <li>
-            <div><a ng-click="next()">&raquo</a></div>
-          </li>
-        </ul>
-        <ul class="right">
-          <li class="divider"></li>
-          <li class="has-form">
-            <a href="#" class="button" ng-click="switchTemplate()">Switch Template</a>
-          </li>
-        </ul>
-      </section>
-    </nav>
-  </div>
-
   <div id="arethusa-main-view" ng-view></div>
   <!--<div ng-include="template"></div>-->
 
