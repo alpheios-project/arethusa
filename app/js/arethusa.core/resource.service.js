@@ -27,6 +27,10 @@ angular.module('arethusa.core').service('resource', function($resource, $locatio
       }
     };
 
+    var isJson = function(header) {
+      return header === 'application/json';
+    };
+
     obj.route = conf.route;
     obj.params = conf.params || [];
 
@@ -47,7 +51,7 @@ angular.module('arethusa.core').service('resource', function($resource, $locatio
         method: 'GET',
         transformResponse: function(data, headers) {
           var res = {};
-          res.data = data;
+          res.data = isJson(headers()['content-type']) ? JSON.parse(data) : data;
           res.headers = headers;
           return res;
         }
