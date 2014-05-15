@@ -5,6 +5,12 @@
     }
   },
 
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
   "MainCtrl" : {
     "template"  : "templates/main2.html",
     "plugins" : {
