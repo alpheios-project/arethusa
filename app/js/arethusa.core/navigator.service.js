@@ -5,7 +5,6 @@ angular.module('arethusa.core').service('navigator', function($injector) {
 
   this.sentences = [];
   this.currentPosition = 0;
-
   this.status = {};
 
   this.state = function() {
@@ -28,16 +27,16 @@ angular.module('arethusa.core').service('navigator', function($injector) {
   };
 
   this.nextSentence = function() {
-    self.currentPosition++;
-    self.state().replaceState(self.currentSentence());
-    self.state().allLoaded = true;
-    self.updateId();
+    self.movePosition(1);
   };
 
   this.prevSentence = function() {
-    self.currentPosition--;
+    self.movePosition(-1);
+  };
+
+  this.movePosition = function(steps) {
+    self.currentPosition += steps;
     self.state().replaceState(self.currentSentence());
-    self.state().allLoaded = true;
     self.updateId();
   };
 
@@ -48,5 +47,6 @@ angular.module('arethusa.core').service('navigator', function($injector) {
   this.reset = function() {
     self.currentPosition = 0;
     self.sentences = [];
+    self.updateId();
   };
 });
