@@ -82,12 +82,16 @@
               </div>
             </div>
           </li>
-          <li ng-controller="NavigatorCtrl">
-            <div class="row collapse">
-              <div class="large-9 small-10 columns">
-                <a ng-click="prev()">&laquo</a><a>{{ navStat.currentId }}</a><a ng-click="next()">&raquo</a>
-              </div>
-            </div>
+        </ul>
+        <ul class="left" ng-controller="NavigatorCtrl">
+          <li>
+            <div><a ng-click="prev()">&laquo</a></div>
+          </li>
+          <li>
+            <div><a>{{ navStat.currentId }}</a></div>
+          </li>
+          <li>
+            <div><a ng-click="next()">&raquo</a></div>
           </li>
         </ul>
         <ul class="right">
