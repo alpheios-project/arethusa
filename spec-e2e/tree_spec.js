@@ -14,7 +14,7 @@ describe('Read tokens from xml url', function(){
     });
 
     it('displays a dependency tree (que is above cum)', function() {
-      var nodes = element.all(by.css("tspan"));
+      var nodes = element.all(by.css("g.node g text tspan"));
       nodes.map(function(elm, index) {
         return {
           index: index,
