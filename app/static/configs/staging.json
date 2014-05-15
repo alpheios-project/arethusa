@@ -1,7 +1,12 @@
 {
   "state" : {
     "retrievers" : {
-      "treebankRetriever" : {}
+      "treebankRetriever" : {
+        "resource" : {
+          "route" : "http://services.perseids.org/llt-data/:doc.xml",
+          "params" : ["doc"]
+        }
+      }
     }
   },
 
@@ -24,7 +29,11 @@
         "name" : "morph",
         "retrievers" : {
           "fakeMorphRetriever" : {},
-          "bspMorphRetriever" : {}
+          "bspMorphRetriever" : {
+            "resource" : {
+              "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+            }
+          }
         },
         "template"  : "templates/morph2.html",
         "postagSchema" : [
