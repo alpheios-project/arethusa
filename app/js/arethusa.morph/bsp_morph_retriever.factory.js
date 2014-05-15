@@ -52,7 +52,7 @@ angular.module('arethusa.morph').factory('bspMorphRetriever', function(configura
           // Can also be undefined, in that case we will just throw an exception
           // eventually - and we will end up in catch path and just return
           // an empty array.
-          var entries = arethusaUtil.toAry(res.RDF.Annotation.Body);
+          var entries = arethusaUtil.toAry(res.data.RDF.Annotation.Body);
           var results = arethusaUtil.inject([], entries, function(results, el) {
             var entry = el.rest.entry;
             var lemma = entry.dict.hdwd.$;
