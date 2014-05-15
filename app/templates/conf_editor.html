@@ -7,3 +7,31 @@
   </div>
   <div debug="conf"></div>
 </div>
+
+<div class="row panel">
+  <div class="columns small-12">
+    <form name="mainTemplateForm">
+      <label>Choose your main template:
+        <input type="text" ng-model="main.template" class="columns small-6"/>
+      </label>
+    </form>
+  </div>
+</div>
+
+<div class="row panel">
+  <h5>Data sources</h5>
+</div>
+
+<div class="row panel">
+  <h5>Plugins</h5>
+  <div>
+    <span ng-repeat="plugin in pluginList" class="large label">
+      {{ plugin }}
+    </span>
+  </div>
+  <form name="pluginAdder" ng-submit="addPlugin()">
+    <label>Add a plugin
+      <input type="text" ng-model="pluginInput" class="columns small-6"/>
+    </label>
+  </form>
+</div>
