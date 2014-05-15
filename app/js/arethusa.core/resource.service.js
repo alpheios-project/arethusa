@@ -2,7 +2,14 @@
 
 // A service that acts like a factory. The create functions spawns new resource
 // objects, that are a wrapper around ngResource
-
+//
+// Note that this approach right now doesn't work with totally freeform URL passed
+// as route, because ngResource will always encode slashes.
+// There is a pending issue for this https://github.com/angular/angular.js/issues/1388
+//
+// As it's not a top priority right now, we don't do anything. The quickest workaround
+// (apart from patching angular) would be to fall back to $http.get()
+//
 angular.module('arethusa.core').service('resource', function($resource, $location) {
   var paramsToObj = function(params) {
     return arethusaUtil.inject({}, params, function(obj, param, i) {
@@ -36,7 +43,7 @@ angular.module('arethusa.core').service('resource', function($resource, $locatio
       // behaviour.
       // The only downside is, that we have to call res.data instead of just res
       // in the callback, but that is something we can live with.
-      'get' : {
+      get : {
         method: 'GET',
         transformResponse: function(data, headers) {
           var res = {};
