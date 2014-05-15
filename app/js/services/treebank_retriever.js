@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').factory('treebankRetriever', function($http, navigator) {
+angular.module('arethusa').factory('treebankRetriever', function($http, navigator, resource) {
   // tokens should always be loaded synchronous - the app should
   // not start anything without knowing an initial state
 
@@ -50,8 +50,8 @@ angular.module('arethusa').factory('treebankRetriever', function($http, navigato
   };
 
   return {
-    getData: function(url, callback) {
-      $http.get(url).then(function(res) {
+    getData: function(callback) {
+      resource.get().then(function(res) {
         callback(parseXml(res.data));
       });
     }
