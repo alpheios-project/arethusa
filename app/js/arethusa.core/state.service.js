@@ -203,6 +203,14 @@ angular.module('arethusa.core').service('state', function(configurator, locator,
     delete token[category];
   };
 
+  this.replaceState = function(tokens) {
+    // We have to wrap this as there might be watchers on allLoaded,
+    // such as the MainCtrl which has to reinit all plugins when the
+    // state tokens are replaced
+    this.tokens = tokens;
+    this.broadcastReload();
+  };
+
   this.broadcastReload = function() {
     $rootScope.$broadcast('stateLoaded');
   };
