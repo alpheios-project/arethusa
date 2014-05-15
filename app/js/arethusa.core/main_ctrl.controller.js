@@ -62,15 +62,13 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
   $scope.state.init();
   $scope.template = conf.template;
 
-  $scope.$watch('state.allLoaded', function(newVal, oldVal) {
-    if (newVal) {
-      if ($scope.arethusaLoaded) {
-        // We don't have to retrieve all plugins again, but we have
-        // to reload them so that they can update their internal state
-        $scope.initPlugins();
-      } else {
-        $scope.init();
-      }
+  $scope.$on('stateLoaded', function() {
+    if ($scope.arethusaLoaded) {
+      // We don't have to retrieve all plugins again, but we have
+      // to reload them so that they can update their internal state
+      $scope.initPlugins();
+    } else {
+      $scope.init();
     }
   });
 

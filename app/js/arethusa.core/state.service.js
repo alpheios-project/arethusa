@@ -1,6 +1,8 @@
 "use strict";
 
-angular.module('arethusa.core').service('state', function(configurator, locator) {
+angular.module('arethusa.core').service('state', function(configurator, locator, $rootScope) {
+  var self = this;
+
   this.tokens = {};
 
   var conf = configurator.configurationFor('state');
@@ -19,7 +21,6 @@ angular.module('arethusa.core').service('state', function(configurator, locator)
   };
 
   this.retrieveTokens = function() {
-    this.allLoaded = false;
     var container = {};
     var that = this;
     angular.forEach(tokenRetrievers, function(retriever, name) {
@@ -39,12 +40,15 @@ angular.module('arethusa.core').service('state', function(configurator, locator)
     angular.forEach(tokenRetrievers, function(el, name) {
       loaded = loaded && el.loaded;
     });
-    return loaded;
+
+    if (loaded) {
+      this.broadcastReload();
+    }
   };
 
   var declareLoaded = function(retriever, that) {
     retriever.loaded = true;
-    that.allLoaded = that.checkLoadStatus();
+    that.checkLoadStatus();
   };
 
   // This is of course quite slow! Hardcoding it is a possibility, we have to
@@ -197,6 +201,10 @@ angular.module('arethusa.core').service('state', function(configurator, locator)
     var oldVal = token[category];
     this.fireEvent(token, category, oldVal,  null);
     delete token[category];
+  };
+
+  this.broadcastReload = function() {
+    $rootScope.$broadcast('stateLoaded');
   };
 
   this.init = function() {
