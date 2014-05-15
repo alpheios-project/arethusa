@@ -33,3 +33,32 @@
   border-color: #d8d8d8;
   cursor: e-resize;
 }
+
+svg {
+  overflow: hidden;
+  background: lightgray;
+}
+
+.node rect {
+  stroke: # 333;
+  stroke - width : 1.5px;
+  fill: #fff;
+}
+
+.selected text {
+    fill: white;
+}
+
+.selected rect {
+  fill: #cc0000;
+}
+
+.edgeLabel rect {
+  fill: #fff;
+}
+
+.edgePath {
+  stroke: #333;
+  stroke-width : 1px;
+  fill: none;
+}

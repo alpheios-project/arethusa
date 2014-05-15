@@ -23,4 +23,16 @@ angular.module('arethusa.depTree').service('depTree', function(state, configurat
     return g;
   };
 
+  this.createGraphLayout = function() {
+    return dagreD3.layout().rankDir("BT");
+  };
+
+  this.drawGraph = function(graph, layout) {
+    var vis = d3.select('svg g');
+    var renderer = new dagreD3.Renderer();
+    renderer.layout(layout).run(graph, vis);
+  };
+
+  this.init = function() {
+  };
 });
