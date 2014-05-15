@@ -1,8 +1,10 @@
 "use strict";
 
-angular.module('arethusa').factory('treebankRetriever', function($http, navigator, resource) {
+angular.module('arethusa').factory('treebankRetriever', function($http, navigator, configurator) {
   // tokens should always be loaded synchronous - the app should
   // not start anything without knowing an initial state
+
+  var resource = configurator.provideResource('treebankRetriever');
 
   var formatId = function(id) {
     return arethusaUtil.formatNumber(id, 4);
