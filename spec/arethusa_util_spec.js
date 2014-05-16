@@ -74,6 +74,14 @@ describe("arethusaUtil", function() {
       aU.pushAll(arr1, arr2);
       expect(arr1).toEqual(res);
     });
+
+    it('handles empty arrays as pushers as well', function() {
+      var arr1 = [1,2];
+      var arr2 = [];
+      var res  = [1, 2];
+      aU.pushAll(arr1, arr2);
+      expect(arr1).toEqual(res);
+    });
   });
 
   describe('findObj', function(){
