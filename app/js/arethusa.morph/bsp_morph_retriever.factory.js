@@ -4,7 +4,8 @@ angular.module('arethusa.morph').factory('bspMorphRetriever', function(configura
   // Might want to read in language and engine dynamically later
   // also make factory out of it, so that we could use several
   // bsp instances with different settings
-  var resource = configurator.provideResource('bspMorphRetriever');
+  var conf = configurator.configurationFor('bspMorphRetriever');
+  var resource = configurator.provideResource(conf.resource);
 
   var getWord = function(word) {
     return resource.get({ 'word': word });

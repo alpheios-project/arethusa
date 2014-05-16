@@ -6,7 +6,7 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     $scope.debug = !$scope.debug;
   };
 
-  var conf = configurator.configurationFor('MainCtrl');
+  var conf = configurator.configurationFor('main');
 
   var partitionPlugins = function(plugins) {
     $scope.mainPlugins = [];
@@ -19,8 +19,8 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
 
   $scope.retrievePlugins = function(plugins) {
     var obj = {};
-    angular.forEach(plugins, function(conf, name) {
-      obj[name] = $scope.retrievePlugin(name, conf);
+    angular.forEach(plugins, function(name, i) {
+      obj[name] = $scope.retrievePlugin(name);
     });
     return obj;
   };
@@ -30,12 +30,13 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     $scope.registerListener(plugin);
   };
 
-  $scope.retrievePlugin = function(name, plugin) {
-    if (plugin.external) {
+  $scope.retrievePlugin = function(name) {
+    var pluginConf = configurator.configurationFor(name);
+    if (pluginConf.external) {
       // We copy because this object will be extended once the plugin
       // is really initialized through the inclusion of its template
       // by the plugin directive.
-      return angular.copy(configurator.configurationFor(name));
+      return angular.copy(pluginConf);
     } else {
       return  $injector.get(name);
     }
