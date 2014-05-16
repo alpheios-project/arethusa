@@ -108,14 +108,12 @@ describe('configurator', function() {
       expect(configurator.configuration).toBeDefined();
     }));
 
-    it('resolves references to external files inside a configuration', inject(function(configurator, $http) {
+    it('resolves references to external files inside a configuration', inject(function(configurator) {
       // the morph plugin's conf includes a fileUrl property
       expect(morphConf.attributes.fileUrl).toBeDefined();
       // the defineConfiguration function will resolve this property
       // and replace it with the contents of an external file
       $httpBackend.when('GET', morphConf.attributes.fileUrl).respond(morphAttributes);
-
-      var result = angular.extend({}, morphConf.attributes, morphAttributes);
 
       configurator.defineConfiguration(conf1);
       $httpBackend.flush();
@@ -123,7 +121,37 @@ describe('configurator', function() {
       var morphAttributesConf =
         configurator.configuration.plugins.morph.attributes;
 
-      expect(morphAttributesConf).toEqual(result);
+      expect(morphAttributesConf).toEqual(morphAttributes);
+    }));
+
+    it('resolves references recursively - when an external file itself uses external files', inject(function(configurator) {
+      var conf = {
+        a: 1,
+        fileUrl: 'x'
+      };
+
+      var file1 = {
+        b: 2,
+        fileUrl: 'y'
+      };
+
+      var file2 = {
+        c: 3
+      };
+
+      var result = {
+        a: 1,
+        b: 2,
+        c: 3
+      };
+
+      $httpBackend.when('GET', 'x').respond(file1);
+      $httpBackend.when('GET', 'y').respond(file2);
+
+      configurator.defineConfiguration(conf);
+      $httpBackend.flush();
+
+      expect(configurator.configuration).toEqual(result);
     }));
   });
 

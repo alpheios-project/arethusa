@@ -25,16 +25,30 @@
  */
 
 angular.module('arethusa.core').service('configurator', function($injector, $http, resource) {
-  this.defineConfiguration = function(confFile) {
-    this.configuration = confFile;
-    var toReplace = arethusaUtil.findNestedProperties(this.configuration, 'fileUrl');
-    angular.forEach(toReplace, function(objs, key) {
-      angular.forEach(objs, function(obj, i) {
-        $http.get(obj[key]).then(function(res) {
-          angular.extend(obj, res.data);
-        });
+  var includeParam = 'fileUrl';
+
+  var filesToInclude = function(obj) {
+    return arethusaUtil.findNestedProperties(obj, includeParam)[includeParam];
+  };
+
+  var includeExternalFiles = function(arrayOfObjects) {
+    angular.forEach(arrayOfObjects, function(obj, i) {
+      $http.get(obj[includeParam]).then(function(res) {
+        // We have to delete fileUrl upfront.
+        // When the object gets extended by a response, this response
+        // might contain another fileUrl property. If that is the case
+        // we then go on to look for such properties and call the function
+        // recursively.
+        delete obj[includeParam];
+        angular.extend(obj, res.data);
+        includeExternalFiles(filesToInclude(obj));
       });
     });
+  };
+
+  this.defineConfiguration = function(confFile) {
+    this.configuration = confFile;
+    includeExternalFiles(filesToInclude(this.configuration));
   };
 
   this.getService = function(serviceName) {
