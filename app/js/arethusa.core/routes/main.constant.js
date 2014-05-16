@@ -23,7 +23,7 @@ angular.module('arethusa.core').constant('MAIN_ROUTE', {
         method: 'GET',
         url: confUrl,
       }).then(function(result) {
-        configurator.configuration = result.data;
+        configurator.defineConfiguration(result.data);
       });
     }
   }
