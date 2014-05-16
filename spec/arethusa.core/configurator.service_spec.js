@@ -8,71 +8,85 @@ describe('configurator', function() {
   // Drawn out to different variables for easier testing, usually this
   // would come as a single file.
 
+  var mainConf,
+    morphConf,
+    morphAttributes,
+    morphRetrieverConf,
+    perseidsRoute,
+    perseidsConf,
+    conf1;
 
-  var mainConf = {
-    template: 'templates/main.html',
-    retrievers: [
-      'treebankRetriever'
-    ],
-    plugins: [
-      'text',
-      'morph'
-    ]
-  };
+  // We have to restore the conf variables before every spec,
+  // as we might mangle with these values.
+  beforeEach(function() {
+    mainConf = {
+      template: 'templates/main.html',
+      retrievers: [
+        'treebankRetriever'
+      ],
+      plugins: [
+        'text',
+        'morph'
+      ]
+    };
 
-  var morphConf = {
-    name: 'morph',
-    template: 'templates/morph.html',
-    retrievers: [
-      'fakeMorphRetriever',
-      'bspMorphRetriever'
-    ],
-    attributes: {
-      fileUrl: 'confics/morph/aldt.json'
-    }
-  };
-
-  var morphRetrieverConf = {
-    resource: 'morphologyService'
-  };
-
-  var perseidsRoute = "http://services.perseids.org/:doc.xml";
-
-  var perseidsConf = {
-    route: perseidsRoute,
-    params: ["doc"]
-  };
-
-  var conf1 = {
-    main: mainConf,
-
-    navbar: {
-      template: 'templates/navbar.html'
-    },
-
-    plugins: {
-      text: {
-        name: 'text',
-        main: true,
-        template: 'templates/text2.html'
-      },
-      morph: morphConf
-    },
-
-    retrievers: {
-      treebankRetriever: {
-        resource: 'perseids' // this could be an array at some point - fallback resources?
-      },
-      bspMorphRetriever: morphRetrieverConf
-    },
-
-    resources: {
-      perseids: perseidsConf,
-      morphologyService: {
-        route: "http://services.perseids.org/bsp"
+    morphConf = {
+      name: 'morph',
+      template: 'templates/morph.html',
+      retrievers: [
+        'fakeMorphRetriever',
+        'bspMorphRetriever'
+      ],
+      attributes: {
+        fileUrl: 'configs/morph/aldt.json'
       }
-    }
-  };
+    };
+
+    morphAttributes = 'externallyLoadedFile';
+
+    morphRetrieverConf = {
+      resource: 'morphologyService'
+    };
+
+    perseidsRoute = "http://services.perseids.org/:doc.xml";
+
+    perseidsConf = {
+      route: perseidsRoute,
+      params: ["doc"]
+    };
+
+    conf1 = {
+      main: mainConf,
+
+      navbar: {
+        template: 'templates/navbar.html'
+      },
+
+      plugins: {
+        text: {
+          name: 'text',
+          main: true,
+          template: 'templates/text2.html'
+        },
+        morph: morphConf
+      },
+
+      retrievers: {
+        treebankRetriever: {
+          resource: 'perseids' // this could be an array at some point - fallback resources?
+        },
+        bspMorphRetriever: morphRetrieverConf
+      },
+
+      resources: {
+        perseids: perseidsConf,
+        morphologyService: {
+          route: "http://services.perseids.org/bsp"
+        }
+      }
+    };
+  });
+
 
   beforeEach(module('arethusa', function($provide) {
     $provide.value('x', mock1);
