@@ -17,8 +17,11 @@
   <script src="./js/arethusa.core/main_ctrl.controller.js"></script>
   <script src="./js/arethusa.core/search_ctrl.js"></script>
   <script src="./js/arethusa.core/configurator.service.js"></script>
+  <script src="./js/arethusa.core/navigator_ctrl.controller.js"></script>
   <script src="./js/arethusa.core/state.service.js"></script>
-  <script src="./js/arethusa.core/locator.service.js"></script>
+  <!--<script src="./js/arethusa.core/locator.service.js"></script>-->
+  <script src="./js/arethusa.core/navigator.service.js"></script>
+  <script src="./js/arethusa.core/resource.service.js"></script>
   <script src="./js/arethusa.core/directives/deselector.directive.js"></script>
   <script src="./js/arethusa.core/directives/plugin.directive.js"></script>
   <script src="./js/arethusa.core/directives/next_token.directive.js"></script>
@@ -26,6 +29,7 @@
   <script src="./js/arethusa.core/directives/fire_event.directive.js"></script>
   <script src="./js/arethusa.core/directives/token.js"></script>
   <script src="./js/arethusa.core/directives/state_debug.js"></script>
+  <script src="./js/arethusa.core/directives/arethusa_navbar.js"></script>
   <script src="./js/arethusa.core/routes/main.constant.js"></script>
 
   <script src="./js/arethusa.morph.js"></script>
@@ -59,38 +63,6 @@
   <title></title>
 </head>
 <body >
-  <div>
-    <nav class="top-bar" data-topbar>
-      <ul class="title-area">
-        <li class="name">
-          <h1><a href="#">LLT Annotation Environment <em>(Arethusa)</em></a></h1>
-        </li>
-      </ul>
-      <section class="top-bar-section">
-        <ul class="left">
-          <li class="has-form" ng-controller="SearchCtrl">
-            <div class="row collapse">
-              <div class="large-9 small-10 columns">
-                <form ng-submit="search()">
-                  <input type="text" ng-model="query" placeholder="Search for text...">
-                </form>
-              </div>
-              <div class="large-3 small-2 columns">
-                <button class="alert button expand" ng-click="search()">Search</button>
-              </div>
-            </div>
-          </li>
-        </ul>
-        <ul class="right">
-          <li class="divider"></li>
-          <li class="has-form">
-            <a href="#" class="button" ng-click="switchTemplate()">Switch Template</a>
-          </li>
-        </ul>
-      </section>
-    </nav>
-  </div>
-
   <div id="arethusa-main-view" ng-view></div>
   <!--<div ng-include="template"></div>-->
 

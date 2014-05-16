@@ -1,13 +1,13 @@
 "use strict";
 
-angular.module('arethusa.morph').factory('bspMorphRetriever', function($resource) {
+angular.module('arethusa.morph').factory('bspMorphRetriever', function(configurator) {
   // Might want to read in language and engine dynamically later
   // also make factory out of it, so that we could use several
   // bsp instances with different settings
-  var service = $resource('http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat');
+  var resource = configurator.provideResource('bspMorphRetriever');
 
   var getWord = function(word) {
-    return service.get({ 'word': word }).$promise;
+    return resource.get({ 'word': word });
   };
 
   var deleteUnwantedKeys = function(obj, keys) {
@@ -52,7 +52,7 @@ angular.module('arethusa.morph').factory('bspMorphRetriever', function($resource
           // Can also be undefined, in that case we will just throw an exception
           // eventually - and we will end up in catch path and just return
           // an empty array.
-          var entries = arethusaUtil.toAry(res.RDF.Annotation.Body);
+          var entries = arethusaUtil.toAry(res.data.RDF.Annotation.Body);
           var results = arethusaUtil.inject([], entries, function(results, el) {
             var entry = el.rest.entry;
             var lemma = entry.dict.hdwd.$;

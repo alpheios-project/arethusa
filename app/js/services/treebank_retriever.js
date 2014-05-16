@@ -1,14 +1,16 @@
 "use strict";
 
-angular.module('arethusa').factory('treebankRetriever', function($http) {
+angular.module('arethusa').factory('treebankRetriever', function($http, navigator, configurator) {
   // tokens should always be loaded synchronous - the app should
   // not start anything without knowing an initial state
+
+  var resource = configurator.provideResource('treebankRetriever');
 
   var formatId = function(id) {
     return arethusaUtil.formatNumber(id, 4);
   };
 
-  var xmlToState = function(token) {
+  var xmlTokenToState = function(token) {
     // One could formalize this to real rules that are configurable...
     //
     // Remember that attributes of the converted xml are prefixed with underscore
@@ -28,20 +30,30 @@ angular.module('arethusa').factory('treebankRetriever', function($http) {
     };
   };
 
-  var parseXml = function(data) {
+  var xmlSentenceToState = function(words, id) {
     var tokens = {};
-    var xml = arethusaUtil.xml2json(data);
-    var words = xml.treebank.sentence.word;
     angular.forEach(words, function(xmlToken, i) {
-      var token = xmlToState(xmlToken);
+      var token = xmlTokenToState(xmlToken);
       tokens[token.id] = token;
     });
-    return tokens;
+    return { id: id, tokens: tokens};
+  };
+
+  var parseXml = function(data) {
+    var xml = arethusaUtil.xml2json(data);
+    var sentences = arethusaUtil.toAry(xml.treebank.sentence);
+    navigator.reset();
+    angular.forEach(sentences, function(sentence, key) {
+      var stateObj = xmlSentenceToState(sentence.word, sentence._id);
+      navigator.sentences.push(stateObj);
+    });
+    navigator.updateId();
+    return navigator.currentSentence();
   };
 
   return {
-    getData: function(url, callback) {
-      $http.get(url).then(function(res) {
+    getData: function(callback) {
+      resource.get().then(function(res) {
         callback(parseXml(res.data));
       });
     }

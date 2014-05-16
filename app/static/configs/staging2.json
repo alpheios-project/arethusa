@@ -3,8 +3,8 @@
     "retrievers" : {
       "treebankRetriever" : {
         "resource" : {
-          "route" : "http://services.perseids.org/llt-data/:doc.xml",
-          "params" : ["doc"]
+          "route" : "http://74.70.97.104:8085/xml_server/:doc",
+          "params" : ["doc", "s"]
         }
       }
     }

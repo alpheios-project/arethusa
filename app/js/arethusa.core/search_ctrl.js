@@ -1,7 +1,7 @@
 "use strict";
 
-angular.module('arethusa.core').controller('SearchCtrl', function($scope, locator) {
+angular.module('arethusa.core').controller('SearchCtrl', function($scope, $location) {
   $scope.search = function() {
-    locator.setUri("treebank", $scope.query);
+    $location.search("doc", $scope.query);
   };
 });
