@@ -24,15 +24,34 @@
  *
  */
 
-angular.module('arethusa.core').service('configurator', function($injector, $http, resource) {
+angular.module('arethusa.core').service('configurator', function($injector, $http, $rootScope, resource) {
   var includeParam = 'fileUrl';
 
   var filesToInclude = function(obj) {
     return arethusaUtil.findNestedProperties(obj, includeParam)[includeParam];
   };
 
+  var loadStates = {};
+
+  var checkLoadStatus = function() {
+    var loaded = true;
+    angular.forEach(loadStates, function(loadState, obj) {
+      loaded = loaded && loadState;
+    });
+
+    if (loaded) {
+      broadcastLoading();
+    }
+  };
+
+  var broadcastLoading = function() {
+    $rootScope.$broadcast('confLoaded');
+  };
+
   var includeExternalFiles = function(arrayOfObjects) {
     angular.forEach(arrayOfObjects, function(obj, i) {
+      loadStates[obj] = false;
+
       $http.get(obj[includeParam]).then(function(res) {
         // We have to delete fileUrl upfront.
         // When the object gets extended by a response, this response
@@ -41,7 +60,21 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
         // recursively.
         delete obj[includeParam];
         angular.extend(obj, res.data);
+
+        // As we want to load all potential external conf file BEFORE the application
+        // starts, we have to apply this little trick:
+        // Before the asynchronous call to retrieve an external file is made, we
+        // declare a false load status, which we resolve inside the callback.
+        //
+        // Once we say we are loaded, we immediately check if our now extended object
+        // has another external file to load. If it does, the load status of our
+        // object will be immediately false again.
+        // On the end of each callback we check all load states. If everything has
+        // loaded successfully, we broadcast an event an let others now that the
+        // configurator is finished.
+        loadStates[obj] = true;
         includeExternalFiles(filesToInclude(obj));
+        checkLoadStatus();
       });
     });
   };

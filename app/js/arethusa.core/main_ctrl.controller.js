@@ -60,8 +60,35 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
   };
 
   $scope.state = state;
-  $scope.state.init();
   $scope.template = conf.template;
+
+  // The application has to fulfil a specific load order.
+  // The MainCtrl starts his work only when the configurator has received
+  // its main configuration file (handled by the MAIN_ROUTE constant).
+  //
+  // The configurator might need some time to bring in external additional
+  // files - asynchronously. We don't want the application to continue until
+  // all configuration files are loaded.
+  // We therefore wait for an event broadcast by the configurator to get a
+  // green light.
+  // Loading all state retrievers is another asynchronous step we want to see
+  // completed before going on.
+  // State broadcasts another event when it is done, after that the MainCtrl
+  // can finally start to initialize itself and all all participating plugins.
+  //
+  // Everytime the state is reloaded, we need to reinitialize plugins (if they
+  // declare to do so by implementing an init() function- it's not a necessity),
+  // so that they can update their internal state after the main state tokens
+  // have changed. There is no need to reinit the MainCtrl - the arethusaLoaded
+  // variable takes care of this.
+  // However if we reload a configuration, MainCtrl needs to be re-initialized
+  // as well - the plugins participating in an editing session might have
+  // changed completely. Therefore, the confLoaded event sets arethusaLoaded to
+  // false every time it's triggered.
+  $scope.$on('confLoaded', function() {
+    $scope.arethusaLoaded = false;
+    $scope.state.init();
+  });
 
   $scope.$on('stateLoaded', function() {
     if ($scope.arethusaLoaded) {
