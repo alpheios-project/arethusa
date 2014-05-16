@@ -7,7 +7,7 @@ angular.module('arethusa.core').directive('arethusaNavbar', function(configurato
     link: function(scope, element, attrs) {
       var conf = configurator.configurationFor('navbar');
       scope.template = conf.template;
-      scope.hide   = conf.hide;
+      scope.disable   = conf.disable;
 
       scope.showSearch = function() {
         return conf.search;
@@ -17,7 +17,7 @@ angular.module('arethusa.core').directive('arethusaNavbar', function(configurato
         return conf.navigation;
       };
     },
-    template: '<div ng-hide="hide" ng-include="template"></div>'
+    template: '<div ng-if="! disable" ng-include="template"></div>'
   };
 
 });
