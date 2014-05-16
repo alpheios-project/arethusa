@@ -1,13 +1,16 @@
 {
-  "state" : {
-    "retrievers" : {
-      "treebankRetriever" : {
-        "resource" : {
-          "route" : "http://services.perseids.org/llt-data/:doc.xml",
-          "params" : ["doc"]
-        }
-      }
-    }
+  "main" : {
+    "template"  : "templates/main2.html",
+    "retrievers" : [
+      "treebankRetriever"
+    ],
+    "plugins" : [
+      "text",
+      "morph",
+      "history",
+      "external_history",
+      "comment"
+    ]
   },
 
   "navbar" : {
@@ -16,359 +19,59 @@
     "navigation" : true
   },
 
-  "MainCtrl" : {
-    "template"  : "templates/main2.html",
-    "plugins" : {
-      "text" : {
-        "name" : "text",
-        "main" : true,
-        "template"  : "templates/text2.html"
-      },
+  "retrievers" : {
+    "treebankRetriever" : {
+      "resource" : "staticFiles"
+    },
+    "bspMorphRetriever" : {
+      "resource" : "morphologyService"
+    }
+  },
 
-      "morph" : {
-        "name" : "morph",
-        "retrievers" : {
-          "fakeMorphRetriever" : {},
-          "bspMorphRetriever" : {
-            "resource" : {
-              "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
-            }
-          }
-        },
-        "template"  : "templates/morph2.html",
-        "postagSchema" : [
-          "pos",
-          "pers",
-          "num",
-          "tense",
-          "mood",
-          "voice",
-          "gend",
-          "case",
-          "degree"
-        ],
-        "attributes" : {
-          "pos" : {
-            "long" : "Part of Speech",
-            "short" : "pos",
-            "values" : {
-              "noun" : {
-                "long" : "noun",
-                "short" : "noun",
-                "postag" : "n",
-                "style" : {
-                  "color" : "black"
-                }
-              },
-              "adj" : {
-                "long" : "adjective",
-                "short" : "adj",
-                "postag" : "a",
-                "style" : {
-                  "color" : "blue"
-                }
-              },
-              "adv" : {
-                "long" : "adverb",
-                "short" : "adv",
-                "postag" : "a",
-                "style" : {
-                  "color" : "darkorange"
-                }
-              },
-              "part" : {
-                "long" : "participle",
-                "short" : "part",
-                "postag" : "t",
-                "style" : {
-                  "color" : "darkred"
-                }
-              },
-              "conj" : {
-                "long" : "conjunction",
-                "short" : "conj",
-                "postag" : "c",
-                "style" : {
-                  "color" : "deeppink"
-                }
-              },
-              "prep" : {
-                "long" : "preposition",
-                "short" : "prep",
-                "postag" : "r",
-                "style" : {
-                  "color" : "green"
-                }
-              },
-              "pron" : {
-                "long" : "pronoun",
-                "short" : "pron",
-                "postag" : "p",
-                "style" : {
-                  "color" : "purple"
-                }
-              },
-              "interj" : {
-                "long" : "interjection",
-                "short" : "interj",
-                "postag" : "i",
-                "style" : {
-                  "color" : "gold"
-                }
-              },
-              "excl" : {
-                "long" : "exclamation",
-                "short" : "excl",
-                "postag" : "e",
-                "style" : {
-                  "color" : "gold"
-                }
-              },
-              "verb" : {
-                "long" : "verb",
-                "short" : "verb",
-                "postag" : "v",
-                "style" : {
-                  "color" : "red"
-                }
-              },
-              "punct" : {
-                "long" : "punctuation",
-                "short" : "punct",
-                "postag" : "u"
-              }
-            }
-          },
-          "pers" : {
-            "long" : "Person",
-            "short" : "pers",
-            "values" : {
-              "1st" : {
-                "long" : "first person",
-                "short" : "1st",
-                "postag" : "1"
-              },
-              "2nd" : {
-                "long" : "second person",
-                "short" : "2nd",
-                "postag" : "2"
-              },
-              "3rd" : {
-                "long" : "third person",
-                "short" : "3rd",
-                "postag" : "3"
-              }
-            }
-          },
-          "num" : {
-            "long" : "Number",
-            "short" : "num",
-            "values" : {
-              "sg" : {
-                "long" : "singular",
-                "short" : "sg",
-                "postag" : "s"
-              },
-              "pl" : {
-                "long" : "plural",
-                "short" : "pl",
-                "postag" : "p"
-              }
-            }
-          },
-          "tense" : {
-            "long" : "Tense",
-            "short" : "tense",
-            "values" : {
-              "pr" : {
-                "long" : "present",
-                "short" : "pr",
-                "postag" : "p"
-              },
-              "imp" : {
-                "long" : "imperfect",
-                "short" : "imp",
-                "postag" : "i"
-              },
-              "perf" : {
-                "long" : "perfect",
-                "short" : "perf",
-                "postag" : "r"
-              },
-              "pqpf" : {
-                "long" : "plusquamperfect",
-                "short" : "pqpf",
-                "postag" : "l"
-              },
-              "fex" : {
-                "long" : "future perfect",
-                "short" : "fex",
-                "postag" : "t"
-              },
-              "fut" : {
-                "long" : "future",
-                "short" : "fut",
-                "postag" : "f"
-              }
-            }
-          },
-          "mood" : {
-            "long" : "Mood",
-            "short" : "mood",
-            "values" : {
-              "ind" : {
-                "long" : "indicative",
-                "short" : "ind",
-                "postag" : "i"
-              },
-              "sub" : {
-                "long" : "subjunctive",
-                "short" : "sub",
-                "postag" : "s"
-              },
-              "inf" : {
-                "long" : "infinitive",
-                "short" : "inf",
-                "postag" : "i"
-              },
-              "imp" : {
-                "long" : "imperative",
-                "short" : "imp",
-                "postag" : "m"
-              },
-              "gerund" : {
-                "long" : "gerundive",
-                "short" : "gerund",
-                "postag" : "g"
-              },
-              "part" : {
-                "long" : "participle",
-                "short" : "part",
-                "postag" : "p"
-              }
-            }
-          },
-          "voice" : {
-            "long" : "Voice",
-            "short" : "voice",
-            "values" : {
-              "act" : {
-                "long" : "active",
-                "short" : "act",
-                "postag" : "a"
-              },
-              "pass" : {
-                "long" : "passive",
-                "short" : "pass",
-                "postag" : "p"
-              },
-              "dep" : {
-                "long" : "deponens",
-                "short" : "dep",
-                "postag" : "d"
-              }
-            }
-          },
-          "gend" : {
-            "long" : "gender",
-            "short" : "gend",
-            "values" : {
-              "masc" : {
-                "long" : "masculine",
-                "short" : "masc",
-                "postag" : "m"
-              },
-              "fem" : {
-                "long" : "feminine",
-                "short" : "fem",
-                "postag" : "f"
-              },
-              "neut" : {
-                "long" : "neuter",
-                "short" : "neut",
-                "postag" : "n"
-              }
-            }
-          },
-          "case" : {
-            "long" : "Casus",
-            "short" : "case",
-            "values" : {
-              "nom" : {
-                "long" : "nominative",
-                "short" : "nom",
-                "postag" : "n"
-              },
-              "gen" : {
-                "long" : "genitive",
-                "short" : "gen",
-                "postag" : "g"
-              },
-              "dat" : {
-                "long" : "dative",
-                "short" : "dat",
-                "postag" : "d"
-              },
-              "acc" : {
-                "long" : "accusative",
-                "short" : "acc",
-                "postag" : "a"
-              },
-              "voc" : {
-                "long" : "vocative",
-                "short" : "voc",
-                "postag" : "v"
-              },
-              "abl" : {
-                "long" : "ablative",
-                "short" : "abl",
-                "postag" : "b"
-              }
-            }
-          },
-          "degree" : {
-            "long" : "Degree",
-            "short" : "degree",
-            "values" : {
-              "pos" : {
-                "long" : "positive",
-                "short" : "pos",
-                "postag" : "p"
-              },
-              "comp" : {
-                "long" : "comparative",
-                "short" : "comp",
-                "postag" : "c"
-              },
-              "sup" : {
-                "long" : "superlative",
-                "short" : "sup",
-                "postag" : "s"
-              }
-            }
-          }
-        }
-      },
+  "resources" : {
+    "staticFiles" : {
+      "route" : "http://services.perseids.org/llt-data/:doc.xml",
+      "params" : ["doc"]
+    },
+    "morphologyService" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    }
+  },
 
-      "history" : {
-        "name" : "history",
-        "main" : true,
-        "listener" : true,
-        "maxSize" : 5,
-        "template" : "templates/history.html"
-      },
+  "plugins" : {
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
 
-      "external_history" : {
-        "name" : "external_history",
-        "listener" : true,
-        "external" : true,
-        "template" : "templates/external_history.html"
-      },
+    "morph" : {
+      "name" : "morph",
+      "retrievers" : [
+        "bspMorphRetriever"
+      ],
+      "template"  : "templates/morph2.html",
+      "fileUrl" : "./static/configs/morph/attributes.json"
+    },
 
-      "comment" : {
-        "name" : "comment",
-        "template" : "templates/comment2.html"
-      }
+    "history" : {
+      "name" : "history",
+      "main" : true,
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "templates/history.html"
+    },
+
+    "external_history" : {
+      "name" : "external_history",
+      "listener" : true,
+      "external" : true,
+      "template" : "templates/external_history.html"
+    },
+
+    "comment" : {
+      "name" : "comment",
+      "template" : "templates/comment2.html"
     }
   }
 }
