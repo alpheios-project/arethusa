@@ -4,8 +4,8 @@
  *
  * It is a provider of resources and services.
  *
- * this.configuration needs to be set from the outside, typically by a route
- * that enters the application.
+ * this.configuration needs to be set from the outside through
+ * defineConfiguration(), typically by a route that enters the application.
  *
  *
  *
@@ -18,6 +18,10 @@
  */
 
 angular.module('arethusa.core').service('configurator', function($injector, resource) {
+  this.defineConfiguration = function(confFile) {
+    this.configuration = confFile;
+  };
+
   this.getService = function(serviceName) {
     return $injector.get(serviceName);
   };

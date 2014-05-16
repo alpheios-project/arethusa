@@ -79,6 +79,14 @@ describe('configurator', function() {
     $provide.value('y', mock2);
   }));
 
+  describe('this.defineConfiguration', function() {
+    it('sets a configuration file', inject(function(configurator) {
+      expect(configurator.configuration).toBeUndefined();
+      configurator.defineConfiguration(conf1);
+      expect(configurator.configuration).toBeDefined();
+    }));
+  });
+
   describe('this.configurationFor', function() {
     it('provides the configuration for a given plugin', inject(function(configurator) {
       // the configuration is usually provide from an external route
