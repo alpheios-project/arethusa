@@ -42,7 +42,9 @@ describe('configurator', function() {
       }
     };
 
-    morphAttributes = 'externallyLoadedFile';
+    morphAttributes = {
+      postagSchema: []
+    };
 
     morphRetrieverConf = {
       resource: 'morphologyService'
@@ -93,11 +95,35 @@ describe('configurator', function() {
     $provide.value('y', mock2);
   }));
 
+  var $httpBackend;
+
+  beforeEach(inject(function($injector) {
+    $httpBackend = $injector.get('$httpBackend');
+  }));
+
   describe('this.defineConfiguration', function() {
     it('sets a configuration file', inject(function(configurator) {
       expect(configurator.configuration).toBeUndefined();
       configurator.defineConfiguration(conf1);
       expect(configurator.configuration).toBeDefined();
+    }));
+
+    it('resolves references to external files inside a configuration', inject(function(configurator, $http) {
+      // the morph plugin's conf includes a fileUrl property
+      expect(morphConf.attributes.fileUrl).toBeDefined();
+      // the defineConfiguration function will resolve this property
+      // and replace it with the contents of an external file
+      $httpBackend.when('GET', morphConf.attributes.fileUrl).respond(morphAttributes);
+
+      var result = angular.extend({}, morphConf.attributes, morphAttributes);
+
+      configurator.defineConfiguration(conf1);
+      $httpBackend.flush();
+
+      var morphAttributesConf =
+        configurator.configuration.plugins.morph.attributes;
+
+      expect(morphAttributesConf).toEqual(result);
     }));
   });
 

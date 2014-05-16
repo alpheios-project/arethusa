@@ -15,11 +15,26 @@
  *   plugins
  *   retrievers
  *   resources
+ *
+ * Uses $http to retrieve additional configuration files that are embedded
+ * through the fileUrl property.
+ * This could eventually be replaced by using the arethusa resource service
+ * once it's clear where such conf files will be stored. Or maybe not,
+ * we'll see.
+ *
  */
 
-angular.module('arethusa.core').service('configurator', function($injector, resource) {
+angular.module('arethusa.core').service('configurator', function($injector, $http, resource) {
   this.defineConfiguration = function(confFile) {
     this.configuration = confFile;
+    var toReplace = arethusaUtil.findNestedProperties(this.configuration, 'fileUrl');
+    angular.forEach(toReplace, function(objs, key) {
+      angular.forEach(objs, function(obj, i) {
+        $http.get(obj[key]).then(function(res) {
+          angular.extend(obj, res.data);
+        });
+      });
+    });
   };
 
   this.getService = function(serviceName) {
