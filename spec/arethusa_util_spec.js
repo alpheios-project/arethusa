@@ -97,6 +97,61 @@ describe("arethusaUtil", function() {
     });
   });
 
+  describe('findNestedProperties', function() {
+    it('finds object properties in an arbitrarily deep object', function() {
+      var a = {
+        m: 'firstM'
+      };
+      var b = {
+        m: 'thirdM'
+      };
+      var y = {
+        m: 'secondM',
+        b: b
+      };
+      var obj = {
+        x: {
+          a: a
+        },
+        y: y,
+        m: 'topM'
+      };
+
+      var result = {
+        m: [ obj, a, y, b ]
+      };
+
+      expect(aU.findNestedProperties(obj, 'm')).toEqual(result);
+    });
+
+    it('handles multiple requested properties', function() {
+      var a = {
+        m: 'firstM'
+      };
+      var b = {
+        m: 'thirdM'
+      };
+      var y = {
+        m: 'secondM',
+        b: b
+      };
+      var obj = {
+        x: {
+          a: a
+        },
+        y: y,
+        m: 'topM'
+      };
+
+      var result = {
+        m: [ obj, a, y, b ],
+        y: [ obj ]
+      };
+
+      expect(aU.findNestedProperties(obj, ['m', 'y'])).toEqual(result);
+    });
+  });
+
   describe('toAry', function() {
     it('wraps an object in an array', function() {
       expect(aU.toAry({})).toEqual([{}]);
