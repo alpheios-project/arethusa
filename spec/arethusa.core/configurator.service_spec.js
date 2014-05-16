@@ -155,6 +155,44 @@ describe('configurator', function() {
     }));
   });
 
+  describe('this.mergeConfigurations', function() {
+    it('merges two conf files', inject(function(configurator) {
+      var conf1 = {
+        x: {
+          a: 1,
+          d: [5],
+          e: 7
+        },
+      };
+
+      var conf2 = {
+        x: {
+          b: 2,
+          d: [6],
+          e: 8
+        },
+        y: {
+          c: 3
+        }
+      };
+
+      var expected = {
+        x: {
+          a: 1,
+          b: 2,
+          d: [5, 6],
+          e: 8
+        },
+        y: {
+          c: 3
+        }
+      };
+
+      var actual = configurator.mergeConfigurations(conf1, conf2);
+      expect(actual).toEqual(expected);
+    }));
+  });
+
   describe('this.configurationFor', function() {
     it('provides the configuration for a given plugin', inject(function(configurator) {
       // the configuration is usually provide from an external route

@@ -84,6 +84,50 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
     includeExternalFiles(filesToInclude(this.configuration));
   };
 
+  // Merges two configuration objects.
+  // There is a clear contract that has to be fulfilled to make this work:
+  //
+  // The datatypes of individual properties need to be static.
+  // E.g.
+  //
+  // {
+  //   plugins: {
+  //     morph: {
+  //       retrievers: ['x']
+  //     }
+  //   }
+  // }
+  //
+  // If plugins.morph.retrievers is an Array, it can only be an Array and nothing
+  // else. The same goes for Objects, Strings, and Numbers.
+  //
+  // Objects call the function recursively.
+  // Arrays are flat-pushed.
+  // Strings and Numbers are overwritten.
+  // a is extended with properties in b, that are not present in a.
+  //
+  this.mergeConfigurations = function(a, b) {
+    var that = this;
+    angular.forEach(b, function(value, key) {
+      var origVal = a[key];
+      if (origVal) {
+        // Every Array is an Object, but not every Object is an Array!
+        // This defines the order of the if-else conditional.
+        if (angular.isArray(origVal)) {
+          arethusaUtil.pushAll(origVal, value);
+        } else if (angular.isObject(origVal)) {
+          that.mergeConfigurations(origVal, value);
+        } else {
+          a[key] = value;
+        }
+      } else {
+        a[key] = value;
+      }
+    });
+
+    return a;
+  };
+
   this.getService = function(serviceName) {
     return $injector.get(serviceName);
   };
