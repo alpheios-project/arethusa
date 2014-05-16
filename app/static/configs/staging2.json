@@ -21,18 +21,23 @@
 
   "retrievers" : {
     "treebankRetriever" : {
-      "resource" : {
-        "route" : "http://74.70.97.104:8085/xml_server/:doc",
-        "params" : [
-          "doc",
-          "s"
-        ]
-      }
+      "resource" : "fakePerseids"
     },
     "bspMorphRetriever" : {
-      "resource" : {
-        "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
-      }
+      "resource" : "morphologyService"
+    }
+  },
+
+  "resources" : {
+    "fakePerseids" : {
+      "route" : "http://74.70.97.104:8085/xml_server/:doc",
+      "params" : [
+        "doc",
+        "s"
+      ]
+    },
+    "morphologyService" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
     }
   },
 
