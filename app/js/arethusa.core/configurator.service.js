@@ -24,7 +24,7 @@
  *
  */
 
-angular.module('arethusa.core').service('configurator', function($injector, $http, $rootScope, resource) {
+angular.module('arethusa.core').service('configurator', function($injector, $http, $rootScope, resource, $timeout) {
   var includeParam = 'fileUrl';
 
   var filesToInclude = function(obj) {
@@ -46,6 +46,12 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
 
   var broadcastLoading = function() {
     $rootScope.$broadcast('confLoaded');
+  };
+
+  var delayedBroadcast = function() {
+    $timeout(function() {
+      broadcastLoading();
+    });
   };
 
   var includeExternalFiles = function(arrayOfObjects) {
@@ -90,7 +96,12 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
 
   this.loadConfFile = function(confFile, location) {
     var conf = { location: location, data: confFile };
-    includeExternalFiles(filesToInclude(conf.data));
+    var fti = filesToInclude(conf.data);
+    if (fti.length === 0) {
+      delayedBroadcast();
+    } else {
+      includeExternalFiles(fti);
+    }
     return conf;
   };
 
