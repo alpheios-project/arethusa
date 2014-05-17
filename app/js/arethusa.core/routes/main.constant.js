@@ -5,8 +5,9 @@ angular.module('arethusa.core').constant('MAIN_ROUTE', {
   template: '<div ng-include="template"></div>',
   resolve: {
     loadConfiguration: function($http, confUrl, configurator) {
-      return $http.get(confUrl(true)).then(function(res) {
-        configurator.defineConfiguration(res.data);
+      var url = confUrl(true);
+      return $http.get(url).then(function(res) {
+        configurator.defineConfiguration(res.data, url);
       });
     }
   }
