@@ -43,12 +43,12 @@ angular.module('arethusa.core').controller('ConfEditorCtrl', function($scope, co
     return $scope.pluginConf(name).main;
   };
 
+  // Saving configuration files
   $scope.save = function(filename) {
     var request = {
       path: $scope.filePath,
       data: $scope.conf
     };
-
     // This is currently hardcoded and awaits the llt-arethusa-file_server
     // running locally on port 8086.
     // Check http://github.com/latin-language-toolkit/llt-arethusa-file_server
@@ -62,5 +62,23 @@ angular.module('arethusa.core').controller('ConfEditorCtrl', function($scope, co
       });
   };
 
+  // Adding a resource
+  var createResourceConf = function() {
+    return {
+      route: '',
+      params: []
+    };
+  };
+
+  $scope.addResource = function() {
+    $scope.resources()[$scope.resourceName] = createResourceConf();
+    $scope.resourceName = '';
+  };
+
+  $scope.deleteResource = function(name) {
+    delete $scope.resource()[name];
+  };
+
+  // Initialize the controller
   $scope.loadFileToEdit();
 });

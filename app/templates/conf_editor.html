@@ -15,11 +15,13 @@
 </div>
 
 <div class="row panel">
-  <div class="columns small-12">
+  <div class="columns large-12">
     <form name="mainTemplateForm">
-      <label>Choose your main template:
-        <input type="text" ng-model="main().template" class="columns small-6"/>
-      </label>
+      <div class="large-3 columns">
+        <label>Choose your main template:
+          <input type="text" ng-model="main().template" class="columns small-6"/>
+        </label>
+      </div>
     </form>
   </div>
 </div>
@@ -49,9 +51,31 @@
     </ul>
   </div>
   <form name="pluginAdder" ng-submit="addPlugin()">
-    <label>Add a plugin
-      <input type="text" ng-model="pluginInput" class="columns small-6"/>
-    </label>
+    <div class="large-3 columns">
+      <label>Add a plugin
+        <input type="text" ng-model="pluginName" class="columns small-6"/>
+      </label>
+    </div>
+  </form>
+</div>
+
+<div class="row panel">
+  <h5>Resources</h5>
+  <div>
+    <ul class="button-group">
+      <li ng-repeat="(name, resource) in resources()">
+        <span class="tiny button">
+          {{ name }}
+        </span>
+      </li>
+    </ul>
+  </div>
+  <form name="resourceAdder" ng-submit="addResource()">
+    <div class="large-3 columns">
+      <label>Create a resource
+        <input type="text" ng-model="resourceName"/>
+      </label>
+    </div>
   </form>
 </div>
 
