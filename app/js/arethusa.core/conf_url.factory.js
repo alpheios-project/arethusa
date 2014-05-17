@@ -2,7 +2,7 @@
 
 // Handles params concerning configuration files in the $routeProvider phase
 angular.module('arethusa.core').factory('confUrl', function($route) {
-  return function() {
+  return function(useDefault) {
     var params = $route.current.params;
     var confPath = './static/configs/';
 
@@ -13,7 +13,9 @@ angular.module('arethusa.core').factory('confUrl', function($route) {
     } else if (params.conf_file) {
       return params.conf_file;
     } else {
-      return confPath + 'default.json';
+      if (useDefault) {
+        return confPath + 'default.json';
+      }
     }
   };
 });
