@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($scope, configurator, confUrl, $http) {
-  $scope.conf = configurator.loadConfTemplate;
+  $scope.conf = configurator.getConfTemplate();
   $scope.filePath = '';
 
   // If we have specified a conf file to preload, we fetch it here

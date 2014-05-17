@@ -141,15 +141,14 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
   // Returns an empty configuration files with all sections
   // as empty object properties.
   // Useful for the configuration editor.
-  this.loadConfTemplate = function() {
-    this.configuration = {
+  this.getConfTemplate = function() {
+    return {
       main: {},
       navbar: {},
       plugins: {},
       retrievers: {},
       resources: {}
     };
-    broadcastLoading();
   };
 
   // Merges two configuration objects.
