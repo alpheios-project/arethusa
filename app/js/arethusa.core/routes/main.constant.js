@@ -4,7 +4,7 @@ angular.module('arethusa.core').constant('MAIN_ROUTE', {
   controller: 'MainCtrl',
   template: '<div ng-include="template"></div>',
   resolve: {
-    loadConfiguration: function($q, $http, $route, configurator) {
+    loadConfiguration: function($http, $route, configurator) {
       var params = $route.current.params;
       var confPath = './static/configs/';
       var confUrl;
@@ -19,11 +19,8 @@ angular.module('arethusa.core').constant('MAIN_ROUTE', {
         confUrl = confPath + 'default.json';
       }
 
-      return $http({
-        method: 'GET',
-        url: confUrl,
-      }).then(function(result) {
-        configurator.defineConfiguration(result.data);
+      return $http.get(confUrl).then(function(res) {
+        configurator.defineConfiguration(res.data);
       });
     }
   }
