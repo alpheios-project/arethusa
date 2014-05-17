@@ -78,7 +78,7 @@
     <div ng-repeat="(name, resource) in resources()" ng-show="isSelected('resource', name)">
       <div>
         {{ name }}
-        <span class="tiny label alert" ng-click="removeResource(name)">Remove</span>
+        <a class="has-tip" tooltip-placement="right" tooltip="remove" ng-click="removeResource(name)">✘</a>
       </div>
       <div>
         <label>Route
