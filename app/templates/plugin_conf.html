@@ -1,3 +1,17 @@
-<div>
+<div class="row panel">
+  <div class="text-center">
+    <span><em>{{ name }}</em></span>
+    <a class="has-tip" tooltip-placement="right" tooltip="remove" ng-click="removePlugin(name)">✘</a>
+  </div>
+
+  <div>
+    <div class="large-3 columns">
+      <label>Template
+        <input type="text" ng-model="conf.template" class="columns small-6"/>
+      </label>
+      <input type="checkbox" ng-model="conf.main"/><label>Main Plugin</label>
+      <input type="checkbox" ng-model="conf.listener"/><label>Event listener</label>
+    <div>
+  </div>
   <div div ng-include="template"></div>
 </div>
