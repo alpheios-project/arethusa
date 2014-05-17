@@ -83,10 +83,17 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
   // file.
   // The second param is optional.
   this.defineConfiguration = function(confFile, location) {
-    this.configuration = confFile;
-    includeExternalFiles(filesToInclude(this.configuration));
-    this.confFileLocation = location;
+    var conf = this.loadConfFile(confFile, location);
+    this.configuration = conf.data;
+    this.confFileLocation = conf.location;
   };
+
+  this.loadConfFile = function(confFile, location) {
+    var conf = { location: location, data: confFile };
+    includeExternalFiles(filesToInclude(conf.data));
+    return conf;
+  };
+
 
   // Returns an empty configuration files with all sections
   // as empty object properties.
