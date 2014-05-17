@@ -9,7 +9,10 @@ angular.module('arethusa.core').controller('ConfEditorCtrl', function($scope, co
   // we might preload a conf file here, we need to parse this and populate these
   // variables with data from this file then.
   $scope.conf = configurator.configuration;
-  $scope.fileName = configurator.confFileLocation;
+  $scope.filePath = configurator.confFileLocation;
+  $scope.fileName = function() {
+    return $scope.filePath.replace(/^.*configs\//, '');
+  };
 
   // some delegators
   $scope.main = $scope.conf.main;
