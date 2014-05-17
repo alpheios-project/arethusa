@@ -95,6 +95,7 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
       retrievers: {},
       resources: {}
     };
+    broadcastLoading();
   };
 
   // Merges two configuration objects.
