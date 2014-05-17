@@ -10,6 +10,8 @@ angular.module('arethusa.core').constant('CONF_ROUTE', {
         return $http.get(url).then(function(res) {
           configurator.defineConfiguration(res.data);
         });
+      } else {
+        return configurator.loadConfTemplate;
       }
     }
   }

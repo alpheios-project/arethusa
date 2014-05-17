@@ -84,6 +84,19 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
     includeExternalFiles(filesToInclude(this.configuration));
   };
 
+  // Returns an empty configuration files with all sections
+  // as empty object properties.
+  // Useful for the configuration editor.
+  this.loadConfTemplate = function() {
+    this.configuration = {
+      main: {},
+      navbar: {},
+      plugins: {},
+      retrievers: {},
+      resources: {}
+    };
+  };
+
   // Merges two configuration objects.
   // There is a clear contract that has to be fulfilled to make this work:
   //
