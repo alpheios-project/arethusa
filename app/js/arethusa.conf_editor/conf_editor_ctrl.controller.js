@@ -79,6 +79,21 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
     delete $scope.resources()[name];
   };
 
+  // Adding a plugin
+  $scope.addPlugin = function() {
+    var name = $scope.pluginName;
+    $scope.main().plugins[name] = {
+      name: name
+    };
+    $scope.plugins().push(name);
+  };
+
+  $scope.removePlugin = function(name) {
+    var pl = $scope.main().plugins;
+    pl.splice(pl.indexOf(name), 1);
+    delete $scope.plugins()[name];
+  };
+
   // Selections
   $scope.selections = {};
   $scope.toggleSelection = function(category, name) {
