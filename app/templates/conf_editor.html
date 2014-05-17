@@ -43,12 +43,17 @@
   <h5>Plugins</h5>
   <div>
     <ul class="button-group">
-      <li ng-repeat="plugin in main().plugins">
-        <span class="tiny button" ng-class="{alert: isMainPlugin(plugin)}">
-          {{ plugin }}
+      <li ng-repeat="name in main().plugins">
+        <span
+          class="tiny button"
+          ng-class="{alert: isMainPlugin(name)}"
+          ng-click="toggleSelection('plugin', name)">
+          {{ name }}
         </span>
       </li>
     </ul>
+  </div>
+  <div ng-repeat="name in main().plugins" ng-show="isSelected('plugin', name)">
   </div>
   <form name="pluginAdder" ng-submit="addPlugin()">
     <div class="large-3 columns">
