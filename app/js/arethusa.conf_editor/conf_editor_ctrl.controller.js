@@ -75,8 +75,22 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
     $scope.resourceName = '';
   };
 
-  $scope.deleteResource = function(name) {
-    delete $scope.resource()[name];
+  $scope.removeResource = function(name) {
+    delete $scope.resources()[name];
+  };
+
+  // Selections
+  $scope.selections = {};
+  $scope.toggleSelection = function(category, name) {
+    if ($scope.isSelected(category, name)) {
+      delete $scope.selections[category];
+    } else {
+      $scope.selections[category] = name;
+    }
+  };
+
+  $scope.isSelected = function(category, name) {
+    return $scope.selections[category] === name;
   };
 
   // Initialize the controller
