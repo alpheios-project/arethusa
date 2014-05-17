@@ -1,39 +1,28 @@
 "use strict";
 
-angular.module('arethusa.core').controller('ConfEditorCtrl', function($scope) {
-  $scope.debug = true;
+angular.module('arethusa.core').controller('ConfEditorCtrl', function($scope, configurator) {
+  $scope.debug = false;
   $scope.toggleDebugMode = function() {
     $scope.debug = !$scope.debug;
   };
 
   // we might preload a conf file here, we need to parse this and populate these
   // variables with data from this file then.
-  $scope.conf = {
-    state: {
-      retrievers: {},
-      savers: {}
-    },
+  $scope.conf = configurator.configuration;
+  $scope.fileName = configurator.confFileLocation;
 
-   MainCtrl: {
-     template: '',
-     plugins: {}
-   }
+  // some delegators
+  $scope.main = $scope.conf.main;
+  $scope.navbar = $scope.conf.navbar;
+  $scope.plugins = $scope.conf.plugins;
+  $scope.retrievers = $scope.conf.retrievers;
+  $scope.resources = $scope.conf.resources;
+
+  $scope.pluginConf = function(name) {
+    return $scope.plugins[name];
   };
 
-  $scope.main = $scope.conf.MainCtrl;
-  $scope.state = $scope.conf.state;
-
-  // we need this to sort plugins in specific orders
-  $scope.pluginList = [];
-
-  $scope.getPlugin = function(name) {
-    return $scope.main.plugins[name];
-  };
-
-  $scope.addPlugin = function() {
-    var name = $scope.pluginInput;
-    $scope.main.plugins[name] = { name: name, main: false };
-    $scope.pluginList.push(name);
-    $scope.pluginInput = '';
+  $scope.isMainPlugin = function(name) {
+    return $scope.pluginConf(name).main;
   };
 });

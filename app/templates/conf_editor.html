@@ -1,6 +1,9 @@
+<arethusa-navbar></arethusa-navbar>
+
 <div class="row panel">
   <div class="colums small-12">
     <h3>Conf editor</h3>
+      <strong>{{ fileName }}</strong>
     <p>
       <button ng-click="toggleDebugMode()" class="right small">Debug</button>
     </p>
@@ -19,19 +22,36 @@
 </div>
 
 <div class="row panel">
-  <h5>Data sources</h5>
+  <h5>Data Sources</h5>
+    <!--this is going to be a directive once the markup takes-->
+    <!--more shape-->
+    <ul class="button-group">
+      <li ng-repeat="retrievers in main.retrievers">
+        <span class="tiny button">
+          {{ retrievers }}
+        </span>
+      </li>
+    </ul>
 </div>
 
 <div class="row panel">
   <h5>Plugins</h5>
   <div>
-    <span ng-repeat="plugin in pluginList" class="large label">
-      {{ plugin }}
-    </span>
+    <ul class="button-group">
+      <li ng-repeat="plugin in main.plugins">
+        <span class="tiny button" ng-class="{alert: isMainPlugin(plugin)}">
+          {{ plugin }}
+        </span>
+      </li>
+    </ul>
   </div>
   <form name="pluginAdder" ng-submit="addPlugin()">
     <label>Add a plugin
       <input type="text" ng-model="pluginInput" class="columns small-6"/>
     </label>
   </form>
+</div>
+
+<div class="row panel">
+  <h5>Navbar</h5>
 </div>
