@@ -4,9 +4,12 @@
   <div class="colums small-12">
     <h3>Conf editor</h3>
       <strong>{{ fileName() }}</strong>
-    <p>
-      <button ng-click="toggleDebugMode()" class="right small">Debug</button>
-    </p>
+    <div>
+      <ul class="button-group right">
+        <li><button ng-click="save()" class="small">Save</button></li>
+        <li><button ng-click="toggleDebugMode()" class="small">Debug</button></li>
+      </ul>
+    </div>
   </div>
   <div debug="conf"></div>
 </div>
