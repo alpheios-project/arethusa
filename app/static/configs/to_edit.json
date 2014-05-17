@@ -1,0 +1,77 @@
+{
+  "main" : {
+    "template"  : "templates/main2.html",
+    "retrievers" : [
+      "treebankRetriever"
+    ],
+    "plugins" : [
+      "text",
+      "morph",
+      "history",
+      "external_history",
+      "comment"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "retrievers" : {
+    "treebankRetriever" : {
+      "resource" : "staticFiles"
+    },
+    "bspMorphRetriever" : {
+      "resource" : "morphologyService"
+    }
+  },
+
+  "resources" : {
+    "staticFiles" : {
+      "route" : "http://services.perseids.org/llt-data/:doc.xml",
+      "params" : ["doc"]
+    },
+    "morphologyService" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    }
+  },
+
+  "plugins" : {
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
+
+    "morph" : {
+      "name" : "morph",
+      "retrievers" : [
+        "bspMorphRetriever"
+      ],
+      "template"  : "templates/morph2.html",
+      "fileUrl" : "./static/configs/morph/attributes.json"
+    },
+
+    "history" : {
+      "name" : "history",
+      "main" : true,
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "templates/history.html"
+    },
+
+    "external_history" : {
+      "name" : "external_history",
+      "listener" : true,
+      "external" : true,
+      "template" : "templates/external_history.html"
+    },
+
+    "comment" : {
+      "name" : "comment",
+      "template" : "templates/comment2.html"
+    }
+  }
+}
