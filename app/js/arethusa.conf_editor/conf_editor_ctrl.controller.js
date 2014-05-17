@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.core').controller('ConfEditorCtrl', function($scope, configurator, confUrl, $http) {
+angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($scope, configurator, confUrl, $http) {
   $scope.conf = configurator.loadConfTemplate;
   $scope.filePath = '';
 
