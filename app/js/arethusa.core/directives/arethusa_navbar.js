@@ -1,5 +1,24 @@
 "use strict";
 
+/* Configurable navbar
+ *
+ * The following variables can be declared in a conf file
+ *   disable - Boolean
+ *   search - Boolean
+ *   navigation - Boolean
+ *   template - String
+ *
+ * Example;
+ *
+ * {
+ *   "navbar" : {
+ *     "search" : true,
+ *     "navigation" : true,
+ *     "template" : "templates/navbar.html"
+ *   }
+ *
+ */
+
 angular.module('arethusa.core').directive('arethusaNavbar', function(configurator) {
   return {
     restrict: 'AE',
