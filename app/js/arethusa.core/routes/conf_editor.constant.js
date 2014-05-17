@@ -8,7 +8,7 @@ angular.module('arethusa.core').constant('CONF_ROUTE', {
       var url = confUrl();
       if (url) {
         return $http.get(url).then(function(res) {
-          configurator.defineConfiguration(res.data);
+          configurator.defineConfiguration(res.data, url);
         });
       } else {
         return configurator.loadConfTemplate;
