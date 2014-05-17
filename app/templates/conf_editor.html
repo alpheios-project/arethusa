@@ -54,7 +54,7 @@
     </ul>
   </div>
   <div ng-repeat="name in main().plugins" ng-show="isSelected('plugin', name)">
-    <plugin-conf name="name"></name>
+    <plugin-conf name="name"></plugin-conf>
   </div>
   <form name="pluginAdder" ng-submit="addPlugin()">
     <div class="large-3 columns">
@@ -76,18 +76,6 @@
       </li>
     </ul>
     <div ng-repeat="(name, resource) in resources()" ng-show="isSelected('resource', name)">
-      <div>
-        {{ name }}
-        <span class="tiny label alert" ng-click="removeResource(name)">Remove</span>
-      </div>
-      <div>
-        <label>Route
-          <input type="text" ng-model="resource.route" class="columns small-6"/>
-        </label>
-        <label>Params
-          <input type="text" ng-model="resource.params" class="columns small-6"/>
-        </label>
-      </div>
     </div>
   </div>
   <form name="resourceAdder" ng-submit="addResource()">
