@@ -12,5 +12,6 @@ angular.module(
     $routeProvider.when('/', MAIN_ROUTE);
     $routeProvider.when('/conf_editor', CONF_ROUTE);
     $routeProvider.when('/:conf', MAIN_ROUTE);
+    $routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
   }
 );
