@@ -8,6 +8,6 @@ angular.module('arethusa.depTree').directive('tree', function(depTree) {
       var layout = depTree.createGraphLayout();
       depTree.drawGraph(graph, layout);
     },
-    template: '<svg height=600px><g transform="translate(20,20)"/></svg>'
+    template: '<svg><g transform="translate(20,20)"/></svg>'
   };
 });
