@@ -48,6 +48,37 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
     $rootScope.$broadcast('confLoaded');
   };
 
+  // While using a timeout might seem hacky, it's just the write tool for the
+  // job.
+  // A run of the program looks like this:
+  //
+  // 1 Route with resolve function waits for the configurator to start
+  // 2 Route resolves to start the MainCtrl
+  // 3 MainCtrl waits for confLoaded event
+  // 4 MainCtrl initializes the State object
+  // 5 MainCtrl waits for stateLoaded event
+  // 6 MainCtrl initializes itself and all plugins
+  //
+  // When the configurator needs to load external files (in 1)
+  // the route resolves before the configurator is finished.
+  // Only when it is finished the confLoaded event is fired.
+  // External files are loaded asynchonously, the event is fired
+  // from within a callback.
+  // It is therefore guaranteed to happen after 2. Step 2 starts
+  // the MainCtrl - it is the place where the listener to the
+  // confLoaded event is defined.
+  //
+  // If there are no external files to load, the configurator gets
+  // a chance to fire his confLoaded event while still being in step 1.
+  // The event is fired, but as 2 hasn't run yet, there are no listeners.
+  // The application fails to load properly.
+  //
+  // We therefore wrap the confLoaded event in a $timeout function.
+  // Timeout with a delay of 0 defers the execution of the wrapped
+  // function to the end of the current execution queue.
+  // This is just what we need. Step 2 is already in the execution queue
+  // at this time - if we can guarantee that the confLoaded event
+  // happens after 2, everything is fine.
   var delayedBroadcast = function() {
     $timeout(function() {
       broadcastLoading();
@@ -100,6 +131,7 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
     if (fti.length === 0) {
       delayedBroadcast();
     } else {
+      // this function will eventually broadcast the load event
       includeExternalFiles(fti);
     }
     return conf;
