@@ -29,14 +29,14 @@ angular.module('arethusa.core').controller('ConfEditorCtrl', function($scope, co
   };
 
   // some delegators
-  $scope.main = $scope.conf.main;
-  $scope.navbar = $scope.conf.navbar;
-  $scope.plugins = $scope.conf.plugins;
-  $scope.retrievers = $scope.conf.retrievers;
-  $scope.resources = $scope.conf.resources;
+  $scope.main = function() { return $scope.conf.main; };
+  $scope.navbar = function() { return $scope.conf.navbar; };
+  $scope.plugins = function() { return $scope.conf.plugins; };
+  $scope.retrievers = function() { return $scope.conf.retrievers; };
+  $scope.resources = function() { return $scope.conf.resources; };
 
   $scope.pluginConf = function(name) {
-    return $scope.plugins[name];
+    return $scope.plugins()[name];
   };
 
   $scope.isMainPlugin = function(name) {

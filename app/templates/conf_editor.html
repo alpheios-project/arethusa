@@ -18,7 +18,7 @@
   <div class="columns small-12">
     <form name="mainTemplateForm">
       <label>Choose your main template:
-        <input type="text" ng-model="main.template" class="columns small-6"/>
+        <input type="text" ng-model="main().template" class="columns small-6"/>
       </label>
     </form>
   </div>
@@ -29,7 +29,7 @@
     <!--this is going to be a directive once the markup takes-->
     <!--more shape-->
     <ul class="button-group">
-      <li ng-repeat="retrievers in main.retrievers">
+      <li ng-repeat="retrievers in main().retrievers">
         <span class="tiny button">
           {{ retrievers }}
         </span>
@@ -41,7 +41,7 @@
   <h5>Plugins</h5>
   <div>
     <ul class="button-group">
-      <li ng-repeat="plugin in main.plugins">
+      <li ng-repeat="plugin in main().plugins">
         <span class="tiny button" ng-class="{alert: isMainPlugin(plugin)}">
           {{ plugin }}
         </span>
