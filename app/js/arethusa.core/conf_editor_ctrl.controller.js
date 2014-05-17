@@ -1,15 +1,29 @@
 "use strict";
 
-angular.module('arethusa.core').controller('ConfEditorCtrl', function($scope, configurator, $http) {
+angular.module('arethusa.core').controller('ConfEditorCtrl', function($scope, configurator, confUrl, $http) {
+  $scope.conf = configurator.loadConfTemplate;
+  $scope.filePath = '';
+
+  // If we have specified a conf file to preload, we fetch it here
+  // asynchronously.
+  // As we have already set an empty confTemplate, the site can
+  // start to render itself without errors before this is finished.
+  $scope.loadFileToEdit = function() {
+    var url = confUrl();
+    if (url) {
+      $http.get(url).then(function(res) {
+        var conf = configurator.loadConfFile(res.data, url);
+        $scope.conf     = conf.data;
+        $scope.filePath = conf.location;
+      });
+    }
+  };
+
   $scope.debug = false;
   $scope.toggleDebugMode = function() {
     $scope.debug = !$scope.debug;
   };
 
-  // we might preload a conf file here, we need to parse this and populate these
-  // variables with data from this file then.
-  $scope.conf = configurator.configuration;
-  $scope.filePath = configurator.confFileLocation;
   $scope.fileName = function() {
     return $scope.filePath.replace(/^.*configs\//, '');
   };
@@ -48,5 +62,5 @@ angular.module('arethusa.core').controller('ConfEditorCtrl', function($scope, co
       });
   };
 
-
+  $scope.loadFileToEdit();
 });
