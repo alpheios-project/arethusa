@@ -1,0 +1,5 @@
+{
+  "navbar" : {
+    "template" : "templates/navbar1.html"
+  }
+}
