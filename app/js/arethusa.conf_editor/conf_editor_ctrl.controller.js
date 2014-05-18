@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($scope, configurator, confUrl, $http) {
+angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($scope, configurator, confUrl, notifier, $http) {
   $scope.conf = configurator.getConfTemplate();
   $scope.filePath = '';
 
@@ -56,9 +56,11 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
       // will go in the notification bar once we have it
       success(function(res) {
         arethusaLogger.log('File saved');
+        notifier.succes('File saved!');
       }).
       error(function(res) {
         arethusaLogger.log('Error while saving file');
+        notifier.error('Failed to write file!');
       });
   };
 
