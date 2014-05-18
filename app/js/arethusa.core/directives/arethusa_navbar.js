@@ -6,6 +6,7 @@
  *   disable - Boolean
  *   search - Boolean
  *   navigation - Boolean
+ *   notifier - Boolean
  *   template - String
  *
  * Example;
@@ -35,8 +36,11 @@ angular.module('arethusa.core').directive('arethusaNavbar', function(configurato
       scope.showNavigation = function() {
         return conf.navigation;
       };
+
+      scope.showNotifier = function() {
+        return conf.notifier;
+      };
     },
     template: '<div ng-if="! disable" ng-include="template"></div>'
   };
-
 });
