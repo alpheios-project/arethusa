@@ -108,6 +108,15 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
     return $scope.selections[category] === name;
   };
 
+  // Keeping track of the conf file - we store a copy to be able to reset it
+  $scope.$watch('conf', function(newVal, oldVal) {
+    $scope.confCopy = angular.copy(newVal);
+  });
+
+  $scope.reset = function() {
+    $scope.conf = $scope.confCopy;
+  };
+
   // Initialize the controller
   $scope.loadFileToEdit();
 });
