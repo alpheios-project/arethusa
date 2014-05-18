@@ -35,6 +35,8 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
   $scope.retrievers = function() { return $scope.conf.retrievers; };
   $scope.resources = function() { return $scope.conf.resources; };
 
+  $scope.navbarBooleans = ['disable', 'search', 'navigation', 'notifier'];
+
   $scope.pluginConf = function(name) {
     return $scope.plugins()[name];
   };
