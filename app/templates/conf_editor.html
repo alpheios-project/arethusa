@@ -7,6 +7,8 @@
     <div>
       <ul class="button-group right">
         <li><button ng-click="save()" class="small">Save</button></li>
+        <li><button ng-clikc="saveAs()" class="small">Save as...</button></li>
+        <!--needs something like dropdown where we can enter a new filename-->
         <li><button ng-click="reset()" class="small">Reset</button></li>
         <li><button ng-click="toggleDebugMode()" class="small">Debug</button></li>
       </ul>
@@ -81,9 +83,19 @@
         <label>Route
           <input type="text" ng-model="resource.route" class="columns small-6"/>
         </label>
-        <label>Params
-          <input type="text" ng-model="resource.params" class="columns small-6"/>
-        </label>
+        <label>Params</label>
+        <table>
+          <tr>
+            <td ng-repeat="param in resource.params"
+              ng-click="removeResourceParam(name, param)">{{ param }}</td>
+            <td>
+              <form ng-submit="addResourceParam(name)">
+                <input placeholder="Add a param..." type="text" 
+                  ng-model="resourceParam[name]" class="columns small-6"/>
+              </form>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>

@@ -41,6 +41,10 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
     return $scope.plugins()[name];
   };
 
+  $scope.resourceConf = function(name) {
+    return $scope.resources()[name];
+  };
+
   $scope.isMainPlugin = function(name) {
     return $scope.pluginConf(name).main;
   };
@@ -85,6 +89,25 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
 
   $scope.removeResource = function(name) {
     delete $scope.resources()[name];
+  };
+
+
+  // Model that can shall be used by input forms to enter new params
+  // We have ot declare this here, otherwise we risk declaring it only
+  // in a child scope which won't work.
+  // As it's most likely used by an ng-repeat, it is also helpful
+  // to use this as an object where we register resourceParams by
+  // name of the resource.
+  $scope.resourceParam = {};
+
+  $scope.addResourceParam = function(name) {
+    $scope.resourceConf(name).params.push($scope.resourceParam[name]);
+    delete $scope.resourceParam[name];
+  };
+
+  $scope.removeResourceParam = function(name, param) {
+    var params = $scope.resourceConf(name).params;
+    params.splice(params.indexOf(param), 1);
   };
 
   // Adding a plugin
