@@ -46,7 +46,7 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
   };
 
   // Saving configuration files
-  $scope.save = function(filename) {
+  $scope.save = function() {
     var request = {
       path: $scope.filePath,
       data: $scope.conf
@@ -64,6 +64,10 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
         arethusaLogger.log('Error while saving file');
         notifier.error('Failed to write file!');
       });
+  };
+
+  $scope.saveAs = function(newFilename) {
+    // build a new filepath, save the file, change the url
   };
 
   // Adding a resource
