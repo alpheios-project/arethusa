@@ -10,7 +10,8 @@ angular.module(
     'arethusa.morph',
     'arethusa.depTree',
     'arethusa.hist',
-    'arethusa.review'
+    'arethusa.review',
+    'arethusa.relation'
   ],
   function($routeProvider, MAIN_ROUTE, CONF_ROUTE) {
     $routeProvider.when('/', MAIN_ROUTE);
