@@ -1,0 +1,22 @@
+<div class="row panel">
+  <div class="text-center">
+    <span><em>{{ name }}</em></span>
+    <a class="has-tip" tooltip-placement="right" tooltip="remove" ng-click="remover(name)">✘</a>
+  </div>
+  <div>
+    <label>Route
+      <input type="text" ng-model="resource.route" class="columns small-6"/>
+    </label>
+    <label>Params</label>
+    <table>
+      <tr>
+        <td ng-repeat="param in resource.params"
+          ng-click="removeResourceParam(param)">{{ param }}</td>
+      </tr>
+    </table>
+    <form ng-submit="addResourceParam()">
+      <input placeholder="Add a param..." type="text"
+        ng-model="resourceParam" class="columns small-6"/>
+    </form>
+  </div>
+</div>

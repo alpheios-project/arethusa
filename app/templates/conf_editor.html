@@ -74,30 +74,9 @@
         </span>
       </li>
     </ul>
-    <div ng-repeat="(name, resource) in resources()" ng-show="isSelected('resource', name)">
-      <div>
-        {{ name }}
-        <a class="has-tip" tooltip-placement="right" tooltip="remove" ng-click="removeResource(name)">✘</a>
-      </div>
-      <div>
-        <label>Route
-          <input type="text" ng-model="resource.route" class="columns small-6"/>
-        </label>
-        <label>Params</label>
-        <table>
-          <tr>
-            <td ng-repeat="param in resource.params"
-              ng-click="removeResourceParam(name, param)">{{ param }}</td>
-            <td>
-              <form ng-submit="addResourceParam(name)">
-                <input placeholder="Add a param..." type="text" 
-                  ng-model="resourceParam[name]" class="columns small-6"/>
-              </form>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
+  </div>
+  <div ng-repeat="(name, resource) in resources()" ng-show="isSelected('resource', name)">
+    <resource-conf name="name" resource="resource" remover="removeResource(name)"></resource-conf>
   </div>
   <form name="resourceAdder" ng-submit="addResource()">
     <div class="large-3 columns">
