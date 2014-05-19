@@ -1,14 +1,16 @@
 "use strict";
 
 describe("arethusaUtil", function() {
+  var aU = arethusaUtil;
+
   describe("formatNumber", function() {
     describe('pads a number with zeros', function() {
       it('where number is a string', function() {
-        expect(arethusaUtil.formatNumber('1', 3)).toEqual('001');
+        expect(aU.formatNumber('1', 3)).toEqual('001');
       });
 
       it('where number is an integer', function() {
-        expect(arethusaUtil.formatNumber(1, 4)).toEqual('0001');
+        expect(aU.formatNumber(1, 4)).toEqual('0001');
       });
     });
   });
@@ -20,7 +22,7 @@ describe("arethusaUtil", function() {
         return el + 1;
       };
       var result = [2, 3, 4];
-      expect(arethusaUtil.map(coll, fn)).toEqual(result);
+      expect(aU.map(coll, fn)).toEqual(result);
     });
 
     it('iterates over an array and applies a given function II', function() {
@@ -30,7 +32,7 @@ describe("arethusaUtil", function() {
         return obj[el];
       };
       var result = [1, 2, 3];
-      expect(arethusaUtil.map(coll, fn)).toEqual(result);
+      expect(aU.map(coll, fn)).toEqual(result);
     });
   });
 
@@ -41,7 +43,7 @@ describe("arethusaUtil", function() {
         memo.push(el + 1);
       };
       var res = [2, 3, 4];
-      expect(arethusaUtil.inject([], coll, fn)).toEqual(res);
+      expect(aU.inject([], coll, fn)).toEqual(res);
     });
 
     it("will not work with immutable objects", function() {
@@ -49,8 +51,8 @@ describe("arethusaUtil", function() {
       var fn = function(memo, el) {
         memo += el;
       };
-      expect(arethusaUtil.inject(0, coll, fn)).toEqual(0);
-      expect(arethusaUtil.inject(0, coll, fn)).not.toEqual(6);
+      expect(aU.inject(0, coll, fn)).toEqual(0);
+      expect(aU.inject(0, coll, fn)).not.toEqual(6);
     });
 
     it('works with object as collection too', function() {
@@ -60,7 +62,7 @@ describe("arethusaUtil", function() {
         memo.push(key);
       };
       var res = [1, 'a', 2, 'b'];
-      expect(arethusaUtil.inject([], coll, fn)).toEqual(res);
+      expect(aU.inject([], coll, fn)).toEqual(res);
     });
   });
 
@@ -69,7 +71,15 @@ describe("arethusaUtil", function() {
       var arr1 = [1, 2];
       var arr2 = [3, 4];
       var res  = [1, 2, 3, 4];
-      arethusaUtil.pushAll(arr1, arr2);
+      aU.pushAll(arr1, arr2);
+      expect(arr1).toEqual(res);
+    });
+
+    it('handles empty arrays as pushers as well', function() {
+      var arr1 = [1,2];
+      var arr2 = [];
+      var res  = [1, 2];
+      aU.pushAll(arr1, arr2);
       expect(arr1).toEqual(res);
     });
   });
@@ -83,23 +93,78 @@ describe("arethusaUtil", function() {
       var fn = function(el) {
         return el.prop === val;
       };
-      expect(arethusaUtil.findObj(coll, fn)).toEqual(obj1);
+      expect(aU.findObj(coll, fn)).toEqual(obj1);
+    });
+  });
+
+  describe('findNestedProperties', function() {
+    it('finds object properties in an arbitrarily deep object', function() {
+      var a = {
+        m: 'firstM'
+      };
+      var b = {
+        m: 'thirdM'
+      };
+      var y = {
+        m: 'secondM',
+        b: b
+      };
+      var obj = {
+        x: {
+          a: a
+        },
+        y: y,
+        m: 'topM'
+      };
+
+      var result = {
+        m: [ obj, a, y, b ]
+      };
+
+      expect(aU.findNestedProperties(obj, 'm')).toEqual(result);
+    });
+
+    it('handles multiple requested properties', function() {
+      var a = {
+        m: 'firstM'
+      };
+      var b = {
+        m: 'thirdM'
+      };
+      var y = {
+        m: 'secondM',
+        b: b
+      };
+      var obj = {
+        x: {
+          a: a
+        },
+        y: y,
+        m: 'topM'
+      };
+
+      var result = {
+        m: [ obj, a, y, b ],
+        y: [ obj ]
+      };
+
+      expect(aU.findNestedProperties(obj, ['m', 'y'])).toEqual(result);
     });
   });
 
   describe('toAry', function() {
     it('wraps an object in an array', function() {
-      expect(arethusaUtil.toAry({})).toEqual([{}]);
+      expect(aU.toAry({})).toEqual([{}]);
     });
 
     it("doesn't wrap it if the obj is already an array", function() {
-      expect(arethusaUtil.toAry([{}])).toEqual([{}]);
+      expect(aU.toAry([{}])).toEqual([{}]);
     });
   });
 
   describe('replaceAt', function() {
     it('replaces a char in a string at an index', function() {
-      expect(arethusaUtil.replaceAt('abc', 1, 'B')).toEqual('aBc');
+      expect(aU.replaceAt('abc', 1, 'B')).toEqual('aBc');
     });
   });
 });

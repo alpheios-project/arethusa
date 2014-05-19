@@ -1,0 +1,36 @@
+<hr>
+<div>
+  <div>
+    <label>Postag Schema
+    <table>
+      <tr>
+        <td ng-repeat="postag in conf.postagSchema">
+          <span ng-click="toggleSelection('postag', postag)">
+            {{ postag}}
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div ng-repeat="(name, attribute) in conf.attributes" ng-show="isSelected('postag', name)">
+    <div class="row panel">
+      <div>{{ attribute.long }} ({{ attribute.short }})</div>
+      <div ng-repeat="(key, value) in attribute.values">
+
+        <div class="columns large-6">
+          <simple-form text="Long" model="value.long"></simple-form>
+        </div>
+        <div class="columns large-4">
+          <simple-form text="Short" model="value.short"></simple-form>
+        </div>
+        <div class="columns large-1">
+          <simple-form text="Postag" model="value.postag"></simple-form>
+        </div>
+        <div class="columns large-1">
+          <span class="tiny label radius">Remove</span>
+        </div>
+      </div>
+      <!--and add a new one here-->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+<arethusa-navbar></arethusa-navbar>
+
+<div class="row panel">
+  <div class="colums small-12">
+    <h3>Conf editor</h3>
+      <strong>{{ fileName() }}</strong>
+    <div>
+      <ul class="button-group right">
+        <li><button ng-click="save()" class="small">Save</button></li>
+        <li><button ng-clikc="saveAs()" class="small">Save as...</button></li>
+        <!--needs something like dropdown where we can enter a new filename-->
+        <li><button ng-click="reset()" class="small">Reset</button></li>
+        <li><button ng-click="toggleDebugMode()" class="small">Debug</button></li>
+      </ul>
+    </div>
+  </div>
+  <div debug="conf"></div>
+</div>
+
+<div class="row panel">
+  <div class="columns large-12">
+    <div class="columns large-3">
+      <simple-form text="Main Template" model="main().template"></simple-form>
+    </div>
+  </div>
+</div>
+
+<div class="row panel">
+  <h5>Data Sources</h5>
+    <!--this is going to be a directive once the markup takes-->
+    <!--more shape-->
+    <ul class="button-group">
+      <li ng-repeat="name in main().retrievers"
+          ng-click="toggleSelection('source', name)">
+        <span class="tiny button">
+          {{ name }}
+        </span>
+      </li>
+    </ul>
+    <div ng-repeat="name in main().retrievers" ng-show="isSelected('source', name)">
+      <!--
+        Note on the remover attribute: We pass a function here through a
+        one-way binding here. This function takes an argument, in this case
+        removePlugin() takes the name of the plugin to remove. The name of this
+        param in the attribute declaration is meaningless. It's just here to tell
+        the pluginConf directive (which is in an isolated scope) that the function
+        in fact takes an argument. It wouldn't need to be name here, it could be
+        'foo' too.
+      -->
+      <retriever-conf
+        name="name"
+        retriever="retrievers()[name]"
+        remover="removeDataSource(name)">
+      </retriever-conf>
+    </div>
+    <conf-adder
+      text="Add a data source"
+      submitter="addDataSource(input)">
+    </conf-adder>
+</div>
+
+<div class="row panel">
+  <h5>Plugins</h5>
+  <div>
+    <ul class="button-group">
+      <li ng-repeat="name in main().plugins">
+        <span
+          class="tiny button"
+          ng-class="{alert: isMainPlugin(name)}"
+          ng-click="toggleSelection('plugin', name)">
+          {{ name }}
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div ng-repeat="name in main().plugins" ng-show="isSelected('plugin', name)">
+    <plugin-conf name="name"></plugin-conf>
+  </div>
+  <conf-adder
+    text="Add a plugin"
+    submitter="addPlugin(input)">
+  </conf-adder>
+</div>
+
+<div class="row panel">
+  <h5>Resources</h5>
+  <div>
+    <ul class="button-group">
+      <li ng-repeat="(name, resource) in resources()">
+        <span class="tiny button" ng-click="toggleSelection('resource', name)">
+          {{ name }}
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div ng-repeat="(name, resource) in resources()" ng-show="isSelected('resource', name)">
+    <resource-conf
+      name="name"
+      resource="resource"
+      remover="removeResource(name)">
+    </resource-conf>
+  </div>
+  <conf-adder
+    text="Create a resource"
+    submitter="addResource(input)">
+  </conf-adder>
+</div>
+
+<div class="row panel">
+  <h5>Navbar</h5>
+  <div class="columns large-3">
+    <simple-form text="Template" model="navbar().template"></simple-form>
+    <span ng-repeat="key in navbarBooleans">
+      <input type="checkbox" ng-model="navbar()[key]"/><label>{{ key }}</label>
+    </span>
+  </div>
+</div>

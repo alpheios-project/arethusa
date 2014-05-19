@@ -5,7 +5,7 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
 
   this.tokens = {};
 
-  var conf = configurator.configurationFor('state');
+  var conf = configurator.configurationFor('main');
   var tokenRetrievers = configurator.getServices(conf.retrievers);
   var saveTokens = function(container, tokens) {
     angular.forEach(tokens, function(token, id) {

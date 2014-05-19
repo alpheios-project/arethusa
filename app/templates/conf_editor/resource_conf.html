@@ -1,0 +1,16 @@
+<div class="row panel">
+  <conf-header name="name" remover="remover(name)"></conf-header>
+  <div>
+    <label>Route
+      <input type="text" ng-model="resource.route" class="columns small-6"/>
+    </label>
+    <label>Params</label>
+    <table>
+      <tr>
+        <td ng-repeat="param in resource.params"
+          ng-click="removeResourceParam(param)">{{ param }}</td>
+      </tr>
+    </table>
+    <conf-adder text="Add a param" submitter="addResourceParam(input)"></conf-adder>
+  </div>
+</div>

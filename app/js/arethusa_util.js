@@ -51,6 +51,36 @@ var arethusaUtil = {
       }
     }
   },
+
+  // Finds object properties in an arbitrarily deep object.
+  // Check the specs for examples.
+  //
+  // Returns an object where the keys are the properties
+  // that were looked for and where the values are arrays of objects
+  // that have such a property.
+  //
+  // This is useful for find and replace tasks inside of objects, as the
+  // array holds a direct reference to the property-containing object.
+  findNestedProperties: function(nestedObj, properties) {
+    var props = arethusaUtil.toAry(properties);
+    return arethusaUtil.inject({}, props, function(memo, targetKey) {
+      var fn = function(obj, key) {
+        var res = [];
+        if (obj.hasOwnProperty(key)) {
+          res.push(obj);
+        }
+        for (var k in obj) {
+          var v = obj[k];
+          if (typeof v == 'object' && (v = fn(v, key))) {
+            arethusaUtil.pushAll(res, v);
+          }
+        }
+        return res;
+      };
+      memo[targetKey] = fn(nestedObj, targetKey);
+    });
+  },
+
   isArray: function(obj){
     return Object.prototype.toString.call(obj) === '[object Array]';
   },
