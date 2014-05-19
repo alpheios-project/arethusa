@@ -4,7 +4,9 @@ angular.module('arethusa.core').directive('resizable', function($window, $docume
   return {
     restrict: 'AEC',
     link: function(scope, element, attrs) {
-      var maxPos = $window.innerWidth - 300;
+      var maxSize = $window.innerWidth;
+      var maxPos = maxSize - 400;
+      var main = angular.element(document.getElementById('main-body'));
 
       element.on('mousedown', function(event) {
         event.preventDefault();
@@ -12,11 +14,16 @@ angular.module('arethusa.core').directive('resizable', function($window, $docume
         $document.on('mouseup', mouseup);
       });
 
+
       var mousemove = function(event) {
-        var leftPos = element.position().left;
-        var diff = event.pageX - leftPos;
-        var newSize = element.width() - diff;
-        element.width(newSize);
+        var x = event.pageX;
+        var el = element.parent();
+        var leftPos = el.position().left;
+        var border = leftPos + el.width();
+        var diff = x - leftPos;
+        var newSize = el.width() - diff;
+        el.width(newSize);
+        main.width(main.width() + diff);
       };
 
       var mouseup = function() {
