@@ -5,7 +5,8 @@ angular.module('arethusa.confEditor').directive('retrieverConf', function() {
     restrict: 'AE',
     scope: {
       name: '=',
-      retriever: '='
+      retriever: '=',
+      remover: '&'
     },
     link: function(scope, element, attrs) {
       var retr = scope.retriever;
