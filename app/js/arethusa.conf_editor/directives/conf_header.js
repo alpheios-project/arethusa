@@ -7,7 +7,7 @@ angular.module('arethusa.confEditor').directive('confHeader', function() {
       name: '=',
       remover: '&'
     },
-    templateUrl: 'templates/conf_header.html'
+    templateUrl: 'templates/conf_editor/conf_header.html'
   };
 
 });

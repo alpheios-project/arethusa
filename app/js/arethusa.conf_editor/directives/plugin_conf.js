@@ -19,6 +19,6 @@ angular.module('arethusa.confEditor').directive('pluginConf', function() {
       // folder. This will be much more dynamic in the future.
       scope.template = 'templates/configs/' + scope.name + '.html';
     },
-    templateUrl: 'templates/plugin_conf.html'
+    templateUrl: 'templates/conf_editor/plugin_conf.html'
   };
 });
