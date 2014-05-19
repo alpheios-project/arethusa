@@ -66,9 +66,16 @@
       in fact takes an argument. It wouldn't need to be name here, it could be
       'foo' too.
     -->
-    <plugin-conf name="name" conf="pluginConf(name)" remover="removePlugin(name)"></plugin-conf>
+    <plugin-conf
+      name="name"
+      conf="pluginConf(name)"
+      remover="removePlugin(name)">
+    </plugin-conf>
   </div>
-  <conf-adder text="Add a plugin" submitter="addPlugin(input)"></conf-adder>
+  <conf-adder
+    text="Add a plugin"
+    submitter="addPlugin(input)">
+  </conf-adder>
 </div>
 
 <div class="row panel">
@@ -83,9 +90,16 @@
     </ul>
   </div>
   <div ng-repeat="(name, resource) in resources()" ng-show="isSelected('resource', name)">
-    <resource-conf name="name" resource="resource" remover="removeResource(name)"></resource-conf>
+    <resource-conf
+      name="name"
+      resource="resource"
+      remover="removeResource(name)">
+    </resource-conf>
   </div>
-  <conf-adder text="Create a resource" submitter="addResource(input)"></conf-adder>
+  <conf-adder
+    text="Create a resource"
+    submitter="addResource(input)">
+  </conf-adder>
 </div>
 
 <div class="row panel">
