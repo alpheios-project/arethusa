@@ -90,7 +90,7 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
     delete $scope.resources()[name];
   };
 
-  // Adding a plugin
+  // Handling a plugin
   $scope.addPlugin = function(name) {
     $scope.plugins()[name] = {
       name: name
