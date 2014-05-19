@@ -53,7 +53,7 @@
     </ul>
   </div>
   <div ng-repeat="name in main().plugins" ng-show="isSelected('plugin', name)">
-    <plugin-conf name="name"></plugin-conf>
+    <plugin-conf name="name" conf="pluginConf(name)" remover="removePlugin(name)"></plugin-conf>
   </div>
   <form name="pluginAdder" ng-submit="addPlugin()">
     <div class="large-3 columns">
