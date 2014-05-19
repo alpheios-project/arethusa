@@ -82,9 +82,8 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
     };
   };
 
-  $scope.addResource = function() {
-    $scope.resources()[$scope.resourceName] = createResourceConf();
-    $scope.resourceName = '';
+  $scope.addResource = function(name) {
+    $scope.resources()[name] = createResourceConf();
   };
 
   $scope.removeResource = function(name) {
@@ -92,12 +91,11 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
   };
 
   // Adding a plugin
-  $scope.addPlugin = function() {
-    var name = $scope.pluginName;
-    $scope.main().plugins[name] = {
+  $scope.addPlugin = function(name) {
+    $scope.plugins()[name] = {
       name: name
     };
-    $scope.plugins().push(name);
+    $scope.main().plugins.push(name);
   };
 
   $scope.removePlugin = function(name) {

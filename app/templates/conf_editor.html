@@ -64,13 +64,7 @@
     -->
     <plugin-conf name="name" conf="pluginConf(name)" remover="removePlugin(name)"></plugin-conf>
   </div>
-  <form name="pluginAdder" ng-submit="addPlugin()">
-    <div class="large-3 columns">
-      <label>Add a plugin
-        <input type="text" ng-model="pluginName" class="columns small-6"/>
-      </label>
-    </div>
-  </form>
+  <conf-adder text="Add a plugin" submitter="addPlugin(input)"></conf-adder>
 </div>
 
 <div class="row panel">
@@ -87,13 +81,7 @@
   <div ng-repeat="(name, resource) in resources()" ng-show="isSelected('resource', name)">
     <resource-conf name="name" resource="resource" remover="removeResource(name)"></resource-conf>
   </div>
-  <form name="resourceAdder" ng-submit="addResource()">
-    <div class="large-3 columns">
-      <label>Create a resource
-        <input type="text" ng-model="resourceName"/>
-      </label>
-    </div>
-  </form>
+  <conf-adder text="Create a resource" submitter="addResource(input)"></conf-adder>
 </div>
 
 <div class="row panel">
