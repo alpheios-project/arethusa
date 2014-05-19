@@ -4,7 +4,9 @@ angular.module('arethusa.confEditor').directive('resourceConf', function() {
   return {
     restrict: 'AE',
     scope: {
-      name: '@',
+      // We need a two-way binding on name, as it will be used in a nested
+      // directive.
+      name: '=',
       resource: '=',
       remover: '&'
     },

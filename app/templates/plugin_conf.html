@@ -1,9 +1,5 @@
 <div class="row panel">
-  <div class="text-center">
-    <span><em>{{ name }}</em></span>
-    <a class="has-tip" tooltip-placement="right" tooltip="remove" ng-click="remover(name)">✘</a>
-  </div>
-
+  <conf-header name="name" remover="remover(name)"></conf-header>
   <div>
     <div class="large-3 columns">
       <template-form text="Template" model="conf.template"></template-form>

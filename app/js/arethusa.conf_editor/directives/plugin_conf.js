@@ -7,6 +7,9 @@ angular.module('arethusa.confEditor').directive('pluginConf', function() {
       // name needs a two-way binding, @ won't cut it, as we need its evaluated
       // value inside the link function already. @ would only resolve it during
       // the next compile cycle - the template would still be able to read it.
+      //
+      // As a nested directive is also evaluated before the next compile cycle,
+      // the same principle applies. Two-way binding is needed to make this work.
       name: '=',
       conf: '=',
       remover: '&'
