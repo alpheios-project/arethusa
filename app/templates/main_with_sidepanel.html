@@ -6,8 +6,11 @@
       <h3>Main State</h3>
       <p>
         {{ state.selectedTokens }}
-        <button deselector class="right small">Deselect all</button>
-        <button ng-click="toggleDebugMode()" class="right small">Debug</button>
+        <ul class="button-group right">
+          <li><button deselector class="small">Deselect all</button></li>
+          <li><button sidepanel-folder class="small">Fold Panel</button></li>
+          <li><button ng-click="toggleDebugMode()" class="small">Debug</button></li>
+        </ul>
       </p>
     </div>
     <div debug="state.tokens"></div>
@@ -16,17 +19,20 @@
 
 
 <div class="row panel full-height">
-  <div class="columns small-6">
+  <div id="main-body" class="columns small-8">
     <div ng-repeat="pl in mainPlugins">
       <plugin name="pl"/>
     </div>
   </div>
 
-  <div class="columns small-6" resizable>
-    <tabset>
-      <tab ng-repeat="pl in subPlugins" heading="{{ pl.name }}">
-        <plugin name="pl"/>
-      </tab>
-    </tabset>
+  <div id="sidepanel" class="columns small-4">
+    <div id="sidepanel-resizer" class="full-height" resizable></div>
+    <div id="sidepanel-body">
+      <tabset>
+        <tab ng-repeat="pl in subPlugins" heading="{{ pl.name }}">
+          <plugin name="pl"/>
+        </tab>
+      </tabset>
+    </div>
   </div>
 </div>
