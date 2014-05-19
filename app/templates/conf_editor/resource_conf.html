@@ -12,9 +12,6 @@
           ng-click="removeResourceParam(param)">{{ param }}</td>
       </tr>
     </table>
-    <form ng-submit="addResourceParam()">
-      <input placeholder="Add a param..." type="text"
-        ng-model="resourceParam" class="columns small-6"/>
-    </form>
+    <conf-adder text="Add a param" submitter="addResourceParam(input)"></conf-adder>
   </div>
 </div>

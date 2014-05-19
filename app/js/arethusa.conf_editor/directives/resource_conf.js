@@ -13,9 +13,8 @@ angular.module('arethusa.confEditor').directive('resourceConf', function() {
     link: function(scope, element, attrs) {
       var params = scope.resource.params;
 
-      scope.addResourceParam = function() {
-        params.push(scope.resourceParam);
-        scope.resourceParam = '';
+      scope.addResourceParam = function(param) {
+        params.push(param);
       };
 
       scope.removeResourceParam = function(param) {
