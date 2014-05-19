@@ -38,6 +38,15 @@
       </li>
     </ul>
     <div ng-repeat="name in main().retrievers" ng-show="isSelected('source', name)">
+      <!--
+        Note on the remover attribute: We pass a function here through a
+        one-way binding here. This function takes an argument, in this case
+        removePlugin() takes the name of the plugin to remove. The name of this
+        param in the attribute declaration is meaningless. It's just here to tell
+        the pluginConf directive (which is in an isolated scope) that the function
+        in fact takes an argument. It wouldn't need to be name here, it could be
+        'foo' too.
+      -->
       <retriever-conf
         name="name"
         retriever="retrievers()[name]"
@@ -65,20 +74,7 @@
     </ul>
   </div>
   <div ng-repeat="name in main().plugins" ng-show="isSelected('plugin', name)">
-    <!--
-      Note on the remover attribute: We pass a function here through a
-      one-way binding here. This function takes an argument, in this case
-      removePlugin() takes the name of the plugin to remove. The name of this
-      param in the attribute declaration is meaningless. It's just here to tell
-      the pluginConf directive (which is in an isolated scope) that the function
-      in fact takes an argument. It wouldn't need to be name here, it could be
-      'foo' too.
-    -->
-    <plugin-conf
-      name="name"
-      conf="pluginConf(name)"
-      remover="removePlugin(name)">
-    </plugin-conf>
+    <plugin-conf name="name"></plugin-conf>
   </div>
   <conf-adder
     text="Add a plugin"
