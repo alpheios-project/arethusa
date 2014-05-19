@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.confEditor').directive('templateForm', function() {
+angular.module('arethusa.confEditor').directive('simpleForm', function() {
   return {
     restrict: 'E',
     scope: {
