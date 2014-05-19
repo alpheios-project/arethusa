@@ -20,7 +20,7 @@
 <div class="row panel">
   <div class="columns large-12">
     <div class="columns large-3">
-      <template-form text="Main Template" model="main().template"></template-form>
+      <simple-form text="Main Template" model="main().template"></simple-form>
     </div>
   </div>
 </div>
@@ -30,12 +30,16 @@
     <!--this is going to be a directive once the markup takes-->
     <!--more shape-->
     <ul class="button-group">
-      <li ng-repeat="retrievers in main().retrievers">
+      <li ng-repeat="source in main().retrievers"
+          ng-click="toggleSelection('source', source)">
         <span class="tiny button">
-          {{ retrievers }}
+          {{ source }}
         </span>
       </li>
     </ul>
+    <div ng-repeat="source in main().retrievers" ng-show="isSelected('source', source)">
+      <retriever-conf name="source" retriever="retrievers()[source]"></retriever-conf>
+    </div>
 </div>
 
 <div class="row panel">
