@@ -74,6 +74,26 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
     // build a new filepath, save the file, change the url
   };
 
+  // Handling Retrievers
+  $scope.addRetriever = function(name) {
+    $scope.retrievers()[name] = {};
+  };
+
+  $scope.removeRetriever = function(name) {
+    delete $scope.retrievers()[name];
+  };
+
+  $scope.addDataSource = function(name) {
+    $scope.main().retrievers.push(name);
+    $scope.addRetriever(name);
+  };
+
+  $scope.removeDataSource = function(name) {
+    var mainRetr = $scope.main().retrievers;
+    mainRetr.splice(mainRetr.indexOf(name), 1);
+    $scope.removeRetriever(name);
+  };
+
   // Handling a resource
   var createResourceConf = function() {
     return {
