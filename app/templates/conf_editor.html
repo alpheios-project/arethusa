@@ -30,16 +30,24 @@
     <!--this is going to be a directive once the markup takes-->
     <!--more shape-->
     <ul class="button-group">
-      <li ng-repeat="source in main().retrievers"
-          ng-click="toggleSelection('source', source)">
+      <li ng-repeat="name in main().retrievers"
+          ng-click="toggleSelection('source', name)">
         <span class="tiny button">
-          {{ source }}
+          {{ name }}
         </span>
       </li>
     </ul>
-    <div ng-repeat="source in main().retrievers" ng-show="isSelected('source', source)">
-      <retriever-conf name="source" retriever="retrievers()[source]"></retriever-conf>
+    <div ng-repeat="name in main().retrievers" ng-show="isSelected('source', name)">
+      <retriever-conf
+        name="name"
+        retriever="retrievers()[name]"
+        remover="removeDataSource(name)">
+      </retriever-conf>
     </div>
+    <conf-adder
+      text="Add a data source"
+      submitter="addDataSource(input)">
+    </conf-adder>
 </div>
 
 <div class="row panel">
