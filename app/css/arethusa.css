@@ -9,3 +9,20 @@
 .row {
   max-width: 95vw;
 }
+
+#sidepanel {
+  z-index: 1;
+  position: relative;
+}
+
+#sidepanel-body {
+  margin-left: 4px;
+}
+
+#sidepanel-resizer {
+  position: absolute;
+  width: 8px;
+  border-left: 1px solid;
+  border-color: #d8d8d8;
+  cursor: e-resize;
+}
