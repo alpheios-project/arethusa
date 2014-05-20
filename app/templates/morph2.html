@@ -11,7 +11,9 @@
     <accordion-group ng-repeat="form in analysis.forms" >
       <accordion-heading>
          <div class="row">
-           <div class="columns small-4">• {{ form.lemma }} {{ plugin.concatenatedAttributes(form) }}</div>
+           <div class="columns small-4">
+             • <span ng-style="plugin.styleOf(form)">{{ form.lemma }}</span> {{ plugin.concatenatedAttributes(form) }}
+           </div>
            <div class="columns small-6">{{ form.postag }} from {{ form.origin }}</div>
            <div form-selector class="columns small-2"></div>
          </div>
