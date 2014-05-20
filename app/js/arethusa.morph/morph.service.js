@@ -6,6 +6,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.template = this.conf.template;
   this.name = this.conf.name;
   this.postagSchema = this.conf.postagSchema;
+  this.styledThrough = this.conf.styledThrough;
   this.analyses = {};
 
   var morphRetrievers = configurator.getServices(this.conf.retrievers);
@@ -65,6 +66,10 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   // template, we have to take it inside the morph plugin.
   // In the concrete use case of treebanking this would mean that
   // we have a postag value sitting there, which we have to expand.
+  //
+  // Once we have all information we need, the plugin also tries to
+  // write back style information to the state object, e.g. to colorize
+  // tokens according to their Part of Speech value.
   this.getAnalysisFromState = function(val, id) {
     var analysis = state.tokens[id].morphology;
     // We could always have no analysis sitting in the data we are
@@ -73,6 +78,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
       this.postagToAttributes(analysis);
       analysis.origin = 'document';
       val.forms.push(analysis);
+      state.setStyle(id, this.styleOf(analysis));
     }
   };
 
@@ -167,7 +173,14 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     return res.join('.');
   };
 
+  this.styleOf = function(form) {
+    var styler = this.styledThrough;
+    var styleVal = form.attributes[styler];
+    return this.attributeValueObj(styler, styleVal).style;
+  };
+
   this.setState = function(id, form) {
+    state.setStyle(id, this.styleOf(form));
     state.setState(id, 'morphology', form);
   };
 
