@@ -33,4 +33,20 @@
       <!--and add a new one here-->
     </div>
   </div>
+  <div ng-controller="morphConfCtrl">
+    <label>Colors through {{ colorizerName() }}
+    <table>
+      <tr>
+        <td ng-repeat="(key, val) in colorizerObj().values">
+          <!--
+            that span will receive a colorpicker at a later stage
+            and moved to an own directive
+          -->
+          <span ng-style="val.style">
+            {{ val.short }}
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
