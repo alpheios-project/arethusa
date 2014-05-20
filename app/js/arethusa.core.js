@@ -1,1 +1,1 @@
-angular.module('arethusa.core', []);
+angular.module('arethusa.core', ['ngResource']);
