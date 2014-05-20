@@ -6,6 +6,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.template = this.conf.template;
   this.name = this.conf.name;
   this.postagSchema = this.conf.postagSchema;
+  this.styledThrough = this.conf.styledThrough;
   this.analyses = {};
 
   var morphRetrievers = configurator.getServices(this.conf.retrievers);
@@ -165,6 +166,12 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
       res.push(that.abbrevAttributeValue(key, value));
     });
     return res.join('.');
+  };
+
+  this.styleOf = function(form) {
+    var styler = this.styledThrough;
+    var styleVal = form.attributes[styler];
+    return this.attributeValueObj(styler, styleVal).style;
   };
 
   this.setState = function(id, form) {
