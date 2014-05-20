@@ -7,10 +7,7 @@ angular.module('arethusa.relation').service('relation', function(state, configur
   this.relations = this.conf.relations;
 
   this.currentLabels = function() {
-    return this.analyzeLabel(state.tokens);
-  };
-
-  this.analyzeLabel = function(tokens) {
+    var tokens = state.tokens;
     var res = {};
     angular.forEach(state.selectedTokens, function(val, id) {
       res[id] = { string: tokens[id].string, label: tokens[id].relation.label };
