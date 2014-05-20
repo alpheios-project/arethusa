@@ -58,7 +58,7 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
   };
 
   this.getToken = function(id) {
-    return this.state.tokens[id] || {};
+    return self.tokens[id] || {};
   };
 
 
@@ -195,6 +195,14 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
     // state tokens are replaced
     this.tokens = tokens;
     this.broadcastReload();
+  };
+
+  this.setStyle = function(id, style) {
+    self.getToken(id).style = style;
+  };
+
+  this.unsetStyle = function(id, style) {
+    delete self.getToken(id).style;
   };
 
   this.broadcastReload = function() {
