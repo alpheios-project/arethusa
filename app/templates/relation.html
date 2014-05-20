@@ -1,4 +1,4 @@
-<div ng-repeat="label in plugin.currentLabels()">
+<div ng-repeat="(id, label) in plugin.currentLabels()">
   {{ label.string }}
   <div>
     {{ label.label }} : <span ng-repeat="labelName in plugin.longLabelName(label.label)"> {{ labelName }} </span>
