@@ -1,0 +1,38 @@
+<arethusa-navbar></arethusa-navbar>
+
+<div class="row panel">
+  <div class="columns small-12">
+    <div>
+      <h3>Main State</h3>
+      <p>
+        {{ state.selectedTokens }}
+        <ul class="button-group right">
+          <li><button deselector class="small">Deselect all</button></li>
+          <li><button sidepanel-folder class="small">Fold Panel</button></li>
+          <li><button ng-click="toggleDebugMode()" class="small">Debug</button></li>
+        </ul>
+      </p>
+    </div>
+    <div debug="state.tokens"></div>
+  </div>
+</div>
+
+
+<div class="row panel full-height">
+  <div id="main-body" class="columns small-8">
+    <div ng-repeat="pl in mainPlugins">
+      <plugin name="pl"/>
+    </div>
+  </div>
+
+  <div id="sidepanel" class="columns small-4">
+    <div id="sidepanel-resizer" class="full-height" resizable></div>
+    <div id="sidepanel-body">
+      <tabset>
+        <tab ng-repeat="pl in subPlugins" heading="{{ pl.name }}">
+          <plugin name="pl"/>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
