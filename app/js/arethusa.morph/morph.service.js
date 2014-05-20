@@ -11,11 +11,9 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   var morphRetrievers = configurator.getServices(this.conf.retrievers);
 
   this.seedAnalyses = function(tokens) {
-    var analyses = {};
-    angular.forEach(tokens, function(token, id) {
-      analyses[id] = { string: token.string, forms: [], analyzed: false };
+    return arethusaUtil.inject({}, tokens, function(obj, id, token) {
+      obj[id] = { string: token.string, forms: [], analyzed: false };
     });
-    return analyses;
   };
 
   this.postagToAttributes = function(form) {
@@ -124,15 +122,13 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   };
 
   this.currentAnalyses = function() {
-    var res = {};
-    var that = this;
-    angular.forEach(state.selectedTokens, function(val, id) {
-      var token = that.analyses[id];
+    var analyses = this.analyses;
+    return arethusaUtil.inject({}, state.selectedTokens, function(obj, id, val) {
+      var token = analyses[id];
       if (token) {
-        res[id] = token;
+        obj[id] = token;
       }
     });
-    return res;
   };
 
   this.selectAttribute = function(attr) {

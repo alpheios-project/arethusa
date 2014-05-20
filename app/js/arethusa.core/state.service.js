@@ -7,6 +7,9 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
 
   var conf = configurator.configurationFor('main');
   var tokenRetrievers = configurator.getServices(conf.retrievers);
+
+  // Loading a state
+
   var saveTokens = function(container, tokens) {
     angular.forEach(tokens, function(token, id) {
       var updatedToken;
@@ -48,40 +51,23 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
     that.checkLoadStatus();
   };
 
-  // This is of course quite slow! Hardcoding it is a possibility, we have to
-  // watch for id and other changes then though.
-  this.sortedTokens = function() {};
-
+  // Delegators
 
   this.asString = function(id) {
     return this.tokens[id].string;
   };
 
+  this.getToken = function(id) {
+    return this.state.tokens[id] || {};
+  };
+
+
+  // Selections
+
   this.selectedTokens = {}; // ids will be inserted here
 
   this.isSelected = function(id) {
     return id in this.selectedTokens;
-  };
-
-  this.currentTokens = function() {
-    var res = [];
-    var that = this;
-    angular.forEach(that.selectedTokens, function(val, id) {
-      var token = that.tokens[id];
-      if (token) {
-        res.push(token);
-      }
-    });
-    return res;
-  };
-
-  this.currentTokensAsStringList = function() {
-    return $.map(
-      this.currentTokens(),
-      function(el, i) {
-        return el.string;
-      }
-    ).join(', ');
   };
 
   // type should be either 'click' or 'hover'
@@ -148,6 +134,9 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
 
   this.selectNextToken = function() { this.selectSurroundingToken('next'); };
   this.selectPrevToken = function() { this.selectSurroundingToken('prev'); };
+
+
+  // Events
 
   // Listeners can be internal (angular-implementation) or external (everything
   // else). The future might bring a further distinction between different
