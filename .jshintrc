@@ -3,6 +3,7 @@
   "browser" : true,
   "jquery" : true,
   "undef" : true,
+  "multistr" : true,
   "globals" : {
     "angular" : false,
     "arethusaUtil" : true,
