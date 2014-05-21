@@ -36,13 +36,14 @@
 
 svg {
   overflow: hidden;
-  background: lightgray;
 }
 
 .node rect {
   stroke: # 333;
   stroke - width : 1.5px;
-  fill: #fff;
+  /* The following color needs to be taken from a foundation variable */
+  /* once we start to use scss. It's the panels background color */
+  fill: #f2f2f2;
 }
 
 .selected text {
@@ -54,7 +55,11 @@ svg {
 }
 
 .edgeLabel rect {
-  fill: #fff;
+  fill: #f2f2f2;
+}
+
+.tree-label {
+  font-size: 0.7em;
 }
 
 .edgePath {

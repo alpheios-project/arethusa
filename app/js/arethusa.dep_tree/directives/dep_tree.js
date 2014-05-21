@@ -14,9 +14,14 @@ angular.module('arethusa.depTree').directive('tree', function(depTree, state, $c
         g.addNode(token.id, { label: '<div id="' + token.id + '" class="node">' + token.string + '</div>' /*parent[0].innerHTML*/ });
       });
 
+
+      function labelPlaceholder(label) {
+        return '<div class="tree-label">' + label + '</div>';
+      }
+
       angular.forEach(state.tokens, function(word, index) {
         if (word.head) {
-          g.addEdge(word.id, word.id, word.head.id, { label: word.relation.label });
+          g.addEdge(word.id, word.id, word.head.id, { label: labelPlaceholder(word.relation.label) });
         }
       });
 
