@@ -7,6 +7,10 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.name = this.conf.name;
   this.postagSchema = this.conf.postagSchema;
   this.styledThrough = this.conf.styledThrough;
+
+  this.contextMenu = this.conf.contextMenu;
+  this.contextMenuTemplate = this.conf.contextMenuTemplate;
+
   this.analyses = {};
 
   var morphRetrievers = configurator.getServices(this.conf.retrievers);

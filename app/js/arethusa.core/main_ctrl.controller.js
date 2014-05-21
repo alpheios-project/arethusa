@@ -11,6 +11,7 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
   var partitionPlugins = function(plugins) {
     $scope.mainPlugins = [];
     $scope.subPlugins = [];
+    $scope.pluginsWithMenu = [];
 
     angular.forEach(plugins, function(plugin, name) {
       $scope.registerPlugin(plugin);
@@ -47,6 +48,10 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
       $scope.mainPlugins.push(plugin);
     } else {
       $scope.subPlugins.push(plugin);
+    }
+
+    if (plugin.contextMenu) {
+      $scope.pluginsWithMenu.push(plugin);
     }
   };
 
