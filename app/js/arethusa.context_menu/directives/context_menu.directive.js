@@ -12,7 +12,14 @@ angular.module('arethusa.contextMenu').directive('contextMenu', function($docume
       function open(event, menu, parent) {
         menu.addClass('menu-open');
         menu.removeClass('hide');
-        // positioning
+
+        // reposition the context menu relative to the parent element
+        var parPos = parent.position();
+        var top  = parPos.top + parent.outerHeight();
+        var left = parPos.left;
+        menu.css('left', left);
+        menu.css('top', top);
+
         opened = true;
       }
 
