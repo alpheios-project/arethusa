@@ -43,7 +43,14 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(depTree,
 
       renderer.layout(layout).run(g, vis);
 
-      var tokenHtml = '<token ng-mouseenter="state.selectToken(token.id, \'hover\')" ng-mouseleave="state.deselectToken(token.id, \'hover\')" ng-class="{selected: state.isSelected(token.id)}"></token>';
+      var tokenHtml = '\
+        <token\
+          ng-click="state.toggleSelection(token.id, \'click\')"\
+          ng-mouseenter="state.selectToken(token.id, \'hover\')"\
+          ng-mouseleave="state.deselectToken(token.id, \'hover\')"\
+          ng-class="{selected: state.isSelected(token.id)}">\
+        </token>\
+      ';
 
       vis.selectAll("div.node").append(function() {
         var parent = angular.element(this)[0];
