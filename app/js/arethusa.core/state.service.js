@@ -209,6 +209,16 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
     $rootScope.$broadcast('stateLoaded');
   };
 
+  this.addStatusObjects = function() {
+    angular.forEach(self.tokens, function(token, id) {
+      token.status = {};
+    });
+  };
+
+  this.postInit = function() {
+    self.addStatusObjects();
+  };
+
   this.init = function() {
     this.retrieveTokens();
   };

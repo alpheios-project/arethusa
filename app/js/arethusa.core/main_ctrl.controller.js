@@ -137,6 +137,7 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
   });
 
   $scope.$on('stateLoaded', function() {
+    $scope.state.postInit();
     if ($scope.arethusaLoaded) {
       // We don't have to retrieve all plugins again, but we have
       // to reload them so that they can update their internal state
