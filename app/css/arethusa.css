@@ -10,6 +10,11 @@
   max-width: 95vw;
 }
 
+.context-menu {
+  position: absolute;
+  z-index: 1;
+}
+
 #sidepanel {
   z-index: 1;
   position: relative;
