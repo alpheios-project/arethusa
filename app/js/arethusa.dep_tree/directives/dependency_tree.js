@@ -19,18 +19,26 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(depTree,
       });
 
 
-      function labelPlaceholder(label) {
+      function edgePlaceholder(label) {
         return '<div class="tree-label">' + label + '</div>';
       }
 
       angular.forEach(tokens, function(word, index) {
         if (word.head) {
-          g.addEdge(word.id, word.id, word.head.id, { label: labelPlaceholder(word.relation.label) });
+          g.addEdge(word.id, word.id, word.head.id, { label: edgePlaceholder(word.relation.label) });
         }
       });
 
       var layout = depTree.createGraphLayout();
-      var vis = d3.select('svg g');
+
+      var svg = d3.select('svg')
+        .call(d3.behavior.zoom().on("zoom", function() {
+           var ev = d3.event;
+           svg.select("g")
+              .attr("transform", "translate(" + ev.translate + ") scale(" + ev.scale + ")");
+      }));
+      var vis = svg.select('g');
+
       var renderer = new dagreD3.Renderer();
 
       renderer.layout(layout).run(g, vis);
