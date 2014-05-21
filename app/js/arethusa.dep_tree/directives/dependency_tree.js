@@ -2,7 +2,7 @@
 
 /* global dagreD3 */
 
-angular.module('arethusa.depTree').directive('tree', function(depTree, state, $compile) {
+angular.module('arethusa.depTree').directive('dependencyTree', function(depTree, state, $compile) {
   return {
     restrict: 'E',
     scope: true,
