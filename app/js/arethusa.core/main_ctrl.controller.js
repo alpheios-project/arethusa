@@ -93,7 +93,7 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
   };
 
   $scope.isActive= function(plugin) {
-    return (plugin.name === $scope.activePlugin && ! plugin.alwaysActive)
+    return (plugin.name === $scope.activePlugin && ! plugin.alwaysActive);
   };
 
   // This is a really really bad solution right now. Using the controller
