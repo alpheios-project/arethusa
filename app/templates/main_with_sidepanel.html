@@ -3,16 +3,12 @@
 <div class="row panel">
   <div class="columns small-12">
     <div>
-      <h3>Main State</h3>
-      <p>
-        {{ state.selectedTokens }}
-        <ul class="button-group right">
-          <li><button deselector class="small">Deselect all</button></li>
-          <li><button sidepanel-folder class="small">Fold Panel</button></li>
-          <li><button ng-click="toggleColor()" class="small">Toggle Color</button></li>
-          <li><button ng-click="toggleDebugMode()" class="small">Debug</button></li>
-        </ul>
-      </p>
+      <ul class="button-group right">
+        <li><button deselector class="small">Deselect all</button></li>
+        <li><button sidepanel-folder class="small">Fold Panel</button></li>
+        <li><button ng-click="toggleColor()" class="small">Toggle Color</button></li>
+        <li><button ng-click="toggleDebugMode()" class="small">Debug</button></li>
+      </ul>
     </div>
     <div debug="state.tokens"></div>
   </div>
