@@ -63,6 +63,34 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     }
   };
 
+  // Working on the assumptions that plugins will generally be grouped
+  // in something like a tabset - impossible to show them all at the same
+  // time, we expose some variables and functions to get info about their
+  // visibility.
+  // Templates can use this to implement ngIf, which removes elements
+  // temporarily from the DOM.
+  // Very useful - example use case:
+  //   We have the morph plugin included in our configuration, but have
+  //   selected a different tab at the moment, i.e. we are displaying
+  //   the view of another plugin. The morph view wouldn't have to be
+  //   rendered in the background!
+  //
+  // As we will mostly likely listen to click events for this, we have
+  // to declare a first visible plugin in the init() function of this
+  // controller, otherwise a user wouldn't be able to see something when
+  // he first loads the page.
+  $scope.visiblePlugin = '';
+  $scope.declareVisible = function(name) {
+    $scope.visiblePlugin = name;
+  };
+  $scope.declareFirstPluginVisible = function() {
+    $scope.declareVisible($scope.subPlugins[0].name);
+  };
+
+  $scope.isVisible = function(name) {
+    return name === $scope.visiblePlugin;
+  };
+
   // This is a really really bad solution right now. Using the controller
   // to insert stuff into the state object is not good. Can only stay as
   // a temporary prototype solution.
@@ -127,6 +155,7 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     $scope.plugins = $scope.retrievePlugins(conf.plugins);
     partitionPlugins($scope.plugins);
     $scope.initPlugins();
+    $scope.declareFirstPluginVisible();
     $scope.arethusaLoaded = true;
   };
 });
