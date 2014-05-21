@@ -10,7 +10,6 @@ angular.module('arethusa.contextMenu')
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
-      var openMenu;
       var opened = false;
       var eventFn = $parse(attrs.contextMenu);
 
@@ -42,7 +41,7 @@ angular.module('arethusa.contextMenu')
 
       // need this to make sure we close the menu all the time
       function handleOtherClick(event) {
-        if (opened && (event.button !== 2 || event.target !== openMenu)) {
+        if (opened && event.button !== 2) {
           closeAndApply();
         }
       }
@@ -55,11 +54,6 @@ angular.module('arethusa.contextMenu')
         }
         // Find the context menu in the DOM
         menuElement.element = angular.element(document.getElementById(attrs.menuId));
-
-        // Hold a reference to the current element for which we open
-        // the context menu, so that we can detect if we right-click the
-        // same element twice
-        //openMenu = event.target;
 
         // Disable the browser's default context menu
         event.preventDefault();
