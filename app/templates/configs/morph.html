@@ -42,7 +42,7 @@
             that span will receive a colorpicker at a later stage
             and moved to an own directive
           -->
-          <span ng-style="val.style">
+          <span colorpicker="hex" ng-model="val.style.color" ng-style="val.style">
             {{ val.short }}
           </span>
         </td>
