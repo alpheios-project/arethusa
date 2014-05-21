@@ -17,7 +17,7 @@ describe('Read tokens from xml url', function(){
     it('changes the url', function() {
       // change %3A to : because angular doesn't encode it
       var expectedParameterUrl = encodeURIComponent(sentence1Url).replace("%3A", ":");
-      expect(browser.getCurrentUrl()).toContain("?treebank=" + expectedParameterUrl);
+      expect(browser.getCurrentUrl()).toContain("?doc=" + expectedParameterUrl);
     });
 
     it('displays the data from the given xml', function() {

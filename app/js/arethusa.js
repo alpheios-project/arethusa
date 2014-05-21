@@ -8,6 +8,7 @@ angular.module(
     'arethusa.contextMenu',
     'arethusa.confEditor',
     'arethusa.morph',
+    'arethusa.depTree',
     'arethusa.hist'
   ],
   function($routeProvider, MAIN_ROUTE, CONF_ROUTE) {

@@ -201,7 +201,7 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
     self.getToken(id).style = style;
   };
 
-  this.unsetStyle = function(id, style) {
+  this.unsetStyle = function(id) {
     delete self.getToken(id).style;
   };
 

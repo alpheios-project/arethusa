@@ -8,7 +8,9 @@
   <script src="../bower_components/angular-route/angular-route.min.js"></script>
   <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
   <script src="../bower_components/x2js/xml2json.min.js"></script>
+  <script src="../bower_components/d3/d3.min.js"></script>
   <script src="../vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js"></script>
+  <script src="../vendor/dagre-d3/dagre-d3.min.js"></script>
 
   <script src="./js/arethusa_util.js"></script>
   <script src="./js/arethusa_logger.js"></script>
@@ -63,6 +65,10 @@
   <script src="./js/arethusa.morph/directives/form_selector.js"></script>
   <script src="./js/arethusa.morph/directives/synchronize_postag.js"></script>
 
+  <script src="./js/arethusa.dep_tree.js"></script>
+  <script src="./js/arethusa.dep_tree/dep_tree.service.js"></script>
+  <script src="./js/arethusa.dep_tree/directives/dependency_tree.js"></script>
+
   <script src="./js/arethusa.hist.js"></script>
   <script src="./js/arethusa.hist/history.service.js"></script>
   <script src="./js/arethusa.hist/directives/history_element.js"></script>
@@ -85,12 +91,5 @@
 </head>
 <body >
   <div id="arethusa-main-view" ng-view></div>
-  <!--<div ng-include="template"></div>-->
-
-  <!--<div class="row">-->
-    <!--<div class="columns small-12">-->
-      <!--<button ng-click="addPlugin()">Add Plugin</button>-->
-    <!--</div>-->
-  <!--</div>-->
 </body>
 </html>

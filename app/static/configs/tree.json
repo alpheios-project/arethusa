@@ -1,0 +1,51 @@
+{
+  "main" : {
+    "template"  : "templates/tree.html",
+    "retrievers" : [
+      "treebankRetriever"
+    ],
+    "plugins" : [
+      "text",
+      "depTree"
+    ]
+  },
+  
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "plugins" : {
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
+    "depTree" : {
+      "name" : "depTree",
+      "main" : true,
+      "template" : "templates/dep_tree.html"
+    },
+    "history" : {
+      "name" : "history",
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "templates/history.html"
+    }
+  },
+
+  "retrievers" : {
+    "treebankRetriever" : {
+      "resource" : "staticFiles"
+    }
+  },
+
+  "resources" : {
+    "staticFiles" : {
+      "route" : "http://services.perseids.org/llt-data/:doc.xml",
+      "params" : ["doc"]
+    }
+  }
+}
+

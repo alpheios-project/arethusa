@@ -1,9 +1,13 @@
 .selected {
-  text-decoration: underline;
+  background-color: #CBF5F0;
 }
 
 .full-height {
   height: 100vh;
+}
+
+.full-width {
+  width: 100%;
 }
 
 .row {
@@ -32,4 +36,38 @@
   border-left: 1px solid;
   border-color: #d8d8d8;
   cursor: e-resize;
+}
+
+svg {
+  overflow: hidden;
+}
+
+.node rect {
+  stroke: # 333;
+  stroke-width : 1.5px;
+  /* The following color needs to be taken from a foundation variable */
+  /* once we start to use scss. It's the panels background color */
+  fill: #f2f2f2;
+}
+
+.selected text {
+    fill: white;
+}
+
+.selected rect {
+  fill: #cc0000;
+}
+
+.edgeLabel rect {
+  fill: #f2f2f2;
+}
+
+.tree-label {
+  font-size: 0.7em;
+}
+
+.edgePath {
+  stroke: #333;
+  stroke-width : 1px;
+  fill: none;
 }

@@ -9,6 +9,7 @@
     "angular-animate": "1.2.15",
     "angular-mocks": "1.2.15",
     "foundation": "~5.2.2",
+    "d3": "3.4.6",
     "x2js" : ""
   }
 }
