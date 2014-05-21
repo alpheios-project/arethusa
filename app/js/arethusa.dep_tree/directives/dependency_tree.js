@@ -80,6 +80,10 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       // Not very elegant, but we don't want marker-end arrowheads right now
       vis.selectAll("g.edgePath path").attr('marker-end', '');
     },
-    template: '<svg><g transform="translate(20,20)"/></svg>'
+    template: '\
+      <svg class="full-height full-width">\
+        <g transform="translate(20,20)"/>\
+      </svg>\
+    '
   };
 });

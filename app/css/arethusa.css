@@ -6,6 +6,10 @@
   height: 100vh;
 }
 
+.full-width {
+  width: 100%;
+}
+
 .row {
   max-width: 95vw;
 }
