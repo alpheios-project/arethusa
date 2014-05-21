@@ -2,7 +2,7 @@
 
 /* global dagreD3 */
 
-angular.module('arethusa.depTree').directive('dependencyTree', function(depTree, state, $compile) {
+angular.module('arethusa.depTree').directive('dependencyTree', function(state, $compile) {
   return {
     restrict: 'E',
     scope: true,
@@ -52,7 +52,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(depTree,
 
       // Initialize the graph
 
-      var layout = depTree.createGraphLayout();
+      var layout = dagreD3.layout().rankDir("BT");
       var svg = d3.select('svg');
       svg.call(d3.behavior.zoom().on("zoom", function() {
          var ev = d3.event;
