@@ -39,13 +39,17 @@ describe('arethus.depTree', function() {
     $provide.value('state', mockState);
     $provide.value('configurator', mockConfigurator);
   }));
-  describe('createDigraph', function() {
-    it('creates nodes and edges', inject(function(depTree, state, configurator) {
-      var digraph = depTree.createDigraph();
 
-      expect(digraph).toBeDefined();
-      expect(digraph.nodes().length).toEqual(3);
-      expect(digraph.edges().length).toEqual(2);
-    }));
-  });
+  // The following code was moved to a directive, which is a little harder
+  // to test unfortunately...
+
+  //describe('createDigraph', function() {
+    //it('creates nodes and edges', inject(function(depTree, state, configurator) {
+      //var digraph = depTree.createDigraph();
+
+      //expect(digraph).toBeDefined();
+      //expect(digraph.nodes().length).toEqual(3);
+      //expect(digraph.edges().length).toEqual(2);
+    //}));
+  //});
 });
