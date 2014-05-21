@@ -55,7 +55,7 @@
       ],
       "template"  : "templates/morph2.html",
       "contextMenu" : true,
-      "contextMenuTemplate": "templates/morph/context_menu.html",
+      "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
       "fileUrl" : "./static/configs/morph/attributes.json"
     },
 
