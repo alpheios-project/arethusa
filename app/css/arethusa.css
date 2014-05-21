@@ -13,6 +13,8 @@
 .context-menu {
   position: absolute;
   z-index: 1;
+  border: solid 1px #cccccc;
+  background: #fff;
 }
 
 #sidepanel {
