@@ -44,7 +44,7 @@ svg {
 
 .node rect {
   stroke: # 333;
-  stroke - width : 1.5px;
+  stroke-width : 1.5px;
   /* The following color needs to be taken from a foundation variable */
   /* once we start to use scss. It's the panels background color */
   fill: #f2f2f2;
