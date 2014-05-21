@@ -1,1 +1,7 @@
-<span ng-style="token.style">{{ token.string }}</span>
+<!--tcm is for tokenContextMenu-->
+<span
+  context-menu 
+  menu-id="tcm{{ token.id }}"
+  ng-style="token.style">
+  {{ token.string }}
+</span>
