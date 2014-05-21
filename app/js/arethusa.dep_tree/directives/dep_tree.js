@@ -41,6 +41,9 @@ angular.module('arethusa.depTree').directive('tree', function(depTree, state, $c
 
         return $compile(tokenHtml)(childScope)[0];
       });
+
+      // Not very elegant, but we don't want marker-end arrowheads right now
+      vis.selectAll("g.edgePath path").attr('marker-end', '');
     },
     template: '<svg><g transform="translate(20,20)"/></svg>'
   };
