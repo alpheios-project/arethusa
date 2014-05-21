@@ -18,7 +18,7 @@ angular.module('arethusa.contextMenu')
         menu.removeClass('hide');
 
         // reposition the context menu relative to the parent element
-        var parPos = parent.position();
+        var parPos = parent.offset();
         var top  = parPos.top + parent.outerHeight();
         var left = parPos.left;
         menu.css('left', left);
@@ -61,6 +61,7 @@ angular.module('arethusa.contextMenu')
 
         scope.$apply(function() {
           eventFn(scope, { $event: event });
+          console.log(element.position());
           open(event, menuElement.element, element);
         });
       });
