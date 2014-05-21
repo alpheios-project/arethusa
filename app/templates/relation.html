@@ -1,6 +1,11 @@
 <div ng-repeat="(id, label) in plugin.currentLabels()">
-  {{ label.string }}
+  <div>{{ label.string }}</div>
   <div>
     {{ label.label }} : <span ng-repeat="labelName in plugin.longLabelName(label.label)"> {{ labelName }} </span>
   </div>
+  <select
+    ng-model="label.label"
+    ng-options="name as opt.short for (name, opt) in plugin.relations"
+    ng-init="">
+  </select>
 </div>
