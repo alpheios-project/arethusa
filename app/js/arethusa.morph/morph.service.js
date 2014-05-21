@@ -189,6 +189,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   };
 
   this.unsetState = function(id) {
+    state.unsetStyle(id);
     state.unsetState(id, 'morphology');
   };
 
