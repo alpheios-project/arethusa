@@ -61,7 +61,6 @@ angular.module('arethusa.contextMenu')
 
         scope.$apply(function() {
           eventFn(scope, { $event: event });
-          console.log(element.position());
           open(event, menuElement.element, element);
         });
       });
