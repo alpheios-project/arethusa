@@ -9,6 +9,9 @@ angular.module('arethusa.contextMenu')
 .directive('contextMenu', function($document, $parse, menuElement) {
   return {
     restrict: 'A',
+    scope: {
+      menuObj: '='
+    },
     link: function(scope, element, attrs) {
       var opened = false;
       var eventFn = $parse(attrs.contextMenu);
@@ -24,12 +27,24 @@ angular.module('arethusa.contextMenu')
         menu.css('left', left);
         menu.css('top', top);
 
+        // If a target object was specified, declare that we just opened
+        // a contextMenu.
+        if (scope.menuObj) {
+          scope.menuObj.status.contextMenuOpen = true;
+        }
+
         opened = true;
       }
 
       function close(menu) {
         menu.removeClass('menu-open');
         menu.addClass('hide');
+
+        // If a target object was specified, declare that we just closed
+        // a contextMenu.
+        if (scope.menuObj) {
+          scope.menuObj.status.contextMenuOpen = false;
+        }
         opened = false;
       }
 

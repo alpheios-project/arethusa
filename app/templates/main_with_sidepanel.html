@@ -30,8 +30,11 @@
     <div id="sidepanel-resizer" class="full-height" resizable></div>
     <div id="sidepanel-body">
       <tabset>
-        <tab ng-repeat="pl in subPlugins" heading="{{ pl.name }}">
-          <plugin name="pl"/>
+        <tab
+          ng-click="declareActive(pl.name)"
+          ng-repeat="pl in subPlugins"
+          heading="{{ pl.name }}">
+          <plugin name="pl" ng-if="isActive(pl)"/>
         </tab>
       </tabset>
     </div>
