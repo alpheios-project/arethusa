@@ -7,10 +7,14 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(depTree,
     restrict: 'E',
     scope: true,
     link: function(scope, element, attrs) {
+      var tokens = scope.$eval(attrs.tokens);
       var g = new dagreD3.Digraph();
 
+
+      scope.state = state;
+
       g.addNode("0000", { label: "[-]"});
-      angular.forEach(state.tokens, function(token, index) {
+      angular.forEach(tokens, function(token, index) {
         g.addNode(token.id, { label: '<div id="' + token.id + '" class="node">' + token.string + '</div>' /*parent[0].innerHTML*/ });
       });
 
@@ -19,7 +23,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(depTree,
         return '<div class="tree-label">' + label + '</div>';
       }
 
-      angular.forEach(state.tokens, function(word, index) {
+      angular.forEach(tokens, function(word, index) {
         if (word.head) {
           g.addEdge(word.id, word.id, word.head.id, { label: labelPlaceholder(word.relation.label) });
         }
@@ -36,7 +40,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(depTree,
       vis.selectAll("div.node").append(function() {
         var parent = angular.element(this)[0];
         var childScope = scope.$new();
-        childScope.token = state.tokens[parent.id];
+        childScope.token = tokens[parent.id];
         parent.textContent = "";
 
         return $compile(tokenHtml)(childScope)[0];
