@@ -5,12 +5,13 @@ angular.module('arethusa.relation').service('relation', function(state, configur
   this.template = this.conf.template;
   this.name = this.conf.name;
   this.relations = this.conf.relations;
+  this.rels = {};
 
   this.currentLabels = function() {
-    var tokens = state.tokens;
+    var that = this;
     var res = {};
-    angular.forEach(state.selectedTokens, function(val, id) {
-      res[id] = { string: tokens[id].string, label: tokens[id].relation.label };
+    angular.forEach(state.selectedTokens, function(token, id) {
+      res[id] = that.rels[id];
     });
     return res;
   };
@@ -37,6 +38,10 @@ angular.module('arethusa.relation').service('relation', function(state, configur
   };
 
   this.init = function() {
-    // tbd
+    var tokens = state.tokens;
+    var that = this;
+    angular.forEach(tokens, function(val, id) {
+      that.rels[id] = { string: tokens[id].string, label: tokens[id].relation.label };
+    });
   };
 });
