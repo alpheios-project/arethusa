@@ -79,16 +79,21 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
   // to declare a first visible plugin in the init() function of this
   // controller, otherwise a user wouldn't be able to see something when
   // he first loads the page.
-  $scope.visiblePlugin = '';
-  $scope.declareVisible = function(name) {
-    $scope.visiblePlugin = name;
+  //
+  // Some plugins might have to rely on working in the background too.
+  // Generally this shouldn't be the case, because all business logic
+  // should be out of the DOM anyway. If a plugin still needs this, it can
+  // do so by setting its alwaysActiveproperty to true.
+  $scope.activePlugin = '';
+  $scope.declareActive= function(name) {
+    $scope.activePlugin= name;
   };
-  $scope.declareFirstPluginVisible = function() {
-    $scope.declareVisible($scope.subPlugins[0].name);
+  $scope.declareFirstPluginActive= function() {
+    $scope.declareActive($scope.subPlugins[0].name);
   };
 
-  $scope.isVisible = function(name) {
-    return name === $scope.visiblePlugin;
+  $scope.isActive= function(plugin) {
+    return (plugin.name === $scope.activePlugin && ! plugin.alwaysActive)
   };
 
   // This is a really really bad solution right now. Using the controller
@@ -155,7 +160,7 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     $scope.plugins = $scope.retrievePlugins(conf.plugins);
     partitionPlugins($scope.plugins);
     $scope.initPlugins();
-    $scope.declareFirstPluginVisible();
+    $scope.declareFirstPluginActive();
     $scope.arethusaLoaded = true;
   };
 });

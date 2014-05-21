@@ -31,10 +31,10 @@
     <div id="sidepanel-body">
       <tabset>
         <tab
-          ng-click="declareVisible(pl.name)"
+          ng-click="declareActive(pl.name)"
           ng-repeat="pl in subPlugins"
           heading="{{ pl.name }}">
-          <plugin name="pl" ng-if="isVisible(pl.name)"/>
+          <plugin name="pl" ng-if="isActive(pl)"/>
         </tab>
       </tabset>
     </div>
