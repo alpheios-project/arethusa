@@ -222,9 +222,9 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
   };
 
   this.getRetrievers = function(retrievers) {
-    return arethusaUtil.inject([], retrievers, function(memo, name, conf) {
+    return arethusaUtil.inject({}, retrievers, function(memo, name, conf) {
       var Retriever = self.getService(name);
-      memo.push(new Retriever(conf));
+      memo[name] = new Retriever(conf);
     });
   };
 
