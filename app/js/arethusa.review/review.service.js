@@ -3,7 +3,16 @@
 angular.module('arethusa.review').service('review', function(configurator) {
   var self = this;
 
-  this.conf = configurator.configurationFor('review');
-  this.template = this.conf.template;
-  this.name = this.conf.name;
+  var conf = configurator.configurationFor('review');
+  this.template = conf.template;
+  this.name = conf.name;
+
+  this.goldTokens = {};
+
+  var retrievers = configurator.getRetrievers(conf.retrievers);
+  var retriever = retrievers.TreebankRetriever;
+
+  retriever.getData(function(res) {
+    self.goldTokens = res[0].tokens;
+  });
 });
