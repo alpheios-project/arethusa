@@ -5,7 +5,7 @@ angular.module('arethusa.core').directive('token', function(state) {
     restrict: 'AE',
     scope: {
       token: '=',
-      colorize: '@',
+      colorize: '=',
       click: '@',
       hover: '@',
       highlight: '@'
@@ -51,13 +51,26 @@ angular.module('arethusa.core').directive('token', function(state) {
         bindHover();
       }
 
+      function cleanStyle() {
+        angular.forEach(scope.token.style, function(val, style) {
+          element.css(style, '');
+        });
+      }
+
+      // We have two possibilities here:
+      // When the colorize contains an attribute, the user wants
+      // to set a custom style.
+      // When it was just a boolean value of true, we look if the
+      // token itself contains style information.
       scope.$watch('colorize', function(newVal, oldVal) {
         if (newVal) {
-          element.css(scope.token.style || {});
+          if (angular.isObject(newVal)) {
+            element.css(newVal);
+          } else {
+            element.css(scope.token.style || {});
+          }
         } else {
-          angular.forEach(scope.token.style, function(val, style) {
-            element.css(style, '');
-          });
+          cleanStyle();
         }
       });
     },
