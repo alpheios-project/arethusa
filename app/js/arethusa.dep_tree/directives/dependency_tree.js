@@ -28,12 +28,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       }
 
       var tokenHtml = '\
-        <token\
-          ng-click="state.toggleSelection(token.id, \'click\')"\
-          ng-mouseenter="state.selectToken(token.id, \'hover\')"\
-          ng-mouseleave="state.deselectToken(token.id, \'hover\')"\
-          ng-class="{selected: state.isSelected(token.id)}">\
-        </token>\
+        <span\
+          token="token"\
+          colorize="true"\
+          click="true"\
+          hover="true">\
+        </span>\
       ';
 
       // Creating the node set
