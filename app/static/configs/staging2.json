@@ -10,8 +10,8 @@
     "plugins" : [
       "text",
       "depTree",
-      "morph",
       "review",
+      "morph",
       "history",
       "comment"
     ]
