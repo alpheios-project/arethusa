@@ -164,4 +164,15 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     $scope.declareFirstPluginActive();
     $scope.arethusaLoaded = true;
   };
+
+  // Temporary testing method
+  $scope.simulateHeadChange = function() {
+    var token = state.tokens['0001'];
+    if (token.head.id < '0010') {
+      var h = parseInt(token.head.id) + 1;
+      token.head.id = arethusaUtil.formatNumber(h, 4);
+    } else {
+      token.head.id = "0002";
+    }
+  };
 });
