@@ -1,1 +1,14 @@
-<svg dependency-tree tokens="state.tokens" class="full-height full-width"></svg>
+<div>
+  <span
+    class="label radius small right"
+    ng-show="plugin.diffPresent"
+    ng-click="plugin.toggleDiff()">
+    Color Diff
+  </span>
+<div>
+<svg
+  dependency-tree
+  tokens="state.tokens"
+  styles="plugin.diffStyles()"
+  class="full-height full-width">
+</svg>
