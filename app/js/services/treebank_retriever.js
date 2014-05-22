@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').factory('treebankRetriever', function($http, navigator, configurator) {
+angular.module('arethusa').factory('treebankRetriever', function($http, configurator) {
   // tokens should always be loaded synchronous - the app should
   // not start anything without knowing an initial state
 
@@ -43,13 +43,9 @@ angular.module('arethusa').factory('treebankRetriever', function($http, navigato
   var parseXml = function(data) {
     var xml = arethusaUtil.xml2json(data);
     var sentences = arethusaUtil.toAry(xml.treebank.sentence);
-    navigator.reset();
-    angular.forEach(sentences, function(sentence, key) {
-      var stateObj = xmlSentenceToState(sentence.word, sentence._id);
-      navigator.sentences.push(stateObj);
+    return arethusaUtil.inject([], sentences, function(memo, sentence, k) {
+      memo.push(xmlSentenceToState(sentence.word, sentence._id));
     });
-    navigator.updateId();
-    return navigator.currentSentence();
   };
 
   return {

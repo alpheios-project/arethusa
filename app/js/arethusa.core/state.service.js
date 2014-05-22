@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.core').service('state', function(configurator, $rootScope) {
+angular.module('arethusa.core').service('state', function(configurator, navigator, $rootScope) {
   var self = this;
 
   this.tokens = {};
@@ -25,9 +25,13 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
 
   this.retrieveTokens = function() {
     var container = {};
+    //navigator.reset();
     angular.forEach(tokenRetrievers, function(retriever, name) {
       retriever.getData(function(data) {
-        saveTokens(container, data);
+        //arethusaUtil.pushAll(navigator.sentences, data);
+        //navigator.updateId();
+        //saveTokens(container, navigator.currentSentence());
+        saveTokens(container, data[0].tokens);
         declareLoaded(retriever);
       });
     });
