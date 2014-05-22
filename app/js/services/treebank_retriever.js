@@ -1,17 +1,18 @@
 "use strict";
 
-angular.module('arethusa').factory('treebankRetriever', function(documentStore, configurator) {
-  // tokens should always be loaded synchronous - the app should
-  // not start anything without knowing an initial state
+/* A newable factory to handle xml files using the Perseus Treebank Schema
+ *
+ * The constructor functions takes a configuration object (that typically
+ * contains a resource object for this service).
+ *
+ */
 
-  var conf = configurator.configurationFor('treebankRetriever');
-  var resource = configurator.provideResource(conf.resource);
-
-  var formatId = function(id) {
+angular.module('arethusa').factory('TreebankRetriever', function(documentStore, configurator) {
+  function formatId(id) {
     return arethusaUtil.formatNumber(id, 4);
-  };
+  }
 
-  var xmlTokenToState = function(token) {
+  function xmlTokenToState(token) {
     // One could formalize this to real rules that are configurable...
     //
     // Remember that attributes of the converted xml are prefixed with underscore
@@ -29,32 +30,34 @@ angular.module('arethusa').factory('treebankRetriever', function(documentStore, 
         id: formatId(token._head)
       }
     };
-  };
+  }
 
-  var xmlSentenceToState = function(words, id) {
+  function xmlSentenceToState(words, id) {
     var tokens = {};
     angular.forEach(words, function(xmlToken, i) {
       var token = xmlTokenToState(xmlToken);
       tokens[token.id] = token;
     });
     return { id: id, tokens: tokens};
-  };
+  }
 
-  var parseXml = function(data) {
+  function parseXml(data) {
     var xml = arethusaUtil.xml2json(data);
     var sentences = arethusaUtil.toAry(xml.treebank.sentence);
     return arethusaUtil.inject([], sentences, function(memo, sentence, k) {
       memo.push(xmlSentenceToState(sentence.word, sentence._id));
     });
-  };
+  }
 
-  return {
-    getData: function(callback) {
+  return function(conf) {
+    var resource = configurator.provideResource(conf.resource);
+
+    this.getData = function(callback) {
       resource.get().then(function(res) {
         var xml = res.data;
         documentStore.addDocument(res.source, xml);
         callback(parseXml(xml));
       });
-    }
+    };
   };
 });
