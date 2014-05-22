@@ -53,6 +53,7 @@ angular.module('arethusa.core').service('resource', function($resource, $locatio
           var res = {};
           res.data = isJson(headers()['content-type']) ? JSON.parse(data) : data;
           res.headers = headers;
+          res.source = 'tbd'; // we need to define and http interceptor
           return res;
         }
       }
