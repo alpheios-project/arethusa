@@ -4,7 +4,7 @@
 
 angular.module('arethusa.depTree').directive('dependencyTree', function(state, $compile) {
   return {
-    restrict: 'E',
+    restrict: 'A',
     scope: true,
     link: function(scope, element, attrs) {
       var tokens = scope.$eval(attrs.tokens);
@@ -53,7 +53,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       // Initialize the graph
 
       var layout = dagreD3.layout().rankDir("BT");
-      var svg = d3.select('svg');
+      var svg = d3.select(element[0]);
       svg.call(d3.behavior.zoom().on("zoom", function() {
          var ev = d3.event;
          svg.select("g")
@@ -80,10 +80,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       // Not very elegant, but we don't want marker-end arrowheads right now
       vis.selectAll("g.edgePath path").attr('marker-end', '');
     },
-    template: '\
-      <svg class="full-height full-width">\
-        <g transform="translate(20,20)"/>\
-      </svg>\
-    '
+    template: '<g transform="translate(20,20)"/>'
   };
 });
