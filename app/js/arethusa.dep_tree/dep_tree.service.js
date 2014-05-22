@@ -50,6 +50,7 @@ angular.module('arethusa.depTree').service('depTree', function(state, configurat
   $rootScope.$on('diffLoaded', function() {
     self.diffPresent = true;
     self.diffInfo = analyseDiffs(state.tokens);
+    self.diffMode = true;
   });
 
   this.init = function() {
