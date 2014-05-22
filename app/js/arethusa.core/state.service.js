@@ -25,11 +25,10 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
 
   this.retrieveTokens = function() {
     var container = {};
-    var that = this;
     angular.forEach(tokenRetrievers, function(retriever, name) {
       retriever.getData(function(data) {
         saveTokens(container, data);
-        declareLoaded(retriever, that);
+        declareLoaded(retriever);
       });
     });
     this.tokens = container;
@@ -48,7 +47,7 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
 
   var declareLoaded = function(retriever, that) {
     retriever.loaded = true;
-    that.checkLoadStatus();
+    self.checkLoadStatus();
   };
 
   // Delegators
