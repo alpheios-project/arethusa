@@ -6,7 +6,7 @@ describe('morph', function() {
     configurationFor: function(name) {
       return {};
     },
-    getServices: function(name) {
+    getRetrievers: function(name) {
       return [];
     }
   };
