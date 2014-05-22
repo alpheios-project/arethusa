@@ -132,6 +132,10 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       }
 
       // Initialize the graph
+      function resetEdgeStyling() {
+        vis.selectAll("g.edgePath path").style({ stroke: '#333', 'stroke-width': '0.5px' });
+      }
+
 
       var layout = dagreD3.layout().rankDir("BT");
       var svg = d3.select(element[0]);
@@ -193,3 +197,5 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
     template: '<g transform="translate(20,20)"/>'
   };
 });
+          } else {
+            resetEdgeStyling();
