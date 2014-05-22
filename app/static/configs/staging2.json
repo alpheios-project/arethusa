@@ -2,9 +2,11 @@
   "main" : {
     "colorize" : true,
     "template"  : "templates/main_with_sidepanel.html",
-    "retrievers" : [
-      "treebankRetriever"
-    ],
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "fakePerseids"
+      }
+    },
     "plugins" : [
       "text",
       "depTree",
@@ -21,15 +23,6 @@
     "navigation" : true
   },
 
-  "retrievers" : {
-    "treebankRetriever" : {
-      "resource" : "fakePerseids"
-    },
-    "bspMorphRetriever" : {
-      "resource" : "morphologyService"
-    }
-  },
-
   "resources" : {
     "fakePerseids" : {
       "route" : "http://74.70.97.104:8085/xml_server/:doc",
@@ -38,6 +31,15 @@
         "s"
       ]
     },
+
+    "fakeGold" : {
+      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
+      "params" : [
+        "gold",
+        "s"
+      ]
+    },
+
     "morphologyService" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
     }
@@ -58,9 +60,11 @@
 
     "morph" : {
       "name" : "morph",
-      "retrievers" : [
-        "bspMorphRetriever"
-      ],
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
       "template"  : "templates/morph2.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
@@ -69,7 +73,12 @@
 
     "review" : {
       "name" : "review",
-      "template" : "templates/arethusa.review/review.html"
+      "template" : "templates/arethusa.review/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "fakeGold"
+        }
+      }
     },
 
     "history" : {
