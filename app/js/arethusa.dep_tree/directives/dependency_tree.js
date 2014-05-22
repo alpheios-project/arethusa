@@ -19,7 +19,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
 
       function edgePlaceholder(token) {
         var label = token.relation.label;
-        var id = token.id
+        var id = token.id;
         // tel is for token edge label
         return '<div id="tel' + id + '" class="tree-label">' + label + '</div>';
       }
@@ -115,6 +115,14 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
         });
       }
 
+      function edges() {
+        return vis.selectAll("g.edgePath path");
+      }
+
+      function nodes() {
+        return vis.selectAll("div.node");
+      }
+
       function drawEdge(token) {
         g.addEdge(token.id, token.id, token.head.id, { label: edgePlaceholder(token) });
       }
@@ -122,6 +130,10 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       function updateEdge(token) {
         g.delEdge(token.id);
         drawEdge(token);
+      }
+
+      function resetEdgeStyling() {
+        edges().style({ stroke: '#333', 'stroke-width': '0.5px' });
       }
 
       function createGraph() {
@@ -132,10 +144,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       }
 
       // Initialize the graph
-      function resetEdgeStyling() {
-        vis.selectAll("g.edgePath path").style({ stroke: '#333', 'stroke-width': '0.5px' });
-      }
-
 
       var layout = dagreD3.layout().rankDir("BT");
       var svg = d3.select(element[0]);
@@ -154,7 +162,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
 
         // Customize the graph so that it holds our directives
 
-        vis.selectAll("div.node").append(function() {
+        nodes().append(function() {
           // This is the element we append to and we created as a placeholder
           // We clear out its text content so that we can display the content
           // of our compiled token directive.
@@ -164,7 +172,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
         });
 
         // Not very elegant, but we don't want marker-end arrowheads right now
-        vis.selectAll("g.edgePath path").attr('marker-end', '');
+        edges().attr('marker-end', '');
       }
 
       angular.forEach(scope.tokens, function(token, id) {
@@ -190,6 +198,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
           render();
           if (newVal) {
             applyCustomStyling();
+          } else {
+            resetEdgeStyling();
           }
         }
       });
@@ -197,5 +207,3 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
     template: '<g transform="translate(20,20)"/>'
   };
 });
-          } else {
-            resetEdgeStyling();
