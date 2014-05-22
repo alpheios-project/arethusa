@@ -24,7 +24,8 @@
  *
  */
 
-angular.module('arethusa.core').service('configurator', function($injector, $http, $rootScope, resource, $timeout) {
+angular.module('arethusa.core').service('configurator', function($injector, $http, $rootScope, Resource, $timeout) {
+  var self = this;
   var includeParam = 'fileUrl';
 
   var filesToInclude = function(obj) {
@@ -220,6 +221,13 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
       conf.resources[plugin];
   };
 
+  this.getRetrievers = function(retrievers) {
+    return arethusaUtil.inject([], retrievers, function(memo, name, conf) {
+      var Retriever = self.getService(name);
+      memo.push(new Retriever(conf));
+    });
+  };
+
   // right now very hacky, not sure about the design of the conf file atm
   // we therefore just tell the service where the conf for specific things
   // is to be found in the JSON tree.
@@ -228,6 +236,6 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
     var conf = this.configuration.resources[name];
     // we get the resource factory through the injector, and not by regular
     // dependency injection, because we always want to return a new instance!
-    return resource.create(conf);
+    return new Resource(conf);
   };
 });
