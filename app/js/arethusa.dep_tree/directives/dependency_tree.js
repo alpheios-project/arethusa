@@ -38,7 +38,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
 
       // Creating the node set
 
-      var g = new dagreD3.Digraph();
+      // g will hold the graph and be set when new tokens are loaded
+      var g;
 
       function createNodes() {
         g.addNode("0000", { label: "[-]"});
@@ -62,6 +63,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       function updateEdge(token) {
         g.delEdge(token.id);
         drawEdge(token);
+      }
+
+      function createGraph() {
+        g = new dagreD3.Digraph();
+        createNodes();
+        createEdges();
+        render();
       }
 
       // Initialize the graph
@@ -88,7 +96,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
           // We clear out its text content so that we can display the content
           // of our compiled token directive.
           // The placholder has an id in the format of tphXXXX where XXXX is the id.
-
           this.textContent = "";
           return compiledToken(scope.tokens[this.id.slice(3)]);
         });
@@ -112,9 +119,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       });
 
       scope.$watch('tokens', function(newVal, oldVal) {
-        createNodes();
-        createEdges();
-        render();
+        createGraph();
       });
     },
     template: '<g transform="translate(20,20)"/>'
