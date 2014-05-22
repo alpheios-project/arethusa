@@ -1,6 +1,8 @@
 "use strict";
 
-angular.module('arethusa.core').controller('MainCtrl', function($scope, $injector, configurator, state) {
+angular.module('arethusa.core').controller('MainCtrl', function($scope, $injector, configurator, state, documentStore) {
+  documentStore.reset();
+
   $scope.debug = false;
   $scope.toggleDebugMode = function() {
     $scope.debug = !$scope.debug;
@@ -13,8 +15,6 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
   $scope.toggleColor = function() {
     $scope.colorize = ! $scope.colorize;
   };
-
-
 
   var partitionPlugins = function(plugins) {
     $scope.mainPlugins = [];
