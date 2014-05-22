@@ -9,7 +9,8 @@ angular.module(
     'arethusa.confEditor',
     'arethusa.morph',
     'arethusa.depTree',
-    'arethusa.hist'
+    'arethusa.hist',
+    'arethusa.review'
   ],
   function($routeProvider, MAIN_ROUTE, CONF_ROUTE) {
     $routeProvider.when('/', MAIN_ROUTE);

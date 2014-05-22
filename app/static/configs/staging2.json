@@ -9,8 +9,8 @@
       "text",
       "depTree",
       "morph",
+      "review",
       "history",
-      "external_history",
       "comment"
     ]
   },
@@ -67,19 +67,16 @@
       "fileUrl" : "./static/configs/morph/attributes.json"
     },
 
+    "review" : {
+      "name" : "review",
+      "template" : "templates/arethusa.review/review.html"
+    },
+
     "history" : {
       "name" : "history",
-      "main" : true,
       "listener" : true,
       "maxSize" : 5,
       "template" : "templates/history.html"
-    },
-
-    "external_history" : {
-      "name" : "external_history",
-      "listener" : true,
-      "external" : true,
-      "template" : "templates/external_history.html"
     },
 
     "comment" : {
