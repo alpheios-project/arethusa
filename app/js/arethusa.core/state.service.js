@@ -6,7 +6,7 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
   this.tokens = {};
 
   var conf = configurator.configurationFor('main');
-  var tokenRetrievers = configurator.getServices(conf.retrievers);
+  var tokenRetrievers = configurator.getRetrievers(conf.retrievers);
 
   // Loading a state
 
