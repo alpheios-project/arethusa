@@ -5,9 +5,10 @@
 angular.module('arethusa.depTree').directive('dependencyTree', function(state, $compile) {
   return {
     restrict: 'A',
-    scope: true,
+    scope: {
+      tokens: '=',
+    },
     link: function(scope, element, attrs) {
-      scope.tokens = scope.$eval(attrs.tokens);
       // This will be needed once we manage to get this into an isolated scope
       //scope.state = state;
 
