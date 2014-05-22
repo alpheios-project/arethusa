@@ -1,5 +1,5 @@
 .selected {
-  background-color: #CBF5F0;
+  background-color: #FFF88F;
 }
 
 .full-height {
@@ -68,6 +68,6 @@ svg {
 
 .edgePath {
   stroke: #333;
-  stroke-width : 1px;
+  stroke-width : 0.5px;
   fill: none;
 }
