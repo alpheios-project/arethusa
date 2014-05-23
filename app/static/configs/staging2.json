@@ -9,6 +9,7 @@
     "plugins" : [
       "text",
       "depTree",
+      "relation",
       "review",
       "morph",
       "history",
@@ -68,6 +69,12 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
       "fileUrl" : "./static/configs/morph/attributes.json"
+    },
+
+    "relation" : {
+      "name" : "relation",
+      "template" : "templates/relation.html",
+      "fileUrl" : "./static/configs/relation/relations.json"
     },
 
     "review" : {

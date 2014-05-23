@@ -10,6 +10,7 @@
       "text",
       "depTree",
       "morph",
+      "relation",
       "history",
       "external_history",
       "comment"
@@ -54,6 +55,12 @@
       },
       "template"  : "templates/morph2.html",
       "fileUrl" : "./static/configs/morph/attributes.json"
+    },
+
+    "relation" : {
+      "name" : "relation",
+      "template" : "templates/relation.html",
+      "fileUrl" : "./static/configs/relation/relations.json"
     },
 
     "history" : {

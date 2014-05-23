@@ -1,92 +1,96 @@
 {
   "relations" : {
-    "PRED" : {
-      "short" : "PRED",
-      "long" : "predicate"
+    "labels" : {
+      "PRED" : {
+        "short" : "PRED",
+        "long" : "predicate"
+      },
+      "SBJ" : {
+        "short" : "SBJ",
+        "long" : "subject"
+      },
+      "OBJ" : {
+        "short" : "OBJ",
+        "long" : "object"
+      },
+      "ATR" : {
+        "short" : "ATR",
+        "long" : "attribute"
+      },
+      "ADV" : {
+        "short" : "ADV",
+        "long" : "adverbial"
+      },
+      "ATV" : {
+        "short" : "ATV",
+        "long" : "complement"
+      },
+      "AtvV" : {
+        "short" : "AtvV",
+        "long" : "complement"
+      },
+      "PNOM" : {
+        "short" : "PNOM",
+        "long" : "predicate nominal"
+      },
+      "OCCOMP" : {
+        "short" : "OCCOMP",
+        "long" : "object complement"
+      },
+      "COORD" : {
+        "short" : "COORD",
+        "long" : "coordinator"
+      },
+      "APOS" : {
+        "short" : "APOS",
+        "long" : "apposing element"
+      },
+      "AuxP" : {
+        "short" : "AuxP",
+        "long" : "preposition"
+      },
+      "AuxC" : {
+        "short" : "AuxC",
+        "long" : "conjunction"
+      },
+      "AuxR" : {
+        "short" : "AuxR",
+        "long" : "reflexive passive"
+      },
+      "AuxV" : {
+        "short" : "AuxV",
+        "long" : "auxiliary verb"
+      },
+      "AuxX" : {
+        "short" : "AuxX",
+        "long" : "comma"
+      },
+      "AuxG" : {
+        "short" : "AuxG",
+        "long" : "bracketing punctuation"
+      },
+      "AuxK" : {
+        "short" : "AuxK",
+        "long" : "terminal punctuation"
+      },
+      "AuxY" : {
+        "short" : "AuxY",
+        "long" : "sentence adverbial"
+      },
+      "AuxZ" : {
+        "short" : "AuxZ",
+        "long" : "emphasizing particle"
+      },
+      "ExD" : {
+        "short" : "ExD",
+        "long" : "ellipsis"
+      }
     },
-    "SBJ" : {
-      "short" : "SBJ",
-      "long" : "subject"
-    },
-    "OBJ" : {
-      "short" : "OBJ",
-      "long" : "object"
-    },
-    "ATR" : {
-      "short" : "ATR",
-      "long" : "attribute"
-    },
-    "ADV" : {
-      "short" : "ADV",
-      "long" : "adverbial"
-    },
-    "ATV" : {
-      "short" : "ATV",
-      "long" : "complement"
-    },
-    "AtvV" : {
-      "short" : "AtvV",
-      "long" : "complement"
-    },
-    "PNOM" : {
-      "short" : "PNOM",
-      "long" : "predicate nominal"
-    },
-    "OCCOMP" : {
-      "short" : "OCCOMP",
-      "long" : "object complement"
-    },
-    "COORD" : {
-      "short" : "COORD",
-      "long" : "coordinator"
-    },
-    "CO" : {
-      "short" : "CO",
-      "long" : "coordinated"
-    },
-    "APOS" : {
-      "short" : "APOS",
-      "long" : "apposing element"
-    },
-    "AuxP" : {
-      "short" : "AuxP",
-      "long" : "preposition"
-    },
-    "AuxC" : {
-      "short" : "AuxC",
-      "long" : "conjunction"
-    },
-    "AuxR" : {
-      "short" : "AuxR",
-      "long" : "reflexive passive"
-    },
-    "AuxV" : {
-      "short" : "AuxV",
-      "long" : "auxiliary verb"
-    },
-    "AuxX" : {
-      "short" : "AuxX",
-      "long" : "comma"
-    },
-    "AuxG" : {
-      "short" : "AuxG",
-      "long" : "bracketing punctuation"
-    },
-    "AuxK" : {
-      "short" : "AuxK",
-      "long" : "terminal punctuation"
-    },
-    "AuxY" : {
-      "short" : "AuxY",
-      "long" : "sentence adverbial"
-    },
-    "AuxZ" : {
-      "short" : "AuxZ",
-      "long" : "emphasizing particle"
-    },
-    "ExD" : {
-      "short" : "ExD",
-      "long" : "ellipsis"
+    "suffixes" : {
+      "CO" : {
+        "short" : "CO",
+        "long" : "coordinated"
+      }
     }
   }
 }
