@@ -99,11 +99,6 @@ angular.module('arethusa.relation').service('relation', function(state, configur
   };
 
   this.init = function() {
-    var tokens = this.buildTokens();
-    var that = this;
-    angular.forEach(tokens, function(val, id) {
-      var token = tokens[id];
-      that.rels[id] = { string: token.string, label: token.relation.label };
-    });
+    self.relations = self.createInternalState();
   };
 });

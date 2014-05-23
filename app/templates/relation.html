@@ -1,6 +1,5 @@
 <div class="row" ng-repeat="(id, obj) in plugin.currentLabels()">
   <p>{{ obj.string }}</p>
-  {{ obj.relation.label }}
   <div class="small-3 columns">
     <select
       ng-model="obj.relation.prefix"
