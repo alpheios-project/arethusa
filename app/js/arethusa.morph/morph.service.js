@@ -13,7 +13,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
 
   this.analyses = {};
 
-  var morphRetrievers = configurator.getServices(this.conf.retrievers);
+  var morphRetrievers = configurator.getRetrievers(this.conf.retrievers);
 
   this.seedAnalyses = function(tokens) {
     return arethusaUtil.inject({}, tokens, function(obj, id, token) {

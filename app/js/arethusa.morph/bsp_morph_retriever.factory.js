@@ -1,41 +1,38 @@
 "use strict";
 
-angular.module('arethusa.morph').factory('bspMorphRetriever', function(configurator) {
-  // Might want to read in language and engine dynamically later
-  // also make factory out of it, so that we could use several
-  // bsp instances with different settings
-  var conf = configurator.configurationFor('bspMorphRetriever');
-  var resource = configurator.provideResource(conf.resource);
+/* A newable factory to handle the Morphology service
+ *
+ * The constructor functions takes a configuration object (that typically
+ * contains a resource object for this service).
+ *
+ */
 
-  var getWord = function(word) {
-    return resource.get({ 'word': word });
-  };
-
-  var deleteUnwantedKeys = function(obj, keys) {
+angular.module('arethusa.morph').factory('BspMorphRetriever', function(configurator) {
+  function deleteUnwantedKeys(obj, keys) {
     keys.forEach(function(el) {
       delete obj[el];
     });
-  };
+  }
 
-  var flattenAttributes= function(form, toFlatten) {
+  function flattenAttributes(form, toFlatten) {
     toFlatten.forEach(function(el) {
       var attr = form[el];
       if (attr) {
         form[el] = attr.$;
       }
     });
-  };
+  }
 
-  var renameAttributes = function(form, renamers) {
+  function renameAttributes(form, renamers) {
     for (var oldName in renamers) {
       var newName = renamers[oldName];
       var val = form[oldName];
       delete form[oldName];
       form[newName] = val;
     }
-  };
+  }
 
-  var renameValues = function(form, renamers) {
+  function renameValues(form, renamers) {
     for (var key in renamers) {
       var val = form[key];
       var naming = renamers[key];
@@ -43,11 +40,18 @@ angular.module('arethusa.morph').factory('bspMorphRetriever', function(configura
         form[key] = naming[1];
       }
     }
-  };
+  }
 
-  return {
-    getData: function(string, callback) {
-      getWord(string).then(function(res) {
+  return function(conf) {
+    var self = this;
+    var resource = configurator.provideResource(conf.resource);
+
+    this.getWord = function(word) {
+      return resource.get({ 'word': word });
+    };
+
+    this.getData = function(string, callback) {
+      self.getWord(string).then(function(res) {
         try {
           // The body can contain a single object or an array of objects.
           // Can also be undefined, in that case we will just throw an exception
@@ -92,6 +96,6 @@ angular.module('arethusa.morph').factory('bspMorphRetriever', function(configura
         }
       });
       return [];
-    }
+    };
   };
 });

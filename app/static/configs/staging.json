@@ -1,11 +1,14 @@
 {
   "main" : {
     "template"  : "templates/main2.html",
-    "retrievers" : [
-      "treebankRetriever"
-    ],
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "staticFiles"
+      }
+    },
     "plugins" : [
       "text",
+      "depTree",
       "morph",
       "history",
       "external_history",
@@ -17,15 +20,6 @@
     "template" : "templates/navbar1.html",
     "search" : true,
     "navigation" : true
-  },
-
-  "retrievers" : {
-    "treebankRetriever" : {
-      "resource" : "staticFiles"
-    },
-    "bspMorphRetriever" : {
-      "resource" : "morphologyService"
-    }
   },
 
   "resources" : {
@@ -45,18 +39,25 @@
       "template"  : "templates/text2.html"
     },
 
+    "depTree" : {
+      "name" : "depTree",
+      "main" : true,
+      "template" : "templates/dep_tree.html"
+    },
+
     "morph" : {
       "name" : "morph",
-      "retrievers" : [
-        "bspMorphRetriever"
-      ],
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
       "template"  : "templates/morph2.html",
       "fileUrl" : "./static/configs/morph/attributes.json"
     },
 
     "history" : {
       "name" : "history",
-      "main" : true,
       "listener" : true,
       "maxSize" : 5,
       "template" : "templates/history.html"

@@ -1,7 +1,7 @@
 "use strict";
 
-// A service that acts like a factory. The create functions spawns new resource
-// objects, that are a wrapper around ngResource
+// A newable factory that spawns new resource
+// objects, whichare a wrapper around ngResource
 //
 // Note that this approach right now doesn't work with totally freeform URL passed
 // as route, because ngResource will always encode slashes.
@@ -10,31 +10,27 @@
 // As it's not a top priority right now, we don't do anything. The quickest workaround
 // (apart from patching angular) would be to fall back to $http.get()
 //
-angular.module('arethusa.core').service('resource', function($resource, $location) {
-  var paramsToObj = function(params) {
+angular.module('arethusa.core').factory('Resource', function($resource, $location) {
+  function paramsToObj(params) {
     return arethusaUtil.inject({}, params, function(obj, param, i) {
       obj[param] = $location.search()[param];
     });
-  };
+  }
 
-  this.create = function(conf) {
-    var obj = {
-      // Our custom get function reads params from the route as specified in the
-      // configuration of a resource and takes additional params if need be.
-      get: function(otherParams) {
-        var params = angular.extend(paramsToObj(obj.params), otherParams || {});
-        return obj.resource.get(params).$promise;
-      }
-    };
+  function isJson(header) {
+    return header === 'application/json';
+  }
 
-    var isJson = function(header) {
-      return header === 'application/json';
-    };
+  function collectedParams(a, b) {
+    return angular.extend(paramsToObj(a), b) || {};
+  }
 
-    obj.route = conf.route;
-    obj.params = conf.params || [];
+  return function(conf) {
+    var self = this;
+    this.route = conf.route;
+    this.params = conf.params || [];
 
-    obj.resource = $resource(obj.route, null, {
+    this.resource = $resource(self.route, null, {
       // This might look exceedingly stupid, but it is not:
       // We override the usual get method ngResource, so that we can handle
       // xml here as well, something the original struggles a bit with, as it
@@ -53,11 +49,15 @@ angular.module('arethusa.core').service('resource', function($resource, $locatio
           var res = {};
           res.data = isJson(headers()['content-type']) ? JSON.parse(data) : data;
           res.headers = headers;
+          res.source = 'tbd'; // we need to define and http interceptor
           return res;
         }
       }
     });
 
-    return obj;
+    this.get = function(otherParams) {
+      var params = collectedParams(self.params, otherParams);
+      return self.resource.get(params).$promise;
+    };
   };
 });

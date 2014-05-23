@@ -1,20 +1,14 @@
 "use strict";
 
-angular.module('arethusa.core').controller('MainCtrl', function($scope, $injector, configurator, state) {
+angular.module('arethusa.core').controller('MainCtrl', function($scope, $injector, configurator, state, documentStore) {
+  documentStore.reset();
+
   $scope.debug = false;
   $scope.toggleDebugMode = function() {
     $scope.debug = !$scope.debug;
   };
 
   var conf = configurator.configurationFor('main');
-
-  $scope.colorize = conf.colorize;
-
-  $scope.toggleColor = function() {
-    $scope.colorize = ! $scope.colorize;
-  };
-
-
 
   var partitionPlugins = function(plugins) {
     $scope.mainPlugins = [];
@@ -163,5 +157,16 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     $scope.initPlugins();
     $scope.declareFirstPluginActive();
     $scope.arethusaLoaded = true;
+  };
+
+  // Temporary testing method
+  $scope.simulateHeadChange = function() {
+    var token = state.tokens['0001'];
+    if (token.head.id < '0010') {
+      var h = parseInt(token.head.id) + 1;
+      token.head.id = arethusaUtil.formatNumber(h, 4);
+    } else {
+      token.head.id = "0002";
+    }
   };
 });

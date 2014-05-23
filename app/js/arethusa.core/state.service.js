@@ -1,12 +1,12 @@
 "use strict";
 
-angular.module('arethusa.core').service('state', function(configurator, $rootScope) {
+angular.module('arethusa.core').service('state', function(configurator, navigator, $rootScope) {
   var self = this;
 
   this.tokens = {};
 
   var conf = configurator.configurationFor('main');
-  var tokenRetrievers = configurator.getServices(conf.retrievers);
+  var tokenRetrievers = configurator.getRetrievers(conf.retrievers);
 
   // Loading a state
 
@@ -25,11 +25,14 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
 
   this.retrieveTokens = function() {
     var container = {};
-    var that = this;
+    //navigator.reset();
     angular.forEach(tokenRetrievers, function(retriever, name) {
       retriever.getData(function(data) {
-        saveTokens(container, data);
-        declareLoaded(retriever, that);
+        //arethusaUtil.pushAll(navigator.sentences, data);
+        //navigator.updateId();
+        //saveTokens(container, navigator.currentSentence());
+        saveTokens(container, data[0].tokens);
+        declareLoaded(retriever);
       });
     });
     this.tokens = container;
@@ -48,7 +51,7 @@ angular.module('arethusa.core').service('state', function(configurator, $rootSco
 
   var declareLoaded = function(retriever, that) {
     retriever.loaded = true;
-    that.checkLoadStatus();
+    self.checkLoadStatus();
   };
 
   // Delegators

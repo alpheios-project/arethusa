@@ -1,11 +1,10 @@
-<!--this mouse behavior should get moved
-    inside the token directive eventually-->
 <p>
   <span
     ng-repeat="token in state.tokens"
-    ng-click="state.toggleSelection(token.id, 'click')"
-    ng-mouseenter="state.selectToken(token.id, 'hover')"
-    ng-mouseleave="state.deselectToken(token.id, 'hover')">
-    <token ng-class="{selected: state.isSelected(token.id)}"></token>
+    token="token"
+    colorize="true"
+    click="true"
+    hover="true"
+    highlight="true"
   </span>
 </p>
