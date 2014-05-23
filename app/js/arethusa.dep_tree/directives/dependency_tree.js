@@ -32,29 +32,23 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
         childScope.style = scope.styles[token.id].token;
       }
 
-      // Struggling d3 a bit here...
-      //
       // Right now this function is responsible for managing the label and
       // edge colors when a custom styling is available.
       //
       // Once the relation plugin is ready, the label will be handled by
       // a directive that is coming from there.
       //
-      // The edges will stay the responsibility of this directive - and
-      // they are really solved messy right now.
-      // Guess one more look into the d3 API is needed.
+      // The directive will only stay responsible for the edges.
       function applyCustomStyling() {
         var edges = vis.selectAll("g.edgePath path");
         angular.forEach(scope.styles, function(value, key) {
           if ('label' in value) {
-            vis.select('#' + labelId(key)).style({ color: 'red' });
+            label(key).style(value.label);
           }
           if ('edge' in value) {
-            edges.each(function(d) {
-              if (key == d) {
-                angular.element(this).css({ 'stroke': 'red', 'stroke-width': '1px' });
-              }
-            });
+            // Next step: Save the old edge value, so that
+            // we can reset it more dynamically
+            edge(key).style(value.edge);
           }
         });
       }
