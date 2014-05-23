@@ -2,7 +2,7 @@
 
 /* global dagreD3 */
 
-angular.module('arethusa.depTree').directive('dependencyTree', function(state, $compile) {
+angular.module('arethusa.depTree').directive('dependencyTree', function($compile) {
   return {
     restrict: 'A',
     scope: {
@@ -10,9 +10,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       styles: '='
     },
     link: function(scope, element, attrs) {
-      // This will be needed once we manage to get this into an isolated scope
-      //scope.state = state;
-
       function tokenPlaceholder(token) {
         return '<div class="node" id="tph' + token.id + '">' + token.string + '</div>';
       }
