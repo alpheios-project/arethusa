@@ -94,12 +94,15 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
   this.multiSelect = function(ids) {
     self.deselectAll();
     angular.forEach(ids, function(id, i) {
-      self.selectToken(id, 'click');
+      self.selectToken(id, 'strg-click');
     });
   };
 
-  // type should be either 'click' or 'hover'
+  // type should be either 'click', 'ctrl-click' or 'hover'
   this.selectToken = function(id, type) {
+    if (type === 'click') {
+      this.selectedTokens = {};
+    }
     if (this.isSelectable(this.selectionType(id), type)) {
       this.selectedTokens[id] = type;
     }
