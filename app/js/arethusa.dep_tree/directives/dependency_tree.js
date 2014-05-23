@@ -118,8 +118,17 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
         return vis.selectAll("g.edgePath path");
       }
 
+      function edge(id) {
+        return vis.select('#' + edgeId(id));
+      }
+
       function edgeId(id) {
         return 'tep' + id;
+      }
+
+      function label(id) {
+        return vis.select('#' + labelId(id));
+
       }
 
       function labelId(id) {
