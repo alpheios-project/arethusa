@@ -12,6 +12,11 @@ angular.module('arethusa.relation').service('relation', function(state, configur
     var res = {};
     angular.forEach(state.selectedTokens, function(token, id) {
       res[id] = that.rels[id];
+      var labels = res[id].label.split('_');
+      res[id].combinedLabels = {};
+      angular.forEach(labels, function(lab, i) {
+        res[id].combinedLabels[i] = lab;
+      });
     });
     return res;
   };
@@ -30,11 +35,23 @@ angular.module('arethusa.relation').service('relation', function(state, configur
       // if two labels are combined to one with a _
       // it needs to be split, e.g. PRED_CO
       var labels = attr.split('_');
-      angular.forEach(labels, function(val, key) {
+      angular.forEach(labels, function(val, id) {
         res = res.concat(that.longLabelName(val));
       });
     }
     return res;
+  };
+
+  this.setState = function(id, label) {
+    state.setState(id, 'relation', label);
+  };
+
+  this.unsetState = function(id) {
+    state.unsetState(id, 'relation');
+  };
+
+  this.isLabelSelected = function(id, label) {
+    return state.tokens[id].relation == label;
   };
 
   this.buildTokens = function() {
