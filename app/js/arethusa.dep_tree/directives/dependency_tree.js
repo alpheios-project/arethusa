@@ -39,6 +39,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       // a directive that is coming from there.
       //
       // The directive will only stay responsible for the edges.
+      //
+      // If an edge style is overridden, we safe the old value in the
+      // styleResets object. the resetEdgeStyling() function will now
+      // how to operate with this then.
+      var styleResets = {};
+
       function applyCustomStyling() {
         var edges = vis.selectAll("g.edgePath path");
         angular.forEach(scope.styles, function(value, key) {
@@ -46,11 +52,21 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
             label(key).style(value.label);
           }
           if ('edge' in value) {
-            // Next step: Save the old edge value, so that
-            // we can reset it more dynamically
+            saveOldEdgeStyles(key, Object.keys(value.edge));
             edge(key).style(value.edge);
           }
         });
+      }
+
+      function saveOldEdgeStyles(id, properties) {
+        if (properties) {
+          var e = edge(id);
+          var style = {};
+          angular.forEach(properties, function(property, i) {
+            style[property] = e.style(property);
+          });
+          styleResets[id] = style;
+        }
       }
 
       function compiledToken(token) {
@@ -143,7 +159,10 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       }
 
       function resetEdgeStyling() {
-        edges().style({ stroke: '#333', 'stroke-width': '0.5px' });
+        angular.forEach(styleResets, function(style, id) {
+          edge(id).style(style);
+        });
+        styleResets = {}; // clean up, to avoid constant resetting
       }
 
       function createGraph() {
