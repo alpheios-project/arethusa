@@ -47,13 +47,17 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
 
       function applyCustomStyling() {
         var edges = vis.selectAll("g.edgePath path");
-        angular.forEach(scope.styles, function(value, key) {
-          if ('label' in value) {
-            label(key).style(value.label);
+        angular.forEach(scope.styles, function(style, id) {
+          var labelStyle = style.label;
+          var edgeStyle = style.edge;
+
+          if (labelStyle) {
+            label(id).style(labelStyle);
           }
-          if ('edge' in value) {
-            saveOldEdgeStyles(key, Object.keys(value.edge));
-            edge(key).style(value.edge);
+
+          if (edgeStyle) {
+            saveOldEdgeStyles(id, edgeStyle);
+            edge(id).style(edgeStyle);
           }
         });
       }
@@ -62,7 +66,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
         if (properties) {
           var e = edge(id);
           var style = {};
-          angular.forEach(properties, function(property, i) {
+          angular.forEach(properties, function(_, property) {
             style[property] = e.style(property);
           });
           styleResets[id] = style;
