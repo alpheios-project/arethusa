@@ -14,8 +14,7 @@ angular.module('arethusa.core').directive('resizable', function($window, $docume
         $document.on('mouseup', mouseup);
       });
 
-
-      var mousemove = function(event) {
+      function mousemove(event) {
         var x = event.pageX;
         var el = element.parent();
         var leftPos = el.position().left;
@@ -24,12 +23,12 @@ angular.module('arethusa.core').directive('resizable', function($window, $docume
         var newSize = el.width() - diff;
         el.width(newSize);
         main.width(main.width() + diff);
-      };
+      }
 
-      var mouseup = function() {
+      function mouseup() {
         $document.unbind('mousemove', mousemove);
         $document.unbind('mouseup', mouseup);
-      };
+      }
     }
   };
 
