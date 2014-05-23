@@ -17,7 +17,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
         return '<div class="node" id="tph' + token.id + '">' + token.string + '</div>';
       }
 
-      function edgePlaceholder(token) {
+      function labelPlaceholder(token) {
         var label = token.relation.label;
         var id = token.id;
         return '<div id="' + labelId(id) + '" class="tree-label">' + label + '</div>';
@@ -131,7 +131,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       }
 
       function drawEdge(token) {
-        g.addEdge(token.id, token.id, token.head.id, { label: edgePlaceholder(token) });
+        g.addEdge(token.id, token.id, token.head.id, { label: labelPlaceholder(token) });
       }
 
       function updateEdge(token) {
