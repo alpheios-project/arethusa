@@ -87,12 +87,12 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
   }
 
   // Handling a resource
-  var createResourceConf = function() {
+  function createResourceConf() {
     return {
       route: '',
       params: []
     };
-  };
+  }
 
   $scope.addResource = function(name) {
     $scope.resources()[name] = createResourceConf();
