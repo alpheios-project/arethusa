@@ -20,8 +20,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
       function edgePlaceholder(token) {
         var label = token.relation.label;
         var id = token.id;
-        // tel is for token edge label
-        return '<div id="tel' + id + '" class="tree-label">' + label + '</div>';
+        return '<div id="' + labelId(id) + '" class="tree-label">' + label + '</div>';
       }
 
       function tokenHasCustomStyling(token) {
@@ -48,7 +47,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
         var edges = vis.selectAll("g.edgePath path");
         angular.forEach(scope.styles, function(value, key) {
           if ('label' in value) {
-            vis.select('#tel' + key).style({ color: 'red' });
+            vis.select('#' + labelId(key)).style({ color: 'red' });
           }
           if ('edge' in value) {
             edges.each(function(d) {
@@ -119,6 +118,14 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
         return vis.selectAll("g.edgePath path");
       }
 
+      function edgeId(id) {
+        return 'tep' + id;
+      }
+
+      function labelId(id) {
+        return 'tel' + id;
+      }
+
       function nodes() {
         return vis.selectAll("div.node");
       }
@@ -174,8 +181,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
         // Not very elegant, but we don't want marker-end arrowheads right now
         // We also place an token edge path (tep) id on these elements, so that
         // we can access them more easily later on.
-        edges().each(function(d) {
-          angular.element(this).attr('id', 'tep' + d);
+        edges().each(function(id) {
+          angular.element(this).attr('id', edgeId(id));
         }).attr('marker-end', '');
       }
 
