@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('arethusa.core').service('keyCapture', function() {
-  var keyCodes = {
+  this.keyCodes = {
     shift: 16,
     ctrl: 17,
     alt: 18
@@ -26,6 +26,6 @@ angular.module('arethusa.core').service('keyCapture', function() {
   };
 
   this.isCtrlActive = function () {
-    return activeModifiers[keyCodes.ctrl];
+    return activeModifiers[this.keyCodes.ctrl];
   };
 });
