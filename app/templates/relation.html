@@ -1,23 +1,30 @@
-<div ng-repeat="(id, label) in plugin.currentLabels()">
-    {{ label }}
-  <div>{{ label.string }}</div>
-  <div>
-    {{ label.label }} : <span ng-repeat="labelName in plugin.longLabelName(label.label)"> {{ labelName }} </span>
-    {{ label.combinedLabels }}
+<div class="row" ng-repeat="(id, obj) in plugin.currentLabels()">
+  <p>{{ obj.string }}</p>
+  {{ obj.relation.label }}
+  <div class="small-3 columns">
+    <select
+      ng-model="obj.relation.prefix"
+      ng-options="name as value.short for (name, value) in plugin.relationValues.labels"
+      ng-change="plugin.buildLabel(obj.relation)"
+      ng-init="obj.relation.prefix">
+      <option value=""></option>
+    </select>
   </div>
-  <div ng-repeat="(i, coLab) in label.combinedLabels">
-    {{colab}}
-  <select
-    ng-model="coLab"
-    ng-options="name as opt.short for (name, opt) in plugin.relations"
-    fire-event="{target: 'label.combinedLabels', property: 'i', value: 'coLab'}"
-    ng-init="">
-  </select>
+  <div class="small-2 columns left">
+    <select
+      ng-model="obj.relation.suffix"
+      ng-options="name as value.short for (name, value) in plugin.relationValues.suffixes"
+      ng-change="plugin.buildLabel(obj.relation)"
+      ng-init="obj.relation.suffix">
+      <option value=""></option>
+    </select>
   </div>
+    <!--fire-event="{target: 'label.combinedLabels', property: 'i', value: 'coLab'}"-->
+  <!--</div>-->
   <!--<select-->
     <!--fire-event="{target: 'label', property: 'label', value: 'name'}"-->
     <!--ng-model="plugin.combinedLabels.label"-->
     <!--ng-options="name as opt.short for (name, opt) in plugin.relations">-->
   <!--</select>-->
-  <div label-selector></div>
+  <!--<div label-selector></div>-->
 </div>
