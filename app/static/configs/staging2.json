@@ -1,6 +1,5 @@
 {
   "main" : {
-    "colorize" : true,
     "template"  : "templates/main_with_sidepanel.html",
     "retrievers" : {
       "TreebankRetriever" : {

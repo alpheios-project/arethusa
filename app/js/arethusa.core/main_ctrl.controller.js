@@ -10,12 +10,6 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
 
   var conf = configurator.configurationFor('main');
 
-  $scope.colorize = conf.colorize;
-
-  $scope.toggleColor = function() {
-    $scope.colorize = ! $scope.colorize;
-  };
-
   var partitionPlugins = function(plugins) {
     $scope.mainPlugins = [];
     $scope.subPlugins = [];
