@@ -125,7 +125,7 @@
       },
       "dependencies" : {
         "if" : {
-          "pos" : [ "a" ]
+          "pos" : [ "verb" ]
         }
       }
     },
