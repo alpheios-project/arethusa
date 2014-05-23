@@ -11,11 +11,73 @@
       },
       "OBJ" : {
         "short" : "OBJ",
-        "long" : "object"
+        "long" : "object",
+        "nested" : {
+          "DIR" : {
+            "short" : "DIR",
+            "long" : "direct_object",
+            "nested" : {
+              "ACC" : {
+                "short" : "ACC",
+                "long" : "accusative"
+              },
+              "DAT" : {
+                "short" : "DAT",
+                "long" : "dative"
+              }
+            }
+          },
+          "INDIR" : {
+            "short" : "INDIR",
+            "long" : "indirect_object",
+            "nested" : {
+              "DAT" : {
+                "short" : "DAT",
+                "long" : "dative"
+              }
+            }
+          }
+        }
       },
       "ATR" : {
         "short" : "ATR",
-        "long" : "attribute"
+        "long" : "attribute",
+        "nested" : {
+          "GEN" : {
+            "short" : "GEN",
+            "long" : "genitive",
+            "nested" : {
+              "POSS" : {
+                "short" : "POSS",
+                "long" : "possessive"
+              },
+              "AUCT" : {
+                "short" : "AUCT",
+                "long" : "auctoris"
+              },
+              "QUAL" : {
+                "short" : "QUAL",
+                "long" : "qualitative"
+              },
+              "QUAN" : {
+                "short" : "QUAN",
+                "long" : "quantitative"
+              },
+              "EPEX" : {
+                "short" : "EPEX",
+                "long" : "explicative"
+              },
+              "PART" : {
+                "short" : "PART",
+                "long" : "partitivus"
+              }
+            }
+          },
+          "ADJ" : {
+            "short" : "ADJ",
+            "long" : "adjective"
+          }
+        }
       },
       "ADV" : {
         "short" : "ADV",
