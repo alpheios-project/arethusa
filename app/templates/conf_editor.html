@@ -31,14 +31,14 @@
     <!--this is going to be a directive once the markup takes-->
     <!--more shape-->
     <ul class="button-group">
-      <li ng-repeat="name in main().retrievers"
+      <li ng-repeat="(name, conf) in main().retrievers"
           ng-click="toggleSelection('source', name)">
         <span class="tiny button">
           {{ name }}
         </span>
       </li>
     </ul>
-    <div ng-repeat="name in main().retrievers" ng-show="isSelected('source', name)">
+    <div ng-repeat="(name, conf) in main().retrievers" ng-show="isSelected('source', name)">
       <!--
         Note on the remover attribute: We pass a function here through a
         one-way binding here. This function takes an argument, in this case
@@ -50,7 +50,7 @@
       -->
       <retriever-conf
         name="name"
-        retriever="retrievers()[name]"
+        retriever="main().retrievers[name]"
         remover="removeDataSource(name)">
       </retriever-conf>
     </div>

@@ -32,7 +32,6 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
   $scope.main = function() { return $scope.conf.main; };
   $scope.navbar = function() { return $scope.conf.navbar; };
   $scope.plugins = function() { return $scope.conf.plugins; };
-  $scope.retrievers = function() { return $scope.conf.retrievers; };
   $scope.resources = function() { return $scope.conf.resources; };
 
   $scope.navbarBooleans = ['disable', 'search', 'navigation', 'notifier'];
@@ -74,25 +73,18 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', function($sco
     // build a new filepath, save the file, change the url
   };
 
-  // Handling Retrievers
-  $scope.addRetriever = function(name) {
-    $scope.retrievers()[name] = {};
-  };
-
-  $scope.removeRetriever = function(name) {
-    delete $scope.retrievers()[name];
-  };
-
+  // Handling Main Retrievers
   $scope.addDataSource = function(name) {
-    $scope.main().retrievers.push(name);
-    $scope.addRetriever(name);
+    $scope.main().retrievers[name] = createRetrieverConf();
   };
 
   $scope.removeDataSource = function(name) {
-    var mainRetr = $scope.main().retrievers;
-    mainRetr.splice(mainRetr.indexOf(name), 1);
-    $scope.removeRetriever(name);
+    delete $scope.main().retrievers[name];
   };
+
+  function createRetrieverConf() {
+    return { resource: '' };
+  }
 
   // Handling a resource
   var createResourceConf = function() {
