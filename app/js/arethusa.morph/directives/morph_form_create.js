@@ -10,11 +10,52 @@ angular.module('arethusa.morph').directive('morphFormCreate', function() {
       var a = arethusaUtil.inject({}, scope.plugin.postagSchema, function(memo, el) {
         memo[el] = undefined;
       });
+
+      var schema = scope.plugin.postagSchema;
+
       scope.forms = scope.analysis.forms;
       scope.form = {
         postag: scope.plugin.emptyPostag(),
         attributes: a
       };
+
+      function inArray(arr, val) {
+        return arr.indexOf(val) !== -1;
+      }
+
+      function dependencyMet(dependencies) {
+        if (! dependencies) {
+          return true;
+        }
+
+        var ok = true;
+        for (var k in dependencies) {
+          var depArray = dependencies[k];
+          if (! inArray(depArray, scope.form.attributes[k])) {
+            ok = false;
+            break;
+          }
+        }
+        return ok;
+      }
+
+      function getVisibleAttributes() {
+        return arethusaUtil.inject([], schema, function(memo, attr) {
+          var ifDependencies = (scope.plugin.dependenciesOf(attr) || {}).if;
+          if (dependencyMet(ifDependencies)) {
+            memo.push(attr);
+          }
+        });
+      }
+
+      function setVisibleAttributes() {
+        scope.visibleAttributes = getVisibleAttributes();
+      }
+
+      scope.$watch('form.attributes', function(newVal, oldVal) {
+        setVisibleAttributes();
+      }, true);
+
       // save button to create the form formally
       // watch click events in upper scopes which
       // want to edit a form - replace the form in this scope

@@ -1,6 +1,7 @@
 "use strict";
 
 angular.module('arethusa.morph').service('morph', function(state, configurator) {
+  var self = this;
   this.conf = configurator.configurationFor('morph');
   this.attributes = this.conf.attributes;
   this.template = this.conf.template;
@@ -195,6 +196,10 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
 
   this.isFormSelected = function(id, form) {
     return state.tokens[id].morphology == form;
+  };
+
+  this.dependenciesOf = function(attr) {
+    return self.selectAttribute(attr).dependencies;
   };
 
   this.init = function() {
