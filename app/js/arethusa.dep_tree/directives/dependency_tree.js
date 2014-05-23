@@ -259,6 +259,15 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
             render();
           }
         });
+        childScope.relation =  token.relation;
+        childScope.$watch('relation.label', function(newVal, oldVal) {
+          // Very important to do here, otherwise the tree will
+          // be render a little often on startup...
+          if (newVal !== oldVal) {
+            updateEdge(token);
+            render();
+          }
+        });
       });
 
       scope.$watch('tokens', function(newVal, oldVal) {
