@@ -172,7 +172,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', function(state, $
         });
 
         // Not very elegant, but we don't want marker-end arrowheads right now
-        edges().attr('marker-end', '');
+        // We also place an token edge path (tep) id on these elements, so that
+        // we can access them more easily later on.
+        edges().each(function(d) {
+          angular.element(this).attr('id', 'tep' + d);
+        }).attr('marker-end', '');
       }
 
       angular.forEach(scope.tokens, function(token, id) {
