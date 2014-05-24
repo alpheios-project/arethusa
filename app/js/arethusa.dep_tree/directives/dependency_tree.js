@@ -313,6 +313,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
         }
       });
     },
-    template: '<g transform="translate(20,20)"/>'
+    template: '<g/>'
   };
 });
