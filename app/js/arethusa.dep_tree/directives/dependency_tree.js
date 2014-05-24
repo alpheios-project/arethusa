@@ -161,13 +161,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
       var g;
       var vis;
 
-      function createNodes() {
+      function createRootNode() {
         g.addNode("0000", { label: "[ROOT]"});
-        angular.forEach(scope.tokens, function(token, index) {
-          if (hasHead(token)) {
-            createNode(token);
-          }
-        });
       }
 
       function createNode(token) {
@@ -245,7 +240,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
 
       function createGraph(subtrees) {
         g = new dagreD3.Digraph();
-        createNodes();
+        createRootNode();
         createEdges();
         render();
       }
