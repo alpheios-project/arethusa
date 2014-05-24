@@ -170,7 +170,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
 
       function createEdges() {
         angular.forEach(scope.tokens, function(token, index) {
-          if (token.head) {
+          if (hasHead(token)) {
             drawEdge(token);
           }
         });
@@ -200,11 +200,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
       function nodes() {
         return vis.selectAll("div.node");
       }
-
       function drawEdge(token) {
         g.addEdge(token.id, token.id, token.head.id, { label: labelPlaceholder(token) });
       }
-
       function updateEdge(token) {
         g.delEdge(token.id);
         drawEdge(token);
