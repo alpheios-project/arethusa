@@ -21,7 +21,7 @@
                 "short" : "ACC",
                 "long" : "accusative"
               },
-              "DAT" : {
+              "DDAT" : {
                 "short" : "DAT",
                 "long" : "dative"
               }
@@ -31,7 +31,7 @@
             "short" : "INDIR",
             "long" : "indirect_object",
             "nested" : {
-              "DAT" : {
+              "IDAT" : {
                 "short" : "DAT",
                 "long" : "dative"
               }
