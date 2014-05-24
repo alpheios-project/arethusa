@@ -122,6 +122,11 @@
           "short" : "3rd",
           "postag" : "3"
         }
+      },
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "verb" ]
+        }
       }
     },
     "num" : {

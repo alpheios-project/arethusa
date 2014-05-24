@@ -53,9 +53,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
       }
 
       function labelPlaceholder(token) {
-        var label = token.relation.label;
+        var label = generateLabel(token);
         var id = token.id;
         return '<div id="' + labelId(id) + '" class="tree-label">' + label + '</div>';
+      }
+
+      function generateLabel(token) {
+        return (token.relation || {}).label;
       }
 
       function tokenHasCustomStyling(token) {
@@ -106,6 +110,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
           });
           styleResets[id] = style;
         }
+      }
+
+      function compiledEdgeLabel(token) {
+        var template = '<span value-watch target="obj" property="label"></span>';
+        var childScope = scope.$new();
+        childScope.obj = token.relation;
+        return $compile(template)(childScope)[0];
       }
 
       function compiledToken(token) {
@@ -224,12 +235,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
 
       var renderer = new dagreD3.Renderer();
 
-      function render() {
-        vis = svg.select('g');
-        renderer.layout(layout).run(g, vis);
-
-        // Customize the graph so that it holds our directives
-
+      function insertTokenDirectives() {
         nodes().append(function() {
           // This is the element we append to and we created as a placeholder
           // We clear out its text content so that we can display the content
@@ -238,6 +244,26 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
           this.textContent = "";
           return compiledToken(scope.tokens[this.id.slice(3)]);
         });
+      }
+
+      function insertEdgeDirectives() {
+        angular.forEach(scope.tokens, function(token, id) {
+          label(id).append(function() {
+            this.textContent = "";
+            return compiledEdgeLabel(token);
+          });
+        });
+
+      }
+
+      function render() {
+        vis = svg.select('g');
+        renderer.layout(layout).run(g, vis);
+
+        // Customize the graph so that it holds our directives
+
+        insertTokenDirectives();
+        insertEdgeDirectives();
 
         // Not very elegant, but we don't want marker-end arrowheads right now
         // We also place an token edge path (tep) id on these elements, so that
@@ -252,15 +278,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
         childScope.token = token.id;
         childScope.head =  token.head;
         childScope.$watch('head.id', function(newVal, oldVal) {
-          // Very important to do here, otherwise the tree will
-          // be render a little often on startup...
-          if (newVal !== oldVal) {
-            updateEdge(token);
-            render();
-          }
-        });
-        childScope.relation =  token.relation;
-        childScope.$watch('relation.label', function(newVal, oldVal) {
           // Very important to do here, otherwise the tree will
           // be render a little often on startup...
           if (newVal !== oldVal) {

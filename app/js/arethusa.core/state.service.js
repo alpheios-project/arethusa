@@ -3,10 +3,14 @@
 angular.module('arethusa.core').service('state', function(configurator, navigator, $rootScope) {
   var self = this;
 
-  this.tokens = {};
-
   var conf = configurator.configurationFor('main');
   var tokenRetrievers = configurator.getRetrievers(conf.retrievers);
+
+  // We hold tokens locally during retrieval phase.
+  // Once we are done, they will be exposed through
+  // this.replaceState, which also triggers
+  // the stateLoaded event.
+  var tokens = {};
 
   // Loading a state
 
@@ -35,7 +39,7 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
         declareLoaded(retriever);
       });
     });
-    this.tokens = container;
+    tokens = container;
   };
 
   this.checkLoadStatus = function() {
@@ -45,7 +49,7 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
     });
 
     if (loaded) {
-      this.broadcastReload();
+      this.replaceState(tokens);
     }
   };
 

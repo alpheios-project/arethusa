@@ -1,5 +1,4 @@
-{{ form.postag }}
-<div class="row" ng-repeat="(attr, val) in form.attributes">
+<div class="row" ng-repeat="attr in visibleAttributes">
   <div class="small-3 columns">
     <label class="right">{{ plugin.longAttributeName(attr) }}</label>
   </div>
@@ -9,7 +8,7 @@
       ng-model="form.attributes[attr]"
       ng-init="opt.short"
       ng-options="name as opt.long for (name, opt) in plugin.attributeValues(attr)"
-      synchronize-postag="{form: 'form', attr: 'attr', val: 'val'}">
+      synchronize-postag="{form: 'form', attr: 'attr', val: 'form.attributes[attr]'}">
     </select>
   </div>
 </div>

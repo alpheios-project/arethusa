@@ -73,6 +73,12 @@ angular.module('arethusa.core').directive('token', function(state) {
           cleanStyle();
         }
       });
+
+      scope.$watch('token.style', function(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          element.css(scope.token.style);
+        }
+      });
     },
     templateUrl: 'templates/token.html'
   };
