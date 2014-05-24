@@ -53,7 +53,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
       }
 
       function labelPlaceholder(token) {
-        var label = token.relation.label;
+        var label = (token.relation || {}).label;
         var id = token.id;
         return '<div id="' + labelId(id) + '" class="tree-label">' + label + '</div>';
       }
