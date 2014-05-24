@@ -25,7 +25,6 @@ describe("arethusaUtil", function() {
       it('handles zeros correctly', function() {
         expect(aU.formatNumber('0', 4)).toEqual('0000');
       });
-
     });
   });
 

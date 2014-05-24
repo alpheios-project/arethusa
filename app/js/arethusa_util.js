@@ -16,7 +16,6 @@ var arethusaUtil = {
       while (n.length < length) { n = "0" + n; }
       return n;
     }
-
   },
 
   // Apply a map/collect function over an Array
