@@ -162,10 +162,24 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
       var vis;
 
       function createNodes() {
-        g.addNode("0000", { label: "[-]"});
+        g.addNode("0000", { label: "[ROOT]"});
         angular.forEach(scope.tokens, function(token, index) {
-          g.addNode(token.id, { label: tokenPlaceholder(token) });
+          if (hasHead(token)) {
+            createNode(token);
+          }
         });
+      }
+
+      function createNode(token) {
+        g.addNode(token.id, { label: tokenPlaceholder(token) });
+      }
+
+      function nodePresent(id) {
+        return g._nodes[id];
+      }
+
+      function hasHead(token) {
+        return (token.head || {}).id;
       }
 
       function createEdges() {
@@ -184,13 +198,16 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
         return vis.select('#' + edgeId(id));
       }
 
+      function edgePresent(id) {
+        return edge(id)[0][0]; // yes, that's valid d3 syntax
+      }
+
       function edgeId(id) {
         return 'tep' + id;
       }
 
       function label(id) {
         return vis.select('#' + labelId(id));
-
       }
 
       function labelId(id) {
@@ -200,11 +217,22 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
       function nodes() {
         return vis.selectAll("div.node");
       }
+
       function drawEdge(token) {
+        if (! nodePresent(token.id)) {
+          createNode(token);
+        }
+        if (! nodePresent(token.head.id)) {
+          createNode(scope.tokens[token.head.id]);
+        }
+
         g.addEdge(token.id, token.id, token.head.id, { label: labelPlaceholder(token) });
       }
+
       function updateEdge(token) {
-        g.delEdge(token.id);
+        if (edgePresent(token.id)) {
+          g.delEdge(token.id);
+        }
         drawEdge(token);
       }
 
@@ -215,7 +243,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
         styleResets = {}; // clean up, to avoid constant resetting
       }
 
-      function createGraph() {
+      function createGraph(subtrees) {
         g = new dagreD3.Digraph();
         createNodes();
         createEdges();
