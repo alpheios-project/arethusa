@@ -1,20 +1,16 @@
 "use strict";
 
-describe('Read tokens from xml url', function(){
-  var sentence1Url = 'http://services.perseids.org/llt-data/1999.02.0002.2.1.1.xml';
-  var sentence2Url = 'http://services.perseids.org/llt-data/1999.02.0002.2.1.2.xml';
+describe('Dependency tree', function(){
   beforeEach(function() {
-    browser.get('/app/#/tree');
+    browser.get('/app/#/staging2?doc=1&s=1');
   });
 
   describe('Sentence 1', function() {
     beforeEach(function() {
-      element(by.model('query')).sendKeys(sentence1Url);
-      element(by.buttonText('Search')).click();
     });
 
-    xit('displays a dependency tree (que is above cum)', function() {
-      var nodes = element.all(by.css("g.node g text tspan"));
+    it('displays a dependency tree (que is above cum)', function() {
+      var nodes = element.all(by.css("div span span"));
       nodes.map(function(elm, index) {
         return {
           index: index,
