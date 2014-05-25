@@ -100,9 +100,9 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
 
   this.handleChangeHead = function(id, type) {
     var preventSelection = false;
-    if (type === 'click' && Object.keys(this.selectedTokens).length !== 0) {
+    if (type === 'click') {
       angular.forEach(this.selectedTokens, function(obj, index) {
-        if (obj === 'click') {
+        if (obj === 'click' || obj === 'ctrl-click') {
           self.tokens[index].head.id = id;
           preventSelection = preventSelection || true;
         }
