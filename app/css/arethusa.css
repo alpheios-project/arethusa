@@ -2,6 +2,10 @@
   background-color: #FFF88F;
 }
 
+.hovered {
+  background-color: #B0FFCE;
+}
+
 .note {
   font-size: 0.7em;
 }
