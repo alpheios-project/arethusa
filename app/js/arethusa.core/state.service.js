@@ -73,8 +73,26 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
 
   this.selectedTokens = {}; // ids will be inserted here
 
+  this.hasManyClickedTokens = function() {
+    var count = 0;
+    angular.forEach(self.selectedTokens, function(type, id) {
+      if (type === 'click') {
+        count++;
+      }
+    });
+    return count > 1;
+  };
+
   this.isSelected = function(id) {
     return id in this.selectedTokens;
+  };
+
+  // multi-selects tokens, given an array of ids
+  this.multiSelect = function(ids) {
+    self.deselectAll();
+    angular.forEach(ids, function(id, i) {
+      self.selectToken(id, 'click');
+    });
   };
 
   // type should be either 'click' or 'hover'

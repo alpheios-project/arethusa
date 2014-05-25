@@ -12,6 +12,7 @@
       "review",
       "morph",
       "history",
+      "relation",
       "external_history",
       "comment"
     ]
@@ -79,6 +80,12 @@
           "resource" : "fakeGold"
         }
       }
+    },
+
+    "relation" : {
+      "name" : "relation",
+      "template" : "templates/relation.html",
+      "fileUrl" : "./static/configs/relation/relations.json"
     },
 
     "history" : {

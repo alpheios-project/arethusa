@@ -3,6 +3,8 @@
 angular.module('arethusa.core').controller('MainCtrl', function($scope, $injector, configurator, state, documentStore) {
   documentStore.reset();
 
+  $scope.aU = arethusaUtil;
+
   $scope.debug = false;
   $scope.toggleDebugMode = function() {
     $scope.debug = !$scope.debug;

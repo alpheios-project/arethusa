@@ -54,8 +54,10 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
 
       function labelPlaceholder(token) {
         var label = generateLabel(token);
+        label = 'x   ' + label + '   x';
         var id = token.id;
-        return '<div id="' + labelId(id) + '" class="tree-label">' + label + '</div>';
+        var classes = "text-center tree-label";
+        return '<div id="' + labelId(id) + '" class="' + classes + '">' + label + '</div>';
       }
 
       function generateLabel(token) {
@@ -271,6 +273,15 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
         edges().each(function(id) {
           angular.element(this).attr('id', edgeId(id));
         }).attr('marker-end', '');
+
+        // A bug in webkit makes it impossible to select camelCase tags...
+        // We work around by using a function.
+        // http://stackoverflow.com/questions/11742812/cannot-select-svg-foreignobject-element-in-d3
+        vis.selectAll(function() {
+          return this.getElementsByTagName('foreignObject');
+        }).each(function() {
+          angular.element(this.children[0]).attr('style', 'float: center;');
+        });
       }
 
       angular.forEach(scope.tokens, function(token, id) {

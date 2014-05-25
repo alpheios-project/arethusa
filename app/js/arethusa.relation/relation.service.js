@@ -9,11 +9,15 @@ angular.module('arethusa.relation').service('relation', function(state, configur
   this.relationValues = this.conf.relations;
   this.relations = {};
 
+  // Currently selected labels
+
   this.currentLabels = function() {
     return arethusaUtil.inject({}, state.selectedTokens, function(memo, id, event) {
       memo[id] = self.relations[id];
     });
   };
+
+  // Label handling
 
   function splitLabel(relation) {
     var split = relation.label.split('_');
@@ -36,6 +40,58 @@ angular.module('arethusa.relation').service('relation', function(state, configur
     return relation;
   };
 
+
+  // Empty template for relation objects
+
+  this.relationTemplate = function() {
+    return {
+      prefix: '',
+      suffix: '',
+      label: ''
+    };
+  };
+
+
+  // Search/Selector
+
+  this.resetSearchedLabel = function() {
+    self.searchedLabel = self.relationTemplate();
+  };
+
+  this.selectByLabel = function(label) {
+    var ids = arethusaUtil.inject([], self.relations, function(memo, id, rel) {
+      if (rel.relation.label === label) {
+        memo.push(id);
+      }
+    });
+    state.multiSelect(ids);
+  };
+
+  this.buildLabelAndSearch = function(rel) {
+    self.buildLabel(rel);
+    self.selectByLabel(rel.label);
+  };
+
+  // Multi-changer
+
+  this.resetMultiChanger = function() {
+    this.multiChanger = self.relationTemplate();
+  };
+
+  this.applyMultiChanger = function() {
+    angular.forEach(self.currentLabels(), function(obj, id) {
+      angular.extend(obj.relation, self.multiChanger);
+    });
+  };
+
+  this.multiChangerEmpty = function() {
+    // We check for the prefix, as only a suffix, which would
+    // fill the label already would not be allowed.
+    return self.multiChanger.prefix === '';
+  };
+
+  // Init
+
   this.createInternalState = function() {
     return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
       memo[id] = {
@@ -47,5 +103,7 @@ angular.module('arethusa.relation').service('relation', function(state, configur
 
   this.init = function() {
     self.relations = self.createInternalState();
+    self.resetSearchedLabel();
+    self.resetMultiChanger();
   };
 });

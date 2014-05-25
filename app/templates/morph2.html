@@ -6,7 +6,7 @@
 <!--{{ plugin.analyses }}-->
 
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
-  <div>{{ analysis.string }}</div>
+  <p token-with-id value="analysis.string" token-id="id"/>
   <accordion close-others="oneAtATime">
     <accordion-group ng-repeat="form in analysis.forms" >
       <accordion-heading>

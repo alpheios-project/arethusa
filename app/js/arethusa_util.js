@@ -7,7 +7,7 @@ var arethusaUtil = {
   // Pads a number with zeros
   formatNumber: function(number, length) {
     // coerce a fixnum to a string
-    var n = "" + number;
+    var n = "" + parseInt(number);
     while (n.length < length) { n = "0" + n; }
     return n;
   },

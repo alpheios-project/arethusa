@@ -12,6 +12,10 @@ describe("arethusaUtil", function() {
       it('where number is an integer', function() {
         expect(aU.formatNumber(1, 4)).toEqual('0001');
       });
+
+      it('trims leading zeros if needed', function() {
+        expect(aU.formatNumber('0001', 0)).toEqual('1');
+      });
     });
   });
 
