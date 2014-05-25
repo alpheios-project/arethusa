@@ -80,8 +80,13 @@ svg {
   fill: none;
 }
 
-/* Overrides to foundation tabs */
+/* Overrides to foundation */
 .tabs dd>a {
   padding: 0.5em 0.7em;
   font-size: 0.8em;
 }
+
+.accordion dd>a {
+  padding: 0.5em;
+}
+
