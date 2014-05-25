@@ -86,6 +86,13 @@ describe("arethusaUtil", function() {
       aU.pushAll(arr1, arr2);
       expect(arr1).toEqual(res);
     });
+
+    it('returns the original array if pusher is undefined', function() {
+      var arr1 = [1,2];
+      var res = [1,2];
+      aU.pushAll(arr1, undefined);
+      expect(arr1).toEqual(res);
+    });
   });
 
   describe('findObj', function(){
