@@ -75,3 +75,9 @@ svg {
   stroke-width : 0.5px;
   fill: none;
 }
+
+/* Overrides to foundation tabs */
+.tabs dd>a {
+  padding: 0.5em 0.7em;
+  font-size: 0.8em;
+}
