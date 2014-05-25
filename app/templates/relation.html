@@ -5,10 +5,10 @@
     </div>
     <div class="small-3 columns">
       <select
-        id="rel-label-searcher"
         ng-model="plugin.searchedLabel.prefix"
         ng-options="name as value.short for (name, value) in plugin.relationValues.labels"
         ng-change="plugin.buildLabelAndSearch(plugin.searchedLabel)">
+        <option value=""></option>
       </select>
     </div>
     <div class="small-2 columns end">
@@ -17,6 +17,7 @@
         ng-model="plugin.searchedLabel.suffix"
         ng-options="name as value.short for (name, value) in plugin.relationValues.suffixes"
         ng-change="plugin.buildLabelAndSearch(plugin.searchedLabel)">
+        <option value=""></option>
       </select>
     </div>
   </div>
@@ -29,10 +30,10 @@
     </div>
     <div class="small-3 columns">
       <select
-        id="rel-label-searcher"
         ng-model="plugin.multiChanger.prefix"
         ng-options="name as value.short for (name, value) in plugin.relationValues.labels"
         ng-change="plugin.buildLabel(plugin.multiChanger)">
+        <option value=""></option>
       </select>
     </div>
     <div class="small-2 columns">
@@ -41,6 +42,7 @@
         ng-model="plugin.multiChanger.suffix"
         ng-options="name as value.short for (name, value) in plugin.relationValues.suffixes"
         ng-change="plugin.buildLabel(plugin.multiChanger)">
+        <option value=""></option>
       </select>
     </div>
     <div class="small-1 columns end">
