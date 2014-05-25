@@ -12,4 +12,14 @@
   </div>
 </div>
 
-
+<div class="small-12 columns">
+  <label class="inline">Found tokens</label>
+  <ul>
+    <li
+      ng-repeat="(id, type) in state.selectedTokens"
+      token-with-id
+      value="state.asString(id)"
+      token-id="id">
+    </li>
+  </ul>
+</div>
