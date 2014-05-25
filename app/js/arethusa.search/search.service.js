@@ -5,11 +5,27 @@ angular.module('arethusa.search').service('search', function(state, configurator
   this.conf = configurator.configurationFor('search');
   this.name = this.conf.name;
   this.template = this.conf.template;
+  this.queryByRegex = this.conf.regex;
+
+  function findByRegex(str) {
+    // We might need to escape some chars here, we need to try
+    // this out more
+    var regex = new RegExp(str, 'i');
+    return arethusaUtil.inject([], self.strings, function(memo, string, ids) {
+      if (string.match(regex)) {
+        arethusaUtil.pushAll(memo, ids);
+      }
+    });
+  }
 
   this.queryTokens = function() {
+    if (self.tokenQuery === '') {
+      return;
+    }
     var tokens = self.tokenQuery.split(' ');
     var ids = arethusaUtil.inject([], tokens, function(memo, token) {
-      arethusaUtil.pushAll(memo, self.strings[token]);
+      var hits = self.queryByRegex ?  findByRegex(token) : self.strings[token];
+      arethusaUtil.pushAll(memo, hits);
     });
     state.multiSelect(ids);
   };
