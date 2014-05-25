@@ -57,7 +57,7 @@
 
 <div ng-repeat="(id, obj) in plugin.currentLabels()">
   <div class="small-12 columns">
-    <p>{{ obj.string }} <sup class="note">{{ aU.formatNumber(id, 0) }}</sup></p>
+    <p token-with-id value="obj.string" token-id="id"/p>
     <div class="small-3 columns">
       <select
         ng-model="obj.relation.prefix"
