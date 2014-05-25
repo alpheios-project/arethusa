@@ -9,11 +9,15 @@ angular.module('arethusa.relation').service('relation', function(state, configur
   this.relationValues = this.conf.relations;
   this.relations = {};
 
+  // Currently selected labels
+
   this.currentLabels = function() {
     return arethusaUtil.inject({}, state.selectedTokens, function(memo, id, event) {
       memo[id] = self.relations[id];
     });
   };
+
+  // Label handling
 
   function splitLabel(relation) {
     var split = relation.label.split('_');
@@ -36,6 +40,9 @@ angular.module('arethusa.relation').service('relation', function(state, configur
     return relation;
   };
 
+
+  // Search/Selector
+
   this.resetSearchedLabel = function() {
     self.searchedLabel = {
       prefix: '',
@@ -57,6 +64,9 @@ angular.module('arethusa.relation').service('relation', function(state, configur
     self.buildLabel(rel);
     self.selectByLabel(rel.label);
   };
+
+
+  // Init
 
   this.createInternalState = function() {
     return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
