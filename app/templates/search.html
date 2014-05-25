@@ -1,1 +1,15 @@
-Seach
+<div class="small-12 columns">
+  <div class="small-1 columns">
+    <label class="inline">Search token</label>
+  </div>
+  <div class="small-8 columns">
+    <input type="text" 
+      ng-change="plugin.queryTokens()"
+      ng-model="plugin.tokenQuery">
+  </div>
+  <div class="small-3 columns">
+    <input type="checkbox" ng-model="plugin.queryByRegex"/><label>regex</label>
+  </div>
+</div>
+
+
