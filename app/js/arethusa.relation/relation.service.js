@@ -41,14 +41,21 @@ angular.module('arethusa.relation').service('relation', function(state, configur
   };
 
 
-  // Search/Selector
+  // Empty template for relation objects
 
-  this.resetSearchedLabel = function() {
-    self.searchedLabel = {
+  this.relationTemplate = function() {
+    return {
       prefix: '',
       suffix: '',
       label: ''
     };
+  };
+
+
+  // Search/Selector
+
+  this.resetSearchedLabel = function() {
+    self.searchedLabel = self.relationTemplate;
   };
 
   this.selectByLabel = function(label) {
