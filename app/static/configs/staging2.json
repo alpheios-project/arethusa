@@ -61,7 +61,8 @@
 
     "search" : {
       "name" : "search",
-      "template" : "templates/search.html"
+      "template" : "templates/search.html",
+      "regex" : true
     },
 
     "morph" : {
