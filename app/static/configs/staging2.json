@@ -9,6 +9,7 @@
     "plugins" : [
       "text",
       "depTree",
+      "search",
       "relation",
       "review",
       "morph",
@@ -56,6 +57,11 @@
       "name" : "depTree",
       "main" : true,
       "template" : "templates/dep_tree.html"
+    },
+
+    "search" : {
+      "name" : "search",
+      "template" : "templates/search.html"
     },
 
     "morph" : {

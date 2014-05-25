@@ -11,6 +11,7 @@ angular.module(
     'arethusa.depTree',
     'arethusa.hist',
     'arethusa.review',
+    'arethusa.search',
     'arethusa.relation'
   ],
   function($routeProvider, MAIN_ROUTE, CONF_ROUTE) {
