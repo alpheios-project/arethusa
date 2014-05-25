@@ -6,10 +6,17 @@
 var arethusaUtil = {
   // Pads a number with zeros
   formatNumber: function(number, length) {
-    // coerce a fixnum to a string
-    var n = "" + parseInt(number);
-    while (n.length < length) { n = "0" + n; }
-    return n;
+    // check if number is valid, otherwise return
+    var parsed = parseInt(number);
+    if (isNaN(parsed)) {
+      return number;
+    } else {
+      // coerce a fixnum to a string
+      var n = "" + parsed;
+      while (n.length < length) { n = "0" + n; }
+      return n;
+    }
+
   },
 
   // Apply a map/collect function over an Array
