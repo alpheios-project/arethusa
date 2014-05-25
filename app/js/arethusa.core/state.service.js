@@ -87,6 +87,14 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
   this.selectionType = function(id) {
     return this.selectedTokens[id];
   };
+  // multi-selects tokens, given an array of ids
+  this.multiSelectTokens = function(ids) {
+    self.deselectAll();
+    angular.forEach(ids, function(id, i) {
+      self.selectToken(id, 'click');
+    });
+  };
+
 
   this.isSelectable = function(oldVal, newVal) {
     // if an element was hovered, we only select it when another
