@@ -36,6 +36,28 @@ angular.module('arethusa.relation').service('relation', function(state, configur
     return relation;
   };
 
+  this.resetSearchedLabel = function() {
+    self.searchedLabel = {
+      prefix: '',
+      suffix: '',
+      label: ''
+    };
+  };
+
+  this.selectByLabel = function(label) {
+    var ids = arethusaUtil.inject([], self.relations, function(memo, id, rel) {
+      if (rel.relation.label === label) {
+        memo.push(id);
+      }
+    });
+    state.multiSelect(ids);
+  };
+
+  this.buildLabelAndSearch = function(rel) {
+    self.buildLabel(rel);
+    self.selectByLabel(rel.label);
+  };
+
   this.createInternalState = function() {
     return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
       memo[id] = {
@@ -47,5 +69,6 @@ angular.module('arethusa.relation').service('relation', function(state, configur
 
   this.init = function() {
     self.relations = self.createInternalState();
+    self.resetSearchedLabel();
   };
 });
