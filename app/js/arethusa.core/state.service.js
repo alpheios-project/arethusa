@@ -98,12 +98,27 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
     });
   };
 
+  this.handleChangeHead = function(id, type) {
+    var preventSelection = false;
+    if (type === 'click' && Object.keys(this.selectedTokens).length !== 0) {
+      angular.forEach(this.selectedTokens, function(obj, index) {
+        if (obj === 'click') {
+          self.tokens[index].head.id = id;
+          preventSelection = preventSelection || true;
+        }
+      });
+    }
+
+    return preventSelection;
+  };
+
   // type should be either 'click', 'ctrl-click' or 'hover'
   this.selectToken = function(id, type) {
+    var preventSelection = this.handleChangeHead(id, type);
     if (type === 'click') {
       this.selectedTokens = {};
     }
-    if (this.isSelectable(this.selectionType(id), type)) {
+    if (!preventSelection && this.isSelectable(this.selectionType(id), type)) {
       this.selectedTokens[id] = type;
     }
   };
