@@ -94,7 +94,7 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
   this.multiSelect = function(ids) {
     self.deselectAll();
     angular.forEach(ids, function(id, i) {
-      self.selectToken(id, 'strg-click');
+      self.selectToken(id, 'ctrl-click');
     });
   };
 
