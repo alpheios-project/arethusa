@@ -55,7 +55,7 @@ angular.module('arethusa.relation').service('relation', function(state, configur
   // Search/Selector
 
   this.resetSearchedLabel = function() {
-    self.searchedLabel = self.relationTemplate;
+    self.searchedLabel = self.relationTemplate();
   };
 
   this.selectByLabel = function(label) {
@@ -72,6 +72,23 @@ angular.module('arethusa.relation').service('relation', function(state, configur
     self.selectByLabel(rel.label);
   };
 
+  // Multi-changer
+
+  this.resetMultiChanger = function() {
+    this.multiChanger = self.relationTemplate();
+  };
+
+  this.applyMultiChanger = function() {
+    angular.forEach(self.currentLabels(), function(obj, id) {
+      angular.extend(obj.relation, self.multiChanger);
+    });
+  };
+
+  this.multiChangerEmpty = function() {
+    // We check for the prefix, as only a suffix, which would
+    // fill the label already would not be allowed.
+    return self.multiChanger.prefix === '';
+  };
 
   // Init
 
@@ -87,5 +104,6 @@ angular.module('arethusa.relation').service('relation', function(state, configur
   this.init = function() {
     self.relations = self.createInternalState();
     self.resetSearchedLabel();
+    self.resetMultiChanger();
   };
 });
