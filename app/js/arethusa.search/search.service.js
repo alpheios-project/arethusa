@@ -20,6 +20,7 @@ angular.module('arethusa.search').service('search', function(state, configurator
 
   this.queryTokens = function() {
     if (self.tokenQuery === '') {
+      state.deselectAll();
       return;
     }
     var tokens = self.tokenQuery.split(' ');

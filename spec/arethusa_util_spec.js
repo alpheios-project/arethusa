@@ -16,6 +16,15 @@ describe("arethusaUtil", function() {
       it('trims leading zeros if needed', function() {
         expect(aU.formatNumber('0001', 0)).toEqual('1');
       });
+
+      it('returns the input when it is not a number', function() {
+        expect(aU.formatNumber('', 4)).toEqual('');
+        expect(aU.formatNumber('text', 4)).toEqual('text');
+      });
+
+      it('handles zeros correctly', function() {
+        expect(aU.formatNumber('0', 4)).toEqual('0000');
+      });
     });
   });
 
