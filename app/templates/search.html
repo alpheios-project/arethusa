@@ -8,7 +8,11 @@
       ng-model="plugin.tokenQuery">
   </div>
   <div class="small-3 columns">
-    <input type="checkbox" ng-model="plugin.queryByRegex"/><label>regex</label>
+    <input
+      type="checkbox"
+      ng-change="plugin.queryTokens()"
+      ng-model="plugin.queryByRegex"/>
+      <label>regex</label>
   </div>
 </div>
 
