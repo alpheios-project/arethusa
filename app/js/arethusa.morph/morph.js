@@ -161,6 +161,17 @@ angular.module('arethusa.morph').service('morph', [
       });
       return res.join('.');
     };
+    this.sortAttributes = function(attrs) {
+      return arethusaUtil.inject([], self.postagSchema, function(memo, p) {
+        var val = attrs[p];
+        if (val) {
+          memo.push({
+            attr: p,
+            val: val
+          });
+        }
+      });
+    };
     this.styleOf = function (form) {
       var styler = this.styledThrough;
       var styleVal = form.attributes[styler];
