@@ -10,35 +10,37 @@ describe("state", function() {
     }
   };
 
-  var tokens = {
-    '01': {
-      id: '01',
-      string: 'Arma',
-      head: {
-        id: '03'
-      }
-    },
-    '02': {
-      id: '02',
-      string: 'virum',
-      head: {
+  var createTokens = function() {
+    return {
+      '01': {
+        id: '01',
+        string: 'Arma',
+        head: {
+          id: '03'
+        }
+      },
+      '02': {
+        id: '02',
+        string: 'virum',
+        head: {
+          id: '03',
+        }
+      },
+      '03': {
         id: '03',
+        string: '-que',
+        head: {
+          id: '04'
+        }
+      },
+      '04': {
+        id: '04',
+        string: 'cano',
+        head: {
+          id: '00'
+        }
       }
-    },
-    '03': {
-      id: '03',
-      string: '-que',
-      head: {
-        id: '04'
-      }
-    },
-    '04': {
-      id: '04',
-      string: 'cano',
-      head: {
-        id: '00'
-      }
-    }
+    };
   };
 
   beforeEach(module("arethusa.core", function($provide) {
@@ -47,7 +49,7 @@ describe("state", function() {
 
   describe("this.countTotalTokens", function() {
     it('counts the total number of tokens, exposed through this.totalTokens', inject(function(state, configurator) {
-      state.tokens = tokens;
+      state.tokens = createTokens();
       state.countTotalTokens();
       expect(state.totalTokens).toEqual(4);
     }));
@@ -55,7 +57,7 @@ describe("state", function() {
 
   describe('this.countTokens', function() {
     it('returns a count of tokens for which the given function is true', inject(function(state, configurator) {
-      state.tokens = tokens;
+      state.tokens = createTokens();
       var fn = function(token) {
         return token.string == "cano";
       };
@@ -74,7 +76,7 @@ describe("state", function() {
     var state;
     beforeEach(inject(function(_state_) {
       state = _state_;
-      state.tokens = tokens;
+      state.tokens = createTokens();
     }));
 
     /*
