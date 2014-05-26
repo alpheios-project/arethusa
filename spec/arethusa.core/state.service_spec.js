@@ -130,4 +130,20 @@ describe("state", function() {
       expect(state.getToken('01').head.id).toBe('04');
     });
   });
+
+  describe('this.headsFor', function() {
+    var state;
+    beforeEach(inject(function(_state_) {
+      state = _state_;
+      state.tokens = createTokens();
+    }));
+
+    it('returns an empty array for the root', function() {
+      expect(state.headsFor('00')).toEqual([]);
+    });
+
+    it('returns an array of head ids', function() {
+      expect(state.headsFor('01')).toEqual(['03', '04', '00']);
+    });
+  });
 });

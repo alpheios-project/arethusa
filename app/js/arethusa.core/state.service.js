@@ -112,6 +112,17 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
     return preventSelection;
   };
 
+  this.headsFor = function(id) {
+    var currentToken = self.tokens[id];
+    var heads = [];
+    while(currentToken && currentToken.head.id) {
+      var headId = currentToken.head.id;
+      heads.push(headId);
+      currentToken = self.tokens[headId];
+    }
+
+    return heads;
+  };
   // type should be either 'click', 'ctrl-click' or 'hover'
   this.selectToken = function(id, type) {
     var preventSelection = this.handleChangeHead(id, type);
