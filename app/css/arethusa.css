@@ -80,6 +80,11 @@ svg {
   fill: none;
 }
 
+input[type="text"].inline-form {
+  display: inline;
+  width: 120px;
+}
+
 /* Overrides to foundation */
 .tabs dd>a {
   padding: 0.5em 0.7em;
