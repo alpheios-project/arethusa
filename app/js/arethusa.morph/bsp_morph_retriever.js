@@ -13,6 +13,7 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
         delete obj[el];
       });
     }
+
     function flattenAttributes(form, toFlatten) {
       toFlatten.forEach(function (el) {
         var attr = form[el];
@@ -21,6 +22,7 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
         }
       });
     }
+
     function renameAttributes(form, renamers) {
       for (var oldName in renamers) {
         var newName = renamers[oldName];
@@ -29,6 +31,7 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
         form[newName] = val;
       }
     }
+
     function renameValues(form, renamers) {
       for (var key in renamers) {
         var val = form[key];
@@ -38,6 +41,16 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
         }
       }
     }
+
+    function formatLexInvData(uri) {
+      if (uri) {
+        return {
+          uri: uri,
+          urn: uri.slice(uri.indexOf('urn:'))
+        };
+      }
+    }
+
     return function (conf) {
       var self = this;
       var resource = configurator.provideResource(conf.resource);
@@ -55,7 +68,6 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
             var results = arethusaUtil.inject([], entries, function (results, el) {
                 var entry = el.rest.entry;
                 var lemma = entry.dict.hdwd.$;
-                var lexInvUri = entry.uri;
                 // We might have multiple inflections for each entry and need to wrap
                 // the array vs. object problem again.
                 arethusaUtil.toAry(entry.infl).forEach(function (form) {
@@ -85,7 +97,7 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
                     ]
                   });
                   results.push({
-                    lexInvUri: lexInvUri,
+                    lexInvLocation: formatLexInvData(entry.uri),
                     lemma: lemma,
                     attributes: form,
                     origin: 'bsp/morpheus'
