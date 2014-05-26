@@ -5,6 +5,8 @@ angular.module('arethusa.morph').service('morph', [
   function (state, configurator) {
     var self = this;
     var morphRetrievers;
+    var inventory;
+
     function configure() {
       var props = [
           'postagSchema',
@@ -14,6 +16,7 @@ angular.module('arethusa.morph').service('morph', [
       configurator.getConfAndDelegate('morph', self, props);
       self.analyses = {};
       morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
+      inventory = configurator.getRetriever(self.conf.lexicalInventory.retriever);
     }
     configure();
     this.seedAnalyses = function (tokens) {
