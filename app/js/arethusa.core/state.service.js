@@ -108,9 +108,6 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
 
   this.handleChangeHead = function(newHeadId, type) {
     var preventSelection = false;
-    if (type !== 'click') {
-      return preventSelection;
-    }
 
     angular.forEach(this.selectedTokens, function(type, index) {
       if (type === 'click' || type === 'ctrl-click') {
@@ -135,8 +132,9 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
   };
   // type should be either 'click', 'ctrl-click' or 'hover'
   this.selectToken = function(id, type) {
-    var preventSelection = this.handleChangeHead(id, type);
+    var preventSelection = false;
     if (type === 'click') {
+      preventSelection = this.handleChangeHead(id, type);
       this.selectedTokens = {};
     }
     if (!preventSelection && this.isSelectable(this.selectionType(id), type)) {
