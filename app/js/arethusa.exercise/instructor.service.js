@@ -9,6 +9,7 @@ angular.module('arethusa.exercise').service('instructor', function(fillInTheBlan
   this.started = false;
   this.start = function() {
     self.startedAt = new Date();
+    console.log(self.startedAt);
     fillInTheBlank.started = true;
     self.started = true;
   };
@@ -17,16 +18,17 @@ angular.module('arethusa.exercise').service('instructor', function(fillInTheBlan
     self.stoppedAt = new Date();
     self.started = false;
     self.report = fillInTheBlank.validate();
+    self.time = self.timeElapsedFormatted();
     self.done = true;
   };
 
   this.timeElapsed = function() {
-    return Math.abs(self.stoppedAt - self.startedAt);
+    return Math.round(self.stoppedAt - self.startedAt);
   };
 
   var aU = arethusaUtil;
   this.timeElapsedFormatted = function() {
-    var t = self.timeElapsed() / 60;
+    var t = Math.round(self.timeElapsed() / 1000);
     var minutes = t / 60;
     var seconds = t % minutes;
 
