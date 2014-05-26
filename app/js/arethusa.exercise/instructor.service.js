@@ -8,16 +8,15 @@ angular.module('arethusa.exercise').service('instructor', function(fillInTheBlan
 
   this.started = false;
   this.start = function() {
-    // Track time here
     self.startedAt = new Date();
     fillInTheBlank.started = true;
     self.started = true;
   };
 
   this.stop = function() {
-    // stop time tracking
     self.stoppedAt = new Date();
     self.started = false;
+    self.report = fillInTheBlank.validate();
     self.done = true;
   };
 
