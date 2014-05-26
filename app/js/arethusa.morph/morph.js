@@ -16,9 +16,21 @@ angular.module('arethusa.morph').service('morph', [
       configurator.getConfAndDelegate('morph', self, props);
       self.analyses = {};
       morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
-      inventory = configurator.getRetriever(self.conf.lexicalInventory.retriever);
+
+      if (self.conf.lexicalInventory) {
+        inventory = configurator.getRetriever(self.conf.lexicalInventory.retriever);
+      }
     }
+
     configure();
+
+    function getDataFromInventory(form) {
+      if (inventory) {
+        var urn = form.lexInvLocation.urn;
+        inventory.getData(urn, form);
+      }
+    }
+
     this.seedAnalyses = function (tokens) {
       return arethusaUtil.inject({}, tokens, function (obj, id, token) {
         obj[id] = {
@@ -28,6 +40,7 @@ angular.module('arethusa.morph').service('morph', [
         };
       });
     };
+
     this.postagToAttributes = function (form) {
       var attrs = {};
       angular.forEach(form.postag, function (postagVal, i) {
@@ -43,17 +56,20 @@ angular.module('arethusa.morph').service('morph', [
       });
       form.attributes = attrs;
     };
+
     // Probably not useful to calculate this everytime...
     this.emptyPostag = function () {
       return arethusaUtil.map(this.postagSchema, function (el) {
         return '-';
       }).join('');
     };
+
     this.updatePostag = function (form, attr, val) {
       var index = this.postagSchema.indexOf(attr);
       var postag = this.postagValue(attr, val);
       form.postag = arethusaUtil.replaceAt(form.postag, index, postag);
     };
+
     this.attributesToPostag = function (attrs) {
       var postag = '';
       var postagArr = arethusaUtil.map(this.postagSchema, function (el) {
@@ -66,6 +82,7 @@ angular.module('arethusa.morph').service('morph', [
         });
       return postagArr.join('');
     };
+
     // Gets a from the inital state - if we load an already annotated
     // template, we have to take it inside the morph plugin.
     // In the concrete use case of treebanking this would mean that
@@ -85,6 +102,7 @@ angular.module('arethusa.morph').service('morph', [
         state.setStyle(id, this.styleOf(analysis));
       }
     };
+
     var mapAttributes = function (attrs) {
       // We could use inject on attrs directly, but this wouldn't give us
       // the correct order of properties inside the newly built object.
@@ -105,6 +123,7 @@ angular.module('arethusa.morph').service('morph', [
         }
       });
     };
+
     this.getExternalAnalyses = function (analysisObj) {
       angular.forEach(morphRetrievers, function (retriever, name) {
         retriever.getData(analysisObj.string, function (res) {
@@ -113,11 +132,14 @@ angular.module('arethusa.morph').service('morph', [
             el.attributes = mapAttributes(el.attributes);
             // and build a postag
             el.postag = self.attributesToPostag(el.attributes);
+            // try to obtain additional info from the inventory
+            getDataFromInventory(el);
           });
           arethusaUtil.pushAll(analysisObj.forms, res);
         });
       });
     };
+
     this.loadInitalAnalyses = function () {
       var analyses = self.seedAnalyses(state.tokens);
       angular.forEach(analyses, function (val, id) {
@@ -127,6 +149,7 @@ angular.module('arethusa.morph').service('morph', [
       });
       return analyses;
     };
+
     this.currentAnalyses = function () {
       var analyses = this.analyses;
       return arethusaUtil.inject({}, state.selectedTokens, function (obj, id, val) {
@@ -136,6 +159,7 @@ angular.module('arethusa.morph').service('morph', [
         }
       });
     };
+
     this.selectAttribute = function (attr) {
       return this.attributes[attr] || {};
     };
@@ -157,6 +181,7 @@ angular.module('arethusa.morph').service('morph', [
     this.postagValue = function (attr, val) {
       return this.attributeValueObj(attr, val).postag;
     };
+
     this.concatenatedAttributes = function (form) {
       var res = [];
       angular.forEach(form.attributes, function (value, key) {
@@ -164,6 +189,7 @@ angular.module('arethusa.morph').service('morph', [
       });
       return res.join('.');
     };
+
     this.sortAttributes = function(attrs) {
       return arethusaUtil.inject([], self.postagSchema, function(memo, p) {
         var val = attrs[p];
@@ -175,11 +201,13 @@ angular.module('arethusa.morph').service('morph', [
         }
       });
     };
+
     this.styleOf = function (form) {
       var styler = this.styledThrough;
       var styleVal = form.attributes[styler];
       return this.attributeValueObj(styler, styleVal).style;
     };
+
     this.setState = function (id, form) {
       state.setStyle(id, this.styleOf(form));
       state.setState(id, 'morphology', form);
@@ -188,12 +216,15 @@ angular.module('arethusa.morph').service('morph', [
       state.unsetStyle(id);
       state.unsetState(id, 'morphology');
     };
+
     this.isFormSelected = function (id, form) {
       return state.tokens[id].morphology == form;
     };
+
     this.dependenciesOf = function (attr) {
       return self.selectAttribute(attr).dependencies;
     };
+
     this.init = function () {
       configure();
       this.analyses = this.loadInitalAnalyses(this);
