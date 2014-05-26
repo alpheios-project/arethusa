@@ -38,14 +38,15 @@ angular.module('arethusa.morph').service('LexicalInventoryRetriever', function(c
     var resource = configurator.provideResource(conf.resource);
 
     this.getData = function(urn, form) {
+      form.lexInv = {
+        uri: form.lexInvLocation.uri,
+        urn: form.lexInvLocation.urn
+      };
+
       var query = buildDictionaryLinksQuery(urn);
       resource.get({ query: query }).then(function(res) {
-        var links = extractLinks(res.data);
-        form.lexInv = {
-          dictionaries: links
-        };
+        form.lexInv.dictionaries = extractLinks(res.data);
       });
-
     };
   };
 });
