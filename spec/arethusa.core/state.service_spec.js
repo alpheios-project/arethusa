@@ -69,6 +69,28 @@ describe("state", function() {
     });
   });
 
+  describe('selection', function() {
+    it('selects the clicked token', function() {
+      state.selectToken('03', 'click');
+
+      expect(state.selectedTokens).toEqual({'03': 'click'});
+    });
+
+    it('deselects all tokens after head change', function() {
+      state.selectToken('01', 'click');
+      state.selectToken('03', 'click');
+
+      expect(state.selectedTokens).toEqual({});
+    });
+
+    it('selects multiple tokens with ctrl', function() {
+      state.selectToken('01', 'ctrl-click');
+      state.selectToken('03', 'ctrl-click');
+
+      expect(state.selectedTokens).toEqual({'01': 'ctrl-click', '03': 'ctrl-click'});
+    });
+  });
+
   /* Default tree:
    *     04:cano
    *        |
