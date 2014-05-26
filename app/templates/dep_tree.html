@@ -1,10 +1,16 @@
-<div>
-  <span
-    class="button radius tiny right"
-    ng-show="plugin.diffPresent"
-    ng-click="plugin.toggleDiff()">
-    Toggle Diff
-  </span>
+<div class="small-12 columsn">
+  <div class="small-2 columns">
+    {{ plugin.tokensWithoutHeadCount() }} of {{ state.totalTokens }} unused
+  </div>
+  <div class="small-8 columns"></div>
+  <div class="small-2 columns right end">
+    <span
+      class="button radius tiny right"
+      ng-show="plugin.diffPresent"
+      ng-click="plugin.toggleDiff()">
+      Toggle Diff
+    </span>
+  </div>
 </div>
 <svg
   dependency-tree
