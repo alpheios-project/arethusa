@@ -1,1 +1,13 @@
-fitb
+<div class="small-12 columns small-text-center" ng-hide="plugin.started">
+  <em>Read the instructions and hit start when you're ready</em>
+</div>
+
+<div class="small-12 columns" ng-show="plugin.started">
+  <p>
+  <span
+    ng-repeat="token in state.tokens"
+    hover="true"
+    token="token">
+  </span>
+  </p>
+</div>
