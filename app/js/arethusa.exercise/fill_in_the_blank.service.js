@@ -38,14 +38,30 @@ angular.module('arethusa.exercise').service('fillInTheBlank', function(configura
   };
 
   this.validate = function() {
-    return arethusaUtil.inject({}, self.exercises, function(memo, id, ex) {
+    var result = {
+      tokens: {},
+      correct: 0,
+      wrong: 0
+    };
+
+    angular.forEach(self.exercises, function(ex, id) {
       var obj = {};
-      if (ex.answer == self.answers[id]) {
+      var answer = ex.answer;
+      var input  = self.answers[id];
+
+      if (answer == input) {
+        result.correct++;
         obj.correct = true;
       } else {
+        result.wrong++;
         obj.correct = false;
+        obj.answer = answer;
+        obj.input = input ? input : 'nothing';
       }
+      result.tokens[id] = obj;
     });
+
+    return result;
   };
 
   this.init = function() {

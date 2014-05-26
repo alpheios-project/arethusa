@@ -16,3 +16,26 @@
     <span class="small-9 columns left end">{{ plugin.timeElapsedFormatted() }}</span>
   </div>
 </div>
+
+<div class="small-text-center" style="margin-top: 20px" ng-if="plugin.done">
+  <strong>Report</strong>
+  <div style="margin-top: 15px" class="small-12 columns">
+    <span class="small-3 columns note">
+      <span class="right">Right answers</span>
+    </span>
+    <span class="small-9 columns left end">{{ plugin.report.correct }}</span>
+  </div>
+  <div class="small-12 columns">
+    <span class="small-3 columns note">
+      <span class="right">Wrong answers</span>
+    </span>
+    <span class="small-9 columns left end">{{ plugin.report.wrong }}</span>
+  </div>
+</div>
+<div style="margin-top: 30px" class="small-12 columns">
+  <ul>
+    <li ng-repeat="token in plugin.report.tokens" ng-if="! token.correct">
+      Right answer is {{ token.answer }}, you had {{ token.input }}
+    </li>
+  </ul>
+</div>
