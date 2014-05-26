@@ -9,10 +9,10 @@
     "plugins" : [
       "text",
       "depTree",
+      "morph",
       "search",
       "relation",
       "review",
-      "morph",
       "history",
       "comment"
     ]
@@ -39,6 +39,10 @@
         "gold",
         "s"
       ]
+    },
+
+    "lexInvFusekiEndpoint" : {
+      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
     },
 
     "morphologyService" : {
@@ -75,6 +79,13 @@
       "template"  : "templates/morph3.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
+      "lexicalInventory" : {
+        "retriever" : {
+          "LexicalInventoryRetriever" : {
+            "resource" : "lexInvFusekiEndpoint"
+          }
+        }
+      },
       "fileUrl" : "./static/configs/morph/attributes.json"
     },
 
