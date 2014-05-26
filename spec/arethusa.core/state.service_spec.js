@@ -47,22 +47,26 @@ describe("state", function() {
     $provide.value('configurator', mockConfigurator);
   }));
 
+  var state;
+  beforeEach(inject(function(_state_) {
+    state = _state_;
+    state.tokens = createTokens();
+  }));
+
   describe("this.countTotalTokens", function() {
-    it('counts the total number of tokens, exposed through this.totalTokens', inject(function(state, configurator) {
-      state.tokens = createTokens();
+    it('counts the total number of tokens, exposed through this.totalTokens', function() {
       state.countTotalTokens();
       expect(state.totalTokens).toEqual(4);
-    }));
+    });
   });
 
   describe('this.countTokens', function() {
-    it('returns a count of tokens for which the given function is true', inject(function(state, configurator) {
-      state.tokens = createTokens();
+    it('returns a count of tokens for which the given function is true', function() {
       var fn = function(token) {
         return token.string == "cano";
       };
       expect(state.countTokens(fn)).toEqual(1);
-    }));
+    });
   });
 
   /* Default tree:
@@ -73,12 +77,6 @@ describe("state", function() {
    *  01:Arma 02:virum
    */
   describe('this.handleChangeHead', function() {
-    var state;
-    beforeEach(inject(function(_state_) {
-      state = _state_;
-      state.tokens = createTokens();
-    }));
-
     /*
      *     04:cano
      *     /    \
@@ -150,12 +148,6 @@ describe("state", function() {
   });
 
   describe('this.headsFor', function() {
-    var state;
-    beforeEach(inject(function(_state_) {
-      state = _state_;
-      state.tokens = createTokens();
-    }));
-
     it('returns an empty array for the root', function() {
       expect(state.headsFor('00')).toEqual([]);
     });
