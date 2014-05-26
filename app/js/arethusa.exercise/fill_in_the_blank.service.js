@@ -29,6 +29,10 @@ angular.module('arethusa.exercise').service('fillInTheBlank', function(configura
     });
   }
 
+  this.hintFor = function(id) {
+    return self.exercises[id].hint;
+  };
+
   this.isExerciseTarget = function(id) {
     return id in self.exercises;
   };

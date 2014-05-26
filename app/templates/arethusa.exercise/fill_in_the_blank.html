@@ -4,10 +4,15 @@
 
 <div class="small-12 columns" ng-show="plugin.started">
   <p>
-  <span
-    ng-repeat="token in state.tokens"
-    hover="true"
-    token="token">
+  <span ng-repeat="(id, token) in state.tokens">
+    <span ng-if="plugin.isExerciseTarget(id)">
+      <span fill-in-the-blank-form></span>
+      <span class="note"><em>({{ plugin.hintFor(id) }})</em></span>
+    </span>
+    <span ng-if="! plugin.isExerciseTarget(id)"
+      hover="true"
+      token="token">
+    </span>
   </span>
   </p>
 </div>
