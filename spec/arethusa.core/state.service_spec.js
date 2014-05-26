@@ -129,6 +129,24 @@ describe("state", function() {
       expect(state.getToken('02').head.id).toBe('03');
       expect(state.getToken('01').head.id).toBe('04');
     });
+
+    describe('with multiple selection', function() {
+      /*
+       *         04:cano
+       *      /     |     \
+       * 01:Arma 02:virum 03:-que
+       */
+      it('parents two leaf nodes to an inner node', function() {
+        state.selectToken('01', 'click');
+        state.selectToken('02', 'ctrl-click');
+
+        state.selectToken('04', 'click');
+
+        expect(state.getToken('01').head.id).toBe('04');
+        expect(state.getToken('02').head.id).toBe('04');
+        expect(state.getToken('03').head.id).toBe('04');
+      });
+    });
   });
 
   describe('this.headsFor', function() {
