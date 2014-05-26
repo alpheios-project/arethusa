@@ -8,7 +8,7 @@ describe("state", function() {
     getRetrievers: function(name) {
       return {};
     }
-  }
+  };
 
   var tokens = {
     '01': {

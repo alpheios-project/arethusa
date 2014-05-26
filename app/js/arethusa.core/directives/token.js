@@ -39,8 +39,14 @@ angular.module('arethusa.core').directive('token', function(state) {
         });
       }
 
-      scope.isSelected = function() {
-        return state.isSelected(id);
+      scope.selectionClass = function() {
+        if (state.isSelected(id)) {
+          if (state.selectionType(id) == 'hover') {
+            return 'hovered';
+          } else {
+            return 'selected';
+          }
+        }
       };
 
       if (scope.click) {

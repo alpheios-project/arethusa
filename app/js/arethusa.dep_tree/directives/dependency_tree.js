@@ -247,7 +247,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', function($compile
 
       // Initialize the graph
 
-      var layout = dagreD3.layout().rankDir("BT");
+      var layout = dagreD3.layout().rankDir("BT").nodeSep(30);
       var svg = d3.select(element[0]);
       svg.call(d3.behavior.zoom().on("zoom", function() {
          var ev = d3.event;
