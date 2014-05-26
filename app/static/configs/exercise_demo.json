@@ -1,0 +1,55 @@
+{
+  "main" : {
+    "template"  : "templates/exercise_demo.html",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "fakePerseids"
+      }
+    },
+    "plugins" : [
+      "fillInTheBlank",
+      "instructor",
+      "morph"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html"
+  },
+
+  "resources" : {
+    "fakePerseids" : {
+      "route" : "http://74.70.97.104:8085/xml_server/:doc",
+      "params" : [
+        "doc",
+        "s"
+      ]
+    },
+
+    "morphologyService" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    }
+  },
+
+  "plugins" : {
+    "fillInTheBlank" : {
+      "name" : "fillInTheBlank",
+      "main" : true,
+      "template" : "templates/arethusa.exercise/fill_in_the_blank.html"
+    },
+    "instructor" : {
+      "name" : "instructor",
+      "template" : "templates/arethusa.exercise/instructor.html"
+    },
+    "morph" : {
+      "name" : "morph",
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
+      "template"  : "templates/morph2.html",
+      "fileUrl" : "./static/configs/morph/attributes.json"
+    }
+  }
+}
