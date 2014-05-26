@@ -74,6 +74,12 @@ angular.module('arethusa.depTree').service('depTree', function(state, configurat
     self.diffMode = true;
   });
 
+  this.tokensWithoutHeadCount = function() {
+    return state.countTokens(function(token) {
+      return ! (token.head || {}).id;
+    });
+  };
+
   this.init = function() {
   };
 });

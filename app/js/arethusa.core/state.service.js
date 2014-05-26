@@ -240,8 +240,23 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
     });
   };
 
+  this.countTotalTokens = function() {
+    self.totalTokens = Object.keys(self.tokens).length;
+  };
+
+  this.countTokens = function(conditionFn) {
+    var count = 0;
+    angular.forEach(self.tokens, function(token, id) {
+      if (conditionFn(token)) {
+        count++;
+      }
+    });
+    return count;
+  };
+
   this.postInit = function() {
     self.addStatusObjects();
+    self.countTotalTokens();
   };
 
   this.init = function() {
