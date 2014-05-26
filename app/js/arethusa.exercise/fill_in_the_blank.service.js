@@ -37,7 +37,19 @@ angular.module('arethusa.exercise').service('fillInTheBlank', function(configura
     return id in self.exercises;
   };
 
+  this.validate = function() {
+    return arethusaUtil.inject({}, self.exercises, function(memo, id, ex) {
+      var obj = {};
+      if (ex.answer == self.answers[id]) {
+        obj.correct = true;
+      } else {
+        obj.correct = false;
+      }
+    });
+  };
+
   this.init = function() {
+    self.report = {};
     self.exercises = createExercise();
   };
 });
