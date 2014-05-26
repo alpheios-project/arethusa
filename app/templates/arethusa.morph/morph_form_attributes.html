@@ -1,0 +1,20 @@
+<div class="small-12 columns note">
+  <a class="right" target="_blank" href="http://http://www.perseus.tufts.edu/">Report Error</a>
+</div>
+<div class="small-12 columns" ng-repeat="o in attrs">
+  <span class="small-5 columns note">
+    <span class="right">{{ m.longAttributeName(o.attr) }}</span>
+  </span>
+  <span class="small-7 columns"> {{ m.longAttributeValue(o.attr, o.val) }}</span>
+</div>
+
+
+<div ng-if="inventoryAvailable" class="small-12 columns">
+  <hr>
+  <p>
+    <span class="small-8 columns"><em>Lexical Inventory</em></span>
+    <span class="small-4 columns note">
+      <a href="{{form.lexInvUri}}" target="_blank">{{ urn }}</a>
+    </span>
+  </p>
+</div>
