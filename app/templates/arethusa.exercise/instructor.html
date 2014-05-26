@@ -7,3 +7,12 @@
   <button class="tiny radius" ng-click="plugin.stop()" ng-show="plugin.started">Stop</button>
 </div>
 
+
+<div style="margin-top: 2em" class="small-text-center" ng-if="plugin.done">
+  <div class="small-12 columns">
+    <span class="small-3 columns note">
+      <span class="right">Time elapsed</span>
+    </span>
+    <span class="small-9 columns left end">{{ plugin.timeElapsedFormatted() }}</span>
+  </div>
+</div>
