@@ -111,7 +111,7 @@ describe("state", function() {
       expect(state.getToken('01').head.id).toBe('02');
     });
 
-    /* Default tree:
+    /*
      *     04:cano
      *        |
      *     01:Arma
@@ -120,7 +120,7 @@ describe("state", function() {
      *        |
      *    02:virum
      */
-    xit('parents an inner node to a leaf node', function() {
+    it('parents an inner node to a leaf node', function() {
       state.selectToken('03', 'click');
 
       state.selectToken('01', 'click');

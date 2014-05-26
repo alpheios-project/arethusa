@@ -98,16 +98,26 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
     });
   };
 
-  this.handleChangeHead = function(id, type) {
-    var preventSelection = false;
-    if (type === 'click') {
-      angular.forEach(this.selectedTokens, function(obj, index) {
-        if (obj === 'click' || obj === 'ctrl-click') {
-          self.tokens[index].head.id = id;
-          preventSelection = preventSelection || true;
-        }
-      });
+  this.changeHead = function(tokenId, newHeadId) {
+    if (self.headsFor(newHeadId).indexOf(tokenId) !== -1) {
+      self.tokens[newHeadId].head.id = self.tokens[tokenId].head.id;
     }
+
+    self.tokens[tokenId].head.id = newHeadId;
+  };
+
+  this.handleChangeHead = function(newHeadId, type) {
+    var preventSelection = false;
+    if (type !== 'click') {
+      return preventSelection;
+    }
+
+    angular.forEach(this.selectedTokens, function(type, index) {
+      if (type === 'click' || type === 'ctrl-click') {
+        self.changeHead(index, newHeadId);
+        preventSelection = preventSelection || true;
+      }
+    });
 
     return preventSelection;
   };
