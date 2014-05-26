@@ -7,9 +7,9 @@
       }
     },
     "plugins" : [
-      "fillInTheBlank",
       "instructor",
-      "morph"
+      "morph",
+      "fillInTheBlank"
     ]
   },
 
