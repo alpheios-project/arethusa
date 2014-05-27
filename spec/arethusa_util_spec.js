@@ -96,11 +96,18 @@ describe("arethusaUtil", function() {
       expect(arr1).toEqual(res);
     });
 
-    it('returns the original array if pusher is undefined', function() {
+    it('will not add to the original array if pusher is undefined', function() {
       var arr1 = [1,2];
       var res = [1,2];
       aU.pushAll(arr1, undefined);
       expect(arr1).toEqual(res);
+    });
+
+    it('returns the original array', function() {
+      var arr1 = [1, 2];
+      var arr2 = [3, 4];
+      var res  = [1, 2, 3, 4];
+      expect(aU.pushAll(arr1, arr2)).toEqual(res);
     });
   });
 
