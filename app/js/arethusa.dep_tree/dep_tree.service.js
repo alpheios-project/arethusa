@@ -26,7 +26,6 @@ angular.module('arethusa.depTree').service('depTree', function(state, configurat
 
   function configure() {
     configurator.getConfAndDelegate('depTree', self);
-    console.log(self.conf);
     self.diffMode = false;
   }
 
