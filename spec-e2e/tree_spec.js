@@ -1,42 +1,47 @@
 "use strict";
 
-describe('Read tokens from xml url', function(){
-  var sentence1Url = 'http://services.perseids.org/llt-data/1999.02.0002.2.1.1.xml';
-  var sentence2Url = 'http://services.perseids.org/llt-data/1999.02.0002.2.1.2.xml';
+describe('Dependency tree', function(){
   beforeEach(function() {
-    browser.get('/app/#/tree');
+    browser.get('/app/#/staging2?doc=1&s=1');
   });
 
-  describe('Sentence 1', function() {
-    beforeEach(function() {
-      element(by.model('query')).sendKeys(sentence1Url);
-      element(by.buttonText('Search')).click();
-    });
-
-    xit('displays a dependency tree (que is above cum)', function() {
-      var nodes = element.all(by.css("g.node g text tspan"));
-      nodes.map(function(elm, index) {
-        return {
-          index: index,
-          text: elm.getText(),
-          location: elm.getLocation()
-        };
-      }).then(function(nodeInfos) {
-        var que;
-        var cum;
-        for (var index = 0; index < nodeInfos.length; ++index) {
-          var element = nodeInfos[index];
-          if (element.text === "que") {
-            que = element;
-          }
-          if (element.text === "Cum") {
-            cum = element;
-          }
+  var que;
+  var cum;
+  beforeEach(function() {
+    var nodes = element.all(by.css("div span span"));
+    nodes.map(function(elm, index) {
+      return {
+        index: index,
+        text: elm.getText(),
+        location: elm.getLocation(),
+        element: elm
+      };
+    }).then(function(nodeInfos) {
+      for (var index = 0; index < nodeInfos.length; ++index) {
+        var element = nodeInfos[index];
+        if (element.text === "que") {
+          que = element;
         }
-        expect(que).toBeDefined();
-        expect(cum).toBeDefined();
-        expect(que.location.y).toBeGreaterThan(cum.location.y);
-      });
+        if (element.text === "Cum") {
+          cum = element;
+        }
+      }
+    });
+  });
+
+  it('displays a dependency tree (que is above cum)', function() {
+    expect(que).toBeDefined();
+    expect(cum).toBeDefined();
+    expect(que.location.y).toBeGreaterThan(cum.location.y);
+  });
+
+  describe('head change', function() {
+    xit('displays a dependency tree (que is above cum)', function() {
+      expect(que).toBeDefined();
+      expect(cum).toBeDefined();
+      que.element.click();
+      cum.element.click();
+      expect(que.location.y).toBeLessThan(cum.location.y);
     });
   });
 });

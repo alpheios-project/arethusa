@@ -94,13 +94,50 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
   this.multiSelect = function(ids) {
     self.deselectAll();
     angular.forEach(ids, function(id, i) {
-      self.selectToken(id, 'click');
+      self.selectToken(id, 'ctrl-click');
     });
   };
 
-  // type should be either 'click' or 'hover'
+  this.changeHead = function(tokenId, newHeadId) {
+    if (self.headsFor(newHeadId).indexOf(tokenId) !== -1) {
+      self.tokens[newHeadId].head.id = self.tokens[tokenId].head.id;
+    }
+
+    self.tokens[tokenId].head.id = newHeadId;
+  };
+
+  this.handleChangeHead = function(newHeadId, type) {
+    var preventSelection = false;
+
+    angular.forEach(this.selectedTokens, function(type, index) {
+      if (type === 'click' || type === 'ctrl-click') {
+        self.changeHead(index, newHeadId);
+        preventSelection = preventSelection || true;
+      }
+    });
+
+    return preventSelection;
+  };
+
+  this.headsFor = function(id) {
+    var currentToken = self.tokens[id];
+    var heads = [];
+    while(currentToken && currentToken.head.id) {
+      var headId = currentToken.head.id;
+      heads.push(headId);
+      currentToken = self.tokens[headId];
+    }
+
+    return heads;
+  };
+  // type should be either 'click', 'ctrl-click' or 'hover'
   this.selectToken = function(id, type) {
-    if (this.isSelectable(this.selectionType(id), type)) {
+    var preventSelection = false;
+    if (type === 'click') {
+      preventSelection = this.handleChangeHead(id, type);
+      this.selectedTokens = {};
+    }
+    if (!preventSelection && this.isSelectable(this.selectionType(id), type)) {
       this.selectedTokens[id] = type;
     }
   };

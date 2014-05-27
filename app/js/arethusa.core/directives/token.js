@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.core').directive('token', function(state) {
+angular.module('arethusa.core').directive('token', ['state', 'keyCapture', function(state, keyCapture) {
   return {
     restrict: 'AE',
     scope: {
@@ -20,9 +20,15 @@ angular.module('arethusa.core').directive('token', function(state) {
 
       function bindClick() {
         element.bind('click', function() {
-          apply(function() {
-            state.toggleSelection(id, 'click');
-          });
+          if (keyCapture.isCtrlActive()) {
+            apply(function() {
+              state.toggleSelection(id, 'ctrl-click');
+            });
+          } else {
+            apply(function() {
+              state.toggleSelection(id, 'click');
+            });
+          }
         });
       }
 
@@ -88,4 +94,4 @@ angular.module('arethusa.core').directive('token', function(state) {
     },
     templateUrl: 'templates/token.html'
   };
-});
+}]);
