@@ -1,7 +1,6 @@
-"use strict";
-
+'use strict';
 // unused right now
-angular.module('arethusa.morph').directive('morphForm', function() {
+angular.module('arethusa.morph').directive('morphForm', function () {
   return {
     restrict: 'E',
     scope: true,

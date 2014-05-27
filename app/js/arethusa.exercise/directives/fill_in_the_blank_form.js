@@ -1,11 +1,10 @@
-"use strict";
-
-angular.module('arethusa.exercise').directive('fillInTheBlankForm', function() {
+'use strict';
+angular.module('arethusa.exercise').directive('fillInTheBlankForm', function () {
   return {
     restrict: 'A',
     scope: true,
-    link: function(scope, element, attrs) {
-      scope.validatedClass = function() {
+    link: function (scope, element, attrs) {
+      scope.validatedClass = function () {
         var rep = scope.plugin.report;
         if (rep) {
           if (rep.tokens[scope.id].correct) {
@@ -18,5 +17,4 @@ angular.module('arethusa.exercise').directive('fillInTheBlankForm', function() {
     },
     templateUrl: 'templates/arethusa.exercise/fill_in_the_blank_form.html'
   };
-
 });

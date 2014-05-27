@@ -1,6 +1,5 @@
-"use strict";
-
-angular.module('arethusa.core').directive('valueWatch', function() {
+'use strict';
+angular.module('arethusa.core').directive('valueWatch', function () {
   return {
     restrict: 'A',
     scope: {

@@ -1,12 +1,11 @@
-"use strict";
-
+'use strict';
 angular.module('arethusa.core').constant('CONF_ROUTE', {
   controller: 'ConfEditorCtrl',
   templateUrl: 'templates/conf_editor.html',
   resolve: {
-    load: function($http, configurator) {
+    load: function ($http, configurator) {
       var url = './static/configs/conf_editor/1.json';
-      return $http.get(url).then(function(res) {
+      return $http.get(url).then(function (res) {
         configurator.defineConfiguration(res.data, url);
       });
     }

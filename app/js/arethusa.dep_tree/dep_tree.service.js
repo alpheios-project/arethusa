@@ -1,5 +1,4 @@
-"use strict";
-
+'use strict';
 /* Dependency Tree Handler with Diff capabilities
  *
  * This service has not much to do - the tree itself is handled
@@ -20,69 +19,67 @@
  * diff plugin itself and resolved issue #80.
  * (https://github.com/latin-language-toolkit/llt-annotation_environment/issues/80)
  */
-
-angular.module('arethusa.depTree').service('depTree', function(state, configurator, $rootScope) {
-  var self = this;
-
-  function configure() {
-    configurator.getConfAndDelegate('depTree', self);
-    self.diffMode = false;
-  }
-
-  configure();
-
-  this.toggleDiff = function() {
-    self.diffMode = ! self.diffMode;
-  };
-
-  // We have three things we can colorize as wrong in the tree
-  //   Label
-  //   Head
-  //   and the word itself for morphological stuff
-  function analyseDiffs(tokens) {
-    return arethusaUtil.inject({}, tokens, function(memo, id, token) {
-      var diff = token.diff;
-      if (diff) {
-        memo[id] = analyseDiff(diff);
-      }
-    });
-  }
-
-  function analyseDiff(diff) {
-    return arethusaUtil.inject({}, diff, function(memo, key, val) {
-      if (key === 'relation') {
-        memo.label = { color: 'red' };
-      } else {
-        if (key === 'head') {
-          memo.edge = { stroke: 'red', 'stroke-width': '1px'};
-        } else {
-          memo.token = { color: 'red' };
-        }
-      }
-    });
-  }
-
-  this.diffStyles = function() {
-    if (self.diffMode) {
-      return self.diffInfo;
-    } else {
-      return false;
+angular.module('arethusa.depTree').service('depTree', [
+  'state',
+  'configurator',
+  '$rootScope',
+  function (state, configurator, $rootScope) {
+    var self = this;
+    function configure() {
+      configurator.getConfAndDelegate('depTree', self);
+      self.diffMode = false;
     }
-  };
-
-  $rootScope.$on('diffLoaded', function() {
-    self.diffPresent = true;
-    self.diffInfo = analyseDiffs(state.tokens);
-    self.diffMode = true;
-  });
-
-  this.tokensWithoutHeadCount = function() {
-    return state.countTokens(function(token) {
-      return ! (token.head || {}).id;
-    });
-  };
-
-  this.init = function() {
     configure();
-  };
-});
+    this.toggleDiff = function () {
+      self.diffMode = !self.diffMode;
+    };
+    // We have three things we can colorize as wrong in the tree
+    //   Label
+    //   Head
+    //   and the word itself for morphological stuff
+    function analyseDiffs(tokens) {
+      return arethusaUtil.inject({}, tokens, function (memo, id, token) {
+        var diff = token.diff;
+        if (diff) {
+          memo[id] = analyseDiff(diff);
+        }
+      });
+    }
+    function analyseDiff(diff) {
+      return arethusaUtil.inject({}, diff, function (memo, key, val) {
+        if (key === 'relation') {
+          memo.label = { color: 'red' };
+        } else {
+          if (key === 'head') {
+            memo.edge = {
+              stroke: 'red',
+              'stroke-width': '1px'
+            };
+          } else {
+            memo.token = { color: 'red' };
+          }
+        }
+      });
+    }
+    this.diffStyles = function () {
+      if (self.diffMode) {
+        return self.diffInfo;
+      } else {
+        return false;
+      }
+    };
+    $rootScope.$on('diffLoaded', function () {
+      self.diffPresent = true;
+      self.diffInfo = analyseDiffs(state.tokens);
+      self.diffMode = true;
+    });
+    this.tokensWithoutHeadCount = function () {
+      return state.countTokens(function (token) {
+        return !(token.head || {}).id;
+      });
+    };
+    this.init = function () {
+      configure();
+    };
+  }
+]);
