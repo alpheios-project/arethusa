@@ -3,8 +3,11 @@
 describe('morph', function() {
   var mockState = {};
   var mockConfigurator = {
-    configurationFor: function(name) {
-      return {};
+    getConfAndDelegate: function(name, obj) {
+      obj.conf = {
+        retrievers: []
+      };
+      return obj;
     },
     getRetrievers: function(name) {
       return [];
