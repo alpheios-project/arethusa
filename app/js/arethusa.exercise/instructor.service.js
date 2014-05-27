@@ -9,7 +9,6 @@ angular.module('arethusa.exercise').service('instructor', function(fillInTheBlan
   this.started = false;
   this.start = function() {
     self.startedAt = new Date();
-    console.log(self.startedAt);
     fillInTheBlank.started = true;
     self.started = true;
   };
