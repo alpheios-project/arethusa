@@ -2,15 +2,18 @@
 
 angular.module('arethusa.review').service('review', function(configurator, state, morph, $rootScope) {
   var self = this;
+  var retriever;
 
-  var conf = configurator.configurationFor('review');
-  this.template = conf.template;
-  this.name = conf.name;
+  function configure() {
+    configurator.getConfAndDelegate('review', self);
 
-  this.goldTokens = {};
+    self.goldTokens = {};
+    var retrievers = configurator.getRetrievers(self.conf.retrievers);
+    retriever = retrievers.TreebankRetriever;
+  }
 
-  var retrievers = configurator.getRetrievers(conf.retrievers);
-  var retriever = retrievers.TreebankRetriever;
+  configure();
+
 
   function addStyleInfo(tokens) {
     angular.forEach(tokens, function(token, id) {
@@ -84,5 +87,9 @@ angular.module('arethusa.review').service('review', function(configurator, state
       });
       broadcast();
     }
+  };
+
+  this.init = function() {
+    configure();
   };
 });
