@@ -1,0 +1,46 @@
+<div class="small-text-center">
+  <em>Fill in the blanks!</em>
+</div>
+
+<div style="margin-top: 2em" class="small-text-center">
+  <button class="tiny radius" ng-click="plugin.start()" ng-show="! plugin.started">Start</button>
+  <button class="tiny radius" ng-click="plugin.stop()" ng-show="plugin.started">Stop</button>
+</div>
+
+
+<div style="margin-top: 2em" class="small-text-center" ng-if="plugin.done">
+  <div class="small-12 columns">
+    <span class="small-3 columns note">
+      <span class="right">Time elapsed</span>
+    </span>
+    <span class="small-9 columns end">
+      <span class="left">{{ plugin.time }}</span>
+    </span>
+  </div>
+</div>
+
+<div class="small-text-center" style="margin-top: 20px" ng-if="plugin.done">
+  <div style="margin-top: 20px" class="small-12 columns">
+    <span class="small-3 columns note">
+      <span class="right right-answer">Right answers</span>
+    </span>
+    <span class="small-9 columns end">
+      <span class="left">{{ plugin.report.correct }}</span>
+    </span>
+  </div>
+  <div class="small-12 columns">
+    <span class="small-3 columns note">
+      <span class="right wrong-answer">Wrong answers</span>
+    </span>
+    <span class="small-9 columns end">
+      <span class="left">{{ plugin.report.wrong }}</span>
+    </span>
+  </div>
+</div>
+<div style="margin-top: 30px" class="small-12 columns">
+  <ul>
+    <li ng-repeat="token in plugin.report.tokens" ng-if="! token.correct">
+      Right answer is {{ token.answer }}, you had {{ token.input }}
+    </li>
+  </ul>
+</div>

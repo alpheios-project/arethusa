@@ -80,6 +80,29 @@ svg {
   fill: none;
 }
 
+/* For exercise stuff */
+
+input[type="text"].inline-form {
+  display: inline;
+  width: 120px;
+}
+
+input[type="text"].wrong-answer {
+  border: 2px solid red;
+}
+
+input[type="text"].right-answer {
+  border: 2px solid limegreen;
+}
+
+span.wrong-answer {
+  color: red;
+}
+
+span.right-answer {
+  color: limegreen;
+}
+
 /* Overrides to foundation */
 .tabs dd>a {
   padding: 0.5em 0.7em;

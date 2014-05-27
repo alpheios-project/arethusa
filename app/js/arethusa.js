@@ -12,6 +12,7 @@ angular.module(
     'arethusa.hist',
     'arethusa.review',
     'arethusa.search',
+    'arethusa.exercise',
     'arethusa.relation'
   ],
   function($routeProvider, MAIN_ROUTE, CONF_ROUTE) {
