@@ -256,6 +256,24 @@ describe('configurator', function() {
     }));
   });
 
+  describe('this.getConfAndDelegate', function() {
+    it('convenience fn to get conf and delegate in one step', inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {};
+      configurator.getConfAndDelegate('morph', obj, ['a']);
+      expect(obj.name).toEqual('morph');
+      expect(obj.conf).toBeTruthy();
+      expect(obj.hasOwnProperty('a')).toBeTruthy();
+    }));
+
+    it('returns the given object', inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {};
+      var res = configurator.getConfAndDelegate('morph', obj);
+      expect(obj).toBe(res);
+    }));
+  });
+
   describe('this.getService', function() {
     it('retrieves an angular instance by name', inject(function(configurator) {
       expect(configurator.getService('x')).toEqual(mock1);

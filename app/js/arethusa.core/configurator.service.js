@@ -239,6 +239,12 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
     });
   };
 
+  this.getConfAndDelegate = function(name, obj, keys) {
+    obj.conf = self.configurationFor(name);
+    self.delegateConf(obj, keys);
+    return obj;
+  };
+
   this.getRetrievers = function(retrievers) {
     return arethusaUtil.inject({}, retrievers, function(memo, name, conf) {
       var Retriever = self.getService(name);
