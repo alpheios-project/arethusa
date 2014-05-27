@@ -1,8 +1,8 @@
 "use strict";
 
 describe('Read tokens from xml url', function(){
-  var sentence1Url = 'http://services.perseids.org/llt-data/1999.02.0002.2.1.1.xml';
-  var sentence2Url = 'http://services.perseids.org/llt-data/1999.02.0002.2.1.2.xml';
+  var sentence1Url = '1999.02.0002.2.1.1';
+  var sentence2Url = '1999.02.0002.2.1.2';
   beforeEach(function() {
     browser.get('/app/#/staging');
 
@@ -21,7 +21,7 @@ describe('Read tokens from xml url', function(){
     });
 
     it('displays the data from the given xml', function() {
-      expect(element(by.css("token")).getText()).toEqual("Cum");
+      expect(element(by.css("span[token]")).getText()).toEqual("Cum");
     });
   });
 
@@ -31,7 +31,7 @@ describe('Read tokens from xml url', function(){
     });
 
     it('displays the data from the given xml', function() {
-      expect(element(by.css("token")).getText()).toEqual("Coniurandi");
+      expect(element(by.css("span[token]")).getText()).toEqual("Coniurandi");
     });
  });
 });
