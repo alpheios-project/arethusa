@@ -2,20 +2,16 @@
 
 angular.module('arethusa.morph').service('morph', function(state, configurator) {
   var self = this;
-  this.conf = configurator.configurationFor('morph');
-  this.attributes = this.conf.attributes;
-  this.template = this.conf.template;
-  this.name = this.conf.name;
-  this.noView = this.conf.noView;
-  this.postagSchema = this.conf.postagSchema;
-  this.styledThrough = this.conf.styledThrough;
+  var morphRetrievers;
 
-  this.contextMenu = this.conf.contextMenu;
-  this.contextMenuTemplate = this.conf.contextMenuTemplate;
+  function configure() {
+    var props = ['postagSchema', 'attributes', 'styledThrough'];
+    configurator.getConfAndDelegate('morph', self, props);
+    self.analyses = {};
+    morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
+  }
 
-  this.analyses = {};
-
-  var morphRetrievers = configurator.getRetrievers(this.conf.retrievers);
+  configure();
 
   this.seedAnalyses = function(tokens) {
     return arethusaUtil.inject({}, tokens, function(obj, id, token) {
@@ -201,6 +197,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   };
 
   this.init = function() {
+    configure();
     this.analyses = this.loadInitalAnalyses(this);
   };
 });
