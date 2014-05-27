@@ -2,11 +2,13 @@
 
 angular.module('arethusa.exercise').service('instructor', function(fillInTheBlank, configurator) {
   var self = this;
-  this.conf = configurator.configurationFor('instructor');
-  this.template = this.conf.template;
-  this.name = this.conf.name;
 
-  this.started = false;
+  function configure() {
+    configurator.getConfAndDelegate('instructor', self);
+  }
+
+  configure();
+
   this.start = function() {
     self.startedAt = new Date();
     fillInTheBlank.started = true;
@@ -34,11 +36,15 @@ angular.module('arethusa.exercise').service('instructor', function(fillInTheBlan
     return aU.formatNumber(minutes, 2) + ':' + aU.formatNumber(seconds, 2);
   };
 
-  this.init = function() {
-    self.started = false;
+  function reset() {
     self.done = false;
     self.startedAt = false;
     self.stoppedAt = false;
     self.report = {};
+  }
+
+  this.init = function() {
+    configure();
+    reset();
   };
 });
