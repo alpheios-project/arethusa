@@ -18,6 +18,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-coveralls');
   grunt.loadNpmTasks('grunt-sauce-connect-launcher');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -155,6 +156,20 @@ module.exports = function(grunt) {
           accessKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
           verbose: true
         }
+      }
+    },
+    uglify: {
+      options: {
+        sourceMap: true,
+        report: 'gzip'
+      },
+      core: {
+        files: {
+          'dist/arethusa.core.min.js': [
+            'app/js/arethusa.core.js',
+            '<%= "app/js/arethusa.core/**/*.js" %>'
+          ]
+        },
       }
     }
   });
