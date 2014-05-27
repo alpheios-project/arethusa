@@ -221,6 +221,7 @@ describe('configurator', function() {
         'external',
         'listener',
         'contextMenu',
+        'contextMenuTemplate',
         'noView'
       ];
 
@@ -242,6 +243,7 @@ describe('configurator', function() {
         'external',
         'listener',
         'contextMenu',
+        'contextMenuTemplate',
         'noView',
         'a',
         'b'

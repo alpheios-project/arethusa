@@ -227,6 +227,7 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
       'external',
       'listener',
       'contextMenu',
+      'contextMenuTemplate',
       'noView'
     ];
   }
