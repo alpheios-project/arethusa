@@ -145,7 +145,6 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
       main: {},
       navbar: {},
       plugins: {},
-      retrievers: {},
       resources: {}
     };
   };
@@ -217,7 +216,6 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
     var conf = this.configuration;
     return conf[plugin] ||
       conf.plugins[plugin] ||
-      conf.retrievers[plugin] ||
       conf.resources[plugin];
   };
 

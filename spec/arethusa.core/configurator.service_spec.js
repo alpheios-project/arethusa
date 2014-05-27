@@ -21,9 +21,11 @@ describe('configurator', function() {
   beforeEach(function() {
     mainConf = {
       template: 'templates/main.html',
-      retrievers: [
-        'treebankRetriever'
-      ],
+      retrievers: {
+        'treebankRetriever': {
+          resource: perseidsConf
+        }
+      },
       plugins: [
         'text',
         'morph'
@@ -33,10 +35,10 @@ describe('configurator', function() {
     morphConf = {
       name: 'morph',
       template: 'templates/morph.html',
-      retrievers: [
-        'fakeMorphRetriever',
-        'bspMorphRetriever'
-      ],
+      retrievers: {
+        'fakeMorphRetriever' : morphRetrieverConf,
+        'bspMorphRetriever' : {}
+      },
       attributes: {
         fileUrl: 'configs/morph/aldt.json'
       }
@@ -71,13 +73,6 @@ describe('configurator', function() {
           template: 'templates/text2.html'
         },
         morph: morphConf
-      },
-
-      retrievers: {
-        treebankRetriever: {
-          resource: 'perseids' // this could be an array at some point - fallback resources?
-        },
-        bspMorphRetriever: morphRetrieverConf
       },
 
       resources: {
@@ -210,8 +205,6 @@ describe('configurator', function() {
       expect(getConf('main')).toEqual(mainConf);
       // plugins
       expect(getConf('morph')).toEqual(morphConf);
-      // retrievers
-      expect(getConf('bspMorphRetriever')).toEqual(morphRetrieverConf);
       // resources
       expect(getConf('perseids')).toEqual(perseidsConf);
     }));
