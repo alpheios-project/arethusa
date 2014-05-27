@@ -23,11 +23,13 @@
 
 angular.module('arethusa.depTree').service('depTree', function(state, configurator, $rootScope) {
   var self = this;
-  this.conf = configurator.configurationFor('depTree');
-  this.template = this.conf.template;
-  this.main = this.conf.main;
 
-  this.diffMode = false;
+  function configure() {
+    configurator.getConfAndDelegate('depTree', self);
+    self.diffMode = false;
+  }
+
+  configure();
 
   this.toggleDiff = function() {
     self.diffMode = ! self.diffMode;
@@ -81,5 +83,6 @@ angular.module('arethusa.depTree').service('depTree', function(state, configurat
   };
 
   this.init = function() {
+    configure();
   };
 });

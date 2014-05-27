@@ -2,20 +2,16 @@
 
 angular.module('arethusa.morph').service('morph', function(state, configurator) {
   var self = this;
-  this.conf = configurator.configurationFor('morph');
-  this.attributes = this.conf.attributes;
-  this.template = this.conf.template;
-  this.name = this.conf.name;
-  this.noView = this.conf.noView;
-  this.postagSchema = this.conf.postagSchema;
-  this.styledThrough = this.conf.styledThrough;
+  var morphRetrievers;
 
-  this.contextMenu = this.conf.contextMenu;
-  this.contextMenuTemplate = this.conf.contextMenuTemplate;
+  function configure() {
+    var props = ['postagSchema', 'attributes', 'styledThrough'];
+    configurator.getConfAndDelegate('morph', self, props);
+    self.analyses = {};
+    morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
+  }
 
-  this.analyses = {};
-
-  var morphRetrievers = configurator.getRetrievers(this.conf.retrievers);
+  configure();
 
   this.seedAnalyses = function(tokens) {
     return arethusaUtil.inject({}, tokens, function(obj, id, token) {
@@ -24,11 +20,10 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   };
 
   this.postagToAttributes = function(form) {
-    var that = this;
     var attrs = {};
     angular.forEach(form.postag, function(postagVal, i) {
-      var postagClass  = that.postagSchema[i];
-      var possibleVals = that.attributeValues(postagClass);
+      var postagClass  = self.postagSchema[i];
+      var possibleVals = self.attributeValues(postagClass);
       var attrObj = arethusaUtil.findObj(possibleVals, function(obj) {
         return obj.postag === postagVal;
       });
@@ -56,9 +51,8 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
 
   this.attributesToPostag = function(attrs) {
     var postag = "";
-    var that = this;
     var postagArr =  arethusaUtil.map(this.postagSchema, function(el) {
-      var attrVals = that.attributeValues(el);
+      var attrVals = self.attributeValues(el);
       var val = attrs[el];
       var valObj = arethusaUtil.findObj(attrVals, function(e) {
         return e.short === val;
@@ -88,7 +82,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     }
   };
 
-  var mapAttributes = function(attrs, that) {
+  var mapAttributes = function(attrs) {
     // We could use inject on attrs directly, but this wouldn't give us
     // the correct order of properties inside the newly built object.
     // Let's iterate over the postag schema for to guarantee it.
@@ -97,10 +91,10 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     // This solution comes at a price - if we cannot find a key (not every
     // form has a tense attribute for example), we might stuff lots of undefined
     // stuff into this object. We pass over this with a conditional.
-    return arethusaUtil.inject({}, that.postagSchema, function(memo, k) {
+    return arethusaUtil.inject({}, self.postagSchema, function(memo, k) {
       var v = attrs[k];
       if (v) {
-        var values = that.attributeValues(k);
+        var values = self.attributeValues(k);
         var obj = arethusaUtil.findObj(values, function(el) {
           return (el.short === v || el.long === v);
         });
@@ -109,25 +103,25 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
     });
   };
 
-  this.getExternalAnalyses = function(analysisObj, that) {
+  this.getExternalAnalyses = function(analysisObj) {
     angular.forEach(morphRetrievers, function(retriever, name) {
       retriever.getData(analysisObj.string, function(res) {
         res.forEach(function(el) {
           // need to parse the attributes now
-          el.attributes = mapAttributes(el.attributes, that);
+          el.attributes = mapAttributes(el.attributes);
           // and build a postag
-          el.postag = that.attributesToPostag(el.attributes);
+          el.postag = self.attributesToPostag(el.attributes);
         });
         arethusaUtil.pushAll(analysisObj.forms, res);
       });
     });
   };
 
-  this.loadInitalAnalyses = function(that) {
-    var analyses = that.seedAnalyses(state.tokens);
+  this.loadInitalAnalyses = function() {
+    var analyses = self.seedAnalyses(state.tokens);
     angular.forEach(analyses, function(val, id) {
-      that.getExternalAnalyses(val, that);
-      that.getAnalysisFromState(val, id);
+      self.getExternalAnalyses(val);
+      self.getAnalysisFromState(val, id);
       val.analyzed = true;
     });
     return analyses;
@@ -172,9 +166,8 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
 
   this.concatenatedAttributes = function(form) {
     var res = [];
-    var that = this;
     angular.forEach(form.attributes, function(value, key) {
-      res.push(that.abbrevAttributeValue(key, value));
+      res.push(self.abbrevAttributeValue(key, value));
     });
     return res.join('.');
   };
@@ -204,6 +197,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   };
 
   this.init = function() {
+    configure();
     this.analyses = this.loadInitalAnalyses(this);
   };
 });

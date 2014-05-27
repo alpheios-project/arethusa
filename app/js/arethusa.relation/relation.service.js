@@ -3,11 +3,13 @@
 angular.module('arethusa.relation').service('relation', function(state, configurator) {
   var self = this;
 
-  this.conf = configurator.configurationFor('relation');
-  this.template = this.conf.template;
-  this.name = this.conf.name;
-  this.relationValues = this.conf.relations;
-  this.relations = {};
+  function configure() {
+    configurator.getConfAndDelegate('relation', self);
+    self.relationValues = self.conf.relations;
+    self.relations = {};
+  }
+
+  configure();
 
   // Currently selected labels
 
@@ -102,6 +104,7 @@ angular.module('arethusa.relation').service('relation', function(state, configur
   };
 
   this.init = function() {
+    configure();
     self.relations = self.createInternalState();
     self.resetSearchedLabel();
     self.resetMultiChanger();

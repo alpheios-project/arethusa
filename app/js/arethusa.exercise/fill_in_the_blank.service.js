@@ -2,14 +2,14 @@
 
 angular.module('arethusa.exercise').service('fillInTheBlank', function(configurator, morph, state) {
   var self = this;
-  this.conf = configurator.configurationFor('fillInTheBlank');
-  this.template = this.conf.template;
-  this.name = this.conf.name;
-  this.main = this.conf.main;
 
-  this.started = false;
+  function configure() {
+    configurator.getConfAndDelegate('fillInTheBlank', self);
+    self.started = false;
+    self.answers = {};
+  }
 
-  this.answers = {};
+  configure();
 
   function createExercise() {
     return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
@@ -63,6 +63,7 @@ angular.module('arethusa.exercise').service('fillInTheBlank', function(configura
   };
 
   this.init = function() {
+    configure();
     delete self.report;
     self.exercises = createExercise();
   };

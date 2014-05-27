@@ -2,9 +2,12 @@
 
 angular.module('arethusa.core').service('state', function(configurator, navigator, $rootScope) {
   var self = this;
+  var tokenRetrievers;
 
-  var conf = configurator.configurationFor('main');
-  var tokenRetrievers = configurator.getRetrievers(conf.retrievers);
+  function configure() {
+    var conf = configurator.configurationFor('main');
+    tokenRetrievers = configurator.getRetrievers(conf.retrievers);
+  }
 
   // We hold tokens locally during retrieval phase.
   // Once we are done, they will be exposed through
@@ -260,6 +263,7 @@ angular.module('arethusa.core').service('state', function(configurator, navigato
   };
 
   this.init = function() {
-    this.retrieveTokens();
+    configure();
+    self.retrieveTokens();
   };
 });

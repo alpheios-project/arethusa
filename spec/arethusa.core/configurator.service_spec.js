@@ -21,9 +21,11 @@ describe('configurator', function() {
   beforeEach(function() {
     mainConf = {
       template: 'templates/main.html',
-      retrievers: [
-        'treebankRetriever'
-      ],
+      retrievers: {
+        'treebankRetriever': {
+          resource: perseidsConf
+        }
+      },
       plugins: [
         'text',
         'morph'
@@ -33,10 +35,10 @@ describe('configurator', function() {
     morphConf = {
       name: 'morph',
       template: 'templates/morph.html',
-      retrievers: [
-        'fakeMorphRetriever',
-        'bspMorphRetriever'
-      ],
+      retrievers: {
+        'fakeMorphRetriever' : morphRetrieverConf,
+        'bspMorphRetriever' : {}
+      },
       attributes: {
         fileUrl: 'configs/morph/aldt.json'
       }
@@ -71,13 +73,6 @@ describe('configurator', function() {
           template: 'templates/text2.html'
         },
         morph: morphConf
-      },
-
-      retrievers: {
-        treebankRetriever: {
-          resource: 'perseids' // this could be an array at some point - fallback resources?
-        },
-        bspMorphRetriever: morphRetrieverConf
       },
 
       resources: {
@@ -210,10 +205,74 @@ describe('configurator', function() {
       expect(getConf('main')).toEqual(mainConf);
       // plugins
       expect(getConf('morph')).toEqual(morphConf);
-      // retrievers
-      expect(getConf('bspMorphRetriever')).toEqual(morphRetrieverConf);
       // resources
       expect(getConf('perseids')).toEqual(perseidsConf);
+    }));
+  });
+
+  describe('this.delegateConf', function() {
+    it('delegates a basic set of conf options to a given object', inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {};
+      var defaultKeys = [
+        'name',
+        'main',
+        'template',
+        'external',
+        'listener',
+        'contextMenu',
+        'contextMenuTemplate',
+        'noView'
+      ];
+
+      obj.conf = configurator.configurationFor('morph');
+      configurator.delegateConf(obj);
+
+      angular.forEach(defaultKeys, function(key, i) {
+        expect(obj.hasOwnProperty(key)).toBeTruthy();
+      });
+    }));
+
+    it('an array of additional properties to delegate can be given', inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {};
+      var results = [
+        'name',
+        'main',
+        'template',
+        'external',
+        'listener',
+        'contextMenu',
+        'contextMenuTemplate',
+        'noView',
+        'a',
+        'b'
+      ];
+
+      obj.conf = configurator.configurationFor('morph');
+      configurator.delegateConf(obj, ['a', 'b']);
+
+      angular.forEach(results, function(key, i) {
+        expect(obj.hasOwnProperty(key)).toBeTruthy();
+      });
+    }));
+  });
+
+  describe('this.getConfAndDelegate', function() {
+    it('convenience fn to get conf and delegate in one step', inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {};
+      configurator.getConfAndDelegate('morph', obj, ['a']);
+      expect(obj.name).toEqual('morph');
+      expect(obj.conf).toBeTruthy();
+      expect(obj.hasOwnProperty('a')).toBeTruthy();
+    }));
+
+    it('returns the given object', inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {};
+      var res = configurator.getConfAndDelegate('morph', obj);
+      expect(obj).toBe(res);
     }));
   });
 

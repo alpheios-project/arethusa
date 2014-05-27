@@ -45,6 +45,7 @@ var arethusaUtil = {
   // flat push
   pushAll: function(target, pusher) {
     target.push.apply(target, pusher);
+    return target;
   },
 
   findObj: function(object, fn) {
