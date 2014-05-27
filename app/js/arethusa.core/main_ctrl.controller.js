@@ -47,11 +47,17 @@ angular.module('arethusa.core').controller('MainCtrl', function($scope, $injecto
     }
   };
 
+  function hasView(plugin) {
+    return ! ((! plugin.template) || plugin.noView);
+  }
+
   $scope.pushPlugin = function(plugin) {
-    if (plugin.main) {
-      $scope.mainPlugins.push(plugin);
-    } else {
-      $scope.subPlugins.push(plugin);
+    if (hasView(plugin)) {
+      if (plugin.main) {
+        $scope.mainPlugins.push(plugin);
+      } else {
+        $scope.subPlugins.push(plugin);
+      }
     }
 
     if (plugin.contextMenu) {
