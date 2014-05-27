@@ -85,6 +85,14 @@ input[type="text"].inline-form {
   width: 120px;
 }
 
+input[type="text"].wrong-answer {
+  border: 2px solid red;
+}
+
+input[type="text"].right-answer {
+  border: 2px solid lightgreen;
+}
+
 /* Overrides to foundation */
 .tabs dd>a {
   padding: 0.5em 0.7em;

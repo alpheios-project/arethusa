@@ -9,10 +9,6 @@ angular.module('arethusa.exercise').service('fillInTheBlank', function(configura
 
   this.started = false;
 
-  this.fetchReport = function(args) {
-
-  };
-
   this.answers = {};
 
   function createExercise() {
@@ -61,11 +57,13 @@ angular.module('arethusa.exercise').service('fillInTheBlank', function(configura
       result.tokens[id] = obj;
     });
 
+
+    self.report = result;
     return result;
   };
 
   this.init = function() {
-    self.report = {};
+    delete self.report;
     self.exercises = createExercise();
   };
 });
