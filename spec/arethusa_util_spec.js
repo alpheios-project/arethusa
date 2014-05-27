@@ -194,4 +194,11 @@ describe("arethusaUtil", function() {
       expect(aU.replaceAt('abc', 1, 'B')).toEqual('aBc');
     });
   });
+
+  describe('isTerminatingPunctuation', function() {
+    it('detects sentence terminating punctuation characters', function() {
+      expect(aU.isTerminatingPunctuation('.')).toBeTruthy();
+      expect(aU.isTerminatingPunctuation(';')).toBeTruthy();
+    });
+  });
 });

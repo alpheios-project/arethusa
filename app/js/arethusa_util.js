@@ -105,6 +105,10 @@ var arethusaUtil = {
     return str.substring(0, i) + replacement + str.substring(i + 1);
   },
 
+  isTerminatingPunctuation: function(str) {
+    return str.match(/[\.;]/);
+  },
+
 
 
   /* global X2JS */
