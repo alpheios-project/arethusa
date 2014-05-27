@@ -48,6 +48,7 @@
           "resource" : "morphologyService"
         }
       },
+      "noView" : true,
       "template"  : "templates/morph2.html",
       "fileUrl" : "./static/configs/morph/attributes.json"
     }

@@ -6,6 +6,7 @@ angular.module('arethusa.morph').service('morph', function(state, configurator) 
   this.attributes = this.conf.attributes;
   this.template = this.conf.template;
   this.name = this.conf.name;
+  this.noView = this.conf.noView;
   this.postagSchema = this.conf.postagSchema;
   this.styledThrough = this.conf.styledThrough;
 
