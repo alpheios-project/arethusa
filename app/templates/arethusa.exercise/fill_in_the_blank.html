@@ -3,7 +3,7 @@
 </div>
 
 <div class="small-12 columns" ng-show="plugin.started">
-  <p>
+  <p class="text-justify">
   <span ng-repeat="(id, token) in state.tokens">
     <span ng-if="plugin.isExerciseTarget(id)">
       <span fill-in-the-blank-form></span>
@@ -13,6 +13,7 @@
       hover="true"
       token="token">
     </span>
+    <br ng-if="aU.isTerminatingPunctuation(token.string)"/>
   </span>
   </p>
 </div>
