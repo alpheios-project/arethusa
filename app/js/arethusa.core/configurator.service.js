@@ -219,7 +219,7 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
       conf.resources[plugin];
   };
 
-  function newStandardProperties() {
+  function standardProperties() {
     return [
       'name',
       'main',
@@ -232,8 +232,8 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
   }
   // Delegates a set of standard properties to the given object to allow
   // a more direct access.
-  this.delegateConf = function(obj) {
-    var props = newStandardProperties();
+  this.delegateConf = function(obj, otherKeys) {
+    var props = arethusaUtil.pushAll(standardProperties(), otherKeys);
     angular.forEach(props, function(property, i) {
       obj[property] = obj.conf[property];
     });

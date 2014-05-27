@@ -231,6 +231,29 @@ describe('configurator', function() {
         expect(obj.hasOwnProperty(key)).toBeTruthy();
       });
     }));
+
+    it('an array of additional properties to delegate can be given', inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {};
+      var results = [
+        'name',
+        'main',
+        'template',
+        'external',
+        'listener',
+        'contextMenu',
+        'noView',
+        'a',
+        'b'
+      ];
+
+      obj.conf = configurator.configurationFor('morph');
+      configurator.delegateConf(obj, ['a', 'b']);
+
+      angular.forEach(results, function(key, i) {
+        expect(obj.hasOwnProperty(key)).toBeTruthy();
+      });
+    }));
   });
 
   describe('this.getService', function() {
