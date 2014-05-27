@@ -9,11 +9,10 @@
  *
  *
  *
- * As of now a valid conf file contains five sections
+ * As of now a valid conf file contains four sections
  *   main
  *   navbar
  *   plugins
- *   retrievers
  *   resources
  *
  * Uses $http to retrieve additional configuration files that are embedded
@@ -117,8 +116,7 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
     });
   };
 
-  // Receives an external file and resolves it to a valid configuration
-  // file.
+  // Receives an external file and resolves it to a valid configuration file.
   // The second param is optional.
   this.defineConfiguration = function(confFile, location) {
     var conf = this.loadConfFile(confFile, location);
@@ -173,7 +171,6 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
   // Arrays are flat-pushed.
   // Strings and Numbers are overwritten.
   // a is extended with properties in b, that are not present in a.
-  //
   this.mergeConfigurations = function(a, b) {
     var that = this;
     angular.forEach(b, function(value, key) {
@@ -212,7 +209,10 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
     }
   };
 
-  // this.configuration is set from outside on page load
+  // right now very hacky, not sure about the design of the conf file atm
+  // we therefore just tell the service where the conf for specific things
+  // is to be found in the JSON tree.
+  // I guess the key is to abstract the conf file a little more.
   this.configurationFor = function(plugin) {
     var conf = this.configuration;
     return conf[plugin] ||
@@ -228,14 +228,8 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
     });
   };
 
-  // right now very hacky, not sure about the design of the conf file atm
-  // we therefore just tell the service where the conf for specific things
-  // is to be found in the JSON tree.
-  // I guess the key is to abstract the conf file a little more.
   this.provideResource = function(name) {
     var conf = this.configuration.resources[name];
-    // we get the resource factory through the injector, and not by regular
-    // dependency injection, because we always want to return a new instance!
     return new Resource(conf);
   };
 });
