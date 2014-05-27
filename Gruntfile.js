@@ -161,6 +161,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
   grunt.registerTask('spec', 'karma:spec');
+  grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', 'connect:devserver');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
