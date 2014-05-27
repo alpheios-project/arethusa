@@ -210,6 +210,29 @@ describe('configurator', function() {
     }));
   });
 
+  describe('this.delegateConf', function() {
+    it('delegates a basic set of conf options to a given object', inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {};
+      var defaultKeys = [
+        'name',
+        'main',
+        'template',
+        'external',
+        'listener',
+        'contextMenu',
+        'noView'
+      ];
+
+      obj.conf = configurator.configurationFor('morph');
+      configurator.delegateConf(obj);
+
+      angular.forEach(defaultKeys, function(key, i) {
+        expect(obj.hasOwnProperty(key)).toBeTruthy();
+      });
+    }));
+  });
+
   describe('this.getService', function() {
     it('retrieves an angular instance by name', inject(function(configurator) {
       expect(configurator.getService('x')).toEqual(mock1);

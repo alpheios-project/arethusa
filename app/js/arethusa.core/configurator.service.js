@@ -219,6 +219,26 @@ angular.module('arethusa.core').service('configurator', function($injector, $htt
       conf.resources[plugin];
   };
 
+  function newStandardProperties() {
+    return [
+      'name',
+      'main',
+      'template',
+      'external',
+      'listener',
+      'contextMenu',
+      'noView'
+    ];
+  }
+  // Delegates a set of standard properties to the given object to allow
+  // a more direct access.
+  this.delegateConf = function(obj) {
+    var props = newStandardProperties();
+    angular.forEach(props, function(property, i) {
+      obj[property] = obj.conf[property];
+    });
+  };
+
   this.getRetrievers = function(retrievers) {
     return arethusaUtil.inject({}, retrievers, function(memo, name, conf) {
       var Retriever = self.getService(name);
