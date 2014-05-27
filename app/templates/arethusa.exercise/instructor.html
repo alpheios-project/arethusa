@@ -13,23 +13,28 @@
     <span class="small-3 columns note">
       <span class="right">Time elapsed</span>
     </span>
-    <span class="small-9 columns left end">{{ plugin.time }}</span>
+    <span class="small-9 columns end">
+      <span class="left">{{ plugin.time }}</span>
+    </span>
   </div>
 </div>
 
 <div class="small-text-center" style="margin-top: 20px" ng-if="plugin.done">
-  <strong>Report</strong>
-  <div style="margin-top: 15px" class="small-12 columns">
+  <div style="margin-top: 20px" class="small-12 columns">
     <span class="small-3 columns note">
-      <span class="right">Right answers</span>
+      <span class="right right-answer">Right answers</span>
     </span>
-    <span class="small-9 columns left end">{{ plugin.report.correct }}</span>
+    <span class="small-9 columns end">
+      <span class="left">{{ plugin.report.correct }}</span>
+    </span>
   </div>
   <div class="small-12 columns">
     <span class="small-3 columns note">
-      <span class="right">Wrong answers</span>
+      <span class="right wrong-answer">Wrong answers</span>
     </span>
-    <span class="small-9 columns left end">{{ plugin.report.wrong }}</span>
+    <span class="small-9 columns end">
+      <span class="left">{{ plugin.report.wrong }}</span>
+    </span>
   </div>
 </div>
 <div style="margin-top: 30px" class="small-12 columns">

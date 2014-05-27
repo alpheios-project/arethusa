@@ -80,6 +80,8 @@ svg {
   fill: none;
 }
 
+/* For exercise stuff */
+
 input[type="text"].inline-form {
   display: inline;
   width: 120px;
@@ -90,7 +92,15 @@ input[type="text"].wrong-answer {
 }
 
 input[type="text"].right-answer {
-  border: 2px solid lightgreen;
+  border: 2px solid limegreen;
+}
+
+span.wrong-answer {
+  color: red;
+}
+
+span.right-answer {
+  color: limegreen;
 }
 
 /* Overrides to foundation */
