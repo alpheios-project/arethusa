@@ -56,6 +56,13 @@ module.exports = function(grunt) {
         files: [srcFiles, specFiles],
         tasks: 'spec'
       },
+      server: {
+        files: [srcFiles, htmlFiles, cssFiles],
+        tasks: 'minify',
+        options: {
+          livereload: true
+        }
+      },
       serverSource: {
         files: srcFiles,
         tasks: 'minify',
@@ -224,7 +231,10 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', 'connect:devserver');
-  grunt.registerTask('reloader', 'concurrent:watches');
+  // Ok, the concurrent watches don't work, because the grunt contrib server
+  // is listening only to one port :( Fix this at a later stage.
+  //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
+  grunt.registerTask('reloader', 'watch:server');
   grunt.registerTask('minify', [
     'uglify:core',
     'uglify:morph',
