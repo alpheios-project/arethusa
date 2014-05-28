@@ -224,6 +224,7 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', 'connect:devserver');
+  grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('minify', [
     'uglify:core',
     'uglify:morph',
