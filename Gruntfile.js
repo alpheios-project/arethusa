@@ -40,6 +40,7 @@ module.exports = function(grunt) {
       },
       server: {
         files: [srcFiles, htmlFiles],
+        tasks: 'minify',
         options: {
           livereload: true
         }
