@@ -9,6 +9,15 @@ var mountFolder = function(connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
 
+var pluginFiles = function(name) {
+  var minName = 'dist/' + name + '.min.js';
+  var mainFile = 'app/js/' + name + '.js';
+  var others = '<%= "app/js/' + name + '/**/*.js" %>';
+  var obj = {};
+  obj[minName] = [mainFile, others];
+  return obj;
+};
+
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -164,14 +173,16 @@ module.exports = function(grunt) {
         sourceMap: true,
         report: 'gzip'
       },
-      core: {
-        files: {
-          'dist/arethusa.core.min.js': [
-            'app/js/arethusa.core.js',
-            '<%= "app/js/arethusa.core/**/*.js" %>'
-          ]
-        },
-      }
+      core: { files: pluginFiles('arethusa.core') },
+      contextMenu: { files: pluginFiles('arethusa.context_menu') },
+      confEditor: { files: pluginFiles('arethusa.conf_editor') },
+      morph: { files: pluginFiles('arethusa.morph') },
+      review: { files: pluginFiles('arethusa.review') },
+      search: { files: pluginFiles('arethusa.search') },
+      depTree: { files: pluginFiles('arethusa.dep_tree') },
+      hist: { files: pluginFiles('arethusa.hist') },
+      relation: { files: pluginFiles('arethusa.relation') },
+      exercise: { files: pluginFiles('arethusa.exercise') }
     }
   });
 
@@ -179,6 +190,17 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', 'connect:devserver');
-  grunt.registerTask('minify', 'uglify:core');
+  grunt.registerTask('minify', [
+    'uglify:core',
+    'uglify:morph',
+    'uglify:contextMenu',
+    'uglify:confEditor',
+    'uglify:review',
+    'uglify:search',
+    'uglify:depTree',
+    'uglify:hist',
+    'uglify:relation',
+    'uglify:exercise'
+  ]);
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
