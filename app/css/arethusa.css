@@ -59,7 +59,7 @@ svg {
 }
 
 .selected text {
-    fill: white;
+  fill: white;
 }
 
 .selected rect {
@@ -118,35 +118,35 @@ body {
 
 }
 a {
-    color: #73CDDE;
+  color: #73CDDE;
 }
 
 a:hover, a:focus {
-    color: #5BC8DC;
-    font-weight: bold;
+  color: #5BC8DC;
+  font-weight: bold;
 }
 
 .top-bar, .top-bar-section .has-form, .top-bar-section ul, .top-bar-section li:not(.has-form) a:not(.button) {
-    background: #4E6476;
+  background: #4E6476;
 }
 .top-bar-section li:not(.has-form) a:not(.button):hover {
-    background: #7E8897;
+  background: #7E8897;
 }
 
 .top-bar-section ul li>a.button, li>button, button, .button, .label {
-    background: #3E8D9C;
-    color: white;
+  background: #3E8D9C;
+  color: white;
 }
 
 .top-bar-section ul li>a.button:hover, li>button:hover, button:hover, .button:hover, button:focus, .button:focus {
-    background: #73CDDE;
+  background: #73CDDE;
 }
 
 .button.alert {
-    background-color: #E49A0D;
+  background-color: #E49A0D;
 }
 .button.alert:focus, .button.alert:hover {
-    background-color: #F6D918;
+  background-color: #F6D918;
 }
 
 button.disabled:hover,
@@ -161,7 +161,7 @@ button.disabled,
 button[disabled],
 .button.disabled,
 .button[disabled] {
-    background-color: #9e9c9a;
+  background-color: #9e9c9a;
 }
 
 
