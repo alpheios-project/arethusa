@@ -2,6 +2,7 @@
 
 var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
+var cssFiles = 'app/**/*.css';
 var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8084;
@@ -47,13 +48,26 @@ module.exports = function(grunt) {
         files: [srcFiles, specFiles],
         tasks: 'spec'
       },
-      server: {
-        files: [srcFiles, htmlFiles],
+      serverSource: {
+        files: srcFiles,
         tasks: 'minify',
         options: {
           livereload: true
         }
       },
+      serverHtml: {
+        files: htmlFiles,
+        options: {
+          livereload: true
+        }
+      },
+      serverCss: {
+        files: cssFiles,
+        options: {
+          livereload: true
+        }
+      },
+
       e2e: {
         files: [srcFiles, specE2eFiles],
         tasks: 'protractor:all'
