@@ -8,23 +8,23 @@ var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8084;
 var reloadPort = 35279;
 
-var getReloadPort = function() {
+function getReloadPort() {
   reloadPort++;
   return reloadPort;
-};
+}
 
-var mountFolder = function(connect, dir) {
+function mountFolder(connect, dir) {
   return connect.static(require('path').resolve(dir));
-};
+}
 
-var pluginFiles = function(name) {
+function pluginFiles(name) {
   var minName = 'dist/' + name + '.min.js';
   var mainFile = 'app/js/' + name + '.js';
   var others = '<%= "app/js/' + name + '/**/*.js" %>';
   var obj = {};
   obj[minName] = [mainFile, others];
   return obj;
-};
+}
 
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
