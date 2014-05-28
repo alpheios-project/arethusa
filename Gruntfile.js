@@ -6,6 +6,13 @@ var cssFiles = 'app/**/*.css';
 var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8084;
+var reloadPort = 35279;
+
+var getReloadPort = function() {
+  reloadPort++;
+  return reloadPort;
+};
+
 var mountFolder = function(connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
@@ -29,6 +36,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-coveralls');
   grunt.loadNpmTasks('grunt-sauce-connect-launcher');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-concurrent');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -52,19 +60,19 @@ module.exports = function(grunt) {
         files: srcFiles,
         tasks: 'minify',
         options: {
-          livereload: true
+          livereload: getReloadPort()
         }
       },
       serverHtml: {
         files: htmlFiles,
         options: {
-          livereload: true
+          livereload: getReloadPort()
         }
       },
       serverCss: {
         files: cssFiles,
         options: {
-          livereload: true
+          livereload: getReloadPort()
         }
       },
 
