@@ -213,6 +213,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           svg.select('g').attr('transform', 'translate(' + ev.translate + ') scale(' + ev.scale + ')');
         }));
         var renderer = new dagreD3.Renderer();
+
+        function transition(selection) {
+          return selection.transition().duration(500);
+        }
+        renderer.transition(transition);
+
         function insertTokenDirectives() {
           nodes().append(function () {
             // This is the element we append to and we created as a placeholder
