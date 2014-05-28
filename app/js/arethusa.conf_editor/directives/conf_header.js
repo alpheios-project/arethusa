@@ -1,6 +1,5 @@
-"use strict";
-
-angular.module('arethusa.confEditor').directive('confHeader', function() {
+'use strict';
+angular.module('arethusa.confEditor').directive('confHeader', function () {
   return {
     restrict: 'AE',
     scope: {
@@ -9,5 +8,4 @@ angular.module('arethusa.confEditor').directive('confHeader', function() {
     },
     templateUrl: 'templates/conf_editor/conf_header.html'
   };
-
 });

@@ -2,12 +2,29 @@
 
 var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
+var cssFiles = 'app/**/*.css';
 var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8084;
-var mountFolder = function(connect, dir) {
+var reloadPort = 35279;
+
+function getReloadPort() {
+  reloadPort++;
+  return reloadPort;
+}
+
+function mountFolder(connect, dir) {
   return connect.static(require('path').resolve(dir));
-};
+}
+
+function pluginFiles(name) {
+  var minName = 'dist/' + name + '.min.js';
+  var mainFile = 'app/js/' + name + '.js';
+  var others = '<%= "app/js/' + name + '/**/*.js" %>';
+  var obj = {};
+  obj[minName] = [mainFile, others];
+  return obj;
+}
 
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
@@ -18,6 +35,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-coveralls');
   grunt.loadNpmTasks('grunt-sauce-connect-launcher');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-concurrent');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -37,15 +56,41 @@ module.exports = function(grunt) {
         files: [srcFiles, specFiles],
         tasks: 'spec'
       },
-      server: {
-        files: [srcFiles, htmlFiles],
+      serverSource: {
+        files: srcFiles,
+        tasks: 'minify',
         options: {
-          livereload: true
+          livereload: getReloadPort()
         }
       },
+      serverHtml: {
+        files: htmlFiles,
+        options: {
+          livereload: getReloadPort()
+        }
+      },
+      serverCss: {
+        files: cssFiles,
+        options: {
+          livereload: getReloadPort()
+        }
+      },
+
       e2e: {
         files: [srcFiles, specE2eFiles],
         tasks: 'protractor:all'
+      }
+    },
+    concurrent: {
+      watches: {
+        tasks: [
+          'watch:serverSource',
+          'watch:serverHtml',
+          'watch:serverCss'
+        ],
+        options: {
+          logConcurrentOutput: true
+        }
       }
     },
     jshint: {
@@ -156,6 +201,22 @@ module.exports = function(grunt) {
           verbose: true
         }
       }
+    },
+    uglify: {
+      options: {
+        sourceMap: true,
+        report: 'gzip'
+      },
+      core: { files: pluginFiles('arethusa.core') },
+      contextMenu: { files: pluginFiles('arethusa.context_menu') },
+      confEditor: { files: pluginFiles('arethusa.conf_editor') },
+      morph: { files: pluginFiles('arethusa.morph') },
+      review: { files: pluginFiles('arethusa.review') },
+      search: { files: pluginFiles('arethusa.search') },
+      depTree: { files: pluginFiles('arethusa.dep_tree') },
+      hist: { files: pluginFiles('arethusa.hist') },
+      relation: { files: pluginFiles('arethusa.relation') },
+      exercise: { files: pluginFiles('arethusa.exercise') }
     }
   });
 
@@ -163,5 +224,18 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', 'connect:devserver');
+  grunt.registerTask('reloader', 'concurrent:watches');
+  grunt.registerTask('minify', [
+    'uglify:core',
+    'uglify:morph',
+    'uglify:contextMenu',
+    'uglify:confEditor',
+    'uglify:review',
+    'uglify:search',
+    'uglify:depTree',
+    'uglify:hist',
+    'uglify:relation',
+    'uglify:exercise'
+  ]);
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };

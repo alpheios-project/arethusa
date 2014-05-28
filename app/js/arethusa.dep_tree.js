@@ -1,3 +1,2 @@
-"use strict";
-
+'use strict';
 angular.module('arethusa.depTree', ['arethusa.core']);

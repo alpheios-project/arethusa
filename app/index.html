@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="arethusa">
+<html ng-app="arethusa" ng-di-strict>
 <head>
   <link rel="stylesheet" href="../bower_components/foundation/css/foundation.min.css">
   <link rel="stylesheet" href="../vendor/angular-foundation-colorpicker/css/colorpicker.css">
@@ -17,89 +17,16 @@
   <script src="./js/arethusa_util.js"></script>
   <script src="./js/arethusa_logger.js"></script>
 
-  <script src="./js/arethusa.core.js"></script>
-  <script src="./js/arethusa.core/main_ctrl.controller.js"></script>
-  <script src="./js/arethusa.core/search_ctrl.js"></script>
-  <script src="./js/arethusa.core/configurator.service.js"></script>
-  <script src="./js/arethusa.core/navigator_ctrl.controller.js"></script>
-  <script src="./js/arethusa.core/state.service.js"></script>
-  <!--<script src="./js/arethusa.core/locator.service.js"></script>-->
-  <script src="./js/arethusa.core/document_store.service.js"></script>
-  <script src="./js/arethusa.core/navigator.service.js"></script>
-  <script src="./js/arethusa.core/resource.factory.js"></script>
-  <script src="./js/arethusa.core/key_capture.service.js"></script>
-  <script src="./js/arethusa.core/directives/deselector.directive.js"></script>
-  <script src="./js/arethusa.core/directives/plugin.directive.js"></script>
-  <script src="./js/arethusa.core/directives/next_token.directive.js"></script>
-  <script src="./js/arethusa.core/directives/prev_token.directive.js"></script>
-  <script src="./js/arethusa.core/directives/fire_event.directive.js"></script>
-  <script src="./js/arethusa.core/directives/token.js"></script>
-  <script src="./js/arethusa.core/directives/debug.js"></script>
-  <script src="./js/arethusa.core/directives/key_capture.directive.js"></script>
-  <script src="./js/arethusa.core/directives/arethusa_navbar.js"></script>
-  <script src="./js/arethusa.core/directives/resizable.js"></script>
-  <script src="./js/arethusa.core/directives/sidepanel_folder.js"></script>
-  <script src="./js/arethusa.core/directives/value_watch.js"></script>
-  <script src="./js/arethusa.core/directives/token_with_id.js"></script>
-
-  <script src="./js/arethusa.core/routes/main.constant.js"></script>
-  <script src="./js/arethusa.core/conf_url.factory.js"></script>
-  <script src="./js/arethusa.core/notifier_ctrl.controller.js"></script>
-  <script src="./js/arethusa.core/notifier.service.js"></script>
-
-  <script src="./js/arethusa.context_menu.js"></script>
-  <script src="./js/arethusa.context_menu/directives/context_menu.directive.js"></script>
-  <script src="./js/arethusa.context_menu/directives/arethusa_context_menu.js"></script>
-  <script src="./js/arethusa.context_menu/directives/plugin_context_menu.js"></script>
-
-  <script src="./js/arethusa.conf_editor.js"></script>
-  <script src="./js/arethusa.conf_editor/conf_editor_ctrl.controller.js"></script>
-  <script src="./js/arethusa.conf_editor/morph_conf_ctrl.controller.js"></script>
-  <script src="./js/arethusa.conf_editor/relation_conf_ctrl.controller.js"></script>
-  <script src="./js/arethusa.conf_editor/directives/tag_tree.js"></script>
-  <script src="./js/arethusa.conf_editor/directives/plugin_conf.js"></script>
-  <script src="./js/arethusa.conf_editor/directives/resource_conf.js"></script>
-  <script src="./js/arethusa.conf_editor/directives/retriever_conf.js"></script>
-  <script src="./js/arethusa.conf_editor/directives/conf_header.js"></script>
-  <script src="./js/arethusa.conf_editor/directives/conf_adder.js"></script>
-  <script src="./js/arethusa.conf_editor/directives/simple_form.js"></script>
-  <script src="./js/arethusa.conf_editor/directives/relation_label.js"></script>
-  <script src="./js/arethusa.conf_editor/routes/conf_editor.constant.js"></script>
-
-  <script src="./js/arethusa.morph.js"></script>
-  <script src="./js/arethusa.morph/morph.service.js"></script>
-  <script src="./js/arethusa.morph/fake_morph_retriever.service.js"></script>
-  <script src="./js/arethusa.morph/bsp_morph_retriever.factory.js"></script>
-  <script src="./js/arethusa.morph/directives/morph_form.js"></script>
-  <script src="./js/arethusa.morph/directives/morph_form_edit.js"></script>
-  <script src="./js/arethusa.morph/directives/morph_form_create.js"></script>
-  <script src="./js/arethusa.morph/directives/form_selector.js"></script>
-  <script src="./js/arethusa.morph/directives/synchronize_postag.js"></script>
-
-  <script src="./js/arethusa.review.js"></script>
-  <script src="./js/arethusa.review/review.service.js"></script>
-
-  <script src="./js/arethusa.search.js"></script>
-  <script src="./js/arethusa.search/search.service.js"></script>
-
-  <script src="./js/arethusa.dep_tree.js"></script>
-  <script src="./js/arethusa.dep_tree/dep_tree.service.js"></script>
-  <script src="./js/arethusa.dep_tree/subtree_finder.service.js"></script>
-  <script src="./js/arethusa.dep_tree/directives/dependency_tree.js"></script>
-
-  <script src="./js/arethusa.hist.js"></script>
-  <script src="./js/arethusa.hist/history.service.js"></script>
-  <script src="./js/arethusa.hist/directives/history_element.js"></script>
-  <script src="./js/arethusa.hist/directives/history_undo.js"></script>
-  <script src="./js/arethusa.hist/directives/history_redo.js"></script>
-
-  <script src="./js/arethusa.relation.js"></script>
-  <script src="./js/arethusa.relation/relation.service.js"></script>
-
-  <script src="./js/arethusa.exercise.js"></script>
-  <script src="./js/arethusa.exercise/fill_in_the_blank.service.js"></script>
-  <script src="./js/arethusa.exercise/instructor.service.js"></script>
-  <script src="./js/arethusa.exercise/directives/fill_in_the_blank_form.js"></script>
+  <script src="../dist/arethusa.core.min.js"></script>
+  <script src="../dist/arethusa.context_menu.min.js"></script>
+  <script src="../dist/arethusa.conf_editor.min.js"></script>
+  <script src="../dist/arethusa.morph.min.js"></script>
+  <script src="../dist/arethusa.review.min.js"></script>
+  <script src="../dist/arethusa.search.min.js"></script>
+  <script src="../dist/arethusa.dep_tree.min.js"></script>
+  <script src="../dist/arethusa.hist.min.js"></script>
+  <script src="../dist/arethusa.relation.min.js"></script>
+  <script src="../dist/arethusa.exercise.min.js"></script>
 
   <script src="./js/arethusa.js"></script>
   <script src="./js/services/text.js"></script>
@@ -109,8 +36,9 @@
 
   <script src="./js/external/arethusa_init_plugin.js"></script>
   <script src="./js/external/arethusa_external_api.js"></script>
-
   <script src="./js/other/history_obj.js"></script>
+
+
 
   <meta charset="UTF-8">
   <title></title>

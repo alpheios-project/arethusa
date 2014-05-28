@@ -1,6 +1,5 @@
-"use strict";
-
-angular.module('arethusa.confEditor').directive('retrieverConf', function() {
+'use strict';
+angular.module('arethusa.confEditor').directive('retrieverConf', function () {
   return {
     restrict: 'AE',
     scope: {
@@ -8,13 +7,12 @@ angular.module('arethusa.confEditor').directive('retrieverConf', function() {
       retriever: '=',
       remover: '&'
     },
-    link: function(scope, element, attrs) {
+    link: function (scope, element, attrs) {
       var retr = scope.retriever;
-      scope.addResource = function(name) {
+      scope.addResource = function (name) {
         scope.retr.push(name);
       };
-
-      scope.removeResource = function(name) {
+      scope.removeResource = function (name) {
         retr.splice(retr.indexOf(name), 1);
       };
     },

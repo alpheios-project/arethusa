@@ -23,14 +23,15 @@ bower install
 
 ## Usage
 
-To display a rough demo, start a webserver with
+To display a rough demo, minify and start a webserver with
 
 ```
+grunt minify
 grunt server
 ```
 A good place to navigate your browser to at the moment would be [http://localhost:8084/app/#/staging2?doc=1&s=2](http://localhost:8084/app/#/staging2?doc=1&s=2)
 
 
-During development a watch task (`grunt watch:server`) can optionally be
+During development a watch task (`grunt reloader`) can optionally be
 started - it will live-reload the browser on every change of a js or
 html file. 
