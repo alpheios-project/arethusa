@@ -47,6 +47,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         styles: '='
       },
       link: function (scope, element, attrs) {
+        var rootText= "[ROOT]";
+
+        function rootPlaceholder() {
+          return '<div id="tph0000">' + rootText + '</div>';
+        }
+
         function tokenPlaceholder(token) {
           return '<div class="node" id="tph' + token.id + '">' + token.string + '</div>';
         }
@@ -132,14 +138,16 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           }
           return $compile(tokenHtml.replace('STYLE', style))(childScope)[0];
         }
-        var tokenHtml = '        <span          token="token"          colorize="STYLE"          click="true"          hover="true">        </span>      ';
+        var tokenHtml ='<span token="token" colorize="STYLE" click="true" hover="true"/>';
+        var rootTokenHtml = '<span root-token>' + rootText + '</span>';
+
         // Creating the node set
         // g will hold the graph and be set when new tokens are loaded,
         // vis will be it's d3 representation
         var g;
         var vis;
         function createRootNode() {
-          g.addNode('0000', { label: '[ROOT]' });
+          g.addNode('0000', { label: rootPlaceholder() });
         }
         function createNode(token) {
           g.addNode(token.id, { label: tokenPlaceholder(token) });
@@ -174,6 +182,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
         function labelId(id) {
           return 'tel' + id;
+        }
+        function nodeId(id) {
+          return 'tph' + id;
+        }
+        function node(id) {
+          return vis.select('#' + nodeId(id));
         }
         function nodes() {
           return vis.selectAll('div.node');
@@ -213,6 +227,18 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           svg.select('g').attr('transform', 'translate(' + ev.translate + ') scale(' + ev.scale + ')');
         }));
         var renderer = new dagreD3.Renderer();
+
+        function transition(selection) {
+          return selection.transition().duration(700);
+        }
+        renderer.transition(transition);
+
+        function insertRootDirective() {
+          node('0000').append(function() {
+            this.textContent = '';
+            return $compile(rootTokenHtml)(scope)[0];
+          });
+        }
         function insertTokenDirectives() {
           nodes().append(function () {
             // This is the element we append to and we created as a placeholder
@@ -235,14 +261,17 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           vis = svg.select('g');
           renderer.layout(layout).run(g, vis);
           // Customize the graph so that it holds our directives
+          insertRootDirective();
           insertTokenDirectives();
           insertEdgeDirectives();
+
           // Not very elegant, but we don't want marker-end arrowheads right now
           // We also place an token edge path (tep) id on these elements, so that
           // we can access them more easily later on.
           edges().each(function (id) {
             angular.element(this).attr('id', edgeId(id));
           }).attr('marker-end', '');
+
           // A bug in webkit makes it impossible to select camelCase tags...
           // We work around by using a function.
           // http://stackoverflow.com/questions/11742812/cannot-select-svg-foreignobject-element-in-d3
@@ -252,6 +281,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             angular.element(this.children[0]).attr('style', 'float: center;');
           });
         }
+
         angular.forEach(scope.tokens, function (token, id) {
           var childScope = scope.$new();
           childScope.token = token.id;
