@@ -1,31 +1,6 @@
 <div>
   <div class="small-12 columns">
     <div class="small-2 columns">
-      <label class="inline">Search</label>
-    </div>
-    <div class="small-3 columns">
-      <select
-        ng-model="plugin.searchedLabel.prefix"
-        ng-options="name as value.short for (name, value) in plugin.relationValues.labels"
-        ng-change="plugin.buildLabelAndSearch(plugin.searchedLabel)">
-        <option value=""></option>
-      </select>
-    </div>
-    <div class="small-2 columns end">
-      <label>
-      <select
-        ng-model="plugin.searchedLabel.suffix"
-        ng-options="name as value.short for (name, value) in plugin.relationValues.suffixes"
-        ng-change="plugin.buildLabelAndSearch(plugin.searchedLabel)">
-        <option value=""></option>
-      </select>
-    </div>
-  </div>
-</div>
-
-<div>
-  <div class="small-12 columns">
-    <div class="small-2 columns">
       <label class="inline">Change all</label>
     </div>
     <div class="small-3 columns">
