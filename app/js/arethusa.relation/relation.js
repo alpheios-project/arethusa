@@ -42,8 +42,29 @@ angular.module('arethusa.relation').service('relation', [
       relation.label = clean.join('_');
     };
 
+    this.prefixWithAncestors = function(relation) {
+      return relation.ancestors.join(' > ');
+    };
+
+    this.addAncestor = function(relation, ancestor) {
+      relation.ancestors.unshift(ancestor);
+    };
+
+    this.resetAncestors = function(relation) {
+      var ancestors = relation.ancestors;
+      while (ancestors.length > 0) {
+        ancestors.pop();
+      }
+    };
+
+    this.initAncestors = function(relation) {
+      // calculate a real ancestor chain here if need be
+      relation.ancestors = [relation.prefix];
+    };
+
     this.expandRelation = function (relation) {
       splitLabel(relation);
+      self.initAncestors(relation);
       return relation;
     };
 

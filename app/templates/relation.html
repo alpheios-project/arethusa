@@ -55,20 +55,21 @@
     </div>
   </div>
   <div class="small-12 columns">
-    <ul class="nested-dropdown hover">
-      <li>{{ obj.relation.label }}
-        <ul>
-          <li
-            ng-repeat="(label, labelObj) in plugin.relationValues.labels"
-            nested-menu
-            ng-class="{hover: label === obj.relation.label}"
-            rel-obj="obj.relation"
-            label="label"
-            label-obj="labelObj">
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <div class="small-8 columns">
+      <ul class="nested-dropdown hover">
+        <li>{{ plugin.prefixWithAncestors(obj.relation) }}
+          <ul>
+            <li
+              ng-repeat="(label, labelObj) in plugin.relationValues.labels"
+              nested-menu
+              rel-obj="obj.relation"
+              label="label"
+              label-obj="labelObj">
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 

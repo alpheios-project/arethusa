@@ -17,14 +17,12 @@ angular.module('arethusa.relation').directive('nestedMenu', [
           <li\
             ng-repeat="(k, v) in labelObj.nested"\
             nested-menu\
-            ng-class="{hover: k === relObj.label}"\
             rel-obj="relObj"\
             label="k" label-obj="v">\
           </li>\
         </ul>';
 
         if (scope.labelObj.nested) {
-          console.log('lig');
           element.append($compile(html)(scope));
         }
 
@@ -34,8 +32,13 @@ angular.module('arethusa.relation').directive('nestedMenu', [
         };
 
         element.bind('click', function(event) {
-          event.stopPropagation();
-          scope.$apply(scope.selectLabel());
+          scope.$apply(function() {
+            if (event.eventPhase === 2) { // at target, three would be bubbling!
+              scope.selectLabel();
+              relation.resetAncestors(scope.relObj);
+            }
+            relation.addAncestor(scope.relObj, scope.label);
+          });
         });
       },
       template: '{{ label }}'
