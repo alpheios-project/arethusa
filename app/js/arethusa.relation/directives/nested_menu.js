@@ -9,13 +9,15 @@ angular.module('arethusa.relation').directive('nestedMenu', [
       scope: {
         relObj: '=',
         labelObj: '=',
-        label: '='
+        label: '=',
+        property: '@'
       },
       link: function(scope, element, attrs) {
         var html = '\
           <ul\
             nested-menu-collection\
             current="relObj"\
+            property="property"\
             all="labelObj.nested">\
           </ul>\
         ';
@@ -25,7 +27,7 @@ angular.module('arethusa.relation').directive('nestedMenu', [
         }
 
         scope.selectLabel = function() {
-          scope.relObj.prefix = scope.label;
+          scope.relObj[scope.property] = scope.label;
           relation.buildLabel(scope.relObj);
         };
 

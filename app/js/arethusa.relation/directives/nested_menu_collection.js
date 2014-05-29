@@ -6,13 +6,15 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
     replace: 'true',
     scope: {
       current: '=',
-      all: '='
+      all: '=',
+      target: '@'
     },
     template: '\
       <ul>\
         <li\
           ng-repeat="(label, labelObj) in all"\
           nested-menu\
+          property="property"\
           rel-obj="current"\
           label="label"\
           label-obj="labelObj">\
