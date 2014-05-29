@@ -220,7 +220,29 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           render();
         }
         // Initialize the graph
-        var layout = dagreD3.layout().rankDir('BT').nodeSep(30);
+        scope.compactTree = function() {
+          scope.nodeSep = 30;
+          scope.edgeSep = 10;
+          scope.rankSep = 30;
+        };
+
+        scope.wideTree = function() {
+          scope.nodeSep = 80;
+          scope.edgeSep = 5;
+          scope.rankSep = 40;
+        };
+        scope.changeDir = function() {
+          scope.rankDir = scope.rankDir === "BT" ? "RL" : "BT";
+        };
+
+        scope.rankDir = 'BT';
+        scope.compactTree();
+        scope.layout = dagreD3.layout()
+          .rankDir(scope.rankDir)
+          .nodeSep(scope.nodeSep)
+          .edgeSep(scope.edgeSep)
+          .rankSep(scope.rankSep);
+
         var svg = d3.select(element[0]);
         svg.call(d3.behavior.zoom().on('zoom', function () {
           var ev = d3.event;
@@ -232,6 +254,23 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return selection.transition().duration(700);
         }
         renderer.transition(transition);
+
+        // Prepend Tree settings panel
+        scope.settingOn = false;
+        element.wrap('<div></div>');
+        var wrapper = element.parent();
+        var panel = '\
+          <div ng-click="settingOn = !settingOn">*</div>\
+          <div ng-show="settingOn">\
+            <span title="rankSep" tree-setting="rankSep"></span>&nbsp;\
+            <span title="edgeSep" tree-setting="edgeSep"></span>&nbsp;\
+            <span title="nodeSep" tree-setting="nodeSep"></span>&nbsp;\
+            <span class="label radius tiny" ng-click="compactTree()">compact</span>&nbsp;\
+            <span class="label radius tiny" ng-click="wideTree()">wide</span>&nbsp;\
+            <span class="label radius tiny" ng-click="changeDir()">change direction</span>\
+         </div>\
+        ';
+        wrapper.prepend($compile(panel)(scope));
 
         function insertRootDirective() {
           node('0000').append(function() {
@@ -259,7 +298,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
         function render() {
           vis = svg.select('g');
-          renderer.layout(layout).run(g, vis);
+          renderer.layout(scope.layout).run(g, vis);
           // Customize the graph so that it holds our directives
           insertRootDirective();
           insertTokenDirectives();
@@ -306,6 +345,32 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             } else {
               resetEdgeStyling();
             }
+          }
+        });
+
+        // Settings watches
+        scope.$watch('nodeSep', function(newVal, oldVal) {
+          if (newVal !== oldVal) {
+            scope.layout.nodeSep(newVal);
+            render();
+          }
+        });
+        scope.$watch('edgeSep', function(newVal, oldVal) {
+          if (newVal !== oldVal) {
+            scope.layout.edgeSep(newVal);
+            render();
+          }
+        });
+        scope.$watch('rankSep', function(newVal, oldVal) {
+          if (newVal !== oldVal) {
+            scope.layout.rankSep(newVal);
+            render();
+          }
+        });
+        scope.$watch('rankDir', function(newVal, oldVal) {
+          if (newVal !== oldVal) {
+            scope.layout.rankDir(newVal);
+            render();
           }
         });
       },
