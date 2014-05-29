@@ -265,9 +265,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             <span title="rankSep" tree-setting="rankSep"></span>&nbsp;\
             <span title="edgeSep" tree-setting="edgeSep"></span>&nbsp;\
             <span title="nodeSep" tree-setting="nodeSep"></span>&nbsp;\
-            <span ng-click="compactTree()">compact</span>&nbsp;\
-            <span ng-click="wideTree()">wide</span>&nbsp;\
-            <span ng-click="changeDir()">direction</span>\
+            <span class="label radius tiny" ng-click="compactTree()">compact</span>&nbsp;\
+            <span class="label radius tiny" ng-click="wideTree()">wide</span>&nbsp;\
+            <span class="label radius tiny" ng-click="changeDir()">change direction</span>\
          </div>\
         ';
         wrapper.prepend($compile(panel)(scope));
