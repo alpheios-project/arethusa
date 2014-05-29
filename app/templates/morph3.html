@@ -12,6 +12,13 @@
       ng-change="plugin.queryForm()"
       ng-model="plugin.formQuery">
   </div>
+  <div class="small-3 columns">
+    <input
+      type="checkbox"
+      ng-change="plugin.queryForm()"
+      ng-model="plugin.matchAll"/>
+      <label>all</label>
+  </div>
 </div>
 
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
