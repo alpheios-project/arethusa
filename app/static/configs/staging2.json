@@ -8,10 +8,10 @@
     },
     "plugins" : [
       "text",
-      "depTree",
-      "morph",
       "search",
+      "morph",
       "relation",
+      "depTree",
       "review",
       "history",
       "comment"
@@ -60,6 +60,8 @@
     "depTree" : {
       "name" : "depTree",
       "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
       "template" : "templates/dep_tree.html"
     },
 
@@ -92,6 +94,8 @@
     "relation" : {
       "name" : "relation",
       "template" : "templates/relation.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
       "fileUrl" : "./static/configs/relation/relations.json"
     },
 
