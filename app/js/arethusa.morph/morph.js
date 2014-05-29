@@ -11,7 +11,8 @@ angular.module('arethusa.morph').service('morph', [
       var props = [
           'postagSchema',
           'attributes',
-          'styledThrough'
+          'styledThrough',
+          'noRetrieval'
         ];
       configurator.getConfAndDelegate('morph', self, props);
       self.analyses = {};
@@ -142,11 +143,13 @@ angular.module('arethusa.morph').service('morph', [
 
     this.loadInitalAnalyses = function () {
       var analyses = self.seedAnalyses(state.tokens);
-      angular.forEach(analyses, function (val, id) {
-        self.getExternalAnalyses(val);
-        self.getAnalysisFromState(val, id);
-        val.analyzed = true;
-      });
+      if (! self.noRetrieval) {
+        angular.forEach(analyses, function (val, id) {
+          self.getExternalAnalyses(val);
+          self.getAnalysisFromState(val, id);
+          val.analyzed = true;
+        });
+      }
       return analyses;
     };
 
