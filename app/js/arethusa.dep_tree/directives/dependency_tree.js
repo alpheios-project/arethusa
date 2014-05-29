@@ -220,9 +220,19 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           render();
         }
         // Initialize the graph
-        scope.nodeSep = 30;
-        scope.edgeSep = 10;
-        scope.rankSep = 30;
+        scope.compactTree = function() {
+          scope.nodeSep = 30;
+          scope.edgeSep = 10;
+          scope.rankSep = 30;
+        };
+
+        scope.wideTree = function() {
+          scope.nodeSep = 80;
+          scope.edgeSep = 5;
+          scope.rankSep = 40;
+        };
+
+        scope.compactTree();
         scope.layout = dagreD3.layout()
           .rankDir('BT')
           .nodeSep(scope.nodeSep)
@@ -242,11 +252,20 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         renderer.transition(transition);
 
         // Prepend Tree settings panel
+        scope.settingOn = false;
         element.wrap('<div></div>');
         var wrapper = element.parent();
-        wrapper.prepend($compile('<span title="rankSep" tree-setting="rankSep"></span>')(scope));
-        wrapper.prepend($compile('<span title="edgeSep" tree-setting="edgeSep"></span>')(scope));
-        wrapper.prepend($compile('<span title="nodeSep" tree-setting="nodeSep"></span>')(scope));
+        var panel = '\
+          <div ng-click="settingOn = !settingOn">*</div>\
+          <div ng-show="settingOn">\
+            <span title="rankSep" tree-setting="rankSep"></span>&nbsp;\
+            <span title="edgeSep" tree-setting="edgeSep"></span>&nbsp;\
+            <span title="nodeSep" tree-setting="nodeSep"></span>&nbsp;\
+            <span ng-click="compactTree()">compact</span>&nbsp;\
+            <span ng-click="wideTree()">wide</span>&nbsp;\
+         </div>\
+        ';
+        wrapper.prepend($compile(panel)(scope));
 
         function insertRootDirective() {
           node('0000').append(function() {
