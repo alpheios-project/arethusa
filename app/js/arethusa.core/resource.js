@@ -20,7 +20,7 @@ angular.module('arethusa.core').factory('Resource', [
     }
 
     function isJson(header) {
-      return header.match('json');
+      if (header) return header.match('json');
     }
 
     function collectedParams(a, b) {
