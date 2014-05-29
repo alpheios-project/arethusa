@@ -88,8 +88,6 @@ angular.module('arethusa.depTree').service('depTree', [
 
     // Used inside the context menu
     this.disconnect = function(token) {
-      console.log(token);
-      console.log(token.head);
       token.head.id = "";
     };
 
