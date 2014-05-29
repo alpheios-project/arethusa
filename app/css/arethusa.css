@@ -23,10 +23,13 @@
 }
 
 .context-menu {
-  position: absolute;
-  z-index: 1;
-  border: solid 1px #cccccc;
-  background: #fff;
+  /*replaced by f-dropdown content of foundation for now*/
+
+  /*padding: 0.7rem;*/
+  /*position: absolute;*/
+  /*z-index: 1;*/
+  /*border: solid 1px #cccccc;*/
+  /*background: #fff;*/
 }
 
 #sidepanel {
@@ -111,6 +114,10 @@ span.right-answer {
 
 .accordion dd>a {
   padding: 0.5em;
+}
+
+.f-dropdown.content {
+  padding: 0.7rem;
 }
 
 /* Alpheios theme overrides -- better to use sass at some point */
