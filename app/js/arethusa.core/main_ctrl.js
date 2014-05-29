@@ -12,7 +12,9 @@ angular.module('arethusa.core').controller('MainCtrl', [
     $scope.toggleDebugMode = function () {
       $scope.debug = !$scope.debug;
     };
+
     var conf = configurator.configurationFor('main');
+
     var partitionPlugins = function (plugins) {
       $scope.mainPlugins = [];
       $scope.subPlugins = [];
@@ -21,6 +23,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
         $scope.registerPlugin(plugin);
       });
     };
+
     $scope.retrievePlugins = function (plugins) {
       var obj = {};
       angular.forEach(plugins, function (name, i) {
@@ -28,10 +31,12 @@ angular.module('arethusa.core').controller('MainCtrl', [
       });
       return obj;
     };
+
     $scope.registerPlugin = function (plugin) {
       $scope.pushPlugin(plugin);
       $scope.registerListener(plugin);
     };
+
     $scope.retrievePlugin = function (name) {
       var pluginConf = configurator.configurationFor(name);
       if (pluginConf.external) {
@@ -43,9 +48,11 @@ angular.module('arethusa.core').controller('MainCtrl', [
         return $injector.get(name);
       }
     };
+
     function hasView(plugin) {
       return !(!plugin.template || plugin.noView);
     }
+
     $scope.pushPlugin = function (plugin) {
       if (hasView(plugin)) {
         if (plugin.main) {
@@ -58,6 +65,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
         $scope.pluginsWithMenu.push(plugin);
       }
     };
+
     // Working on the assumptions that plugins will generally be grouped
     // in something like a tabset - impossible to show them all at the same
     // time, we expose some variables and functions to get info about their
@@ -80,15 +88,19 @@ angular.module('arethusa.core').controller('MainCtrl', [
     // should be out of the DOM anyway. If a plugin still needs this, it can
     // do so by setting its alwaysActiveproperty to true.
     $scope.activePlugin = '';
+
     $scope.declareActive = function (name) {
       $scope.activePlugin = name;
     };
+
     $scope.declareFirstPluginActive = function () {
       $scope.declareActive($scope.subPlugins[0].name);
     };
+
     $scope.isActive = function (plugin) {
       return plugin.name === $scope.activePlugin && !plugin.alwaysActive;
     };
+
     // This is a really really bad solution right now. Using the controller
     // to insert stuff into the state object is not good. Can only stay as
     // a temporary prototype solution.
@@ -97,8 +109,10 @@ angular.module('arethusa.core').controller('MainCtrl', [
         state.registerListener(plugin);
       }
     };
+
     $scope.state = state;
     $scope.template = conf.template;
+
     // The application has to fulfil a specific load order.
     // The MainCtrl starts his work only when the configurator has received
     // its main configuration file (handled by the MAIN_ROUTE constant).
@@ -126,6 +140,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
       $scope.arethusaLoaded = false;
       $scope.state.init();
     });
+
     $scope.$on('stateLoaded', function () {
       $scope.state.postInit();
       if ($scope.arethusaLoaded) {
@@ -136,6 +151,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
         $scope.init();
       }
     });
+
     $scope.initPlugins = function () {
       for (var plugin in $scope.plugins) {
         try {
@@ -144,27 +160,13 @@ angular.module('arethusa.core').controller('MainCtrl', [
         }
       }
     };
+
     $scope.init = function () {
       $scope.plugins = $scope.retrievePlugins(conf.plugins);
       partitionPlugins($scope.plugins);
       $scope.initPlugins();
       $scope.declareFirstPluginActive();
       $scope.arethusaLoaded = true;
-    };
-    // Temporary testing method
-    $scope.simulateHeadChange = function () {
-      var token = state.tokens['0001'];
-      if (token.head.id < '0010') {
-        var h;
-        if (token.head.id === '') {
-          h = 2;
-        } else {
-          h = parseInt(token.head.id) + 1;
-        }
-        token.head.id = arethusaUtil.formatNumber(h, 4);
-      } else {
-        token.head.id = '0002';
-      }
     };
   }
 ]);
