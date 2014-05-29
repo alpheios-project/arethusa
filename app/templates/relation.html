@@ -55,11 +55,17 @@
     </div>
   </div>
   <div class="small-12 columns">
-    <ul class="nested-dropdown">
+    <ul class="nested-dropdown hover">
       <li>{{ obj.relation.label }}
         <ul>
-          <li ng-repeat="(label, relObj) in plugin.relationValues.labels"
-          nested-menu relation="obj.relation" label="label" values="relObj"></li>
+          <li
+            ng-repeat="(label, labelObj) in plugin.relationValues.labels"
+            nested-menu
+            ng-class="{hover: label === obj.relation.label}"
+            rel-obj="obj.relation"
+            label="label"
+            label-obj="labelObj">
+          </li>
         </ul>
       </li>
     </ul>
