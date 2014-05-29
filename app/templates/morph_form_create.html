@@ -1,3 +1,12 @@
+<div class="small-12 columns">
+  <div class="small-2 columns">
+    <label class="inline">Lemma</label>
+  </div>
+  <div class="small-10 columns">
+    <input type="text" ng-model="form.lemma"></input>
+  </div>
+</div>
+
 <div class="row" ng-repeat="attr in visibleAttributes">
   <div class="small-3 columns">
     <label class="right">{{ plugin.longAttributeName(attr) }}</label>

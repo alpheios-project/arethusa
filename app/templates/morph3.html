@@ -1,0 +1,30 @@
+<div class="right">
+  <prev-token><span class="label radius">prev</span></prev-token>
+  <next-token><span class="label radius">next</span></next-token>
+</div>
+
+<div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
+  <p token-with-id value="analysis.string" token-id="id"/>
+  <accordion close-others="oneAtATime">
+    <accordion-group ng-repeat="form in analysis.forms" >
+      <accordion-heading>
+         <div class="row">
+           <div class="columns small-5">
+             • <span ng-style="plugin.styleOf(form)">{{ form.lemma }}
+             <br>
+             </span> {{ plugin.concatenatedAttributes(form) }}
+           </div>
+           <div class="columns small-2">{{ form.postag }}</div>
+           <div class="columns small-2 note">{{ form.origin }}</div>
+           <div form-selector class="columns small-2 right end"></div>
+         </div>
+      </accordion-heading>
+      <div class="small-12 columns" morph-form-attributes="form" token-id="id"></div>
+      <p class="small-12 columns"/>
+      <hr>
+    </accordion-group>
+    <accordion-group heading="Create new form">
+      <morph-form-create id="mfc{{ id }}"></morph-form-create>
+    </accordion-group>
+  </accordion>
+</div>

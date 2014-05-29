@@ -236,6 +236,10 @@ angular.module('arethusa.core').service('configurator', [
         memo[name] = new Retriever(conf);
       });
     };
+    this.getRetriever = function(retrievers) {
+      var retrs = self.getRetrievers(retrievers);
+      return retrs[Object.keys(retrs)[0]];
+    };
     this.provideResource = function (name) {
       var conf = this.configuration.resources[name];
       return new Resource(conf);

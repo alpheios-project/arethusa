@@ -18,12 +18,15 @@ angular.module('arethusa.core').factory('Resource', [
         obj[param] = $location.search()[param];
       });
     }
+
     function isJson(header) {
-      return header === 'application/json';
+      if (header) return header.match('json');
     }
+
     function collectedParams(a, b) {
       return angular.extend(paramsToObj(a), b) || {};
     }
+
     return function (conf) {
       var self = this;
       this.route = conf.route;
@@ -41,6 +44,7 @@ angular.module('arethusa.core').factory('Resource', [
           }
         }
       });
+
       this.get = function (otherParams) {
         var params = collectedParams(self.params, otherParams);
         return self.resource.get(params).$promise;

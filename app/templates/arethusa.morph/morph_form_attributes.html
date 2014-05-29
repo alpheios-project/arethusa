@@ -1,0 +1,39 @@
+<div class="small-12 columns note">
+
+  <div class="right">
+    <a>Create new</a>
+    <span>&nbsp;-&nbsp;</span>
+    <a target="_blank" href="http://http://www.perseus.tufts.edu/">Report Error</a>
+  </div>
+</div>
+<div class="small-12 columns" ng-repeat="o in attrs">
+  <span class="small-5 columns note">
+    <span class="right">{{ m.longAttributeName(o.attr) }}</span>
+  </span>
+  <span class="small-7 columns"> {{ m.longAttributeValue(o.attr, o.val) }}</span>
+</div>
+
+
+<div ng-if="inv" class="small-12 columns">
+  <hr>
+  <div>
+    <p>
+      <span class="small-8 columns"><em>Lexical Inventory</em></span>
+      <span class="small-4 columns note">
+        <a href="{{ inv.uri }}" target="_blank">{{ inv.urn }}</a>
+      </span>
+    </p>
+  </div>
+  <br>
+  <div class="small-12 columns" style="margin-top: 1em">
+    <ul>
+      <li>Dictionary Entries
+        <ul>
+          <li ng-repeat="(name, link) in inv.dictionaries">
+            <a href="{{ link }}" target="_blank">{{ name }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
