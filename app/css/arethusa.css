@@ -198,7 +198,6 @@ a {
 
 a:hover, a:focus {
   color: #5BC8DC;
-  font-weight: bold;
 }
 
 .top-bar, .top-bar-section .has-form, .top-bar-section ul, .top-bar-section li:not(.has-form) a:not(.button) {
