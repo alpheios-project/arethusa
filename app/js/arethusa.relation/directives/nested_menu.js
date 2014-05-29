@@ -13,14 +13,12 @@ angular.module('arethusa.relation').directive('nestedMenu', [
       },
       link: function(scope, element, attrs) {
         var html = '\
-        <ul>\
-          <li\
-            ng-repeat="(k, v) in labelObj.nested"\
-            nested-menu\
-            rel-obj="relObj"\
-            label="k" label-obj="v">\
-          </li>\
-        </ul>';
+          <ul\
+            nested-menu-collection\
+            current="relObj"\
+            all="labelObj.nested">\
+          </ul>\
+        ';
 
         if (scope.labelObj.nested) {
           element.append($compile(html)(scope));

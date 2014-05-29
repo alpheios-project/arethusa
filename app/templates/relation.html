@@ -58,14 +58,10 @@
     <div class="small-8 columns">
       <ul class="nested-dropdown hover">
         <li>{{ plugin.prefixWithAncestors(obj.relation) }}
-          <ul>
-            <li
-              ng-repeat="(label, labelObj) in plugin.relationValues.labels"
-              nested-menu
-              rel-obj="obj.relation"
-              label="label"
-              label-obj="labelObj">
-            </li>
+          <ul
+            nested-menu-collection
+            current="obj.relation"
+            all="plugin.relationValues.labels">
           </ul>
         </li>
       </ul>
