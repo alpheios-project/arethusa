@@ -1,0 +1,77 @@
+{
+  "main" : {
+    "template"  : "templates/main_with_sidepanel.html",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "fakePerseids"
+      }
+    },
+    "plugins" : [
+      "text",
+      "search",
+      "morph",
+      "history",
+      "comment"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "resources" : {
+    "fakePerseids" : {
+      "route" : "http://74.70.97.104:8085/xml_server/:doc",
+      "params" : [
+        "doc",
+        "s"
+      ]
+    },
+
+    "morphologyService" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    }
+  },
+
+  "plugins" : {
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
+
+    "search" : {
+      "name" : "search",
+      "template" : "templates/search.html",
+      "regex" : true
+    },
+
+    "morph" : {
+      "name" : "morph",
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
+      "template"  : "templates/morph2.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
+      "fileUrl" : "./static/configs/morph/attributes.json"
+    },
+
+    "history" : {
+      "name" : "history",
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "templates/history.html"
+    },
+
+    "comment" : {
+      "name" : "comment",
+      "template" : "templates/comment2.html"
+    }
+  }
+}
+
