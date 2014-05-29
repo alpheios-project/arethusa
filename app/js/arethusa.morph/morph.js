@@ -228,6 +228,50 @@ angular.module('arethusa.morph').service('morph', [
       return self.selectAttribute(attr).dependencies;
     };
 
+    // searching selected forms
+    this.matchAll = false;
+
+    function findThroughOr(memo, id, attrs, keywords) {
+      angular.forEach(attrs, function(val, attr) {
+        angular.forEach(keywords, function(keyword, i) {
+          if (val === keyword) {
+            memo[id] = true;
+          }
+        });
+      });
+    }
+
+    function findThroughAll(memo, id, attrs, keywords) {
+      var goal = keywords.length;
+      var counter = 0;
+      angular.forEach(attrs, function(val, attr) {
+        angular.forEach(keywords, function(keyword, i) {
+          if (val === keyword) {
+            counter++;
+          }
+        });
+      });
+      if (goal === counter) {
+        memo[id] = true;
+      }
+    }
+
+    // Performance of that is atrocious. Need to do better.
+    this.queryForm = function() {
+      var keywords = self.formQuery.split(' ');
+      // we use an object and not an array, even if we only need
+      // ids - but we get avoid duplicate keys that way
+      var ids = arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
+        var attrs = token.morphology.attributes;
+        if (self.matchAll) {
+          findThroughAll(memo, id, attrs, keywords);
+        } else {
+          findThroughOr(memo, id, attrs, keywords);
+        }
+      });
+      state.multiSelect(Object.keys(ids));
+    };
+
     this.init = function () {
       configure();
       this.analyses = this.loadInitalAnalyses(this);

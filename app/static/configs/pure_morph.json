@@ -32,6 +32,10 @@
 
     "morphologyService" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    },
+
+    "lexInvFusekiEndpoint" : {
+      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
     }
   },
 
@@ -55,9 +59,16 @@
           "resource" : "morphologyService"
         }
       },
-      "template"  : "templates/morph2.html",
+      "template"  : "templates/morph3.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
+      "lexicalInventory" : {
+        "retriever" : {
+          "LexicalInventoryRetriever" : {
+            "resource" : "lexInvFusekiEndpoint"
+          }
+        }
+      },
       "fileUrl" : "./static/configs/morph/attributes.json"
     },
 
