@@ -54,4 +54,15 @@
       </select>
     </div>
   </div>
+  <div class="small-12 columns">
+    <ul class="nested-dropdown">
+      <li>{{ obj.relation.label }}
+        <ul>
+          <li ng-repeat="(label, relObj) in plugin.relationValues.labels"
+          nested-menu relation="obj.relation" label="label" values="relObj"></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 </div>
+
