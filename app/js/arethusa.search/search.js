@@ -8,6 +8,7 @@ angular.module('arethusa.search').service('search', [
     this.name = this.conf.name;
     this.template = this.conf.template;
     this.queryByRegex = this.conf.regex;
+
     function findByRegex(str) {
       // We might need to escape some chars here, we need to try
       // this out more
@@ -18,6 +19,7 @@ angular.module('arethusa.search').service('search', [
         }
       });
     }
+
     this.queryTokens = function () {
       if (self.tokenQuery === '') {
         state.deselectAll();
@@ -30,6 +32,7 @@ angular.module('arethusa.search').service('search', [
         });
       state.multiSelect(ids);
     };
+
     this.collectTokenStrings = function () {
       return arethusaUtil.inject({}, state.tokens, function (memo, id, token) {
         var str = token.string;
@@ -39,6 +42,7 @@ angular.module('arethusa.search').service('search', [
         memo[str].push(id);
       });
     };
+
     this.init = function () {
       self.strings = self.collectTokenStrings();
       self.tokenQuery = '';  // model used by the input form
