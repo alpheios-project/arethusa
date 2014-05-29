@@ -43,6 +43,14 @@ angular.module('arethusa.search').service('search', [
       });
     };
 
+    this.pluginsWithSearch = function(plugins) {
+      return arethusaUtil.inject([], plugins, function(memo, name, plugin) {
+        if (plugin.canSearch) {
+          memo.push(plugin);
+        }
+      });
+    };
+
     this.init = function () {
       self.strings = self.collectTokenStrings();
       self.tokenQuery = '';  // model used by the input form
