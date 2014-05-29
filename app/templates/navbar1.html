@@ -22,23 +22,22 @@
       </ul>
       <ul ng-show="showNavigation()" class="left" ng-controller="NavigatorCtrl">
         <li>
-          <div><a ng-click="prev()">&laquo</a></div>
+          <div><a ng-click="prev()">&laquo;</a></div>
         </li>
         <li>
           <div><a>{{ navStat.currentId }}</a></div>
         </li>
         <li>
-          <div><a ng-click="next()">&raquo</a></div>
+          <div><a ng-click="next()">&raquo;</a></div>
         </li>
       </ul>
       <ul ng-show="showNotifier()" class="right" ng-controller="NotifierCtrl">
         <!--tbd-->
       </ul>
-      <ul class="right">
-        <li class="divider"></li>
-        <li class="has-form">
-          <a href="#" class="button" ng-click="switchTemplate()">Switch Template</a>
-        </li>
+      <ul class="has-form button-group right">
+        <li><a deselector class="button">Deselect all</a></li>
+        <li><a ng-click="toggleDebugMode()" class="button">Debug</a></li>
+        <li><a sidepanel-folder class="button">Fold Panel</a></li>
       </ul>
     </section>
   </nav>
