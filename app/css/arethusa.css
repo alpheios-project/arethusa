@@ -39,6 +39,36 @@
   background-color: #ebebeb;
 }
 
+ul.nested-dropdown {
+  list-style: none;
+  display: inline-table;
+}
+ul.nested-dropdown:after {
+  content: ""; clear: both; display: block;
+}
+ul.nested-dropdown ul {
+  margin: 0;
+  display: none;
+  list-style: none;
+  position: absolute;
+  top: 100%;
+}
+ul.nested-dropdown li {
+  float: none;
+  position: relative;
+  background-color: red;
+}
+
+ul.nested-dropdown li:hover > ul {
+  display: block;
+}
+
+ul.nested-dropdown ul ul {
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+
 #sidepanel {
   z-index: 1;
   position: relative;
