@@ -228,6 +228,23 @@ angular.module('arethusa.morph').service('morph', [
       return self.selectAttribute(attr).dependencies;
     };
 
+    // searching selected forms
+    this.queryForm = function() {
+      var keywords = self.formQuery.split(' ');
+      // we use an object and not an array, even if we only need
+      // ids - but we get avoid duplicate keys that way
+      var ids = arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
+        angular.forEach(token.morphology.attributes, function(val, attr) {
+          angular.forEach(keywords, function(keyword, i) {
+            if (val === keyword) {
+              memo[id] = true;
+            }
+          });
+        });
+      });
+      state.multiSelect(Object.keys(ids));
+    };
+
     this.init = function () {
       configure();
       this.analyses = this.loadInitalAnalyses(this);
