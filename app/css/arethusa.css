@@ -32,6 +32,13 @@
   /*background: #fff;*/
 }
 
+.menu-element {
+  padding: 0.2rem;
+}
+.menu-element:hover {
+  background-color: #ebebeb;
+}
+
 #sidepanel {
   z-index: 1;
   position: relative;
