@@ -231,10 +231,14 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           scope.edgeSep = 5;
           scope.rankSep = 40;
         };
+        scope.changeDir = function() {
+          scope.rankDir = scope.rankDir === "BT" ? "RL" : "BT";
+        };
 
+        scope.rankDir = 'BT';
         scope.compactTree();
         scope.layout = dagreD3.layout()
-          .rankDir('BT')
+          .rankDir(scope.rankDir)
           .nodeSep(scope.nodeSep)
           .edgeSep(scope.edgeSep)
           .rankSep(scope.rankSep);
@@ -263,6 +267,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             <span title="nodeSep" tree-setting="nodeSep"></span>&nbsp;\
             <span ng-click="compactTree()">compact</span>&nbsp;\
             <span ng-click="wideTree()">wide</span>&nbsp;\
+            <span ng-click="changeDir()">direction</span>\
          </div>\
         ';
         wrapper.prepend($compile(panel)(scope));
@@ -342,6 +347,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             }
           }
         });
+
         // Settings watches
         scope.$watch('nodeSep', function(newVal, oldVal) {
           if (newVal !== oldVal) {
@@ -358,6 +364,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         scope.$watch('rankSep', function(newVal, oldVal) {
           if (newVal !== oldVal) {
             scope.layout.rankSep(newVal);
+            render();
+          }
+        });
+        scope.$watch('rankDir', function(newVal, oldVal) {
+          if (newVal !== oldVal) {
+            scope.layout.rankDir(newVal);
             render();
           }
         });
