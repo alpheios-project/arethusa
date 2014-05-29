@@ -256,6 +256,7 @@ angular.module('arethusa.morph').service('morph', [
       }
     }
 
+    // Performance of that is atrocious. Need to do better.
     this.queryForm = function() {
       var keywords = self.formQuery.split(' ');
       // we use an object and not an array, even if we only need
