@@ -60,9 +60,22 @@
         <li>{{ plugin.prefixWithAncestors(obj.relation) }}
           <ul
             nested-menu-collection
-            property="prefix"
+            property="plugin.usePrefix()"
             current="obj.relation"
+            ancestors="plugin.defineAncestors()"
             all="plugin.relationValues.labels">
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="small-4 columns">
+      <ul class="nested-dropdown hover">
+        <li>{{ plugin.suffixOrPlaceholder(obj.relation) }}
+          <ul
+            nested-menu-collection
+            property="plugin.useSuffix()"
+            current="obj.relation"
+            all="plugin.relationValues.suffixes">
           </ul>
         </li>
       </ul>

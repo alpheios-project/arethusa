@@ -7,7 +7,8 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
     scope: {
       current: '=',
       all: '=',
-      target: '@'
+      property: '=',
+      ancestors: '='
     },
     template: '\
       <ul>\
@@ -16,6 +17,7 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
           nested-menu\
           property="property"\
           rel-obj="current"\
+          ancestors="ancestors"\
           label="label"\
           label-obj="labelObj">\
         </li>\

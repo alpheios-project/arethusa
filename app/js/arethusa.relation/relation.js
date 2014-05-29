@@ -46,8 +46,24 @@ angular.module('arethusa.relation').service('relation', [
       return relation.ancestors.join(' > ');
     };
 
+    this.suffixOrPlaceholder = function(relation) {
+      return relation.suffix || '---';
+    };
+
     this.addAncestor = function(relation, ancestor) {
       relation.ancestors.unshift(ancestor);
+    };
+
+    this.usePrefix = function() {
+      return 'prefix';
+    };
+
+    this.useSuffix = function() {
+      return 'suffix';
+    };
+
+    this.defineAncestors = function() {
+      return true;
     };
 
     this.resetAncestors = function(relation) {

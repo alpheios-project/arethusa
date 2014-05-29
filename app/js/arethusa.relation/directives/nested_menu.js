@@ -10,7 +10,8 @@ angular.module('arethusa.relation').directive('nestedMenu', [
         relObj: '=',
         labelObj: '=',
         label: '=',
-        property: '@'
+        property: '=',
+        ancestors: '='
       },
       link: function(scope, element, attrs) {
         var html = '\
@@ -18,6 +19,7 @@ angular.module('arethusa.relation').directive('nestedMenu', [
             nested-menu-collection\
             current="relObj"\
             property="property"\
+            ancestors="ancestors"\
             all="labelObj.nested">\
           </ul>\
         ';
@@ -35,9 +37,13 @@ angular.module('arethusa.relation').directive('nestedMenu', [
           scope.$apply(function() {
             if (event.eventPhase === 2) { // at target, three would be bubbling!
               scope.selectLabel();
-              relation.resetAncestors(scope.relObj);
+              if (scope.ancestors) {
+                relation.resetAncestors(scope.relObj);
+              }
             }
-            relation.addAncestor(scope.relObj, scope.label);
+            if (scope.ancestors) {
+              relation.addAncestor(scope.relObj, scope.label);
+            }
           });
         });
       },
