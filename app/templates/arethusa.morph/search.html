@@ -1,0 +1,15 @@
+<div class="small-1 columns">
+  <label class="inline">Search form</label>
+</div>
+<div class="small-8 columns end">
+  <input type="text" 
+    ng-change="plugin.queryForm()"
+    ng-model="plugin.formQuery">
+</div>
+<div class="small-3 columns">
+  <input
+    type="checkbox"
+    ng-change="plugin.queryForm()"
+    ng-model="plugin.matchAll"/>
+    <label>all</label>
+</div>

@@ -3,24 +3,6 @@
   <next-token><span class="label radius">next</span></next-token>
 </div>
 
-<div class="small-12 columns">
-  <div class="small-1 columns">
-    <label class="inline">Search form</label>
-  </div>
-  <div class="small-8 columns end">
-    <input type="text" 
-      ng-change="plugin.queryForm()"
-      ng-model="plugin.formQuery">
-  </div>
-  <div class="small-3 columns">
-    <input
-      type="checkbox"
-      ng-change="plugin.queryForm()"
-      ng-model="plugin.matchAll"/>
-      <label>all</label>
-  </div>
-</div>
-
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
   <p token-with-id value="analysis.string" token-id="id"/>
   <accordion close-others="oneAtATime">

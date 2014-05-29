@@ -7,6 +7,8 @@ angular.module('arethusa.morph').service('morph', [
     var morphRetrievers;
     var inventory;
 
+    this.canSearch = true;
+
     function configure() {
       var props = [
           'postagSchema',
