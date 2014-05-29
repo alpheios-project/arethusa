@@ -220,7 +220,15 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           render();
         }
         // Initialize the graph
-        var layout = dagreD3.layout().rankDir('BT').nodeSep(30);
+        scope.nodeSep = 30;
+        scope.edgeSep = 10;
+        scope.rankSep = 30;
+        scope.layout = dagreD3.layout()
+          .rankDir('BT')
+          .nodeSep(scope.nodeSep)
+          .edgeSep(scope.edgeSep)
+          .rankSep(scope.rankSep);
+
         var svg = d3.select(element[0]);
         svg.call(d3.behavior.zoom().on('zoom', function () {
           var ev = d3.event;
@@ -232,6 +240,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return selection.transition().duration(700);
         }
         renderer.transition(transition);
+
+        // Prepend Tree settings panel
+        element.wrap('<div></div>');
+        var wrapper = element.parent();
+        wrapper.prepend($compile('<span title="rankSep" tree-setting="rankSep"></span>')(scope));
+        wrapper.prepend($compile('<span title="edgeSep" tree-setting="edgeSep"></span>')(scope));
+        wrapper.prepend($compile('<span title="nodeSep" tree-setting="nodeSep"></span>')(scope));
 
         function insertRootDirective() {
           node('0000').append(function() {
@@ -259,7 +274,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
         function render() {
           vis = svg.select('g');
-          renderer.layout(layout).run(g, vis);
+          renderer.layout(scope.layout).run(g, vis);
           // Customize the graph so that it holds our directives
           insertRootDirective();
           insertTokenDirectives();
@@ -306,6 +321,25 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             } else {
               resetEdgeStyling();
             }
+          }
+        });
+        // Settings watches
+        scope.$watch('nodeSep', function(newVal, oldVal) {
+          if (newVal !== oldVal) {
+            scope.layout.nodeSep(newVal);
+            render();
+          }
+        });
+        scope.$watch('edgeSep', function(newVal, oldVal) {
+          if (newVal !== oldVal) {
+            scope.layout.edgeSep(newVal);
+            render();
+          }
+        });
+        scope.$watch('rankSep', function(newVal, oldVal) {
+          if (newVal !== oldVal) {
+            scope.layout.rankSep(newVal);
+            render();
           }
         });
       },
