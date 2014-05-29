@@ -12,15 +12,18 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
       link: function (scope, element, attrs) {
         var opened = false;
         var eventFn = $parse(attrs.contextMenu);
+
         function open(event, menu, parent) {
           menu.addClass('menu-open');
           menu.removeClass('hide');
+
           // reposition the context menu relative to the parent element
           var parPos = parent.offset();
           var top = parPos.top + parent.outerHeight();
           var left = parPos.left;
           menu.css('left', left);
           menu.css('top', top);
+
           // If a target object was specified, declare that we just opened
           // a contextMenu.
           if (scope.menuObj) {
@@ -28,6 +31,7 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
           }
           opened = true;
         }
+
         function close(menu) {
           menu.removeClass('menu-open');
           menu.addClass('hide');
@@ -38,25 +42,30 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
           }
           opened = false;
         }
+
         function closeAndApply() {
           scope.$apply(function () {
             close(menuElement.element);
           });
         }
+
         // need this to make sure we close the menu all the time
         function handleOtherClick(event) {
           if (opened && event.button !== 2) {
             closeAndApply();
           }
         }
+
         element.bind('contextmenu', function (event) {
           // If another menu is open while we want to open a new one,
           // we have to close the old one beforehand
           if (menuElement.element) {
             close(menuElement.element);
           }
+
           // Find the context menu in the DOM
           menuElement.element = angular.element(document.getElementById(attrs.menuId));
+
           // Disable the browser's default context menu
           event.preventDefault();
           event.stopPropagation();
@@ -65,6 +74,7 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
             open(event, menuElement.element, element);
           });
         });
+
         $document.bind('click', handleOtherClick);
         $document.bind('contextmenu', handleOtherClick);
         // Close when ESC is hit
