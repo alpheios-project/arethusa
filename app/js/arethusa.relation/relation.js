@@ -125,10 +125,14 @@ angular.module('arethusa.relation').service('relation', [
       });
     };
 
-    this.multiChangerEmpty = function () {
+    this.multiChangePossible = function () {
       // We check for the prefix, as only a suffix, which would
       // fill the label already would not be allowed.
-      return self.multiChanger.prefix === '';
+      //
+      // Tokens need to be selected to of course.
+      console.log(state.hasSelections());
+      return self.multiChanger.prefix !== '' &&
+        state.hasSelections();
     };
 
     // Init

@@ -29,12 +29,12 @@
           </ul>
         </li>
       </ul>
-      <span
-        class="label tiny radius right"
-        ng-disabled="plugin.multiChangerEmpty()"
+      <button
+        class="tiny radius right"
+        ng-disabled="! plugin.multiChangePossible()"
         ng-click="plugin.applyMultiChanger()">
         Apply
-      </span>
+      </button>
     </div>
   </div>
 </div>
