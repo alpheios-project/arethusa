@@ -38,6 +38,7 @@
     <ul class="nested-dropdown">
       <li>{{ plugin.prefixWithAncestors(obj.relation) }}
         <ul
+          class="top-menu"
           nested-menu-collection
           property="plugin.usePrefix()"
           current="obj.relation"
@@ -49,6 +50,7 @@
     <ul class="nested-dropdown">
       <li>{{ plugin.suffixOrPlaceholder(obj.relation) }}
         <ul
+          class="top-menu"
           nested-menu-collection
           property="plugin.useSuffix()"
           current="obj.relation"

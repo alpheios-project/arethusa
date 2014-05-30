@@ -65,6 +65,10 @@ ul.nested-dropdown ul {
   background-color: #fafafa;
 }
 
+ul.top-menu {
+  left: -0.5rem;
+}
+
 ul.nested-dropdown li {
   float: none;
   position: relative;
