@@ -15,6 +15,12 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
     $scope.hasPrev = function() {
       return navigator.hasPrev();
     };
+    $scope.goToFirst = function() {
+      navigator.goToFirst();
+    };
+    $scope.goToLast = function() {
+      navigator.goToLast();
+    };
     $scope.navStat = navigator.status;
   }
 ]);
