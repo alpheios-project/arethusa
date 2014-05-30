@@ -43,6 +43,29 @@ angular.module('arethusa.core').service('navigator', [
       self.updateState();
     };
 
+    function findSentence(id) {
+      var res;
+      for (var i = self.sentences.length - 1; i >= 0; i--){
+        if (self.sentences[i].id === id) {
+          res = self.sentences[i];
+          break;
+        }
+      }
+      return res;
+    }
+
+    this.goTo = function(id) {
+      var s = findSentence(id);
+      if (s) {
+        var i = self.sentences.indexOf(s);
+        self.currentPosition = i;
+        self.updateState();
+      } else {
+        /* global alert */
+        alert('No sentence with id ' + id + ' found');
+      }
+    };
+
     this.goToLast = function() {
       self.currentPosition = self.sentences.length - 1;
       self.updateState();
