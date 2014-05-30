@@ -266,8 +266,9 @@ angular.module('arethusa.core').service('state', [
       // We have to wrap this as there might be watchers on allLoaded,
       // such as the MainCtrl which has to reinit all plugins when the
       // state tokens are replaced
-      this.tokens = tokens;
-      this.broadcastReload();
+      self.deselectAll();
+      self.tokens = tokens;
+      self.broadcastReload();
     };
 
     this.setStyle = function (id, style) {
