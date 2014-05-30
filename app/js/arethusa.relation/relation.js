@@ -108,7 +108,8 @@ angular.module('arethusa.relation').service('relation', [
       state.multiSelect(ids);
     };
 
-    this.buildLabelAndSearch = function (rel) {
+    this.buildLabelAndSearch = function(rel) {
+      rel = rel ? rel : self.searchedLabel;
       self.buildLabel(rel);
       self.selectByLabel(rel.label);
     };
