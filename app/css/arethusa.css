@@ -198,7 +198,16 @@ a {
 
 a:hover, a:focus {
   color: #5BC8DC;
-  font-weight: bold;
+}
+
+.tabs dd a {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d8d8d8;
+}
+
+.tabs dd a:hover {
+  border-color: #aaaaaa;
 }
 
 .top-bar, .top-bar-section .has-form, .top-bar-section ul, .top-bar-section li:not(.has-form) a:not(.button) {
