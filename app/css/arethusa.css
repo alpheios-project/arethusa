@@ -36,6 +36,14 @@
   padding: 0.2rem;
 }
 
+tr.sentence-list td {
+  cursor: pointer;
+}
+
+ul.sentence-list {
+  list-style: none;
+}
+
 ul.nested-dropdown {
   list-style: none;
   display: inline-table;

@@ -15,9 +15,16 @@ angular.module('arethusa.core').directive('sentenceList', [
           // a user requests it!
           if (! navigator.hasList) {
             var template = '\
-              <ul>\
-                <li sentence="s" ng-repeat="s in n.sentences"></li>\
-              </ul>\
+              <p/>\
+              <div class="row panel">\
+                <ul class="sentence-list">\
+                  <li \
+                    class="sentence-list"\
+                    sentence="s"\
+                    ng-repeat="s in n.sentences">\
+                  </li>\
+                </ul>\
+              </div>\
             ';
 
             navigator.list().append($compile(template)(scope));
