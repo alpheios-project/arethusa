@@ -9,11 +9,17 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
       all: '=',
       property: '=',
       ancestors: '=',
-      emptyVal: '@'
+      emptyVal: '@',
+      change: '&'
     },
     link: function(scope, element, attrs) {
       scope.emptyLabel = "";
       scope.emptyObj = {};
+      scope.$watch('current[property]', function(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          scope.change();
+        }
+      });
     },
     template: '\
       <ul>\
