@@ -63,6 +63,7 @@ ul.nested-dropdown ul {
   top: 100%;
   border: 1px solid #cccccc;
   background-color: #fafafa;
+  z-index: 1;
 }
 
 ul.top-menu {
