@@ -81,7 +81,11 @@ angular.module('arethusa.core').directive('token', [
         });
         scope.$watch('token.style', function (newVal, oldVal) {
           if (newVal !== oldVal) {
-            element.css(scope.token.style);
+            if (newVal) {
+              element.css(newVal);
+            } else {
+              cleanStyle();
+            }
           }
         });
       },
