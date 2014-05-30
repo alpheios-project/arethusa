@@ -27,6 +27,12 @@ angular.module('arethusa.core').service('navigator', [
     this.prevSentence = function () {
       self.movePosition(-1);
     };
+    this.hasNext = function() {
+      return self.currentPosition < self.sentences.length - 1;
+    };
+    this.hasPrev = function() {
+      return self.currentPosition > 0;
+    };
     this.movePosition = function (steps) {
       self.currentPosition += steps;
       self.state().replaceState(self.currentSentence());
