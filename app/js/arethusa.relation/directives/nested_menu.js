@@ -26,6 +26,7 @@ angular.module('arethusa.relation').directive('nestedMenu', [
 
         if (scope.labelObj.nested) {
           element.append($compile(html)(scope));
+          element.addClass('nested');
         }
 
         scope.selectLabel = function() {
