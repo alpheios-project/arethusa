@@ -42,7 +42,16 @@
 ul.nested-dropdown {
   list-style: none;
   display: inline-table;
+  border: 1px solid #cccccc;
+  padding: 0 0.8rem 0 0.5rem;
+  font-size: 0.875rem;
+  text-align: left;
+  background-color: #fafafa;
+  background-image: url('data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iM3B4IiB2aWV3Qm94PSIwIDAgNiAzIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA2IDMiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIHBvaW50cz0iNS45OTIsMCAyLjk5MiwzIC0wLjAwOCwwICIvPjwvc3ZnPg==');
+  background-repeat: no-repeat;
+  background-position: 97% center;
 }
+
 ul.nested-dropdown:after {
   content: ""; clear: both; display: block;
 }
@@ -52,11 +61,30 @@ ul.nested-dropdown ul {
   list-style: none;
   position: absolute;
   top: 100%;
+  border: 1px solid #cccccc;
+  background-color: #fafafa;
 }
+
 ul.nested-dropdown li {
   float: none;
   position: relative;
-  background-color: red;
+  padding: 0 0.8rem 0 0.5rem;
+  font-size: 0.875rem;
+}
+
+ul.nested-dropdown ul li:hover {
+  background-color: #ebebeb;
+}
+
+ul.nested-dropdown li.nested {
+  background-repeat: no-repeat;
+  background-position: 97% center;
+  background-image: url(menu_arrow_right.png);
+  background-size: 7px auto;
+}
+
+ul.nested-dropdown ul li {
+  padding: 0 0.8rem 0 0.5rem;
 }
 
 ul.nested-dropdown li:hover > ul {
