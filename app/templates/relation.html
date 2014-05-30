@@ -1,28 +1,34 @@
 <div>
   <div class="small-12 columns">
     <div class="small-2 columns">
-      <label class="inline">Change all</label>
+      <span class="note">Change all</label>
     </div>
-    <div class="small-3 columns">
-      <select
-        ng-model="plugin.multiChanger.prefix"
-        ng-options="name as value.short for (name, value) in plugin.relationValues.labels"
-        ng-change="plugin.buildLabel(plugin.multiChanger)">
-        <option value=""></option>
-      </select>
-    </div>
-    <div class="small-2 columns">
-      <label>
-      <select
-        ng-model="plugin.multiChanger.suffix"
-        ng-options="name as value.short for (name, value) in plugin.relationValues.suffixes"
-        ng-change="plugin.buildLabel(plugin.multiChanger)">
-        <option value=""></option>
-      </select>
-    </div>
-    <div class="small-1 columns end">
+    <div class="small-10 columns">
+      <ul class="nested-dropdown">
+        <li>{{ plugin.prefixWithAncestors(plugin.multiChanger) }}
+          <ul
+            class="top-menu"
+            nested-menu-collection
+            property="plugin.usePrefix()"
+            current="plugin.multiChanger"
+            ancestors="plugin.defineAncestors()"
+            all="plugin.relationValues.labels">
+          </ul>
+        </li>
+      </ul>
+      <ul class="nested-dropdown">
+        <li>{{ plugin.suffixOrPlaceholder(plugin.multiChanger) }}
+          <ul
+            class="top-menu"
+            nested-menu-collection
+            property="plugin.useSuffix()"
+            current="plugin.multiChanger"
+            all="plugin.relationValues.suffixes">
+          </ul>
+        </li>
+      </ul>
       <button
-        class="tiny radius"
+        class="tiny radius right"
         ng-disabled="plugin.multiChangerEmpty()"
         ng-click="plugin.applyMultiChanger()">
         Apply
