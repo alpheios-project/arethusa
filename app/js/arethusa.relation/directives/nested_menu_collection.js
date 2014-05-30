@@ -8,10 +8,23 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
       current: '=',
       all: '=',
       property: '=',
-      ancestors: '='
+      ancestors: '=',
+      emptyVal: '@'
+    },
+    link: function(scope, element, attrs) {
+      scope.emptyLabel = "";
+      scope.emptyObj = {};
     },
     template: '\
       <ul>\
+        <li ng-if="emptyVal"\
+          nested-menu\
+          property="property"\
+          rel-obj="current"\
+          ancestors="ancestors"\
+          label="emptyLabel"\
+          label-obj="emptyObj">\
+        </li>\
         <li\
           ng-repeat="(label, labelObj) in all"\
           nested-menu\

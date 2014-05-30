@@ -24,6 +24,8 @@ angular.module('arethusa.relation').directive('nestedMenu', [
           </ul>\
         ';
 
+        scope.labelRepresentation = scope.label ? scope.label : '---';
+
         if (scope.labelObj.nested) {
           element.append($compile(html)(scope));
           element.addClass('nested');
@@ -48,7 +50,7 @@ angular.module('arethusa.relation').directive('nestedMenu', [
           });
         });
       },
-      template: '{{ label }}'
+      template: '{{ labelRepresentation }}'
     };
   }
 ]);
