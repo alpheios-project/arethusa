@@ -20,7 +20,7 @@
           </div>
         </li>
       </ul>
-      <ul ng-show="showNavigation()" class="left" ng-controller="NavigatorCtrl">
+      <ul ng-show="showNavigation()" ng-controller="NavigatorCtrl">
         <li>
           <div><a ng-click="goToFirst()">&#8676;</a></div>
         </li>
@@ -29,9 +29,23 @@
         </li>
         <li>
           <div>
-            <a>
-              {{ navStat.currentId }}
-            </a>
+            <ul class="navigation">
+              <li>
+                <a>
+                  {{ navStat.currentId }}
+                </a>
+                <ul>
+                  <div class="navigation-menu small-12 large-12 columns">
+                    <div>
+                      <form ng-submit="goTo(goToLocation)">
+                        <input class="inline" type="text" ng-model="goToLocation"/>
+                      </form>
+                    </div>
+                    <div><a sentence-list>List</a></div>
+                  </div>
+                </ul>
+              </li>
+            </ul>
           </div>
         </li>
         <li>
@@ -51,19 +65,4 @@
       </ul>
     </section>
   </nav>
-</div>
-
-<div
-  id="navigation-menu"
-  class="small-12 large-12 columns"
-  ng-controller="NavigatorCtrl">
-  <div class="small-6 large-6 columns">
-    <form ng-submit="goTo(goToLocation)">
-      <input class="inline" type="text" ng-model="goToLocation" style="width: 50px"/>
-    </form>
-  </div>
-  <div class="small-6 large-6 columns">
-    <span class="label radius tiny" ng-click="goTo(goToLocation)">Jump</span>
-  </div>
-  <div class="small-12 columns"><a sentence-list>Sentence List</a></div>
 </div>
