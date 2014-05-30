@@ -82,7 +82,7 @@ ul.nested-dropdown li {
   font-size: 0.875em;
 }
 
-ul.nested-dropdown ul li:hover {
+ul.nested-dropdown li:hover {
   background-color: #ebebeb;
 }
 
