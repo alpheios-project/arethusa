@@ -34,13 +34,13 @@ angular.module('arethusa.core').service('state', [
 
     this.retrieveTokens = function () {
       var container = {};
-      //navigator.reset();
+      navigator.reset();
       angular.forEach(tokenRetrievers, function (retriever, name) {
         retriever.getData(function (data) {
-          //arethusaUtil.pushAll(navigator.sentences, data);
-          //navigator.updateId();
-          //saveTokens(container, navigator.currentSentence());
-          saveTokens(container, data[0].tokens);
+          arethusaUtil.pushAll(navigator.sentences, data);
+          navigator.updateId();
+          saveTokens(container, navigator.currentSentence());
+          //saveTokens(container, data[0].tokens);
           declareLoaded(retriever);
         });
       });
@@ -266,8 +266,9 @@ angular.module('arethusa.core').service('state', [
       // We have to wrap this as there might be watchers on allLoaded,
       // such as the MainCtrl which has to reinit all plugins when the
       // state tokens are replaced
-      this.tokens = tokens;
-      this.broadcastReload();
+      self.deselectAll();
+      self.tokens = tokens;
+      self.broadcastReload();
     };
 
     this.setStyle = function (id, style) {

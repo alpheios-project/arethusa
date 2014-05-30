@@ -20,15 +20,39 @@
           </div>
         </li>
       </ul>
-      <ul ng-show="showNavigation()" class="left" ng-controller="NavigatorCtrl">
+      <ul ng-show="showNavigation()" ng-controller="NavigatorCtrl">
         <li>
-          <div><a ng-click="prev()">&laquo;</a></div>
+          <div><a ng-click="goToFirst()">&#8676;</a></div>
         </li>
         <li>
-          <div><a>{{ navStat.currentId }}</a></div>
+          <div ng-if="hasPrev()"><a ng-click="prev()">&laquo;</a></div>
         </li>
         <li>
-          <div><a ng-click="next()">&raquo;</a></div>
+          <div>
+            <ul class="navigation">
+              <li>
+                <a>
+                  {{ navStat.currentId }}
+                </a>
+                <ul>
+                  <div class="navigation-menu small-12 large-12 columns">
+                    <div>
+                      <form ng-submit="goTo(goToLocation)">
+                        <input class="inline" type="text" ng-model="goToLocation"/>
+                      </form>
+                    </div>
+                    <div><a sentence-list>List</a></div>
+                  </div>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div ng-if="hasNext()"><a ng-click="next()">&raquo;</a></div>
+        </li>
+        <li>
+          <div><a ng-click="goToLast()">&#8677;</a></div>
         </li>
       </ul>
       <ul ng-show="showNotifier()" class="right" ng-controller="NotifierCtrl">

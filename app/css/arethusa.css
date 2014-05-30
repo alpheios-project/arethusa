@@ -36,6 +36,36 @@
   padding: 0.2rem;
 }
 
+tr.sentence-list td {
+  cursor: pointer;
+}
+
+ul.sentence-list {
+  list-style: none;
+}
+
+ul.navigation {
+  list-style: none;
+  display: inline-table;
+  margin: 0;
+  position: relative;
+}
+
+ul.navigation li:hover > ul {
+  display: block;
+}
+
+ul.navigation ul {
+  margin: 0;
+  display: none;
+  list-style: none;
+  position: absolute;
+  padding: 0.2rem;
+  font-size: 0.875rem;
+  top: 100%;
+  z-index: 1;
+}
+
 ul.nested-dropdown {
   list-style: none;
   display: inline-table;
@@ -45,9 +75,10 @@ ul.nested-dropdown {
   border: 1px solid #cccccc;
 }
 
-ul.nested-dropdown:after {
+ul.nested-dropdown:after ul.navigation:after {
   content: ""; clear: both; display: block;
 }
+
 ul.nested-dropdown ul {
   margin: 0;
   display: none;
