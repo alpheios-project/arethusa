@@ -28,7 +28,11 @@
           <div ng-if="hasPrev()"><a ng-click="prev()">&laquo;</a></div>
         </li>
         <li>
-          <div><a>{{ navStat.currentId }}</a></div>
+          <div>
+            <a>
+              {{ navStat.currentId }}
+            </a>
+          </div>
         </li>
         <li>
           <div ng-if="hasNext()"><a ng-click="next()">&raquo;</a></div>
@@ -47,4 +51,19 @@
       </ul>
     </section>
   </nav>
+</div>
+
+<div
+  id="navigation-menu"
+  class="small-12 large-12 columns"
+  ng-controller="NavigatorCtrl">
+  <div class="small-6 large-6 columns">
+    <form ng-submit="goTo(goToLocation)">
+      <input class="inline" type="text" ng-model="goToLocation" style="width: 50px"/>
+    </form>
+  </div>
+  <div class="small-6 large-6 columns">
+    <span class="label radius tiny" ng-click="goTo(goToLocation)">Jump</span>
+  </div>
+  <div class="small-12 columns"><a sentence-list>Sentence List</a></div>
 </div>
