@@ -34,13 +34,13 @@ angular.module('arethusa.core').service('state', [
 
     this.retrieveTokens = function () {
       var container = {};
-      //navigator.reset();
+      navigator.reset();
       angular.forEach(tokenRetrievers, function (retriever, name) {
         retriever.getData(function (data) {
-          //arethusaUtil.pushAll(navigator.sentences, data);
-          //navigator.updateId();
-          //saveTokens(container, navigator.currentSentence());
-          saveTokens(container, data[0].tokens);
+          arethusaUtil.pushAll(navigator.sentences, data);
+          navigator.updateId();
+          saveTokens(container, navigator.currentSentence());
+          //saveTokens(container, data[0].tokens);
           declareLoaded(retriever);
         });
       });
