@@ -11,12 +11,13 @@ angular.module('arethusa.morph').service('morph', [
 
     function configure() {
       var props = [
-          'postagSchema',
-          'attributes',
-          'styledThrough',
-          'noRetrieval',
-          'matchAll'
-        ];
+        'postagSchema',
+        'attributes',
+        'styledThrough',
+        'noRetrieval',
+        'matchAll'
+      ];
+
       configurator.getConfAndDelegate('morph', self, props);
       self.analyses = {};
       morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
