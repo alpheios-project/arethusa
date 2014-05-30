@@ -85,6 +85,10 @@ angular.module('arethusa.core').service('state', [
       return count > 1;
     };
 
+    this.hasSelections = function() {
+      return Object.keys(self.selectedTokens).length !== 0;
+    };
+
     this.isSelected = function (id) {
       return id in this.selectedTokens;
     };
