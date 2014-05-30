@@ -1,0 +1,119 @@
+{
+  "main" : {
+    "template"  : "templates/main_with_sidepanel.html",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "perseidsGetter"
+      }
+    },
+    "plugins" : [
+      "text",
+      "depTree",
+      "morph",
+      "search",
+      "relation",
+      "review",
+      "history",
+      "comment"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "resources" : {
+    "perseidsGetter" : {
+      "route" : "http://localhost/dmm_api/item/TreebankCite/:doc",
+      "params" : [
+        "doc"
+      ]
+    },
+
+    "fakeGold" : {
+      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
+      "params" : [
+        "gold",
+        "s"
+      ]
+    },
+
+    "lexInvFusekiEndpoint" : {
+      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
+    },
+
+    "morphologyService" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    }
+  },
+
+  "plugins" : {
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
+
+    "depTree" : {
+      "name" : "depTree",
+      "main" : true,
+      "template" : "templates/dep_tree.html"
+    },
+
+    "search" : {
+      "name" : "search",
+      "template" : "templates/search.html",
+      "regex" : true
+    },
+
+    "morph" : {
+      "name" : "morph",
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
+      "template"  : "templates/morph3.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
+      "lexicalInventory" : {
+        "retriever" : {
+          "LexicalInventoryRetriever" : {
+            "resource" : "lexInvFusekiEndpoint"
+          }
+        }
+      },
+      "fileUrl" : "./static/configs/morph/attributes.json"
+    },
+
+    "relation" : {
+      "name" : "relation",
+      "template" : "templates/relation.html",
+      "fileUrl" : "./static/configs/relation/relations.json"
+    },
+
+    "review" : {
+      "name" : "review",
+      "template" : "templates/arethusa.review/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "fakeGold"
+        }
+      }
+    },
+
+    "history" : {
+      "name" : "history",
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "templates/history.html"
+    },
+
+    "comment" : {
+      "name" : "comment",
+      "template" : "templates/comment2.html"
+    }
+  }
+}
