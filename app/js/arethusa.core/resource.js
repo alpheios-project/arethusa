@@ -31,6 +31,16 @@ angular.module('arethusa.core').factory('Resource', [
       var self = this;
       this.route = conf.route;
       this.params = conf.params || [];
+      this.auth = conf.auth || [];
+      // if the authorization config for this resource has a 
+      // ping method configured, use it to initialize the cookies
+      if (self.auth.ping) {
+        var ping = $resource(self.auth.ping, null, { });
+        // TODO should really have some error handling here
+        // because if the ping fails the subsequent get and post
+        // requests on the resource will
+        ping.get();
+      }
       this.resource = $resource(self.route, null, {
         get: {
           method: 'GET',
