@@ -85,9 +85,39 @@ angular.module('arethusa.core').service('navigator', [
       self.status.currentId = currentId();
     };
 
+    this.sentenceToString = function(sentence) {
+      return arethusaUtil.inject([], sentence.tokens, function(memo, id, token) {
+        memo.push(token.string);
+      }).join(' ');
+    };
+
+    this.editor = function() {
+      return angular.element(document.getElementById('arethusa-editor'));
+    };
+
+    this.list = function() {
+      return angular.element(document.getElementById('arethusa-sentence-list'));
+    };
+
+    this.switchView = function() {
+      var editor = self.editor();
+      var list   = self.list();
+      if (self.listMode) {
+        editor.removeClass('hide');
+        list.addClass('hide');
+        self.listMode = false;
+      } else {
+        editor.addClass('hide');
+        list.removeClass('hide');
+        self.listMode = true;
+      }
+    };
+
     this.reset = function () {
       self.currentPosition = 0;
       self.sentences = [];
+      self.listMode = false;
+      self.hasList  = false;
       self.updateId();
     };
   }
