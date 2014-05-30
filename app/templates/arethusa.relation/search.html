@@ -2,31 +2,9 @@
   by label
 </div>
 <div class="small-10 large-11 columns">
-  <ul class="nested-dropdown">
-    <li class="first-item">{{ plugin.prefixWithAncestors(plugin.searchedLabel) }}
-      <ul
-        class="top-menu"
-        nested-menu-collection
-        property="plugin.usePrefix()"
-        current="plugin.searchedLabel"
-        ancestors="plugin.defineAncestors()"
-        all="plugin.relationValues.labels"
-        change="plugin.buildLabelAndSearch()"
-        empty-val="true">
-      </ul>
-    </li>
-  </ul>
-  <ul class="nested-dropdown">
-    <li class="first-item">{{ plugin.suffixOrPlaceholder(plugin.searchedLabel) }}
-      <ul
-        class="top-menu"
-        nested-menu-collection
-        property="plugin.useSuffix()"
-        current="plugin.searchedLabel"
-        all="plugin.relationValues.suffixes"
-        change="plugin.buildLabelAndSearch()"
-        empty-val="true">
-      </ul>
-    </li>
-  </ul>
+  <div
+    label-selector
+    obj="plugin.searchedLabel"
+    change="plugin.buildAndSearchLabel()">
+  </div>
 </div>

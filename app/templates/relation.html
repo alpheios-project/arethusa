@@ -4,31 +4,10 @@
       <span class="note">Change all</label>
     </div>
     <div class="small-10 columns">
-      <ul class="nested-dropdown">
-        <li class="first-item">{{ plugin.prefixWithAncestors(plugin.multiChanger) }}
-          <ul
-            class="top-menu"
-            nested-menu-collection
-            property="plugin.usePrefix()"
-            current="plugin.multiChanger"
-            ancestors="plugin.defineAncestors()"
-            all="plugin.relationValues.labels"
-            empty-val="true">
-          </ul>
-        </li>
-      </ul>
-      <ul class="nested-dropdown">
-        <li class="first-item">{{ plugin.suffixOrPlaceholder(plugin.multiChanger) }}
-          <ul
-            class="top-menu"
-            nested-menu-collection
-            property="plugin.useSuffix()"
-            current="plugin.multiChanger"
-            all="plugin.relationValues.suffixes"
-            empty-val="true">
-          </ul>
-        </li>
-      </ul>
+      <div
+        label-selector
+        obj="plugin.multiChanger">
+      </div>
       <button
         class="tiny radius right"
         ng-disabled="! plugin.multiChangePossible()"
@@ -43,31 +22,10 @@
 <div ng-repeat="(id, obj) in plugin.currentLabels()">
   <div class="small-12 columns">
     <p token-with-id value="obj.string" token-id="id"/p>
-    <ul class="nested-dropdown">
-      <li class="first-item">{{ plugin.prefixWithAncestors(obj.relation) }}
-        <ul
-          class="top-menu"
-          nested-menu-collection
-          property="plugin.usePrefix()"
-          current="obj.relation"
-          ancestors="plugin.defineAncestors()"
-          all="plugin.relationValues.labels"
-          empty-val="true">
-        </ul>
-      </li>
-    </ul>
-    <ul class="nested-dropdown">
-      <li class="first-item">{{ plugin.suffixOrPlaceholder(obj.relation) }}
-        <ul
-          class="top-menu"
-          nested-menu-collection
-          property="plugin.useSuffix()"
-          current="obj.relation"
-          all="plugin.relationValues.suffixes"
-          empty-val="true">
-        </ul>
-      </li>
-    </ul>
+    <div
+      label-selector
+      obj="obj.relation">
+    </div>
   </div>
 </div>
 
