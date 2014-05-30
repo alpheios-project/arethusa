@@ -43,7 +43,7 @@ angular.module('arethusa.relation').service('relation', [
     };
 
     this.prefixWithAncestors = function(relation) {
-      return relation.ancestors.join(' > ');
+      return relation.ancestors.join(' > ') || '---';
     };
 
     this.suffixOrPlaceholder = function(relation) {
@@ -89,7 +89,8 @@ angular.module('arethusa.relation').service('relation', [
       return {
         prefix: '',
         suffix: '',
-        label: ''
+        label: '',
+        ancestors: []
       };
     };
 
