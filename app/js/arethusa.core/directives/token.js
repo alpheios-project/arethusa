@@ -13,6 +13,9 @@ angular.module('arethusa.core').directive('token', [
         highlight: '@'
       },
       link: function (scope, element, attrs) {
+        if (! scope.token) {
+          return;
+        }
         scope.state = state;
         var id = scope.token.id;
         function apply(fn) {
