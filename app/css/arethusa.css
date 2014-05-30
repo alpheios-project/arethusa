@@ -35,9 +35,6 @@
 .menu-element {
   padding: 0.2rem;
 }
-.menu-element:hover {
-  background-color: #ebebeb;
-}
 
 ul.nested-dropdown {
   list-style: none;
