@@ -1,6 +1,6 @@
 {
   "main" : {
-    "template"  : "templates/main2.html",
+    "template"  : "templates/main_with_sidepanel.html",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "staticFiles"
