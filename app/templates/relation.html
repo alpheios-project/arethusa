@@ -35,7 +35,7 @@
 <div ng-repeat="(id, obj) in plugin.currentLabels()">
   <div class="small-12 columns">
     <p token-with-id value="obj.string" token-id="id"/p>
-    <ul class="nested-dropdown hover">
+    <ul class="nested-dropdown">
       <li>{{ plugin.prefixWithAncestors(obj.relation) }}
         <ul
           nested-menu-collection
@@ -46,7 +46,7 @@
         </ul>
       </li>
     </ul>
-    <ul class="nested-dropdown hover">
+    <ul class="nested-dropdown">
       <li>{{ plugin.suffixOrPlaceholder(obj.relation) }}
         <ul
           nested-menu-collection
