@@ -87,6 +87,7 @@
           }
         }
       },
+      "matchAll" : true,
       "fileUrl" : "./static/configs/morph/attributes.json"
     },
 
