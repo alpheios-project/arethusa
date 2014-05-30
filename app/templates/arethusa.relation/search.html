@@ -1,21 +1,32 @@
 <div class="small-2 large-1 columns note">
   by label
 </div>
-<div class="small-6 large-3 columns">
-  <select
-    ng-model="plugin.searchedLabel.prefix"
-    ng-options="name as value.short for (name, value) in plugin.relationValues.labels"
-    ng-change="plugin.buildLabelAndSearch(plugin.searchedLabel)">
-    <option value=""></option>
-  </select>
-</div>
-<div class="small-4 large-2 columns end">
-  <label>
-    <select
-      ng-model="plugin.searchedLabel.suffix"
-      ng-options="name as value.short for (name, value) in plugin.relationValues.suffixes"
-      ng-change="plugin.buildLabelAndSearch(plugin.searchedLabel)">
-      <option value=""></option>
-    </select>
-  </div>
+<div class="small-10 large-11 columns">
+  <ul class="nested-dropdown">
+    <li class="first-item">{{ plugin.prefixWithAncestors(plugin.searchedLabel) }}
+      <ul
+        class="top-menu"
+        nested-menu-collection
+        property="plugin.usePrefix()"
+        current="plugin.searchedLabel"
+        ancestors="plugin.defineAncestors()"
+        all="plugin.relationValues.labels"
+        change="plugin.buildLabelAndSearch()"
+        empty-val="true">
+      </ul>
+    </li>
+  </ul>
+  <ul class="nested-dropdown">
+    <li class="first-item">{{ plugin.suffixOrPlaceholder(plugin.searchedLabel) }}
+      <ul
+        class="top-menu"
+        nested-menu-collection
+        property="plugin.useSuffix()"
+        current="plugin.searchedLabel"
+        all="plugin.relationValues.suffixes"
+        change="plugin.buildLabelAndSearch()"
+        empty-val="true">
+      </ul>
+    </li>
+  </ul>
 </div>
