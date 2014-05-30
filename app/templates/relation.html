@@ -5,25 +5,27 @@
     </div>
     <div class="small-10 columns">
       <ul class="nested-dropdown">
-        <li>{{ plugin.prefixWithAncestors(plugin.multiChanger) }}
+        <li class="first-item">{{ plugin.prefixWithAncestors(plugin.multiChanger) }}
           <ul
             class="top-menu"
             nested-menu-collection
             property="plugin.usePrefix()"
             current="plugin.multiChanger"
             ancestors="plugin.defineAncestors()"
-            all="plugin.relationValues.labels">
+            all="plugin.relationValues.labels"
+            empty-val="true">
           </ul>
         </li>
       </ul>
       <ul class="nested-dropdown">
-        <li>{{ plugin.suffixOrPlaceholder(plugin.multiChanger) }}
+        <li class="first-item">{{ plugin.suffixOrPlaceholder(plugin.multiChanger) }}
           <ul
             class="top-menu"
             nested-menu-collection
             property="plugin.useSuffix()"
             current="plugin.multiChanger"
-            all="plugin.relationValues.suffixes">
+            all="plugin.relationValues.suffixes"
+            empty-val="true">
           </ul>
         </li>
       </ul>
@@ -42,25 +44,27 @@
   <div class="small-12 columns">
     <p token-with-id value="obj.string" token-id="id"/p>
     <ul class="nested-dropdown">
-      <li>{{ plugin.prefixWithAncestors(obj.relation) }}
+      <li class="first-item">{{ plugin.prefixWithAncestors(obj.relation) }}
         <ul
           class="top-menu"
           nested-menu-collection
           property="plugin.usePrefix()"
           current="obj.relation"
           ancestors="plugin.defineAncestors()"
-          all="plugin.relationValues.labels">
+          all="plugin.relationValues.labels"
+          empty-val="true">
         </ul>
       </li>
     </ul>
     <ul class="nested-dropdown">
-      <li>{{ plugin.suffixOrPlaceholder(obj.relation) }}
+      <li class="first-item">{{ plugin.suffixOrPlaceholder(obj.relation) }}
         <ul
           class="top-menu"
           nested-menu-collection
           property="plugin.useSuffix()"
           current="obj.relation"
-          all="plugin.relationValues.suffixes">
+          all="plugin.relationValues.suffixes"
+          empty-val="true">
         </ul>
       </li>
     </ul>
