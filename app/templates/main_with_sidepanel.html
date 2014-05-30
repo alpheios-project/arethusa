@@ -1,35 +1,38 @@
 <arethusa-navbar></arethusa-navbar>
 
-<p>
-  <div debug="state.tokens"></div>
-</p>
+<div id="arethusa-editor">
+  <p>
+    <div debug="state.tokens"></div>
+  </p>
 
-<div class="row panel full-height">
-  <div id="main-body" class="columns small-7">
-    <div ng-repeat="pl in mainPlugins">
-      <plugin name="pl"/>
+  <div class="row panel full-height">
+    <div id="main-body" class="columns small-7">
+      <div ng-repeat="pl in mainPlugins">
+        <plugin name="pl"/>
+      </div>
+    </div>
+
+    <div id="sidepanel" class="columns small-5">
+      <div id="sidepanel-resizer" class="full-height" resizable></div>
+      <div id="sidepanel-body">
+        <tabset>
+          <tab
+            ng-click="declareActive(pl.name)"
+            ng-repeat="pl in subPlugins"
+            heading="{{ pl.name }}">
+            <plugin name="pl" ng-if="isActive(pl)"/>
+          </tab>
+        </tabset>
+      </div>
     </div>
   </div>
 
-  <div id="sidepanel" class="columns small-5">
-    <div id="sidepanel-resizer" class="full-height" resizable></div>
-    <div id="sidepanel-body">
-      <tabset>
-        <tab
-          ng-click="declareActive(pl.name)"
-          ng-repeat="pl in subPlugins"
-          heading="{{ pl.name }}">
-          <plugin name="pl" ng-if="isActive(pl)"/>
-        </tab>
-      </tabset>
-    </div>
+  <div>
+    <arethusa-context-menu
+      ng-repeat="token in state.tokens"
+      plugins="pluginsWithMenu"
+      token-id="token.id">
+    </arethusa-context-menu>
   </div>
 </div>
-
-<div>
-  <arethusa-context-menu
-    ng-repeat="token in state.tokens"
-    plugins="pluginsWithMenu"
-    token-id="token.id">
-  </arethusa-context-menu>
-</div>
+<div id="arethusa-sentence-list" class="hide"/>
