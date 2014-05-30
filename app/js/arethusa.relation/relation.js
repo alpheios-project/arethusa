@@ -130,7 +130,6 @@ angular.module('arethusa.relation').service('relation', [
       // fill the label already would not be allowed.
       //
       // Tokens need to be selected to of course.
-      console.log(state.hasSelections());
       return self.multiChanger.prefix !== '' &&
         state.hasSelections();
     };
