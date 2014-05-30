@@ -1,0 +1,28 @@
+<ul class="nested-dropdown">
+  <li class="first-item">{{ plugin.prefixWithAncestors(obj) }}
+    <ul
+      class="top-menu"
+      nested-menu-collection
+      property="plugin.usePrefix()"
+      current="obj"
+      ancestors="plugin.defineAncestors()"
+      all="plugin.relationValues.labels"
+      change="change"
+      empty-val="true">
+    </ul>
+  </li>
+</ul>
+<ul class="nested-dropdown">
+  <li class="first-item">{{ plugin.suffixOrPlaceholder(obj) }}
+    <ul
+      class="top-menu"
+      nested-menu-collection
+      property="plugin.useSuffix()"
+      current="obj"
+      all="plugin.relationValues.suffixes"
+      change="change"
+      empty-val="true">
+    </ul>
+  </li>
+</ul>
+

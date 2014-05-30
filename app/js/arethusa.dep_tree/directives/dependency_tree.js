@@ -325,11 +325,16 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           var childScope = scope.$new();
           childScope.token = token.id;
           childScope.head = token.head;
-          childScope.$watch('head.id', function (newVal, oldVal) {
-            // Very important to do here, otherwise the tree will
+          childScope.$watch('head.id', function (newVal, oldVal) { // Very important to do here, otherwise the tree will
             // be render a little often on startup...
             if (newVal !== oldVal) {
-              updateEdge(token);
+              // If a disconnection has been requested, we just
+              // have to delete the edge and do nothing else
+              if (newVal === "") {
+                g.delEdge(token.id);
+              } else {
+                updateEdge(token);
+              }
               render();
             }
           });

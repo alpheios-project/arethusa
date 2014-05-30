@@ -11,11 +11,13 @@ angular.module('arethusa.morph').service('morph', [
 
     function configure() {
       var props = [
-          'postagSchema',
-          'attributes',
-          'styledThrough',
-          'noRetrieval'
-        ];
+        'postagSchema',
+        'attributes',
+        'styledThrough',
+        'noRetrieval',
+        'matchAll'
+      ];
+
       configurator.getConfAndDelegate('morph', self, props);
       self.analyses = {};
       morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
@@ -229,9 +231,6 @@ angular.module('arethusa.morph').service('morph', [
     this.dependenciesOf = function (attr) {
       return self.selectAttribute(attr).dependencies;
     };
-
-    // searching selected forms
-    this.matchAll = false;
 
     function findThroughOr(memo, id, attrs, keywords) {
       angular.forEach(attrs, function(val, attr) {

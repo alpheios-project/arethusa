@@ -23,10 +23,81 @@
 }
 
 .context-menu {
+  /*replaced by f-dropdown content of foundation for now*/
+
+  /*padding: 0.7rem;*/
+  /*position: absolute;*/
+  /*z-index: 1;*/
+  /*border: solid 1px #cccccc;*/
+  /*background: #fff;*/
+}
+
+.menu-element {
+  padding: 0.2rem;
+}
+
+ul.nested-dropdown {
+  list-style: none;
+  display: inline-table;
+  padding: 0 1px;
+  margin: 0;
+  position: relative;
+  border: 1px solid #cccccc;
+}
+
+ul.nested-dropdown:after {
+  content: ""; clear: both; display: block;
+}
+ul.nested-dropdown ul {
+  margin: 0;
+  display: none;
+  list-style: none;
   position: absolute;
+  top: 100%;
+  border: 1px solid #cccccc;
+  background-color: #fafafa;
   z-index: 1;
-  border: solid 1px #cccccc;
-  background: #fff;
+}
+
+ul.nested-dropdown > li.first-item {
+  font-size: 0.875em;
+  text-align: left;
+  background-color: #fafafa;
+  background-image: url('data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iM3B4IiB2aWV3Qm94PSIwIDAgNiAzIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA2IDMiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIHBvaW50cz0iNS45OTIsMCAyLjk5MiwzIC0wLjAwOCwwICIvPjwvc3ZnPg==');
+  background-repeat: no-repeat;
+  background-position: 97% center;
+}
+
+ul.top-menu {
+  left: -0.1em;
+}
+
+ul.nested-dropdown li {
+  float: none;
+  position: relative;
+  padding: 0 0.8em 0 0.5em;
+  font-size: 0.875em;
+}
+
+ul.nested-dropdown li:hover {
+  background-color: #ebebeb;
+}
+
+ul.nested-dropdown li.nested {
+  background-repeat: no-repeat;
+  background-position: 97% center;
+  background-image: url(menu_arrow_right.png);
+  background-size: 7px auto;
+}
+
+ul.nested-dropdown li:hover > ul {
+  display: block;
+}
+
+ul.nested-dropdown ul ul {
+  position: absolute;
+  left: 100%;
+  top: 0;
 }
 
 #sidepanel {
@@ -111,6 +182,10 @@ span.right-answer {
 
 .accordion dd>a {
   padding: 0.5em;
+}
+
+.f-dropdown.content {
+  padding: 0.7rem;
 }
 
 /* Alpheios theme overrides -- better to use sass at some point */

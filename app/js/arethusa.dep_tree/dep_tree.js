@@ -8,8 +8,7 @@
  * by a global diffLoaded event.
  * Knows how to pass style information to the tree visualization in
  * case a comparison/review was done.
- *
- * One could experiment here that this code should go back to a diff plugin
+ * * One could experiment here that this code should go back to a diff plugin
  * itself.
  * A diff plugin would calculate style information and pass this data load
  * through the diffLoaded event. The depTree service would listen to this
@@ -25,14 +24,18 @@ angular.module('arethusa.depTree').service('depTree', [
   '$rootScope',
   function (state, configurator, $rootScope) {
     var self = this;
+
     function configure() {
       configurator.getConfAndDelegate('depTree', self);
       self.diffMode = false;
     }
+
     configure();
+
     this.toggleDiff = function () {
       self.diffMode = !self.diffMode;
     };
+
     // We have three things we can colorize as wrong in the tree
     //   Label
     //   Head
@@ -45,6 +48,7 @@ angular.module('arethusa.depTree').service('depTree', [
         }
       });
     }
+
     function analyseDiff(diff) {
       return arethusaUtil.inject({}, diff, function (memo, key, val) {
         if (key === 'relation') {
@@ -61,6 +65,7 @@ angular.module('arethusa.depTree').service('depTree', [
         }
       });
     }
+
     this.diffStyles = function () {
       if (self.diffMode) {
         return self.diffInfo;
@@ -68,16 +73,28 @@ angular.module('arethusa.depTree').service('depTree', [
         return false;
       }
     };
+
     $rootScope.$on('diffLoaded', function () {
       self.diffPresent = true;
       self.diffInfo = analyseDiffs(state.tokens);
       self.diffMode = true;
     });
+
     this.tokensWithoutHeadCount = function () {
       return state.countTokens(function (token) {
         return !(token.head || {}).id;
       });
     };
+
+    // Used inside the context menu
+    this.disconnect = function(token) {
+      token.head.id = "";
+    };
+
+    this.toRoot = function(token) {
+      token.head.id = '0000';
+    };
+
     this.init = function () {
       configure();
     };

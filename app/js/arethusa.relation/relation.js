@@ -42,8 +42,45 @@ angular.module('arethusa.relation').service('relation', [
       relation.label = clean.join('_');
     };
 
+    this.prefixWithAncestors = function(relation) {
+      return relation.ancestors.join(' > ') || '---';
+    };
+
+    this.suffixOrPlaceholder = function(relation) {
+      return relation.suffix || '---';
+    };
+
+    this.addAncestor = function(relation, ancestor) {
+      relation.ancestors.unshift(ancestor);
+    };
+
+    this.usePrefix = function() {
+      return 'prefix';
+    };
+
+    this.useSuffix = function() {
+      return 'suffix';
+    };
+
+    this.defineAncestors = function() {
+      return true;
+    };
+
+    this.resetAncestors = function(relation) {
+      var ancestors = relation.ancestors;
+      while (ancestors.length > 0) {
+        ancestors.pop();
+      }
+    };
+
+    this.initAncestors = function(relation) {
+      // calculate a real ancestor chain here if need be
+      relation.ancestors = [relation.prefix];
+    };
+
     this.expandRelation = function (relation) {
       splitLabel(relation);
+      self.initAncestors(relation);
       return relation;
     };
 
@@ -52,7 +89,8 @@ angular.module('arethusa.relation').service('relation', [
       return {
         prefix: '',
         suffix: '',
-        label: ''
+        label: '',
+        ancestors: []
       };
     };
 
@@ -70,7 +108,8 @@ angular.module('arethusa.relation').service('relation', [
       state.multiSelect(ids);
     };
 
-    this.buildLabelAndSearch = function (rel) {
+    this.buildLabelAndSearch = function(rel) {
+      rel = rel ? rel : self.searchedLabel;
       self.buildLabel(rel);
       self.selectByLabel(rel.label);
     };
@@ -86,10 +125,13 @@ angular.module('arethusa.relation').service('relation', [
       });
     };
 
-    this.multiChangerEmpty = function () {
+    this.multiChangePossible = function () {
       // We check for the prefix, as only a suffix, which would
       // fill the label already would not be allowed.
-      return self.multiChanger.prefix === '';
+      //
+      // Tokens need to be selected to of course.
+      return self.multiChanger.prefix !== '' &&
+        state.hasSelections();
     };
 
     // Init

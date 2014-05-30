@@ -1,29 +1,16 @@
 <div>
   <div class="small-12 columns">
     <div class="small-2 columns">
-      <label class="inline">Change all</label>
+      <span class="note">Change all</label>
     </div>
-    <div class="small-3 columns">
-      <select
-        ng-model="plugin.multiChanger.prefix"
-        ng-options="name as value.short for (name, value) in plugin.relationValues.labels"
-        ng-change="plugin.buildLabel(plugin.multiChanger)">
-        <option value=""></option>
-      </select>
-    </div>
-    <div class="small-2 columns">
-      <label>
-      <select
-        ng-model="plugin.multiChanger.suffix"
-        ng-options="name as value.short for (name, value) in plugin.relationValues.suffixes"
-        ng-change="plugin.buildLabel(plugin.multiChanger)">
-        <option value=""></option>
-      </select>
-    </div>
-    <div class="small-1 columns end">
+    <div class="small-10 columns">
+      <div
+        label-selector
+        obj="plugin.multiChanger">
+      </div>
       <button
-        class="tiny radius"
-        ng-disabled="plugin.multiChangerEmpty()"
+        class="tiny radius right"
+        ng-disabled="! plugin.multiChangePossible()"
         ng-click="plugin.applyMultiChanger()">
         Apply
       </button>
@@ -35,23 +22,10 @@
 <div ng-repeat="(id, obj) in plugin.currentLabels()">
   <div class="small-12 columns">
     <p token-with-id value="obj.string" token-id="id"/p>
-    <div class="small-3 columns">
-      <select
-        ng-model="obj.relation.prefix"
-        ng-options="name as value.short for (name, value) in plugin.relationValues.labels"
-        ng-change="plugin.buildLabel(obj.relation)"
-        ng-init="obj.relation.prefix">
-        <option value=""></option>
-      </select>
-    </div>
-    <div class="small-2 columns left">
-      <select
-        ng-model="obj.relation.suffix"
-        ng-options="name as value.short for (name, value) in plugin.relationValues.suffixes"
-        ng-change="plugin.buildLabel(obj.relation)"
-        ng-init="obj.relation.suffix">
-        <option value=""></option>
-      </select>
+    <div
+      label-selector
+      obj="obj.relation">
     </div>
   </div>
 </div>
+
