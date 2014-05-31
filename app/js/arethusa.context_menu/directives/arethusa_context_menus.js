@@ -8,11 +8,16 @@ angular.module('arethusa.contextMenu').directive('arethusaContextMenus', [
         tokens: '=',
         plugins: '='
       },
+      link: function(scope, element, attrs) {
+        scope.fullId = function(token) {
+          return token.sentenceId + token.id;
+        };
+      },
       template: '\
         <arethusa-context-menu\
-          ng-repeat="token in tokens"\
+          ng-repeat="(id, token) in tokens track by fullId(token)"\
           plugins="plugins"\
-          token-id="token.id">\
+          token-obj="token">\
         </arethusa-context-menu>\
       '
     };
