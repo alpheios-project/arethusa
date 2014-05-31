@@ -1,16 +1,17 @@
 'use strict';
 angular.module('arethusa.contextMenu').directive('arethusaContextMenu', [
-  'state',
-  function (state) {
+  function () {
     return {
       restrict: 'AE',
       scope: {
-        tokenId: '=',
+        tokenObj: '=',
         plugins: '='
       },
       link: function (scope, element, attrs) {
-        scope.state = state;
-        scope.token = state.getToken(scope.tokenId);
+        scope.idKey = 'tcm';
+
+        scope.token   = scope.tokenObj;
+
         scope.active = function () {
           return scope.token.status.contextMenuOpen;
         };
