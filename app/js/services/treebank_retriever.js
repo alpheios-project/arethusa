@@ -12,12 +12,13 @@ angular.module('arethusa').factory('TreebankRetriever', [
     function formatId(id) {
       return arethusaUtil.formatNumber(id, 4);
     }
-    function xmlTokenToState(token) {
+    function xmlTokenToState(token, sentenceId) {
       // One could formalize this to real rules that are configurable...
       //
       // Remember that attributes of the converted xml are prefixed with underscore
       return {
         id: formatId(token._id),
+        sentenceId: sentenceId,
         string: token._form,
         morphology: {
           lemma: token._lemma,
@@ -30,7 +31,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
     function xmlSentenceToState(words, id) {
       var tokens = {};
       angular.forEach(words, function (xmlToken, i) {
-        var token = xmlTokenToState(xmlToken);
+        var token = xmlTokenToState(xmlToken, id);
         tokens[token.id] = token;
       });
       return {
