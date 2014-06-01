@@ -27,25 +27,27 @@ angular.module('arethusa.core').service('configurator', [
   '$rootScope',
   'Resource',
   '$timeout',
-  function ($injector, $http, $rootScope, Resource, $timeout) {
+  'Loader',
+  function ($injector, $http, $rootScope, Resource, $timeout, Loader) {
     var self = this;
     var includeParam = 'fileUrl';
-    var filesToInclude = function (obj) {
+
+    var loader = new Loader();
+
+    function filesToInclude(obj) {
       return arethusaUtil.findNestedProperties(obj, includeParam)[includeParam];
-    };
-    var loadStates = {};
-    var checkLoadStatus = function () {
-      var loaded = true;
-      angular.forEach(loadStates, function (loadState, obj) {
-        loaded = loaded && loadState;
-      });
-      if (loaded) {
+    }
+
+    function checkLoadStatus() {
+      if (loader.allLoaded()) {
         broadcastLoading();
       }
-    };
-    var broadcastLoading = function () {
+    }
+
+    function broadcastLoading() {
       $rootScope.$broadcast('confLoaded');
-    };
+    }
+
     // While using a timeout might seem hacky, it's just the write tool for the
     // job.
     // A run of the program looks like this:
@@ -77,14 +79,21 @@ angular.module('arethusa.core').service('configurator', [
     // This is just what we need. Step 2 is already in the execution queue
     // at this time - if we can guarantee that the confLoaded event
     // happens after 2, everything is fine.
-    var delayedBroadcast = function () {
+    function delayedBroadcast() {
       $timeout(function () {
         broadcastLoading();
       });
-    };
-    var includeExternalFiles = function (arrayOfObjects) {
+    }
+
+    function includeExternalFiles(arrayOfObjects) {
+      // If we have multiple files to include on the same level,
+      // we need to declare all unloaded before we start including
+      // files.
+      angular.forEach(arrayOfObjects, function(obj, i) {
+        loader.declareUnloaded(obj);
+      });
+
       angular.forEach(arrayOfObjects, function (obj, i) {
-        loadStates[obj] = false;
         $http.get(obj[includeParam]).then(function (res) {
           // We have to delete fileUrl upfront.
           // When the object gets extended by a response, this response
@@ -104,12 +113,13 @@ angular.module('arethusa.core').service('configurator', [
           // On the end of each callback we check all load states. If everything has
           // loaded successfully, we broadcast an event an let others now that the
           // configurator is finished.
-          loadStates[obj] = true;
+          loader.declareLoaded(obj);
           includeExternalFiles(filesToInclude(obj));
           checkLoadStatus();
         });
       });
-    };
+    }
+
     // Receives an external file and resolves it to a valid configuration file.
     // The second param is optional.
     this.defineConfiguration = function (confFile, location) {
@@ -117,6 +127,7 @@ angular.module('arethusa.core').service('configurator', [
       this.configuration = conf.data;
       this.confFileLocation = conf.location;
     };
+
     this.loadConfFile = function (confFile, location) {
       var conf = {
           location: location,
@@ -131,6 +142,7 @@ angular.module('arethusa.core').service('configurator', [
       }
       return conf;
     };
+
     // Returns an empty configuration files with all sections
     // as empty object properties.
     // Useful for the configuration editor.
@@ -142,6 +154,7 @@ angular.module('arethusa.core').service('configurator', [
         resources: {}
       };
     };
+
     // Merges two configuration objects.
     // There is a clear contract that has to be fulfilled to make this work:
     //
@@ -183,9 +196,11 @@ angular.module('arethusa.core').service('configurator', [
       });
       return a;
     };
+
     this.getService = function (serviceName) {
       return $injector.get(serviceName);
     };
+
     this.getServices = function (serviceNames) {
       if (serviceNames) {
         var that = this;
@@ -197,6 +212,7 @@ angular.module('arethusa.core').service('configurator', [
         return {};
       }
     };
+
     // right now very hacky, not sure about the design of the conf file atm
     // we therefore just tell the service where the conf for specific things
     // is to be found in the JSON tree.
@@ -205,6 +221,7 @@ angular.module('arethusa.core').service('configurator', [
       var conf = this.configuration;
       return conf[plugin] || conf.plugins[plugin] || conf.resources[plugin];
     };
+
     function standardProperties() {
       return [
         'name',
@@ -217,6 +234,7 @@ angular.module('arethusa.core').service('configurator', [
         'noView'
       ];
     }
+
     // Delegates a set of standard properties to the given object to allow
     // a more direct access.
     this.delegateConf = function (obj, otherKeys) {
@@ -225,21 +243,25 @@ angular.module('arethusa.core').service('configurator', [
         obj[property] = obj.conf[property];
       });
     };
+
     this.getConfAndDelegate = function (name, obj, keys) {
       obj.conf = self.configurationFor(name);
       self.delegateConf(obj, keys);
       return obj;
     };
+
     this.getRetrievers = function (retrievers) {
       return arethusaUtil.inject({}, retrievers, function (memo, name, conf) {
         var Retriever = self.getService(name);
         memo[name] = new Retriever(conf);
       });
     };
+
     this.getRetriever = function(retrievers) {
       var retrs = self.getRetrievers(retrievers);
       return retrs[Object.keys(retrs)[0]];
     };
+
     this.provideResource = function (name) {
       var conf = this.configuration.resources[name];
       return new Resource(conf);
