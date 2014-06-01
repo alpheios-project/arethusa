@@ -166,6 +166,26 @@ describe("state", function() {
         expect(state.getToken('02').head.id).toBe('04');
         expect(state.getToken('03').head.id).toBe('04');
       });
+
+
+      /*
+       *     04:cano
+       *        |
+       *     03:-que
+       *        |
+       *    02:virum
+       *        |
+       *     01:Arma
+       */
+      it('ignores node in multiselection if it becomes head', function() {
+        state.selectToken('01', 'click');
+        state.selectToken('02', 'ctrl-click');
+
+        state.selectToken('02', 'click');
+
+        expect(state.getToken('01').head.id).toBe('02');
+        expect(state.getToken('02').head.id).toBe('03');
+      });
     });
   });
 
