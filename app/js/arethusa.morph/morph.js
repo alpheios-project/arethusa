@@ -147,9 +147,11 @@ angular.module('arethusa.morph').service('morph', [
 
     this.loadInitalAnalyses = function () {
       var analyses = self.seedAnalyses(state.tokens);
-      if (! self.noRetrieval) {
+      if (self.noRetrieval !== "all") {
         angular.forEach(analyses, function (val, id) {
-          self.getExternalAnalyses(val);
+          if (self.noRetrieval !== "online") {
+            self.getExternalAnalyses(val);
+          }
           self.getAnalysisFromState(val, id);
           val.analyzed = true;
         });
