@@ -27,22 +27,19 @@ angular.module('arethusa.core').service('configurator', [
   '$rootScope',
   'Resource',
   '$timeout',
-  function ($injector, $http, $rootScope, Resource, $timeout) {
+  'Loader',
+  function ($injector, $http, $rootScope, Resource, $timeout, Loader) {
     var self = this;
     var includeParam = 'fileUrl';
+
+    var loader = new Loader();
 
     function filesToInclude(obj) {
       return arethusaUtil.findNestedProperties(obj, includeParam)[includeParam];
     }
 
-    var loadStates = {};
-
     function checkLoadStatus() {
-      var loaded = true;
-      angular.forEach(loadStates, function (loadState, obj) {
-        loaded = loaded && loadState;
-      });
-      if (loaded) {
+      if (loader.allLoaded()) {
         broadcastLoading();
       }
     }
@@ -89,8 +86,14 @@ angular.module('arethusa.core').service('configurator', [
     }
 
     function includeExternalFiles(arrayOfObjects) {
+      // If we have multiple files to include on the same level,
+      // we need to declare all unloaded before we start including
+      // files.
+      angular.forEach(arrayOfObjects, function(obj, i) {
+        loader.declareUnloaded(obj);
+      });
+
       angular.forEach(arrayOfObjects, function (obj, i) {
-        loadStates[obj] = false;
         $http.get(obj[includeParam]).then(function (res) {
           // We have to delete fileUrl upfront.
           // When the object gets extended by a response, this response
@@ -110,7 +113,7 @@ angular.module('arethusa.core').service('configurator', [
           // On the end of each callback we check all load states. If everything has
           // loaded successfully, we broadcast an event an let others now that the
           // configurator is finished.
-          loadStates[obj] = true;
+          loader.declareLoaded(obj);
           includeExternalFiles(filesToInclude(obj));
           checkLoadStatus();
         });
