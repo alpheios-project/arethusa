@@ -120,5 +120,30 @@ describe("relation", function() {
         expect(relation.multiChangePossible()).toBeTruthy();
       });
     });
+
+    describe('this.applyMultiChanger', function() {
+      it('changes the relation value of all selected tokens', function() {
+        state.selectToken('01', 'ctrl-click');
+        state.selectToken('02', 'ctrl-click');
+        var newRel = { label: "ATR" };
+        relation.multiChanger = newRel;
+        relation.applyMultiChanger();
+
+        expect(state.tokens['01'].relation.label).toEqual("ATR");
+        expect(state.tokens['02'].relation.label).toEqual("ATR");
+      });
+
+      it('passes on unique relation objects', function() {
+        state.selectToken('01', 'ctrl-click');
+        state.selectToken('02', 'ctrl-click');
+        var newRel = { label: "ATR" };
+        relation.multiChanger = newRel;
+        relation.applyMultiChanger();
+
+        var rel1 = state.tokens['01'].relation;
+        var rel2 = state.tokens['02'].relation;
+        expect(rel1).not.toBe(rel2);
+      });
+    });
   });
 });
