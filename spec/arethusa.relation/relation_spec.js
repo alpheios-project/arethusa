@@ -66,4 +66,22 @@ describe("relation", function() {
     state.tokens = createTokens();
     relation = _relation_;
   }));
+
+  describe('label handling', function() {
+    describe('this.buildLabel', function() {
+      describe('build a label from prefix and suffix values', function () {
+        it('combines a prefix and a suffix label to one, joined by an underscore', function() {
+          var relationLabel = { prefix: "PRED", suffix: "CO" };
+          relation.buildLabel(relationLabel);
+          expect(relationLabel.label).toEqual("PRED_CO");
+        });
+      });
+
+      it("doesn't add unnecessary underscores", function() {
+        var relationLabel = { prefix: "ATR" };
+        relation.buildLabel(relationLabel);
+        expect(relationLabel.label).toEqual("ATR");
+      });
+    });
+  });
 });
