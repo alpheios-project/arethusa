@@ -145,5 +145,21 @@ describe("relation", function() {
         expect(rel1).not.toBe(rel2);
       });
     });
+
+    describe('this.selectLabel', function() {
+      it('selects tokens by label', function() {
+        relation.selectByLabel('OBJ_CO');
+        expect(state.isSelected('01')).toBeTruthy();
+        expect(state.isSelected('02')).toBeTruthy();
+        expect(state.isSelected('03')).toBeFalsy();
+        expect(state.isSelected('04')).toBeFalsy();
+
+        relation.selectByLabel('COORD');
+        expect(state.isSelected('01')).toBeFalsy();
+        expect(state.isSelected('02')).toBeFalsy();
+        expect(state.isSelected('03')).toBeTruthy();
+        expect(state.isSelected('04')).toBeFalsy();
+      });
+    });
   });
 });
