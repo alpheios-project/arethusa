@@ -145,7 +145,9 @@ describe("relation", function() {
         expect(rel1).not.toBe(rel2);
       });
     });
+  });
 
+  describe('working with selections', function() {
     describe('this.selectLabel', function() {
       it('selects tokens by label', function() {
         relation.selectByLabel('OBJ_CO');
@@ -161,5 +163,23 @@ describe("relation", function() {
         expect(state.isSelected('04')).toBeFalsy();
       });
     });
+
+    describe('this.currentLabels', function() {
+      it('returns obj of all selected tokens with their id, string and relation obj', function() {
+        state.selectToken('01', 'ctrl-click');
+        state.selectToken('02', 'ctrl-click');
+        var res = relation.currentLabels();
+
+        var rel1 = { string: 'Arma',  relation: state.tokens['01'].relation };
+        var rel2 = { string: 'virum', relation: state.tokens['02'].relation };
+
+        expect(res['01']).toEqual(rel1);
+        expect(res['02']).toEqual(rel2);
+        expect(res['03']).toBeUndefined();
+        expect(res['04']).toBeUndefined();
+      });
+    });
+  });
+
   });
 });
