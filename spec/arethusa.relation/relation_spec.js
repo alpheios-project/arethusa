@@ -181,5 +181,21 @@ describe("relation", function() {
     });
   });
 
+  describe('init functions', function() {
+    describe('this.createInternalState', function() {
+      it('sets an internal state, which is a selection of the tokens string and relation obj', function() {
+        var res = relation.createInternalState();
+        // the
+        var rel1 = { string: 'Arma',  relation: state.tokens['01'].relation };
+        var rel2 = { string: 'virum', relation: state.tokens['02'].relation };
+        var rel3 = { string: '-que',  relation: state.tokens['03'].relation };
+        var rel4 = { string: 'cano',  relation: state.tokens['04'].relation };
+
+        expect(res['01']).toEqual(rel1);
+        expect(res['02']).toEqual(rel2);
+        expect(res['03']).toEqual(rel3);
+        expect(res['04']).toEqual(rel4);
+      });
+    });
   });
 });
