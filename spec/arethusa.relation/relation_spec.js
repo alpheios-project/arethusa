@@ -57,9 +57,7 @@ describe("relation", function() {
     $provide.value('configurator', mockConfigurator);
   }));
 
-  beforeEach(module("arethusa.relation", function($provide) {
-
-  }));
+  beforeEach(module("arethusa.relation"));
 
   var relation;
   beforeEach(inject(function(_relation_, configurator, state) {
