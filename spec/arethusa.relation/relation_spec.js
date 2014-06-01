@@ -60,7 +60,9 @@ describe("relation", function() {
   beforeEach(module("arethusa.relation"));
 
   var relation;
-  beforeEach(inject(function(_relation_, configurator, state) {
+  var state;
+  beforeEach(inject(function(_relation_, configurator, _state_) {
+    state = _state_;
     state.tokens = createTokens();
     relation = _relation_;
     relation.init();
@@ -100,6 +102,22 @@ describe("relation", function() {
           expect(relationLabel.prefix).toEqual("PRED");
           expect(relationLabel.suffix).toBeUndefined();
         });
+      });
+    });
+  });
+
+  describe('multi changes', function() {
+    describe('this.multiChangePossible', function() {
+      it('is false when there is no selected token', function() {
+        expect(relation.multiChangePossible()).toBeFalsy();
+      });
+
+      it('needs a valid multiChanger model', function() {
+        state.selectToken('01', 'click');
+        expect(relation.multiChangePossible()).toBeFalsy();
+
+        relation.multiChanger = { prefix: "ATR" };
+        expect(relation.multiChangePossible()).toBeTruthy();
       });
     });
   });
