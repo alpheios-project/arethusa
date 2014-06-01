@@ -175,6 +175,26 @@ module.exports = function(grunt) {
             sauceKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
             specs: [specE2eFiles],
             baseUrl: 'http://localhost:' + devServerPort,
+            browsers: [{
+              browserName: "firefox",
+              version: "26",
+              platform: "XP"
+            }, {
+              browserName: "chrome",
+              platform: "XP"
+            }, {
+              browserName: "chrome",
+              platform: "linux"
+            }, {
+              browserName: "internet explorer",
+              platform: "WIN8",
+              version: "10"
+            }, {
+              browserName: "internet explorer",
+              platform: "VISTA",
+              version: "9"
+            }
+            ],
             capabilities: {
               /* global process:true */
               'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
