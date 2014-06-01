@@ -63,6 +63,7 @@ describe("relation", function() {
   beforeEach(inject(function(_relation_, configurator, state) {
     state.tokens = createTokens();
     relation = _relation_;
+    relation.init();
   }));
 
   describe('label handling', function() {
