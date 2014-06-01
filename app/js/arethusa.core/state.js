@@ -111,12 +111,16 @@ angular.module('arethusa.core').service('state', [
     this.handleChangeHead = function (newHeadId, type) {
       var preventSelection = false;
       angular.forEach(this.selectedTokens, function (type, index) {
-        if (type === 'click' || type === 'ctrl-click') {
+        if (self.headCanBeChanged(index, newHeadId, type)) {
           self.changeHead(index, newHeadId);
           preventSelection = preventSelection || true;
         }
       });
       return preventSelection;
+    };
+
+    this.headCanBeChanged = function(id, newId, type) {
+      return id !== newId && (type === 'click' || type === 'ctrl-click');
     };
 
     this.headsFor = function (id) {
