@@ -83,5 +83,25 @@ describe("relation", function() {
         expect(relationLabel.label).toEqual("ATR");
       });
     });
+
+    describe('this.expandRelation', function() {
+      describe('with two labels', function () {
+        it('splits a label like PRED_CO into PRED and CO', function() {
+          var relationLabel = { label: "PRED_CO" };
+          relation.expandRelation(relationLabel);
+          expect(relationLabel.prefix).toEqual("PRED");
+          expect(relationLabel.suffix).toEqual("CO");
+        });
+      });
+
+      describe('with one label', function () {
+        it('does not affect single labels like PRED', function() {
+          var relationLabel = { label: "PRED" };
+          relation.expandRelation(relationLabel);
+          expect(relationLabel.prefix).toEqual("PRED");
+          expect(relationLabel.suffix).toBeUndefined();
+        });
+      });
+    });
   });
 });
