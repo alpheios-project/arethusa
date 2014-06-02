@@ -105,4 +105,13 @@ describe('search', function() {
       expect(search.pluginsWithSearch(plugins)).toEqual([ pluginA, pluginC ]);
     });
   });
+
+  describe('this.init', function() {
+    it('initializes the plugin by collecting all token strings and providing a model for input form', function() {
+      search.init();
+      var res = {'Arma': ['01'], 'virum': ['02', '03'], 'cano': ['04']};
+      expect(search.strings).toEqual(res);
+      expect(search.tokenQuery).toEqual('');
+    });
+  });
 });
