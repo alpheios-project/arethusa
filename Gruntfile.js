@@ -175,7 +175,7 @@ module.exports = function(grunt) {
             sauceKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
             specs: [specE2eFiles],
             baseUrl: 'http://localhost:' + devServerPort,
-            browsers: [{
+            multiCapabilities: [{
               browserName: "firefox",
               version: "26",
               platform: "XP"
