@@ -61,7 +61,7 @@ describe("relation", function() {
 
   var relation;
   var state;
-  beforeEach(inject(function(_relation_, configurator, _state_) {
+  beforeEach(inject(function(_relation_, _state_) {
     state = _state_;
     state.tokens = createTokens();
     relation = _relation_;
@@ -185,7 +185,7 @@ describe("relation", function() {
     describe('this.createInternalState', function() {
       it('sets an internal state, which is a selection of the tokens string and relation obj', function() {
         var res = relation.createInternalState();
-        // the
+
         var rel1 = { string: 'Arma',  relation: state.tokens['01'].relation };
         var rel2 = { string: 'virum', relation: state.tokens['02'].relation };
         var rel3 = { string: '-que',  relation: state.tokens['03'].relation };
