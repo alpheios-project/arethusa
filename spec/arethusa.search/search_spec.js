@@ -47,7 +47,16 @@ describe('search', function() {
     it('collects all strings of tokens as keys with their ids as values in an array', function() {
       var res = {'Arma': ['01'], 'virum': ['02', '03']};
       expect(search.collectTokenStrings()).toEqual(res);
+    });
+  });
 
+  describe('this.pluginsWithSearch', function() {
+    it('returns an array of plugins that have a search function', function() {
+      var pluginA = { canSearch: true };
+      var pluginB = { canSearch: false };
+      var pluginC = { canSearch: true };
+      var plugins = { "a": pluginA, "b": pluginB, "c": pluginC };
+      expect(search.pluginsWithSearch(plugins)).toEqual([ pluginA, pluginC ]);
     });
   });
 });
