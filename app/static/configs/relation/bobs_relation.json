@@ -1,0 +1,220 @@
+{
+  "relations" : {
+    "labels" : {
+      "SBJ" : {
+        "short" : "SBJ",
+        "long" : "subject"
+      },
+      "MnVb" : {
+        "short" : "MnVb",
+        "long" : "main verb"
+      },
+      "Poss" : {
+        "short" : "Poss",
+        "long" : "possessive"
+      },
+      "OBJ" : {
+        "short" : "OBJ",
+        "long" : "object",
+        "nested" : {
+          "DirObj" : {
+            "short" : "DirObj",
+            "long" : "direct object"
+          },
+          "InObj" : {
+            "short" : "InObj",
+            "long" : "indirect object"
+          },
+          "OPrep" : {
+            "short" : "OPrep",
+            "long" : "object of preposition",
+            "nested": {
+              "acp" : {
+                "short" : "acp",
+                "long" : "accompaniment"
+              }
+            }
+          }
+        }
+      },
+      "ATR" : {
+        "short" : "ATR",
+        "long" : "attribute"
+      },
+      "Pnom" : {
+        "short" : "Pnom",
+        "long" : "predicate nominal"
+      },
+      "Prep" : {
+        "short" : "Prep",
+        "long" : "preposition"
+      },
+      "ADV" : {
+        "short" : "ADV",
+        "long" : "adverb",
+        "nested" : {
+          "Inst" : {
+            "short" : "Inst",
+            "long" : "instrument"
+          },
+          "Spr" : {
+            "short" : "Spr",
+            "long" : "separation"
+          },
+          "Mnr" : {
+            "short" : "Mnr",
+            "long" : "manner"
+          },
+          "Qty" : {
+            "short" : "Qty",
+            "long" : "quantity"
+          },
+          "Cau" : {
+            "short" : "Cau",
+            "long" : "cause"
+          },
+          "Plc" : {
+            "short" : "Plc",
+            "long" : "place"
+          },
+          "acp" : {
+            "short" : "acp",
+            "long" : "accompaniment"
+          },
+          "Rsp" : {
+            "short" : "Rsp",
+            "long" : "respect"
+          },
+          "Lmt" : {
+            "short" : "Lmt",
+            "long" : "limit"
+          },
+          "Dur" : {
+            "short" : "Dur",
+            "long" : "duration"
+          },
+          "Twh" : {
+            "short" : "Twh",
+            "long" : "time when"
+          },
+          "Twin" : {
+            "short" : "Twin",
+            "long" : "time within"
+          },
+          "Dgr" : {
+            "short" : "Dgr",
+            "long" : "degree of difference"
+          },
+          "Rfr" : {
+            "short" : "Rfr",
+            "long" : "reference"
+          }
+        }
+      },
+      "Agt" : {
+        "short" : "Agt",
+        "long" : "agent"
+      },
+      "APOS" : {
+        "short" : "APOS",
+        "long" : "apposition"
+      },
+      "COORD" : {
+        "short" : "COORD",
+        "long" : "coordinator"
+      },
+      "SbConj" : {
+        "short" : "SbConj",
+        "long" : "subordinated conjunction"
+      },
+      "SntAdv" : {
+        "short" : "SntAdv",
+        "long" : "sentence adverbial"
+      },
+      "AuxV" : {
+        "short" : "AuxV",
+        "long" : "auxiliary verb"
+      },
+      "AuxZ" : {
+        "short" : "AuxZ",
+        "long" : "emphatic adverbial"
+      },
+      "Adr" : {
+        "short" : "Adr",
+        "long" : "adress"
+      },
+      "CL" : {
+        "short" : "CL",
+        "long" : "clause",
+        "nested" : {
+          "Comp" : {
+            "short" : "Comp",
+            "long" : "complement"
+          },
+          "Temp" : {
+            "short" : "Temp",
+            "long" : "temporal"
+          },
+          "Caus" : {
+            "short" : "Caus",
+            "long" : "causal"
+          },
+          "Conces" : {
+            "short" : "Conces",
+            "long" : "concessive"
+          },
+          "Cond" : {
+            "short" : "Cond",
+            "long" : "conditional"
+          },
+          "Rel" : {
+            "short" : "Rel",
+            "long" : "relative"
+          },
+          "Cir" : {
+            "short" : "Cir",
+            "long" : "circumstance"
+          },
+          "Prp" : {
+            "short" : "Prp",
+            "long" : "purpose"
+          },
+          "IndCom" : {
+            "short" : "IndCom",
+            "long" : "indirect command"
+          },
+          "Rslt" : {
+            "short" : "Rslt",
+            "long" : "result"
+          },
+          "Sbt" : {
+            "short" : "Sbt",
+            "long" : "substantive"
+          },
+          "Is" : {
+            "short" : "Is",
+            "long" : "indirect statement"
+          },
+          "IQ" : {
+            "short" : "IQ",
+            "long" : "indirect question"
+          },
+          "Abs" : {
+            "short" : "Abs",
+            "long" : "absolute"
+          }
+        }
+      }
+    },
+    "suffixes" : {
+      "CO" : {
+        "short" : "CO",
+        "long" : "coordinated"
+      },
+      "AP" : {
+        "short" : "AP",
+        "long" : "appositioned"
+      }
+    }
+  }
+}
