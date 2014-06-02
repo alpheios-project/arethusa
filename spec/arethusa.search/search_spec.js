@@ -14,6 +14,10 @@ describe('search', function() {
       '03': {
         id: '03',
         string: 'virum'
+      },
+      '04': {
+        id: '04',
+        string: 'cano'
       }
     };
   };
@@ -63,9 +67,31 @@ describe('search', function() {
     });
   });
 
+  describe('this.queryTokens', function() {
+    describe('returns a multiselection', function() {
+      it('with one search lemma', function() {
+        search.tokenQuery = 'virum';
+        var res = state.multiSelect(['02', '03']);
+        expect(search.queryTokens()).toEqual(res);
+      });
+
+      it('with two search lemmata', function() {
+        search.tokenQuery = 'Arma virum';
+        var res = state.multiSelect(['01', '02', '03']);
+        expect(search.queryTokens()).toEqual(res);
+      });
+
+      it('with a lemma and a regex', function() {
+        search.tokenQuery = 'Arma v.*m';
+        var res = state.multiSelect(['01', '02', '03']);
+        expect(search.queryTokens()).toEqual(res);
+      });
+    });
+  });
+
   describe('this.collectTokenStrings', function() {
     it('collects all strings of tokens as keys with their ids as values in an array', function() {
-      var res = {'Arma': ['01'], 'virum': ['02', '03']};
+      var res = {'Arma': ['01'], 'virum': ['02', '03'], 'cano': ['04']};
       expect(search.collectTokenStrings()).toEqual(res);
     });
   });
