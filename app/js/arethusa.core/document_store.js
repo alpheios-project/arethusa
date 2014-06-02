@@ -6,6 +6,6 @@ angular.module('arethusa.core').service('documentStore', function () {
     this.store = {};
   };
   this.addDocument = function (location, doc) {
-    self.store[location] = { doc: doc };
+    self.store[location] = doc;
   };
 });

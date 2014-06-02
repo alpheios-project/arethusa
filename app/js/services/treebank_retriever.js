@@ -39,9 +39,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
         tokens: tokens
       };
     }
-    function parseXml(data) {
-      var xml = arethusaUtil.xml2json(data);
-      var sentences = arethusaUtil.toAry(xml.treebank.sentence);
+    function parseDocument(json) {
+      var sentences = arethusaUtil.toAry(json.treebank.sentence);
       return arethusaUtil.inject([], sentences, function (memo, sentence, k) {
         memo.push(xmlSentenceToState(sentence.word, sentence._id));
       });
@@ -51,8 +50,9 @@ angular.module('arethusa').factory('TreebankRetriever', [
       this.getData = function (callback) {
         resource.get().then(function (res) {
           var xml = res.data;
-          documentStore.addDocument(res.source, xml);
-          callback(parseXml(xml));
+          var json = arethusaUtil.xml2json(res.data);
+          documentStore.addDocument(res.source, { json: json, xml: xml });
+          callback(parseDocument(json));
         });
       };
     };
