@@ -163,8 +163,9 @@ module.exports = function(grunt) {
         options: {
           args: {
             seleniumAddress: 'http://localhost:4444/wd/hub',
-            capabilities: { 'browserName': 'chrome' },
             specs: [specE2eFiles],
+            multiCapabilities: [{'browserName': 'firefox'}, {'browserName': 'chrome'}],
+            //capabilities: {'browserName': 'firefox'},
             baseUrl: 'http://localhost:' + devServerPort
           }},
       }, // A target needs to be defined, otherwise protractor won't run
