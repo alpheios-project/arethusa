@@ -23,6 +23,7 @@
     "expect" : false,
     "browser" : false,
     "by" : false,
-    "element" : false
+    "element" : false,
+    "process" : false
   }
 }
