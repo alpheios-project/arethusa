@@ -45,12 +45,26 @@ angular.module('arethusa').factory('TreebankRetriever', [
         memo.push(xmlSentenceToState(sentence.word, sentence._id));
       });
     }
+
+    function findAdditionalConfInfo(json) {
+      var linkInfo = json.treebank.link;
+      if (linkInfo) {
+        var links = arethusaUtil.toAry(json.treebank.link);
+        var obj = arethusaUtil.inject({}, links, function(memo, link) {
+          memo[link._title] = link._href;
+        });
+
+        json.conf = obj;
+      }
+    }
+
     return function (conf) {
       var resource = configurator.provideResource(conf.resource);
       this.getData = function (callback) {
         resource.get().then(function (res) {
           var xml = res.data;
           var json = arethusaUtil.xml2json(res.data);
+          findAdditionalConfInfo(json);
           documentStore.addDocument(res.source, { json: json, xml: xml });
           callback(parseDocument(json));
         });
