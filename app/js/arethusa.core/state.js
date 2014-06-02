@@ -3,9 +3,14 @@ angular.module('arethusa.core').service('state', [
   'configurator',
   'navigator',
   '$rootScope',
-  function (configurator, navigator, $rootScope) {
+  'documentStore',
+  function (configurator, navigator, $rootScope, documentStore) {
     var self = this;
     var tokenRetrievers;
+
+    this.documents = function() {
+      return documentStore.store;
+    };
 
     function configure() {
       var conf = configurator.configurationFor('main');
