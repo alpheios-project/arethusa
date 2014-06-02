@@ -43,6 +43,26 @@ describe('search', function() {
     search.init();
   }));
 
+  describe('this.findByRegex', function() {
+    describe('finds tokens by a regex and returns their id in an array', function() {
+      it('with simple regex', function() {
+        var arg = 'um';
+        expect(search.findByRegex(arg)).toEqual(['02', '03']);
+      });
+    });
+
+    describe('with meta characters', function() {
+      it('with .', function() {
+        var arg = 'r.m';
+        expect(search.findByRegex(arg)).toEqual(['02', '03']);
+      });
+
+      it('...', function() {
+        // more tests to follow
+      });
+    });
+  });
+
   describe('this.collectTokenStrings', function() {
     it('collects all strings of tokens as keys with their ids as values in an array', function() {
       var res = {'Arma': ['01'], 'virum': ['02', '03']};
