@@ -107,41 +107,47 @@
         "short" : "APOS",
         "long" : "apposing element"
       },
-      "AuxP" : {
-        "short" : "AuxP",
-        "long" : "preposition"
-      },
-      "AuxC" : {
-        "short" : "AuxC",
-        "long" : "conjunction"
-      },
-      "AuxR" : {
-        "short" : "AuxR",
-        "long" : "reflexive passive"
-      },
-      "AuxV" : {
-        "short" : "AuxV",
-        "long" : "auxiliary verb"
-      },
-      "AuxX" : {
-        "short" : "AuxX",
-        "long" : "comma"
-      },
-      "AuxG" : {
-        "short" : "AuxG",
-        "long" : "bracketing punctuation"
-      },
-      "AuxK" : {
-        "short" : "AuxK",
-        "long" : "terminal punctuation"
-      },
-      "AuxY" : {
-        "short" : "AuxY",
-        "long" : "sentence adverbial"
-      },
-      "AuxZ" : {
-        "short" : "AuxZ",
-        "long" : "emphasizing particle"
+      "Aux" : {
+        "short" : "Aux",
+        "long" : "auxiliary",
+        "nested" : {
+          "AuxP" : {
+            "short" : "AuxP",
+            "long" : "preposition"
+          },
+          "AuxC" : {
+            "short" : "AuxC",
+            "long" : "conjunction"
+          },
+          "AuxR" : {
+            "short" : "AuxR",
+            "long" : "reflexive passive"
+          },
+          "AuxV" : {
+            "short" : "AuxV",
+            "long" : "auxiliary verb"
+          },
+          "AuxX" : {
+            "short" : "AuxX",
+            "long" : "comma"
+          },
+          "AuxG" : {
+            "short" : "AuxG",
+            "long" : "bracketing punctuation"
+          },
+          "AuxK" : {
+            "short" : "AuxK",
+            "long" : "terminal punctuation"
+          },
+          "AuxY" : {
+            "short" : "AuxY",
+            "long" : "sentence adverbial"
+          },
+          "AuxZ" : {
+            "short" : "AuxZ",
+            "long" : "emphasizing particle"
+          }
+        }
       },
       "ExD" : {
         "short" : "ExD",
