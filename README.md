@@ -21,6 +21,10 @@ npm install
 bower install
 ```
 
+## Prerequisites
+
+- Chrome >= 32
+
 ## Usage
 
 To display a rough demo, minify and start a webserver with
