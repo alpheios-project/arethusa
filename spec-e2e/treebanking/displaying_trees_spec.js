@@ -14,6 +14,6 @@ describe('View treebank document', function(){
 
     // word in the tree
     expect(element(treeNode).getInnerHtml()).toMatch("In");
-  }, 30000);
+  });
 });
 
