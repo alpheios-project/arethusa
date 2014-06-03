@@ -10,22 +10,41 @@ exports.config = {
   multiCapabilities: [{
     'browserName': 'chrome',
     'version': '34',
-    'os': 'Linux',
+    'platform': 'Linux',
     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
     'build': process.env.TRAVIS_BUILD_NUMBER,
   }, {
     'browserName': 'chrome',
     'version': '33',
-    'os': 'Linux',
+    'platform': 'Linux',
     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
     'build': process.env.TRAVIS_BUILD_NUMBER,
   }, {
     'browserName': 'chrome',
     'version': '32',
-    'os': 'Linux',
+    'platform': 'Linux',
     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
     'build': process.env.TRAVIS_BUILD_NUMBER,
-  }/*, {
+  }, {
+    'browserName': 'chrome',
+    'version': '34',
+    'platform': 'Windows 7',
+    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+    'build': process.env.TRAVIS_BUILD_NUMBER,
+  }, {
+    'browserName': 'chrome',
+    'version': '33',
+    'platform': 'Windows 7',
+    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+    'build': process.env.TRAVIS_BUILD_NUMBER,
+  }, {
+    'browserName': 'chrome',
+    'version': '32',
+    'platform': 'Windows 7',
+    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+    'build': process.env.TRAVIS_BUILD_NUMBER,
+  }
+  /*, {
     'browserName': 'firefox',
     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
     'build': process.env.TRAVIS_BUILD_NUMBER,
