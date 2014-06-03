@@ -5,7 +5,7 @@ describe('View treebank document', function(){
     browser.get('/app/#/e2e?doc=caesar2&s=21');
   });
 
-  iit('displays the sentence and a tree', function() {
+  it('displays the sentence and a tree', function() {
     var sentenceElement = by.css("p span span");
     var treeNode = by.css("div.node span[token] span");
 
