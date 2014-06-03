@@ -10,6 +10,19 @@ exports.config = {
   multiCapabilities: [{
     'browserName': 'chrome',
     'version': '34',
+    'os': 'Linux',
+    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+    'build': process.env.TRAVIS_BUILD_NUMBER,
+  }, {
+    'browserName': 'chrome',
+    'version': '33',
+    'os': 'Linux',
+    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+    'build': process.env.TRAVIS_BUILD_NUMBER,
+  }, {
+    'browserName': 'chrome',
+    'version': '32',
+    'os': 'Linux',
     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
     'build': process.env.TRAVIS_BUILD_NUMBER,
   }/*, {
