@@ -253,7 +253,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         function transition(selection) {
           return selection.transition().duration(700);
         }
-        //renderer.transition(transition);
+        renderer.transition(transition);
 
         // Prepend Tree settings panel
         scope.settingOn = false;
