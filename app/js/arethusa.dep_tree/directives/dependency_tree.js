@@ -57,8 +57,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return '<div class="node" id="tph' + token.id + '">' + token.string + '</div>';
         }
         function labelPlaceholder(token) {
-          var label = generateLabel(token);
-          label = 'x   ' + label + '   x';
+          //var label = generateLabel(token);
+          var label = 'xxxxxxxxxxx';
           var id = token.id;
           var classes = 'text-center tree-label';
           return '<div id="' + labelId(id) + '" class="' + classes + '">' + label + '</div>';
