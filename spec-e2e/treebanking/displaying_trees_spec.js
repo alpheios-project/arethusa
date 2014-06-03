@@ -8,15 +8,12 @@ describe('View treebank document', function(){
   iit('displays the sentence and a tree', function() {
     var sentenceElement = by.css("p span span");
     var treeNode = by.css("div.node span[token] span");
-    browser.wait(function () { return element(treeNode).isPresent() }, 30000).then(function () {
 
-      // word in the sentence
-      expect(element(sentenceElement).getText()).toMatch("In");
-      browser.waitForAngular();
+    // word in the sentence
+    expect(element(sentenceElement).getText()).toMatch("In");
 
-      // word in the tree
-      expect(element(treeNode).getInnerHtml()).toMatch("In");
-    })
+    // word in the tree
+    expect(element(treeNode).getInnerHtml()).toMatch("In");
   }, 30000);
 });
 
