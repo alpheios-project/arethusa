@@ -11,6 +11,7 @@ describe('View treebank document', function(){
     browser.wait(function() {
       return browser.isElementPresent(treeNode);
     }, 8000);
+    browser.sleep(10000);
     // word in the sentence
     expect(element(sentenceElement).getText()).toEqual("In");
 
