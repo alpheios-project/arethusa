@@ -1,6 +1,6 @@
 'use strict';
 
-var devServerPort = 8084;
+var devServerPort = 8081;
 var specE2eFiles = 'spec-e2e/**/*.js';
 /* global exports */
 exports.config = {
