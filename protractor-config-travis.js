@@ -43,6 +43,12 @@ exports.config = {
     'platform': 'Windows 7',
     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
     'build': process.env.TRAVIS_BUILD_NUMBER,
+  }, {
+    'browserName': 'firefox',
+    'version': '26',
+    'platform': 'Windows 7',
+    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+    'build': process.env.TRAVIS_BUILD_NUMBER,
   }
   /*, {
     'browserName': 'firefox',
