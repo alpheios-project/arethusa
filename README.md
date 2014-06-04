@@ -7,6 +7,8 @@
 ![codeship](https://www.codeship.io/projects/1fbcf7f0-b01d-0131-a029-52deea7632c1/status)
 
 
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/arethusa.svg)](https://saucelabs.com/u/arethusa)
+
 Be sure to check out our [wiki](https://github.com/latin-language-toolkit/llt-annotation_environment/wiki) for conceptual notes.
 
 ## Install
@@ -20,6 +22,10 @@ sudo npm install bower -g
 npm install
 bower install
 ```
+
+## Prerequisites
+
+- Chrome >= 32
 
 ## Usage
 

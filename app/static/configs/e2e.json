@@ -1,0 +1,105 @@
+{
+  "main" : {
+    "template"  : "templates/main_with_sidepanel.html",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "e2e"
+      }
+    },
+    "plugins" : [
+      "text",
+      "search",
+      "morph",
+      "relation",
+      "depTree",
+      "history"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "resources" : {
+    "e2e" : {
+      "route" : "http://services.perseids.org/llt-data/:doc.:s.xml",
+      "params" : [
+        "doc",
+        "s"
+      ]
+    },
+
+    "morphologyService" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    }
+  },
+
+  "plugins" : {
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
+
+    "depTree" : {
+      "name" : "depTree",
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
+      "template" : "templates/dep_tree.html"
+    },
+
+    "search" : {
+      "name" : "search",
+      "template" : "templates/search.html",
+      "regex" : true
+    },
+
+    "morph" : {
+      "name" : "morph",
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
+      "template"  : "templates/morph3.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
+      "matchAll" : true,
+      "noRetrieval" : "online",
+      "fileUrl" : "./static/configs/morph/attributes.json"
+    },
+
+    "relation" : {
+      "name" : "relation",
+      "template" : "templates/relation.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
+      "fileUrl" : "./static/configs/relation/relations.json"
+    },
+
+    "review" : {
+      "name" : "review",
+      "template" : "templates/arethusa.review/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "fakeGold"
+        }
+      }
+    },
+
+    "history" : {
+      "name" : "history",
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "templates/history.html"
+    },
+
+    "comment" : {
+      "name" : "comment",
+      "template" : "templates/comment2.html"
+    }
+  }
+}

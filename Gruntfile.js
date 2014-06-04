@@ -163,8 +163,9 @@ module.exports = function(grunt) {
         options: {
           args: {
             seleniumAddress: 'http://localhost:4444/wd/hub',
-            capabilities: { 'browserName': 'chrome' },
             specs: [specE2eFiles],
+            multiCapabilities: [{'browserName': 'firefox'}, {'browserName': 'chrome'}],
+            //capabilities: {'browserName': 'firefox'},
             baseUrl: 'http://localhost:' + devServerPort
           }},
       }, // A target needs to be defined, otherwise protractor won't run
@@ -175,6 +176,26 @@ module.exports = function(grunt) {
             sauceKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
             specs: [specE2eFiles],
             baseUrl: 'http://localhost:' + devServerPort,
+            multiCapabilities: [{
+              browserName: "firefox",
+              version: "26",
+              platform: "XP"
+            }, {
+              browserName: "chrome",
+              platform: "XP"
+            }, {
+              browserName: "chrome",
+              platform: "linux"
+            }, {
+              browserName: "internet explorer",
+              platform: "WIN8",
+              version: "10"
+            }, {
+              browserName: "internet explorer",
+              platform: "VISTA",
+              version: "9"
+            }
+            ],
             capabilities: {
               /* global process:true */
               'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
