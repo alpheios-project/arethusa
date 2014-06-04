@@ -383,7 +383,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           }
         });
       },
-      template: '<g/>'
+      template: '<svg class="full-height full-width"><g/></svg>'
     };
   }
 ]);

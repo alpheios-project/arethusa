@@ -5,7 +5,7 @@ var htmlFiles = 'app/**/*.html';
 var cssFiles = 'app/**/*.css';
 var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
-var devServerPort = 8084;
+var devServerPort = 8081;
 var reloadPort = 35279;
 
 function getReloadPort() {
