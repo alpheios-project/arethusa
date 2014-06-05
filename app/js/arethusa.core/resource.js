@@ -32,7 +32,7 @@ angular.module('arethusa.core').factory('Resource', [
       this.route = conf.route;
       this.params = conf.params || [];
       this.auth = conf.auth || [];
-      // if the authorization config for this resource has a 
+      // if the authorization config for this resource has a
       // ping method configured, use it to initialize the cookies
       if (self.auth.ping) {
         var ping = $resource(self.auth.ping, null, { });
