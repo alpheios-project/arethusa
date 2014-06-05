@@ -12,6 +12,9 @@ angular.module('arethusa.core').controller('MainCtrl', [
     $scope.toggleDebugMode = function () {
       $scope.debug = !$scope.debug;
     };
+    $scope.save = function() {
+      console.log('save');
+    };
 
     var conf = configurator.configurationFor('main');
 
