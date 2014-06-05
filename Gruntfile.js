@@ -127,6 +127,7 @@ module.exports = function(grunt) {
             'app/js/other/history_obj.js',
             'app/js/*.js',
             'app/js/arethusa*/**/*.js',
+            'app/js/services/**/*.js',
             specFiles
           ],
           frameworks: ['jasmine'],
