@@ -15,9 +15,11 @@ angular.module('arethusa.core').controller('MainCtrl', [
     $scope.save = function() {
       // This is NOT the right place for this code, retrievers are handled
       // in the state, but that also is not good - we'll change this later.
-      console.log($scope.persisters);
-
-      console.log('save');
+      angular.forEach($scope.persisters, function(persister, name) {
+        persister.saveData(function(data) {
+          arethusaLogger.log('Success');
+        });
+      });
     };
 
     var conf = configurator.configurationFor('main');
