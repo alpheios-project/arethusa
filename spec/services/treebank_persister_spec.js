@@ -24,12 +24,12 @@ describe('treebank persister', function() {
       "2": {
         "tokens": {
           "0001": {
-            relation: {
+            head: {
               id: 2
             }
           },
           "0002": {
-            relation: {
+            head: {
               id: 0
             }
           }
@@ -84,5 +84,9 @@ describe('treebank persister', function() {
     expect(persister).toBeDefined();
 
     persister.saveData(function() {});
+
+    var updatedJson = documentStore.store['some-treebank'];
+    expect(updatedJson).toBeDefined();
+    expect(updatedJson.json.treebank.sentence.word[0]._head).toBe("2");
   }));
 });
