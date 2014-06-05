@@ -28,12 +28,10 @@ angular.module('arethusa').factory('TreebankPersister', [
         var stored = arethusaUtil.toAry(doc.json.treebank.sentence);
         // navigator has to provide means to retrieve sentences by id
         // and not only through a flat array!
-        var sentences = navigator.sentences;
-        console.log(sentences);
+        var sentences = navigator.sentencesById;
 
         angular.forEach(stored, function(sentence, i) {
-          console.log(sentence._id);
-          var updated = sentences[sentence._id - 1];
+          var updated = sentences[sentence._id];
           angular.forEach(sentence.word, function(word, i) {
             var stateWord = updated.tokens[arethusaUtil.formatNumber(word._id, 4)];
             updateWord(word, stateWord);
