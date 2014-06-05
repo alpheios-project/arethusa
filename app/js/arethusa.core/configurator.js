@@ -267,9 +267,7 @@ angular.module('arethusa.core').service('configurator', [
 
     this.provideResource = function (name) {
       var conf = this.configuration.resources[name];
-      var resource = new Resource(conf);
-      resource.auth = self.getAuth(conf.auth);
-      return resource;
+      return new Resource(conf, self.getAuth(conf.auth));
     };
 
     this.getAuth = function(name) {
