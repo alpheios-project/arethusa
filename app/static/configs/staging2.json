@@ -6,6 +6,11 @@
         "resource" : "fakePerseids"
       }
     },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "fakePerseids"
+      }
+    },
     "plugins" : [
       "text",
       "search",
