@@ -4,6 +4,7 @@ angular.module('arethusa.core').service('navigator', [
   function ($injector) {
     var self = this;
     this.sentences = [];
+    this.sentencesById = {};
     this.currentPosition = 0;
     this.status = {};
 
@@ -12,6 +13,13 @@ angular.module('arethusa.core').service('navigator', [
         self.lazyState = $injector.get('state');
       }
       return self.lazyState;
+    };
+
+    this.addSentences = function(sentences) {
+      arethusaUtil.pushAll(self.sentences, sentences);
+      angular.forEach(sentences, function(sentence, i) {
+        self.sentencesById[sentence.id] = sentence;
+      });
     };
 
     var currentId = function () {
@@ -116,6 +124,7 @@ angular.module('arethusa.core').service('navigator', [
     this.reset = function () {
       self.currentPosition = 0;
       self.sentences = [];
+      self.sentenceById = {};
       self.listMode = false;
       self.hasList  = false;
       self.updateId();
