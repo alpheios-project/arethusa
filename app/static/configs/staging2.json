@@ -3,12 +3,14 @@
     "template"  : "templates/main_with_sidepanel.html",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "fakePerseids"
+        "resource" : "fakePerseids",
+        "docIdentifier" : "treebank"
       }
     },
     "persisters" : {
       "TreebankPersister" : {
-        "resource" : "fakePerseids"
+        "resource" : "fakePerseids",
+        "docIdentifier" : "treebank"
       }
     },
     "plugins" : [

@@ -65,7 +65,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
           var xml = res.data;
           var json = arethusaUtil.xml2json(res.data);
           findAdditionalConfInfo(json);
-          documentStore.addDocument(res.source, { json: json, xml: xml });
+          documentStore.addDocument(conf.docIdentifier, { json: json, xml: xml });
           callback(parseDocument(json));
         });
       };

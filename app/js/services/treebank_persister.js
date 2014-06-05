@@ -11,7 +11,7 @@ angular.module('arethusa').factory('TreebankPersister', [
       var resource = configurator.provideResource(conf.resource);
 
       function updateXml() {
-        var doc = documentStore.store.tbd; // placeholder
+        var doc = documentStore.store[conf.docIdentifier];
         doc.xml = arethusaUtil.json2xml(doc.json);
       }
 
@@ -24,7 +24,7 @@ angular.module('arethusa').factory('TreebankPersister', [
       }
 
       function updateDocument() {
-        var doc = documentStore.store.tbd; // placeholder
+        var doc = documentStore.store[conf.docIdentifier];
         var stored = arethusaUtil.toAry(doc.json.treebank.sentence);
         // navigator has to provide means to retrieve sentences by id
         // and not only through a flat array!
