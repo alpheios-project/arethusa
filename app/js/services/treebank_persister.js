@@ -16,11 +16,11 @@ angular.module('arethusa').factory('TreebankPersister', [
       }
 
       function updateWord(word, stateWord) {
-            word._head = arethusaUtil.formatNumber(stateWord.head.id, 0);
-            word._relation = stateWord.relation.label;
-            word._lemma = stateWord.morphology.lemma;
-            word._postag = stateWord.morphology.postag;
-            word._form = stateWord.string;
+        word._head = arethusaUtil.formatNumber(stateWord.head.id, 0);
+        word._relation = stateWord.relation.label;
+        word._lemma = stateWord.morphology.lemma;
+        word._postag = stateWord.morphology.postag;
+        word._form = stateWord.string;
       }
 
       function updateDocument() {
