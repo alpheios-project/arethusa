@@ -256,6 +256,9 @@ angular.module('arethusa.core').service('configurator', [
         memo[name] = new Retriever(conf);
       });
     };
+    // We alias this for now as the function has to do the same -
+    // we might need a new name for it but we'll fix that later
+    this.getPersisters = this.getRetrievers;
 
     this.getRetriever = function(retrievers) {
       var retrs = self.getRetrievers(retrievers);
