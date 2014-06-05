@@ -48,7 +48,7 @@ angular.module('arethusa').factory('TreebankPersister', [
       this.saveData = function(callback) {
         updateDocument();
         updateXml();
-
+        resource.save(documentStore.store[conf.docIdentifier].xml,'text/xml');
         callback();
       };
     };

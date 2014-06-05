@@ -12,7 +12,8 @@
 angular.module('arethusa.core').factory('Resource', [
   '$resource',
   '$location',
-  function ($resource, $location) {
+  '$cookies',
+  function ($resource, $location,$cookies) {
     function paramsToObj(params) {
       return arethusaUtil.inject({}, params, function (obj, param, i) {
         obj[param] = $location.search()[param];
@@ -27,11 +28,11 @@ angular.module('arethusa.core').factory('Resource', [
       return angular.extend(paramsToObj(a), b) || {};
     }
 
-    return function (conf) {
+    return function (conf,auth) {
       var self = this;
       this.route = conf.route;
       this.params = conf.params || [];
-      this.auth = conf.auth || [];
+      this.auth = auth || {};
       // if the authorization config for this resource has a
       // ping method configured, use it to initialize the cookies
       if (self.auth.ping) {
@@ -52,6 +53,18 @@ angular.module('arethusa.core').factory('Resource', [
             // we need to define and http interceptor
             return res;
           }
+        },
+        save: {
+          // TODO we need save and partial save -- latter will use PATCH
+          method: 'POST',
+          transformRequest: function(data,headers) {
+            // TODO this should really be handled by an auth object 
+            if (self.auth.type == 'CSRF') {
+                headers()[self.auth.header] = $cookies[self.auth.cookie];
+                headers()["Content-Type"] = self.mimetype;
+            }
+            return data;
+          }
         }
       });
 
@@ -59,6 +72,13 @@ angular.module('arethusa.core').factory('Resource', [
         var params = collectedParams(self.params, otherParams);
         return self.resource.get(params).$promise;
       };
+
+      this.save = function (data,mimetype) {
+        var params = collectedParams(self.params,{});
+        self.mimetype = mimetype;
+        return self.resource.save(params,data).$promise;
+      };
+
     };
   }
 ]);
