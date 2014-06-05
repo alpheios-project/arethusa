@@ -269,5 +269,9 @@ angular.module('arethusa.core').service('configurator', [
       var conf = this.configuration.resources[name];
       return new Resource(conf);
     };
+
+    this.getAuth = function(name) {
+      return self.configuration.auths[name];
+    };
   }
 ]);
