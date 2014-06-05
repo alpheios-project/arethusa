@@ -6,6 +6,11 @@
         "resource" : "staticFiles"
       }
     },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "staticFiles"
+      }
+    },
     "plugins" : [
       "text",
       "search",
