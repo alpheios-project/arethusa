@@ -1,5 +1,34 @@
 {
   "labels" : {
+    "ADJ" : {
+      "short" : "ADJ",
+      "long" : "adjective",
+      "dependency" : {
+        "pos" : "adj"
+      },
+      "nested" : {
+        "SBV" : {
+          "short" : "SBV",
+          "long" : "substantive"
+        },
+        "PRON" : {
+          "short" : "PRON",
+          "long" : "pronominal"
+        },
+        "NORM" : {
+          "short" : "NORM",
+          "long" : "normal"
+        },
+        "VRB" : {
+          "short" : "VRB",
+          "long" : "verbal"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
     "GEN" : {
       "short" : "GEN",
       "long" : "genitive",
