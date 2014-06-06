@@ -83,7 +83,8 @@
 
     "sg" : {
       "name" : "SG",
-      "template" : "templates/sg.html"
+      "template" : "templates/sg.html",
+      "fileUrl" : "./static/configs/sg/sg_labels.json"
     },
 
     "relation" : {
