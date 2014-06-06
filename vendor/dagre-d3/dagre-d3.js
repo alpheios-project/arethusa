@@ -2989,6 +2989,7 @@ exports.propertyAccessor = function(self, config, field, setHook) {
  */
 exports.ordering = function(g) {
   var ordering = [];
+  var invertOrder = false;
   g.eachNode(function(u, value) {
     var rank = ordering[value.rank] || (ordering[value.rank] = []);
     rank[value.order] = u;
@@ -2999,11 +3000,15 @@ exports.ordering = function(g) {
   });
 
   roots = roots.sort();
+  if (invertOrder) {
+    roots = roots.reverse();
+  }
   function addRankNode(nodeId, rank) {
     ordering[rank].push(nodeId);
     var predecessors = g.predecessors(nodeId);
     var sortedPredecessors = predecessors.sort(function(a, b) {
-      return g.predecessors(a)[0].localeCompare(g.predecessors(b)[0]);
+      var result = g.predecessors(a)[0].localeCompare(g.predecessors(b)[0]);
+      return invertOrder ? -result : result;
     });
     sortedPredecessors.forEach(function(n) {
       ordering[rank - 1].push(n);
