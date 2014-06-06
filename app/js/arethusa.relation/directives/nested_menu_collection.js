@@ -10,7 +10,8 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
       property: '=',
       ancestors: '=',
       emptyVal: '@',
-      change: '&'
+      labelAs: "=",
+      change: "&"
     },
     link: function(scope, element, attrs) {
       scope.emptyLabel = "";
@@ -20,6 +21,14 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
           scope.change();
         }
       });
+
+      scope.labelView = function(labelObj) {
+        if (scope.labelAs) {
+          return labelObj[scope.labelAs];
+        } else {
+          return labelObj.short;
+        }
+      };
     },
     template: '\
       <ul>\
@@ -37,10 +46,11 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
           property="property"\
           rel-obj="current"\
           ancestors="ancestors"\
-          label="label"\
+          label="labelView(labelObj)"\
+          label-as="labelAs"\
           label-obj="labelObj">\
         </li>\
       </ul>\
     '
   };
-});
+})

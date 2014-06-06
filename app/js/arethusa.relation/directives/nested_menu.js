@@ -10,6 +10,7 @@ angular.module('arethusa.relation').directive('nestedMenu', [
         relObj: '=',
         labelObj: '=',
         label: '=',
+        labelAs: '=',
         property: '=',
         ancestors: '='
       },
@@ -20,6 +21,7 @@ angular.module('arethusa.relation').directive('nestedMenu', [
             current="relObj"\
             property="property"\
             ancestors="ancestors"\
+            label-as="labelAs"\
             all="labelObj.nested">\
           </ul>\
         ';
