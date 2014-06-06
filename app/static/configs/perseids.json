@@ -28,7 +28,9 @@
     "perseidsAuth" : {
       "type": "CSRF",
       "cookie": "csrftoken",
-      "header": "X-CSRF-Token"
+      "header": "X-CSRF-Token",
+      "ping" : "http://sosol.perseids.org/sosol/dmm_api/ping"
+
     }
   },
 
