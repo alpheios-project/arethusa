@@ -244,7 +244,8 @@ module.exports = function(grunt) {
       depTree: { files: pluginFiles('arethusa.dep_tree') },
       hist: { files: pluginFiles('arethusa.hist') },
       relation: { files: pluginFiles('arethusa.relation') },
-      exercise: { files: pluginFiles('arethusa.exercise') }
+      exercise: { files: pluginFiles('arethusa.exercise') },
+      dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} }
     }
   });
 
