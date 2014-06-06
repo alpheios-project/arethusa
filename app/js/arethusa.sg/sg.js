@@ -5,6 +5,9 @@ angular.module('arethusa.sg').service('sg', [
   'configurator',
   function(state, configurator) {
     var self = this;
+    var noob = {};
+    this.labelAs = "long";
+    this.defineAncestors = true;
 
     function configure() {
       configurator.getConfAndDelegate('sg', self, ['labels']);
@@ -41,9 +44,9 @@ angular.module('arethusa.sg').service('sg', [
       var casus = obj.morph.case;
 
       if (pos === "noun" && casus === "gen") {
-        return self.labels.GEN;
+        return self.labels.GEN.nested;
       } else {
-        return {};
+        return noob;
       }
     };
 
