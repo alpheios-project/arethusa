@@ -1,4 +1,5 @@
-
-{{ plugin.name }}
-
-{{ plugin.template }}
+<div class="small-12 columns">
+  <div ng-repeat="(id, grammar) in plugin.currentGrammar()">
+    <p token-with-id value="grammar.string" token-id="id"/>
+  </div>
+</div>
