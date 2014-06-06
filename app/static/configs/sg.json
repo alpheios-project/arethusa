@@ -83,8 +83,7 @@
 
     "sg" : {
       "name" : "SG",
-      "template" : "templates/sg.html",
-      "labels" : "./static/configs/arethusa.sg/sg_labels.json"
+      "template" : "templates/sg.html"
     },
 
     "relation" : {
