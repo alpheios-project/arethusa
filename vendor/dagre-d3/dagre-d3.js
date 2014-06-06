@@ -2993,6 +2993,34 @@ exports.ordering = function(g) {
     var rank = ordering[value.rank] || (ordering[value.rank] = []);
     rank[value.order] = u;
   });
+  var roots = g.sinks()
+  ordering.forEach(function(rank, i) {
+    ordering[i] = [];
+  });
+
+  roots = roots.sort();
+  function addRankNode(nodeId, rank) {
+    ordering[rank].push(nodeId);
+    var predecessors = g.predecessors(nodeId);
+    var sortedPredecessors = predecessors.sort(function(a, b) {
+      return g.predecessors(a)[0].localeCompare(g.predecessors(b)[0]);
+    });
+    sortedPredecessors.forEach(function(n) {
+      ordering[rank - 1].push(n);
+      addRankNode(g.predecessors(n)[0], rank - 2);
+    });
+  }
+
+  roots.forEach(function(n) {
+    addRankNode(n, ordering.length - 1);
+  })
+  /*
+  ordering.forEach(function(rank, i) {
+    console.log(i);
+    console.log(rank);
+  });
+ */
+
   return ordering;
 };
 
