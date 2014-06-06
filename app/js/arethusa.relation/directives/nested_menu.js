@@ -38,16 +38,27 @@ angular.module('arethusa.relation').directive('nestedMenu', [
           relation.buildLabel(scope.relObj);
         };
 
+        scope.addAncestor = function(obj, ancestor) {
+          obj.ancestors.unshift(ancestor);
+        };
+
+        scope.resetAncestors = function(obj) {
+          var ancestors = obj.ancestors;
+          while (ancestors.length > 0) {
+            ancestors.pop();
+          }
+        };
+
         element.bind('click', function(event) {
           scope.$apply(function() {
             if (event.eventPhase === 2) { // at target, three would be bubbling!
               scope.selectLabel();
               if (scope.ancestors) {
-                relation.resetAncestors(scope.relObj);
+                scope.resetAncestors(scope.relObj);
               }
             }
             if (scope.ancestors) {
-              relation.addAncestor(scope.relObj, scope.label);
+              scope.addAncestor(scope.relObj, scope.labelObj);
             }
           });
         });
