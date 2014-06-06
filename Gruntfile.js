@@ -247,6 +247,7 @@ module.exports = function(grunt) {
       hist: { files: pluginFiles('arethusa.hist') },
       relation: { files: pluginFiles('arethusa.relation') },
       exercise: { files: pluginFiles('arethusa.exercise') },
+      sg: { files: pluginFiles('arethusa.sg') },
       dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} }
     }
   });
@@ -269,7 +270,8 @@ module.exports = function(grunt) {
     'uglify:depTree',
     'uglify:hist',
     'uglify:relation',
-    'uglify:exercise'
+    'uglify:exercise',
+    'uglify:sg'
   ]);
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
