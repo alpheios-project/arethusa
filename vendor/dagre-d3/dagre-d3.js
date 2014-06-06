@@ -2989,7 +2989,7 @@ exports.propertyAccessor = function(self, config, field, setHook) {
  */
 exports.ordering = function(g) {
   var ordering = [];
-  var invertOrder = false;
+  var invertOrder = true;
   g.eachNode(function(u, value) {
     var rank = ordering[value.rank] || (ordering[value.rank] = []);
     rank[value.order] = u;
