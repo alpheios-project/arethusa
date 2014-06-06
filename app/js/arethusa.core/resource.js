@@ -12,8 +12,7 @@
 angular.module('arethusa.core').factory('Resource', [
   '$resource',
   '$location',
-  '$cookies',
-  function ($resource, $location,$cookies) {
+  function ($resource, $location) {
     function paramsToObj(params) {
       return arethusaUtil.inject({}, params, function (obj, param, i) {
         obj[param] = $location.search()[param];
@@ -32,16 +31,8 @@ angular.module('arethusa.core').factory('Resource', [
       var self = this;
       this.route = conf.route;
       this.params = conf.params || [];
-      this.auth = auth || {};
-      // if the authorization config for this resource has a
-      // ping method configured, use it to initialize the cookies
-      if (self.auth.ping) {
-        var ping = $resource(self.auth.ping, null, { });
-        // TODO should really have some error handling here
-        // because if the ping fails the subsequent get and post
-        // requests on the resource will
-        ping.get();
-      }
+      this.auth = auth;
+      auth.preflight();
       this.resource = $resource(self.route, null, {
         get: {
           method: 'GET',
@@ -58,11 +49,10 @@ angular.module('arethusa.core').factory('Resource', [
           // TODO we need save and partial save -- latter will use PATCH
           method: 'POST',
           transformRequest: function(data,headers) {
-            // TODO this should really be handled by an auth object 
-            if (self.auth.type == 'CSRF') {
-                headers()[self.auth.header] = $cookies[self.auth.cookie];
+            if (self.mimetype) {
                 headers()["Content-Type"] = self.mimetype;
             }
+            self.auth.transformRequest(headers);
             return data;
           }
         }

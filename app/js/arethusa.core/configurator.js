@@ -26,9 +26,10 @@ angular.module('arethusa.core').service('configurator', [
   '$http',
   '$rootScope',
   'Resource',
+  'Auth',
   '$timeout',
   'Loader',
-  function ($injector, $http, $rootScope, Resource, $timeout, Loader) {
+  function ($injector, $http, $rootScope, Resource, Auth, $timeout, Loader) {
     var self = this;
     var includeParam = 'fileUrl';
 
@@ -267,11 +268,11 @@ angular.module('arethusa.core').service('configurator', [
 
     this.provideResource = function (name) {
       var conf = this.configuration.resources[name];
-      return new Resource(conf, self.getAuth(conf.auth));
+      return new Resource(conf, self.provideAuth(conf.auth));
     };
 
-    this.getAuth = function(name) {
-      return self.configuration.auths[name];
+    this.provideAuth = function(name) {
+      return new Auth(this.configuration.auths[name] || {});
     };
   }
 ]);
