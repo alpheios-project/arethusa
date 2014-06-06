@@ -46,7 +46,11 @@ angular.module('arethusa.sg').service('sg', [
       if (pos === "noun" && casus === "gen") {
         return self.labels.GEN.nested;
       } else {
-        return noob;
+        if (pos === "adj") {
+          return self.labels.ADJ.nested;
+        } else {
+          return noob;
+        }
       }
     };
 
