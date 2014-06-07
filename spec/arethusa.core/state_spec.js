@@ -206,6 +206,28 @@ describe("state", function() {
     });
   });
 
+  describe('this.setStyle', function() {
+    it('sets the style of a token, identified by id', function() {
+      var t1 = state.getToken('01');
+      var style = { color: 'red' };
+
+      expect(t1.style).toBeUndefined();
+      state.setStyle('01', style);
+      expect(t1.style).toBe(style);
+    });
+  });
+
+  describe('this.unsetStyle', function() {
+    it('deletes the style of a token, identified by id', function() {
+      var t1 = state.getToken('01');
+      var style = { color: 'red' };
+      t1.style =  style;
+
+      state.unsetStyle('01');
+      expect(t1.style).toBeUndefined();
+    });
+  });
+
   /* Default tree:
    *     04:cano
    *        |
