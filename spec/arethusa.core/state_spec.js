@@ -120,6 +120,18 @@ describe("state", function() {
     });
   });
 
+  describe('this.deselectAll', function() {
+    it('deselects all selected tokens, no matter the selection type', function() {
+      state.selectToken('01', 'ctrl-click');
+      state.selectToken('03', 'ctrl-click');
+      expect(state.isSelected('01')).toBeTruthy();
+      expect(state.isSelected('03')).toBeTruthy();
+      state.deselectAll();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('03')).toBeFalsy();
+    });
+  });
+
   /* Default tree:
    *     04:cano
    *        |
