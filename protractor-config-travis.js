@@ -19,17 +19,17 @@ exports.config = {
   specs: [specE2eFiles],
   multiCapabilities: [
     createCapabality('chrome', '30', 'Linux'),
-    createCapabality('chrome', '31', 'Linux'),
-    createCapabality('chrome', '32', 'Linux'),
     createCapabality('chrome', '33', 'Linux'),
     createCapabality('chrome', '34', 'Linux'),
+    createCapabality('chrome', '35', 'Linux'),
     createCapabality('chrome', '30', 'Windows 7'),
-    createCapabality('chrome', '31', 'Windows 7'),
-    createCapabality('chrome', '32', 'Windows 7'),
     createCapabality('chrome', '33', 'Windows 7'),
     createCapabality('chrome', '34', 'Windows 7'),
+    createCapabality('chrome', '35', 'Windows 7'),
     createCapabality('firefox', '25', 'Windows 7'),
-    createCapabality('firefox', '26', 'Windows 7')
+    createCapabality('firefox', '26', 'Windows 7'),
+    createCapabality('firefox', '29', 'Windows 7'),
+    createCapabality('firefox', '28', 'OS X 10.9')
     // createCapabality('safari', '7', 'OS X 10.9'),
     // createCapabality('internet explorer', '11', 'Windows 8.1')
   ],
