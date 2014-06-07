@@ -264,6 +264,19 @@ describe("state", function() {
     });
   });
 
+  describe('this.registerListener', function() {
+    it('registers a listener, distinguished as external or internal', function() {
+      var extList = { external: true };
+      var intList = {};
+
+      state.registerListener(extList);
+      state.registerListener(intList);
+
+      expect(state.listeners).toContain(intList);
+      expect(state.externalListeners).toContain(extList);
+    });
+  });
+
   /* Default tree:
    *     04:cano
    *        |
