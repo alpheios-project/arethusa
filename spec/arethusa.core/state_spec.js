@@ -69,6 +69,13 @@ describe("state", function() {
     });
   });
 
+  describe('this.getToken', function() {
+    it('returns a token by id', function() {
+      var res = state.tokens['01'];
+      expect(state.getToken('01')).toBe(res);
+    });
+  });
+
   describe('selection', function() {
     it('selects the clicked token', function() {
       state.selectToken('03', 'click');
