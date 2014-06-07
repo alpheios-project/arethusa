@@ -76,6 +76,12 @@ describe("state", function() {
     });
   });
 
+  describe('this.asString', function() {
+    it('returns the string of a token identified by id', function() {
+      expect(state.asString('01')).toEqual('Arma');
+    });
+  });
+
   describe('selection', function() {
     it('selects the clicked token', function() {
       state.selectToken('03', 'click');
