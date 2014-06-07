@@ -57,7 +57,7 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
-    var declareLoaded = function (retriever, that) {
+    var declareLoaded = function (retriever) {
       retriever.loaded = true;
       self.checkLoadStatus();
     };
