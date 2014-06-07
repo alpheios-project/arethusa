@@ -382,7 +382,7 @@ function defaultPostRender(graph, root) {
           .attr('viewBox', '0 0 10 10')
           .attr('refX', 8)
           .attr('refY', 5)
-          .attr('markerUnits', 'strokewidth')
+          .attr('markerUnits', 'strokeWidth')
           .attr('markerWidth', 8)
           .attr('markerHeight', 5)
           .attr('orient', 'auto')
@@ -2989,10 +2989,43 @@ exports.propertyAccessor = function(self, config, field, setHook) {
  */
 exports.ordering = function(g) {
   var ordering = [];
+  var invertOrder = false;
   g.eachNode(function(u, value) {
     var rank = ordering[value.rank] || (ordering[value.rank] = []);
     rank[value.order] = u;
   });
+  var roots = g.sinks()
+  ordering.forEach(function(rank, i) {
+    ordering[i] = [];
+  });
+
+  roots = roots.sort();
+  if (invertOrder) {
+    roots = roots.reverse();
+  }
+  function addRankNode(nodeId, rank) {
+    ordering[rank].push(nodeId);
+    var predecessors = g.predecessors(nodeId);
+    var sortedPredecessors = predecessors.sort(function(a, b) {
+      var result = g.predecessors(a)[0].localeCompare(g.predecessors(b)[0]);
+      return invertOrder ? -result : result;
+    });
+    sortedPredecessors.forEach(function(n) {
+      ordering[rank - 1].push(n);
+      addRankNode(g.predecessors(n)[0], rank - 2);
+    });
+  }
+
+  roots.forEach(function(n) {
+    addRankNode(n, ordering.length - 1);
+  })
+  /*
+  ordering.forEach(function(rank, i) {
+    console.log(i);
+    console.log(rank);
+  });
+ */
+
   return ordering;
 };
 
