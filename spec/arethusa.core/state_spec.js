@@ -191,6 +191,21 @@ describe("state", function() {
     });
   });
 
+  describe('this.replaceState', function() {
+    it('takes a new tokens object and replaces it on the state object', function() {
+      var newTokens = {};
+      expect(state.tokens).not.toEqual(newTokens);
+      state.replaceState(newTokens);
+      expect(state.tokens).toBe(newTokens);
+    });
+
+    it('deselects everything in the process', function() {
+      state.selectToken('01');
+      state.replaceState({});
+      expect(state.hasSelections()).toBeFalsy();
+    });
+  });
+
   /* Default tree:
    *     04:cano
    *        |
