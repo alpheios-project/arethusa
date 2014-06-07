@@ -1,4 +1,4 @@
-# llt-annotation_environment
+# Arethusa: Annotation Environment
 
 [![Dependencies](http://allthebadges.io/latin-language-toolkit/llt-annotation_environment/gemnasium.png)](http://allthebadges.io/latin-language-toolkit/llt-annotation_environment/gemnasium)
 [![Build Status](http://allthebadges.io/latin-language-toolkit/llt-annotation_environment/travis.png)](http://allthebadges.io/latin-language-toolkit/llt-annotation_environment/travis)
