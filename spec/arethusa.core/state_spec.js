@@ -277,6 +277,39 @@ describe("state", function() {
     });
   });
 
+  describe('this.notifyListeners', function() {
+    it('notifies all listeners', function() {
+      var event = 'event';
+      var tester = [];
+      var listener = {
+        catchEvent: function(event) {
+          tester.push(event);
+        }
+      };
+
+      state.registerListener(listener);
+      state.notifyListeners(event);
+
+      expect(tester).toEqual(['event']);
+    });
+
+    it('external listeners need to implement catchArethusaEvent()', function() {
+      var event = 'event';
+      var tester = [];
+      var extListener = {
+        external: true,
+        catchArethusaEvent: function(event) {
+          tester.push(event);
+        }
+      };
+
+      state.registerListener(extListener);
+      state.notifyListeners(event);
+
+      expect(tester).toEqual(['event']);
+    });
+  });
+
   /* Default tree:
    *     04:cano
    *        |
