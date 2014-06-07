@@ -132,6 +132,22 @@ describe("state", function() {
     });
   });
 
+  describe('this.toggleSelection', function() {
+    it('toggles the selection of a token', function() {
+      state.toggleSelection('01', 'click');
+      expect(state.isSelected('01')).toBeTruthy();
+      state.toggleSelection('01', 'click');
+      expect(state.isSelected('01')).toBeFalsy();
+    });
+
+    it('takes hover and click differences into account', function() {
+      state.toggleSelection('01', 'hover');
+      expect(state.isSelected('01')).toBeTruthy();
+      state.toggleSelection('01', 'click');
+      expect(state.isSelected('01')).toBeTruthy();
+    });
+  });
+
   /* Default tree:
    *     04:cano
    *        |
