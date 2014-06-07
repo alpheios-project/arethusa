@@ -228,6 +228,21 @@ describe("state", function() {
     });
   });
 
+  describe('this.addStatusObjects', function() {
+    it('adds a status container to all tokens', function() {
+      var t1 = state.getToken('01');
+      var t4 = state.getToken('04');
+
+      expect(t1.status).toBeUndefined();
+      expect(t4.status).toBeUndefined();
+
+      state.addStatusObjects();
+
+      expect(t1.status).toEqual({});
+      expect(t4.status).toEqual({});
+    });
+  });
+
   /* Default tree:
    *     04:cano
    *        |
