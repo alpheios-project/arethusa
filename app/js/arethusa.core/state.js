@@ -57,7 +57,7 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
-    var declareLoaded = function (retriever, that) {
+    var declareLoaded = function (retriever) {
       retriever.loaded = true;
       self.checkLoadStatus();
     };
@@ -74,16 +74,6 @@ angular.module('arethusa.core').service('state', [
     // Selections
     this.selectedTokens = {};
     // ids will be inserted here
-
-    this.hasManyClickedTokens = function () {
-      var count = 0;
-      angular.forEach(self.selectedTokens, function (type, id) {
-        if (type === 'click') {
-          count++;
-        }
-      });
-      return count > 1;
-    };
 
     this.hasSelections = function() {
       return Object.keys(self.selectedTokens).length !== 0;

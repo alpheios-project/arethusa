@@ -181,6 +181,30 @@ describe("relation", function() {
     });
   });
 
+  describe('this.resetAncestors', function() {
+    it('takes a rel object and clears out its ancestors', function() {
+      var relObj = { ancestors: ['1', '2', '3'] };
+      relation.resetAncestors(relObj);
+      expect(relObj.ancestors).toEqual([]);
+    });
+  });
+
+  describe('this.buildLabelAndSearch', function() {
+    it('builds a label on an obj and searches for it afterwards', function() {
+      var relObj = { prefix: 'OBJ', suffix: 'CO' };
+      relation.buildLabelAndSearch(relObj);
+      expect(state.isSelected('01')).toBeTruthy();
+      expect(state.isSelected('02')).toBeTruthy();
+    });
+
+    it('when no obj is given, the searchedLabel model is used instead', function() {
+      relation.searchedLabel = { prefix: 'OBJ', suffix: 'CO' };
+      relation.buildLabelAndSearch();
+      expect(state.isSelected('01')).toBeTruthy();
+      expect(state.isSelected('02')).toBeTruthy();
+    });
+  });
+
   describe('init functions', function() {
     describe('this.createInternalState', function() {
       it('sets an internal state, which is a selection of the tokens string and relation obj', function() {
