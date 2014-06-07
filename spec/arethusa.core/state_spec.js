@@ -177,6 +177,20 @@ describe("state", function() {
     });
   });
 
+  describe('this.selectPrevToken', function() {
+    it('works just as selectNextToken, only the other way around', function() {
+      state.selectToken('01');
+      state.selectPrevToken();
+      expect(state.isSelected('04')).toBeTruthy();
+      state.selectPrevToken();
+      expect(state.isSelected('03')).toBeTruthy();
+
+      state.deselectAll();
+      state.selectPrevToken();
+      expect(state.isSelected('04')).toBeTruthy();
+    });
+  });
+
   /* Default tree:
    *     04:cano
    *        |
