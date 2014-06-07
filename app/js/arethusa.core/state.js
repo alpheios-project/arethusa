@@ -75,16 +75,6 @@ angular.module('arethusa.core').service('state', [
     this.selectedTokens = {};
     // ids will be inserted here
 
-    this.hasManyClickedTokens = function () {
-      var count = 0;
-      angular.forEach(self.selectedTokens, function (type, id) {
-        if (type === 'click') {
-          count++;
-        }
-      });
-      return count > 1;
-    };
-
     this.hasSelections = function() {
       return Object.keys(self.selectedTokens).length !== 0;
     };
