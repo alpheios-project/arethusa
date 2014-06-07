@@ -82,7 +82,7 @@ describe("state", function() {
     });
   });
 
-  describe('selection', function() {
+  describe('this.selectToken()', function() {
     it('selects the clicked token', function() {
       state.selectToken('03', 'click');
 
@@ -101,6 +101,22 @@ describe("state", function() {
       state.selectToken('03', 'ctrl-click');
 
       expect(state.selectedTokens).toEqual({'01': 'ctrl-click', '03': 'ctrl-click'});
+    });
+  });
+
+  describe('this.deselectToken', function() {
+    it('deselects a token', function() {
+      state.selectToken('01', 'click');
+      expect(state.isSelected('01')).toBeTruthy();
+      state.deselectToken('01', 'click');
+      expect(state.isSelected('01')).toBeFalsy();
+    });
+
+    it('selection type has to be the same to do a proper deselect', function() {
+      state.selectToken('01', 'click');
+      expect(state.isSelected('01')).toBeTruthy();
+      state.deselectToken('01', 'hover');
+      expect(state.isSelected('01')).toBeTruthy();
     });
   });
 
