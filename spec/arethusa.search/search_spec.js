@@ -61,6 +61,11 @@ describe('search', function() {
         expect(search.findByRegex(arg)).toEqual(['02', '03']);
       });
 
+      it('with *', function() {
+        var arg = 'v.*m';
+        expect(search.findByRegex(arg)).toEqual(['02', '03']);
+      });
+
       it('...', function() {
         // more tests to follow
       });
@@ -71,20 +76,30 @@ describe('search', function() {
     describe('returns a multiselection', function() {
       it('with one search lemma', function() {
         search.tokenQuery = 'virum';
-        var res = state.multiSelect(['02', '03']);
-        expect(search.queryTokens()).toEqual(res);
+        search.queryTokens();
+        expect(state.isSelected('02')).toBeTruthy();
+        expect(state.isSelected('03')).toBeTruthy();
+        expect(state.isSelected('01')).toBeFalsy();
+        expect(state.isSelected('04')).toBeFalsy();
       });
 
       it('with two search lemmata', function() {
         search.tokenQuery = 'Arma virum';
-        var res = state.multiSelect(['01', '02', '03']);
-        expect(search.queryTokens()).toEqual(res);
+        search.queryTokens();
+        expect(state.isSelected('01')).toBeTruthy();
+        expect(state.isSelected('02')).toBeTruthy();
+        expect(state.isSelected('03')).toBeTruthy();
+        expect(state.isSelected('04')).toBeFalsy();
       });
 
       it('with a lemma and a regex', function() {
+        search.queryByRegex = true;
         search.tokenQuery = 'Arma v.*m';
-        var res = state.multiSelect(['01', '02', '03']);
-        expect(search.queryTokens()).toEqual(res);
+        search.queryTokens();
+        expect(state.isSelected('01')).toBeTruthy();
+        expect(state.isSelected('02')).toBeTruthy();
+        expect(state.isSelected('03')).toBeTruthy();
+        expect(state.isSelected('04')).toBeFalsy();
       });
     });
   });
