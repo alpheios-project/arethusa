@@ -148,6 +148,35 @@ describe("state", function() {
     });
   });
 
+  describe('this.selectNextToken', function() {
+    it('watches the first active selection and selects the next token', function() {
+      state.selectToken('01', 'click');
+      state.selectNextToken();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('02')).toBeTruthy();
+    });
+
+    it('always takes the first - even if there is more than one selection', function() {
+      state.selectToken('01', 'ctrl-click');
+      state.selectToken('03', 'ctrl-click');
+      state.selectNextToken();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('03')).toBeFalsy();
+      expect(state.isSelected('02')).toBeTruthy();
+    });
+
+    it('selects the first token if no selection was made before', function() {
+      state.selectNextToken();
+      expect(state.isSelected('01')).toBeTruthy();
+    });
+
+    it('starts at the top when current selection is the last token', function() {
+      state.selectToken('04');
+      state.selectNextToken();
+      expect(state.isSelected('01')).toBeTruthy();
+    });
+  });
+
   /* Default tree:
    *     04:cano
    *        |
