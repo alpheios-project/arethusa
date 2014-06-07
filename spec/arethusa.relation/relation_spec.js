@@ -181,6 +181,14 @@ describe("relation", function() {
     });
   });
 
+  describe('this.resetAncestors', function() {
+    it('takes a rel object and clears out its ancestors', function() {
+      var relObj = { ancestors: ['1', '2', '3'] };
+      relation.resetAncestors(relObj);
+      expect(relObj.ancestors).toEqual([]);
+    });
+  });
+
   describe('init functions', function() {
     describe('this.createInternalState', function() {
       it('sets an internal state, which is a selection of the tokens string and relation obj', function() {
