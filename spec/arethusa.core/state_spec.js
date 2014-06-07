@@ -228,6 +228,27 @@ describe("state", function() {
     });
   });
 
+  describe('this.setState', function() {
+    it('adds a given obj to the given category of a token, identified by id', function() {
+      var morph = { postag: '-------' };
+      var t1 = state.getToken('01');
+
+      expect(t1.morphology).toBeUndefined();
+      state.setState('01', 'morphology', morph);
+      expect(t1.morphology).toBe(morph);
+    });
+  });
+
+  describe('this.unsetState', function() {
+    it('deletes the given property of a token, identified by id', function() {
+      var t1 = state.getToken('01');
+
+      expect(t1.head).toBeDefined();
+      state.unsetState('01', 'head');
+      expect(t1.head).toBeUndefined();
+    });
+  });
+
   describe('this.addStatusObjects', function() {
     it('adds a status container to all tokens', function() {
       var t1 = state.getToken('01');
