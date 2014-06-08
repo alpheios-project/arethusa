@@ -12,10 +12,7 @@ describe('treebank persister', function() {
     },
     provideResource: function(name) {
       return {
-        'obj' : {
-          'save' : function() {
-          }
-        }
+        'save' : function() {}
       };
     }
   };
@@ -74,7 +71,7 @@ describe('treebank persister', function() {
     });
   }));
 
-  it('description', inject(function(TreebankPersister) {
+  it('save data', inject(function(TreebankPersister) {
     var conf = {
       'resource' : 'test-resource',
       'docIdentifier' : 'some-treebank'
