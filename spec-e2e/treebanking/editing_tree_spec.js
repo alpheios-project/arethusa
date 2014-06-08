@@ -47,8 +47,10 @@ describe('Dependency tree', function(){
       browser.executeScript(execute, eratNode.element);
       browser.executeScript(execute, inNode.element);
 
-      searchForNodes().then(function () {
-        expect(inNode.location.y).toBeLessThan(eratNode.location.y);
+      browser.sleep(1000, function() {
+        searchForNodes().then(function () {
+          expect(inNode.location.y).toBeLessThan(eratNode.location.y);
+        });
       });
     });
   });
