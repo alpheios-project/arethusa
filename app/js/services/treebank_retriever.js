@@ -54,7 +54,9 @@ angular.module('arethusa').factory('TreebankRetriever', [
           memo[link._title] = link._href;
         });
 
-        json.conf = obj;
+        return obj;
+      } else {
+        return {};
       }
     }
 
@@ -64,8 +66,12 @@ angular.module('arethusa').factory('TreebankRetriever', [
         resource.get().then(function (res) {
           var xml = res.data;
           var json = arethusaUtil.xml2json(res.data);
-          findAdditionalConfInfo(json);
-          documentStore.addDocument(conf.docIdentifier, { json: json, xml: xml });
+          var moreConf = findAdditionalConfInfo(json);
+          documentStore.addDocument(conf.docIdentifier, {
+            json: json,
+            xml: xml,
+            conf: moreConf
+          });
           callback(parseDocument(json));
         });
       };
