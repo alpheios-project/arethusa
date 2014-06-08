@@ -48,16 +48,10 @@ angular.module('arethusa').factory('TreebankRetriever', [
 
     function findAdditionalConfInfo(json) {
       var linkInfo = json.treebank.link;
-      if (linkInfo) {
-        var links = arethusaUtil.toAry(json.treebank.link);
-        var obj = arethusaUtil.inject({}, links, function(memo, link) {
-          memo[link._title] = link._href;
-        });
-
-        return obj;
-      } else {
-        return {};
-      }
+      var links =  linkInfo ? arethusaUtil.toAry(linkInfo) : [];
+      return arethusaUtil.inject({}, links, function(memo, link) {
+        memo[link._title] = link._href;
+      });
     }
 
     return function (conf) {
