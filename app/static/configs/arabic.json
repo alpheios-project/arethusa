@@ -25,7 +25,7 @@
 
   "resources" : {
     "fakePerseids" : {
-      "route" : "http://localhost/arabic/:doc",
+      "route" : "http://74.70.97.104:8085/xml_server/:doc",
       "params" : [
         "doc",
         "s"
