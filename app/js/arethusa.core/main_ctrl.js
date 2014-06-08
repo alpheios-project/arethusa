@@ -12,6 +12,15 @@ angular.module('arethusa.core').controller('MainCtrl', [
     $scope.toggleDebugMode = function () {
       $scope.debug = !$scope.debug;
     };
+    $scope.save = function() {
+      // This is NOT the right place for this code, retrievers are handled
+      // in the state, but that also is not good - we'll change this later.
+      angular.forEach($scope.persisters, function(persister, name) {
+        persister.saveData(function(data) {
+          arethusaLogger.log('Success');
+        });
+      });
+    };
 
     var conf = configurator.configurationFor('main');
 
@@ -162,6 +171,9 @@ angular.module('arethusa.core').controller('MainCtrl', [
     };
 
     $scope.init = function () {
+      // cf. the comment for $scope.save(), this is just a temporary solution
+      $scope.persisters = configurator.getPersisters(conf.persisters);
+
       $scope.plugins = $scope.retrievePlugins(conf.plugins);
       partitionPlugins($scope.plugins);
       $scope.initPlugins();

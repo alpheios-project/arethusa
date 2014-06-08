@@ -26,9 +26,10 @@ angular.module('arethusa.core').service('configurator', [
   '$http',
   '$rootScope',
   'Resource',
+  'Auth',
   '$timeout',
   'Loader',
-  function ($injector, $http, $rootScope, Resource, $timeout, Loader) {
+  function ($injector, $http, $rootScope, Resource, Auth, $timeout, Loader) {
     var self = this;
     var includeParam = 'fileUrl';
 
@@ -256,6 +257,9 @@ angular.module('arethusa.core').service('configurator', [
         memo[name] = new Retriever(conf);
       });
     };
+    // We alias this for now as the function has to do the same -
+    // we might need a new name for it but we'll fix that later
+    this.getPersisters = this.getRetrievers;
 
     this.getRetriever = function(retrievers) {
       var retrs = self.getRetrievers(retrievers);
@@ -264,7 +268,15 @@ angular.module('arethusa.core').service('configurator', [
 
     this.provideResource = function (name) {
       var conf = this.configuration.resources[name];
-      return new Resource(conf);
+      return new Resource(conf, self.provideAuth(conf.auth));
+    };
+
+    function auths() {
+      return self.configuration.auths || {};
+    }
+
+    this.provideAuth = function(name) {
+      return new Auth(auths()[name] || {});
     };
   }
 ]);

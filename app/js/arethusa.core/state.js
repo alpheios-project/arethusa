@@ -3,9 +3,14 @@ angular.module('arethusa.core').service('state', [
   'configurator',
   'navigator',
   '$rootScope',
-  function (configurator, navigator, $rootScope) {
+  'documentStore',
+  function (configurator, navigator, $rootScope, documentStore) {
     var self = this;
     var tokenRetrievers;
+
+    this.documents = function() {
+      return documentStore.store;
+    };
 
     function configure() {
       var conf = configurator.configurationFor('main');
@@ -37,7 +42,7 @@ angular.module('arethusa.core').service('state', [
       navigator.reset();
       angular.forEach(tokenRetrievers, function (retriever, name) {
         retriever.getData(function (data) {
-          arethusaUtil.pushAll(navigator.sentences, data);
+          navigator.addSentences(data);
           navigator.updateId();
           saveTokens(container, navigator.currentSentence());
           //saveTokens(container, data[0].tokens);

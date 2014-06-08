@@ -27,20 +27,12 @@ angular.module('arethusa.core').factory('Resource', [
       return angular.extend(paramsToObj(a), b) || {};
     }
 
-    return function (conf) {
+    return function (conf,auth) {
       var self = this;
       this.route = conf.route;
       this.params = conf.params || [];
-      this.auth = conf.auth || [];
-      // if the authorization config for this resource has a 
-      // ping method configured, use it to initialize the cookies
-      if (self.auth.ping) {
-        var ping = $resource(self.auth.ping, null, { });
-        // TODO should really have some error handling here
-        // because if the ping fails the subsequent get and post
-        // requests on the resource will
-        ping.get();
-      }
+      this.auth = auth;
+      auth.preflight();
       this.resource = $resource(self.route, null, {
         get: {
           method: 'GET',
@@ -52,6 +44,17 @@ angular.module('arethusa.core').factory('Resource', [
             // we need to define and http interceptor
             return res;
           }
+        },
+        save: {
+          // TODO we need save and partial save -- latter will use PATCH
+          method: 'POST',
+          transformRequest: function(data,headers) {
+            if (self.mimetype) {
+                headers()["Content-Type"] = self.mimetype;
+            }
+            self.auth.transformRequest(headers);
+            return data;
+          }
         }
       });
 
@@ -59,6 +62,13 @@ angular.module('arethusa.core').factory('Resource', [
         var params = collectedParams(self.params, otherParams);
         return self.resource.get(params).$promise;
       };
+
+      this.save = function (data,mimetype) {
+        var params = collectedParams(self.params,{});
+        self.mimetype = mimetype;
+        return self.resource.save(params,data).$promise;
+      };
+
     };
   }
 ]);

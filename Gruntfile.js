@@ -116,6 +116,7 @@ module.exports = function(grunt) {
             './bower_components/angular-mocks/angular-mocks.js',
             './bower_components/angular-route/angular-route.js',
             './bower_components/angular-resource/angular-resource.js',
+            './bower_components/angular-cookies/angular-cookies.js',
             './bower_components/x2js/xml2json.min.js',
             './bower_components/jquery/dist/jquery.min.js',
             './bower_components/d3/d3.min.js',
@@ -127,6 +128,7 @@ module.exports = function(grunt) {
             'app/js/other/history_obj.js',
             'app/js/*.js',
             'app/js/arethusa*/**/*.js',
+            'app/js/services/**/*.js',
             specFiles
           ],
           frameworks: ['jasmine'],

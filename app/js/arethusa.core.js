@@ -1,1 +1,1 @@
-angular.module('arethusa.core', ['ngResource']);
+angular.module('arethusa.core', ['ngResource','ngCookies']);

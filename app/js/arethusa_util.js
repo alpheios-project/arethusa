@@ -84,9 +84,15 @@ var arethusaUtil = {
     isTerminatingPunctuation: function (str) {
       return str.match(/[\.;]/);
     },
+
     /* global X2JS */
     xmlParser: new X2JS(),
+
     xml2json: function (xml) {
       return arethusaUtil.xmlParser.xml_str2json(xml);
+    },
+
+    json2xml: function(json) {
+      return arethusaUtil.xmlParser.json2xml_str(json);
     }
   };

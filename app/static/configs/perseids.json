@@ -3,7 +3,14 @@
     "template"  : "templates/main_with_sidepanel.html",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "perseidsGetter"
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
       }
     },
     "plugins" : [
@@ -17,6 +24,16 @@
     ]
   },
 
+  "auths": {
+    "perseidsAuth" : {
+      "type": "CSRF",
+      "cookie": "csrftoken",
+      "header": "X-CSRF-Token",
+      "ping" : "http://sosol.perseids.org/sosol/dmm_api/ping"
+
+    }
+  },
+
   "navbar" : {
     "template" : "templates/navbar1.html",
     "search" : true,
@@ -24,11 +41,12 @@
   },
 
   "resources" : {
-    "perseidsGetter" : {
+    "perseidsResource" : {
       "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
       "params" : [
         "doc"
-      ]
+      ],
+      "auth": "perseidsAuth"
     },
 
     "fakeGold" : {
