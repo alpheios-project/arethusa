@@ -11,7 +11,7 @@ angular.module('arethusa').factory('TreebankPersister', [
       var resource = configurator.provideResource(conf.resource);
 
       function updateXml() {
-        doc().xml = arethusaUtil.json2xml(doc.json);
+        doc().xml = arethusaUtil.json2xml(doc().json);
       }
 
       function updateWord(word, stateWord) {

@@ -48,14 +48,10 @@ angular.module('arethusa').factory('TreebankRetriever', [
 
     function findAdditionalConfInfo(json) {
       var linkInfo = json.treebank.link;
-      if (linkInfo) {
-        var links = arethusaUtil.toAry(json.treebank.link);
-        var obj = arethusaUtil.inject({}, links, function(memo, link) {
-          memo[link._title] = link._href;
-        });
-
-        json.conf = obj;
-      }
+      var links =  linkInfo ? arethusaUtil.toAry(linkInfo) : [];
+      return arethusaUtil.inject({}, links, function(memo, link) {
+        memo[link._title] = link._href;
+      });
     }
 
     return function (conf) {
@@ -64,8 +60,12 @@ angular.module('arethusa').factory('TreebankRetriever', [
         resource.get().then(function (res) {
           var xml = res.data;
           var json = arethusaUtil.xml2json(res.data);
-          findAdditionalConfInfo(json);
-          documentStore.addDocument(conf.docIdentifier, { json: json, xml: xml });
+          var moreConf = findAdditionalConfInfo(json);
+          documentStore.addDocument(conf.docIdentifier, {
+            json: json,
+            xml: xml,
+            conf: moreConf
+          });
           callback(parseDocument(json));
         });
       };
