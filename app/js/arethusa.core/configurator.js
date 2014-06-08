@@ -271,8 +271,12 @@ angular.module('arethusa.core').service('configurator', [
       return new Resource(conf, self.provideAuth(conf.auth));
     };
 
+    function auths() {
+      return self.configuration.auths || {};
+    }
+
     this.provideAuth = function(name) {
-      return new Auth(this.configuration.auths[name] || {});
+      return new Auth(auths()[name] || {});
     };
   }
 ]);
