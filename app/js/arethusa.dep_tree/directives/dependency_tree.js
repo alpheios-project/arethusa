@@ -247,7 +247,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         svg.call(d3.behavior.zoom().on('zoom', function () {
           var ev = d3.event;
           svg.select('g').attr('transform', 'translate(' + ev.translate + ') scale(' + ev.scale + ')');
-        }));
+        }).scaleExtent([0.3, 2.5]));
         var renderer = new dagreD3.Renderer();
 
         function transition(selection) {
