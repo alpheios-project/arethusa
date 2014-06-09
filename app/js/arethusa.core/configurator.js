@@ -220,7 +220,7 @@ angular.module('arethusa.core').service('configurator', [
     // I guess the key is to abstract the conf file a little more.
     this.configurationFor = function (plugin) {
       var conf = this.configuration;
-      return conf[plugin] || conf.plugins[plugin] || conf.resources[plugin];
+      return conf[plugin] || conf.plugins[plugin] || conf.resources[plugin] || {};
     };
 
     function standardProperties() {
