@@ -55,8 +55,8 @@
           <div><a ng-click="goToLast()">&#8677;</a></div>
         </li>
       </ul>
-      <ul ng-show="showNotifier()" class="right" ng-controller="NotifierCtrl">
-        <!--tbd-->
+      <ul ng-show="showNotifier()">
+        <span current-message/>
       </ul>
       <ul class="has-form button-group right">
         <li><a ng-click="save()" class="button">Save</a></li>
