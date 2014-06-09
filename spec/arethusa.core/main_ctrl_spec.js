@@ -9,8 +9,11 @@ describe('MainCtrl', function() {
       init: function() {},
       allLoaded: false
     };
-    var ctrl = $controller('MainCtrl', {$scope:scope, state:mystate, configurator: {
-      configurationFor : function(name) {
+    var notifier = {
+      init: function() {}
+    };
+    var ctrl = $controller('MainCtrl', {$scope:scope, state:mystate, notifier:notifier, configurator: {
+      configurationFor: function(name) {
         return { plugins: {}, template: "template"};
       }
     }});
