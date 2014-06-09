@@ -5,7 +5,7 @@ angular.module('arethusa.core').service('notifier', function () {
   this.success = function (message) {
     self.messages.unshift({
       type: 'success',
-      messsage: message
+      message: message
     });
   };
   this.error = function (message) {
