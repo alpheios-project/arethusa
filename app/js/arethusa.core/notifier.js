@@ -2,6 +2,13 @@
 angular.module('arethusa.core').service('notifier', function () {
   var self = this;
   this.messages = [];
+
+  function Message(type, message, description) {
+    this.type = type;
+    this.message = message;
+    this.description = description;
+  }
+
   this.success = function (message) {
     self.messages.unshift({
       type: 'success',
