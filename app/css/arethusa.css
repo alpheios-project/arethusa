@@ -285,5 +285,7 @@ button[disabled],
 }
 
 .error-message {
+  color: rgb(255, 115, 115);
+  font-weight: bold;
 }
 
