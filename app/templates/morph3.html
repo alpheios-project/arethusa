@@ -4,15 +4,15 @@
 </div>
 
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
-  <div class="left">
-  <p token-with-id value="analysis.string" token-id="id" lang="ar" dir="rtl"/>
+  <div class="left" lang-specific>
+  <p token-with-id value="analysis.string" token-id="id"/>
   </div>
   <accordion close-others="oneAtATime">
     <accordion-group ng-repeat="form in analysis.forms" >
       <accordion-heading>
          <div class="row">
            <div class="columns small-5 left">
-             <span ng-style="plugin.styleOf(form)" lang="ar" dir="rtl">{{ form.lemma }}
+             <span ng-style="plugin.styleOf(form)" lang-specific>{{ form.lemma }}
              <br>
              </span> {{ plugin.concatenatedAttributes(form) }}
            </div>
