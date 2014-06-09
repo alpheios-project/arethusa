@@ -5,7 +5,8 @@ angular.module('arethusa.core').controller('MainCtrl', [
   'configurator',
   'state',
   'documentStore',
-  function ($scope, $injector, configurator, state, documentStore) {
+  'notifier',
+  function ($scope, $injector, configurator, state, documentStore, notifier) {
     documentStore.reset();
     $scope.aU = arethusaUtil;
     $scope.debug = false;
@@ -17,7 +18,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
       // in the state, but that also is not good - we'll change this later.
       angular.forEach($scope.persisters, function(persister, name) {
         persister.saveData(function(data) {
-          arethusaLogger.log('Success');
+          notifier.success('Document saved!');
         });
       });
     };
