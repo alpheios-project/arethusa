@@ -947,7 +947,7 @@ module.exports = function() {
     // Use network simplex algorithm in ranking
     rankSimplex: false,
     // Rank direction. Valid values are (TB, LR)
-    rankDir: 'TB'
+    rankDir: 'TB',
   };
 
   // Phase functions
@@ -966,6 +966,7 @@ module.exports = function() {
   self.rankSep = delegateProperty(position.rankSep);
   self.rankDir = util.propertyAccessor(self, config, 'rankDir');
   self.debugAlignment = delegateProperty(position.debugAlignment);
+  self.invertOrder = delegateProperty(position.invertOrder);
 
   self.debugLevel = util.propertyAccessor(self, config, 'debugLevel', function(x) {
     util.log.level = x;
@@ -1638,7 +1639,9 @@ module.exports = function() {
     nodeSep: 50,
     edgeSep: 10,
     universalSep: null,
-    rankSep: 30
+    rankSep: 30,
+    // Ordering of the nodes on the same rank. Valid values are (true for sort by id, false for inverse sort by id)
+    invertOrder: false
   };
 
   var self = {};
@@ -1651,6 +1654,7 @@ module.exports = function() {
   self.universalSep = util.propertyAccessor(self, config, 'universalSep');
   self.rankSep = util.propertyAccessor(self, config, 'rankSep');
   self.debugLevel = util.propertyAccessor(self, config, 'debugLevel');
+  self.invertOrder = util.propertyAccessor(self, config, 'invertOrder');
 
   self.run = run;
 
@@ -1659,7 +1663,7 @@ module.exports = function() {
   function run(g) {
     g = g.filterNodes(util.filterNonSubgraphs(g));
 
-    var layering = util.ordering(g);
+    var layering = util.ordering(g, self.invertOrder());
 
     var conflicts = findConflicts(g, layering);
 
@@ -2987,9 +2991,10 @@ exports.propertyAccessor = function(self, config, field, setHook) {
  * of the ids of the nodes in that rank in the order specified by the `order`
  * attribute.
  */
-exports.ordering = function(g) {
+exports.ordering = function(g, invertOrder) {
   var ordering = [];
-  var invertOrder = true;
+  // var invertOrder = config.invertOrder;
+  console.log(invertOrder);
   g.eachNode(function(u, value) {
     var rank = ordering[value.rank] || (ordering[value.rank] = []);
     rank[value.order] = u;
