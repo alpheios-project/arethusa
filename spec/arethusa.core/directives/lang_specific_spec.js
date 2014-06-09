@@ -1,33 +1,59 @@
 "use strict";
 
 describe('lang-specific directive', function() {
-  var $scope;
   var element;
-  var documentStore = {
-    store: {
-      treebank: {
-        json: {
-          treebank: {}
+  var documentStore;
+  function createDocumentStore() {
+    return {
+      store: {
+        treebank: {
+          json: {
+            treebank: {}
+          }
         }
       }
-    }
-  };
+    };
+  }
 
   beforeEach(module('arethusa.core'));
-  beforeEach(module(function($provide) {
-    documentStore.store.treebank.json.treebank["_xml:lang"] = "ara";
-    $provide.value('documentStore', documentStore);
-  }));
 
-  beforeEach(inject(function ($compile, $rootScope) {
-    $scope = $rootScope.$new();
-    element = angular.element("<span lang-specific />");
-    $compile(element)($scope);
-  }));
+  var createElement = function() {
+    inject(function ($compile, $rootScope) {
+      var $scope = $rootScope.$new();
+      element = angular.element("<span lang-specific />");
+      $compile(element)($scope);
+    });
+  };
 
-  it('Sets the language for foundation', function() {
-    var scope = element.isolateScope();
-    expect(scope.lang).toEqual('ara');
+  describe('Arabic', function() {
+    beforeEach(module(function($provide) {
+      documentStore = createDocumentStore();
+      documentStore.store.treebank.json.treebank["_xml:lang"] = "ara";
+      $provide.value('documentStore', documentStore);
+    }));
+
+    beforeEach(function() {
+      createElement();
+    });
+
+    it('sets the language on the html element', function() {
+      expect(element.attr('lang')).toEqual('ar');
+    });
+  });
+
+  describe('unspecified language', function() {
+    beforeEach(module(function($provide) {
+      documentStore = createDocumentStore();
+      $provide.value('documentStore', documentStore);
+    }));
+
+    beforeEach(function() {
+      createElement();
+    });
+
+    it('does not set any language on the html element', function() {
+      expect(element.attr('lang')).toBeUndefined();
+    });
   });
 });
 
