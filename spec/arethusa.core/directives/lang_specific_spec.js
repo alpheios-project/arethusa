@@ -39,6 +39,10 @@ describe('lang-specific directive', function() {
     it('sets the language on the html element', function() {
       expect(element.attr('lang')).toEqual('ar');
     });
+
+    it('sets the text direction on the html element', function() {
+      expect(element.attr('dir')).toEqual('rtl');
+    });
   });
 
   describe('unspecified language', function() {
@@ -53,6 +57,10 @@ describe('lang-specific directive', function() {
 
     it('does not set any language on the html element', function() {
       expect(element.attr('lang')).toBeUndefined();
+    });
+
+    it('does not set dir on the html element', function() {
+      expect(element.attr('dir')).toBeUndefined();
     });
   });
 });

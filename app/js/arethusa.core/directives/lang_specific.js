@@ -19,6 +19,7 @@ angular.module('arethusa.core').directive('langSpecific',
         if (lang in languageSpecifics) {
           var specifics = languageSpecifics[lang];
           element.attr('lang', specifics.lang);
+          element.attr('dir', specifics.leftToRight ? 'ltr' : 'rtl');
         }
       }
     };
