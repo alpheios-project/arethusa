@@ -2,6 +2,7 @@
 angular.module('arethusa.core').service('notifier', function () {
   var self = this;
   this.messages = [];
+  this.current = {};
 
   function Message(type, message, description) {
     this.type = type;
@@ -17,7 +18,8 @@ angular.module('arethusa.core').service('notifier', function () {
   };
 
   this.lastMessage = function () {
-    return self.messages[0];
+    self.current = self.messages[0];
+    return self.current;
   };
   this.oldMessages = function () {
     return self.messages.slice(1);
@@ -29,6 +31,7 @@ angular.module('arethusa.core').service('notifier', function () {
       self.messages.pop();
     }
     self.messages.unshift(new Message(type, message));
+    self.lastMessage();
   };
   this.reset = function() {
     self.messages = [];
