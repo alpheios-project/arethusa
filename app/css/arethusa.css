@@ -279,4 +279,11 @@ button[disabled],
   background-color: #9e9c9a;
 }
 
+.success-message {
+  color: rgb(115, 255, 115);
+  font-weight: bold;
+}
+
+.error-message {
+}
 
