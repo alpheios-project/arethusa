@@ -179,6 +179,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
       partitionPlugins($scope.plugins);
       $scope.initPlugins();
       $scope.declareFirstPluginActive();
+      notifier.reset();
       $scope.arethusaLoaded = true;
     };
   }
