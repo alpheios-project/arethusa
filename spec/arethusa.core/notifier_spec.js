@@ -57,6 +57,25 @@ describe("notifier", function() {
       notifier.addMessage('success', 'message');
       expect(notifier.current.time).toBeDefined();
     });
+
+    it('messages never exceed the limit of this.maxMessages', function() {
+      notifier.maxMessages = 2;
+      expect(notifier.messages.length).toEqual(0);
+      notifier.addMessage('success', '1');
+      notifier.addMessage('success', '2');
+      expect(notifier.messages.length).toEqual(2);
+      notifier.addMessage('success', '3');
+      expect(notifier.messages.length).toEqual(2);
+      expect(notifier.current.message).toEqual('3');
+    });
+  });
+
+  describe('this.maxMessages', function() {
+    it('has a default value', function() {
+      // Makes no sense to test the real number here (15 right now)
+      // as it might change and this is not a good reason to break a spec.
+      expect(notifier.maxMessages).toBeDefined();
+    });
   });
 
   describe('this.success', function() {
