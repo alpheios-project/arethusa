@@ -219,7 +219,7 @@ angular.module('arethusa.core').service('configurator', [
     // is to be found in the JSON tree.
     // I guess the key is to abstract the conf file a little more.
     this.configurationFor = function (plugin) {
-      var conf = this.configuration;
+      var conf = self.configuration;
       return conf[plugin] || conf.plugins[plugin] || conf.resources[plugin] || {};
     };
 
@@ -267,7 +267,7 @@ angular.module('arethusa.core').service('configurator', [
     };
 
     this.provideResource = function (name) {
-      var conf = this.configuration.resources[name];
+      var conf = self.configuration.resources[name];
       return new Resource(conf, self.provideAuth(conf.auth));
     };
 
