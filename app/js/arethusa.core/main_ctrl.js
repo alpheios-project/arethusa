@@ -182,5 +182,10 @@ angular.module('arethusa.core').controller('MainCtrl', [
       notifier.init();
       $scope.arethusaLoaded = true;
     };
+
+    // Temporary method to try this feature in the GUI
+    $scope.fakeError= function() {
+      notifier.error('Something happened.');
+    };
   }
 ]);
