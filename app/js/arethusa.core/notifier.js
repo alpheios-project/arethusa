@@ -20,11 +20,11 @@ angular.module('arethusa.core').service('notifier', [
       this.description = description;
     }
 
-    this.success = function (message) {
-      self.addMessage('success', message);
+    this.success = function (message, description) {
+      self.addMessage('success', message, description);
     };
-    this.error = function (message) {
-      self.addMessage('error', message);
+    this.error = function (message, description) {
+      self.addMessage('error', message, description);
     };
 
     this.lastMessage = function () {
@@ -35,11 +35,11 @@ angular.module('arethusa.core').service('notifier', [
       return self.messages.slice(1);
     };
 
-    this.addMessage = function(type, message) {
+    this.addMessage = function(type, message, description) {
       if (self.messages.length === self.maxMessages) {
         self.messages.pop();
       }
-      self.messages.unshift(new Message(type, message));
+      self.messages.unshift(new Message(type, message, description));
       self.lastMessage();
     };
 
