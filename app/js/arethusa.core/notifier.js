@@ -18,6 +18,7 @@ angular.module('arethusa.core').service('notifier', [
       this.type = type;
       this.message = message;
       this.description = description;
+      this.time = new Date();
     }
 
     this.success = function (message, description) {
