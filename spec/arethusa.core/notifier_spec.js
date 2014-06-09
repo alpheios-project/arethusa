@@ -84,7 +84,7 @@ describe("notifier", function() {
       var message = 'A message.';
       var description = 'A description.';
 
-      notifier.addMessage(type, message, description);
+      notifier.success(message, description);
       expect(notifier.current.type).toEqual(type);
       expect(notifier.current.message).toEqual(message);
       expect(notifier.current.description).toEqual(description);
@@ -93,8 +93,8 @@ describe("notifier", function() {
 
   describe('this.error', function() {
     it('logs an error message', function() {
-      notifier.addMessage('success', 'A message.');
-      expect(notifier.current.type).toEqual('success');
+      notifier.error('error', 'A message.');
+      expect(notifier.current.type).toEqual('error');
     });
   });
 });
