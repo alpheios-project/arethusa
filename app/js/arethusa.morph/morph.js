@@ -234,50 +234,59 @@ angular.module('arethusa.morph').service('morph', [
       return self.selectAttribute(attr).dependencies;
     };
 
-    function findThroughOr(memo, id, attrs, keywords) {
-      angular.forEach(attrs, function(val, attr) {
-        angular.forEach(keywords, function(keyword, i) {
-          if (val === keyword) {
-            memo[id] = true;
-          }
+    function findThroughOr(keywords) {
+      return arethusaUtil.inject({}, keywords, function(memo, keyword) {
+        var hits = self.searchIndex[keyword] || [];
+        angular.forEach(hits, function(id, i) {
+          memo[id] = true;
         });
       });
     }
 
-    function findThroughAll(memo, id, attrs, keywords) {
-      var goal = keywords.length;
-      var counter = 0;
-      angular.forEach(attrs, function(val, attr) {
-        angular.forEach(keywords, function(keyword, i) {
-          if (val === keyword) {
-            counter++;
-          }
-        });
+    function findThroughAll(keywords) {
+      // we need to fill a first array which we can check against first
+      var firstKw = keywords.shift();
+      var hits = self.searchIndex[firstKw] || [];
+      angular.forEach(keywords, function(keyword, i) {
+        var moreHits = self.searchIndex[keyword] || [];
+        hits = arethusaUtil.intersect(hits, moreHits);
       });
-      if (goal === counter) {
+      // and know return something with unique values
+      return arethusaUtil.inject({}, hits, function(memo, id) {
         memo[id] = true;
-      }
+      });
     }
 
-    // Performance of that is atrocious. Need to do better.
     this.queryForm = function() {
       var keywords = self.formQuery.split(' ');
-      // we use an object and not an array, even if we only need
-      // ids - but we get avoid duplicate keys that way
-      var ids = arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
-        var attrs = token.morphology.attributes;
-        if (self.matchAll) {
-          findThroughAll(memo, id, attrs, keywords);
-        } else {
-          findThroughOr(memo, id, attrs, keywords);
-        }
-      });
+      // The private fns return an object and not an array, even if we only
+      // need ids - but we avoid duplicate keys that way.
+      var ids = self.matchAll ? findThroughAll(keywords) : findThroughOr(keywords);
       state.multiSelect(Object.keys(ids));
     };
+
+    function createSearchIndex() {
+      var obj = {};
+      return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
+        var morph = token.morphology || {};
+        var attrs = morph.attributes || {};
+        angular.forEach(attrs, function(val, key) {
+          addToIndex(memo, val, id);
+        });
+      });
+    }
+
+    function addToIndex(index, val, id) {
+      if (!index[val]) {
+        index[val] = [];
+      }
+      index[val].push(id);
+    }
 
     this.init = function () {
       configure();
       self.analyses = loadInitalAnalyses();
+      self.searchIndex = createSearchIndex();
     };
   }
 ]);
