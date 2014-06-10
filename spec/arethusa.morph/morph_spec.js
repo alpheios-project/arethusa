@@ -123,4 +123,10 @@ describe("morph", function() {
       expect(form.postag).toEqual('n-');
     });
   });
+
+  describe('this.emptyPostag', function() {
+    it('returns an empty postag according to the configured postagSchema', function() {
+      expect(morph.emptyPostag()).toEqual('--');
+    });
+  });
 });
