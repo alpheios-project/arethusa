@@ -276,4 +276,13 @@ describe("morph", function() {
       expect(morph.styleOf(f1)).toEqual(nounStyle);
     });
   });
+
+  describe('this.currentAnalyses', function() {
+    it('returns an obj containing arrays of forms of currently selected (e.g. clicked) tokens and other things', function() {
+      var f1 = state.getToken('01').morphology;
+      state.selectToken('01', 'click');
+      var cA = morph.currentAnalyses();
+      expect(cA['01'].forms).toEqual([f1]);
+    });
+  });
 });
