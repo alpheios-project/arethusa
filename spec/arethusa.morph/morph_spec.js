@@ -90,4 +90,13 @@ describe("morph", function() {
     morph = _morph_;
     morph.init();
   }));
+
+  describe('this.postagToAttributes', function() {
+    it('expands a postag to full key value pairs', function() {
+      var form = { postag: 'a1' };
+      var res  = { postag: 'a1', attributes: { pos: 'adj', pers: '1st' }};
+      morph.postagToAttributes(form);
+      expect(form).toEqual(res);
+    });
+  });
 });
