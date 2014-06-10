@@ -115,4 +115,12 @@ describe("morph", function() {
       expect(postag).toEqual(res);
     });
   });
+
+  describe('this.updatePostag', function() {
+    it('updates a postag at a specific datapoint', function() {
+      var form = { postag: '--' };
+      morph.updatePostag(form, 'pos', 'noun');
+      expect(form.postag).toEqual('n-');
+    });
+  });
 });
