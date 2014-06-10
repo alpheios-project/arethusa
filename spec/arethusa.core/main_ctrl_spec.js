@@ -10,7 +10,10 @@ describe('MainCtrl', function() {
       allLoaded: false
     };
     var notifier = {
-      init: function() {}
+      init: function() {},
+      success: function() {},
+      info: function() {},
+      error: function() {}
     };
     var ctrl = $controller('MainCtrl', {$scope:scope, state:mystate, notifier:notifier, configurator: {
       configurationFor: function(name) {
