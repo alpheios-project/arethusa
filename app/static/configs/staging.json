@@ -25,7 +25,8 @@
   "navbar" : {
     "template" : "templates/navbar1.html",
     "search" : true,
-    "navigation" : true
+    "navigation" : true,
+    "notifier" : true
   },
 
   "resources" : {
