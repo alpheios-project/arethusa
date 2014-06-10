@@ -268,19 +268,19 @@ angular.module('arethusa.morph').service('morph', [
     function createSearchIndex() {
       var obj = {};
       return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
-        var morph = token.morphology || {};
-        var attrs = morph.attributes || {};
-        angular.forEach(attrs, function(val, key) {
-          addToIndex(memo, val, id);
-        });
+        var form = token.morphology || {};
+        addToIndex(memo, form, id);
       });
     }
 
-    function addToIndex(index, val, id) {
-      if (!index[val]) {
-        index[val] = [];
-      }
-      index[val].push(id);
+    function addToIndex(index, form, id) {
+      var attrs = form.attributes || {};
+      angular.forEach(attrs, function(val, key) {
+        if (!index[val]) {
+          index[val] = [];
+        }
+        index[val].push(id);
+      });
     }
 
     this.init = function () {
