@@ -5,7 +5,6 @@ angular.module('arethusa.core').directive('langSpecific',
   function(documentStore) {
     return {
       restrict: 'A',
-      scope: {},
       link: function(scope, element, attrs) {
         // TODO change first treebank to dynamic value
         var lang = documentStore.store.treebank.json.treebank["_xml:lang"];
