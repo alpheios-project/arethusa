@@ -289,3 +289,10 @@ button[disabled],
   font-weight: bold;
 }
 
+.success-message-dark {
+  color: rgb(0, 200, 0);
+}
+.error-message-dark {
+  color: rgb(255, 0, 0);
+}
+

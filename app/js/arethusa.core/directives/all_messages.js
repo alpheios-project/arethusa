@@ -6,8 +6,9 @@ angular.module('arethusa.core').directive('allMessages', [
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
-        scope.messages = notifier.messages;
-      }
+        scope.n = notifier;
+      },
+      templateUrl: 'templates/arethusa.core/all_messages.html'
     };
   }
 ]);

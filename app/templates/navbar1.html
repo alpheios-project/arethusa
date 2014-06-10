@@ -64,8 +64,10 @@
         <li><a deselector class="button">Deselect all</a></li>
         <li><a ng-click="toggleDebugMode()" class="button">Debug</a></li>
         <li><a sidepanel-folder class="button">Fold Panel</a></li>
-        <li><a all-messages class="button">Messages</a></li>
+        <li><a context-menu menu-id="all-messages" menu-trigger="click" class="button">Messages</a></li>
       </ul>
     </section>
   </nav>
 </div>
+<div all-messages id="all-messages" class="hide row panel"/>
+
