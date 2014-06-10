@@ -186,10 +186,5 @@ angular.module('arethusa.core').controller('MainCtrl', [
       $scope.arethusaLoaded = true;
       notifier.success('Load complete');
     };
-
-    // Temporary method to try this feature in the GUI
-    $scope.fakeError= function() {
-      notifier.error('Something happened.');
-    };
   }
 ]);
