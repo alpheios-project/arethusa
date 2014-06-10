@@ -94,9 +94,25 @@ describe("morph", function() {
   describe('this.postagToAttributes', function() {
     it('expands a postag to full key value pairs', function() {
       var form = { postag: 'a1' };
-      var res  = { postag: 'a1', attributes: { pos: 'adj', pers: '1st' }};
+      var res  = angular.extend({}, form, { attributes: { pos: 'adj', pers: '1st' }});
       morph.postagToAttributes(form);
       expect(form).toEqual(res);
+    });
+  });
+
+  describe('this.attributesToPostag', function() {
+    it('creates a postag string out of attributes', function() {
+      var attrs = { pos: 'noun', pers: '2nd' };
+      var res = 'n2';
+      var postag = morph.attributesToPostag(attrs);
+      expect(postag).toEqual(res);
+    });
+
+    it('fills with - according to the postagSchema, when an attribute is undefined', function() {
+      var attrs = { pers: '1st' };
+      var res = '-1';
+      var postag = morph.attributesToPostag(attrs);
+      expect(postag).toEqual(res);
     });
   });
 });
