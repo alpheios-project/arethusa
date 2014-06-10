@@ -207,4 +207,14 @@ describe("morph", function() {
       expect(morph.isFormSelected('02', form)).toBeFalsy();
     });
   });
+
+  describe('this.concatenatedAttributes', function() {
+    it('returns a concatenated string of all attributes (short representation), joined by a dot', function() {
+      var f1 = state.getToken('01').morphology;
+      var f2 = state.getToken('02').morphology;
+
+      expect(morph.concatenatedAttributes(f1)).toEqual('noun');
+      expect(morph.concatenatedAttributes(f2)).toEqual('adj.1st');
+    });
+  });
 });
