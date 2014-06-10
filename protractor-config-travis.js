@@ -29,8 +29,8 @@ exports.config = {
     createCapabality('firefox', '25', 'Windows 7'),
     createCapabality('firefox', '26', 'Windows 7'),
     createCapabality('firefox', '29', 'Windows 7'),
-    createCapabality('firefox', '28', 'OS X 10.9')
-    // createCapabality('safari', '7', 'OS X 10.9'),
+    createCapabality('firefox', '28', 'OS X 10.9'),
+    createCapabality('safari', '7', 'OS X 10.9')
     // createCapabality('internet explorer', '11', 'Windows 8.1')
   ],
   baseUrl: 'http://localhost:' + devServerPort
