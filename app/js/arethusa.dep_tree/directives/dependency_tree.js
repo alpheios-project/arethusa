@@ -39,7 +39,8 @@
 /* global dagreD3 */
 angular.module('arethusa.depTree').directive('dependencyTree', [
   '$compile',
-  function ($compile) {
+  'languageSettings',
+  function ($compile, languageSettings) {
     return {
       restrict: 'A',
       scope: {
@@ -235,9 +236,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           scope.rankDir = scope.rankDir === "BT" ? "RL" : "BT";
         };
 
+        var langSettings = languageSettings.getFor('treebank');
+
         scope.rankDir = 'BT';
         scope.compactTree();
         scope.layout = dagreD3.layout()
+          .invertOrder(langSettings ? !langSettings.leftToRight : false)
           .rankDir(scope.rankDir)
           .nodeSep(scope.nodeSep)
           .edgeSep(scope.edgeSep)
