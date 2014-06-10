@@ -7,6 +7,9 @@ angular.module('arethusa.core').controller('MainCtrl', [
   'documentStore',
   'notifier',
   function ($scope, $injector, configurator, state, documentStore, notifier) {
+    // This is the entry point to the application.
+    notifier.info('Loading...');
+
     documentStore.reset();
     $scope.aU = arethusaUtil;
     $scope.debug = false;
@@ -179,8 +182,9 @@ angular.module('arethusa.core').controller('MainCtrl', [
       partitionPlugins($scope.plugins);
       $scope.initPlugins();
       $scope.declareFirstPluginActive();
-      notifier.init();
+      notifier.init(); // also clears the Loading message for now.
       $scope.arethusaLoaded = true;
+      notifier.success('Load complete');
     };
 
     // Temporary method to try this feature in the GUI
