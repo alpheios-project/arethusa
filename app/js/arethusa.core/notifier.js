@@ -29,6 +29,9 @@ angular.module('arethusa.core').service('notifier', [
     this.success = function (message, description) {
       self.addMessage('success', message, description);
     };
+    this.info = function(message, description) {
+      self.addMessage('info', message, description);
+    };
     this.error = function (message, description) {
       self.addMessage('error', message, description);
     };

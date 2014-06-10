@@ -91,6 +91,13 @@ describe("notifier", function() {
     });
   });
 
+  describe('this.info', function() {
+    it('logs an info message', function() {
+      notifier.info('info', 'A message.');
+      expect(notifier.current.type).toEqual('info');
+    });
+  });
+
   describe('this.error', function() {
     it('logs an error message', function() {
       notifier.error('error', 'A message.');
