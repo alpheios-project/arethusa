@@ -64,20 +64,20 @@ angular.module('arethusa.morph').service('morph', [
 
     // Probably not useful to calculate this everytime...
     this.emptyPostag = function () {
-      return arethusaUtil.map(this.postagSchema, function (el) {
+      return arethusaUtil.map(self.postagSchema, function (el) {
         return '-';
       }).join('');
     };
 
     this.updatePostag = function (form, attr, val) {
-      var index = this.postagSchema.indexOf(attr);
-      var postag = this.postagValue(attr, val);
+      var index = self.postagSchema.indexOf(attr);
+      var postag = self.postagValue(attr, val);
       form.postag = arethusaUtil.replaceAt(form.postag, index, postag);
     };
 
     this.attributesToPostag = function (attrs) {
       var postag = '';
-      var postagArr = arethusaUtil.map(this.postagSchema, function (el) {
+      var postagArr = arethusaUtil.map(self.postagSchema, function (el) {
           var attrVals = self.attributeValues(el);
           var val = attrs[el];
           var valObj = arethusaUtil.findObj(attrVals, function (e) {
@@ -101,10 +101,10 @@ angular.module('arethusa.morph').service('morph', [
       // We could always have no analysis sitting in the data we are
       // looking at.
       if (analysis) {
-        this.postagToAttributes(analysis);
+        self.postagToAttributes(analysis);
         analysis.origin = 'document';
         val.forms.push(analysis);
-        state.setStyle(id, this.styleOf(analysis));
+        state.setStyle(id, self.styleOf(analysis));
       }
     };
 
@@ -160,7 +160,7 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     this.currentAnalyses = function () {
-      var analyses = this.analyses;
+      var analyses = self.analyses;
       return arethusaUtil.inject({}, state.selectedTokens, function (obj, id, val) {
         var token = analyses[id];
         if (token) {
@@ -170,25 +170,25 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     this.selectAttribute = function (attr) {
-      return this.attributes[attr] || {};
+      return self.attributes[attr] || {};
     };
     this.longAttributeName = function (attr) {
-      return this.selectAttribute(attr).long;
+      return self.selectAttribute(attr).long;
     };
     this.attributeValues = function (attr) {
-      return this.selectAttribute(attr).values || {};
+      return self.selectAttribute(attr).values || {};
     };
     this.attributeValueObj = function (attr, val) {
-      return this.attributeValues(attr)[val] || {};
+      return self.attributeValues(attr)[val] || {};
     };
     this.longAttributeValue = function (attr, val) {
-      return this.attributeValueObj(attr, val).long;
+      return self.attributeValueObj(attr, val).long;
     };
     this.abbrevAttributeValue = function (attr, val) {
-      return this.attributeValueObj(attr, val).short;
+      return self.attributeValueObj(attr, val).short;
     };
     this.postagValue = function (attr, val) {
-      return this.attributeValueObj(attr, val).postag;
+      return self.attributeValueObj(attr, val).postag;
     };
 
     this.concatenatedAttributes = function (form) {
@@ -212,13 +212,13 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     this.styleOf = function (form) {
-      var styler = this.styledThrough;
+      var styler = self.styledThrough;
       var styleVal = form.attributes[styler];
-      return this.attributeValueObj(styler, styleVal).style;
+      return self.attributeValueObj(styler, styleVal).style;
     };
 
     this.setState = function (id, form) {
-      state.setStyle(id, this.styleOf(form));
+      state.setStyle(id, self.styleOf(form));
       state.setState(id, 'morphology', form);
     };
     this.unsetState = function (id) {
@@ -277,7 +277,7 @@ angular.module('arethusa.morph').service('morph', [
 
     this.init = function () {
       configure();
-      this.analyses = this.loadInitalAnalyses(this);
+      self.analyses = self.loadInitalAnalyses();
     };
   }
 ]);
