@@ -218,10 +218,13 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     this.setState = function (id, form) {
+      deleteFromIndex(id);
+      addToIndex(form, id);
       state.setStyle(id, self.styleOf(form));
       state.setState(id, 'morphology', form);
     };
     this.unsetState = function (id) {
+      deleteFromIndex(id);
       state.unsetStyle(id);
       state.unsetState(id, 'morphology');
     };
@@ -236,7 +239,7 @@ angular.module('arethusa.morph').service('morph', [
 
     function findThroughOr(keywords) {
       return arethusaUtil.inject({}, keywords, function(memo, keyword) {
-        var hits = self.searchIndex[keyword] || [];
+        var hits = searchIndex[keyword] || [];
         angular.forEach(hits, function(id, i) {
           memo[id] = true;
         });
@@ -246,9 +249,9 @@ angular.module('arethusa.morph').service('morph', [
     function findThroughAll(keywords) {
       // we need to fill a first array which we can check against first
       var firstKw = keywords.shift();
-      var hits = self.searchIndex[firstKw] || [];
+      var hits = searchIndex[firstKw] || [];
       angular.forEach(keywords, function(keyword, i) {
-        var moreHits = self.searchIndex[keyword] || [];
+        var moreHits = searchIndex[keyword] || [];
         hits = arethusaUtil.intersect(hits, moreHits);
       });
       // and know return something with unique values
@@ -265,28 +268,43 @@ angular.module('arethusa.morph').service('morph', [
       state.multiSelect(Object.keys(ids));
     };
 
+    var searchIndex;
     function createSearchIndex() {
-      var obj = {};
-      return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
+      searchIndex = {};
+      angular.forEach(state.tokens, function(token, id) {
         var form = token.morphology || {};
-        addToIndex(memo, form, id);
+        addToIndex(form, id);
       });
     }
 
-    function addToIndex(index, form, id) {
+    function addToIndex(form, id) {
       var attrs = form.attributes || {};
       angular.forEach(attrs, function(val, key) {
-        if (!index[val]) {
-          index[val] = [];
+        if (!searchIndex[val]) {
+          searchIndex[val] = [];
         }
-        index[val].push(id);
+        searchIndex[val].push(id);
+      });
+    }
+
+    function deleteFromIndex(id) {
+      var form = state.getToken(id).morphology || {};
+      var attrs = form.attributes || {};
+      angular.forEach(attrs, function(value, key) {
+        // the index might contain duplicate ids
+        var ids = searchIndex[value];
+        var i = ids.indexOf(id);
+        while (i !== -1) {
+          ids.splice(i, 1);
+          i = ids.indexOf(id);
+        }
       });
     }
 
     this.init = function () {
       configure();
       self.analyses = loadInitalAnalyses();
-      self.searchIndex = createSearchIndex();
+      createSearchIndex();
     };
   }
 ]);

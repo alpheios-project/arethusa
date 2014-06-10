@@ -194,6 +194,36 @@ describe("morph", function() {
       expect(state.isSelected('01')).toBeFalsy();
       expect(state.isSelected('02')).toBeFalsy();
     });
+
+    it('reacts properly to runtime changes in the state object', function() {
+      expect(state.hasSelections()).toBeFalsy();
+      morph.matchAll = false;
+      morph.formQuery = 'adj';
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('02')).toBeTruthy();
+
+      var newForm = {
+        attributes: {
+          pos: 'noun'
+        }
+      };
+
+      morph.setState('02', newForm);
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('02')).toBeFalsy();
+
+      morph.formQuery = 'noun';
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeTruthy();
+      expect(state.isSelected('02')).toBeTruthy();
+
+      morph.unsetState('02');
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeTruthy();
+      expect(state.isSelected('02')).toBeFalsy();
+    });
   });
 
   describe('this.isFormSelected', function() {
