@@ -33,7 +33,7 @@
 
   "notifier" : {
     "duration" : "2000",
-    "maxMessages" : "3"
+    "maxMessages" : 3
   },
 
   "resources" : {
