@@ -195,4 +195,16 @@ describe("morph", function() {
       expect(state.isSelected('02')).toBeFalsy();
     });
   });
+
+  describe('this.isFormSelected', function() {
+    it('checks if a form is currently selected as correct morphological analyses', function() {
+      var form = state.getToken('01').morphology;
+      expect(morph.isFormSelected('01', form)).toBeTruthy();
+    });
+
+    it("doesn't create false positives", function() {
+      var form = state.getToken('01').morphology;
+      expect(morph.isFormSelected('02', form)).toBeFalsy();
+    });
+  });
 });
