@@ -129,4 +129,70 @@ describe("morph", function() {
       expect(morph.emptyPostag()).toEqual('--');
     });
   });
+
+  describe('this.queryForm', function() {
+    it('looks up forms in the state object and selects them', function() {
+      expect(state.hasSelections()).toBeFalsy();
+      morph.matchAll = false;
+      morph.formQuery = 'adj';
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('02')).toBeTruthy();
+    });
+
+    it('can look up by multiple attributes at the same time', function() {
+      expect(state.hasSelections()).toBeFalsy();
+      morph.matchAll = false;
+      morph.formQuery = 'adj noun';
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeTruthy();
+      expect(state.isSelected('02')).toBeTruthy();
+    });
+
+    it('does a fuzzy search through all attributes of forms', function() {
+      expect(state.hasSelections()).toBeFalsy();
+      morph.matchAll = false;
+      morph.formQuery = '1st';
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('02')).toBeTruthy();
+    });
+
+    it("doesn't create false hits", function() {
+      expect(state.hasSelections()).toBeFalsy();
+      morph.matchAll = false;
+      morph.formQuery = '3rd';
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('02')).toBeFalsy();
+    });
+
+    it('optionally searches for forms that satisfy multiple attributes', function() {
+      expect(state.hasSelections()).toBeFalsy();
+      morph.matchAll = true;
+      morph.formQuery = 'noun 2nd';
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('02')).toBeFalsy();
+
+      morph.formQuery = 'adj 1st';
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('02')).toBeTruthy();
+    });
+
+    it('only searches for short versions of attribute values for now', function() {
+      expect(state.hasSelections()).toBeFalsy();
+      morph.matchAll = false;
+      morph.formQuery = 'adj';
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('02')).toBeTruthy();
+
+      morph.formQuery = 'adjective';
+      morph.queryForm();
+      expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isSelected('02')).toBeFalsy();
+    });
+  });
 });
