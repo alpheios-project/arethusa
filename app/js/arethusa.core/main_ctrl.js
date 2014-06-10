@@ -5,7 +5,11 @@ angular.module('arethusa.core').controller('MainCtrl', [
   'configurator',
   'state',
   'documentStore',
-  function ($scope, $injector, configurator, state, documentStore) {
+  'notifier',
+  function ($scope, $injector, configurator, state, documentStore, notifier) {
+    // This is the entry point to the application.
+    notifier.info('Loading...');
+
     documentStore.reset();
     $scope.aU = arethusaUtil;
     $scope.debug = false;
@@ -17,7 +21,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
       // in the state, but that also is not good - we'll change this later.
       angular.forEach($scope.persisters, function(persister, name) {
         persister.saveData(function(data) {
-          arethusaLogger.log('Success');
+          notifier.success('Document saved!');
         });
       });
     };
@@ -178,7 +182,9 @@ angular.module('arethusa.core').controller('MainCtrl', [
       partitionPlugins($scope.plugins);
       $scope.initPlugins();
       $scope.declareFirstPluginActive();
+      notifier.init(); // also clears the Loading message for now.
       $scope.arethusaLoaded = true;
+      notifier.success('Load complete');
     };
   }
 ]);

@@ -27,7 +27,13 @@
   "navbar" : {
     "template" : "templates/navbar1.html",
     "search" : true,
-    "navigation" : true
+    "navigation" : true,
+    "notifier" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
   },
 
   "resources" : {

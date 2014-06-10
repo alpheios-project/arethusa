@@ -1,4 +1,4 @@
-<div>
+<div class="fixed">
   <nav class="top-bar" data-topbar>
     <ul class="title-area">
       <li class="name">
@@ -55,15 +55,18 @@
           <div><a ng-click="goToLast()">&#8677;</a></div>
         </li>
       </ul>
-      <ul ng-show="showNotifier()" class="right" ng-controller="NotifierCtrl">
-        <!--tbd-->
+      <ul ng-show="showNotifier()">
+        <span current-message/>
       </ul>
       <ul class="has-form button-group right">
         <li><a ng-click="save()" class="button">Save</a></li>
         <li><a deselector class="button">Deselect all</a></li>
         <li><a ng-click="toggleDebugMode()" class="button">Debug</a></li>
         <li><a sidepanel-folder class="button">Fold Panel</a></li>
+        <li><a context-menu menu-id="all-messages" menu-trigger="click" class="button">Messages</a></li>
       </ul>
     </section>
   </nav>
 </div>
+<div all-messages id="all-messages" class="hide row panel"/>
+
