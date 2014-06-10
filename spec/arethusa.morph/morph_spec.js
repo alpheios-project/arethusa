@@ -217,4 +217,33 @@ describe("morph", function() {
       expect(morph.concatenatedAttributes(f2)).toEqual('adj.1st');
     });
   });
+
+  describe('this.styleOf', function() {
+    it('returns a style object for a given form', function() {
+      var nounStyle = {
+        color : "black"
+      };
+      var adjStyle = {
+        color: "blue"
+      };
+      var f1 = state.getToken('01').morphology;
+      var f2 = state.getToken('02').morphology;
+
+      expect(morph.styleOf(f1)).toEqual(nounStyle);
+      expect(morph.styleOf(f2)).toEqual(adjStyle);
+    });
+
+    it('is dependent on the styledThrough configuration to determine where to look up styles', function() {
+      var nounStyle = {
+        color : "black"
+      };
+      var f1 = state.getToken('01').morphology;
+
+      morph.styledThrough = 'somethingThatDoesNotExist';
+      expect(morph.styleOf(f1)).toBeUndefined();
+
+      morph.styledThrough = 'pos';
+      expect(morph.styleOf(f1)).toEqual(nounStyle);
+    });
+  });
 });
