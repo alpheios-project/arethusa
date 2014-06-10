@@ -145,7 +145,7 @@ angular.module('arethusa.morph').service('morph', [
       });
     };
 
-    this.loadInitalAnalyses = function () {
+    function loadInitalAnalyses() {
       var analyses = self.seedAnalyses(state.tokens);
       if (self.noRetrieval !== "all") {
         angular.forEach(analyses, function (val, id) {
@@ -157,7 +157,7 @@ angular.module('arethusa.morph').service('morph', [
         });
       }
       return analyses;
-    };
+    }
 
     this.currentAnalyses = function () {
       var analyses = self.analyses;
@@ -277,7 +277,7 @@ angular.module('arethusa.morph').service('morph', [
 
     this.init = function () {
       configure();
-      self.analyses = self.loadInitalAnalyses();
+      self.analyses = loadInitalAnalyses();
     };
   }
 ]);
