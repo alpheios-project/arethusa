@@ -2993,8 +2993,6 @@ exports.propertyAccessor = function(self, config, field, setHook) {
  */
 exports.ordering = function(g, invertOrder) {
   var ordering = [];
-  // var invertOrder = config.invertOrder;
-  console.log(invertOrder);
   g.eachNode(function(u, value) {
     var rank = ordering[value.rank] || (ordering[value.rank] = []);
     rank[value.order] = u;
