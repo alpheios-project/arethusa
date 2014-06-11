@@ -1,0 +1,158 @@
+{
+  "nested" : {
+    "PROP" : {
+      "short" : "PROP",
+      "long" : "proper",
+      "nested" : {
+        "DIRC" : {
+          "short" : "DIRC",
+          "long" : "as direct complement of verbs"
+        },
+        "INDIRC" : {
+          "short" : "INDIRC",
+          "long" : "as indirect complement of verbs"
+        },
+        "INT" : {
+          "short" : "INT",
+          "long" : "of interest",
+          "nested" : {
+            "POSS" : {
+              "short" : "POSS",
+              "long" : "of possessor"
+            },
+            "COM" : {
+              "short" : "COM",
+              "long" : "of advantage and disadvantage"
+            },
+            "FLG" : {
+              "short" : "FLG",
+              "long" : "of feeling"
+            },
+            "INCL" : {
+              "short" : "INCL",
+              "long" : "with participle of inclination or aversion"
+            },
+            "AGT" : {
+              "short" : "AGT",
+              "long" : "of agent"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
+          }
+        },
+        "REL" : {
+          "short" : "REL",
+          "long" : "of relation",
+          "nested" : {
+            "REF" : {
+              "short" : "REF",
+              "long" : "of reference"
+            },
+            "TME" : {
+              "short" : "TME",
+              "long" : "with a participle of expressing time"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
+          }
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "INST" : {
+      "short" : "INST",
+      "long" : "intrumental",
+      "M-IN" : {
+        "short" : "M-IN",
+        "long" : "of means or instruments"
+      },
+      "JUD" : {
+        "short" : "JUD",
+        "long" : "of standard of judgement"
+      },
+      "MNR" : {
+        "short" : "MNR",
+        "long" : "of manner"
+      },
+      "RES" : {
+        "short" : "RES",
+        "long" : "of respect"
+      },
+      "MSR" : {
+        "short" : "MSR",
+        "long" : "of measure of difference"
+      },
+      "CAU" : {
+        "short" : "CAU",
+        "long" : "of cause"
+      },
+      "COM" : {
+        "short" : "COM",
+        "long" : "as comitative",
+        "nested" : {
+          "ASS" : {
+            "short" : "ASS",
+            "long" : "of association"
+          },
+          "ACC" : {
+            "short" : "ACC",
+            "long" : "of accompaniment"
+          },
+          "MACC" : {
+            "short" : "MACC",
+            "long" : "of military accompaniment"
+          },
+          "ACIR" : {
+            "short" : "ACIR",
+            "long" : "of accompanying circumstance"
+          },
+          "IDK" : {
+            "short" : "IDK",
+            "long" : "I don't know"
+          }
+        }
+      },
+      "IDK" : {
+        "short" : "IDK",
+        "long" : "I don't know"
+      }
+    },
+    "LOC" : {
+      "short" : "locative",
+      "long" : "locative",
+      "nested" : {
+        "TME" : {
+          "short" : "TMI",
+          "long" : "of time"
+        },
+        "PLC" : {
+          "short" : "PLC",
+          "long" : "of place"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "PURP" : {
+      "short" : "PURP",
+      "long" : "of purpose (with ἐπί)"
+    },
+    "UNSP" : {
+      "short" : "UNSP",
+      "long" : "unspecified (only if depending on adj., adv., or adp.)"
+    },
+    "IDK" : {
+      "short" : "IDK",
+      "long" : "I don't know"
+    }
+  }
+}

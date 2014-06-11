@@ -43,6 +43,15 @@
       },
       "fileUrl" : "./static/configs/sg/sg_labels/genetive_cases.json"
     },
+    "DAT" : {
+      "short" : "DAT",
+      "long" : "dative",
+      "dependency" : {
+        "pos" : "noun",
+        "case" : "dat"
+      },
+      "fileUrl" : "./static/configs/sg/sg_labels/dative_cases.json"
+    },
     "ACC" : {
       "short" : "ACC",
       "long" : "accusative",
