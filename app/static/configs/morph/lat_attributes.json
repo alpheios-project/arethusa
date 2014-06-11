@@ -35,7 +35,7 @@
         "adv" : {
           "long" : "adverb",
           "short" : "adv",
-          "postag" : "a",
+          "postag" : "d",
           "style" : {
             "color" : "darkorange"
           }
@@ -140,6 +140,11 @@
     "num" : {
       "long" : "Number",
       "short" : "num",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "noun", "verb", "part", "adj", "pron" ]
+        }
+      },
       "values" : {
         "sg" : {
           "long" : "singular",
@@ -156,6 +161,11 @@
     "tense" : {
       "long" : "Tense",
       "short" : "tense",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "verb", "part" ]
+        }
+      },
       "values" : {
         "pr" : {
           "long" : "present",
@@ -192,6 +202,11 @@
     "mood" : {
       "long" : "Mood",
       "short" : "mood",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "verb", "part" ]
+        }
+      },
       "values" : {
         "ind" : {
           "long" : "indicative",
@@ -238,6 +253,11 @@
     "voice" : {
       "long" : "Voice",
       "short" : "voice",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "verb", "part" ]
+        }
+      },
       "values" : {
         "act" : {
           "long" : "active",
@@ -259,6 +279,11 @@
     "gend" : {
       "long" : "gender",
       "short" : "gend",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "part", "noun", "adj", "pron", "nrl" ]
+        }
+      },
       "values" : {
         "masc" : {
           "long" : "masculine",
@@ -280,6 +305,11 @@
     "case" : {
       "long" : "Casus",
       "short" : "case",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "part", "noun", "adj", "pron", "nrl" ]
+        }
+      },
       "values" : {
         "nom" : {
           "long" : "nominative",
@@ -321,6 +351,11 @@
     "degree" : {
       "long" : "Degree",
       "short" : "degree",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "part", "adj" ]
+        }
+      },
       "values" : {
         "pos" : {
           "long" : "positive",
