@@ -96,6 +96,14 @@
             "color" : "red"
           }
         },
+        "nrl" : {
+          "long" : "numeral",
+          "short" : "nrl",
+          "postag" : "m",
+          "style" : {
+            "color" : "gold"
+          }
+        },
         "punct" : {
           "long" : "punctuation",
           "short" : "punct",
@@ -198,7 +206,7 @@
         "inf" : {
           "long" : "infinitive",
           "short" : "inf",
-          "postag" : "i"
+          "postag" : "n"
         },
         "imp" : {
           "long" : "imperative",
@@ -206,14 +214,24 @@
           "postag" : "m"
         },
         "gerund" : {
-          "long" : "gerundive",
+          "long" : "gerund",
           "short" : "gerund",
+          "postag" : "d"
+        },
+        "gerundive" : {
+          "long" : "gerundive",
+          "short" : "gerundive",
           "postag" : "g"
         },
         "part" : {
           "long" : "participle",
           "short" : "part",
           "postag" : "p"
+        },
+        "sup" : {
+          "long" : "supine",
+          "short" : "sup",
+          "postag" : "s"
         }
       }
     },
@@ -292,6 +310,11 @@
           "long" : "ablative",
           "short" : "abl",
           "postag" : "b"
+        },
+        "loc" : {
+          "long" : "locative",
+          "short" : "loc",
+          "postag" : "l"
         }
       }
     },
