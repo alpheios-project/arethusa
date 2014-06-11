@@ -235,15 +235,15 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         scope.changeDir = function() {
           scope.rankDir = scope.rankDir === "BT" ? "RL" : "BT";
         };
-        scope.invertOrder = function() {
+        scope.sortRankByIdAscending = function() {
           var langSettings = languageSettings.getFor('treebank');
-          return langSettings ? !langSettings.leftToRight : false;
+          return langSettings ? langSettings.leftToRight : true;
         };
 
         scope.rankDir = 'BT';
         scope.compactTree();
         scope.layout = dagreD3.layout()
-          .invertOrder(scope.invertOrder)
+          .sortRankByIdAscending(scope.sortRankByIdAscending)
           .rankDir(scope.rankDir)
           .nodeSep(scope.nodeSep)
           .edgeSep(scope.edgeSep)
@@ -388,9 +388,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             render();
           }
         });
-        scope.$watch('invertOrder', function(newVal, oldVal) {
+        scope.$watch('sortRankByIdAscending', function(newVal, oldVal) {
           if (newVal !== oldVal) {
-            scope.layout.inverOrder(newVal);
+            scope.layout.sortRankByIdAscending(newVal);
             render();
           }
         });

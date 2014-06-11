@@ -966,7 +966,7 @@ module.exports = function() {
   self.rankSep = delegateProperty(position.rankSep);
   self.rankDir = util.propertyAccessor(self, config, 'rankDir');
   self.debugAlignment = delegateProperty(position.debugAlignment);
-  self.invertOrder = delegateProperty(position.invertOrder);
+  self.sortRankByIdAscending = delegateProperty(position.sortRankByIdAscending);
 
   self.debugLevel = util.propertyAccessor(self, config, 'debugLevel', function(x) {
     util.log.level = x;
@@ -1641,7 +1641,7 @@ module.exports = function() {
     universalSep: null,
     rankSep: 30,
     // Ordering of the nodes on the same rank. Valid values are (true for sort by id, false for inverse sort by id)
-    invertOrder: false
+    sortRankByIdAscending: true
   };
 
   var self = {};
@@ -1654,7 +1654,7 @@ module.exports = function() {
   self.universalSep = util.propertyAccessor(self, config, 'universalSep');
   self.rankSep = util.propertyAccessor(self, config, 'rankSep');
   self.debugLevel = util.propertyAccessor(self, config, 'debugLevel');
-  self.invertOrder = util.propertyAccessor(self, config, 'invertOrder');
+  self.sortRankByIdAscending = util.propertyAccessor(self, config, 'sortRankByIdAscending');
 
   self.run = run;
 
@@ -1663,7 +1663,7 @@ module.exports = function() {
   function run(g) {
     g = g.filterNodes(util.filterNonSubgraphs(g));
 
-    var layering = util.ordering(g, self.invertOrder());
+    var layering = util.ordering(g, self.sortRankByIdAscending());
 
     var conflicts = findConflicts(g, layering);
 
@@ -2991,7 +2991,7 @@ exports.propertyAccessor = function(self, config, field, setHook) {
  * of the ids of the nodes in that rank in the order specified by the `order`
  * attribute.
  */
-exports.ordering = function(g, invertOrder) {
+exports.ordering = function(g, sortRankByIdAscending) {
   var ordering = [];
   g.eachNode(function(u, value) {
     var rank = ordering[value.rank] || (ordering[value.rank] = []);
@@ -3003,7 +3003,7 @@ exports.ordering = function(g, invertOrder) {
   });
 
   roots = roots.sort();
-  if (invertOrder) {
+  if (!sortRankByIdAscending) {
     roots = roots.reverse();
   }
   function addRankNode(nodeId, rank) {
@@ -3011,7 +3011,7 @@ exports.ordering = function(g, invertOrder) {
     var predecessors = g.predecessors(nodeId);
     var sortedPredecessors = predecessors.sort(function(a, b) {
       var result = g.predecessors(a)[0].localeCompare(g.predecessors(b)[0]);
-      return invertOrder ? -result : result;
+      return sortRankByIdAscending ? result : -result;
     });
     sortedPredecessors.forEach(function(n) {
       ordering[rank - 1].push(n);
