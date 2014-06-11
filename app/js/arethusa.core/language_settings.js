@@ -10,8 +10,13 @@ angular.module('arethusa.core').service('languageSettings', [
       }
     };
 
-    this.getFor = function(document) {
-      var lang = documentStore.store[document].json.treebank["_xml:lang"];
+    this.getFor = function(documentName) {
+      var document = documentStore.store[documentName];
+      if (document === undefined) {
+        return undefined;
+      }
+
+      var lang = document.json.treebank["_xml:lang"];
       if (lang in this.languageSpecifics) {
         return this.languageSpecifics[lang];
       }
