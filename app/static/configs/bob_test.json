@@ -87,7 +87,7 @@
         }
       },
       "matchAll" : true,
-      "fileUrl" : "./static/configs/morph/attributes.json"
+      "fileUrl" : "./static/configs/morph/lat_attributes.json"
     },
 
     "relation" : {

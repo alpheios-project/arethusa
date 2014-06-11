@@ -73,7 +73,7 @@
       "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
       "matchAll" : true,
       "noRetrieval" : "online",
-      "fileUrl" : "./static/configs/morph/attributes.json"
+      "fileUrl" : "./static/configs/morph/lat_attributes.json"
     },
 
     "relation" : {
