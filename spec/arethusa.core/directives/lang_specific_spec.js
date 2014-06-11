@@ -3,14 +3,10 @@
 describe('lang-specific directive', function() {
   var element;
   var documentStore;
-  function createDocumentStore() {
+  function createLanguageSettingsWith(settings) {
     return {
-      store: {
-        treebank: {
-          json: {
-            treebank: {}
-          }
-        }
+      getFor: function(doc) {
+        return settings;
       }
     };
   }
@@ -26,10 +22,13 @@ describe('lang-specific directive', function() {
   };
 
   describe('Arabic', function() {
+    var arabicSettings = {
+      lang: 'ar',
+      leftToRight: false
+    };
     beforeEach(module(function($provide) {
-      documentStore = createDocumentStore();
-      documentStore.store.treebank.json.treebank["_xml:lang"] = "ara";
-      $provide.value('documentStore', documentStore);
+      $provide.value('languageSettings',
+        createLanguageSettingsWith(arabicSettings));
     }));
 
     beforeEach(function() {
@@ -47,8 +46,7 @@ describe('lang-specific directive', function() {
 
   describe('unspecified language', function() {
     beforeEach(module(function($provide) {
-      documentStore = createDocumentStore();
-      $provide.value('documentStore', documentStore);
+      $provide.value('languageSettings', createLanguageSettingsWith(undefined));
     }));
 
     beforeEach(function() {
