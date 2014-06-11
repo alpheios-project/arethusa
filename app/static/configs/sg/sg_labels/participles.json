@@ -68,7 +68,7 @@
     },
     "PERI" : {
       "short" : "PERI",
-      "long" : "in periphrastic construction"
+      "long" : "periphrastic"
     },
     "SBV" : {
       "short" : "SBV",
