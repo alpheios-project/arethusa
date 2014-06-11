@@ -235,13 +235,15 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         scope.changeDir = function() {
           scope.rankDir = scope.rankDir === "BT" ? "RL" : "BT";
         };
-
-        var langSettings = languageSettings.getFor('treebank');
+        scope.invertOrder = function() {
+          var langSettings = languageSettings.getFor('treebank');
+          return langSettings ? !langSettings.leftToRight : false;
+        };
 
         scope.rankDir = 'BT';
         scope.compactTree();
         scope.layout = dagreD3.layout()
-          .invertOrder(langSettings ? !langSettings.leftToRight : false)
+          .invertOrder(scope.invertOrder)
           .rankDir(scope.rankDir)
           .nodeSep(scope.nodeSep)
           .edgeSep(scope.edgeSep)
@@ -383,6 +385,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         scope.$watch('rankDir', function(newVal, oldVal) {
           if (newVal !== oldVal) {
             scope.layout.rankDir(newVal);
+            render();
+          }
+        });
+        scope.$watch('invertOrder', function(newVal, oldVal) {
+          if (newVal !== oldVal) {
+            scope.layout.inverOrder(newVal);
             render();
           }
         });
