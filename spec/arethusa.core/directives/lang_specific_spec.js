@@ -24,7 +24,8 @@ describe('lang-specific directive', function() {
   describe('Arabic', function() {
     var arabicSettings = {
       lang: 'ar',
-      leftToRight: false
+      leftToRight: false,
+      font: "some font"
     };
     beforeEach(module(function($provide) {
       $provide.value('languageSettings',
@@ -36,11 +37,15 @@ describe('lang-specific directive', function() {
     });
 
     it('sets the language on the html element', function() {
-      expect(element.attr('lang')).toEqual('ar');
+      expect(element.attr('lang')).toEqual(arabicSettings.lang);
     });
 
     it('sets the text direction on the html element', function() {
       expect(element.attr('dir')).toEqual('rtl');
+    });
+
+    it('sets another font', function() {
+      expect(element.css('font-family')).toMatch(arabicSettings.font);
     });
   });
 

@@ -6,7 +6,8 @@ angular.module('arethusa.core').service('languageSettings', [
     this.languageSpecifics = {
       'ara' : {
         lang: 'ar',
-        leftToRight: false
+        leftToRight: false,
+        font: 'AmiriWeb'
       }
     };
 

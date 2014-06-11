@@ -10,6 +10,7 @@ angular.module('arethusa.core').directive('langSpecific', [
         if (settings) {
           element.attr('lang', settings.lang);
           element.attr('dir', settings.leftToRight ? 'ltr' : 'rtl');
+          element.css('font-family', settings.font);
         }
       }
     };
