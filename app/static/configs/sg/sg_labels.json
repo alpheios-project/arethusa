@@ -1,33 +1,38 @@
 {
   "labels" : {
+    "INF" : {
+      "short" : "INF",
+      "long" : "infinitive",
+      "dependency" : {
+        "pos" : "verb",
+        "mood" : "inf"
+      },
+      "fileUrl" : "./static/configs/sg/sg_labels/infinitives.json"
+    },
+    "PART" : {
+      "short" : "PART",
+      "long" : "participle",
+      "dependency" : {
+        "pos" : "part"
+      },
+      "fileUrl" : "./static/configs/sg/sg_labels/participles.json"
+    },
     "ADJ" : {
       "short" : "ADJ",
       "long" : "adjective",
       "dependency" : {
         "pos" : "adj"
       },
-      "nested" : {
-        "SBV" : {
-          "short" : "SBV",
-          "long" : "substantive"
-        },
-        "PRON" : {
-          "short" : "PRON",
-          "long" : "pronominal"
-        },
-        "NORM" : {
-          "short" : "NORM",
-          "long" : "normal"
-        },
-        "VRB" : {
-          "short" : "VRB",
-          "long" : "verbal"
-        },
-        "IDK" : {
-          "short" : "IDK",
-          "long" : "I don't know"
-        }
-      }
+      "fileUrl" : "./static/configs/sg/sg_labels/adjectives.json"
+    },
+    "NOM" : {
+      "short" : "NOM",
+      "long" : "nominative",
+      "dependency" : {
+        "pos" : "noun",
+        "case" : "nom"
+      },
+      "fileUrl" : "./static/configs/sg/sg_labels/nominative_cases.json"
     },
     "GEN" : {
       "short" : "GEN",
@@ -36,7 +41,16 @@
         "pos" : "noun",
         "case" : "gen"
       },
-      "fileUrl" : "./static/configs/sg/genetive_cases.js"
+      "fileUrl" : "./static/configs/sg/sg_labels/genetive_cases.json"
+    },
+    "ACC" : {
+      "short" : "ACC",
+      "long" : "accusative",
+      "dependency" : {
+        "pos" : "noun",
+        "case" : "acc"
+      },
+      "fileUrl" : "./static/configs/sg/sg_labels/accusative_cases.json"
     }
   }
 }

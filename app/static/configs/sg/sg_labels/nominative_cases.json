@@ -1,0 +1,30 @@
+{
+  "nested" : {
+    "DEP" : {
+      "short" : "DEP",
+      "long" : "dependent"
+    },
+    "INDEP" : {
+      "short" : "INDEP",
+      "long" : "independent",
+      "nested" : {
+        "CIT" : {
+          "short" : "CIT",
+          "long" : "of citation"
+        },
+        "PEND" : {
+          "short" : "PEND",
+          "long" : "pending (nom. pendens)"
+        },
+        "EXCL" : {
+          "short" : "EXCL",
+          "long" : "of exclamation"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    }
+  }
+}
