@@ -3,7 +3,13 @@
     "template"  : "templates/main_with_sidepanel.html",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "fakePerseids",
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "perseidsResource",
         "docIdentifier" : "treebank"
       }
     },
@@ -13,9 +19,18 @@
       "morph",
       "relation",
       "depTree",
-      "review",
       "history"
     ]
+  },
+
+  "auths": {
+    "perseidsAuth" : {
+      "type": "CSRF",
+      "cookie": "csrftoken",
+      "header": "X-CSRF-Token",
+      "ping" : "http://sosol.perseids.org/sosol/dmm_api/ping"
+
+    }
   },
 
   "navbar" : {
@@ -25,24 +40,12 @@
   },
 
   "resources" : {
-    "fakePerseids" : {
-      "route" : "http://74.70.97.104:8085/xml_server/:doc",
+    "perseidsResource" : {
+      "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
       "params" : [
-        "doc",
-        "s"
-      ]
-    },
-
-    "fakeGold" : {
-      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
-      "params" : [
-        "gold",
-        "s"
-      ]
-    },
-
-    "lexInvFusekiEndpoint" : {
-      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
+        "doc"
+      ],
+      "auth": "perseidsAuth"
     },
 
     "morphologyService" : {
@@ -93,16 +96,6 @@
       "fileUrl" : "./static/configs/relation/relations.json"
     },
 
-    "review" : {
-      "name" : "review",
-      "template" : "templates/arethusa.review/review.html",
-      "retrievers" : {
-        "TreebankRetriever" : {
-          "resource" : "fakeGold"
-        }
-      }
-    },
-
     "history" : {
       "name" : "history",
       "listener" : true,
@@ -116,3 +109,4 @@
     }
   }
 }
+
