@@ -41,10 +41,12 @@ angular.module('arethusa.sg').service('sg', [
 
     this.selectOptions = function(obj) {
       var pos = obj.morph.pos;
+      var posKey = pos.toUpperCase();
       var casus = obj.morph.case;
+      var casusKey = casus.toUpperCase();
 
-      if (pos === "noun" && casus === "gen") {
-        return self.labels.GEN.nested;
+      if (pos === "noun") {
+        return self.labels[posKey].nested[casusKey].nested;
       } else {
         if (pos === "adj") {
           return self.labels.ADJ.nested;

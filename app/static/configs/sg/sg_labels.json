@@ -25,41 +25,46 @@
       },
       "fileUrl" : "./static/configs/sg/sg_labels/adjectives.json"
     },
-    "NOM" : {
-      "short" : "NOM",
-      "long" : "nominative",
+    "NOUN" : {
+      "short" : "NOUN",
+      "long" : "noun",
       "dependency" : {
-        "pos" : "noun",
-        "case" : "nom"
+        "pos" : "noun"
       },
-      "fileUrl" : "./static/configs/sg/sg_labels/nominative_cases.json"
-    },
-    "GEN" : {
-      "short" : "GEN",
-      "long" : "genitive",
-      "dependency" : {
-        "pos" : "noun",
-        "case" : "gen"
-      },
-      "fileUrl" : "./static/configs/sg/sg_labels/genetive_cases.json"
-    },
-    "DAT" : {
-      "short" : "DAT",
-      "long" : "dative",
-      "dependency" : {
-        "pos" : "noun",
-        "case" : "dat"
-      },
-      "fileUrl" : "./static/configs/sg/sg_labels/dative_cases.json"
-    },
-    "ACC" : {
-      "short" : "ACC",
-      "long" : "accusative",
-      "dependency" : {
-        "pos" : "noun",
-        "case" : "acc"
-      },
-      "fileUrl" : "./static/configs/sg/sg_labels/accusative_cases.json"
+      "nested" : {
+        "NOM" : {
+          "short" : "NOM",
+          "long" : "nominative",
+          "dependency" : {
+            "case" : "nom"
+          },
+          "fileUrl" : "./static/configs/sg/sg_labels/nominative_cases.json"
+        },
+        "GEN" : {
+          "short" : "GEN",
+          "long" : "genitive",
+          "dependency" : {
+            "case" : "gen"
+          },
+          "fileUrl" : "./static/configs/sg/sg_labels/genetive_cases.json"
+        },
+        "DAT" : {
+          "short" : "DAT",
+          "long" : "dative",
+          "dependency" : {
+            "case" : "dat"
+          },
+          "fileUrl" : "./static/configs/sg/sg_labels/dative_cases.json"
+        },
+        "ACC" : {
+          "short" : "ACC",
+          "long" : "accusative",
+          "dependency" : {
+            "case" : "acc"
+          },
+          "fileUrl" : "./static/configs/sg/sg_labels/accusative_cases.json"
+        }
+      }
     }
   }
 }
