@@ -39,19 +39,26 @@ angular.module('arethusa.sg').service('sg', [
       });
     };
 
+    var key = function(arg) {
+      return arg.toUpperCase();
+    };
+
     this.selectOptions = function(obj) {
       var pos = obj.morph.pos;
-      var posKey = pos.toUpperCase();
       var casus = obj.morph.case;
-      var casusKey = casus.toUpperCase();
+      var mood = obj.morph.mood;
 
       if (pos === "noun") {
-        return self.labels[posKey].nested[casusKey].nested;
+        return self.labels[key(pos)].nested[key(casus)].nested;
       } else {
-        if (pos === "adj") {
-          return self.labels.ADJ.nested;
+        if (pos === "adj" ) {
+          return self.labels[key(pos)].nested;
         } else {
-          return noob;
+          if (mood === "part" || mood === "inf") {
+            return self.labels[key(mood)].nested;
+          } else {
+            return noob;
+          }
         }
       }
     };
