@@ -72,7 +72,8 @@
     },
     "SBV" : {
       "short" : "SBV",
-      "long" : "substantive"
+      "long" : "substantive",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
     }
   }
 }
