@@ -43,27 +43,27 @@ angular.module('arethusa.sg').service('sg', [
       return arg.toUpperCase();
     };
 
+    var findDependentLabelSet = function(nestingLevel, morph) {
+      var category;
+      angular.forEach(nestingLevel, function(val, label){
+        angular.forEach(val.dependency, function(depVal, depCat) {
+          if (morph[depCat] === depVal) {
+            category = nestingLevel[createKey(depVal)].nested;
+          }
+        });
+      });
+      return category;
+    };
+
     this.selectOptions = function(obj) {
-      var pos = obj.morph.pos;
-      var casus = obj.morph.case;
-      var mood = obj.morph.mood;
+      var morph = {
+        pos: obj.morph.pos,
+        case: obj.morph.case,
+        mood: obj.morph.mood
+      };
 
-      var categories = self.labels[createKey(pos)].nested;
-
-      return categories;
-      //if (pos === "noun") {
-        //return self.labels[key(pos)].nested[key(casus)].nested;
-      //} else {
-        //if (pos === "adj" ) {
-          //return self.labels[key(pos)].nested;
-        //} else {
-          //if (mood === "part" || mood === "inf") {
-            //return self.labels[key(mood)].nested;
-          //} else {
-            //return noob;
-          //}
-        //}
-      //}
+      var category = findDependentLabelSet(self.labels, morph);
+      return category;
     };
 
     this.init = function() {
