@@ -1,0 +1,84 @@
+{
+  "nested" : {
+    "TME" : {
+      "short" : "TME",
+      "long" : "of time (with force of genitive/dative)"
+    },
+    "PLC" : {
+      "short" : "PLC",
+      "long" : "of place (with force of genitive/dative)"
+    },
+    "TME-AE" : {
+      "short" : "TME-AE",
+      "long" : "of time (with force of accusative of extent)"
+    },
+    "TME-AT" : {
+      "short" : "TME-AT",
+      "long" : "of time (with force of terminal accusative)"
+    },
+    "SPC" : {
+      "short" : "SPC",
+      "long" : "of space (with force of accusative of extent)"
+    },
+    "SPC-AT" : {
+      "short" : "SPC-AT",
+      "long" : "of space (with force of accusative of extent)"
+    },
+    "TEMP" : {
+      "short" : "TEMP",
+      "long" : "of temporal starting point"
+    },
+    "SEP" : {
+      "short" : "SEP",
+      "long" : "of separation"
+    },
+    "SRC" : {
+      "short" : "SRC",
+      "long" : "of source"
+    },
+    "CAU" : {
+      "short" : "CAU",
+      "long" : "of cause"
+    },
+    "RES" : {
+      "short" : "RES",
+      "long" : "of result"
+    },
+    "MNR" : {
+      "short" : "MNR",
+      "long" : "of manner"
+    },
+    "MSR" : {
+      "short" : "MSR",
+      "long" : "of measure"
+    },
+    "INST" : {
+      "short" : "INST",
+      "long" : "of intruments or means"
+    },
+    "PURP" : {
+      "short" : "PURP",
+      "long" : "of purpose"
+    },
+    "CCS" : {
+      "short" : "CCS",
+      "long" : "of concession"
+    },
+    "NEG" : {
+      "short" : "NEG",
+      "long" : "of negation"
+    },
+    "MOD" : {
+      "short" : "MOD",
+      "long" : "of mode"
+    },
+    "UNSP" : {
+      "short" : "UNSP",
+      "long" : "unspecific"
+    },
+    "IDK" : {
+      "short" : "IDK",
+      "long" : "I don't know"
+    }
+  }
+}
