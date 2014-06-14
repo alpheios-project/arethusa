@@ -1,0 +1,25 @@
+{
+  "nested" : {
+    "FIN" : {
+      "short" : "FIN",
+      "long" : "finite verb",
+      "fileUrl" : "./static/configs/sg/sg_labels/finite_verbs.json"
+    },
+    "INF" : {
+      "short" : "INF",
+      "long" : "infinitive",
+      "dependency" : {
+        "mood" : "inf"
+      },
+      "fileUrl" : "./static/configs/sg/sg_labels/infinitives.json"
+    },
+    "PART" : {
+      "short" : "PART",
+      "long" : "participle",
+      "dependency" : {
+        "mood" : "part"
+      },
+      "fileUrl" : "./static/configs/sg/sg_labels/participles.json"
+    }
+  }
+}

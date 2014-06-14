@@ -1,22 +1,5 @@
 {
   "labels" : {
-    "INF" : {
-      "short" : "INF",
-      "long" : "infinitive",
-      "dependency" : {
-        "pos" : "verb",
-        "mood" : "inf"
-      },
-      "fileUrl" : "./static/configs/sg/sg_labels/infinitives.json"
-    },
-    "PART" : {
-      "short" : "PART",
-      "long" : "participle",
-      "dependency" : {
-        "pos" : "part"
-      },
-      "fileUrl" : "./static/configs/sg/sg_labels/participles.json"
-    },
     "ADJ" : {
       "short" : "ADJ",
       "long" : "adjective",
@@ -39,7 +22,7 @@
       "dependency" : {
         "pos" : "verb"
       },
-      "fileUrl" : "./static/configs/sg/sg_labels/finite_verbs.json"
+      "fileUrl" : "./static/configs/sg/sg_labels/verbs.json"
     },
     "ADV" : {
       "short" : "ADV",
