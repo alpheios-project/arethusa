@@ -1,0 +1,98 @@
+{
+  "nested" : {
+    "SBV" : {
+      "short" : "SBV",
+      "long" : "substantive",
+      "nested" : {
+        "STT" : {
+          "short" : "STT",
+          "long" : "of statement"
+        },
+        "WDS" : {
+          "short" : "WDS",
+          "long" : "of will or desire"
+        },
+        "QES" : {
+          "short" : "QES",
+          "long" : "of question"
+        },
+        "EXCL" : {
+          "short" : "EXCL",
+          "long" : "of exclamation"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "ADJ" : {
+      "short" : "ADJ",
+      "long" : "adjective",
+      "nested" : {
+        "PURP" : {
+          "short" : "PURP",
+          "long" : "as relative clause of purpose"
+        },
+        "CAU" : {
+          "short" : "CAU",
+          "long" : "as relative clause of cause"
+        },
+        "RES" : {
+          "short" : "RES",
+          "long" : "as relative clause of result"
+        },
+        "CON" : {
+          "short" : "CON",
+          "long" : "as relative clause of condition"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "ADV" : {
+      "short" : "ADV",
+      "long" : "advern",
+      "nested" : {
+        "PURP" : {
+          "short" : "PURP",
+          "long" : "of purpose"
+        },
+        "CAU" : {
+          "short" : "CAU",
+          "long" : "of cause"
+        },
+        "RES" : {
+          "short" : "RES",
+          "long" : "of result"
+        },
+        "CON" : {
+          "short" : "CON",
+          "long" : "of condition"
+        },
+        "CCS" : {
+          "short" : "CCS",
+          "long" : "of concession"
+        },
+        "TME" : {
+          "short" : "TME",
+          "long" : "of time"
+        },
+        "COMP" : {
+          "short" : "COMP",
+          "long" : "of comparison"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "IDK" : {
+      "short" : "IDK",
+      "long" : "I don't know"
+    }
+  }
+}
