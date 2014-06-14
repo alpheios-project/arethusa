@@ -39,7 +39,7 @@ angular.module('arethusa.sg').service('sg', [
       });
     };
 
-    var key = function(arg) {
+    var createKey = function(arg) {
       return arg.toUpperCase();
     };
 
@@ -48,19 +48,22 @@ angular.module('arethusa.sg').service('sg', [
       var casus = obj.morph.case;
       var mood = obj.morph.mood;
 
-      if (pos === "noun") {
-        return self.labels[key(pos)].nested[key(casus)].nested;
-      } else {
-        if (pos === "adj" ) {
-          return self.labels[key(pos)].nested;
-        } else {
-          if (mood === "part" || mood === "inf") {
-            return self.labels[key(mood)].nested;
-          } else {
-            return noob;
-          }
-        }
-      }
+      var categories = self.labels[createKey(pos)].nested;
+
+      return categories;
+      //if (pos === "noun") {
+        //return self.labels[key(pos)].nested[key(casus)].nested;
+      //} else {
+        //if (pos === "adj" ) {
+          //return self.labels[key(pos)].nested;
+        //} else {
+          //if (mood === "part" || mood === "inf") {
+            //return self.labels[key(mood)].nested;
+          //} else {
+            //return noob;
+          //}
+        //}
+      //}
     };
 
     this.init = function() {
