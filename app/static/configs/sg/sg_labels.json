@@ -32,6 +32,27 @@
         "pos" : "noun"
       },
       "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    },
+    "VERB" : {
+      "short" : "VERB",
+      "long" : "verb",
+      "dependency" : {
+        "pos" : "verb"
+      },
+      "fileUrl" : "./static/configs/sg/sg_labels/finite_verbs.json"
+    },
+    "ADV" : {
+      "short" : "ADV",
+      "long" : "adverb",
+      "dependency" : {
+        "pos" : "adv"
+      },
+      "fileUrl" : "./static/configs/sg/sg_labels/adverbs.json"
+    },
+    "CLS" : {
+      "short" : "CLS",
+      "long" : "clause",
+      "fileUrl" : "./static/configs/sg/sg_labels/clauses.json"
     }
   }
 }
