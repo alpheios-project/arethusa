@@ -50,7 +50,7 @@
       },
       "noView" : true,
       "template"  : "templates/morph2.html",
-      "fileUrl" : "./static/configs/morph/attributes.json"
+      "fileUrl" : "./static/configs/morph/lat_attributes.json"
     }
   }
 }

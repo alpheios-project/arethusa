@@ -35,7 +35,7 @@
         "adv" : {
           "long" : "adverb",
           "short" : "adv",
-          "postag" : "a",
+          "postag" : "d",
           "style" : {
             "color" : "darkorange"
           }
@@ -96,10 +96,34 @@
             "color" : "red"
           }
         },
+        "nrl" : {
+          "long" : "numeral",
+          "short" : "nrl",
+          "postag" : "m",
+          "style" : {
+            "color" : "gold"
+          }
+        },
         "punct" : {
           "long" : "punctuation",
           "short" : "punct",
           "postag" : "u"
+        },
+        "art" : {
+          "long" : "article",
+          "short" : "art",
+          "postag" : "l",
+          "style" : {
+            "color" : "blue"
+          }
+        },
+        "prtl" : {
+          "long" : "particle",
+          "short" : "prtl",
+          "postag" : "g",
+          "style" : {
+            "color" : "blue"
+          }
         }
       }
     },
@@ -132,6 +156,11 @@
     "num" : {
       "long" : "Number",
       "short" : "num",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "noun", "art", "nrl", "verb", "part", "adj", "pron" ]
+        }
+      },
       "values" : {
         "sg" : {
           "long" : "singular",
@@ -142,12 +171,22 @@
           "long" : "plural",
           "short" : "pl",
           "postag" : "p"
+        },
+        "dl" : {
+          "long" : "dual",
+          "short" : "dl",
+          "postag" : "d"
         }
       }
     },
     "tense" : {
       "long" : "Tense",
       "short" : "tense",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "verb", "part" ]
+        }
+      },
       "values" : {
         "pr" : {
           "long" : "present",
@@ -178,12 +217,22 @@
           "long" : "future",
           "short" : "fut",
           "postag" : "f"
+        },
+        "aor" : {
+          "long" : "aorist",
+          "short" : "aor",
+          "postag" : "a"
         }
       }
     },
     "mood" : {
       "long" : "Mood",
       "short" : "mood",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "verb", "part" ]
+        }
+      },
       "values" : {
         "ind" : {
           "long" : "indicative",
@@ -198,28 +247,33 @@
         "inf" : {
           "long" : "infinitive",
           "short" : "inf",
-          "postag" : "i"
+          "postag" : "n"
         },
         "imp" : {
           "long" : "imperative",
           "short" : "imp",
           "postag" : "m"
         },
-        "gerund" : {
-          "long" : "gerundive",
-          "short" : "gerund",
-          "postag" : "g"
-        },
         "part" : {
           "long" : "participle",
           "short" : "part",
           "postag" : "p"
+        },
+        "opt" : {
+          "long" : "optative",
+          "short" : "opt",
+          "postag" : "o"
         }
       }
     },
     "voice" : {
       "long" : "Voice",
       "short" : "voice",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "verb", "part" ]
+        }
+      },
       "values" : {
         "act" : {
           "long" : "active",
@@ -231,6 +285,16 @@
           "short" : "pass",
           "postag" : "p"
         },
+        "mid" : {
+          "long" : "middle",
+          "short" : "mid",
+          "postag" : "m"
+        },
+        "md" : {
+          "long" : "medio-passive",
+          "short" : "md",
+          "postag" : "e"
+        },
         "dep" : {
           "long" : "deponens",
           "short" : "dep",
@@ -241,6 +305,11 @@
     "gend" : {
       "long" : "gender",
       "short" : "gend",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "part", "art", "noun", "adj", "pron", "nrl" ]
+        }
+      },
       "values" : {
         "masc" : {
           "long" : "masculine",
@@ -262,6 +331,11 @@
     "case" : {
       "long" : "Casus",
       "short" : "case",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "part", "art", "noun", "adj", "pron", "nrl" ]
+        }
+      },
       "values" : {
         "nom" : {
           "long" : "nominative",
@@ -288,16 +362,21 @@
           "short" : "voc",
           "postag" : "v"
         },
-        "abl" : {
-          "long" : "ablative",
-          "short" : "abl",
-          "postag" : "b"
+        "loc" : {
+          "long" : "locative",
+          "short" : "loc",
+          "postag" : "l"
         }
       }
     },
     "degree" : {
       "long" : "Degree",
       "short" : "degree",
+      "dependencies" : {
+        "if" : {
+          "pos" : [ "part", "adj" ]
+        }
+      },
       "values" : {
         "pos" : {
           "long" : "positive",
