@@ -22,6 +22,10 @@
     "navigation" : true
   },
 
+  "notifier" : {
+    "duration" : "0"
+  },
+
   "resources" : {
     "e2e" : {
       "route" : "http://services.perseids.org/llt-data/:doc.:s.xml",
