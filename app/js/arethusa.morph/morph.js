@@ -64,20 +64,20 @@ angular.module('arethusa.morph').service('morph', [
 
     // Probably not useful to calculate this everytime...
     this.emptyPostag = function () {
-      return arethusaUtil.map(this.postagSchema, function (el) {
+      return arethusaUtil.map(self.postagSchema, function (el) {
         return '-';
       }).join('');
     };
 
     this.updatePostag = function (form, attr, val) {
-      var index = this.postagSchema.indexOf(attr);
-      var postag = this.postagValue(attr, val);
+      var index = self.postagSchema.indexOf(attr);
+      var postag = self.postagValue(attr, val);
       form.postag = arethusaUtil.replaceAt(form.postag, index, postag);
     };
 
     this.attributesToPostag = function (attrs) {
       var postag = '';
-      var postagArr = arethusaUtil.map(this.postagSchema, function (el) {
+      var postagArr = arethusaUtil.map(self.postagSchema, function (el) {
           var attrVals = self.attributeValues(el);
           var val = attrs[el];
           var valObj = arethusaUtil.findObj(attrVals, function (e) {
@@ -101,10 +101,10 @@ angular.module('arethusa.morph').service('morph', [
       // We could always have no analysis sitting in the data we are
       // looking at.
       if (analysis) {
-        this.postagToAttributes(analysis);
+        self.postagToAttributes(analysis);
         analysis.origin = 'document';
         val.forms.push(analysis);
-        state.setStyle(id, this.styleOf(analysis));
+        state.setStyle(id, self.styleOf(analysis));
       }
     };
 
@@ -145,7 +145,7 @@ angular.module('arethusa.morph').service('morph', [
       });
     };
 
-    this.loadInitalAnalyses = function () {
+    function loadInitalAnalyses() {
       var analyses = self.seedAnalyses(state.tokens);
       if (self.noRetrieval !== "all") {
         angular.forEach(analyses, function (val, id) {
@@ -157,10 +157,10 @@ angular.module('arethusa.morph').service('morph', [
         });
       }
       return analyses;
-    };
+    }
 
     this.currentAnalyses = function () {
-      var analyses = this.analyses;
+      var analyses = self.analyses;
       return arethusaUtil.inject({}, state.selectedTokens, function (obj, id, val) {
         var token = analyses[id];
         if (token) {
@@ -170,25 +170,25 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     this.selectAttribute = function (attr) {
-      return this.attributes[attr] || {};
+      return self.attributes[attr] || {};
     };
     this.longAttributeName = function (attr) {
-      return this.selectAttribute(attr).long;
+      return self.selectAttribute(attr).long;
     };
     this.attributeValues = function (attr) {
-      return this.selectAttribute(attr).values || {};
+      return self.selectAttribute(attr).values || {};
     };
     this.attributeValueObj = function (attr, val) {
-      return this.attributeValues(attr)[val] || {};
+      return self.attributeValues(attr)[val] || {};
     };
     this.longAttributeValue = function (attr, val) {
-      return this.attributeValueObj(attr, val).long;
+      return self.attributeValueObj(attr, val).long;
     };
     this.abbrevAttributeValue = function (attr, val) {
-      return this.attributeValueObj(attr, val).short;
+      return self.attributeValueObj(attr, val).short;
     };
     this.postagValue = function (attr, val) {
-      return this.attributeValueObj(attr, val).postag;
+      return self.attributeValueObj(attr, val).postag;
     };
 
     this.concatenatedAttributes = function (form) {
@@ -212,16 +212,19 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     this.styleOf = function (form) {
-      var styler = this.styledThrough;
+      var styler = self.styledThrough;
       var styleVal = form.attributes[styler];
-      return this.attributeValueObj(styler, styleVal).style;
+      return self.attributeValueObj(styler, styleVal).style;
     };
 
     this.setState = function (id, form) {
-      state.setStyle(id, this.styleOf(form));
+      deleteFromIndex(id);
+      addToIndex(form, id);
+      state.setStyle(id, self.styleOf(form));
       state.setState(id, 'morphology', form);
     };
     this.unsetState = function (id) {
+      deleteFromIndex(id);
       state.unsetStyle(id);
       state.unsetState(id, 'morphology');
     };
@@ -234,50 +237,74 @@ angular.module('arethusa.morph').service('morph', [
       return self.selectAttribute(attr).dependencies;
     };
 
-    function findThroughOr(memo, id, attrs, keywords) {
-      angular.forEach(attrs, function(val, attr) {
-        angular.forEach(keywords, function(keyword, i) {
-          if (val === keyword) {
-            memo[id] = true;
-          }
+    function findThroughOr(keywords) {
+      return arethusaUtil.inject({}, keywords, function(memo, keyword) {
+        var hits = searchIndex[keyword] || [];
+        angular.forEach(hits, function(id, i) {
+          memo[id] = true;
         });
       });
     }
 
-    function findThroughAll(memo, id, attrs, keywords) {
-      var goal = keywords.length;
-      var counter = 0;
-      angular.forEach(attrs, function(val, attr) {
-        angular.forEach(keywords, function(keyword, i) {
-          if (val === keyword) {
-            counter++;
-          }
-        });
+    function findThroughAll(keywords) {
+      // we need to fill a first array which we can check against first
+      var firstKw = keywords.shift();
+      var hits = searchIndex[firstKw] || [];
+      angular.forEach(keywords, function(keyword, i) {
+        var moreHits = searchIndex[keyword] || [];
+        hits = arethusaUtil.intersect(hits, moreHits);
       });
-      if (goal === counter) {
+      // and know return something with unique values
+      return arethusaUtil.inject({}, hits, function(memo, id) {
         memo[id] = true;
-      }
+      });
     }
 
-    // Performance of that is atrocious. Need to do better.
     this.queryForm = function() {
       var keywords = self.formQuery.split(' ');
-      // we use an object and not an array, even if we only need
-      // ids - but we get avoid duplicate keys that way
-      var ids = arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
-        var attrs = token.morphology.attributes;
-        if (self.matchAll) {
-          findThroughAll(memo, id, attrs, keywords);
-        } else {
-          findThroughOr(memo, id, attrs, keywords);
-        }
-      });
+      // The private fns return an object and not an array, even if we only
+      // need ids - but we avoid duplicate keys that way.
+      var ids = self.matchAll ? findThroughAll(keywords) : findThroughOr(keywords);
       state.multiSelect(Object.keys(ids));
     };
 
+    var searchIndex;
+    function createSearchIndex() {
+      searchIndex = {};
+      angular.forEach(state.tokens, function(token, id) {
+        var form = token.morphology || {};
+        addToIndex(form, id);
+      });
+    }
+
+    function addToIndex(form, id) {
+      var attrs = form.attributes || {};
+      angular.forEach(attrs, function(val, key) {
+        if (!searchIndex[val]) {
+          searchIndex[val] = [];
+        }
+        searchIndex[val].push(id);
+      });
+    }
+
+    function deleteFromIndex(id) {
+      var form = state.getToken(id).morphology || {};
+      var attrs = form.attributes || {};
+      angular.forEach(attrs, function(value, key) {
+        // the index might contain duplicate ids
+        var ids = searchIndex[value];
+        var i = ids.indexOf(id);
+        while (i !== -1) {
+          ids.splice(i, 1);
+          i = ids.indexOf(id);
+        }
+      });
+    }
+
     this.init = function () {
       configure();
-      this.analyses = this.loadInitalAnalyses(this);
+      self.analyses = loadInitalAnalyses();
+      createSearchIndex();
     };
   }
 ]);

@@ -201,4 +201,13 @@ describe("arethusaUtil", function() {
       expect(aU.isTerminatingPunctuation(';')).toBeTruthy();
     });
   });
+
+  describe('intersect', function() {
+    it('returns the intersection of two arrays', function() {
+      var arr1 = [1, 2, 3, 4];
+      var arr2 = [1, 3, 5];
+      var res  = [1, 3];
+      expect(aU.intersect(arr1, arr2)).toEqual(res);
+    });
+  });
 });
