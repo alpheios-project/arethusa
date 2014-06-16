@@ -58,4 +58,10 @@ describe("navigator", function() {
       expect(navigator.currentSentence()).toBe(s1.tokens);
     });
   });
+
+  describe('this.state', function() {
+    it('returns the state object', function() {
+      expect(navigator.state()).toBe(state);
+    });
+  });
 });
