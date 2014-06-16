@@ -93,8 +93,14 @@ angular.module('arethusa.core').service('navigator', [
       self.updateState();
     }
 
+    function updateNextAndPrev() {
+      self.status.hasNext = self.hasNext();
+      self.status.hasPrev = self.hasPrev();
+    }
+
     this.updateId = function () {
       self.status.currentId = currentId();
+      updateNextAndPrev();
     };
 
     this.sentenceToString = function(sentence) {

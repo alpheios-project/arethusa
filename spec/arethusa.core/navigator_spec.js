@@ -85,6 +85,21 @@ describe("navigator", function() {
       navigator.updateId();
       expect(navigator.status.currentId).toEqual('1');
     });
+
+    it('determines if a next and/or previous sentence is available', function() {
+      navigator.addSentences(sentences);
+      navigator.updateId();
+      expect(navigator.status.hasNext).toBeTruthy();
+      expect(navigator.status.hasPrev).toBeFalsy();
+
+      navigator.nextSentence(); // calls updateId on its own
+      expect(navigator.status.hasNext).toBeTruthy();
+      expect(navigator.status.hasPrev).toBeTruthy();
+
+      navigator.nextSentence();
+      expect(navigator.status.hasNext).toBeFalsy();
+      expect(navigator.status.hasPrev).toBeTruthy();
+    });
   });
 
   describe('this.sentenceToString()', function() {
