@@ -32,4 +32,45 @@ describe("NavigatorCtrl", function() {
     });
     results = {};
   }));
+
+  describe('next()', function() {
+    it('delegates to navigator.nextSentence()', function() {
+      scope.next();
+      expect(results.nextSentence).toBeTruthy();
+    });
+  });
+
+  describe('prev()', function() {
+    it('delegates to navigator.prevSentence()', function() {
+      scope.prev();
+      expect(results.prevSentence).toBeTruthy();
+    });
+  });
+
+  describe('goToFirst()', function() {
+    it('delegats to navigator.goToFirst()', function() {
+      scope.goToFirst();
+      expect(results.goToFirst).toBeTruthy();
+    });
+  });
+
+  describe('goToLast()', function() {
+    it('delegats to navigator.goToLast()', function() {
+      scope.goToLast();
+      expect(results.goToLast).toBeTruthy();
+    });
+  });
+
+  describe('goTo()', function() {
+    it('delegats to navigator.goTo()', function() {
+      scope.goTo('123');
+      expect(results.goTo).toEqual('123');
+    });
+  });
+
+  describe('navStat', function() {
+    it('delegates to navigator.status', function() {
+      expect(scope.navStat).toEqual('status');
+    });
+  });
 });
