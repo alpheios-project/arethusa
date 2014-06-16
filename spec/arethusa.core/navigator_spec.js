@@ -86,4 +86,14 @@ describe("navigator", function() {
       expect(navigator.status.currentId).toEqual('1');
     });
   });
+
+  describe('this.sentenceToString()', function() {
+    it('takes a sentence object and returns it as a string', function() {
+      var str1 = navigator.sentenceToString(s1);
+      var str5 = navigator.sentenceToString(s5);
+
+      expect(str1).toEqual('x y');
+      expect(str5).toEqual('a b');
+    });
+  });
 });
