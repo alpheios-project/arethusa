@@ -218,4 +218,17 @@ describe("navigator", function() {
       expect(navigator.hasPrev()).toBeTruthy();
     });
   });
+
+  describe('this.switchView()', function() {
+    it('switches between editor and list mode', function() {
+      expect(navigator.listMode).toBeFalsy();
+      navigator.switchView();
+      expect(navigator.listMode).toBeTruthy();
+      navigator.switchView();
+      expect(navigator.listMode).toBeFalsy();
+    });
+
+    xit('toggles hiding of the editor and list DOM elements', function() {
+    });
+  });
 });
