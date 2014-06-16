@@ -6,15 +6,18 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
     return {
       restrict: 'E',
       scope: {
-        forms: '='
+        token: '=morphToken'
       },
       link: function (scope, element, attrs) {
         var inArray = arethusaUtil.isIncluded;
 
         scope.m = morph;
+        scope.form = scope.token.customForm;
+        scope.forms = scope.token.forms;
 
         function resetForm() {
-          scope.form = morph.emptyForm();
+          morph.resetCustomForm(scope.token);
+          scope.form = scope.token.customForm;
         }
 
         function dependencyMet(dependencies) {
@@ -44,10 +47,6 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         function setVisibleAttributes() {
           scope.visibleAttributes = getVisibleAttributes();
         }
-
-        scope.$watch('form.attributes', function (newVal, oldVal) {
-          setVisibleAttributes();
-        }, true);
 
         scope.save = function() {
           cleanUpAttributes();
@@ -80,7 +79,9 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         // want to edit a form - replace the form in this scope
         // then and we're all good.
 
-        resetForm();
+        scope.$watch('form.attributes', function (newVal, oldVal) {
+          setVisibleAttributes();
+        }, true);
       },
       templateUrl: 'templates/morph_form_create.html'
     };
