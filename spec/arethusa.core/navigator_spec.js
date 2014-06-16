@@ -153,4 +153,16 @@ describe("navigator", function() {
       expect(navigator.currentSentence()).toBe(s1.tokens);
     });
   });
+
+  describe('this.goTo()', function() {
+    it('goes to a sentence identified by its id', function() {
+      navigator.addSentences(sentences);
+
+      navigator.goTo('3');
+      expect(navigator.currentSentence()).toBe(s3.tokens);
+
+      navigator.goTo('5');
+      expect(navigator.currentSentence()).toBe(s5.tokens);
+    });
+  });
 });
