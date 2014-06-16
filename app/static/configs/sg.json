@@ -11,7 +11,8 @@
       "search",
       "morph",
       "sg",
-      "relation"
+      "relation",
+      "depTree"
     ]
   },
 
@@ -93,6 +94,14 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
       "fileUrl" : "./static/configs/relation/relations.json"
+    },
+
+    "depTree" : {
+      "name" : "depTree",
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
+      "template" : "templates/dep_tree.html"
     }
   }
 }
