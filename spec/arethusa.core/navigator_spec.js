@@ -37,7 +37,7 @@ describe("navigator", function() {
     navigator.reset();
   }));
 
-  describe("this.addSentences", function() {
+  describe("this.addSentences()", function() {
     it('adds an array of sentencs to its internal containers', function() {
       navigator.addSentences(sentences);
 
@@ -52,14 +52,14 @@ describe("navigator", function() {
     });
   });
 
-  describe('this.currentSentence', function() {
+  describe('this.currentSentence()', function() {
     it('returns the tokens of the current sentence', function() {
       navigator.addSentences(sentences);
       expect(navigator.currentSentence()).toBe(s1.tokens);
     });
   });
 
-  describe('this.state', function() {
+  describe('this.state()', function() {
     it('returns the state object', function() {
       expect(navigator.state()).toBe(state);
     });
