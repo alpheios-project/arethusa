@@ -78,7 +78,7 @@
         }
       },
       "matchAll" : true,
-      "fileUrl" : "./static/configs/morph/attributes.json"
+      "fileUrl" : "./static/configs/morph/gr_attributes.json"
     },
 
     "sg" : {
