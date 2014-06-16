@@ -49,11 +49,29 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           setVisibleAttributes();
         }, true);
 
-
         scope.save = function() {
-          scope.forms.push(scope.form);
+          cleanUpAttributes();
+          addOrigin();
+          addForm();
           resetForm();
         };
+
+        // At the point of saving we have undefined values around in the
+        // forms attributes - we clean them up as to not distort our output
+        function cleanUpAttributes() {
+          var cleanAttrs = arethusaUtil.inject({}, scope.visibleAttributes, function(memo, attr) {
+            memo[attr] = scope.form.attributes[attr];
+          });
+          scope.form.attributes = cleanAttrs;
+        }
+
+        function addOrigin() {
+          scope.form.origin = 'you';
+        }
+
+        function addForm() {
+          scope.forms.push(angular.copy(scope.form));
+        }
 
         // TBD
         //
