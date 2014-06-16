@@ -64,4 +64,13 @@ describe("navigator", function() {
       expect(navigator.state()).toBe(state);
     });
   });
+
+  describe('this.updateId()', function() {
+    it('updates the internal status obj with the id of the current sentence', function() {
+      navigator.addSentences(sentences);
+      expect(navigator.status.currentId).toBeUndefined();
+      navigator.updateId();
+      expect(navigator.status.currentId).toEqual('1');
+    });
+  });
 });
