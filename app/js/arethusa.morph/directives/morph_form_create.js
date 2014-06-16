@@ -11,8 +11,11 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
       link: function (scope, element, attrs) {
         var inArray = arethusaUtil.isIncluded;
 
-        scope.form = morph.emptyForm();
         scope.m = morph;
+
+        function resetForm() {
+          scope.form = morph.emptyForm();
+        }
 
         function dependencyMet(dependencies) {
           if (!dependencies) {
@@ -46,12 +49,20 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           setVisibleAttributes();
         }, true);
 
+
+        scope.save = function() {
+          scope.forms.push(scope.form);
+          resetForm();
+        };
+
         // TBD
         //
         // save button to create the form formally
         // watch click events in upper scopes which
         // want to edit a form - replace the form in this scope
         // then and we're all good.
+
+        resetForm();
       },
       templateUrl: 'templates/morph_form_create.html'
     };
