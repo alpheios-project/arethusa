@@ -33,10 +33,10 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     this.nextSentence = function () {
-      self.movePosition(1);
+      movePosition(1);
     };
     this.prevSentence = function () {
-      self.movePosition(-1);
+      movePosition(-1);
     };
 
     this.hasNext = function() {
@@ -69,7 +69,11 @@ angular.module('arethusa.core').service('navigator', [
         self.currentPosition = i;
         self.updateState();
       } else {
+        // Not totally sure what we want to do here -
+        //  maybe add a notification?
+
         /* global alert */
+
         alert('No sentence with id ' + id + ' found');
       }
     };
@@ -84,13 +88,19 @@ angular.module('arethusa.core').service('navigator', [
       self.updateId();
     };
 
-    this.movePosition = function (steps) {
+    function movePosition(steps) {
       self.currentPosition += steps;
       self.updateState();
-    };
+    }
+
+    function updateNextAndPrev() {
+      self.status.hasNext = self.hasNext();
+      self.status.hasPrev = self.hasPrev();
+    }
 
     this.updateId = function () {
       self.status.currentId = currentId();
+      updateNextAndPrev();
     };
 
     this.sentenceToString = function(sentence) {
@@ -124,7 +134,7 @@ angular.module('arethusa.core').service('navigator', [
     this.reset = function () {
       self.currentPosition = 0;
       self.sentences = [];
-      self.sentenceById = {};
+      self.sentencesById = {};
       self.listMode = false;
       self.hasList  = false;
       self.updateId();

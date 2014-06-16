@@ -25,7 +25,7 @@
           <div><a ng-click="goToFirst()">&#8676;</a></div>
         </li>
         <li>
-          <div ng-if="hasPrev()"><a ng-click="prev()">&laquo;</a></div>
+          <div ng-if="navStat.hasPrev"><a ng-click="prev()">&laquo;</a></div>
         </li>
         <li>
           <div>
@@ -49,7 +49,7 @@
           </div>
         </li>
         <li>
-          <div ng-if="hasNext()"><a ng-click="next()">&raquo;</a></div>
+          <div ng-if="navStat.hasNext"><a ng-click="next()">&raquo;</a></div>
         </li>
         <li>
           <div><a ng-click="goToLast()">&#8677;</a></div>
