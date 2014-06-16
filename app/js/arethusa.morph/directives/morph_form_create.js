@@ -15,11 +15,6 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         scope.form = scope.token.customForm;
         scope.forms = scope.token.forms;
 
-        function resetForm() {
-          morph.resetCustomForm(scope.token);
-          scope.form = scope.token.customForm;
-        }
-
         function dependencyMet(dependencies) {
           if (!dependencies) {
             return true;
@@ -48,11 +43,15 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           scope.visibleAttributes = getVisibleAttributes();
         }
 
+        scope.resetForm = function() {
+          morph.resetCustomForm(scope.token);
+        };
+
         scope.save = function() {
           cleanUpAttributes();
           addOrigin();
           addForm();
-          resetForm();
+          scope.resetForm();
         };
 
         // At the point of saving we have undefined values around in the
@@ -82,6 +81,10 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         scope.$watch('form.attributes', function (newVal, oldVal) {
           setVisibleAttributes();
         }, true);
+
+        scope.$watch('token.customForm', function(newVal, oldVal) {
+          scope.form = newVal;
+        });
       },
       templateUrl: 'templates/morph_form_create.html'
     };
