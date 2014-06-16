@@ -26,6 +26,6 @@ angular.module('arethusa.morph').directive('formSelector', function () {
         };
       }
     ],
-    template: '<span class="label tiny radius"' + 'ng-click="action($event)"' + 'ng-class="{success: selected()}">' + '{{ text() }}' + '</span>'
+    template: '<span class="button micro radius"' + 'ng-click="action($event)"' + 'ng-class="{success: selected()}">' + '{{ text() }}' + '</span>'
   };
 });
