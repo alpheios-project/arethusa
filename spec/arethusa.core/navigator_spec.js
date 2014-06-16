@@ -34,11 +34,13 @@ describe("navigator", function() {
   beforeEach(inject(function(_navigator_, _state_) {
     navigator = _navigator_;
     state = _state_;
+    navigator.reset();
   }));
 
   describe("this.addSentences", function() {
     it('adds an array of sentencs to its internal containers', function() {
       navigator.addSentences(sentences);
+
       // an array of sentences
       expect(navigator.sentences.length).toEqual(2);
       expect(navigator.sentences[0]).toBe(s1);
@@ -47,6 +49,13 @@ describe("navigator", function() {
       // an object of sentences
       expect(navigator.sentencesById['1']).toBe(s1);
       expect(navigator.sentencesById['5']).toBe(s5);
+    });
+  });
+
+  describe('this.currentSentence', function() {
+    it('returns the tokens of the current sentence', function() {
+      navigator.addSentences(sentences);
+      expect(navigator.currentSentence()).toBe(s1.tokens);
     });
   });
 });
