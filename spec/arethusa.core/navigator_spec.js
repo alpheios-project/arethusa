@@ -133,4 +133,24 @@ describe("navigator", function() {
       expect(navigator.currentSentence()).toBe(s3.tokens);
     });
   });
+
+  describe('this.goToLast()', function() {
+    it('goes to the last element in the sentences array', function() {
+      navigator.addSentences(sentences);
+
+      navigator.goToLast();
+      expect(navigator.currentSentence()).toBe(s5.tokens);
+    });
+  });
+
+  describe('this.goToFirst', function() {
+    it('goes. to the first element in the sentence array', function() {
+      navigator.addSentences(sentences);
+      navigator.goToLast();
+      expect(navigator.currentSentence()).toBe(s5.tokens);
+
+      navigator.goToFirst();
+      expect(navigator.currentSentence()).toBe(s1.tokens);
+    });
+  });
 });
