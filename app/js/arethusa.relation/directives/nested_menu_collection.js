@@ -53,4 +53,4 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
       </ul>\
     '
   };
-})
+});
