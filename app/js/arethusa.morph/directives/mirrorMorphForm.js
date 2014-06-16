@@ -2,7 +2,9 @@
 
 angular.module('arethusa.morph').directive('mirrorMorphForm', [
   'morph',
-  function(morph) {
+  '$location',
+  '$anchorScroll',
+  function(morph, $location, $anchorScroll) {
     return {
       restrict: 'A',
       scope: {
@@ -11,6 +13,7 @@ angular.module('arethusa.morph').directive('mirrorMorphForm', [
       },
       link: function(scope, element, attrs) {
         var morphToken = morph.analyses[scope.tokenId];
+        var menuId = 'mfc' + scope.tokenId;
 
         function newCustomForm() {
           var form = angular.copy(scope.form);
@@ -24,6 +27,9 @@ angular.module('arethusa.morph').directive('mirrorMorphForm', [
 
         element.bind('click', function() {
           scope.$apply(morphToken.customForm = newCustomForm());
+          $location.hash(menuId);
+          angular.element(document.getElementById(menuId)).removeClass('hide');
+          $anchorScroll();
         });
       }
     };
