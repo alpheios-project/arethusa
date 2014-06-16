@@ -33,10 +33,10 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     this.nextSentence = function () {
-      self.movePosition(1);
+      movePosition(1);
     };
     this.prevSentence = function () {
-      self.movePosition(-1);
+      movePosition(-1);
     };
 
     this.hasNext = function() {
@@ -84,10 +84,10 @@ angular.module('arethusa.core').service('navigator', [
       self.updateId();
     };
 
-    this.movePosition = function (steps) {
+    function movePosition(steps) {
       self.currentPosition += steps;
       self.updateState();
-    };
+    }
 
     this.updateId = function () {
       self.status.currentId = currentId();
