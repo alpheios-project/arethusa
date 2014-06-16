@@ -27,9 +27,7 @@
       <div class="small-12 columns" morph-form-attributes="form" token-id="id"></div>
       <p class="small-12 columns"/>
       <hr>
-    </accordion-group>
-    <accordion-group heading="Create new form">
-      <morph-form-create id="mfc{{ id }}"></morph-form-create>
-    </accordion-group>
   </accordion>
+  <button reveal-toggle="mfc{{ id }}" class="micro radius">Create new form</button>
+  <morph-form-create id="mfc{{ id }}" class="hide"></morph-form-create>
 </div>
