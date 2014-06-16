@@ -96,4 +96,19 @@ describe("navigator", function() {
       expect(str5).toEqual('a b');
     });
   });
+
+  describe('this.reset()', function() {
+    it('flashes all internal state of the navigator', function() {
+      navigator.addSentences(sentences);
+      navigator.updateId();
+      expect(navigator.status.currentId).toEqual('1');
+      expect(navigator.sentences.length).toEqual(3);
+      expect(navigator.sentencesById).not.toEqual({});
+
+      navigator.reset();
+      expect(navigator.status.currentId).toBeUndefined();
+      expect(navigator.sentences.length).toEqual(0);
+      expect(navigator.sentencesById).toEqual({});
+    });
+  });
 });
