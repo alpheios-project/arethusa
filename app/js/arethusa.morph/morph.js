@@ -167,10 +167,15 @@ angular.module('arethusa.morph').service('morph', [
           }
           self.getAnalysisFromState(val, id);
           val.analyzed = true;
+          self.resetCustomForm(val);
         });
       }
       return analyses;
     }
+
+    self.resetCustomForm = function(val) {
+      val.customForm = self.emptyForm();
+    };
 
     this.currentAnalyses = function () {
       var analyses = self.analyses;
@@ -316,8 +321,8 @@ angular.module('arethusa.morph').service('morph', [
 
     this.init = function () {
       configure();
-      self.analyses = loadInitalAnalyses();
       self.emptyPostag = createEmptyPostag();
+      self.analyses = loadInitalAnalyses();
       createSearchIndex();
     };
   }
