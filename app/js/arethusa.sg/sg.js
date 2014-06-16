@@ -44,31 +44,40 @@ angular.module('arethusa.sg').service('sg', [
     };
 
     var findDependentLabelSet = function(nestingLevel, morph) {
-      var category;
+      var category, nestedCategory;
       angular.forEach(nestingLevel, function(val, label){
-        angular.forEach(val.dependency, function(depVal, depCat) {
-          if (morph[depCat] === depVal) {
-            category = nestingLevel[createKey(depVal)].nested;
-          }
-        });
+        if (val.dependency) {
+          angular.forEach(val.dependency, function(depVal, depCat) {
+            if (morph[depCat] === depVal) {
+              category = nestingLevel[createKey(depVal)].nested;
+              nestedCategory = findDependentLabelSet(category, morph);
+            }
+          });
+        }
       });
-      return category;
+      if (nestedCategory) {
+        return nestedCategory;
+      } else {
+        return category;
+      }
     };
 
-    this.selectOptions = function(obj) {
-      var morph = {
-        pos: obj.morph.pos,
-        case: obj.morph.case,
-        mood: obj.morph.mood
-      };
+    var createMenu = function() {
+      return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
+        var morph = state.tokens[id].morphology.attributes || {};
+        var tree = findDependentLabelSet(self.labels, morph);
+        memo[id] = tree;
+      });
+    };
 
-      var category = findDependentLabelSet(self.labels, morph);
-      return category;
+    this.selectOptions = function(id) {
+      return self.menu[id];
     };
 
     this.init = function() {
       configure();
       self.grammar = createInternalState();
+      self.menu = createMenu();
     };
   }
 ]);
