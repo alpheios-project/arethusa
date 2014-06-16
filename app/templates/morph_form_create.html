@@ -9,14 +9,14 @@
 
 <div class="row" ng-repeat="attr in visibleAttributes">
   <div class="small-3 columns">
-    <label class="right">{{ plugin.longAttributeName(attr) }}</label>
+    <label class="right">{{ m.longAttributeName(attr) }}</label>
   </div>
 
   <div class="small-9 columns">
     <select
       ng-model="form.attributes[attr]"
       ng-init="opt.short"
-      ng-options="name as opt.long for (name, opt) in plugin.attributeValues(attr)"
+      ng-options="name as opt.long for (name, opt) in m.attributeValues(attr)"
       synchronize-postag="{form: 'form', attr: 'attr', val: 'form.attributes[attr]'}">
     </select>
   </div>
