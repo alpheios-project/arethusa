@@ -16,6 +16,18 @@ describe("navigator", function() {
     }
   };
 
+  var s3 = {
+    id: "3",
+    tokens: {
+      '01': {
+        string: 'g',
+      },
+      '02': {
+        string: 'h'
+      }
+    }
+  };
+
   var s5 = {
     id: "5",
     tokens: {
@@ -28,7 +40,7 @@ describe("navigator", function() {
     }
   };
 
-  var sentences = [s1, s5];
+  var sentences = [s1, s3, s5];
 
   beforeEach(module("arethusa.core"));
   beforeEach(inject(function(_navigator_, _state_) {
@@ -42,9 +54,10 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
 
       // an array of sentences
-      expect(navigator.sentences.length).toEqual(2);
+      expect(navigator.sentences.length).toEqual(3);
       expect(navigator.sentences[0]).toBe(s1);
-      expect(navigator.sentences[1]).toBe(s5);
+      expect(navigator.sentences[1]).toBe(s3);
+      expect(navigator.sentences[2]).toBe(s5);
 
       // an object of sentences
       expect(navigator.sentencesById['1']).toBe(s1);
