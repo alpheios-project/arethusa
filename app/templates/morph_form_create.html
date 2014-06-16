@@ -17,7 +17,7 @@
       ng-model="form.attributes[attr]"
       ng-init="opt.short"
       ng-options="name as opt.long for (name, opt) in m.attributeValues(attr)"
-      synchronize-postag="{form: 'form', attr: 'attr', val: 'form.attributes[attr]'}">
+      ng-change="m.updatePostag(form, attr, form.attributes[attr])">
     </select>
   </div>
 </div>
