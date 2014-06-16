@@ -29,6 +29,9 @@ angular.module('arethusa.morph').directive('mirrorMorphForm', [
           scope.$apply(morphToken.customForm = newCustomForm());
           $location.hash(menuId);
           angular.element(document.getElementById(menuId)).removeClass('hide');
+
+          // Sadly doesn't have any smooth scroll capabilities - we might have to
+          // change this implementation at some point.
           $anchorScroll();
         });
       }
