@@ -130,6 +130,21 @@ describe("morph", function() {
     });
   });
 
+  describe('this.emptyForm', function() {
+    it('returns a new form object, with all properties in place but empty', function() {
+      var res = {
+        lemma: '',
+        postag: '--',
+        attributes: {
+          pos: undefined,
+          pers: undefined
+        }
+      };
+
+      expect(morph.emptyForm()).toEqual(res);
+    });
+  });
+
   describe('this.queryForm', function() {
     it('looks up forms in the state object and selects them', function() {
       expect(state.hasSelections()).toBeFalsy();

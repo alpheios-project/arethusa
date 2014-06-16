@@ -12,7 +12,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', function () {
       var schema = scope.plugin.postagSchema;
       scope.forms = scope.analysis.forms;
       scope.form = {
-        postag: scope.plugin.emptyPostag(),
+        postag: scope.plugin.emptyPostag,
         attributes: a
       };
       function inArray(arr, val) {
