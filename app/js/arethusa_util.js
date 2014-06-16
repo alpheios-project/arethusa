@@ -93,8 +93,12 @@ var arethusaUtil = {
         b = a;
         a = t;
       }
-      function isIncluded(el) { return b.indexOf(el) !== -1; }
+      function isIncluded(el) { return arethusaUtil.isIncluded(b, el); }
       return a.filter(isIncluded);
+    },
+
+    isIncluded: function(arr, el) {
+      return arr.indexOf(el) !== -1;
     },
 
     replaceAt: function (str, i, replacement) {
