@@ -165,4 +165,26 @@ describe("navigator", function() {
       expect(navigator.currentSentence()).toBe(s5.tokens);
     });
   });
+
+  describe('this.hasNext()', function() {
+    it('determines if a next sentence is available', function() {
+      navigator.addSentences(sentences);
+
+      expect(navigator.hasNext()).toBeTruthy();
+
+      navigator.goTo('5');
+      expect(navigator.hasNext()).toBeFalsy();
+    });
+  });
+
+  describe('navigator.hasPrev()', function() {
+    it('determines if a previous sentence is available', function() {
+      navigator.addSentences(sentences);
+
+      expect(navigator.hasPrev()).toBeFalsy();
+
+      navigator.goTo('3');
+      expect(navigator.hasPrev()).toBeTruthy();
+    });
+  });
 });
