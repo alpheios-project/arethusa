@@ -71,13 +71,6 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           scope.forms.push(angular.copy(scope.form));
         }
 
-        // TBD
-        //
-        // save button to create the form formally
-        // watch click events in upper scopes which
-        // want to edit a form - replace the form in this scope
-        // then and we're all good.
-
         scope.$watch('form.attributes', function (newVal, oldVal) {
           setVisibleAttributes();
         }, true);
