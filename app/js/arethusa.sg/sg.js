@@ -43,14 +43,15 @@ angular.module('arethusa.sg').service('sg', [
       return arg.toUpperCase();
     };
 
-    var findDependentLabelSet = function(nestingLevel, morph) {
+    var findDependentLabelSet = function(nestingLevel, morph, id) {
       var category, nestedCategory;
       angular.forEach(nestingLevel, function(val, label){
         if (val.dependency) {
           angular.forEach(val.dependency, function(depVal, depCat) {
             if (morph[depCat] === depVal) {
               category = nestingLevel[createKey(depVal)].nested;
-              nestedCategory = findDependentLabelSet(category, morph);
+              nestedCategory = findDependentLabelSet(category, morph, id);
+              self.grammar[id].ancestors.push(val);
             }
           });
         }
@@ -65,7 +66,7 @@ angular.module('arethusa.sg').service('sg', [
     var createMenu = function() {
       return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
         var morph = state.tokens[id].morphology.attributes || {};
-        var tree = findDependentLabelSet(self.labels, morph);
+        var tree = findDependentLabelSet(self.labels, morph, id);
         memo[id] = tree;
       });
     };
