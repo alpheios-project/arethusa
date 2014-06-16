@@ -120,6 +120,12 @@ describe("navigator", function() {
       navigator.nextSentence();
       expect(navigator.currentSentence()).toBe(s3.tokens);
     });
+
+    it('updates the state object', function() {
+      navigator.addSentences(sentences);
+      navigator.nextSentence();
+      expect(state.tokens).toBe(navigator.currentSentence());
+    });
   });
 
   describe('this.prevSentence()', function() {
@@ -132,6 +138,12 @@ describe("navigator", function() {
       navigator.prevSentence();
       expect(navigator.currentSentence()).toBe(s3.tokens);
     });
+
+    it('updates the state object', function() {
+      navigator.addSentences(sentences);
+      navigator.prevSentence();
+      expect(state.tokens).toBe(navigator.currentSentence());
+    });
   });
 
   describe('this.goToLast()', function() {
@@ -140,6 +152,12 @@ describe("navigator", function() {
 
       navigator.goToLast();
       expect(navigator.currentSentence()).toBe(s5.tokens);
+    });
+
+    it('updates the state object', function() {
+      navigator.addSentences(sentences);
+      navigator.goToLast();
+      expect(state.tokens).toBe(navigator.currentSentence());
     });
   });
 
@@ -152,6 +170,13 @@ describe("navigator", function() {
       navigator.goToFirst();
       expect(navigator.currentSentence()).toBe(s1.tokens);
     });
+
+    it('updates the state object', function() {
+      navigator.addSentences(sentences);
+      navigator.goToLast();
+      navigator.goToFirst();
+      expect(state.tokens).toBe(navigator.currentSentence());
+    });
   });
 
   describe('this.goTo()', function() {
@@ -163,6 +188,12 @@ describe("navigator", function() {
 
       navigator.goTo('5');
       expect(navigator.currentSentence()).toBe(s5.tokens);
+    });
+
+    it('updates the state object', function() {
+      navigator.addSentences(sentences);
+      navigator.goTo('5');
+      expect(state.tokens).toBe(navigator.currentSentence());
     });
   });
 
