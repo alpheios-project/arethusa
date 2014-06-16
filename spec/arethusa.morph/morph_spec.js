@@ -126,7 +126,7 @@ describe("morph", function() {
 
   describe('this.emptyPostag', function() {
     it('returns an empty postag according to the configured postagSchema', function() {
-      expect(morph.emptyPostag()).toEqual('--');
+      expect(morph.emptyPostag).toEqual('--');
     });
   });
 

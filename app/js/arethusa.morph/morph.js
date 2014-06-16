@@ -62,8 +62,7 @@ angular.module('arethusa.morph').service('morph', [
       form.attributes = attrs;
     };
 
-    // Probably not useful to calculate this everytime...
-    this.emptyPostag = function () {
+    function createEmptyPostag() {
       return arethusaUtil.map(self.postagSchema, function (el) {
         return '-';
       }).join('');
@@ -304,6 +303,7 @@ angular.module('arethusa.morph').service('morph', [
     this.init = function () {
       configure();
       self.analyses = loadInitalAnalyses();
+      self.emptyPostag = createEmptyPostag();
       createSearchIndex();
     };
   }
