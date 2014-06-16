@@ -111,4 +111,26 @@ describe("navigator", function() {
       expect(navigator.sentencesById).toEqual({});
     });
   });
+
+  describe('this.nextSentence()', function() {
+    it('moves to the next sentence - mind how ids can be non-sequential!', function() {
+      navigator.addSentences(sentences);
+      expect(navigator.currentSentence()).toBe(s1.tokens);
+
+      navigator.nextSentence();
+      expect(navigator.currentSentence()).toBe(s3.tokens);
+    });
+  });
+
+  describe('this.prevSentence()', function() {
+    it('moves to the previous sentence - ids can be non-sequential', function() {
+      navigator.addSentences(sentences);
+      navigator.nextSentence();
+      navigator.nextSentence();
+      expect(navigator.currentSentence()).toBe(s5.tokens);
+
+      navigator.prevSentence();
+      expect(navigator.currentSentence()).toBe(s3.tokens);
+    });
+  });
 });
