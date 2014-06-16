@@ -69,7 +69,11 @@ angular.module('arethusa.core').service('navigator', [
         self.currentPosition = i;
         self.updateState();
       } else {
+        // Not totally sure what we want to do here -
+        //  maybe add a notification?
+
         /* global alert */
+
         alert('No sentence with id ' + id + ' found');
       }
     };
