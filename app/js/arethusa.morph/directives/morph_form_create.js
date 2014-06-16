@@ -43,7 +43,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           scope.visibleAttributes = getVisibleAttributes();
         }
 
-        scope.resetForm = function() {
+        scope.reset = function() {
           morph.resetCustomForm(scope.token);
         };
 
@@ -51,7 +51,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           cleanUpAttributes();
           addOrigin();
           addForm();
-          scope.resetForm();
+          scope.reset();
         };
 
         // At the point of saving we have undefined values around in the
