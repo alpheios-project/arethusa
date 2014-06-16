@@ -124,7 +124,7 @@ angular.module('arethusa.core').service('navigator', [
     this.reset = function () {
       self.currentPosition = 0;
       self.sentences = [];
-      self.sentenceById = {};
+      self.sentencesById = {};
       self.listMode = false;
       self.hasList  = false;
       self.updateId();
