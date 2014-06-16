@@ -62,12 +62,11 @@ angular.module('arethusa.morph').service('morph', [
       form.attributes = attrs;
     };
 
-    // Probably not useful to calculate this everytime...
-    this.emptyPostag = function () {
+    function createEmptyPostag() {
       return arethusaUtil.map(self.postagSchema, function (el) {
         return '-';
       }).join('');
-    };
+    }
 
     this.updatePostag = function (form, attr, val) {
       var index = self.postagSchema.indexOf(attr);
@@ -87,6 +86,20 @@ angular.module('arethusa.morph').service('morph', [
         });
       return postagArr.join('');
     };
+
+    this.emptyForm = function() {
+      return {
+        lemma: '',
+        postag: self.emptyPostag,
+        attributes: emptyAttributes()
+      };
+    };
+
+    function emptyAttributes() {
+      return arethusaUtil.inject({}, self.postagSchema, function(memo, el) {
+        memo[el] = undefined;
+      });
+    }
 
     // Gets a from the inital state - if we load an already annotated
     // template, we have to take it inside the morph plugin.
@@ -154,10 +167,15 @@ angular.module('arethusa.morph').service('morph', [
           }
           self.getAnalysisFromState(val, id);
           val.analyzed = true;
+          self.resetCustomForm(val);
         });
       }
       return analyses;
     }
+
+    self.resetCustomForm = function(val) {
+      val.customForm = self.emptyForm();
+    };
 
     this.currentAnalyses = function () {
       var analyses = self.analyses;
@@ -303,6 +321,7 @@ angular.module('arethusa.morph').service('morph', [
 
     this.init = function () {
       configure();
+      self.emptyPostag = createEmptyPostag();
       self.analyses = loadInitalAnalyses();
       createSearchIndex();
     };

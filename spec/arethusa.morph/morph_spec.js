@@ -126,7 +126,22 @@ describe("morph", function() {
 
   describe('this.emptyPostag', function() {
     it('returns an empty postag according to the configured postagSchema', function() {
-      expect(morph.emptyPostag()).toEqual('--');
+      expect(morph.emptyPostag).toEqual('--');
+    });
+  });
+
+  describe('this.emptyForm', function() {
+    it('returns a new form object, with all properties in place but empty', function() {
+      var res = {
+        lemma: '',
+        postag: '--',
+        attributes: {
+          pos: undefined,
+          pers: undefined
+        }
+      };
+
+      expect(morph.emptyForm()).toEqual(res);
     });
   });
 

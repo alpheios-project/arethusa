@@ -1,23 +1,30 @@
-<div class="small-12 columns">
-  <div class="small-2 columns">
-    <label class="inline">Lemma</label>
+<div class="small-6 columns">
+  <div class="button-group">
+    <span class="right button micro radius" ng-click="reset()">Reset</span>
+    <span class="right button micro radius" ng-click="save()">Save</span>
   </div>
-  <div class="small-10 columns">
+</div>
+
+<div class="small-12 columns">
+  <div class="small-3 columns">
+    <label class="right">Lemma</label>
+  </div>
+  <div class="small-9 columns">
     <input type="text" ng-model="form.lemma"></input>
   </div>
 </div>
 
 <div class="row" ng-repeat="attr in visibleAttributes">
   <div class="small-3 columns">
-    <label class="right">{{ plugin.longAttributeName(attr) }}</label>
+    <label class="right">{{ m.longAttributeName(attr) }}</label>
   </div>
 
   <div class="small-9 columns">
     <select
       ng-model="form.attributes[attr]"
       ng-init="opt.short"
-      ng-options="name as opt.long for (name, opt) in plugin.attributeValues(attr)"
-      synchronize-postag="{form: 'form', attr: 'attr', val: 'form.attributes[attr]'}">
+      ng-options="name as opt.long for (name, opt) in m.attributeValues(attr)"
+      ng-change="m.updatePostag(form, attr, form.attributes[attr])">
     </select>
   </div>
 </div>

@@ -210,4 +210,12 @@ describe("arethusaUtil", function() {
       expect(aU.intersect(arr1, arr2)).toEqual(res);
     });
   });
+
+  describe('isIncluded', function() {
+    it('determines if an element is included in an Array', function() {
+      var arr = ['a', 'b'];
+      expect(aU.isIncluded(arr, 'a')).toBeTruthy();
+      expect(aU.isIncluded(arr, 'c')).toBeFalsy();
+    });
+  });
 });

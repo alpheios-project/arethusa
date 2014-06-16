@@ -1,11 +1,13 @@
-<div class="right">
-  <prev-token><span class="label radius">prev</span></prev-token>
-  <next-token><span class="label radius">next</span></next-token>
+<div class="small-12 columns">
+  <ul class="button-group right">
+    <li><span next-token class="button micro radius">prev</span></li>
+    <li><span prev-token class="button micro radius">next</span></li>
+  </ul>
 </div>
 
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
-  <div class="left" lang-specific>
-  <p token-with-id value="analysis.string" token-id="id"/>
+  <div class="small-12 columns" lang-specific>
+    <p token-with-id value="analysis.string" token-id="id"/>
   </div>
   <accordion close-others="oneAtATime">
     <accordion-group ng-repeat="form in analysis.forms" >
@@ -25,9 +27,9 @@
       <div class="small-12 columns" morph-form-attributes="form" token-id="id"></div>
       <p class="small-12 columns"/>
       <hr>
-    </accordion-group>
-    <accordion-group heading="Create new form">
-      <morph-form-create id="mfc{{ id }}"></morph-form-create>
-    </accordion-group>
   </accordion>
+  <div class="small-6 columns">
+    <button reveal-toggle="mfc{{ id }}" class="micro radius">Create new form</button>
+  </div>
+  <morph-form-create id="mfc{{ id }}" morph-token="analysis" class="hide"></morph-form-create>
 </div>
