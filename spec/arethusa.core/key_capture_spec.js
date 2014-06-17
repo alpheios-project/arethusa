@@ -21,4 +21,17 @@ describe('keyCapture', function() {
       expect(keyCapture.isCtrlActive()).toBe(false);
     }));
   });
+
+  describe('onKeyPressed', function() {
+    it('calls the given callback', inject(function(keyCapture) {
+      var callbackCalled = false;
+      var callback = function() { callbackCalled = true; };
+      keyCapture.onKeyPressed(keyCapture.keyCodes.esc, callback);
+
+      keyCapture.keydown({ keyCode : keyCapture.keyCodes.esc });
+      keyCapture.keyup({ keyCode : keyCapture.keyCodes.esc });
+
+      expect(callbackCalled).toBe(true);
+    }));
+  });
 });
