@@ -51,7 +51,7 @@ angular.module('arethusa.sg').service('sg', [
             if (morph[depCat] === depVal) {
               category = nestingLevel[createKey(depVal)].nested;
               nestedCategory = findDependentLabelSet(category, morph, id);
-              self.grammar[id].ancestors.push(val);
+              self.grammar[id].ancestors.unshift(val);
             }
           });
         }
