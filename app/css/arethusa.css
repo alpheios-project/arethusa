@@ -320,3 +320,6 @@ button[disabled],
   color: rgb(255, 0, 0);
 }
 
+.text {
+  font-size: 0.875em;
+}

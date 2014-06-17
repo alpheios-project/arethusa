@@ -1,7 +1,8 @@
-<div>
+<div class="text">
   <div
     ng-repeat="o in sgAncestors"
-    ng-style="{'margin-left': 0.5 * $index + 'em'}">
-    {{ o.long }}
+    style="padding: 2px 0"
+    ng-style="{'margin-left': 0.75 * $index + 'em'}">
+    ‣ {{ o.long }}
   </div>
 </div>

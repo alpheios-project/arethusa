@@ -2,6 +2,7 @@
   <div ng-repeat="(id, grammar) in plugin.currentGrammar()">
     <p token-with-id value="grammar.string" token-id="id"/>
     <div sg-ancestors="grammar.ancestors"/>
+    <br/>
     <ul class="nested-dropdown">
       <li class="first-item">Select Smyth Categories
         <ul
