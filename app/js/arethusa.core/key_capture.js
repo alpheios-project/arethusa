@@ -7,12 +7,10 @@ angular.module('arethusa.core').service('keyCapture', function () {
     esc: 27
   };
 
-  var activeKeys = {
-      16: false,
-      17: false,
-      18: false,
-      27: false
-  };
+  var activeKeys = {};
+  angular.forEach(this.keyCodes, function (value, key) {
+    activeKeys[value] = false;
+  });
 
   var keyPressedCallbacks = {};
 
