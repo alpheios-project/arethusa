@@ -14,7 +14,8 @@
   </div>
 </div>
 
-<div class="row" ng-repeat="attr in visibleAttributes">
+<div class="row"
+  ng-repeat="attr in visibleAttributes">
   <div class="small-3 columns">
     <label class="right">{{ m.longAttributeName(attr) }}</label>
   </div>
@@ -22,8 +23,7 @@
   <div class="small-9 columns">
     <select
       ng-model="form.attributes[attr]"
-      ng-init="opt.short"
-      ng-options="name as opt.long for (name, opt) in m.attributeValues(attr)"
+      ng-options="m.attributeValues(attr)[key].long for key in m.attributeValues(attr)| keys"
       ng-change="m.updatePostag(form, attr, form.attributes[attr])">
     </select>
   </div>
