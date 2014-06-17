@@ -14,27 +14,33 @@ angular.module('arethusa.core').service('keyCapture', function () {
       27: false
   };
 
-  this.keyPressedCallbacks = {};
+  var keyPressedCallbacks = {};
+
+  var handleCallbacks = function(keyCode) {
+    if (activeKeys[keyCode] && keyPressedCallbacks[keyCode]) {
+      var callback = keyPressedCallbacks[keyCode];
+      callback();
+    }
+  };
 
   this.keydown = function (event) {
     if (event.keyCode in activeKeys) {
       activeKeys[event.keyCode] = true;
     }
   };
+
   this.keyup = function (event) {
     if (event.keyCode in activeKeys) {
-      if (activeKeys[event.keyCode] && this.keyPressedCallbacks[event.keyCode]) {
-        var callback = this.keyPressedCallbacks[event.keyCode];
-        callback();
-      }
+      handleCallbacks(event.keyCode);
       activeKeys[event.keyCode] = false;
     }
   };
+
   this.isCtrlActive = function () {
     return activeKeys[this.keyCodes.ctrl];
   };
 
   this.onKeyPressed = function(keyCode, callback) {
-    this.keyPressedCallbacks[keyCode] = callback;
+    keyPressedCallbacks[keyCode] = callback;
   };
 });
