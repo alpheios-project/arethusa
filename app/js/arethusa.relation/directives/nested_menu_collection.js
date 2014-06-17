@@ -41,14 +41,14 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
           label-obj="emptyObj">\
         </li>\
         <li\
-          ng-repeat="(label, labelObj) in all"\
+          ng-repeat="label in all | keys"\
           nested-menu\
           property="property"\
           rel-obj="current"\
           ancestors="ancestors"\
-          label="labelView(labelObj)"\
+          label="labelView(all[label])"\
           label-as="labelAs"\
-          label-obj="labelObj">\
+          label-obj="all[label]">\
         </li>\
       </ul>\
     '
