@@ -8,7 +8,7 @@ angular.module('arethusa.sg').directive('sgAncestors', [
       scope: {
         sgAncestors: '='
       },
-      template: '<div ng-repeat="o in sgAncestors">{{ o.long }}</div>'
+      templateUrl: './templates/arethusa.sg/ancestors.html'
     };
   }
 ]);
