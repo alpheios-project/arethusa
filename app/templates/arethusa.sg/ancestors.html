@@ -1,5 +1,7 @@
 <div>
-  <span ng-repeat="o in sgAncestors">{{ o.long }}
-    <span ng-hide="sgAncestors.length-1 == $index"> > </span>
-  </span>
+  <div
+    ng-repeat="o in sgAncestors"
+    ng-style="{'margin-left': 0.5 * $index + 'em'}">
+    {{ o.long }}
+  </div>
 </div>
