@@ -108,6 +108,7 @@ ul.top-menu {
 ul.nested-dropdown li {
   float: none;
   position: relative;
+  white-space: nowrap;
   padding: 0 0.8em 0 0.5em;
   font-size: 0.875em;
 }
