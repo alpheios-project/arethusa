@@ -8,10 +8,6 @@
   background-color: #5BC8DC;
 }
 
-.note {
-  font-size: 0.7em;
-}
-
 .full-height {
   height: 100vh;
 }
@@ -322,4 +318,12 @@ button[disabled],
 
 .text {
   font-size: 0.875em;
+}
+
+.note {
+  font-size: 0.7em;
+}
+
+hr.small {
+  margin: 0.5rem 0 0.3rem
 }
