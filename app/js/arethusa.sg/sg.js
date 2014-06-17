@@ -39,11 +39,11 @@ angular.module('arethusa.sg').service('sg', [
       });
     };
 
-    var createKey = function(arg) {
+    function createKey(arg) {
       return arg.toUpperCase();
-    };
+    }
 
-    var findDependentLabelSet = function(nestingLevel, morph, id) {
+    function findDependentLabelSet(nestingLevel, morph, id) {
       var category, nestedCategory;
       angular.forEach(nestingLevel, function(val, label){
         if (val.dependency) {
@@ -61,15 +61,15 @@ angular.module('arethusa.sg').service('sg', [
       } else {
         return category;
       }
-    };
+    }
 
-    var createMenu = function() {
+    function createMenu() {
       return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
         var morph = state.tokens[id].morphology.attributes || {};
         var tree = findDependentLabelSet(self.labels, morph, id);
         memo[id] = tree;
       });
-    };
+    }
 
     this.selectOptions = function(id) {
       return self.menu[id];
