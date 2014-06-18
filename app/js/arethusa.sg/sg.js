@@ -18,8 +18,15 @@ angular.module('arethusa.sg').service('sg', [
     function sgTemplate() {
       return {
         morph: {},
-        ancestors: []
+        ancestors: [],
+        definingAttrs: [],
+        menu: {}
       };
+    }
+
+    function grammarReset(grammar) {
+      grammar.ancestors = [];
+      grammar.definingAttrs = [];
     }
 
     function createInternalState() {
@@ -34,51 +41,59 @@ angular.module('arethusa.sg').service('sg', [
       return arethusaUtil.inject({}, state.selectedTokens, function(memo, id, event) {
         var morph = state.tokens[id].morphology || {};
         var grammar = self.grammar[id];
-        angular.extend(grammar.morph, morph.attributes);
+        if (morphHasChanged(grammar.morph, morph.attributes)) {
+          angular.extend(grammar.morph, morph.attributes);
+          updateGrammar(self.labels, grammar);
+        }
         memo[id] = grammar;
       });
     };
+
+    function morphHasChanged(a, b) {
+      return !angular.equals(a, b);
+    }
 
     function createKey(arg) {
       return arg.toUpperCase();
     }
 
-    function findDependentLabelSet(nestingLevel, morph, id) {
-      var category, nestedCategory;
-      angular.forEach(nestingLevel, function(val, label){
-        if (val.dependency) {
-          angular.forEach(val.dependency, function(depVal, depCat) {
+    function updateGrammar(labels, grammar) {
+      grammarReset(grammar);
+      findDefiningAttributes(self.labels, grammar);
+      extractMenu(grammar);
+    }
+
+    function findDefiningAttributes(labels, grammar ) {
+      arethusaUtil.inject(grammar.definingAttrs, labels, function(memo, label, val) {
+        var dep = val.dependency;
+        if (dep) {
+          var morph = grammar.morph;
+          var nextLevel;
+          angular.forEach(dep, function(depVal, depCat) {
             if (morph[depCat] === depVal) {
-              category = nestingLevel[createKey(depVal)].nested;
-              nestedCategory = findDependentLabelSet(category, morph, id);
-              self.grammar[id].ancestors.unshift(val);
+              memo.push(val);
+              nextLevel = val.nested || {};
+              findDefiningAttributes(nextLevel, grammar);
             }
           });
         }
       });
-      if (nestedCategory) {
-        return nestedCategory;
-      } else {
-        return category;
-      }
     }
 
-    function createMenu() {
-      return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
-        var morph = state.tokens[id].morphology.attributes || {};
-        var tree = findDependentLabelSet(self.labels, morph, id);
-        memo[id] = tree;
-      });
+    // We already captured the defining attributes at this point - they
+    // are all stored as full objects with their full nested structure.
+    // The menu we want to present to the user is therefore the last one
+    // in this array structure.
+    function extractMenu(grammar) {
+      var attrs = grammar.definingAttrs;
+      // Could be that this array is empty!
+      var lastAttr = attrs[attrs.length - 1] || {};
+      grammar.menu = lastAttr.nested || {};
     }
-
-    this.selectOptions = function(id) {
-      return self.menu[id];
-    };
 
     this.init = function() {
       configure();
       self.grammar = createInternalState();
-      self.menu = createMenu();
     };
   }
 ]);
