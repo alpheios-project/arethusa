@@ -46,13 +46,6 @@ angular.module('arethusa.core').directive('token', [
             });
           });
         }
-        function bindEscape() {
-          keyCapture.onKeyPressed(keyCapture.keyCodes.esc, function() {
-            apply(function() {
-              state.deselectAll();
-            });
-          });
-        }
         scope.selectionClass = function () {
           if (state.isSelected(id)) {
             if (state.selectionType(id) == 'hover') {
@@ -64,7 +57,6 @@ angular.module('arethusa.core').directive('token', [
         };
         if (scope.click) {
           bindClick();
-          bindEscape();
         }
         if (scope.hover) {
           bindHover();

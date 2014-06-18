@@ -4,7 +4,8 @@ angular.module('arethusa.core').service('state', [
   'navigator',
   '$rootScope',
   'documentStore',
-  function (configurator, navigator, $rootScope, documentStore) {
+  'keyCapture',
+  function (configurator, navigator, $rootScope, documentStore, keyCapture) {
     var self = this;
     var tokenRetrievers;
 
@@ -310,6 +311,11 @@ angular.module('arethusa.core').service('state', [
     this.init = function () {
       configure();
       self.retrieveTokens();
+      keyCapture.onKeyPressed(keyCapture.keyCodes.esc, function() {
+        $rootScope.$apply(function() {
+          self.deselectAll();
+        });
+      });
     };
   }
 ]);
