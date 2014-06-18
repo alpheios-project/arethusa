@@ -6,7 +6,12 @@ angular.module('arethusa.sg').directive('sgAncestors', [
     return {
       restrict: 'A',
       scope: {
-        sgAncestors: '='
+        obj: '=sgAncestors'
+      },
+      link: function(scope, element, attrs) {
+        scope.$watchCollection('obj.ancestors', function(newVal, oldVal) {
+          scope.hierarchy = scope.obj.definingAttrs.concat(newVal);
+        });
       },
       templateUrl: './templates/arethusa.sg/ancestors.html'
     };
