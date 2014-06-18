@@ -317,11 +317,11 @@ button[disabled],
 }
 
 .text {
-  font-size: 0.875em;
+  font-size: 0.875rem;
 }
 
 .note {
-  font-size: 0.7em;
+  font-size: 0.7rem;
 }
 
 hr.small {
