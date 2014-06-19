@@ -1,8 +1,7 @@
 'use strict';
 angular.module('arethusa.core').directive('token', [
   'state',
-  'keyCapture',
-  function (state, keyCapture) {
+  function (state) {
     return {
       restrict: 'AE',
       scope: {
@@ -22,8 +21,8 @@ angular.module('arethusa.core').directive('token', [
           scope.$apply(fn());
         }
         function bindClick() {
-          element.bind('click', function () {
-            if (keyCapture.isCtrlActive()) {
+          element.bind('click', function (event) {
+            if (event.ctrlKey) {
               apply(function () {
                 state.toggleSelection(id, 'ctrl-click');
               });
