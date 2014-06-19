@@ -53,10 +53,6 @@ angular.module('arethusa.sg').service('sg', [
       return !angular.equals(a, b);
     }
 
-    function createKey(arg) {
-      return arg.toUpperCase();
-    }
-
     function updateGrammar(labels, grammar) {
       grammarReset(grammar);
       findDefiningAttributes(self.labels, grammar);
