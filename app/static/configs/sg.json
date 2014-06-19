@@ -85,6 +85,8 @@
     "sg" : {
       "name" : "SG",
       "template" : "templates/sg.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
       "fileUrl" : "./static/configs/sg/sg_labels.json"
     },
 
