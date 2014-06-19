@@ -20,23 +20,53 @@ angular.module('arethusa.core').service('keyCapture', [
     };
 
     this.shiftModifier = 1000;
+    this.ctrlModifier  = 2000;
+    this.altModifier   = 4000;
+    this.metaModifier  = 8000;
 
     this.getKeyCode = function(key) {
-      var keyCode = keyCodes[key.toLowerCase()];
-      if (key.match(/[A-Z]/)) {
-        return keyCode + self.shiftModifier;
-      }
-      return keyCode;
+      var parsed = parseKey(key);
+      var modifiers = parsed[0];
+      var k = parsed[1];
+      angular.forEach(modifiers, function(modifier, i) {
+        var mod;
+        switch (modifier) {
+          case 'ctrl':  mod = self.ctrlModifier;  break;
+          case 'shift': mod = self.shiftModifier; break;
+          case 'alt':   mod = self.altModifier;   break;
+          case 'meta':  mod = self.altModifier;   break;
+        }
+        k = k + mod;
+      });
+
+      return k;
     };
+
+    function parseKey(key) {
+      var parts = key.split('-');
+      var k = parts.pop();
+      if (k.match(/[A-Z]/)) {
+        // in case someone wants to do shift-J
+        if (! arethusaUtil.isIncluded(parts, 'shift')) {
+          parts.push('shift');
+        }
+        k = k.toLowerCase();
+      }
+
+      return [parts, keyCodes[k]];
+    }
 
     var keyPressedCallbacks = {};
 
     function modifiedKeyCode(event) {
-      var keyCode = event.keyCode;
-      if (event.shiftKey) {
-        keyCode = keyCode + self.shiftModifier;
-      }
-      return keyCode;
+      var k = event.keyCode;
+
+      if (event.shiftKey) k = k + self.shiftModifier;
+      if (event.ctrlKey)  k = k + self.ctrlModifier;
+      if (event.altKey)   k = k + self.altModifier;
+      if (event.metaKey)  k = k + self.metaModifier;
+
+      return k;
     }
 
     var handleCallbacks = function(event) {
