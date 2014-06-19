@@ -5,7 +5,8 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
   '$document',
   '$parse',
   'menuElement',
-  function ($document, $parse, menuElement) {
+  'keyCapture',
+  function ($document, $parse, menuElement, keyCapture) {
     return {
       restrict: 'A',
       scope: {
@@ -104,12 +105,13 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
 
         $document.bind('click', handleOtherClick);
         $document.bind('contextmenu', handleOtherClick);
-        // Close when ESC is hit
-        $document.bind('keyup', function (event) {
-          if (opened && event.keyCode === 27) {
+
+        keyCapture.onKeyPressed(keyCapture.keyCodes.esc, function() {
+          if (opened) {
             closeAndApply();
+            keyCapture.stopPropagation();
           }
-        });
+        }, 1000);
       }
     };
   }
