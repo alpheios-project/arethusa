@@ -11,8 +11,9 @@ angular.module('arethusa', [
   'arethusa.review',
   'arethusa.search',
   'arethusa.exercise',
-  'arethusa.relation'
-], ['$routeProvider', 'MAIN_ROUTE', 'CONF_ROUTE', 
+  'arethusa.relation',
+  'arethusa.sg'
+], ['$routeProvider', 'MAIN_ROUTE', 'CONF_ROUTE',
 function ($routeProvider, MAIN_ROUTE, CONF_ROUTE) {
   $routeProvider.when('/', MAIN_ROUTE);
   $routeProvider.when('/conf_editor', CONF_ROUTE);

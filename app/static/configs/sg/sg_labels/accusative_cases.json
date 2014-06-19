@@ -1,0 +1,106 @@
+{
+  "nested" : {
+    "DEP" : {
+      "short" : "DEP",
+      "long" : "dependent",
+      "nested" : {
+        "IOBJ" : {
+          "short" : "IOBJ",
+          "long" : "as internal object",
+          "nested" : {
+            "COG" : {
+              "short" : "COG",
+              "long" : "of result/cognate"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
+          }
+        },
+        "EOBJ" : {
+          "short" : "EOBJ",
+          "long" : "as external object"
+        },
+        "EXT" : {
+          "short" : "EXT",
+          "long" : "of extent",
+          "nested" : {
+            "TME" : {
+              "short" : "TME",
+              "long" : "of time"
+            },
+            "SPC" : {
+              "short" : "SPC",
+              "long" : "of space"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
+          }
+        },
+        "TSPC" : {
+          "short" : "TSPC",
+          "long" : "terminal of space"
+        },
+        "RESP" : {
+          "short" : "RESP",
+          "long" : "of respect"
+        },
+        "PREP" : {
+          "short" : "PREP",
+          "long" : "from preposition",
+          "nested" : {
+            "TTME" : {
+              "short" : "TTME",
+              "long" : "terminal of time (with ἀνά, εἰς, μετά, κατά, παρά, πρός, ὑπό, ὑπέρ)"
+            },
+            "MNR" : {
+              "short" : "MNR",
+              "long" : "of manner (with ἀνά, εἰς, κατά)"
+            },
+            "CAU" : {
+              "short" : "CAU",
+              "long" : "of cause (with διά, παρά)"
+            },
+            "PURP" : {
+              "short" : "PURP",
+              "long" : "of purpose (with διά, εἰς, ἐπί, κατά, πρός)"
+            },
+            "MSE" : {
+              "short" : "MSE",
+              "long" : "of measure (with εἰς, ἐπί, παρά, ὑπέρ)"
+            },
+            "JUD" : {
+              "short" : "JUD",
+              "long" : "of standard of judgement (with πρός)"
+            }
+          }
+        },
+        "UNSP" : {
+          "short" : "UNSP",
+          "long" : "unspecified (only if depending on adj., adv. or adp.)"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "INDEP" : {
+      "short" : "INDEP",
+      "long" : "independent",
+      "nested" : {
+        "ELL" : {
+          "short" : "ELL",
+          "long" : "in elliptical use"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "nested" : {
+    "DEP" : {
+      "short" : "DEP",
+      "long" : "dependent",
+      "nested" : {
+        "PROP" : {
+          "short" : "PROP",
+          "long" : "proper",
+          "nested" : {
+            "POSS" : {
+              "short" : "POSS",
+              "long" : "of possession or belonging"
+            },
+            "PART" : {
+              "short" : "PART",
+              "long" : "of divided whole"
+            },
+            "QUAL" : {
+              "short" : "QUAL",
+              "long" : "of quality"
+            },
+            "EXPL" : {
+              "short" : "EXPL",
+              "long" : "of explanation"
+            },
+            "MAC" : {
+              "short" : "MAC",
+              "long" : "of material or contents"
+            },
+            "SBJ-OBJ" : {
+              "short" : "SBJ-OBJ",
+              "long" : "subj. or obj.",
+              "nested" : {
+                "SBJ" : {
+                  "short" : "SBJ",
+                  "long" : "as subject"
+                },
+                "OBJ" : {
+                  "short" : "OBJ",
+                  "long" : "as object"
+                },
+                "IDK" : {
+                  "short" : "IDK",
+                  "long" : "I don't know"
+                }
+              }
+            },
+            "PR-VA" : {
+              "short" : "PR-VA",
+              "long" : "of price & value"
+            },
+            "CR-AC" : {
+              "short" : "CR-AC",
+              "long" : "of crime & accountability"
+            },
+            "CON" : {
+              "short" : "CON",
+              "long" : "of connection"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
+          }
+        },
+        "ABL" : {
+          "short" : "ABL",
+          "long" : "ablatival",
+          "nested" : {
+            "T-ST-P" : {
+              "short" : "T-ST-P",
+              "long" : "of temporal starting point"
+            },
+            "SEP" : {
+              "short" : "SEP",
+              "long" : "of separation"
+            },
+            "DI-CO" : {
+              "short" : "DI-CO",
+              "long" : "of distinction & comparison"
+            },
+            "CAU" : {
+              "short" : "CAU",
+              "long" : "of cause"
+            },
+            "PURP" : {
+              "short" : "PURP",
+              "long" : "of purpose"
+            },
+            "SRC" : {
+              "short" : "SRC",
+              "long" : "of source"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
+          }
+        },
+        "TI-SP" : {
+          "short" : "TISP",
+          "long" : "of time & space",
+          "nested" : {
+            "TME" : {
+              "short" : "TME",
+              "long" : "(time)"
+            },
+            "SPC" : {
+              "short" : "SPC",
+              "long" : "(space)"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
+          }
+        },
+        "W-PREP" : {
+          "short" : "W-PREP",
+          "long" : "with preposition",
+          "nested" : {
+            "T-EX" : {
+              "short" : "T-EX",
+              "long" : "of time extension"
+            },
+            "SP-EX" : {
+              "short" : "SP-EX",
+              "long" : "of space extension"
+            },
+            "CAU" : {
+              "short" : "CAU",
+              "long" : "of cause"
+            },
+            "M-IN" : {
+              "short" : "M-IN",
+              "long" : "of means or instrument"
+            },
+            "AGT" : {
+              "short" : "AGT",
+              "long" : "of agent"
+            },
+            "ACP" : {
+              "short" : "ACP",
+              "long" : "of accompaniment"
+            },
+            "ADTG" : {
+              "short" : "ADTG",
+              "long" : "of advantage"
+            },
+            "UNSP" : {
+              "short" : "UNSP",
+              "long" : "unsepcified"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
+          }
+        },
+        "UNSP" : {
+          "short" : "UNSP",
+          "long" : "unspecified"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "INDEP" : {
+      "short" : "INDEP",
+      "long" : "independent",
+      "nested" : {
+        "EXCL" : {
+          "short" : "EXCL",
+          "long" : "exclamation"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    }
+  }
+}

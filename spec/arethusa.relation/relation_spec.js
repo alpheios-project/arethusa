@@ -181,14 +181,6 @@ describe("relation", function() {
     });
   });
 
-  describe('this.resetAncestors', function() {
-    it('takes a rel object and clears out its ancestors', function() {
-      var relObj = { ancestors: ['1', '2', '3'] };
-      relation.resetAncestors(relObj);
-      expect(relObj.ancestors).toEqual([]);
-    });
-  });
-
   describe('this.buildLabelAndSearch', function() {
     it('builds a label on an obj and searches for it afterwards', function() {
       var relObj = { prefix: 'OBJ', suffix: 'CO' };

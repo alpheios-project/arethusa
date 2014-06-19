@@ -1,0 +1,25 @@
+{
+  "nested" : {
+    "SBV" : {
+      "short" : "SBV",
+      "long" : "substantive",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    },
+    "PRON" : {
+      "short" : "PRON",
+      "long" : "pronominal"
+    },
+    "NORM" : {
+      "short" : "NORM",
+      "long" : "normal"
+    },
+    "VRB" : {
+      "short" : "VRB",
+      "long" : "verbal"
+    },
+    "IDK" : {
+      "short" : "IDK",
+      "long" : "I don't know"
+    }
+  }
+}

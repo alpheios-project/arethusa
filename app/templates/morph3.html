@@ -13,16 +13,16 @@
     <accordion-group ng-repeat="form in analysis.forms" >
       <accordion-heading>
          <div class="row">
-           <div class="columns small-5 left">
+           <div class="columns small-5 left text">
              <span ng-style="plugin.styleOf(form)" lang-specific>{{ form.lemma }}
              <br>
              </span> {{ plugin.concatenatedAttributes(form) }}
            </div>
-           <div class="columns small-2">{{ form.postag }}</div>
+           <div class="columns small-2 text">{{ form.postag }}</div>
            <div class="columns small-2 note">{{ form.origin }}</div>
            <div form-selector class="columns small-2 right end"></div>
          </div>
-      <hr>
+      <hr class="small">
       </accordion-heading>
       <div class="small-12 columns" morph-form-attributes="form" token-id="id"></div>
       <p class="small-12 columns"/>

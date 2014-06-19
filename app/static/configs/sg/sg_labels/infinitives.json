@@ -1,0 +1,86 @@
+{
+  "nested" : {
+    "DEP" : {
+      "short" : "DEP",
+      "long" : "dependent",
+      "nested" : {
+        "ART" : {
+          "short" : "ART",
+          "long" : "articular",
+          "nested" : {
+            "NOM" : {
+              "short" : "NOM",
+              "long" : "in nominative"
+            },
+            "GEN" : {
+              "short" : "GEN",
+              "long" : "in genitive"
+            },
+            "DAT" : {
+              "short" : "DAT",
+              "long" : "in dative"
+            },
+            "ACC" : {
+              "short" : "ACC",
+              "long" : "in accusative"
+            }
+          }
+        },
+        "VRB" : {
+          "short" : "VRB",
+          "long" : "verbal",
+          "nested" : {
+            "NOM" : {
+              "short" : "NOM",
+              "long" : "in nominative"
+            },
+            "ACC" : {
+              "short" : "ACC",
+              "long" : "in accusative"
+            }
+          }
+        },
+        "UNC" : {
+          "short" : "UNC",
+          "long" : "uncertain case",
+          "nested" : {
+            "PURP" : {
+              "short" : "PURP",
+              "long" : "of purpose"
+            },
+            "RES" : {
+              "short" : "RES",
+              "long" : "of result"
+            },
+            "PRI" : {
+              "short" : "PRI",
+              "long" : "with πρίν"
+            }
+          }
+        }
+      }
+    },
+    "INDEP" : {
+      "short" : "INDEP",
+      "long" : "independent",
+      "nested" : {
+        "COM" : {
+          "short" : "COM",
+          "long" : "of command"
+        },
+        "WSH" : {
+          "short" : "WSH",
+          "long" : "of wish"
+        },
+        "EXCL" : {
+          "short" : "EXCL",
+          "long" : "of exclamation"
+        },
+        "ABS" : {
+          "short" : "ABS",
+          "long" : "in absolute use"
+        }
+      }
+    }
+  }
+}

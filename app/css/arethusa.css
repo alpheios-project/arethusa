@@ -8,10 +8,6 @@
   background-color: #5BC8DC;
 }
 
-.note {
-  font-size: 0.7em;
-}
-
 .full-height {
   height: 100vh;
 }
@@ -108,6 +104,7 @@ ul.top-menu {
 ul.nested-dropdown li {
   float: none;
   position: relative;
+  white-space: nowrap;
   padding: 0 0.8em 0 0.5em;
   font-size: 0.875em;
 }
@@ -227,6 +224,7 @@ span.right-answer {
   padding-bottom: 0.45rem;
   padding-left: 0.8rem;
   font-size: 0.7rem;
+  margin: 0;
 }
 
 button.micro {
@@ -235,6 +233,7 @@ button.micro {
   padding-bottom: 0.45rem;
   padding-left: 0.8rem;
   font-size: 0.7rem;
+  margin: 0;
 }
 
 /* Alpheios theme overrides -- better to use sass at some point */
@@ -319,3 +318,14 @@ button[disabled],
   color: rgb(255, 0, 0);
 }
 
+.text {
+  font-size: 0.875rem;
+}
+
+.note {
+  font-size: 0.7rem;
+}
+
+hr.small {
+  margin: 0.5rem 0 0.3rem
+}

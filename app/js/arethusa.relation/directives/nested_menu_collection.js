@@ -10,7 +10,8 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
       property: '=',
       ancestors: '=',
       emptyVal: '@',
-      change: '&'
+      labelAs: "=",
+      change: "&"
     },
     link: function(scope, element, attrs) {
       scope.emptyLabel = "";
@@ -20,6 +21,14 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
           scope.change();
         }
       });
+
+      scope.labelView = function(labelObj) {
+        if (scope.labelAs) {
+          return labelObj[scope.labelAs];
+        } else {
+          return labelObj.short;
+        }
+      };
     },
     template: '\
       <ul>\
@@ -32,13 +41,14 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
           label-obj="emptyObj">\
         </li>\
         <li\
-          ng-repeat="(label, labelObj) in all"\
+          ng-repeat="label in all | keys"\
           nested-menu\
           property="property"\
           rel-obj="current"\
           ancestors="ancestors"\
-          label="label"\
-          label-obj="labelObj">\
+          label="labelView(all[label])"\
+          label-as="labelAs"\
+          label-obj="all[label]">\
         </li>\
       </ul>\
     '

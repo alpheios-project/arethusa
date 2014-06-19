@@ -43,31 +43,22 @@ angular.module('arethusa.relation').service('relation', [
     };
 
     this.prefixWithAncestors = function(relation) {
-      return relation.ancestors.join(' > ') || '---';
+      return arethusaUtil.inject([], relation.ancestors, function(memo, ancestor) {
+        memo.push(ancestor.short);
+      }).join(' > ') || '---';
     };
 
     this.suffixOrPlaceholder = function(relation) {
       return relation.suffix || '---';
     };
 
-    this.addAncestor = function(relation, ancestor) {
-      relation.ancestors.unshift(ancestor);
-    };
-
     this.usePrefix = 'prefix';
     this.useSuffix = 'suffix';
     this.defineAncestors = true;
 
-    this.resetAncestors = function(relation) {
-      var ancestors = relation.ancestors;
-      while (ancestors.length > 0) {
-        ancestors.pop();
-      }
-    };
-
     this.initAncestors = function(relation) {
       // calculate a real ancestor chain here if need be
-      relation.ancestors = [relation.prefix];
+      relation.ancestors = [];
     };
 
     this.expandRelation = function (relation) {

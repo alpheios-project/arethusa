@@ -1,0 +1,42 @@
+{
+  "nested" : {
+    "DEP" : {
+      "short" : "DEP",
+      "long" : "dependent"
+    },
+    "INDEP" : {
+      "short" : "INDEP",
+      "long" : "independent",
+      "nested" : {
+        "STT" : {
+          "short" : "STT",
+          "long" : "as statement"
+        },
+        "COM" : {
+          "short" : "COM",
+          "long" : "as command"
+        },
+        "WSH" : {
+          "short" : "WSH",
+          "long" : "as wish"
+        },
+        "QES" : {
+          "short" : "QES",
+          "long" : "as question"
+        },
+        "EXCL" : {
+          "short" : "EXCL",
+          "long" : "as exclamation"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      },
+      "IDK" : {
+        "short" : "IDK",
+        "long" : "I don't know"
+      }
+    }
+  }
+}

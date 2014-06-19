@@ -1,0 +1,79 @@
+{
+  "nested" : {
+    "ATR" : {
+      "short" : "ATR",
+      "long" : "attributive",
+      "nested" : {
+        "PROP" : {
+          "short" : "PROP",
+          "long" : "proper"
+        },
+        "IMPROP" : {
+          "short" : "IMPROP",
+          "long" : "improper"
+        }
+      }
+    },
+    "CIRC" : {
+      "short" : "CIRC",
+      "long" : "circumstantial",
+      "nested" : {
+        "TME" : {
+          "short" : "TME",
+          "long" : "of time"
+        },
+        "MNR" : {
+          "short" : "MNR",
+          "long" : "of manner"
+        },
+        "MNS" : {
+          "short" : "MNS",
+          "long" : "of means"
+        },
+        "CAU" : {
+          "short" : "CAU",
+          "long" : "of cause"
+        },
+        "PURP" : {
+          "short" : "PURP",
+          "long" : "of purpose"
+        },
+        "CONC" : {
+          "short" : "CONC",
+          "long" : "of concession"
+        },
+        "COND" : {
+          "short" : "COND",
+          "long" : "of condition"
+        },
+        "AAC" : {
+          "short" : "AAC",
+          "long" : "of any attendant circumstance"
+        }
+      }
+    },
+    "SUPL" : {
+      "short" : "SUPL",
+      "long" : "supplementary",
+      "nested" : {
+        "INDD" : {
+          "short" : "INDD",
+          "long" : "in indirect discourse"
+        },
+        "NIND" : {
+          "short" : "NIND",
+          "long" : "not in indirect discourse"
+        }
+      }
+    },
+    "PERI" : {
+      "short" : "PERI",
+      "long" : "periphrastic"
+    },
+    "SBV" : {
+      "short" : "SBV",
+      "long" : "substantive",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    }
+  }
+}
