@@ -37,11 +37,11 @@ angular.module('arethusa.core').directive('sidepanel', [
         var nextKey = conf.nextTab || 'j';
         var prevKey = conf.prevTab || 'k';
 
-        keyCapture.onKeyPressed(keyCapture.keyCodes[nextKey], function() {
+        keyCapture.onKeyPressed(nextKey, function() {
           scope.$apply(moveToNext);
         });
 
-        keyCapture.onKeyPressed(keyCapture.keyCodes[prevKey], function() {
+        keyCapture.onKeyPressed(prevKey, function() {
           scope.$apply(moveToPrev);
         });
       }
