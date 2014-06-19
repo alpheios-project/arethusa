@@ -4,11 +4,13 @@ angular.module('arethusa.core').directive('keyCapture', [
   function (keyCapture) {
     return {
       restrict: 'A',
-      link: function (scope, element, attrs, controller) {
-        element.on('keydown', function (event) {
+      link: function (scope, element, attrs) {
+        var doc = angular.element(document.body);
+
+        doc.on('keydown', function (event) {
           keyCapture.keydown(event);
         });
-        element.on('keyup', function (event) {
+        doc.on('keyup', function (event) {
           keyCapture.keyup(event);
         });
       }
