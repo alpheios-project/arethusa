@@ -134,10 +134,15 @@
       "template" : "templates/comment2.html"
     }
   },
+
   "keyCapture" : {
     "sidepanel" : {
-      "nextTab" : "e",
-      "prevTab" : "w"
+      "nextTab" : "E",
+      "prevTab" : "W"
+    },
+    "selections" : {
+      "nextToken" : "e",
+      "prevToken" : "w"
     }
   }
 }
