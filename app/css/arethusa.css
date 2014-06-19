@@ -224,6 +224,7 @@ span.right-answer {
   padding-bottom: 0.45rem;
   padding-left: 0.8rem;
   font-size: 0.7rem;
+  margin: 0;
 }
 
 button.micro {
@@ -232,6 +233,7 @@ button.micro {
   padding-bottom: 0.45rem;
   padding-left: 0.8rem;
   font-size: 0.7rem;
+  margin: 0;
 }
 
 /* Alpheios theme overrides -- better to use sass at some point */
