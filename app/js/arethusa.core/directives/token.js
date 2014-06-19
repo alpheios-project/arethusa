@@ -22,15 +22,10 @@ angular.module('arethusa.core').directive('token', [
         }
         function bindClick() {
           element.bind('click', function (event) {
-            if (event.ctrlKey) {
-              apply(function () {
-                state.toggleSelection(id, 'ctrl-click');
-              });
-            } else {
-              apply(function () {
-                state.toggleSelection(id, 'click');
-              });
-            }
+            apply(function() {
+              var clickType = event.ctrlKey ? 'ctrl-click' : 'click';
+              state.toggleSelection(id, clickType);
+            });
           });
         }
         function bindHover() {
