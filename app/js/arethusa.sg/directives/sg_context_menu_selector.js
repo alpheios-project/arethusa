@@ -12,7 +12,7 @@ angular.module('arethusa.sg').directive('sgContextMenuSelector', [
         scope.sg = sg;
 
         function ancestorChain(chain) {
-          arethusaUtil.map(chain, function(el) {
+          return arethusaUtil.map(chain, function(el) {
             return el.short;
           }).join(' > ');
         }
