@@ -233,17 +233,28 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           scope.rankSep = 40;
         };
         scope.changeDir = function() {
-          scope.rankDir = scope.rankDir === "BT" ? "RL" : "BT";
+          var horDir;
+          if (sortRankByIdAscending()) {
+            horDir = "RL";
+          } else {
+            horDir = "LR";
+            scope.textDirection = !scope.textDirection;
+          }
+          scope.rankDir = scope.rankDir === "BT" ? horDir : "BT";
         };
-        scope.sortRankByIdAscending = function() {
+
+        function sortRankByIdAscending() {
           var langSettings = languageSettings.getFor('treebank');
           return langSettings ? langSettings.leftToRight : true;
-        };
+        }
+
+        scope.textDirection = sortRankByIdAscending();
 
         scope.rankDir = 'BT';
         scope.compactTree();
+
         scope.layout = dagreD3.layout()
-          .sortRankByIdAscending(scope.sortRankByIdAscending)
+          .sortRankByIdAscending(scope.textDirection)
           .rankDir(scope.rankDir)
           .nodeSep(scope.nodeSep)
           .edgeSep(scope.edgeSep)
@@ -364,35 +375,22 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         });
 
         // Settings watches
-        scope.$watch('nodeSep', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            scope.layout.nodeSep(newVal);
-            render();
-          }
-        });
-        scope.$watch('edgeSep', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            scope.layout.edgeSep(newVal);
-            render();
-          }
-        });
-        scope.$watch('rankSep', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            scope.layout.rankSep(newVal);
-            render();
-          }
-        });
-        scope.$watch('rankDir', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            scope.layout.rankDir(newVal);
-            render();
-          }
-        });
-        scope.$watch('sortRankByIdAscending', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            scope.layout.sortRankByIdAscending(newVal);
-            render();
-          }
+        var watches = {
+          'nodeSep': function(newVal) { scope.layout.nodeSep(newVal); },
+          'edgeSep': function(newVal) { scope.layout.edgeSep(newVal); },
+          'edgeDir': function(newVal) { scope.layout.edgeDir(newVal); },
+          'nodeDir': function(newVal) { scope.layout.nodeDir(newVal); },
+          'rankDir': function(newVal) { scope.layout.rankDir(newVal); },
+          'textDirection': function(newVal) { scope.layout.sortRankByIdAscending(newVal); }
+        };
+
+        angular.forEach(watches, function(fn, attr) {
+          scope.$watch(attr, function(newVal, oldVal) {
+            if (newVal !== oldVal) {
+              fn(newVal);
+              render();
+            }
+          });
         });
       },
       template: '<svg class="full-height full-width"><g/></svg>'
