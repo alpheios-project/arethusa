@@ -106,7 +106,7 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
         $document.bind('click', handleOtherClick);
         $document.bind('contextmenu', handleOtherClick);
 
-        keyCapture.onKeyPressed(keyCapture.keyCodes.esc, function() {
+        keyCapture.onKeyPressed('esc', function() {
           if (opened) {
             closeAndApply();
             keyCapture.stopPropagation();
