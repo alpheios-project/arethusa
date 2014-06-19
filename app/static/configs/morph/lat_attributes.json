@@ -72,14 +72,6 @@
             "color" : "purple"
           }
         },
-        "interj" : {
-          "long" : "interjection",
-          "short" : "interj",
-          "postag" : "i",
-          "style" : {
-            "color" : "gold"
-          }
-        },
         "excl" : {
           "long" : "exclamation",
           "short" : "excl",
