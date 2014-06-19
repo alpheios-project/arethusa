@@ -33,11 +33,15 @@ angular.module('arethusa.core').directive('sidepanel', [
           selectPluginByIndex(index);
         }
 
-        keyCapture.onKeyPressed(keyCapture.keyCodes.j, function() {
+        var conf = keyCapture.conf().sidepanel || {};
+        var nextKey = conf.nextTab || 'j';
+        var prevKey = conf.prevTab || 'k';
+
+        keyCapture.onKeyPressed(keyCapture.keyCodes[nextKey], function() {
           scope.$apply(moveToNext);
         });
 
-        keyCapture.onKeyPressed(keyCapture.keyCodes.k, function() {
+        keyCapture.onKeyPressed(keyCapture.keyCodes[prevKey], function() {
           scope.$apply(moveToPrev);
         });
       }

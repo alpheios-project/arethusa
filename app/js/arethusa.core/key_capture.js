@@ -14,7 +14,9 @@ angular.module('arethusa.core').service('keyCapture', [
       alt: 18,
       esc: 27,
       j: 74,
-      k: 75
+      k: 75,
+      w: 87,
+      e: 69
     };
 
     var activeKeys = {};
