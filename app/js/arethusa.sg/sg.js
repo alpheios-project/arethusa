@@ -31,9 +31,11 @@ angular.module('arethusa.sg').service('sg', [
 
     function createInternalState() {
       return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
-        var obj = sgTemplate();
-        obj.string = token.string;
-        memo[id] = obj;
+        var grammar = sgTemplate();
+        var morph = token.morphology || {};
+        grammar.string = token.string;
+        checkAndUpdateGrammar(morph, grammar);
+        memo[id] = grammar;
       });
     }
 
@@ -41,16 +43,21 @@ angular.module('arethusa.sg').service('sg', [
       return arethusaUtil.inject({}, state.selectedTokens, function(memo, id, event) {
         var morph = state.tokens[id].morphology || {};
         var grammar = self.grammar[id];
-        if (morphHasChanged(grammar.morph, morph.attributes)) {
-          angular.extend(grammar.morph, morph.attributes);
-          updateGrammar(self.labels, grammar);
-        }
+        checkAndUpdateGrammar(morph, grammar);
         memo[id] = grammar;
       });
     };
 
     function morphHasChanged(a, b) {
       return !angular.equals(a, b);
+    }
+
+    function checkAndUpdateGrammar(morph, grammar) {
+      if (morphHasChanged(grammar.morph, morph.attributes)) {
+        angular.extend(grammar.morph, morph.attributes);
+        updateGrammar(self.labels, grammar);
+      }
+      return grammar;
     }
 
     function updateGrammar(labels, grammar) {
