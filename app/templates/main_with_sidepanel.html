@@ -17,7 +17,7 @@
       <div id="sidepanel-body">
         <tabset>
           <tab
-            ng-click="declareActive(pl.name)"
+            ng-click="declareActive(pl)"
             ng-repeat="pl in subPlugins"
             heading="{{ pl.name }}">
             <plugin name="pl" ng-if="isActive(pl)"/>
