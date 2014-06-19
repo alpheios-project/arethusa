@@ -21,11 +21,18 @@ angular.module('arethusa.core').directive('sidepanel', [
           scope.declareActive(nextPlugin);
         }
 
+        function moveToPrev() {
+          var nextPlugin = scope.subPlugins[currentIndex() - 1];
+          scope.declareActive(nextPlugin);
+        }
+
         keyCapture.onKeyPressed(keyCapture.keyCodes.j, function() {
-          console.log('keyPressed');
           scope.$apply(moveToNext);
         });
 
+        keyCapture.onKeyPressed(keyCapture.keyCodes.k, function() {
+          scope.$apply(moveToPrev);
+        });
       }
     };
   }
