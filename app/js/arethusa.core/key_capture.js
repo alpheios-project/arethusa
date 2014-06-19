@@ -29,11 +29,6 @@ angular.module('arethusa.core').service('keyCapture', [
       return keyCode;
     };
 
-    var activeKeys = {};
-    angular.forEach(this.keyCodes, function (value, key) {
-      activeKeys[value] = false;
-    });
-
     var keyPressedCallbacks = {};
 
     function modifiedKeyCode(event) {
@@ -46,16 +41,15 @@ angular.module('arethusa.core').service('keyCapture', [
 
     var handleCallbacks = function(event) {
       var keyCode = modifiedKeyCode(event);
-      if (activeKeys[keyCode] && keyPressedCallbacks[keyCode]) {
-        var callbacks = keyPressedCallbacks[keyCode];
+      var callbacks = keyPressedCallbacks[keyCode];
+      if (callbacks) {
         resolveCallbacks(callbacks, event);
         resumePropagation();
       }
     };
 
     this.keydown = function (event) {
-      var keyCode = modifiedKeyCode(event);
-      activeKeys[keyCode] = true;
+      // we're only acting on keyup for now
     };
 
     var forbiddenTags = ['INPUT'];
@@ -64,20 +58,8 @@ angular.module('arethusa.core').service('keyCapture', [
       if (arethusaUtil.isIncluded(forbiddenTags, event.target.tagName)) {
         return;
       }
-
       var keyCode = modifiedKeyCode(event);
-      if (keyCode in activeKeys) {
-        handleCallbacks(event);
-        activeKeys[keyCode] = false;
-      }
-    };
-
-    this.isCtrlActive = function () {
-      return activeKeys[keyCodes.ctrl];
-    };
-
-    this.isShiftActive = function() {
-      return activeKeys[keyCodes.shift];
+      handleCallbacks(event);
     };
 
     function Callback(callback, priority) {
