@@ -1,5 +1,7 @@
 'use strict';
 angular.module('arethusa.core').service('keyCapture', function () {
+  var self = this;
+
   this.keyCodes = {
     shift: 16,
     ctrl: 17,
@@ -16,8 +18,13 @@ angular.module('arethusa.core').service('keyCapture', function () {
 
   var handleCallbacks = function(keyCode) {
     if (activeKeys[keyCode] && keyPressedCallbacks[keyCode]) {
-      var callback = keyPressedCallbacks[keyCode];
-      callback();
+      var callbacks = keyPressedCallbacks[keyCode];
+      angular.forEach(callbacks, function(callbackObj, key) {
+        if (! propagationStopped) {
+          callbackObj.callback();
+        }
+      });
+      resumePropagation();
     }
   };
 
@@ -38,7 +45,29 @@ angular.module('arethusa.core').service('keyCapture', function () {
     return activeKeys[this.keyCodes.ctrl];
   };
 
-  this.onKeyPressed = function(keyCode, callback) {
-    keyPressedCallbacks[keyCode] = callback;
+  this.onKeyPressed = function(keyCode, callback, priority) {
+    var callbacks = keyPressedCallbacks[keyCode] || [];
+    var obj = {
+      priority: priority || 0,
+      callback: callback
+    };
+    callbacks.push(obj);
+    keyPressedCallbacks[keyCode] = sortedByPriority(callbacks);
   };
+
+  function sortedByPriority(callbacks) {
+    return callbacks.sort(function(a, b) {
+      return b.priority - a.priority;
+    });
+  }
+
+  var propagationStopped = false;
+
+  this.stopPropagation = function() {
+    propagationStopped = true;
+  };
+
+  function resumePropagation() {
+    propagationStopped = false;
+  }
 });
