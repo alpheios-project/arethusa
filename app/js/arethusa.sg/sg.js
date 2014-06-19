@@ -91,9 +91,16 @@ angular.module('arethusa.sg').service('sg', [
       grammar.menu = lastAttr.nested || {};
     }
 
+    function propagateToState() {
+      angular.forEach(self.grammar, function(val, id) {
+        state.tokens[id].sg = val;
+      });
+    }
+
     this.init = function() {
       configure();
       self.grammar = createInternalState();
+      propagateToState();
     };
   }
 ]);
