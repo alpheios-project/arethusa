@@ -133,5 +133,16 @@
       "name" : "comment",
       "template" : "templates/comment2.html"
     }
+  },
+
+  "keyCapture" : {
+    "sidepanel" : {
+      "nextTab" : "E",
+      "prevTab" : "W"
+    },
+    "selections" : {
+      "nextToken" : "e",
+      "prevToken" : "w"
+    }
   }
 }

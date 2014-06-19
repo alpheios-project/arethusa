@@ -100,18 +100,20 @@ angular.module('arethusa.core').controller('MainCtrl', [
     // Generally this shouldn't be the case, because all business logic
     // should be out of the DOM anyway. If a plugin still needs this, it can
     // do so by setting its alwaysActiveproperty to true.
-    $scope.activePlugin = '';
-
-    $scope.declareActive = function (name) {
-      $scope.activePlugin = name;
+    $scope.declareActive = function (plugin) {
+      $scope.activePlugin = plugin;
     };
 
     $scope.declareFirstPluginActive = function () {
-      $scope.declareActive($scope.subPlugins[0].name);
+      $scope.declareActive($scope.subPlugins[0]);
     };
 
     $scope.isActive = function (plugin) {
-      return plugin.name === $scope.activePlugin && !plugin.alwaysActive;
+      return $scope.pluginSelected(plugin) && !plugin.alwaysActive;
+    };
+
+    $scope.pluginSelected = function(plugin) {
+      return plugin === $scope.activePlugin;
     };
 
     // This is a really really bad solution right now. Using the controller

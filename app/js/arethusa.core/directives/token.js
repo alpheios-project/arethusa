@@ -1,8 +1,7 @@
 'use strict';
 angular.module('arethusa.core').directive('token', [
   'state',
-  'keyCapture',
-  function (state, keyCapture) {
+  function (state) {
     return {
       restrict: 'AE',
       scope: {
@@ -22,16 +21,11 @@ angular.module('arethusa.core').directive('token', [
           scope.$apply(fn());
         }
         function bindClick() {
-          element.bind('click', function () {
-            if (keyCapture.isCtrlActive()) {
-              apply(function () {
-                state.toggleSelection(id, 'ctrl-click');
-              });
-            } else {
-              apply(function () {
-                state.toggleSelection(id, 'click');
-              });
-            }
+          element.bind('click', function (event) {
+            apply(function() {
+              var clickType = event.ctrlKey ? 'ctrl-click' : 'click';
+              state.toggleSelection(id, clickType);
+            });
           });
         }
         function bindHover() {
