@@ -6,7 +6,9 @@ angular.module('arethusa.core').service('keyCapture', function () {
     shift: 16,
     ctrl: 17,
     alt: 18,
-    esc: 27
+    esc: 27,
+    j: 74,
+    k: 75
   };
 
   var activeKeys = {};
@@ -30,7 +32,13 @@ angular.module('arethusa.core').service('keyCapture', function () {
     }
   };
 
+  var forbiddenTags = ['INPUT'];
+
   this.keyup = function (event) {
+    if (arethusaUtil.isIncluded(forbiddenTags, event.target.tagName)) {
+      return;
+    }
+
     if (event.keyCode in activeKeys) {
       handleCallbacks(event.keyCode);
       activeKeys[event.keyCode] = false;
