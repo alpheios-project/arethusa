@@ -12,14 +12,15 @@
       </div>
     </div>
 
-    <div id="sidepanel" class="columns small-5">
+    <div id="sidepanel" sidepanel class="columns small-5">
       <div id="sidepanel-resizer" class="full-height" resizable></div>
       <div id="sidepanel-body">
         <tabset>
           <tab
-            ng-click="declareActive(pl)"
             ng-repeat="pl in subPlugins"
-            heading="{{ pl.name }}">
+            select="declareActive(pl)"
+            heading="{{ pl.name }}"
+            active="pluginSelected(pl)">
             <plugin name="pl" ng-if="isActive(pl)"/>
           </tab>
         </tabset>

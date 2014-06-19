@@ -109,7 +109,11 @@ angular.module('arethusa.core').controller('MainCtrl', [
     };
 
     $scope.isActive = function (plugin) {
-      return plugin === $scope.activePlugin && !plugin.alwaysActive;
+      return $scope.pluginSelected(plugin) && !plugin.alwaysActive;
+    };
+
+    $scope.pluginSelected = function(plugin) {
+      return plugin === $scope.activePlugin;
     };
 
     // This is a really really bad solution right now. Using the controller
