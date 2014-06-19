@@ -233,17 +233,27 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           scope.rankSep = 40;
         };
         scope.changeDir = function() {
-          scope.rankDir = scope.rankDir === "BT" ? "RL" : "BT";
-        };
-        scope.sortRankByIdAscending = function() {
-          var langSettings = languageSettings.getFor('treebank');
-          return langSettings ? langSettings.leftToRight : true;
+          var horDir;
+          if (sortRankByIdAscending()) {
+            horDir = "RL";
+          } else {
+            horDir = "LR";
+            scope.textDirection = !scope.textDirection;
+          }
+          scope.rankDir = scope.rankDir === "BT" ? horDir : "BT";
         };
 
+        function sortRankByIdAscending() {
+          var langSettings = languageSettings.getFor('treebank');
+          return langSettings ? langSettings.leftToRight : true;
+        }
+
+        scope.textDirection = sortRankByIdAscending();
         scope.rankDir = 'BT';
         scope.compactTree();
+
         scope.layout = dagreD3.layout()
-          .sortRankByIdAscending(scope.sortRankByIdAscending)
+          .sortRankByIdAscending(scope.textDirection)
           .rankDir(scope.rankDir)
           .nodeSep(scope.nodeSep)
           .edgeSep(scope.edgeSep)
@@ -388,7 +398,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             render();
           }
         });
-        scope.$watch('sortRankByIdAscending', function(newVal, oldVal) {
+        scope.$watch('textDirection', function(newVal, oldVal) {
           if (newVal !== oldVal) {
             scope.layout.sortRankByIdAscending(newVal);
             render();
