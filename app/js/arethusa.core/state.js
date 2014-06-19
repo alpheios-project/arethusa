@@ -308,29 +308,22 @@ angular.module('arethusa.core').service('state', [
       self.countTotalTokens();
     };
 
-    function Capture(callback, priority) {
-      this.callback = callback;
-      this.priority = priority || 0;
-    }
-
     function initKeyCaptures() {
-      var captures = {};
-      captures.esc = new Capture(function() {
-        self.deselectAll();
-      });
+      var conf = keyCapture.conf().selections || {};
+      var nextKey = conf.nextToken || 'J';
+      var prevKey = conf.prevToken || 'K';
 
-      captures.e = new Capture(function() {
-        self.selectPrevToken();
-      });
+      var captures = {
+        esc: function() { self.deselectAll(); }
+      };
 
-      captures.w = new Capture(function() {
-        self.selectNextToken();
-      });
+      captures[nextKey] = function() { self.selectPrevToken(); };
+      captures[prevKey] = function() { self.selectNextToken(); };
 
-      angular.forEach(captures, function(capture, key) {
+      angular.forEach(captures, function(callback, key) {
         keyCapture.onKeyPressed(key, function(event) {
-          $rootScope.$apply(capture.callback);
-        }, capture.priority);
+          $rootScope.$apply(callback);
+        });
       });
     }
 
