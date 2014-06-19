@@ -13,17 +13,24 @@ angular.module('arethusa.core').directive('sidepanel', [
         }
 
         function maxIndex() {
-          return scope.subPlugins.length;
+          return scope.subPlugins.length - 1;
+        }
+
+        function selectPluginByIndex(index) {
+          var plugin = scope.subPlugins[index];
+          scope.declareActive(plugin);
         }
 
         function moveToNext() {
-          var nextPlugin = scope.subPlugins[currentIndex() + 1];
-          scope.declareActive(nextPlugin);
+          var current = currentIndex();
+          var index = current === maxIndex() ? minIndex : current + 1;
+          selectPluginByIndex(index);
         }
 
         function moveToPrev() {
-          var nextPlugin = scope.subPlugins[currentIndex() - 1];
-          scope.declareActive(nextPlugin);
+          var current = currentIndex();
+          var index = current === minIndex ? maxIndex() : current - 1;
+          selectPluginByIndex(index);
         }
 
         keyCapture.onKeyPressed(keyCapture.keyCodes.j, function() {
