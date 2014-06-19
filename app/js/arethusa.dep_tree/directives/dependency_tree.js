@@ -249,6 +249,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
 
         scope.textDirection = sortRankByIdAscending();
+
         scope.rankDir = 'BT';
         scope.compactTree();
 
@@ -374,35 +375,22 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         });
 
         // Settings watches
-        scope.$watch('nodeSep', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            scope.layout.nodeSep(newVal);
-            render();
-          }
-        });
-        scope.$watch('edgeSep', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            scope.layout.edgeSep(newVal);
-            render();
-          }
-        });
-        scope.$watch('rankSep', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            scope.layout.rankSep(newVal);
-            render();
-          }
-        });
-        scope.$watch('rankDir', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            scope.layout.rankDir(newVal);
-            render();
-          }
-        });
-        scope.$watch('textDirection', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            scope.layout.sortRankByIdAscending(newVal);
-            render();
-          }
+        var watches = {
+          'nodeSep': function(newVal) { scope.layout.nodeSep(newVal); },
+          'edgeSep': function(newVal) { scope.layout.edgeSep(newVal); },
+          'edgeDir': function(newVal) { scope.layout.edgeDir(newVal); },
+          'nodeDir': function(newVal) { scope.layout.nodeDir(newVal); },
+          'rankDir': function(newVal) { scope.layout.rankDir(newVal); },
+          'textDirection': function(newVal) { scope.layout.sortRankByIdAscending(newVal); }
+        };
+
+        angular.forEach(watches, function(fn, attr) {
+          scope.$watch(attr, function(newVal, oldVal) {
+            if (newVal !== oldVal) {
+              fn(newVal);
+              render();
+            }
+          });
         });
       },
       template: '<svg class="full-height full-width"><g/></svg>'
