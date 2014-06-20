@@ -69,10 +69,14 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
 
         // need this to make sure we close the menu all the time
         function handleOtherClick(event) {
-          if (targetIsChildOfMenu(event.target)) return;
+          // in expensive low level check first, as this gets called
+          // quite a bit
+          if (opened) {
+            if (targetIsChildOfMenu(event.target)) return;
 
-          if (opened && event.button !== scope.menuTrigger) {
-            closeAndApply();
+            if (event.button !== scope.menuTrigger) {
+              closeAndApply();
+            }
           }
         }
 
