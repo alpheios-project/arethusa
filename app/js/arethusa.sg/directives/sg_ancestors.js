@@ -10,7 +10,9 @@ angular.module('arethusa.sg').directive('sgAncestors', [
       },
       link: function(scope, element, attrs) {
         scope.requestGrammar = function(el) {
-          sg.readerRequested = el;
+          if (el.sections) {
+            sg.readerRequested = el;
+          }
         };
 
         scope.$watchCollection('obj.ancestors', function(newVal, oldVal) {
