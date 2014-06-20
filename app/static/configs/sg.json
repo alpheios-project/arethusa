@@ -49,7 +49,7 @@
     },
 
     "sgGrammar" : {
-      "route" : "http://dev.alpheios.net:8088/smyth/xhmtl/smyth.html"
+      "route" : "http://74.70.97.104:8085/smyth"
     }
   },
 
