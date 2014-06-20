@@ -4,7 +4,7 @@
 var arethusaUtil = {
     formatNumber: function (number, length) {
       // check if number is valid, otherwise return
-      var parsed = parseInt(number);
+      var parsed = parseInt(number, 10);
       if (isNaN(parsed)) {
         return number;
       } else {

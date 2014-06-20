@@ -110,4 +110,62 @@ describe('keyCapture', function() {
       expect(e2callbackCalled).toEqual(1);
     });
   });
+
+  describe('doRepeated', function() {
+    it('calls a function 1 time by default', function() {
+      var count = 0;
+      var e13 = new Event(13); // 13 is return
+
+      function fn() { keyCapture.doRepeated(function() { count++; });}
+
+      keyCapture.onKeyPressed('return', fn);
+      keyCapture.keyup(e13);
+      expect(count).toEqual(1);
+    });
+
+    it('listens to numeric keyup events and calls a function several times then', function() {
+      var count;
+      var e1  = new Event(49); // 49 is 1
+      var e9  = new Event(57); // 57 is 9
+      var e13 = new Event(13); // 13 is return
+
+      function fn() { keyCapture.doRepeated(function() { count++; });}
+
+      keyCapture.onKeyPressed('return', fn);
+
+      count = 0;
+      keyCapture.keyup(e9);
+      keyCapture.keyup(e13);
+      expect(count).toEqual(9);
+
+      count = 0;
+      keyCapture.keyup(e1);
+      keyCapture.keyup(e9);
+      keyCapture.keyup(e13);
+      expect(count).toEqual(19);
+    });
+
+    it('handles 0 hits properly', function() {
+      var count;
+      var e0  = new Event(48); // 49 is 0
+      var e1  = new Event(49); // 49 is 1
+      var e13 = new Event(13); // 13 is return
+
+      function fn() { keyCapture.doRepeated(function() { count++; });}
+
+      keyCapture.onKeyPressed('return', fn);
+
+      count = 0;
+      keyCapture.keyup(e0);
+      keyCapture.keyup(e13);
+      expect(count).toEqual(1);
+
+      count = 0;
+      keyCapture.keyup(e0);
+      keyCapture.keyup(e1);
+      keyCapture.keyup(e1);
+      keyCapture.keyup(e13);
+      expect(count).toEqual(11);
+    });
+  });
 });

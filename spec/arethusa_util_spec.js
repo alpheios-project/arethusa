@@ -25,6 +25,15 @@ describe("arethusaUtil", function() {
       it('handles zeros correctly', function() {
         expect(aU.formatNumber('0', 4)).toEqual('0000');
       });
+
+      it('can also strip away leading zeros', function() {
+        expect(aU.formatNumber('01', 0)).toEqual('1');
+      });
+
+      it('does not convert them to octal numbers', function() {
+        // if one isn't careful, the result of this would be 9!
+        expect(aU.formatNumber('011', 0)).toEqual('11');
+      });
     });
   });
 
