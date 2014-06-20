@@ -179,8 +179,8 @@ angular.module('arethusa.core').service('state', [
 
     this.selectSurroundingToken = function (direction) {
       // take the first current selection
-      var firstId = Object.keys(this.selectedTokens)[0];
-      var allIds = Object.keys(this.tokens);
+      var firstId = Object.keys(self.selectedTokens)[0];
+      var allIds = Object.keys(self.tokens);
       var index = allIds.indexOf(firstId);
       // select newId - make a roundtrip if we reached the bounds of the array
       var newId;
@@ -193,16 +193,16 @@ angular.module('arethusa.core').service('state', [
         break;
       }
       // deselect all previously selected tokens
-      this.deselectAll();
+      self.deselectAll();
       // and select the new one
-      this.selectToken(newId, 'click');
+      self.selectToken(newId, 'click');
     };
 
     this.selectNextToken = function () {
-      this.selectSurroundingToken('next');
+      self.selectSurroundingToken('next');
     };
     this.selectPrevToken = function () {
-      this.selectSurroundingToken('prev');
+      self.selectSurroundingToken('prev');
     };
 
     // Events
