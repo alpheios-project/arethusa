@@ -1,28 +1,36 @@
 {
   "nested" : {
-    "DEP" : {
-      "short" : "DEP",
+    "DPD" : {
+      "short" : "DPD",
       "long" : "dependent",
       "nested" : {
         "ART" : {
           "short" : "ART",
           "long" : "articular",
           "nested" : {
-            "NOM" : {
-              "short" : "NOM",
-              "long" : "in nominative"
+            "NMN" : {
+              "short" : "NMN",
+              "sections" : "2031",
+              "long" : "in nominative",
+              "fileUrl" : "./static/configs/sg/sg_labels/nominative_cases.json"
             },
-            "GEN" : {
-              "short" : "GEN",
-              "long" : "in genitive"
+            "GNT" : {
+              "short" : "GNT",
+              "sections" : "2031",
+              "long" : "in genitive",
+              "fileUrl" : "./static/configs/sg/sg_labels/genetive_cases.json"
             },
-            "DAT" : {
-              "short" : "DAT",
-              "long" : "in dative"
+            "DTV" : {
+              "short" : "DTV",
+              "sections" : "2031",
+              "long" : "in dative",
+              "fileUrl" : "./static/configs/sg/sg_labels/dative_cases.json"
             },
             "ACC" : {
               "short" : "ACC",
-              "long" : "in accusative"
+              "sections" : "2031",
+              "long" : "in accusative",
+              "fileUrl" : "./static/configs/sg/sg_labels/accusative_cases.json"
             }
           }
         },
@@ -30,8 +38,8 @@
           "short" : "VRB",
           "long" : "verbal",
           "nested" : {
-            "NOM" : {
-              "short" : "NOM",
+            "NMN" : {
+              "short" : "NMN",
               "long" : "in nominative"
             },
             "ACC" : {
@@ -44,27 +52,30 @@
           "short" : "UNC",
           "long" : "uncertain case",
           "nested" : {
-            "PURP" : {
-              "short" : "PURP",
-              "long" : "of purpose"
+            "PUR" : {
+              "short" : "PUR",
+              "long" : "of purpose",
+              "sections" : "2008-2010"
             },
-            "RES" : {
-              "short" : "RES",
-              "long" : "of result"
+            "RSL" : {
+              "short" : "RSL",
+              "long" : "of result",
+              "sections" : "2011"
             },
             "PRI" : {
               "short" : "PRI",
-              "long" : "with πρίν"
+              "long" : "with πρίν",
+              "sections" : "2453-2461"
             }
           }
         }
       }
     },
-    "INDEP" : {
-      "short" : "INDEP",
+    "INN" : {
+      "short" : "INN",
       "long" : "independent",
       "nested" : {
-        "COM" : {
+        "CMM" : {
           "short" : "COM",
           "long" : "of command"
         },
@@ -72,8 +83,8 @@
           "short" : "WSH",
           "long" : "of wish"
         },
-        "EXCL" : {
-          "short" : "EXCL",
+        "EXC" : {
+          "short" : "EXC",
           "long" : "of exclamation"
         },
         "ABS" : {

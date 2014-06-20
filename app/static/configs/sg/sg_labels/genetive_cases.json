@@ -1,44 +1,54 @@
 {
   "nested" : {
-    "DEP" : {
-      "short" : "DEP",
+    "DPD" : {
+      "short" : "DPD",
       "long" : "dependent",
+      "sections" : "1289-1449",
       "nested" : {
-        "PROP" : {
-          "short" : "PROP",
+        "PRP" : {
+          "short" : "PRP",
           "long" : "proper",
+          "sections" : "1290-1390",
           "nested" : {
-            "POSS" : {
-              "short" : "POSS",
-              "long" : "of possession or belonging"
+            "POS" : {
+              "short" : "POS",
+              "long" : "of possession or belonging",
+              "sections" : "1297-1305"
             },
-            "PART" : {
-              "short" : "PART",
-              "long" : "of divided whole"
+            "DVD" : {
+              "short" : "DVD",
+              "long" : "of divided whole",
+              "sections" : "1306-1319;1341-1371"
             },
-            "QUAL" : {
-              "short" : "QUAL",
-              "long" : "of quality"
+            "QLT" : {
+              "short" : "QLT",
+              "long" : "of quality",
+              "sections" : "1320-1321"
             },
-            "EXPL" : {
-              "short" : "EXPL",
-              "long" : "of explanation"
+            "EXP" : {
+              "short" : "EXP",
+              "long" : "of explanation",
+              "sections" : "1322"
             },
-            "MAC" : {
-              "short" : "MAC",
-              "long" : "of material or contents"
+            "MTR" : {
+              "short" : "MTR",
+              "long" : "of material or contents",
+              "sections" : "1323-1324"
             },
             "SBJ-OBJ" : {
               "short" : "SBJ-OBJ",
               "long" : "subj. or obj.",
+              "sections" : "1328-1335",
               "nested" : {
                 "SBJ" : {
                   "short" : "SBJ",
-                  "long" : "as subject"
+                  "long" : "as subject",
+                  "sections" : "1330"
                 },
                 "OBJ" : {
                   "short" : "OBJ",
-                  "long" : "as object"
+                  "long" : "as object",
+                  "sections" : "1331-1335"
                 },
                 "IDK" : {
                   "short" : "IDK",
@@ -46,17 +56,20 @@
                 }
               }
             },
-            "PR-VA" : {
-              "short" : "PR-VA",
-              "long" : "of price & value"
+            "PRC" : {
+              "short" : "PRC",
+              "long" : "of price & value",
+              "sections" : "1336;1372-1374"
             },
-            "CR-AC" : {
-              "short" : "CR-AC",
-              "long" : "of crime & accountability"
+            "CRM" : {
+              "short" : "CRM",
+              "long" : "of crime & accountability",
+              "sections" : "1375-1379"
             },
-            "CON" : {
-              "short" : "CON",
-              "long" : "of connection"
+            "CNN" : {
+              "short" : "CNN",
+              "long" : "of connection",
+              "sections" : "1380-1381"
             },
             "IDK" : {
               "short" : "IDK",
@@ -67,30 +80,36 @@
         "ABL" : {
           "short" : "ABL",
           "long" : "ablatival",
+          "sections" : "1391-1411",
           "nested" : {
-            "T-ST-P" : {
-              "short" : "T-ST-P",
+            "TMP" : {
+              "short" : "TMP",
               "long" : "of temporal starting point"
             },
-            "SEP" : {
-              "short" : "SEP",
-              "long" : "of separation"
+            "SPR" : {
+              "short" : "SPR",
+              "long" : "of separation",
+              "sections" : "1392-1400"
             },
-            "DI-CO" : {
-              "short" : "DI-CO",
-              "long" : "of distinction & comparison"
+            "DST" : {
+              "short" : "DST",
+              "long" : "of distinction & comparison",
+              "sections" : "1401-1404"
             },
             "CAU" : {
               "short" : "CAU",
-              "long" : "of cause"
+              "long" : "of cause",
+              "sections" : "1405-1409"
             },
-            "PURP" : {
-              "short" : "PURP",
-              "long" : "of purpose"
+            "PUR" : {
+              "short" : "PUR",
+              "long" : "of purpose",
+              "sections" : "1408"
             },
             "SRC" : {
               "short" : "SRC",
-              "long" : "of source"
+              "long" : "of source",
+              "sections" : "1410-1411"
             },
             "IDK" : {
               "short" : "IDK",
@@ -101,14 +120,17 @@
         "TI-SP" : {
           "short" : "TISP",
           "long" : "of time & space",
+          "sections" : "1444-1449",
           "nested" : {
-            "TME" : {
-              "short" : "TME",
-              "long" : "(time)"
+            "TMP" : {
+              "short" : "TMP",
+              "long" : "(time)",
+              "sections" : "1444-1447"
             },
             "SPC" : {
               "short" : "SPC",
-              "long" : "(space)"
+              "long" : "(space)",
+              "sections" : "1448-1449"
             },
             "IDK" : {
               "short" : "IDK",
@@ -120,36 +142,40 @@
           "short" : "W-PREP",
           "long" : "with preposition",
           "nested" : {
-            "T-EX" : {
-              "short" : "T-EX",
-              "long" : "of time extension"
+            "TPC" : {
+              "short" : "TPC",
+              "long" : "topic (with ἀμφί, περί)"
             },
-            "SP-EX" : {
-              "short" : "SP-EX",
-              "long" : "of space extension"
+            "TMP" : {
+              "short" : "TMP",
+              "long" : "of time extension (with διά, μέχρι)"
+            },
+            "SPC" : {
+              "short" : "SPC",
+              "long" : "of space extension (with διά, μέχρι)"
             },
             "CAU" : {
               "short" : "CAU",
-              "long" : "of cause"
+              "long" : "of cause (with ἀπό, ἐξ)"
             },
-            "M-IN" : {
-              "short" : "M-IN",
-              "long" : "of means or instrument"
+            "MNN" : {
+              "short" : "MNN",
+              "long" : "of means or instrument (with ἀπό, διά, ἐξ)"
             },
             "AGT" : {
               "short" : "AGT",
-              "long" : "of agent"
+              "long" : "of agent (with ἀπό, διά, ἐξ)"
             },
-            "ACP" : {
-              "short" : "ACP",
-              "long" : "of accompaniment"
+            "ACM" : {
+              "short" : "ACM",
+              "long" : "of accompaniment (with μετά, ἄνευ)"
             },
-            "ADTG" : {
-              "short" : "ADTG",
-              "long" : "of advantage"
+            "ADG" : {
+              "short" : "ADG",
+              "long" : "of advantage (with πρός)"
             },
-            "UNSP" : {
-              "short" : "UNSP",
+            "UNS" : {
+              "short" : "UNS",
               "long" : "unsepcified"
             },
             "IDK" : {
@@ -158,8 +184,8 @@
             }
           }
         },
-        "UNSP" : {
-          "short" : "UNSP",
+        "UNS" : {
+          "short" : "UNS",
           "long" : "unspecified"
         },
         "IDK" : {
@@ -168,13 +194,15 @@
         }
       }
     },
-    "INDEP" : {
-      "short" : "INDEP",
+    "INN" : {
+      "short" : "INN",
       "long" : "independent",
+      "sections" : "1407",
       "nested" : {
-        "EXCL" : {
-          "short" : "EXCL",
-          "long" : "exclamation"
+        "EXC" : {
+          "short" : "EXC",
+          "long" : "exclamation",
+          "sections" : "1407"
         },
         "IDK" : {
           "short" : "IDK",

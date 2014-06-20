@@ -1,32 +1,37 @@
 {
   "nested" : {
-    "DEP" : {
-      "short" : "DEP",
+    "DPD" : {
+      "short" : "DPD",
       "long" : "dependent"
     },
-    "INDEP" : {
-      "short" : "INDEP",
+    "INN" : {
+      "short" : "INN",
       "long" : "independent",
       "nested" : {
-        "STT" : {
-          "short" : "STT",
-          "long" : "as statement"
+        "STM" : {
+          "short" : "STM",
+          "long" : "as statement",
+          "sections" : "2153"
         },
         "COM" : {
           "short" : "COM",
-          "long" : "as command"
+          "long" : "as command",
+          "sections" : "2155"
         },
         "WSH" : {
           "short" : "WSH",
-          "long" : "as wish"
+          "long" : "as wish",
+          "sections" : "2156"
         },
-        "QES" : {
-          "short" : "QES",
-          "long" : "as question"
+        "QST" : {
+          "short" : "QST",
+          "long" : "as question",
+          "sections" : "2157"
         },
-        "EXCL" : {
-          "short" : "EXCL",
-          "long" : "as exclamation"
+        "EXC" : {
+          "short" : "EXC",
+          "long" : "as exclamation",
+          "sections" : "2158"
         },
         "IDK" : {
           "short" : "IDK",

@@ -3,6 +3,7 @@
     "ATR" : {
       "short" : "ATR",
       "long" : "attributive",
+      "sections" : "2049-2053",
       "nested" : {
         "PROP" : {
           "short" : "PROP",
@@ -14,47 +15,57 @@
         }
       }
     },
-    "CIRC" : {
-      "short" : "CIRC",
+    "CRC" : {
+      "short" : "CRC",
       "long" : "circumstantial",
+      "sections" : "2054-2087",
       "nested" : {
-        "TME" : {
-          "short" : "TME",
-          "long" : "of time"
+        "TMP" : {
+          "short" : "TMP",
+          "long" : "of time",
+          "sections" : "2061"
         },
-        "MNR" : {
-          "short" : "MNR",
-          "long" : "of manner"
+        "MNN" : {
+          "short" : "MNN",
+          "long" : "of manner",
+          "sections" : "2062"
         },
-        "MNS" : {
-          "short" : "MNS",
-          "long" : "of means"
+        "MEA" : {
+          "short" : "MEA",
+          "long" : "of measure",
+          "sections" : "2063"
         },
         "CAU" : {
           "short" : "CAU",
-          "long" : "of cause"
+          "long" : "of cause",
+          "sections" : "2064"
         },
-        "PURP" : {
-          "short" : "PURP",
-          "long" : "of purpose"
+        "PUR" : {
+          "short" : "PUR",
+          "long" : "of purpose",
+          "sections" : "2065"
         },
-        "CONC" : {
-          "short" : "CONC",
-          "long" : "of concession"
+        "CNC" : {
+          "short" : "CNC",
+          "long" : "of concession",
+          "sections" : "2066"
         },
-        "COND" : {
-          "short" : "COND",
-          "long" : "of condition"
+        "CND" : {
+          "short" : "CND",
+          "long" : "of condition",
+          "sections" : "2067"
         },
-        "AAC" : {
-          "short" : "AAC",
-          "long" : "of any attendant circumstance"
+        "ATD" : {
+          "short" : "ATD",
+          "long" : "of any attendant circumstance",
+          "sections" : "2068"
         }
       }
     },
     "SUPL" : {
       "short" : "SUPL",
       "long" : "supplementary",
+      "sections" : "2088-2148",
       "nested" : {
         "INDD" : {
           "short" : "INDD",
@@ -66,12 +77,13 @@
         }
       }
     },
-    "PERI" : {
-      "short" : "PERI",
-      "long" : "periphrastic"
+    "PRH" : {
+      "short" : "PRH",
+      "long" : "periphrastic",
+      "sections" : "2091"
     },
-    "SBV" : {
-      "short" : "SBV",
+    "SBS" : {
+      "short" : "SBS",
       "long" : "substantive",
       "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
     }

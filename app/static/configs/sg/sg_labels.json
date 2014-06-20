@@ -9,9 +9,34 @@
       },
       "fileUrl" : "./static/configs/sg/sg_labels/adjectives.json"
     },
+    "ART" : {
+      "short" : "ART",
+      "long" : "article",
+      "sections" : "1099-1189",
+      "dependency" : {
+        "pos" : "art"
+      }
+    },
+    "PRN" : {
+      "short" : "PRN",
+      "long" : "pronoun",
+      "sections" : "1190-1278",
+      "dependency" : {
+        "pos" : "pron"
+      }
+    },
+    "ADP" : {
+      "short" : "ADP",
+      "long" : "adposition",
+      "sections" : "1363-1702",
+      "dependency" : {
+        "pos" : "prep"
+      }
+    },
     "NOUN" : {
       "short" : "NOUN",
       "long" : "noun",
+      "sections" : "1279-1635",
       "dependency" : {
         "pos" : "noun"
       },
@@ -28,6 +53,7 @@
     "ADV" : {
       "short" : "ADV",
       "long" : "adverb",
+      "sections" : "1094-1098",
       "dependency" : {
         "pos" : "adv"
       },
