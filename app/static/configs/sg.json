@@ -46,6 +46,10 @@
 
     "morphologyService" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+    },
+
+    "sgGrammar" : {
+      "route" : "http://dev.alpheios.net:8088/smyth/xhmtl/smyth.html"
     }
   },
 
@@ -85,6 +89,11 @@
 
     "sg" : {
       "name" : "SG",
+      "retriever" : {
+        "SgGrammarRetriever" : {
+          "resource" : "sgGrammar"
+        }
+      },
       "template" : "templates/sg.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",

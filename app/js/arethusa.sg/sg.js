@@ -5,12 +5,13 @@ angular.module('arethusa.sg').service('sg', [
   'configurator',
   function(state, configurator) {
     var self = this;
-    var noob = {};
+    var retriever;
     this.labelAs = "long";
     this.defineAncestors = true;
 
     function configure() {
       configurator.getConfAndDelegate('sg', self, ['labels']);
+      retriever = configurator.getRetriever(self.conf.retriever);
     }
 
     configure();
