@@ -103,6 +103,7 @@ angular.module('arethusa.sg').service('sg', [
     this.init = function() {
       configure();
       self.grammar = createInternalState();
+      self.readerRequested = false;
       propagateToState();
     };
   }
