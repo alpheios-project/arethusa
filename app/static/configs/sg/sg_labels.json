@@ -3,6 +3,7 @@
     "ADJ" : {
       "short" : "ADJ",
       "long" : "adjective",
+      "sections" : "1018-1093",
       "dependency" : {
         "pos" : "adj"
       },
