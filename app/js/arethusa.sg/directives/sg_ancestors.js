@@ -11,7 +11,11 @@ angular.module('arethusa.sg').directive('sgAncestors', [
       link: function(scope, element, attrs) {
         scope.requestGrammar = function(el) {
           if (el.sections) {
-            sg.readerRequested = el;
+            if (sg.readerRequested === el) {
+              sg.readerRequested = false;
+            } else {
+              sg.readerRequested = el;
+            }
           }
         };
 
