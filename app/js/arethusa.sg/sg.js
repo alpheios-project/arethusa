@@ -101,6 +101,10 @@ angular.module('arethusa.sg').service('sg', [
       });
     }
 
+    this.requestGrammar = function(sections, callback) {
+      retriever.getData(sections, callback);
+    };
+
     this.init = function() {
       configure();
       self.grammar = createInternalState();
