@@ -309,7 +309,8 @@ angular.module('arethusa.core').service('state', [
     };
 
     function initKeyCaptures() {
-      var conf = keyCapture.conf().selections || {};
+      var kC = keyCapture;
+      var conf = kC.conf().selections || {};
       var nextKey = conf.nextToken || 'J';
       var prevKey = conf.prevToken || 'K';
 
@@ -317,11 +318,11 @@ angular.module('arethusa.core').service('state', [
         esc: function() { self.deselectAll(); }
       };
 
-      captures[nextKey] = function() { self.selectPrevToken(); };
-      captures[prevKey] = function() { self.selectNextToken(); };
+      captures[nextKey] = function() { kC.doRepeated(self.selectPrevToken); };
+      captures[prevKey] = function() { kC.doRepeated(self.selectNextToken); };
 
       angular.forEach(captures, function(callback, key) {
-        keyCapture.onKeyPressed(key, function(event) {
+        kC.onKeyPressed(key, function(event) {
           $rootScope.$apply(callback);
         });
       });
