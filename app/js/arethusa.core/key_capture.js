@@ -9,6 +9,7 @@ angular.module('arethusa.core').service('keyCapture', [
     };
 
     var keyCodes = {
+      return: 13,
       shift: 16,
       ctrl: 17,
       alt: 18,
@@ -83,14 +84,39 @@ angular.module('arethusa.core').service('keyCapture', [
     };
 
     var forbiddenTags = ['INPUT'];
+    var repeater = '';
 
     this.keyup = function (event) {
       if (arethusaUtil.isIncluded(forbiddenTags, event.target.tagName)) {
         return;
       }
+      if (isRepeater(event.keyCode)) {
+        var rep = event.keyCode - 48;
+        repeater = repeater + rep;
+        return;
+      }
       var keyCode = modifiedKeyCode(event);
       handleCallbacks(event);
+      resetRepeater();
     };
+
+    this.doRepeated = function(fn) {
+      var rep = parseInt(repeater, 10) || 1; // default value (and beware octals!)
+      for (; rep > 0; rep--) {
+        fn();
+      }
+    };
+
+    function isRepeater(code) {
+      if (! isNaN(code)) {
+        var numeric = parseInt(code) - 48;
+        return numeric > -1 && numeric < 10;
+      }
+    }
+
+    function resetRepeater() {
+      repeater = '';
+    }
 
     function Callback(callback, priority) {
       this.callback = callback;
