@@ -12,6 +12,9 @@ angular.module('arethusa.sg').factory('Range', function() {
       this.end   = b || this.start;
     }
 
+    this.start = parseInt(this.start);
+    this.end   = parseInt(this.end);
+
     if (this.end < this.start) {
       throw new RangeError('End (' + b + ') is less than start (' + a + ')');
     }

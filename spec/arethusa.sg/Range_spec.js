@@ -32,6 +32,15 @@ describe("Range", function() {
     expect(range.end).toEqual(2);
   });
 
+  it('coerces integers given as strings to the proper type', function() {
+    var r1 = new Range('1', '2');
+    var r2 = new Range(['1', '2']);
+    expect(r1.start).toEqual(1);
+    expect(r1.end).toEqual(2);
+    expect(r2.start).toEqual(1);
+    expect(r2.end).toEqual(2);
+  });
+
   describe('includes()', function() {
     describe('checks if the integer given as param is included in the range and', function() {
       it('and returns true when i is the low boundary', function() {
