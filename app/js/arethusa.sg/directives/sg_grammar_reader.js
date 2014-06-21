@@ -7,9 +7,17 @@ angular.module('arethusa.sg').directive('sgGrammarReader', [
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
+        function reader() {
+          return angular.element(document.getElementById('sg-g-r'));
+        }
+
+        function clearReader() {
+          reader().textContent = '';
+        }
+
         function addGrammar(el) {
-          sg.requestGrammar(el.sections, function(res) {
-            // add the html in res.data to our reader
+          sg.requestGrammar(el.sections, function(sections) {
+            reader().append(sections);
           });
         }
 
@@ -20,7 +28,10 @@ angular.module('arethusa.sg').directive('sgGrammarReader', [
         };
 
         scope.$watch('sg.readerRequested', function(newVal, oldVal) {
-          if (newVal) addGrammar(newVal);
+          if (newVal) {
+            clearReader();
+            addGrammar(newVal);
+          }
         });
       },
       templateUrl: 'templates/arethusa.sg/sg_grammar_reader.html'
