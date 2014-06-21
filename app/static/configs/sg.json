@@ -115,6 +115,17 @@
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
       "template" : "templates/dep_tree.html"
     }
+  },
+
+  "keyCapture" : {
+    "sidepanel" : {
+      "nextTab" : "W",
+      "prevTab" : "E"
+    },
+    "selections" : {
+      "nextToken" : "w",
+      "prevToken" : "e"
+    }
   }
 }
 
