@@ -1,16 +1,18 @@
 {
   "nested" : {
-    "DEP" : {
-      "short" : "DEP",
+    "DPD" : {
+      "short" : "DPD",
       "long" : "dependent",
       "nested" : {
-        "IOBJ" : {
-          "short" : "IOBJ",
+        "EFF" : {
+          "short" : "EFF",
           "long" : "as internal object",
+          "sections" : "1563-1577",
           "nested" : {
-            "COG" : {
-              "short" : "COG",
-              "long" : "of result/cognate"
+            "CGN" : {
+              "short" : "CGN",
+              "long" : "of result/cognate",
+              "sections" : "1563-1579"
             },
             "IDK" : {
               "short" : "IDK",
@@ -18,21 +20,25 @@
             }
           }
         },
-        "EOBJ" : {
-          "short" : "EOBJ",
-          "long" : "as external object"
+        "AFF" : {
+          "short" : "AFF",
+          "long" : "as external object",
+          "sections" : "1590-1598"
         },
         "EXT" : {
           "short" : "EXT",
           "long" : "of extent",
+          "sections" : "1580-1587",
           "nested" : {
-            "TME" : {
-              "short" : "TME",
-              "long" : "of time"
+            "TMP" : {
+              "short" : "TMP",
+              "long" : "of time",
+              "sections" : "1582-1587"
             },
             "SPC" : {
               "short" : "SPC",
-              "long" : "of space"
+              "long" : "of space",
+              "sections" : "1581"
             },
             "IDK" : {
               "short" : "IDK",
@@ -40,46 +46,48 @@
             }
           }
         },
-        "TSPC" : {
-          "short" : "TSPC",
-          "long" : "terminal of space"
+        "TRM" : {
+          "short" : "TRM",
+          "long" : "terminal of space",
+          "sections" : "1588-1589"
         },
-        "RESP" : {
-          "short" : "RESP",
-          "long" : "of respect"
+        "RSP" : {
+          "short" : "RSP",
+          "long" : "of respect",
+          "sections" : "1600-1605"
         },
-        "PREP" : {
-          "short" : "PREP",
-          "long" : "from preposition",
+        "ADP" : {
+          "short" : "ADP",
+          "long" : "from adposition",
           "nested" : {
-            "TTME" : {
-              "short" : "TTME",
+            "TMP" : {
+              "short" : "TMP",
               "long" : "terminal of time (with ἀνά, εἰς, μετά, κατά, παρά, πρός, ὑπό, ὑπέρ)"
             },
-            "MNR" : {
-              "short" : "MNR",
+            "MNN" : {
+              "short" : "MNN",
               "long" : "of manner (with ἀνά, εἰς, κατά)"
             },
             "CAU" : {
               "short" : "CAU",
               "long" : "of cause (with διά, παρά)"
             },
-            "PURP" : {
-              "short" : "PURP",
+            "PUR" : {
+              "short" : "PUR",
               "long" : "of purpose (with διά, εἰς, ἐπί, κατά, πρός)"
             },
-            "MSE" : {
-              "short" : "MSE",
+            "MEA" : {
+              "short" : "MEA",
               "long" : "of measure (with εἰς, ἐπί, παρά, ὑπέρ)"
             },
-            "JUD" : {
-              "short" : "JUD",
+            "STN" : {
+              "short" : "STN",
               "long" : "of standard of judgement (with πρός)"
             }
           }
         },
-        "UNSP" : {
-          "short" : "UNSP",
+        "UNS" : {
+          "short" : "UNS",
           "long" : "unspecified (only if depending on adj., adv. or adp.)"
         },
         "IDK" : {
@@ -88,13 +96,15 @@
         }
       }
     },
-    "INDEP" : {
-      "short" : "INDEP",
+    "INN" : {
+      "short" : "INN",
       "long" : "independent",
+      "sections" : "1599",
       "nested" : {
         "ELL" : {
           "short" : "ELL",
-          "long" : "in elliptical use"
+          "long" : "in elliptical use",
+          "sections" : "1599"
         },
         "IDK" : {
           "short" : "IDK",

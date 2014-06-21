@@ -1,19 +1,19 @@
 {
   "nested" : {
-    "TME" : {
-      "short" : "TME",
+    "TMP" : {
+      "short" : "TMP",
       "long" : "of time (with force of genitive/dative)"
     },
     "PLC" : {
       "short" : "PLC",
       "long" : "of place (with force of genitive/dative)"
     },
-    "TME-AE" : {
-      "short" : "TME-AE",
+    "TMP-AE" : {
+      "short" : "TMP-AE",
       "long" : "of time (with force of accusative of extent)"
     },
-    "TME-AT" : {
-      "short" : "TME-AT",
+    "TMP-AT" : {
+      "short" : "TMP-AT",
       "long" : "of time (with force of terminal accusative)"
     },
     "SPC" : {
@@ -24,12 +24,12 @@
       "short" : "SPC-AT",
       "long" : "of space (with force of accusative of extent)"
     },
-    "TEMP" : {
-      "short" : "TEMP",
+    "STR" : {
+      "short" : "STR",
       "long" : "of temporal starting point"
     },
-    "SEP" : {
-      "short" : "SEP",
+    "SPR" : {
+      "short" : "SPR",
       "long" : "of separation"
     },
     "SRC" : {
@@ -40,40 +40,40 @@
       "short" : "CAU",
       "long" : "of cause"
     },
-    "RES" : {
-      "short" : "RES",
+    "RSL" : {
+      "short" : "RSL",
       "long" : "of result"
     },
-    "MNR" : {
-      "short" : "MNR",
+    "MNN" : {
+      "short" : "MNN",
       "long" : "of manner"
     },
-    "MSR" : {
-      "short" : "MSR",
+    "MEA" : {
+      "short" : "MEA",
       "long" : "of measure"
     },
-    "INST" : {
-      "short" : "INST",
+    "INS" : {
+      "short" : "INS",
       "long" : "of intruments or means"
     },
-    "PURP" : {
-      "short" : "PURP",
+    "PUR" : {
+      "short" : "PUR",
       "long" : "of purpose"
     },
-    "CCS" : {
-      "short" : "CCS",
+    "CNC" : {
+      "short" : "CNC",
       "long" : "of concession"
     },
-    "NEG" : {
-      "short" : "NEG",
+    "NGT" : {
+      "short" : "NGT",
       "long" : "of negation"
     },
-    "MOD" : {
-      "short" : "MOD",
+    "MDL" : {
+      "short" : "MDL",
       "long" : "of mode"
     },
-    "UNSP" : {
-      "short" : "UNSP",
+    "UNS" : {
+      "short" : "UNS",
       "long" : "unspecific"
     },
     "IDK" : {
