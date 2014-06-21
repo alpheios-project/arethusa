@@ -21,5 +21,10 @@ angular.module('arethusa.sg').factory('Range', function() {
     this.includesOtherRange = function(range) {
       return self.includes(range.start) && self.includes(range.end);
     };
+
+    this.hasOverlaps = function(range) {
+      return (!self.includesOtherRange(range)) &&
+        (self.includes(range.start) || self.includes(range.end));
+    };
   };
 });

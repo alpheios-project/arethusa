@@ -76,4 +76,20 @@ describe("Range", function() {
       });
     });
   });
+
+  describe('hasOverlaps', function() {
+    describe('checks wheter another range and self overlap and', function() {
+      it('returns true when they do', function() {
+        var r1 = new Range(1, 5);
+        var r2 = new Range(1, 6);
+        expect(r1.hasOverlaps(r2)).toBeTruthy();
+      });
+
+      it('returns false when the range includes the other range', function() {
+        var r1 = new Range(1, 5);
+        var r2 = new Range(2, 4);
+        expect(r1.hasOverlaps(r2)).toBeFalsy();
+      });
+    });
+  });
 });
