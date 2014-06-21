@@ -49,7 +49,7 @@
     },
 
     "sgGrammar" : {
-      "route" : "http://74.70.97.104:8085/smyth"
+      "route" : "http://74.70.97.104:8085/smyth/:doc.html"
     }
   },
 
