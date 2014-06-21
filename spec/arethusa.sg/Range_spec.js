@@ -32,6 +32,12 @@ describe("Range", function() {
     expect(range.end).toEqual(2);
   });
 
+  it('can also be initialized with a hyphenated string that indicates a range', function() {
+    var range = new Range('1-10');
+    expect(range.start).toEqual(1);
+    expect(range.end).toEqual(10);
+  });
+
   it('coerces integers given as strings to the proper type', function() {
     var r1 = new Range('1', '2');
     var r2 = new Range(['1', '2']);

@@ -4,9 +4,18 @@ angular.module('arethusa.sg').factory('Range', function() {
   return function(a, b) {
     var self = this;
 
+    // for new Range('1-5')
+    try {
+      if (a.match(/-/)) {
+        a = a.split('-');
+      }
+    } catch(err) {}
+
+    // for new Range([1, 5])
     if (arethusaUtil.isArray(a)) {
       this.start = a[0];
       this.end   = a[1] || a[0];
+    // for new Range(1, 5)
     } else {
       this.start = a;
       this.end   = b || this.start;
