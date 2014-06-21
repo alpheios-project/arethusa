@@ -25,4 +25,33 @@ describe("Range", function() {
       new Range(2, 1);
     }).toThrow(new RangeError('End (1) is less than start (2)'));
   });
+
+  describe('includes()', function() {
+    describe('checks if the integer given as param is included in the range', function() {
+      it('when i is the low boundary', function() {
+        var range = new Range(1, 5);
+        expect(range.includes(1)).toBeTruthy();
+      });
+
+      it('when i is the high boundary', function() {
+        var range = new Range(1, 5);
+        expect(range.includes(5)).toBeTruthy();
+      });
+
+      it('when i is inbetween', function() {
+        var range = new Range(1, 5);
+        expect(range.includes(2)).toBeTruthy();
+      });
+
+      it('when i is too less', function() {
+        var range = new Range(1, 5);
+        expect(range.includes(0)).toBeFalsy();
+      });
+
+      it('when i is too big', function() {
+        var range = new Range(1, 5);
+        expect(range.includes(6)).toBeFalsy();
+      });
+    });
+  });
 });
