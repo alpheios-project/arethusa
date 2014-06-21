@@ -55,7 +55,7 @@ describe("Range", function() {
     });
   });
 
-  describe('includesOtherRange', function() {
+  describe('includesOtherRange()', function() {
     describe('checks whether another range is included and', function() {
       it('returns true when it is completely included', function() {
         var r1 = new Range(1, 5);
@@ -77,7 +77,7 @@ describe("Range", function() {
     });
   });
 
-  describe('hasOverlaps', function() {
+  describe('hasOverlaps()', function() {
     describe('checks wheter another range and self overlap and', function() {
       it('returns true when they do', function() {
         var r1 = new Range(1, 5);
