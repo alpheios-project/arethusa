@@ -26,6 +26,12 @@ describe("Range", function() {
     }).toThrow(new RangeError('End (1) is less than start (2)'));
   });
 
+  it('can also be initialized with an array', function() {
+    var range = new Range([1, 2]);
+    expect(range.start).toEqual(1);
+    expect(range.end).toEqual(2);
+  });
+
   describe('includes()', function() {
     describe('checks if the integer given as param is included in the range and', function() {
       it('and returns true when i is the low boundary', function() {
