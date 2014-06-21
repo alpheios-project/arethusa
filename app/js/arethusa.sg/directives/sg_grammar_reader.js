@@ -12,7 +12,7 @@ angular.module('arethusa.sg').directive('sgGrammarReader', [
         }
 
         function clearReader() {
-          reader().textContent = '';
+          reader().empty();
         }
 
         function addGrammar(el) {
