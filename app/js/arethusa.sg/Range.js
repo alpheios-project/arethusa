@@ -28,11 +28,8 @@ angular.module('arethusa.sg').factory('Range', function() {
       throw new RangeError('End (' + b + ') is less than start (' + a + ')');
     }
 
-    var s = a - 1;
-    var e = b + 1;
-
     this.includes = function(integer) {
-      return integer > s && integer < e;
+      return integer >= self.start && integer <= self.end;
     };
 
     this.includesOtherRange = function(range) {
