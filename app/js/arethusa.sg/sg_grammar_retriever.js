@@ -67,28 +67,54 @@ angular.module('arethusa.sg').factory('SgGrammarRetriever', [
       "body.1_div1.4_div2.37" : new Range(3004, 3048)
     };
 
-    function parseSections(sections) {}
+    function parseSections(sections) {
+      var intervals = sections.split(';');
+      return arethusaUtil.map(intervals, function(interval) {
+        return new Range(interval.split('-'));
+      });
+    }
+
+    function filesToUse(ranges) {
+      return arethusaUtil.inject({}, ranges, function(memo, range) {
+        var files = arethusaUtil.inject([], fileIndex, function(memo, file, r) {
+          if (range.sharesElements(r)) {
+            memo.push(file);
+          }
+        });
+        if (files.length) {
+          memo[range.toString()] = files;
+        }
+      });
+    }
 
     return function(conf) {
-      var doc;
+      var docs = {};
       var self = this;
       var resource = configurator.provideResource(conf.resource);
 
-      function selectAndCallback(sections, callback) {
-        // parse the sections, and return the right ones instead of the doc
-        callback(doc);
+      function getFile(name) {
+        return resource.get({ doc: name });
       }
 
       this.getData = function(sections, callback) {
-        if (doc) {
-          selectAndCallback(sections, callback);
-          callback(doc);
-        } else {
-          resource.get({ doc: "body.1_div1.4_div2.37" }).then(function(res) {
-            doc = res;
-            selectAndCallback(sections, callback);
+        var ranges = parseSections(sections);
+        var rangesAndFiles = filesToUse(ranges);
+
+        angular.forEach(rangesAndFiles, function(files, rangeString) {
+          var range = new Range(rangeString);
+          angular.forEach(files, function(file, i) {
+            var doc = docs[file];
+            if (doc) {
+              callback(doc);
+            } else {
+              getFile(file).then(function(res) {
+                doc = res.data;
+                docs[file] = doc;
+                callback(doc);
+              });
+            }
           });
-        }
+        });
       };
     };
   }
