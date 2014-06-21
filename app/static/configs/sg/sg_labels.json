@@ -28,7 +28,7 @@
     "ADP" : {
       "short" : "ADP",
       "long" : "adposition",
-      "sections" : "1363-1702",
+      "sections" : "1636-1702",
       "dependency" : {
         "pos" : "prep"
       }
