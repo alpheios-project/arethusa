@@ -23,8 +23,11 @@ angular.module('arethusa.sg').factory('Range', function() {
     };
 
     this.hasOverlaps = function(range) {
-      return (!self.includesOtherRange(range)) &&
-        (self.includes(range.start) || self.includes(range.end));
+      return (!self.includesOtherRange(range)) && self.sharesElements(range);
+    };
+
+    this.sharesElements = function(range) {
+      return self.includes(range.start) || self.includes(range.end);
     };
   };
 });

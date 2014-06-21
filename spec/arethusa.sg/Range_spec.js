@@ -92,4 +92,26 @@ describe("Range", function() {
       });
     });
   });
+
+  describe('sharesElements()', function() {
+    describe('checks whether common elements are present and', function() {
+      it('returns true when ranges overlap', function() {
+        var r1 = new Range(1, 5);
+        var r2 = new Range(1, 6);
+        expect(r1.sharesElements(r2)).toBeTruthy();
+      });
+
+      it('returns true when range is included', function() {
+        var r1 = new Range(1, 5);
+        var r2 = new Range(2, 4);
+        expect(r1.sharesElements(r2)).toBeTruthy();
+      });
+
+      it('returns false when they have nothing in common', function() {
+        var r1 = new Range(1, 2);
+        var r2 = new Range(4, 5);
+        expect(r1.sharesElements(r2)).toBeFalsy();
+      });
+    });
+  });
 });
