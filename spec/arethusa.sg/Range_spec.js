@@ -119,4 +119,11 @@ describe("Range", function() {
       });
     });
   });
+
+  describe('toString()', function() {
+    it('represents the range as string', function() {
+      var range = new Range(1,2);
+      expect(range.toString()).toEqual('1-2');
+    });
+  });
 });

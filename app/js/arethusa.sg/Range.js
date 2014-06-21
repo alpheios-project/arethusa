@@ -36,5 +36,9 @@ angular.module('arethusa.sg').factory('Range', function() {
       return a.includes(b.start) || b.includes(a.start) ||
              a.includes(b.end)   || b.includes(a.end);
     };
+
+    this.toString = function() {
+      return self.start + '-' + self.end;
+    };
   };
 });
