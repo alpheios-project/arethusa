@@ -30,12 +30,11 @@ angular.module('arethusa.sg').factory('Range', function() {
       return self.includes(range.start) && self.includes(range.end);
     };
 
-    this.hasOverlaps = function(range) {
-      return (!self.includesOtherRange(range)) && self.sharesElements(range);
-    };
-
     this.sharesElements = function(range) {
-      return self.includes(range.start) || self.includes(range.end);
+      var a = self;
+      var b = range;
+      return a.includes(b.start) || b.includes(a.start) ||
+             a.includes(b.end)   || b.includes(a.end);
     };
   };
 });
