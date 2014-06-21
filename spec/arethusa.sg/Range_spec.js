@@ -132,4 +132,11 @@ describe("Range", function() {
       expect(range.toString()).toEqual('1-2');
     });
   });
+
+  describe('toArray()', function() {
+    it('represents the range as array of integers', function() {
+      var range = new Range(1, 3);
+      expect(range.toArray()).toEqual([1, 2, 3]);
+    });
+  });
 });

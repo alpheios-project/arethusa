@@ -46,5 +46,11 @@ angular.module('arethusa.sg').factory('Range', function() {
     this.toString = function() {
       return self.start + '-' + self.end;
     };
+
+    this.toArray = function() {
+      var res = [];
+      for (var i = self.start; i <= self.end; i++) { res.push(i); }
+      return res;
+    };
   };
 });
