@@ -87,6 +87,14 @@ angular.module('arethusa.sg').factory('SgGrammarRetriever', [
       });
     }
 
+    function selectAndCallback(doc, range, callback) {
+      var selector = arethusaUtil.map(range.toArray(), function(el) {
+        return "#s" + el;
+      }).join(',');
+      var selections = angular.element(selector, doc);
+      callback(selections);
+    }
+
     return function(conf) {
       var docs = {};
       var self = this;
@@ -105,12 +113,12 @@ angular.module('arethusa.sg').factory('SgGrammarRetriever', [
           angular.forEach(files, function(file, i) {
             var doc = docs[file];
             if (doc) {
-              callback(doc);
+              selectAndCallback(doc, range, callback);
             } else {
               getFile(file).then(function(res) {
-                doc = res.data;
+                doc = angular.element(res.data);
                 docs[file] = doc;
-                callback(doc);
+                selectAndCallback(doc, range, callback);
               });
             }
           });
