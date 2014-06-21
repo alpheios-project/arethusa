@@ -16,8 +16,9 @@ angular.module('arethusa.sg').directive('sgGrammarReader', [
         }
 
         function addGrammar(el) {
+          var r = reader();
           sg.requestGrammar(el.sections, function(sections) {
-            reader().append(sections);
+            r.append(sections);
           });
         }
 
