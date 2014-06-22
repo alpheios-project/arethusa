@@ -88,10 +88,12 @@ angular.module('arethusa.sg').factory('SgGrammarRetriever', [
     }
 
     function selectAndCallback(doc, range, callback) {
-      var selector = arethusaUtil.map(range.toArray(), function(el) {
-        return "#s" + el;
-      }).join(',');
-      var selections = angular.element(selector, angular.element(doc));
+      var selections = arethusaUtil.inject([], range.toArray(), function(memo, idNum) {
+        var id = "#s" + idNum;
+        var el = angular.element(id, angular.element(doc));
+        memo.push(el.prev(':header'));
+        memo.push(el);
+      });
       callback(selections);
     }
 
