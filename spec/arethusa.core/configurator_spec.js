@@ -222,7 +222,8 @@ describe('configurator', function() {
         'listener',
         'contextMenu',
         'contextMenuTemplate',
-        'noView'
+        'noView',
+        'mode'
       ];
 
       obj.conf = configurator.configurationFor('morph');
