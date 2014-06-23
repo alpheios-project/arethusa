@@ -7,8 +7,8 @@ angular.module('arethusa.core').directive('sidepanelFolder', [
       scope: {},
       link: function (scope, element, attrs) {
         function addText() {
-          var text = sidepanel.folded ? 'Show Panel' : 'Fold Panel';
-          element.text(text);
+          var text = sidepanel.folded ? 'Show' : 'Fold';
+          element.text(text + ' Panel');
         }
 
         element.on('click', function () {
