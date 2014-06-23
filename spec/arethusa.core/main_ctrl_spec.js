@@ -5,7 +5,7 @@ describe('MainCtrl', function() {
 
   it('sets scope values', inject(function($controller, $rootScope) {
     var scope = $rootScope.$new();
-    var mystate = {
+    var state = {
       init: function() {},
       allLoaded: false
     };
@@ -15,13 +15,24 @@ describe('MainCtrl', function() {
       info: function() {},
       error: function() {}
     };
-    var ctrl = $controller('MainCtrl', {$scope:scope, state:mystate, notifier:notifier, configurator: {
+    var configurator =  {
       configurationFor: function(name) {
         return { plugins: {}, template: "template"};
       }
-    }});
+    };
+    var saver = { init: function() {} };
 
-    expect(scope.state).toBe(mystate);
+    var mainCtrlInits = {
+      $scope: scope,
+      configurator: configurator,
+      state: state,
+      notifier: notifier,
+      saver: saver
+    };
+
+    var ctrl = $controller('MainCtrl', mainCtrlInits);
+
+    expect(scope.state).toBe(state);
     expect(scope.plugins).toBeUndefined();
     expect(scope.template).toBe("template");
   }));
