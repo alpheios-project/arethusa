@@ -56,6 +56,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
     }
 
     function parsePreselections(selector) {
+      // after #191 is merged, also allow range strings here
       var preselections = arethusaUtil.toAry($location.search()[selector]);
       return arethusaUtil.map(preselections, function(id) {
         return formatId(id);
