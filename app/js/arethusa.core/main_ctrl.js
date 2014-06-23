@@ -6,7 +6,8 @@ angular.module('arethusa.core').controller('MainCtrl', [
   'state',
   'documentStore',
   'notifier',
-  function ($scope, $injector, configurator, state, documentStore, notifier) {
+  'saver',
+  function ($scope, $injector, configurator, state, documentStore, notifier, saver) {
     // This is the entry point to the application.
     notifier.info('Loading...');
 
@@ -15,15 +16,6 @@ angular.module('arethusa.core').controller('MainCtrl', [
     $scope.debug = false;
     $scope.toggleDebugMode = function () {
       $scope.debug = !$scope.debug;
-    };
-    $scope.save = function() {
-      // This is NOT the right place for this code, retrievers are handled
-      // in the state, but that also is not good - we'll change this later.
-      angular.forEach($scope.persisters, function(persister, name) {
-        persister.saveData(function(data) {
-          notifier.success('Document saved!');
-        });
-      });
     };
 
     var conf = configurator.configurationFor('main');
@@ -177,14 +169,12 @@ angular.module('arethusa.core').controller('MainCtrl', [
     };
 
     $scope.init = function () {
-      // cf. the comment for $scope.save(), this is just a temporary solution
-      $scope.persisters = configurator.getPersisters(conf.persisters);
-
       $scope.plugins = $scope.retrievePlugins(conf.plugins);
       partitionPlugins($scope.plugins);
       $scope.initPlugins();
       $scope.declareFirstPluginActive();
       notifier.init(); // also clears the Loading message for now.
+      saver.init();
       $scope.arethusaLoaded = true;
       notifier.success('Load complete');
     };
