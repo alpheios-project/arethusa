@@ -41,12 +41,14 @@ angular.module('arethusa.core').service('state', [
     this.retrieveTokens = function () {
       var container = {};
       navigator.reset();
+      self.deselectAll();
       angular.forEach(tokenRetrievers, function (retriever, name) {
         retriever.getData(function (data) {
           navigator.addSentences(data);
           navigator.updateId();
           saveTokens(container, navigator.currentSentence());
           //saveTokens(container, data[0].tokens);
+          declarePreselections(retriever.preselections);
           declareLoaded(retriever);
         });
       });
@@ -59,9 +61,13 @@ angular.module('arethusa.core').service('state', [
         loaded = loaded && el.loaded;
       });
       if (loaded) {
-        this.replaceState(tokens);
+        this.replaceState(tokens, true);
       }
     };
+
+    function declarePreselections(ids) {
+      selectMultipleTokens(ids);
+    }
 
     var declareLoaded = function (retriever) {
       retriever.loaded = true;
@@ -92,10 +98,14 @@ angular.module('arethusa.core').service('state', [
     // multi-selects tokens, given an array of ids
     this.multiSelect = function (ids) {
       self.deselectAll();
+      selectMultipleTokens(ids);
+    };
+
+    function selectMultipleTokens(ids) {
       angular.forEach(ids, function (id, i) {
         self.selectToken(id, 'ctrl-click');
       });
-    };
+    }
 
     this.changeHead = function (tokenId, newHeadId) {
       if (self.headsFor(newHeadId).indexOf(tokenId) !== -1) {
@@ -262,11 +272,11 @@ angular.module('arethusa.core').service('state', [
       delete token[category];
     };
 
-    this.replaceState = function (tokens) {
+    this.replaceState = function (tokens, keepSelections) {
       // We have to wrap this as there might be watchers on allLoaded,
       // such as the MainCtrl which has to reinit all plugins when the
       // state tokens are replaced
-      self.deselectAll();
+      if (!keepSelections) self.deselectAll();
       self.tokens = tokens;
       self.broadcastReload();
     };

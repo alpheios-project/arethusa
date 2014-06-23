@@ -196,6 +196,10 @@ describe("arethusaUtil", function() {
     it("doesn't wrap it if the obj is already an array", function() {
       expect(aU.toAry([{}])).toEqual([{}]);
     });
+
+    it('returns and empty array when the given param is undefined', function() {
+      expect(aU.toAry(undefined)).toEqual([]);
+    });
   });
 
   describe('replaceAt', function() {

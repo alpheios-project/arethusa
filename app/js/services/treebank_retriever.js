@@ -8,7 +8,8 @@
 angular.module('arethusa').factory('TreebankRetriever', [
   'documentStore',
   'configurator',
-  function (documentStore, configurator) {
+  '$location',
+  function (documentStore, configurator, $location) {
     function formatId(id) {
       return arethusaUtil.formatNumber(id, 4);
     }
@@ -54,8 +55,18 @@ angular.module('arethusa').factory('TreebankRetriever', [
       });
     }
 
+    function parsePreselections(selector) {
+      // after #191 is merged, also allow range strings here
+      var preselections = arethusaUtil.toAry($location.search()[selector]);
+      return arethusaUtil.map(preselections, function(id) {
+        return formatId(id);
+      });
+    }
+
     return function (conf) {
       var resource = configurator.provideResource(conf.resource);
+
+      this.preselections = parsePreselections(conf.preselector);
       this.getData = function (callback) {
         resource.get().then(function (res) {
           var xml = res.data;

@@ -79,6 +79,8 @@ var arethusaUtil = {
     },
 
     toAry: function (el) {
+      if (!el) return [];
+
       if (arethusaUtil.isArray(el)) {
         return el;
       } else {
