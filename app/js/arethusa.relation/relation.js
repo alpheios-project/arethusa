@@ -127,6 +127,10 @@ angular.module('arethusa.relation').service('relation', [
       });
     };
 
+    this.canEdit = function() {
+      return self.mode === "editor";
+    };
+
     this.init = function () {
       configure();
       self.relations = self.createInternalState();
