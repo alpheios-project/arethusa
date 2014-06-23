@@ -41,6 +41,7 @@ angular.module('arethusa.core').service('state', [
     this.retrieveTokens = function () {
       var container = {};
       navigator.reset();
+      self.deselectAll();
       angular.forEach(tokenRetrievers, function (retriever, name) {
         retriever.getData(function (data) {
           navigator.addSentences(data);
@@ -59,7 +60,7 @@ angular.module('arethusa.core').service('state', [
         loaded = loaded && el.loaded;
       });
       if (loaded) {
-        this.replaceState(tokens);
+        this.replaceState(tokens, true);
       }
     };
 
@@ -262,11 +263,11 @@ angular.module('arethusa.core').service('state', [
       delete token[category];
     };
 
-    this.replaceState = function (tokens) {
+    this.replaceState = function (tokens, keepSelections) {
       // We have to wrap this as there might be watchers on allLoaded,
       // such as the MainCtrl which has to reinit all plugins when the
       // state tokens are replaced
-      self.deselectAll();
+      if (!keepSelections) self.deselectAll();
       self.tokens = tokens;
       self.broadcastReload();
     };
