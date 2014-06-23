@@ -319,6 +319,10 @@ angular.module('arethusa.morph').service('morph', [
       });
     }
 
+    this.canEdit = function() {
+      return self.mode === "editor";
+    };
+
     this.init = function () {
       configure();
       self.emptyPostag = createEmptyPostag();
