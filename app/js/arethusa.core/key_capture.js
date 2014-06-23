@@ -17,7 +17,8 @@ angular.module('arethusa.core').service('keyCapture', [
       j: 74,
       k: 75,
       w: 87,
-      e: 69
+      e: 69,
+      s: 83
     };
 
     this.shiftModifier = 1000;
@@ -153,5 +154,13 @@ angular.module('arethusa.core').service('keyCapture', [
         }
       });
     }
+
+    this.registerCaptures = function(captures, scope) {
+      angular.forEach(captures, function(fn, key) {
+        self.onKeyPressed(key, function() {
+          scope.$apply(fn);
+        });
+      });
+    };
   }
 ]);

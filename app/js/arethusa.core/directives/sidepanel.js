@@ -1,8 +1,9 @@
 "use strict";
 
 angular.module('arethusa.core').directive('sidepanel', [
+  'sidepanel',
   'keyCapture',
-  function(keyCapture) {
+  function(sidepanel, keyCapture) {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
@@ -34,16 +35,18 @@ angular.module('arethusa.core').directive('sidepanel', [
         }
 
         var conf = keyCapture.conf().sidepanel || {};
-        var nextKey = conf.nextTab || 'j';
-        var prevKey = conf.prevTab || 'k';
+        var defaults = {
+          nextTab: ['j', moveToNext],
+          prevTab: ['k', moveToPrev],
+          toggle:  ['s', sidepanel.toggle]
+        };
 
-        keyCapture.onKeyPressed(nextKey, function() {
-          scope.$apply(moveToNext);
+        var captures = arethusaUtil.inject({}, defaults, function(memo, keyName, keyAndFn) {
+          var key = conf[keyName] || keyAndFn[0];
+          memo[key] = keyAndFn[1];
         });
 
-        keyCapture.onKeyPressed(prevKey, function() {
-          scope.$apply(moveToPrev);
-        });
+        keyCapture.registerCaptures(captures, scope);
       }
     };
   }
