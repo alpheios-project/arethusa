@@ -275,6 +275,26 @@ describe('configurator', function() {
       configurator.delegateConf(obj);
       expect(obj.mode).toEqual('viewer');
     }));
+
+    it('globalDefaults can be configured', inject(function(configurator) {
+      configurator.configuration = {
+        main: {
+          globalDefaults: {
+            mode: 'customMode'
+          },
+          plugins: ['aPlugin']
+        },
+        plugins: {
+          aPlugin: {}
+        }
+      };
+      var obj = {
+        conf: configurator.configurationFor('aPlugin')
+      };
+
+      configurator.delegateConf(obj);
+      expect(obj.mode).toEqual('customMode');
+    }));
   });
 
   describe('this.getConfAndDelegate', function() {
