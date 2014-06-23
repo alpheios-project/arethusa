@@ -56,9 +56,22 @@ angular.module('arethusa.relation').service('relation', [
     this.useSuffix = 'suffix';
     this.defineAncestors = true;
 
+    // This function is a disgrace. Please refactor.
+    function getRelationValueObj(prefix) {
+      var hits = arethusaUtil.findNestedProperties(self.relationValues, prefix);
+      try {
+        return hits[prefix][0][prefix];
+      } catch(e) {}
+    }
     this.initAncestors = function(relation) {
       // calculate a real ancestor chain here if need be
-      relation.ancestors = [];
+      var prefix = relation.prefix;
+      var ancestors = [];
+      if (prefix) {
+        var obj = getRelationValueObj(prefix);
+        if (obj) ancestors.push(obj);
+      }
+      relation.ancestors = ancestors;
     };
 
     this.expandRelation = function (relation) {
@@ -125,6 +138,10 @@ angular.module('arethusa.relation').service('relation', [
           relation: self.expandRelation(token.relation)
         };
       });
+    };
+
+    this.canEdit = function() {
+      return self.mode === "editor";
     };
 
     this.init = function () {
