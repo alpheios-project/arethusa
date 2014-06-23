@@ -40,11 +40,7 @@ angular.module('arethusa.core').directive('sidepanel', [
         captures[nextKey] = moveToNext;
         captures[prevKey] = moveToPrev;
 
-        angular.forEach(captures, function(fn, key) {
-          keyCapture.onKeyPressed(key, function() {
-            scope.$apply(fn);
-          });
-        });
+        keyCapture.registerCaptures(captures, scope);
       }
     };
   }
