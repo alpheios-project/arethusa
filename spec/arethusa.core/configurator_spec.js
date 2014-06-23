@@ -257,6 +257,24 @@ describe('configurator', function() {
         expect(obj.hasOwnProperty(key)).toBeTruthy();
       });
     }));
+
+    it('sets global default values', inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {};
+      obj.conf = configurator.configurationFor('morph');
+      configurator.delegateConf(obj);
+      expect(obj.mode).toEqual('editor');
+    }));
+
+    it("defaults don't override when they shouldn't", inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {};
+      var conf = configurator.configurationFor('morph');
+      obj.conf = angular.extend({ mode: 'viewer' }, conf);
+
+      configurator.delegateConf(obj);
+      expect(obj.mode).toEqual('viewer');
+    }));
   });
 
   describe('this.getConfAndDelegate', function() {

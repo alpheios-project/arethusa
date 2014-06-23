@@ -242,7 +242,22 @@ angular.module('arethusa.core').service('configurator', [
       angular.forEach(props, function (property, i) {
         obj[property] = obj.conf[property];
       });
+      setGlobalDefaults(obj);
     };
+
+    var globalDefaults = {
+      'mode' : 'editor'
+    };
+
+    function setGlobalDefaults(obj) {
+      angular.forEach(globalDefaults, function(value, key) {
+        // Explicitly ask for undefined, as a false value can be a
+        // valid configuration seting!
+        if (obj[key] === undefined) {
+          obj[key] = value;
+        }
+      });
+    }
 
     this.getConfAndDelegate = function (name, obj, keys) {
       obj.conf = self.configurationFor(name);
