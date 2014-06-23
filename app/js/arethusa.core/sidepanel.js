@@ -14,23 +14,22 @@ angular.module('arethusa.core').service('sidepanel', [
     var main = get('main-body');
     var panel = get('sidepanel');
 
+    function show() {
+      main.width(main.width() - panel.width());
+      panel.show();
+    }
+
+    function hide() {
+      main.width(main.width() + panel.width());
+      panel.hide();
+    }
+
     function init() {
-      if (self.folded) {
-        main.width(main.width() + panel.width());
-        panel.hide();
-      }
+      if (self.folded) hide();
     }
 
     this.toggle = function() {
-      var width = panel.width();
-      var mainWidth = main.width();
-      if (self.folded) {
-        main.width(mainWidth - width);
-        panel.show();
-      } else {
-        main.width(mainWidth + width);
-        panel.hide();
-      }
+      if (self.folded) show(); else hide();
       self.folded = !self.folded;
     };
 
