@@ -175,7 +175,6 @@ angular.module('arethusa.core').controller('MainCtrl', [
       $scope.declareFirstPluginActive();
       notifier.init(); // also clears the Loading message for now.
       saver.init();
-      $scope.saver = saver;
       $scope.arethusaLoaded = true;
       notifier.success('Load complete');
     };
