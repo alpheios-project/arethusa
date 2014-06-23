@@ -1,7 +1,23 @@
 'use strict';
+
+// The directive currently looks at the depTree plugin to derive info whether
+// the head of token can be changed through a click event or not.
+//
+// This is NOT a final solution, as it is flawed in several aspects.
+// There might be no depTree plugin present at all - that way it will not
+// be possible to check it. The way it is handled right now, this would
+// lead to problems: Even if the depTree plugin isn't included in the
+// application, the directive would still import it and be able to change heads,
+// as 'editor' is the default mode of all plugins.
+//
+// The solution is to abstract plugin handling one step more. This has been planned
+// for a while now, just never got the chance to really do it.
+// Abstracting plugins will also clean up the MainCtrl, who has far too many
+// responsibilites at the moment.
 angular.module('arethusa.core').directive('token', [
   'state',
-  function (state) {
+  'depTree',
+  function (state, depTree) {
     return {
       restrict: 'AE',
       scope: {
@@ -12,22 +28,25 @@ angular.module('arethusa.core').directive('token', [
         highlight: '@'
       },
       link: function (scope, element, attrs) {
-        if (! scope.token) {
-          return;
-        }
+        if (! scope.token) return;
+
         scope.state = state;
         var id = scope.token.id;
+        var changeHeads = depTree.mode === 'editor';
+
         function apply(fn) {
           scope.$apply(fn());
         }
+
         function bindClick() {
           element.bind('click', function (event) {
             apply(function() {
               var clickType = event.ctrlKey ? 'ctrl-click' : 'click';
-              state.toggleSelection(id, clickType);
+              state.toggleSelection(id, clickType, changeHeads);
             });
           });
         }
+
         function bindHover() {
           element.bind('mouseenter', function () {
             apply(function () {
@@ -40,6 +59,7 @@ angular.module('arethusa.core').directive('token', [
             });
           });
         }
+
         scope.selectionClass = function () {
           if (state.isSelected(id)) {
             if (state.selectionType(id) == 'hover') {
@@ -49,17 +69,16 @@ angular.module('arethusa.core').directive('token', [
             }
           }
         };
-        if (scope.click) {
-          bindClick();
-        }
-        if (scope.hover) {
-          bindHover();
-        }
+
+        if (scope.click) bindClick();
+        if (scope.hover) bindHover();
+
         function cleanStyle() {
           angular.forEach(scope.token.style, function (val, style) {
             element.css(style, '');
           });
         }
+
         // We have two possibilities here:
         // When the colorize contains an attribute, the user wants
         // to set a custom style.

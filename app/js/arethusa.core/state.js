@@ -141,14 +141,14 @@ angular.module('arethusa.core').service('state', [
     };
 
     // type should be either 'click', 'ctrl-click' or 'hover'
-    this.selectToken = function (id, type) {
+    this.selectToken = function (id, type, changeHead) {
       var preventSelection = false;
       if (type === 'click') {
-        preventSelection = this.handleChangeHead(id, type);
-        this.selectedTokens = {};
+        preventSelection = changeHead ? self.handleChangeHead(id, type) : false;
+        self.deselectAll();
       }
-      if (!preventSelection && this.isSelectable(this.selectionType(id), type)) {
-        this.selectedTokens[id] = type;
+      if (!preventSelection && self.isSelectable(self.selectionType(id), type)) {
+        self.selectedTokens[id] = type;
       }
     };
 
@@ -172,11 +172,11 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
-    this.toggleSelection = function (id, type) {
+    this.toggleSelection = function (id, type, changeHead) {
       // only deselect when the selectionType is the same.
       // a hovered selection can still be selected by click.
       if (this.isSelected(id) && this.selectionType(id) == type) {
-        this.deselectToken(id, type);
+        this.deselectToken(id, type, changeHead);
       } else {
         this.selectToken(id, type);
       }

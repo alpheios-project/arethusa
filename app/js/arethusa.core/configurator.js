@@ -223,27 +223,43 @@ angular.module('arethusa.core').service('configurator', [
       return conf[plugin] || conf.plugins[plugin] || conf.resources[plugin] || {};
     };
 
-    function standardProperties() {
-      return [
-        'name',
-        'main',
-        'template',
-        'external',
-        'listener',
-        'contextMenu',
-        'contextMenuTemplate',
-        'noView'
-      ];
-    }
+    var standardProperties =  [
+      'name',
+      'main',
+      'template',
+      'external',
+      'listener',
+      'contextMenu',
+      'contextMenuTemplate',
+      'noView',
+      'mode'
+    ];
 
     // Delegates a set of standard properties to the given object to allow
     // a more direct access.
     this.delegateConf = function (obj, otherKeys) {
-      var props = arethusaUtil.pushAll(standardProperties(), otherKeys);
+      var props = arethusaUtil.pushAll(standardProperties, otherKeys);
       angular.forEach(props, function (property, i) {
         obj[property] = obj.conf[property];
       });
+      setGlobalDefaults(obj);
     };
+
+    var globalDefaults = {
+      'mode' : 'editor'
+    };
+
+    function setGlobalDefaults(obj) {
+      var customDefaults = self.configuration.main.globalDefaults || {};
+      var defaults = angular.extend(globalDefaults, customDefaults);
+      angular.forEach(defaults, function(value, key) {
+        // Explicitly ask for undefined, as a false value can be a
+        // valid configuration seting!
+        if (obj[key] === undefined) {
+          obj[key] = value;
+        }
+      });
+    }
 
     this.getConfAndDelegate = function (name, obj, keys) {
       obj.conf = self.configurationFor(name);

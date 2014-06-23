@@ -91,7 +91,7 @@ describe("state", function() {
 
     it('deselects all tokens after head change', function() {
       state.selectToken('01', 'click');
-      state.selectToken('03', 'click');
+      state.selectToken('03', 'click', true);
 
       expect(state.selectedTokens).toEqual({});
     });
@@ -328,7 +328,7 @@ describe("state", function() {
     it('parents a leaf node to the root', function() {
       state.selectToken('01', 'click');
 
-      state.selectToken('04', 'click');
+      state.selectToken('04', 'click', true);
 
       expect(state.getToken('01').head.id).toBe('04');
     });
@@ -345,7 +345,7 @@ describe("state", function() {
     it('parents a leaf node to another leaf node', function() {
       state.selectToken('01', 'click');
 
-      state.selectToken('02', 'click');
+      state.selectToken('02', 'click', true);
 
       expect(state.getToken('01').head.id).toBe('02');
     });
@@ -362,7 +362,7 @@ describe("state", function() {
     it('parents an inner node to a leaf node', function() {
       state.selectToken('03', 'click');
 
-      state.selectToken('01', 'click');
+      state.selectToken('01', 'click', true);
 
       expect(state.getToken('03').head.id).toBe('01');
       expect(state.getToken('02').head.id).toBe('03');
@@ -379,7 +379,7 @@ describe("state", function() {
         state.selectToken('01', 'click');
         state.selectToken('02', 'ctrl-click');
 
-        state.selectToken('04', 'click');
+        state.selectToken('04', 'click', true);
 
         expect(state.getToken('01').head.id).toBe('04');
         expect(state.getToken('02').head.id).toBe('04');
@@ -400,10 +400,23 @@ describe("state", function() {
         state.selectToken('01', 'click');
         state.selectToken('02', 'ctrl-click');
 
-        state.selectToken('02', 'click');
+        state.selectToken('02', 'click', true);
 
         expect(state.getToken('01').head.id).toBe('02');
         expect(state.getToken('02').head.id).toBe('03');
+      });
+
+      it('does not change a head when not explicitly requested through a third param boolean to selectToken', function() {
+        var headOfOne = state.getToken('01').head.id;
+
+        expect(headOfOne).toBe('03');
+
+        state.selectToken('01', 'click');
+        state.selectToken('02', 'click');
+
+        // nothing has changed, 2 only got selected
+        expect(headOfOne).toBe('03');
+        expect(state.isSelected('02')).toBeTruthy();
       });
     });
   });
