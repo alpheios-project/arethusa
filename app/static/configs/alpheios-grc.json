@@ -1,23 +1,28 @@
 {
   "main" : {
     "template"  : "templates/main_with_sidepanel.html",
+    "foldSidepanel" : true,
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "alpheios",
-        "docIdentifier" : "treebank"
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
       }
     },
     "plugins" : [
+      "text",
       "search",
       "morph",
       "relation",
       "depTree"
-    ]
+    ],
+    "globalDefaults" : {
+      "mode" : "viewer"
+    }
   },
 
   "navbar" : {
     "template" : "templates/navbar1.html",
-    "search" : true,
     "navigation" : true,
     "notifier" : true
   },
@@ -46,6 +51,12 @@
   },
 
   "plugins" : {
+
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
 
     "depTree" : {
       "name" : "depTree",
