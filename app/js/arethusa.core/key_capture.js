@@ -13,13 +13,13 @@ angular.module('arethusa.core').service('keyCapture', [
       shift: 16,
       ctrl: 17,
       alt: 18,
-      esc: 27,
-      j: 74,
-      k: 75,
-      w: 87,
-      e: 69,
-      s: 83
+      esc: 27
     };
+
+    // a-z codes
+    for (var i = 97; i < 123; i++){
+      keyCodes[String.fromCharCode(i)] = i - 32;
+    }
 
     this.shiftModifier = 1000;
     this.ctrlModifier  = 2000;
