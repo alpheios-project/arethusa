@@ -61,7 +61,7 @@
     "depTree" : {
       "name" : "depTree",
       "main" : true,
-      "contextMenu" : true,
+      "contextMenu" : false,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
       "template" : "templates/dep_tree.html"
     },
