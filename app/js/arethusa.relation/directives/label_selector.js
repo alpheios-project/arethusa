@@ -11,6 +11,11 @@ angular.module('arethusa.relation').directive('labelSelector', [
       },
       link: function(scope, element, attrs) {
         scope.plugin = relation;
+        scope.showMenu = true;
+
+        scope.$watch('plugin.mode', function(newVal, oldVal) {
+          scope.showMenu = relation.canEdit();
+        });
       },
       templateUrl: 'templates/arethusa.relation/label_selector.html'
     };

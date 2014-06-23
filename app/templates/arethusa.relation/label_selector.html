@@ -1,6 +1,7 @@
 <ul class="nested-dropdown">
   <li class="first-item">{{ plugin.prefixWithAncestors(obj) }}
     <ul
+      ng-if="showMenu"
       class="top-menu"
       nested-menu-collection
       property="plugin.usePrefix"
@@ -15,6 +16,7 @@
 <ul class="nested-dropdown">
   <li class="first-item">{{ plugin.suffixOrPlaceholder(obj) }}
     <ul
+      ng-if="showMenu"
       class="top-menu"
       nested-menu-collection
       property="plugin.useSuffix"
