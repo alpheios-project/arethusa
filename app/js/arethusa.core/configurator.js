@@ -223,24 +223,22 @@ angular.module('arethusa.core').service('configurator', [
       return conf[plugin] || conf.plugins[plugin] || conf.resources[plugin] || {};
     };
 
-    function standardProperties() {
-      return [
-        'name',
-        'main',
-        'template',
-        'external',
-        'listener',
-        'contextMenu',
-        'contextMenuTemplate',
-        'noView',
-        'mode'
-      ];
-    }
+    var standardProperties =  [
+      'name',
+      'main',
+      'template',
+      'external',
+      'listener',
+      'contextMenu',
+      'contextMenuTemplate',
+      'noView',
+      'mode'
+    ];
 
     // Delegates a set of standard properties to the given object to allow
     // a more direct access.
     this.delegateConf = function (obj, otherKeys) {
-      var props = arethusaUtil.pushAll(standardProperties(), otherKeys);
+      var props = arethusaUtil.pushAll(standardProperties, otherKeys);
       angular.forEach(props, function (property, i) {
         obj[property] = obj.conf[property];
       });
