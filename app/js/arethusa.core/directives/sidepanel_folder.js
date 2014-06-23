@@ -1,6 +1,7 @@
 'use strict';
 angular.module('arethusa.core').directive('sidepanelFolder', [
-  function () {
+  'configurator',
+  function (configurator) {
     return {
       scope: true,
       link: function (scope, element, attrs) {
@@ -32,9 +33,25 @@ angular.module('arethusa.core').directive('sidepanelFolder', [
           }
           scope.folded = !scope.folded;
         }
+
+        function init() {
+          if (scope.folded) {
+            var main = get('main-body');
+            var panel = get('sidepanel');
+            main.width(main.width() + panel.width());
+            panel.hide();
+            addShowText();
+          } else {
+            addFoldText();
+          }
+        }
+
         element.on('click', function () {
           toggleFoldStatus();
         });
+
+        scope.folded = configurator.configurationFor('main').foldSidepanel;
+        init();
       }
     };
   }
