@@ -3,12 +3,15 @@
     "template"  : "templates/main_with_sidepanel.html",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "staticFiles"
+        "resource" : "staticFiles",
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
       }
     },
     "persisters" : {
       "TreebankPersister" : {
-        "resource" : "staticFiles"
+        "resource" : "staticFiles",
+        "docIdentifier" : "treebank"
       }
     },
     "plugins" : [

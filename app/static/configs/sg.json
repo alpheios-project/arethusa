@@ -3,7 +3,8 @@
     "template"  : "templates/main_with_sidepanel.html",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "fakePerseids"
+        "resource" : "fakePerseids",
+        "preselector" : "w"
       }
     },
     "plugins" : [

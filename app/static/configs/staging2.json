@@ -4,7 +4,8 @@
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "fakePerseids",
-        "docIdentifier" : "treebank"
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
       }
     },
     "persisters" : {
