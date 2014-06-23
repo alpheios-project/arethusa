@@ -74,10 +74,24 @@ angular.module('arethusa.sg').service('sg', [
           var morph = grammar.morph;
           var nextLevel;
           angular.forEach(dep, function(depVal, depCat) {
-            if (morph[depCat] === depVal) {
-              memo.push(val);
-              nextLevel = val.nested || {};
-              findDefiningAttributes(nextLevel, grammar);
+            //if (morph[depCat] === depVal) {
+              //memo.push(val);
+              //nextLevel = val.nested || {};
+              //findDefiningAttributes(nextLevel, grammar);
+            //}
+
+            // More a hack than a solution so far, through
+            // the RegExp we can match "1st2nd3rd" of the
+            // pers dep. So far all works, but the RegExp
+            // could cause trouble, when wrong dependency
+            // values match...
+            if (morph[depCat] !== undefined) {
+              var a = new RegExp(morph[depCat]);
+              if (depVal.match(a)) {
+                memo.push(val);
+                nextLevel = val.nested || {};
+                findDefiningAttributes(nextLevel, grammar);
+              }
             }
           });
         }

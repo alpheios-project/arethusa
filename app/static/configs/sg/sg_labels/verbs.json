@@ -3,6 +3,9 @@
     "FIN" : {
       "short" : "FIN",
       "long" : "finite verb",
+      "dependency" : {
+        "pers" : "1st2nd3rd"
+      },
       "fileUrl" : "./static/configs/sg/sg_labels/finite_verbs.json"
     },
     "INF" : {
