@@ -12,8 +12,12 @@ angular.module('arethusa.core').service('saver', [
       persisters = configurator.getPersisters(persisterConf);
     }
 
+    function hasPersisters(args) {
+      return !angular.equals({}, persisters);
+    }
+
     function updateStatus() {
-      if (persisters) {
+      if (hasPersisters()) {
         self.canSave = true;
       }
     }
