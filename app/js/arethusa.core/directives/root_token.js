@@ -2,7 +2,8 @@
 
 angular.module('arethusa.core').directive('rootToken', [
   'state',
-  function(state) {
+  'depTree',
+  function(state, depTree) {
     return {
       restrict: 'A',
       scope: {},
@@ -11,10 +12,14 @@ angular.module('arethusa.core').directive('rootToken', [
           scope.$apply(fn());
         }
 
+        var changeHeads = depTree.mode === 'editor';
+
         element.bind('click', function() {
           apply(function() {
-            state.handleChangeHead('0000', 'click');
-            state.deselectAll();
+            if (changeHeads) {
+              state.handleChangeHead('0000', 'click');
+              state.deselectAll();
+            }
           });
         });
 
