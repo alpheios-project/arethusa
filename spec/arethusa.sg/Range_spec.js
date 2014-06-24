@@ -135,6 +135,32 @@ describe("Range", function() {
     });
   });
 
+  describe('take', function() {
+    it('returns a given number of elements from the start of the range', function() {
+      var range = new Range(1, 10);
+      var res = [1, 2, 3];
+      expect(range.take(3)).toEqual(res);
+    });
+
+    it('does not build out of bounds ranges', function() {
+      var range = new Range(1, 3);
+      var res = [1, 2, 3];
+      expect(range.take(10)).toEqual(res);
+    });
+
+    it('takes optional start param to indicate the index where to start from', function() {
+      var range = new Range(1, 10);
+      var res = [6, 7, 8, 9];
+      expect(range.take(4, 5)).toEqual(res);
+    });
+
+    it('does not build out of bounds range with a starting index', function() {
+      var range = new Range(1, 10);
+      var res = [9, 10];
+      expect(range.take(4, 8)).toEqual(res);
+    });
+  });
+
   describe('toString()', function() {
     it('represents the range as string', function() {
       var range = new Range(1,2);

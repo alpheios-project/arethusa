@@ -23,7 +23,7 @@ angular.module('arethusa.sg').factory('Range', function() {
 
     this.start = parseInt(this.start);
     this.end   = parseInt(this.end);
-    this.length = this.end - this.start + 1
+    this.length = this.end - this.start + 1;
 
     if (this.end < this.start) {
       throw new RangeError('End (' + b + ') is less than start (' + a + ')');
@@ -42,6 +42,20 @@ angular.module('arethusa.sg').factory('Range', function() {
       var b = range;
       return a.includes(b.start) || b.includes(a.start) ||
              a.includes(b.end)   || b.includes(a.end);
+    };
+
+    this.take = function(count, startingIndex) {
+      if (startingIndex) {
+        count = startingIndex + count;
+      } else {
+        startingIndex = 0;
+      }
+      var boundary = count > self.length ? self.length : count;
+      var res = [];
+      for (var i = startingIndex; i < boundary; i++){
+        res.push(self.start + i);
+      }
+      return res;
     };
 
     this.toString = function() {
