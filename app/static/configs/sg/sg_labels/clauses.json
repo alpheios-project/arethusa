@@ -1,24 +1,29 @@
 {
   "nested" : {
-    "SBV" : {
-      "short" : "SBV",
+    "SBS" : {
+      "short" : "SBS",
       "long" : "substantive",
+      "sections" : "2574-2588",
       "nested" : {
-        "STT" : {
-          "short" : "STT",
-          "long" : "of statement"
+        "STM" : {
+          "short" : "STM",
+          "long" : "of statement",
+          "sections" : "2575"
         },
         "WDS" : {
           "short" : "WDS",
-          "long" : "of will or desire"
+          "long" : "of will or desire",
+          "sections" : "2575"
         },
-        "QES" : {
-          "short" : "QES",
-          "long" : "of question"
+        "QST" : {
+          "short" : "QST",
+          "long" : "of question",
+          "sections" : "2575"
         },
-        "EXCL" : {
-          "short" : "EXCL",
-          "long" : "of exclamation"
+        "EXC" : {
+          "short" : "EXC",
+          "long" : "of exclamation",
+          "sections" : "2575"
         },
         "IDK" : {
           "short" : "IDK",
@@ -29,22 +34,27 @@
     "ADJ" : {
       "short" : "ADJ",
       "long" : "adjective",
+      "sections" : "2488-2573",
       "nested" : {
-        "PURP" : {
-          "short" : "PURP",
-          "long" : "as relative clause of purpose"
+        "PUR" : {
+          "short" : "PUR",
+          "long" : "as relative clause of purpose",
+          "sections" : "2554"
         },
         "CAU" : {
           "short" : "CAU",
-          "long" : "as relative clause of cause"
+          "long" : "as relative clause of cause",
+          "sections" : "2555"
         },
-        "RES" : {
-          "short" : "RES",
-          "long" : "as relative clause of result"
+        "RSL" : {
+          "short" : "RSL",
+          "long" : "as relative clause of result",
+          "sections" : "2556-2559"
         },
-        "CON" : {
-          "short" : "CON",
-          "long" : "as relative clause of condition"
+        "CND" : {
+          "short" : "CND",
+          "long" : "as relative clause of condition",
+          "sections" : "2560-2573"
         },
         "IDK" : {
           "short" : "IDK",
@@ -54,35 +64,43 @@
     },
     "ADV" : {
       "short" : "ADV",
-      "long" : "advern",
+      "sections" : "2191-2487",
+      "long" : "adverd",
       "nested" : {
-        "PURP" : {
-          "short" : "PURP",
-          "long" : "of purpose"
+        "PUR" : {
+          "short" : "PUR",
+          "long" : "of purpose",
+          "sections" : "2193-2206"
         },
         "CAU" : {
           "short" : "CAU",
-          "long" : "of cause"
+          "long" : "of cause",
+          "sections" : "2240-2248"
         },
-        "RES" : {
-          "short" : "RES",
-          "long" : "of result"
+        "RSL" : {
+          "short" : "RSL",
+          "long" : "of result",
+          "sections" : "2249-2279"
         },
-        "CON" : {
-          "short" : "CON",
-          "long" : "of condition"
+        "CND" : {
+          "short" : "CND",
+          "long" : "of condition",
+          "sections" : "2279-2368"
         },
-        "CCS" : {
-          "short" : "CCS",
-          "long" : "of concession"
+        "CNC" : {
+          "short" : "CNC",
+          "long" : "of concession",
+          "sections" : "2369-2382"
         },
-        "TME" : {
-          "short" : "TME",
-          "long" : "of time"
+        "TMP" : {
+          "short" : "TMP",
+          "long" : "of time",
+          "sections" : "2383-2461"
         },
-        "COMP" : {
-          "short" : "COMP",
-          "long" : "of comparison"
+        "CMP" : {
+          "short" : "CMP",
+          "long" : "of comparison",
+          "sections" : "2462"
         },
         "IDK" : {
           "short" : "IDK",

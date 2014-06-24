@@ -1,24 +1,28 @@
 {
   "nested" : {
-    "DEP" : {
-      "short" : "DEP",
-      "long" : "dependent"
+    "DPD" : {
+      "short" : "DPD",
+      "long" : "dependent",
+      "sections" : "940-941"
     },
-    "INDEP" : {
-      "short" : "INDEP",
+    "INN" : {
+      "short" : "INN",
       "long" : "independent",
+      "sections" : "938-939",
       "nested" : {
         "CIT" : {
           "short" : "CIT",
           "long" : "of citation"
         },
-        "PEND" : {
-          "short" : "PEND",
-          "long" : "pending (nom. pendens)"
+        "PND" : {
+          "short" : "PND",
+          "long" : "pending (nom. pendens)",
+          "sections" : "941"
         },
-        "EXCL" : {
-          "short" : "EXCL",
-          "long" : "of exclamation"
+        "EXC" : {
+          "short" : "EXC",
+          "long" : "of exclamation",
+          "sections" : "1288"
         },
         "IDK" : {
           "short" : "IDK",

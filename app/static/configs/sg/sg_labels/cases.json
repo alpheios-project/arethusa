@@ -1,24 +1,27 @@
 {
   "nested" : {
-    "NOM" : {
-      "short" : "NOM",
+    "NMN" : {
+      "short" : "NMN",
       "long" : "nominative",
+      "sections" : "938-943",
       "dependency" : {
         "case" : "nom"
       },
       "fileUrl" : "./static/configs/sg/sg_labels/nominative_cases.json"
     },
-    "GEN" : {
-      "short" : "GEN",
+    "GNT" : {
+      "short" : "GNT",
       "long" : "genitive",
+      "sections" : "1289-1449",
       "dependency" : {
         "case" : "gen"
       },
       "fileUrl" : "./static/configs/sg/sg_labels/genetive_cases.json"
     },
-    "DAT" : {
-      "short" : "DAT",
+    "DTV" : {
+      "short" : "DTV",
       "long" : "dative",
+      "sections" : "1450-1550",
       "dependency" : {
         "case" : "dat"
       },
@@ -27,10 +30,19 @@
     "ACC" : {
       "short" : "ACC",
       "long" : "accusative",
+      "sections" : "1551-1635",
       "dependency" : {
         "case" : "acc"
       },
       "fileUrl" : "./static/configs/sg/sg_labels/accusative_cases.json"
+    },
+    "VOK" : {
+      "short" : "VOK",
+      "long" : "vocative",
+      "sections" : "1283-1288",
+      "dependency" : {
+        "case" : "voc"
+      }
     }
   }
 }

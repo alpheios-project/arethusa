@@ -1,40 +1,49 @@
 {
   "nested" : {
-    "PROP" : {
-      "short" : "PROP",
+    "PRP" : {
+      "short" : "PRP",
       "long" : "proper",
+      "sections" : "1457-1502",
       "nested" : {
-        "DIRC" : {
-          "short" : "DIRC",
-          "long" : "as direct complement of verbs"
+        "DRC" : {
+          "short" : "DRC",
+          "long" : "as direct complement of verbs",
+          "sections" : "1460-1468"
         },
-        "INDIRC" : {
-          "short" : "INDIRC",
-          "long" : "as indirect complement of verbs"
+        "INR" : {
+          "short" : "INR",
+          "long" : "as indirect complement of verbs",
+          "sections" : "1469-1470"
         },
         "INT" : {
           "short" : "INT",
           "long" : "of interest",
+          "sections" : "1474-1494",
           "nested" : {
-            "POSS" : {
-              "short" : "POSS",
-              "long" : "of possessor"
+            "POS" : {
+              "short" : "POS",
+              "long" : "of possessor",
+              "sections" : "1476-1480"
             },
-            "COM" : {
-              "short" : "COM",
-              "long" : "of advantage and disadvantage"
+            "ADG" : {
+              "short" : "ADG",
+              "long" : "of advantage and disadvantage",
+              "sections" : "1481-1485"
             },
-            "FLG" : {
-              "short" : "FLG",
-              "long" : "of feeling"
+            "FLN" : {
+              "short" : "FLN",
+              "long" : "of feeling",
+              "sections" : "1486"
             },
-            "INCL" : {
-              "short" : "INCL",
-              "long" : "with participle of inclination or aversion"
+            "INC" : {
+              "short" : "INC",
+              "long" : "with participle of inclination or aversion",
+              "sections" : "1487"
             },
-            "AGT" : {
-              "short" : "AGT",
-              "long" : "of agent"
+            "AGN" : {
+              "short" : "AGN",
+              "long" : "of agent",
+              "sections" : "1488-1494"
             },
             "IDK" : {
               "short" : "IDK",
@@ -42,17 +51,20 @@
             }
           }
         },
-        "REL" : {
-          "short" : "REL",
+        "RLT" : {
+          "short" : "RLT",
           "long" : "of relation",
+          "sections" : "1495-1498",
           "nested" : {
-            "REF" : {
-              "short" : "REF",
-              "long" : "of reference"
+            "RFR" : {
+              "short" : "RFR",
+              "long" : "of reference",
+              "sections" : "1496-1497"
             },
-            "TME" : {
-              "short" : "TME",
-              "long" : "with a participle of expressing time"
+            "TMP" : {
+              "short" : "TMP",
+              "long" : "with a participle of expressing time",
+              "sections" : "1498"
             },
             "IDK" : {
               "short" : "IDK",
@@ -66,52 +78,64 @@
         }
       }
     },
-    "INST" : {
-      "short" : "INST",
+    "INS" : {
+      "short" : "INS",
       "long" : "intrumental",
-      "M-IN" : {
-        "short" : "M-IN",
-        "long" : "of means or instruments"
+      "sections" : "1503-1529",
+      "MNS" : {
+        "short" : "MNS",
+        "long" : "of means or instruments",
+        "sections" : "1507-1511"
       },
-      "JUD" : {
-        "short" : "JUD",
-        "long" : "of standard of judgement"
+      "STN" : {
+        "short" : "STN",
+        "long" : "of standard of judgement",
+        "sections" : "1512"
       },
-      "MNR" : {
-        "short" : "MNR",
-        "long" : "of manner"
+      "MNN" : {
+        "short" : "MNN",
+        "long" : "of manner",
+        "sections" : "1527"
       },
-      "RES" : {
-        "short" : "RES",
-        "long" : "of respect"
+      "RSP" : {
+        "short" : "RSP",
+        "long" : "of respect",
+        "sections" : "1516"
       },
-      "MSR" : {
-        "short" : "MSR",
-        "long" : "of measure of difference"
+      "MEA" : {
+        "short" : "MEA",
+        "long" : "of measure of difference",
+        "sections" : "1513-1515"
       },
       "CAU" : {
         "short" : "CAU",
-        "long" : "of cause"
+        "long" : "of cause",
+        "sections" : "1520"
       },
-      "COM" : {
-        "short" : "COM",
+      "CMT" : {
+        "short" : "CMT",
         "long" : "as comitative",
+        "sections" : "1521-1528",
         "nested" : {
           "ASS" : {
             "short" : "ASS",
-            "long" : "of association"
+            "long" : "of association",
+            "sections" : "1523"
           },
-          "ACC" : {
-            "short" : "ACC",
-            "long" : "of accompaniment"
+          "ACM" : {
+            "short" : "ACM",
+            "long" : "of accompaniment",
+            "sections" : "1524-1525"
           },
-          "MACC" : {
-            "short" : "MACC",
-            "long" : "of military accompaniment"
+          "MLT" : {
+            "short" : "MLT",
+            "long" : "of military accompaniment",
+            "sections" : "1526"
           },
-          "ACIR" : {
-            "short" : "ACIR",
-            "long" : "of accompanying circumstance"
+          "ACR" : {
+            "short" : "ACR",
+            "long" : "of accompanying circumstance",
+            "sections" : "1524-1527"
           },
           "IDK" : {
             "short" : "IDK",
@@ -124,17 +148,20 @@
         "long" : "I don't know"
       }
     },
-    "LOC" : {
-      "short" : "locative",
+    "LCT" : {
+      "short" : "LCT",
       "long" : "locative",
+      "sections" : "1530-1550",
       "nested" : {
         "TME" : {
           "short" : "TMI",
-          "long" : "of time"
+          "long" : "of time",
+          "sections" : "1539-1543"
         },
         "PLC" : {
           "short" : "PLC",
-          "long" : "of place"
+          "long" : "of place",
+          "sections" : "1531-1538"
         },
         "IDK" : {
           "short" : "IDK",
@@ -142,12 +169,12 @@
         }
       }
     },
-    "PURP" : {
-      "short" : "PURP",
+    "PUR" : {
+      "short" : "PUR",
       "long" : "of purpose (with ἐπί)"
     },
-    "UNSP" : {
-      "short" : "UNSP",
+    "UNS" : {
+      "short" : "UNS",
       "long" : "unspecified (only if depending on adj., adv., or adp.)"
     },
     "IDK" : {

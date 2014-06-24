@@ -46,6 +46,10 @@
 
     "morphologyService" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+    },
+
+    "sgGrammar" : {
+      "route" : "http://74.70.97.104:8085/smyth/:doc.html"
     }
   },
 
@@ -85,6 +89,11 @@
 
     "sg" : {
       "name" : "SG",
+      "retriever" : {
+        "SgGrammarRetriever" : {
+          "resource" : "sgGrammar"
+        }
+      },
       "template" : "templates/sg.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
@@ -105,6 +114,17 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
       "template" : "templates/dep_tree.html"
+    }
+  },
+
+  "keyCapture" : {
+    "sidepanel" : {
+      "nextTab" : "W",
+      "prevTab" : "E"
+    },
+    "selections" : {
+      "nextToken" : "w",
+      "prevToken" : "e"
     }
   }
 }

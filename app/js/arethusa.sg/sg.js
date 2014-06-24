@@ -5,12 +5,13 @@ angular.module('arethusa.sg').service('sg', [
   'configurator',
   function(state, configurator) {
     var self = this;
-    var noob = {};
+    var retriever;
     this.labelAs = "long";
     this.defineAncestors = true;
 
     function configure() {
       configurator.getConfAndDelegate('sg', self, ['labels']);
+      retriever = configurator.getRetriever(self.conf.retriever);
     }
 
     configure();
@@ -100,9 +101,14 @@ angular.module('arethusa.sg').service('sg', [
       });
     }
 
+    this.requestGrammar = function(sections, callback) {
+      retriever.getData(sections, callback);
+    };
+
     this.init = function() {
       configure();
       self.grammar = createInternalState();
+      self.readerRequested = false;
       propagateToState();
     };
   }
