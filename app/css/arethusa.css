@@ -333,3 +333,19 @@ button[disabled],
 hr.small {
   margin: 0.5rem 0 0.3rem
 }
+
+/*TEI Stuff for Smyth Grammar Reader*/
+
+div.citbibl {
+   text-align: right;
+   font-size: smaller;
+}
+
+#sg-g-r h4,h5,h6,h7 {
+  text-align: center;
+  font-style: italic;
+}
+
+#sg-g-r .gloss {
+  font-style: italic;
+}
