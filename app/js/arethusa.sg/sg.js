@@ -28,6 +28,7 @@ angular.module('arethusa.sg').service('sg', [
     function grammarReset(grammar) {
       grammar.ancestors = [];
       grammar.definingAttrs = [];
+      grammar.sbsNested = [];
     }
 
     function createInternalState() {
@@ -63,12 +64,12 @@ angular.module('arethusa.sg').service('sg', [
 
     function updateGrammar(labels, grammar) {
       grammarReset(grammar);
-      findDefiningAttributes(self.labels, grammar);
+      findDefiningAttributes(self.labels, grammar, grammar.definingAttrs);
       extractMenu(grammar);
     }
 
-    function findDefiningAttributes(labels, grammar ) {
-      arethusaUtil.inject(grammar.definingAttrs, labels, function(memo, label, val) {
+    function findDefiningAttributes(labels, grammar, target) {
+      arethusaUtil.inject(target, labels, function(memo, label, val) {
         var dep = val.dependency;
         if (dep) {
           var morph = grammar.morph;
@@ -90,7 +91,14 @@ angular.module('arethusa.sg').service('sg', [
               if (depVal.match(a)) {
                 memo.push(val);
                 nextLevel = val.nested || {};
-                findDefiningAttributes(nextLevel, grammar);
+                angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
+                  if (nestedLabel === "SBS") {
+                    findDefiningAttributes(nextLevel.SBS.nested, grammar, grammar.sbsNested);
+                    var sbsMenu = grammar.sbsNested[grammar.sbsNested.length - 1];
+                    nextLevel.SBS.nested = {nested: sbsMenu};
+                  }
+                });
+                findDefiningAttributes(nextLevel, grammar, target);
               }
             }
           });
