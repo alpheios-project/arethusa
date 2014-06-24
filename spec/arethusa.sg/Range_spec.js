@@ -47,6 +47,15 @@ describe("Range", function() {
     expect(r2.end).toEqual(2);
   });
 
+  describe('length', function() {
+    it('returns its length', function() {
+      var r1 = new Range(1, 10);
+      var r2 = new Range(5, 5);
+      expect(r1.length).toEqual(10);
+      expect(r2.length).toEqual(1);
+    });
+  });
+
   describe('includes()', function() {
     describe('checks if the integer given as param is included in the range and', function() {
       it('and returns true when i is the low boundary', function() {
