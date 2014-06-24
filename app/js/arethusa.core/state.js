@@ -176,9 +176,9 @@ angular.module('arethusa.core').service('state', [
       // only deselect when the selectionType is the same.
       // a hovered selection can still be selected by click.
       if (this.isSelected(id) && this.selectionType(id) == type) {
-        this.deselectToken(id, type, changeHead);
+        this.deselectToken(id, type);
       } else {
-        this.selectToken(id, type);
+        this.selectToken(id, type, changeHead);
       }
     };
 
