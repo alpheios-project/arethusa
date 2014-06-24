@@ -93,7 +93,7 @@ angular.module('arethusa.sg').factory('SgGrammarRetriever', [
     }
 
     function selectAndCallback(doc, range, callback) {
-      var selections = arethusaUtil.inject([], range.toArray(), function(memo, idNum) {
+      var selections = arethusaUtil.inject([], range.take(5), function(memo, idNum) {
         var id = "#s" + idNum;
         var el = angular.element(id, angular.element(doc));
         memo.push(el.prev(':header'));
@@ -112,26 +112,19 @@ angular.module('arethusa.sg').factory('SgGrammarRetriever', [
       }
 
       this.getData = function(sections, callback) {
-        console.log(time('parsing'));
         var ranges = parseSections(sections);
-        console.log(time('selecting'));
         var rangesAndFiles = filesToUse(ranges);
         angular.forEach(rangesAndFiles, function(files, rangeString) {
           var range = new Range(rangeString);
           angular.forEach(files, function(file, i) {
             var doc = docs[file];
             if (doc) {
-              console.log(time('from cache'));
               selectAndCallback(doc, range, callback);
-              console.log('finished');
             } else {
-              console.log(time('start request'));
               getFile(file).then(function(res) {
-                console.log(time('resolve promise'));
                 doc = res.data;
                 docs[file] = doc;
                 selectAndCallback(doc, range, callback);
-              console.log('finished');
               });
             }
           });
