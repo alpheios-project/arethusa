@@ -17,7 +17,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
       // One could formalize this to real rules that are configurable...
       //
       // Remember that attributes of the converted xml are prefixed with underscore
-      return {
+      var obj = {
         id: formatId(token._id),
         sentenceId: sentenceId,
         string: token._form,
@@ -27,8 +27,13 @@ angular.module('arethusa').factory('TreebankRetriever', [
         },
         relation: { label: token._relation },
         head: { id: formatId(token._head) },
-        sg: { ancestors: (token._sg || '').split() }
       };
+
+      if (angular.isDefined(token._sg)) {
+        obj.sg = token._sg.split();
+      }
+
+      return obj;
     }
     function xmlSentenceToState(words, id, cite) {
       var tokens = {};
