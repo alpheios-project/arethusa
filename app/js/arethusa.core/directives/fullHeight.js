@@ -8,12 +8,13 @@ angular.module('arethusa.core').directive('fullHeight', [
       link: function(scope, element, attrs) {
         var win = angular.element($window);
         var body = angular.element(document.body);
-        var border = angular.element(document.getElementById('panel-border')).height();
+        var border = angular.element(document.getElementById('canvas-border')).height();
         var margin = element.css("margin-bottom").replace('px', '');
+        var additionalBorder = attrs.fullHeight || 0;
 
         function resize(args) {
           var fullHeight = body.height();
-          element.height(fullHeight - border - margin);
+          element.height(fullHeight - border - margin - additionalBorder);
         }
         win.bind('resize', function() {
           resize();

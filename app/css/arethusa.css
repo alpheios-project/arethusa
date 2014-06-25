@@ -1,5 +1,13 @@
 @import url(http://fonts.googleapis.com/earlyaccess/amiri.css);
 
+html, body {
+  height: 100%;
+}
+
+#canvas-border {
+  height: 20px;
+}
+
 .selected {
   background-color: #F6D918;
 }
@@ -17,7 +25,7 @@
 }
 
 .full-height {
-  height: 100vh;
+  height: 100%;
 }
 
 .full-width {
