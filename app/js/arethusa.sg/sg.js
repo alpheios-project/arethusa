@@ -28,7 +28,6 @@ angular.module('arethusa.sg').service('sg', [
     function grammarReset(grammar) {
       grammar.ancestors = [];
       grammar.definingAttrs = [];
-      grammar.sbsNested = [];
     }
 
     function createInternalState() {
