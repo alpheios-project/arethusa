@@ -3,7 +3,8 @@ angular.module('arethusa.core').service('navigator', [
   '$injector',
   'configurator',
   '$cacheFactory',
-  function ($injector, configurator, $cacheFactory) {
+  'keyCapture',
+  function ($injector, configurator, $cacheFactory, keyCapture) {
     var self = this;
     this.sentences = [];
     this.sentencesById = {};
@@ -179,5 +180,21 @@ angular.module('arethusa.core').service('navigator', [
       self.hasList  = false;
       self.updateId();
     };
+
+    function initKeyCaptures() {
+      var kC = keyCapture;
+      var conf = kC.conf('navigation');
+      var nextKey = conf.nextSentence;
+      var prevKey = conf.prevSentence;
+      var list    = conf.list;
+      var captures = {};
+      captures[nextKey] = function() { kC.doRepeated(self.nextSentence); };
+      captures[prevKey] = function() { kC.doRepeated(self.prevSentence); };
+      captures[list] = function() { self.switchView(); };
+
+      keyCapture.registerCaptures(captures);
+    }
+
+    initKeyCaptures();
   }
 ]);
