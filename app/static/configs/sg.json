@@ -129,6 +129,11 @@
     "selections" : {
       "nextToken" : "w",
       "prevToken" : "e"
+    },
+    "navigation" : {
+      "nextSentence" : "u",
+      "prevSentence" : "i",
+      "list" : "L"
     }
   }
 }
