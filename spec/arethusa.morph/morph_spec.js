@@ -8,6 +8,7 @@ describe("morph", function() {
     getRetrievers: function(name) {
       return {};
     },
+    provideResource: function() {},
     getConfAndDelegate: function(name, obj) {
       obj.attributes = {
         "pos" : {

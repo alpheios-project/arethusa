@@ -7,7 +7,8 @@ describe("state", function() {
     },
     getRetrievers: function(name) {
       return {};
-    }
+    },
+    provideResource: function() {}
   };
 
   var createTokens = function() {

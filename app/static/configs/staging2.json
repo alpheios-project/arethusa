@@ -60,6 +60,10 @@
 
     "morphologyService" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    },
+
+    "citeMapper" : {
+      "route" : "http://74.70.97.104:8086/find_cite"
     }
   },
 

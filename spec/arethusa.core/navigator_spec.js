@@ -3,6 +3,9 @@
 describe("navigator", function() {
   var navigator;
   var state;
+  var configurator = {
+    provideResource: function() {}
+  };
 
   var s1 = {
     id: "1",
@@ -42,7 +45,10 @@ describe("navigator", function() {
 
   var sentences = [s1, s3, s5];
 
-  beforeEach(module("arethusa.core"));
+  beforeEach(module("arethusa.core", function($provide) {
+    $provide.value('configurator', configurator);
+  }));
+
   beforeEach(inject(function(_navigator_, _state_) {
     navigator = _navigator_;
     state = _state_;

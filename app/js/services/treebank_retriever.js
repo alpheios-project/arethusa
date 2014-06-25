@@ -29,7 +29,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
         head: { id: formatId(token._head) }
       };
     }
-    function xmlSentenceToState(words, id) {
+    function xmlSentenceToState(words, id, cite) {
       var tokens = {};
       angular.forEach(words, function (xmlToken, i) {
         var token = xmlTokenToState(xmlToken, id);
@@ -37,13 +37,14 @@ angular.module('arethusa').factory('TreebankRetriever', [
       });
       return {
         id: id,
-        tokens: tokens
+        tokens: tokens,
+        cite: cite
       };
     }
     function parseDocument(json) {
       var sentences = arethusaUtil.toAry(json.treebank.sentence);
       return arethusaUtil.inject([], sentences, function (memo, sentence, k) {
-        memo.push(xmlSentenceToState(sentence.word, sentence._id));
+        memo.push(xmlSentenceToState(sentence.word, sentence._id, sentence._cite));
       });
     }
 

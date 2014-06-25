@@ -1,12 +1,16 @@
 'use strict';
 angular.module('arethusa.core').service('navigator', [
   '$injector',
-  function ($injector) {
+  'configurator',
+  '$cacheFactory',
+  function ($injector, configurator, $cacheFactory) {
     var self = this;
     this.sentences = [];
     this.sentencesById = {};
     this.currentPosition = 0;
     this.status = {};
+
+    var citeMapper = configurator.provideResource('citeMapper');
 
     this.state = function () {
       if (!self.lazyState) {
@@ -83,6 +87,41 @@ angular.module('arethusa.core').service('navigator', [
       self.updateState();
     };
 
+    var citationCache = $cacheFactory('citation', { number: 100 });
+    function getCitation() {
+      resetCitation();
+      if (!citeMapper) return;
+
+      var citation;
+      var cite = currentSentenceObj().cite;
+      if (cite) {
+        citation = citationCache.get(cite);
+        if (! citation) {
+          citeMapper.get({ cite: cite}).then(function(res) {
+            citation = res.data;
+            citationCache.put(cite, citation);
+            storeCitation(citation);
+          });
+        } else {
+          storeCitation(citation);
+        }
+      }
+    }
+
+    function resetCitation() {
+      delete self.status.citation;
+    }
+
+    function storeCitation(citation) {
+      self.status.citation = citationToString(citation);
+    }
+
+    function citationToString(citation) {
+      return arethusaUtil.inject([], citation, function(memo, key, val) {
+        memo.push(val);
+      }).join(' ');
+    }
+
     this.updateState = function() {
       self.state().replaceState(self.currentSentence());
       self.updateId();
@@ -101,6 +140,7 @@ angular.module('arethusa.core').service('navigator', [
     this.updateId = function () {
       self.status.currentId = currentId();
       updateNextAndPrev();
+      getCitation();
     };
 
     this.sentenceToString = function(sentence) {

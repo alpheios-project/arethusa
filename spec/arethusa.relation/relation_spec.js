@@ -8,6 +8,7 @@ describe("relation", function() {
     getRetrievers: function(name) {
       return {};
     },
+    provideResource: function() {},
     getConfAndDelegate: function(name, obj) {
       var relations = {
         labels: {
