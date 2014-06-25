@@ -26,7 +26,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
           postag: token._postag
         },
         relation: { label: token._relation },
-        head: { id: formatId(token._head) }
+        head: { id: formatId(token._head) },
+        sg: { ancestors: (token._sg || '').split() }
       };
     }
     function xmlSentenceToState(words, id, cite) {
