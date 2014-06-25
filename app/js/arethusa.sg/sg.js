@@ -89,13 +89,14 @@ angular.module('arethusa.sg').service('sg', [
             if (morph[depCat] !== undefined) {
               var a = new RegExp(morph[depCat]);
               if (depVal.match(a)) {
+                val = angular.copy(val);
                 memo.push(val);
                 nextLevel = val.nested || {};
                 angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
                   if (nestedLabel === "SBS") {
-                    findDefiningAttributes(nextLevel.SBS.nested, grammar, grammar.sbsNested);
-                    var sbsMenu = grammar.sbsNested[grammar.sbsNested.length - 1];
-                    nextLevel.SBS.nested = {nested: sbsMenu};
+                    var sbsNested = [];
+                    findDefiningAttributes(nextLevel.SBS.nested, grammar, sbsNested);
+                    nextLevel.SBS.nested = {nested: sbsNested.pop()};
                   }
                 });
                 findDefiningAttributes(nextLevel, grammar, target);
