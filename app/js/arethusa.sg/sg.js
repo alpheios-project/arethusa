@@ -75,12 +75,6 @@ angular.module('arethusa.sg').service('sg', [
           var morph = grammar.morph;
           var nextLevel;
           angular.forEach(dep, function(depVal, depCat) {
-            //if (morph[depCat] === depVal) {
-              //memo.push(val);
-              //nextLevel = val.nested || {};
-              //findDefiningAttributes(nextLevel, grammar);
-            //}
-
             // More a hack than a solution so far, through
             // the RegExp we can match "1st2nd3rd" of the
             // pers dep. So far all works, but the RegExp
@@ -94,7 +88,7 @@ angular.module('arethusa.sg').service('sg', [
                 nextLevel = val.nested || {};
                 angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
                   if (nestedMenu.nestedDependency) {
-                    var nextNestedLevel= [];
+                    var nextNestedLevel = [];
                     findDefiningAttributes(nestedMenu.nested, grammar, nextNestedLevel);
                     nestedMenu.nested = { nested: nextNestedLevel.pop() };
                   }
