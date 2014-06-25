@@ -5,8 +5,9 @@ angular.module('arethusa.core').service('keyCapture', [
   function(configurator, $rootScope) {
     var self = this;
 
-    this.conf = function() {
-      return configurator.configurationFor('keyCapture');
+    this.conf = function(name) {
+      var c = configurator.configurationFor('keyCapture') || {};
+      return c[name] || {};
     };
 
     var keyCodes = {
