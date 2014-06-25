@@ -28,7 +28,6 @@ angular.module('arethusa.sg').service('sg', [
     function grammarReset(grammar) {
       grammar.ancestors = [];
       grammar.definingAttrs = [];
-      grammar.sbsNested = [];
     }
 
     function createInternalState() {
@@ -37,7 +36,21 @@ angular.module('arethusa.sg').service('sg', [
         var morph = token.morphology || {};
         grammar.string = token.string;
         checkAndUpdateGrammar(morph, grammar);
+        addAncestorsFromState(token.sg, grammar);
         memo[id] = grammar;
+      });
+    }
+
+    function addAncestorsFromState(sg, grammar) {
+      if (!sg) return;
+
+      var ancestors = sg.ancestors || [];
+      var target = grammar.ancestors;
+      var menu = grammar.menu;
+      angular.forEach(ancestors, function(ancestor, i) {
+        var el = menu[ancestor];
+        target.push(el);
+        menu = el.nested;
       });
     }
 

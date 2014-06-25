@@ -25,6 +25,11 @@ angular.module('arethusa').factory('TreebankPersister', [
           word._lemma = stateWord.morphology.lemma;
           word._postag = stateWord.morphology.postag;
         }
+        if (stateWord.sg) {
+          word._sg = arethusaUtil.map(stateWord.sg.ancestors, function(el) {
+            return el.short;
+          }).join(' ');
+        }
         word._form = stateWord.string;
       }
 

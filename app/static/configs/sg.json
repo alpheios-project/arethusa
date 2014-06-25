@@ -4,7 +4,14 @@
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "fakePerseids",
+        "docIdentifier" : "treebank",
         "preselector" : "w"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "fakePerseids",
+        "docIdentifier" : "treebank"
       }
     },
     "plugins" : [
@@ -20,7 +27,8 @@
   "navbar" : {
     "template" : "templates/navbar1.html",
     "search" : true,
-    "navigation" : true
+    "navigation" : true,
+    "notifier" : true
   },
 
   "resources" : {
