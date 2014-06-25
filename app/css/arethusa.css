@@ -12,6 +12,10 @@
   text-decoration: underline;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .full-height {
   height: 100vh;
 }

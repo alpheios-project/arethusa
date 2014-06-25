@@ -1,7 +1,7 @@
 <div class="text">
   <div
     ng-repeat="o in hierarchy"
-    ng-class="{underline: hover}"
+    ng-class="{underline: hover, italic: requested(o)}"
     ng-mouseenter="hover = o.sections"
     ng-mouseleave="hover = false"
     ng-click="requestGrammar(o)"
