@@ -1,7 +1,7 @@
 {
   "nested" : {
     "SBS" : {
-      "short" : "SBV",
+      "short" : "SBS",
       "long" : "substantive",
       "nestedDependency" : true,
       "sections" : "1021-1029",
