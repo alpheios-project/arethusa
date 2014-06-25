@@ -320,7 +320,7 @@ angular.module('arethusa.core').service('state', [
 
     function initKeyCaptures() {
       var kC = keyCapture;
-      var conf = kC.conf().selections || {};
+      var conf = kC.conf('selections');
       var nextKey = conf.nextToken || 'J';
       var prevKey = conf.prevToken || 'K';
 
@@ -331,7 +331,7 @@ angular.module('arethusa.core').service('state', [
       captures[nextKey] = function() { kC.doRepeated(self.selectNextToken); };
       captures[prevKey] = function() { kC.doRepeated(self.selectPrevToken); };
 
-      keyCapture.registerCaptures(captures, $rootScope);
+      keyCapture.registerCaptures(captures);
     }
 
     this.init = function () {

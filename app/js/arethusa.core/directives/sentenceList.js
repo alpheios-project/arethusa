@@ -9,8 +9,7 @@ angular.module('arethusa.core').directive('sentenceList', [
       link: function(scope, element, attrs) {
         scope.n = navigator;
 
-
-        element.bind('click', function() {
+        function createList() {
           // We want this to load only once, and only if
           // a user requests it!
           if (! navigator.hasList) {
@@ -30,6 +29,12 @@ angular.module('arethusa.core').directive('sentenceList', [
             navigator.list().append($compile(template)(scope));
             navigator.hasList = true;
           }
+        }
+
+        scope.$on('viewModeSwitched', createList);
+
+        element.bind('click', function() {
+          createList();
           scope.$apply(function() {
             navigator.switchView();
           });

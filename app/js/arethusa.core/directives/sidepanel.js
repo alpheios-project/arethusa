@@ -34,7 +34,7 @@ angular.module('arethusa.core').directive('sidepanel', [
           selectPluginByIndex(index);
         }
 
-        var conf = keyCapture.conf().sidepanel || {};
+        var conf = keyCapture.conf('sidepanel');
         var defaults = {
           nextTab: ['j', moveToNext],
           prevTab: ['k', moveToPrev],

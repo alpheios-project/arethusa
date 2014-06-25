@@ -3,7 +3,9 @@ angular.module('arethusa.core').service('navigator', [
   '$injector',
   'configurator',
   '$cacheFactory',
-  function ($injector, configurator, $cacheFactory) {
+  'keyCapture',
+  '$rootScope',
+  function ($injector, configurator, $cacheFactory, keyCapture, $rootScope) {
     var self = this;
     this.sentences = [];
     this.sentencesById = {};
@@ -37,10 +39,10 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     this.nextSentence = function () {
-      movePosition(1);
+      if (self.hasNext()) movePosition(1);
     };
     this.prevSentence = function () {
-      movePosition(-1);
+      if (self.hasPrev()) movePosition(-1);
     };
 
     this.hasNext = function() {
@@ -158,6 +160,7 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     this.switchView = function() {
+      $rootScope.$broadcast('viewModeSwitched');
       var editor = self.editor();
       var list   = self.list();
       if (self.listMode) {
@@ -179,5 +182,21 @@ angular.module('arethusa.core').service('navigator', [
       self.hasList  = false;
       self.updateId();
     };
+
+    function initKeyCaptures() {
+      var kC = keyCapture;
+      var conf = kC.conf('navigation');
+      var nextKey = conf.nextSentence;
+      var prevKey = conf.prevSentence;
+      var list    = conf.list;
+      var captures = {};
+      captures[nextKey] = function() { kC.doRepeated(self.nextSentence); };
+      captures[prevKey] = function() { kC.doRepeated(self.prevSentence); };
+      captures[list] = function() { self.switchView(); };
+
+      keyCapture.registerCaptures(captures);
+    }
+
+    initKeyCaptures();
   }
 ]);

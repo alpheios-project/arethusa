@@ -4,7 +4,8 @@ describe("navigator", function() {
   var navigator;
   var state;
   var configurator = {
-    provideResource: function() {}
+    provideResource: function() {},
+    configurationFor : function() {}
   };
 
   var s1 = {
@@ -147,6 +148,14 @@ describe("navigator", function() {
       navigator.nextSentence();
       expect(state.tokens).toBe(navigator.currentSentence());
     });
+
+    it('does nothing when there is no next sentence', function() {
+      navigator.addSentences(sentences);
+      navigator.goToLast();
+      expect(navigator.currentSentence()).toBe(s5.tokens);
+      navigator.nextSentence();
+      expect(navigator.currentSentence()).toBe(s5.tokens);
+    });
   });
 
   describe('this.prevSentence()', function() {
@@ -162,8 +171,16 @@ describe("navigator", function() {
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
+      navigator.nextSentence();
       navigator.prevSentence();
       expect(state.tokens).toBe(navigator.currentSentence());
+    });
+
+    it('does nothing when there is no previous sentence', function() {
+      navigator.addSentences(sentences);
+      expect(navigator.currentSentence()).toBe(s1.tokens);
+      navigator.prevSentence();
+      expect(navigator.currentSentence()).toBe(s1.tokens);
     });
   });
 

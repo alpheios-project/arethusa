@@ -3,7 +3,10 @@
 describe("deselector", function() {
   var element;
   var state;
-  var configurator = { provideResource: function() {} };
+  var configurator = {
+    provideResource: function() {},
+    configurationFor: function() {}
+  };
 
   beforeEach(module("arethusa.core", function($provide) {
     $provide.value('configurator', configurator);
