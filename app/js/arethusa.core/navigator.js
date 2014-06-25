@@ -37,10 +37,10 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     this.nextSentence = function () {
-      movePosition(1);
+      if (self.hasNext()) movePosition(1);
     };
     this.prevSentence = function () {
-      movePosition(-1);
+      if (self.hasPrev()) movePosition(-1);
     };
 
     this.hasNext = function() {
