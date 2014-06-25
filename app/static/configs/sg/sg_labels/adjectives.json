@@ -1,8 +1,9 @@
 {
   "nested" : {
-    "SBV" : {
-      "short" : "SBV",
+    "SBS" : {
+      "short" : "SBS",
       "long" : "substantive",
+      "nestedDependency" : true,
       "sections" : "1021-1029",
       "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
     },

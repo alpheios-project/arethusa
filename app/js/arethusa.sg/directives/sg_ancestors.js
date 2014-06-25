@@ -19,6 +19,10 @@ angular.module('arethusa.sg').directive('sgAncestors', [
           }
         };
 
+        scope.requested = function(obj) {
+          return sg.readerRequested.short === obj.short;
+        };
+
         scope.$watchCollection('obj.ancestors', function(newVal, oldVal) {
           scope.hierarchy = scope.obj.definingAttrs.concat(newVal);
         });

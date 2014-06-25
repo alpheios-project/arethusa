@@ -28,6 +28,7 @@ angular.module('arethusa.sg').service('sg', [
     function grammarReset(grammar) {
       grammar.ancestors = [];
       grammar.definingAttrs = [];
+      grammar.sbsNested = [];
     }
 
     function createInternalState() {
@@ -63,25 +64,44 @@ angular.module('arethusa.sg').service('sg', [
 
     function updateGrammar(labels, grammar) {
       grammarReset(grammar);
-      findDefiningAttributes(self.labels, grammar);
+      findDefiningAttributes(self.labels, grammar, grammar.definingAttrs);
       extractMenu(grammar);
     }
 
-    function findDefiningAttributes(labels, grammar ) {
-      arethusaUtil.inject(grammar.definingAttrs, labels, function(memo, label, val) {
+    function findDefiningAttributes(labels, grammar, target) {
+      arethusaUtil.inject(target, labels, function(memo, label, val) {
         var dep = val.dependency;
         if (dep) {
           var morph = grammar.morph;
           var nextLevel;
           angular.forEach(dep, function(depVal, depCat) {
-            if (morph[depCat] === depVal) {
+            // More a hack than a solution so far, through
+            // the RegExp we can match "1st2nd3rd" of the
+            // pers dep. So far all works, but the RegExp
+            // could cause trouble, when wrong dependency
+            // values match...
+            if (dependencyMet(morph[depCat], depVal)) {
+              val = angular.copy(val);
               memo.push(val);
               nextLevel = val.nested || {};
-              findDefiningAttributes(nextLevel, grammar);
+              angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
+                if (nestedMenu.nestedDependency) {
+                  var nextNestedLevel = [];
+                  findDefiningAttributes(nestedMenu.nested, grammar, nextNestedLevel);
+                  nestedMenu.nested = { nested: nextNestedLevel.pop() };
+                }
+              });
+              findDefiningAttributes(nextLevel, grammar, target);
             }
           });
         }
       });
+    }
+
+    function dependencyMet(morphValue, depValue) {
+      if (angular.isDefined(morphValue)) {
+        return morphValue === depValue || depValue === "*";
+      }
     }
 
     // We already captured the defining attributes at this point - they
