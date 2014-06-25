@@ -17,7 +17,7 @@ angular.module('arethusa.exercise').service('fillInTheBlank', [
         if (morph.pos == 'verb' && morph.mood) {
           var lemma = token.morphology.lemma.replace(/\d/g, '');
           memo[id] = {
-            hint: lemma + ', ' + morph.num + '.',
+            hint: lemma,
             answer: token.string,
             token: token
           };
