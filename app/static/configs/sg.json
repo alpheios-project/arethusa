@@ -50,6 +50,10 @@
 
     "sgGrammar" : {
       "route" : "http://74.70.97.104:8085/smyth/:doc.html"
+    },
+
+    "citeMapper" : {
+      "route" : "http://74.70.97.104:8086/find_cite"
     }
   },
 
