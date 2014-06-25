@@ -80,25 +80,28 @@ angular.module('arethusa.sg').service('sg', [
             // pers dep. So far all works, but the RegExp
             // could cause trouble, when wrong dependency
             // values match...
-            if (morph[depCat] !== undefined) {
-              var a = new RegExp(morph[depCat]);
-              if (depVal.match(a)) {
-                val = angular.copy(val);
-                memo.push(val);
-                nextLevel = val.nested || {};
-                angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
-                  if (nestedMenu.nestedDependency) {
-                    var nextNestedLevel = [];
-                    findDefiningAttributes(nestedMenu.nested, grammar, nextNestedLevel);
-                    nestedMenu.nested = { nested: nextNestedLevel.pop() };
-                  }
-                });
-                findDefiningAttributes(nextLevel, grammar, target);
-              }
+            if (dependencyMet(morph[depCat], depVal)) {
+              val = angular.copy(val);
+              memo.push(val);
+              nextLevel = val.nested || {};
+              angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
+                if (nestedMenu.nestedDependency) {
+                  var nextNestedLevel = [];
+                  findDefiningAttributes(nestedMenu.nested, grammar, nextNestedLevel);
+                  nestedMenu.nested = { nested: nextNestedLevel.pop() };
+                }
+              });
+              findDefiningAttributes(nextLevel, grammar, target);
             }
           });
         }
       });
+    }
+
+    function dependencyMet(morphValue, depValue) {
+      if (angular.isDefined(morphValue)) {
+        return morphValue === depValue || depValue === "*";
+      }
     }
 
     // We already captured the defining attributes at this point - they
