@@ -1,12 +1,15 @@
 'use strict';
 angular.module('arethusa.core').service('navigator', [
   '$injector',
-  function ($injector) {
+  'configurator',
+  function ($injector, configurator) {
     var self = this;
     this.sentences = [];
     this.sentencesById = {};
     this.currentPosition = 0;
     this.status = {};
+
+    var citeMapper = configurator.provideResource('citeMapper');
 
     this.state = function () {
       if (!self.lazyState) {
