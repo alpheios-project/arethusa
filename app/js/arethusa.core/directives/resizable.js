@@ -2,20 +2,13 @@
 angular.module('arethusa.core').directive('resizable', [
   '$window',
   '$document',
-  '$timeout',
-  function ($window, $document, $timeout) {
+  function ($window, $document) {
     return {
       restrict: 'AEC',
       link: function (scope, element, attrs) {
         var maxSize = $window.innerWidth;
         var maxPos = maxSize - 400;
         var main = angular.element(document.getElementById('main-body'));
-        var win  = angular.element($window);
-        var canvas = angular.element(document.getElementById('canvas'));
-
-        win.on('resize', function() {
-          setHeight();
-        });
 
         element.on('mousedown', function (event) {
           event.preventDefault();
@@ -48,14 +41,6 @@ angular.module('arethusa.core').directive('resizable', [
           $document.unbind('mousemove', mousemove);
           $document.unbind('mouseup', mouseup);
         }
-
-        function setHeight() {
-          $timeout(function() {
-            element.height(canvas.height());
-          });
-        }
-
-        setHeight();
       }
     };
   }
