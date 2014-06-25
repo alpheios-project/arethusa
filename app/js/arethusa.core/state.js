@@ -320,7 +320,7 @@ angular.module('arethusa.core').service('state', [
 
     function initKeyCaptures() {
       var kC = keyCapture;
-      var conf = kC.conf().selections || {};
+      var conf = kC.conf('selections');
       var nextKey = conf.nextToken || 'J';
       var prevKey = conf.prevToken || 'K';
 
