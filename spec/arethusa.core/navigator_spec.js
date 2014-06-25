@@ -4,7 +4,8 @@ describe("navigator", function() {
   var navigator;
   var state;
   var configurator = {
-    provideResource: function() {}
+    provideResource: function() {},
+    configurationFor : function() {}
   };
 
   var s1 = {
