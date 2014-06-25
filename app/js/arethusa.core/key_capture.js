@@ -1,7 +1,8 @@
 'use strict';
 angular.module('arethusa.core').service('keyCapture', [
   'configurator',
-  function(configurator) {
+  '$rootScope',
+  function(configurator, $rootScope) {
     var self = this;
 
     this.conf = function() {
@@ -156,6 +157,7 @@ angular.module('arethusa.core').service('keyCapture', [
     }
 
     this.registerCaptures = function(captures, scope) {
+      scope = scope ? scope : $rootScope;
       angular.forEach(captures, function(fn, key) {
         self.onKeyPressed(key, function() {
           scope.$apply(fn);
