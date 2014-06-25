@@ -29,7 +29,9 @@ describe('search', function() {
 
     getRetrievers: function(name) {
       return {};
-    }
+    },
+
+    provideResource: function() {}
   };
 
   beforeEach(module('arethusa.core', function($provide) {

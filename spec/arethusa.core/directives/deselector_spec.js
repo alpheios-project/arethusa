@@ -3,7 +3,11 @@
 describe("deselector", function() {
   var element;
   var state;
-  beforeEach(module("arethusa.core"));
+  var configurator = { provideResource: function() {} };
+
+  beforeEach(module("arethusa.core", function($provide) {
+    $provide.value('configurator', configurator);
+  }));
 
   beforeEach(inject(function($compile, $rootScope, _state_) {
     element = angular.element("<span deselector/>");
