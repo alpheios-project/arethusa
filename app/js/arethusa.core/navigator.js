@@ -4,7 +4,8 @@ angular.module('arethusa.core').service('navigator', [
   'configurator',
   '$cacheFactory',
   'keyCapture',
-  function ($injector, configurator, $cacheFactory, keyCapture) {
+  '$rootScope',
+  function ($injector, configurator, $cacheFactory, keyCapture, $rootScope) {
     var self = this;
     this.sentences = [];
     this.sentencesById = {};
@@ -159,6 +160,7 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     this.switchView = function() {
+      $rootScope.$broadcast('viewModeSwitched');
       var editor = self.editor();
       var list   = self.list();
       if (self.listMode) {
