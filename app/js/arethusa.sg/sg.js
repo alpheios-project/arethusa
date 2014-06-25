@@ -93,10 +93,10 @@ angular.module('arethusa.sg').service('sg', [
                 memo.push(val);
                 nextLevel = val.nested || {};
                 angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
-                  if (nestedLabel === "SBS") {
-                    var sbsNested = [];
-                    findDefiningAttributes(nextLevel.SBS.nested, grammar, sbsNested);
-                    nextLevel.SBS.nested = {nested: sbsNested.pop()};
+                  if (nestedMenu.nestedDependency) {
+                    var nextNestedLevel= [];
+                    findDefiningAttributes(nestedMenu.nested, grammar, nextNestedLevel);
+                    nestedMenu.nested = { nested: nextNestedLevel.pop() };
                   }
                 });
                 findDefiningAttributes(nextLevel, grammar, target);
