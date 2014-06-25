@@ -89,6 +89,7 @@ angular.module('arethusa.core').service('navigator', [
 
     var citationCache = $cacheFactory('citation', { number: 100 });
     function getCitation() {
+      resetCitation();
       if (!citeMapper) return;
 
       var citation;
@@ -105,6 +106,10 @@ angular.module('arethusa.core').service('navigator', [
           storeCitation(citation);
         }
       }
+    }
+
+    function resetCitation() {
+      delete self.status.citation;
     }
 
     function storeCitation(citation) {
