@@ -5,7 +5,7 @@ html, body {
   overflow: hidden;
 }
 
-#canvas-border {
+.canvas-border {
   height: 20px;
 }
 
