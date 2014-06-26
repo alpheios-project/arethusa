@@ -148,6 +148,9 @@
     "selections" : {
       "nextToken" : "e",
       "prevToken" : "w"
+    },
+    "tree" : {
+      "directionChange" : "c"
     }
   }
 }

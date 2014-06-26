@@ -40,7 +40,8 @@
 angular.module('arethusa.depTree').directive('dependencyTree', [
   '$compile',
   'languageSettings',
-  function ($compile, languageSettings) {
+  'keyCapture',
+  function ($compile, languageSettings, keyCapture) {
     return {
       restrict: 'A',
       scope: {
@@ -392,6 +393,18 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             }
           });
         });
+
+        function initKeyCaptures() {
+          var kC = keyCapture;
+          var conf = kC.conf('tree');
+          var captures = {};
+
+          var dirChange = conf.directionChange;
+          captures[dirChange] = function() { scope.changeDir(); };
+
+          kC.registerCaptures(captures);
+        }
+        initKeyCaptures();
       },
       template: '<svg class="full-height full-width"><g/></svg>'
     };
