@@ -334,10 +334,11 @@ angular.module('arethusa.core').service('state', [
       keyCapture.registerCaptures(captures);
     }
 
+    initKeyCaptures();
+
     this.init = function () {
       configure();
       self.retrieveTokens();
-      initKeyCaptures();
     };
   }
 ]);
