@@ -9,16 +9,14 @@ angular.module('arethusa').factory('TreebankRetriever', [
   'documentStore',
   'configurator',
   '$location',
-  function (documentStore, configurator, $location) {
-    function formatId(id) {
-      return arethusaUtil.formatNumber(id, 4);
-    }
+  'idHandler',
+  function (documentStore, configurator, $location, idHandler) {
     function xmlTokenToState(token, sentenceId) {
       // One could formalize this to real rules that are configurable...
       //
       // Remember that attributes of the converted xml are prefixed with underscore
       var obj = {
-        id: formatId(token._id),
+        id: idHandler.getId(token._id),
         sentenceId: sentenceId,
         string: token._form,
         morphology: {
@@ -26,7 +24,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
           postag: token._postag
         },
         relation: { label: token._relation },
-        head: { id: formatId(token._head) },
+        head: { id: idHandler.getId(token._head) },
       };
 
       if (token._sg) {
@@ -66,7 +64,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
       // after #191 is merged, also allow range strings here
       var preselections = arethusaUtil.toAry($location.search()[selector]);
       return arethusaUtil.map(preselections, function(id) {
-        return formatId(id);
+        return idHandler.getId(id);
       });
     }
 
