@@ -40,3 +40,10 @@ A good place to navigate your browser to at the moment would be [http://localhos
 During development a watch task (`grunt reloader`) can optionally be
 started - it will live-reload the browser on every change of a js or
 html file and minify files properly.
+
+
+## Varia
+
+Be sure to check out the following Arethusa-related projects:
+- [Arethusa Plugin
+  Generator](http://github.com/latin-language-toolkit/arethusa_plugin_generator)
