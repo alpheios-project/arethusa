@@ -45,5 +45,4 @@ html file and minify files properly.
 ## Varia
 
 Be sure to check out the following Arethusa-related projects:
-- [Arethusa Plugin
-  Generator](http://github.com/latin-language-toolkit/arethusa_plugin_generator)
+- [Arethusa CLI tools](http://github.com/latin-language-toolkit/arethusa-cli)
