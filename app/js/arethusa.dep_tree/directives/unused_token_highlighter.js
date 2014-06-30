@@ -69,14 +69,20 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
           unusedTokens = {};
           findUnusedTokens();
           initHeadWatches();
+          if (highlightMode) applyHighlighting();
         }
 
         function applyHighlighting() {
-          console.log('a');
+          angular.forEach(unusedTokens, function(val, id) {
+            state.addStyle(id, style);
+          });
         }
 
         function unapplyHighlighting() {
-          console.log('b');
+          angular.forEach(unusedTokens, function(val, id) {
+            var styles = Object.keys(style);
+            state.removeStyle(id, styles);
+          });
         }
 
         element.bind('click', function() {
