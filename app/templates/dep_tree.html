@@ -2,8 +2,9 @@
   <div
     class="small-4 columns note"
     tooltip="Click to highlight unused tokens"
-    tooltip-popup-delay="700">
-    {{ plugin.tokensWithoutHeadCount() }} of {{ state.totalTokens }} unused
+    tooltip-popup-delay="700"
+    unused-token-highlighter>
+    {{ unusedCount }} of {{ total }} unused
   </div>
   <div class="small-6 columns"></div>
   <div class="small-2 columns right end">
