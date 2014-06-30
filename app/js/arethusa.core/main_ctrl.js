@@ -177,6 +177,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
       saver.init();
       $scope.arethusaLoaded = true;
       notifier.success('Load complete');
+      UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
     };
   }
 ]);
