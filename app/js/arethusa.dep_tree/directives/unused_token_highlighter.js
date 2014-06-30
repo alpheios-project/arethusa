@@ -9,6 +9,8 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
         highlightMode: '=unusedTokenHighlighter'
       },
       link: function(scope, element, attrs) {
+        var unusedTokens;
+        var headWatches = [];
         scope.s = state;
 
         function tokensWithoutHeadCount() {
@@ -21,9 +23,49 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
           return !(token.head || {}).id;
         }
 
+        function findUnusedTokens() {
+          angular.forEach(state.tokens, function(token, id) {
+            if (hasNoHead(token)) {
+              scope.unusedCount++;
+              unusedTokens[id] = true;
+            }
+          });
+        }
+
+        function initHeadWatches() {
+          destroyOldHeadWatches();
+          angular.forEach(state.tokens, function(token, id) {
+            var childScope = scope.$new();
+            childScope.head = token.head;
+            childScope.$watch('head.id', function(newVal, oldVal) {
+              if (newVal !== oldVal) {
+                if (newVal) {
+                  scope.unusedCount--;
+                  unusedTokens[id] = true;
+                } else {
+                  scope.unusedCount++;
+                  delete unusedTokens[id];
+                }
+              }
+            });
+            headWatches.push(childScope);
+          });
+        }
+
+        function destroyOldHeadWatches() {
+          angular.forEach(headWatches, function(childScope, i) {
+            childScope.$destroy();
+          });
+          headWatches = [];
+        }
+
+
         function init() {
           scope.total = state.totalTokens;
-          scope.unusedCount = tokensWithoutHeadCount();
+          scope.unusedCount = 0;
+          unusedTokens = {};
+          findUnusedTokens();
+          initHeadWatches();
         }
 
         function applyHighlighting() {
