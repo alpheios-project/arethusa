@@ -112,8 +112,9 @@ angular.module('arethusa.morph').service('morph', [
     this.getAnalysisFromState = function (val, id) {
       var analysis = state.tokens[id].morphology;
       // We could always have no analysis sitting in the data we are
-      // looking at.
-      if (analysis) {
+      // looking at - no data also means that the postag is an empty
+      // string.
+      if (analysis && analysis.postag) {
         self.postagToAttributes(analysis);
         analysis.origin = 'document';
         val.forms.push(analysis);
@@ -142,7 +143,7 @@ angular.module('arethusa.morph').service('morph', [
       });
     };
 
-    this.getExternalAnalyses = function (analysisObj) {
+    this.getExternalAnalyses = function (analysisObj, id) {
       angular.forEach(morphRetrievers, function (retriever, name) {
         retriever.getData(analysisObj.string, function (res) {
           res.forEach(function (el) {
@@ -154,18 +155,26 @@ angular.module('arethusa.morph').service('morph', [
             getDataFromInventory(el);
           });
           arethusaUtil.pushAll(analysisObj.forms, res);
+          preselectForm(analysisObj.forms[0], id);
         });
       });
     };
+
+    function preselectForm(form, id) {
+      var currentSel = state.getToken(id).morphology;
+      if (form && currentSel !== form) {
+        self.setState(id, form);
+      }
+    }
 
     function loadInitalAnalyses() {
       var analyses = self.seedAnalyses(state.tokens);
       if (self.noRetrieval !== "all") {
         angular.forEach(analyses, function (val, id) {
-          if (self.noRetrieval !== "online") {
-            self.getExternalAnalyses(val);
-          }
           self.getAnalysisFromState(val, id);
+          if (self.noRetrieval !== "online") {
+            self.getExternalAnalyses(val, id);
+          }
           val.analyzed = true;
           self.resetCustomForm(val);
         });
