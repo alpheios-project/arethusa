@@ -366,3 +366,15 @@ div.citbibl {
 #sg-g-r .gloss {
   font-style: italic;
 }
+
+
+/*Animations*/
+
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity .15s linear;
+          transition: opacity .15s linear;
+}
+.fade.in {
+  opacity: 1;
+}
