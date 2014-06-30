@@ -6,12 +6,14 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
     return {
       restrict: 'A',
       scope: {
-        highlightMode: '=unusedTokenHighlighter'
+        highlightMode: '=unusedTokenHighlighter',
+        style: '@unusedTokenStyle'
       },
       link: function(scope, element, attrs) {
         var unusedTokens;
         var headWatches = [];
         scope.s = state;
+        scope.style = scope.style || "font-style: italics";
 
         function tokensWithoutHeadCount() {
           return state.countTokens(function (token) {
