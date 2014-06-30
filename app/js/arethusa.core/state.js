@@ -285,6 +285,14 @@ angular.module('arethusa.core').service('state', [
       self.getToken(id).style = style;
     };
 
+    this.addStyle = function(id, style) {
+      var token = self.getToken(id);
+      if (!token.style) {
+        token.style = {};
+      }
+      angular.extend(token.style, style);
+    };
+
     this.unsetStyle = function (id) {
       delete self.getToken(id).style;
     };
