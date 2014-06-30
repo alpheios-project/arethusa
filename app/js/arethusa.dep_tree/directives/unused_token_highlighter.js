@@ -6,7 +6,7 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
     return {
       restrict: 'A',
       scope: {
-        highlightMode: '=unusedTokenHighlighter',
+        highlightMode: '@unusedTokenHighlighter',
         style: '@unusedTokenStyle'
       },
       link: function(scope, element, attrs) {
@@ -71,9 +71,11 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
         }
 
         function applyHighlighting() {
+          console.log('a');
         }
 
         function unapplyHighlighting() {
+          console.log('b');
         }
 
         element.bind('click', function() {
