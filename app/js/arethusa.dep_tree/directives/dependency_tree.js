@@ -41,7 +41,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
   '$compile',
   'languageSettings',
   'keyCapture',
-  function ($compile, languageSettings, keyCapture) {
+  'idHandler',
+  function ($compile, languageSettings, keyCapture, idHandler) {
     return {
       restrict: 'A',
       scope: {
@@ -49,10 +50,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         styles: '='
       },
       link: function (scope, element, attrs) {
-        var rootText= "[ROOT]";
+        var rootText = "[ROOT]";
+        var rootId = idHandler.getId('0');
 
         function rootPlaceholder() {
-          return '<div id="tph0000">' + rootText + '</div>';
+          return '<div id="tph' + rootId + '">' + rootText + '</div>';
         }
 
         function tokenPlaceholder(token) {
@@ -149,7 +151,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         var g;
         var vis;
         function createRootNode() {
-          g.addNode('0000', { label: rootPlaceholder() });
+          g.addNode(rootId, { label: rootPlaceholder() });
         }
         function createNode(token) {
           g.addNode(token.id, { label: tokenPlaceholder(token) });
@@ -291,7 +293,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         wrapper.prepend($compile(panel)(scope));
 
         function insertRootDirective() {
-          node('0000').append(function() {
+          node(rootId).append(function() {
             this.textContent = '';
             return $compile(rootTokenHtml)(scope)[0];
           });
