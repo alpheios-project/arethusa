@@ -297,7 +297,10 @@ angular.module('arethusa.core').service('state', [
       var tokenStyle = self.getToken(id).style;
       if (! tokenStyle) return;
 
-      delete tokenStyle[style];
+      var styles = arethusaUtil.toAry(style);
+      angular.forEach(styles, function(style, i) {
+        delete tokenStyle[style];
+      });
     };
 
     this.unsetStyle = function (id) {

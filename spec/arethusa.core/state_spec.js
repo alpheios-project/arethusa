@@ -245,6 +245,19 @@ describe("state", function() {
       state.removeStyle('01', 'color');
       expect(t1.style).toEqual({});
     });
+
+    it('does not fail when no style was set before', function() {
+      var t1 = state.getToken('01');
+      state.removeStyle('01', 'color');
+      expect(t1.style).toBeUndefined();
+    });
+
+    it('also takes an array of styles to be removed', function() {
+      var t1 = state.getToken('01');
+      t1.style = { color: 'red', 'font-style': 'bold' };
+      state.removeStyle('01', ['color', 'font-style']);
+      expect(t1.style).toEqual({});
+    });
   });
 
   describe('this.unsetStyle', function() {
