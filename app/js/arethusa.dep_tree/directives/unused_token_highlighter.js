@@ -40,14 +40,17 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
           angular.forEach(state.tokens, function(token, id) {
             var childScope = scope.$new();
             childScope.head = token.head;
+            childScope.id   = id;
             childScope.$watch('head.id', function(newVal, oldVal) {
               if (newVal !== oldVal) {
                 if (newVal) {
                   scope.unusedCount--;
                   unusedTokens[id] = true;
+                  if (highlightMode) removeStyle(id);
                 } else {
                   scope.unusedCount++;
                   delete unusedTokens[id];
+                  if (highlightMode) state.addStyle(id, style);
                 }
               }
             });
@@ -86,6 +89,9 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
         function unapplyHighlighting() {
           angular.forEach(unusedTokens, function(val, id) {
             removeStyle(id);
+          });
+        }
+
         element.bind('click', function() {
           scope.$apply(function() {
             if (highlightMode) {
