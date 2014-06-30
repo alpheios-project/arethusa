@@ -80,16 +80,6 @@ angular.module('arethusa.depTree').service('depTree', [
       self.diffMode = true;
     });
 
-    function hasNoHead(token) {
-      return !(token.head || {}).id;
-    }
-
-    this.tokensWithoutHeadCount = function () {
-      return state.countTokens(function (token) {
-        return hasNoHead(token);
-      });
-    };
-
     // Used inside the context menu
     this.disconnect = function(token) {
       token.head.id = "";
