@@ -80,9 +80,13 @@ angular.module('arethusa.depTree').service('depTree', [
       self.diffMode = true;
     });
 
+    function hasNoHead(token) {
+      return !(token.head || {}).id;
+    }
+
     this.tokensWithoutHeadCount = function () {
       return state.countTokens(function (token) {
-        return !(token.head || {}).id;
+        return hasNoHead(token);
       });
     };
 
