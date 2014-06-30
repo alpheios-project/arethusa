@@ -112,8 +112,9 @@ angular.module('arethusa.morph').service('morph', [
     this.getAnalysisFromState = function (val, id) {
       var analysis = state.tokens[id].morphology;
       // We could always have no analysis sitting in the data we are
-      // looking at.
-      if (analysis) {
+      // looking at - no data also means that the postag is an empty
+      // string.
+      if (analysis && analysis.postag) {
         self.postagToAttributes(analysis);
         analysis.origin = 'document';
         val.forms.push(analysis);
