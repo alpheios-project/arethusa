@@ -113,14 +113,18 @@ angular.module('arethusa.morph').service('morph', [
       var analysis = state.tokens[id].morphology;
       // We could always have no analysis sitting in the data we are
       // looking at - no data also means that the postag is an empty
-      // string.
-      if (analysis && analysis.postag) {
+      // string or an empty postag.
+      if (analysis && postagNotEmpty(analysis.postag)) {
         self.postagToAttributes(analysis);
         analysis.origin = 'document';
         val.forms.push(analysis);
         state.addStyle(id, self.styleOf(analysis));
       }
     };
+
+    function postagNotEmpty(postag) {
+      return postag && postag !== self.emptyPostag;
+    }
 
     var mapAttributes = function (attrs) {
       // We could use inject on attrs directly, but this wouldn't give us
