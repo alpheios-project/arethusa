@@ -123,7 +123,7 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     function postagNotEmpty(postag) {
-      return postag && postag !== self.emptyPostag;
+      return postag && !postag.match(/^-*$/);
     }
 
     var mapAttributes = function (attrs) {
