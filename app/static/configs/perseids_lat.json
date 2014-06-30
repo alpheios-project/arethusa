@@ -18,9 +18,7 @@
       "search",
       "morph",
       "relation",
-      "depTree",
-      "review",
-      "history"
+      "depTree"
     ]
   },
 
@@ -36,7 +34,8 @@
   "navbar" : {
     "template" : "templates/navbar1.html",
     "search" : true,
-    "navigation" : true
+    "navigation" : true,
+    "notifier" : true
   },
 
   "resources" : {
@@ -48,20 +47,20 @@
       "auth": "perseidsAuth"
     },
 
-    "fakeGold" : {
-      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
-      "params" : [
-        "gold",
-        "s"
-      ]
-    },
-
     "lexInvFusekiEndpoint" : {
       "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
     },
 
     "morphologyService" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    },
+
+    "sgGrammar" : {
+      "route" : "http://74.70.97.104:8085/smyth/:doc.html"
+    },
+
+    "citeMapper" : {
+      "route" : "http://74.70.97.104:8086/find_cite"
     }
   },
 
@@ -136,6 +135,24 @@
       "name" : "comment",
       "template" : "templates/comment2.html"
     }
+  },
+
+  "keyCapture" : {
+    "sidepanel" : {
+      "nextTab" : "W",
+      "prevTab" : "E"
+    },
+    "selections" : {
+      "nextToken" : "w",
+      "prevToken" : "e"
+    },
+    "navigation" : {
+      "nextSentence" : "u",
+      "prevSentence" : "i",
+      "list" : "L"
+    },
+    "tree" : {
+      "directionChange" : "c"
+    }
   }
 }
-
