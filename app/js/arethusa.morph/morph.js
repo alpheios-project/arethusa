@@ -117,7 +117,7 @@ angular.module('arethusa.morph').service('morph', [
         self.postagToAttributes(analysis);
         analysis.origin = 'document';
         val.forms.push(analysis);
-        state.setStyle(id, self.styleOf(analysis));
+        state.addStyle(id, self.styleOf(analysis));
       }
     };
 
