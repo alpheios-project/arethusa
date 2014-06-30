@@ -44,9 +44,12 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
             childScope.$watch('head.id', function(newVal, oldVal) {
               if (newVal !== oldVal) {
                 if (newVal) {
-                  scope.unusedCount--;
-                  delete unusedTokens[id];
-                  if (highlightMode) removeStyle(id);
+                  // Check if the token was used before!
+                  if (!oldVal) {
+                    scope.unusedCount--;
+                    delete unusedTokens[id];
+                    if (highlightMode) removeStyle(id);
+                  }
                 } else {
                   scope.unusedCount++;
                   unusedTokens[id] = true;
