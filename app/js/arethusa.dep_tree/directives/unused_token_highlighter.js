@@ -78,20 +78,23 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
           });
         }
 
-        function unapplyHighlighting() {
-          angular.forEach(unusedTokens, function(val, id) {
-            var styles = Object.keys(style);
-            state.removeStyle(id, styles);
-          });
+        function removeStyle(id) {
+          var styles = Object.keys(style);
+          state.removeStyle(id, styles);
         }
 
+        function unapplyHighlighting() {
+          angular.forEach(unusedTokens, function(val, id) {
+            removeStyle(id);
         element.bind('click', function() {
-          if (scope.highlightMode) {
-            unapplyHighlighting();
-          } else {
-            applyHighlighting();
-          }
-          scope.highlightMode = !scope.highlightMode;
+          scope.$apply(function() {
+            if (highlightMode) {
+              unapplyHighlighting();
+            } else {
+              applyHighlighting();
+            }
+          });
+          highlightMode = !highlightMode;
         });
 
         scope.$watch('s.tokens', function(newVal, oldVal) {
