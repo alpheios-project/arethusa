@@ -1,6 +1,6 @@
 <arethusa-navbar></arethusa-navbar>
 <p/>
-<div class="row panel full-height">
+<div id="canvas" class="row panel full-height" full-height>
   <div id="main-body" class="columns small-7">
     <div ng-repeat="pl in mainPlugins">
       <plugin name="pl"/>
@@ -8,7 +8,7 @@
   </div>
 
   <div id="sidepanel" class="columns small-5">
-    <div id="sidepanel-resizer" class="full-height" resizable></div>
+    <div id="sidepanel-resizer" full-height resizable></div>
     <div id="sidepanel-body">
       <tabset>
         <tab

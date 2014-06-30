@@ -142,6 +142,9 @@
       "nextSentence" : "u",
       "prevSentence" : "i",
       "list" : "L"
+    },
+    "tree" : {
+      "directionChange" : "c"
     }
   }
 }
