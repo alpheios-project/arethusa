@@ -9,6 +9,7 @@
     "d3" : false,
     "arethusaUtil" : true,
     "arethusaLogger" : true,
+    "UserVoice" : true,
     "inject" : false,
     "module" : false,
     "require" : false,
