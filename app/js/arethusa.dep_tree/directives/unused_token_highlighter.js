@@ -10,6 +10,7 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
       },
       link: function(scope, element, attrs) {
         scope.s = state;
+
         function tokensWithoutHeadCount() {
           return state.countTokens(function (token) {
             return hasNoHead(token);
@@ -23,9 +24,7 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
         function init() {
           scope.total = state.totalTokens;
           scope.unusedCount = tokensWithoutHeadCount();
-          if (scope.highlightMode) applyHighlighting();
         }
-
 
         function applyHighlighting() {
         }
@@ -45,7 +44,8 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
         scope.$watch('s.tokens', function(newVal, oldVal) {
           init();
         });
-      }
+      },
+      template: '{{ unusedCount }} of {{ total }} unused'
     };
   }
 ]);
