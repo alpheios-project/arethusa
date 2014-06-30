@@ -12,7 +12,7 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
       link: function(scope, element, attrs) {
         var unusedTokens;
         var headWatches = [];
-        var style = scope.style || { "font-style": "italic" };
+        var style = scope.style || { "background-color": "rgb(255, 216, 216)" }; // a very light red
         var highlightMode = !!scope.highlightMode;
         scope.s = state;
 
