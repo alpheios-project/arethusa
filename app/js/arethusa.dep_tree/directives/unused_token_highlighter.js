@@ -45,11 +45,11 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
               if (newVal !== oldVal) {
                 if (newVal) {
                   scope.unusedCount--;
-                  unusedTokens[id] = true;
+                  delete unusedTokens[id];
                   if (highlightMode) removeStyle(id);
                 } else {
                   scope.unusedCount++;
-                  delete unusedTokens[id];
+                  unusedTokens[id] = true;
                   if (highlightMode) state.addStyle(id, style);
                 }
               }
