@@ -117,7 +117,7 @@ angular.module('arethusa.morph').service('morph', [
         self.postagToAttributes(analysis);
         analysis.origin = 'document';
         val.forms.push(analysis);
-        state.setStyle(id, self.styleOf(analysis));
+        state.addStyle(id, self.styleOf(analysis));
       }
     };
 
@@ -238,7 +238,7 @@ angular.module('arethusa.morph').service('morph', [
     this.setState = function (id, form) {
       deleteFromIndex(id);
       addToIndex(form, id);
-      state.setStyle(id, self.styleOf(form));
+      state.addStyle(id, self.styleOf(form));
       state.setState(id, 'morphology', form);
     };
     this.unsetState = function (id) {

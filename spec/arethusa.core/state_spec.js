@@ -218,6 +218,48 @@ describe("state", function() {
     });
   });
 
+  describe('this.addStyle', function() {
+    it('adds a style to a token, identified by id', function() {
+      var t1 = state.getToken('01');
+      var style = {
+        color: 'red',
+        'font-style': 'italics'
+      };
+      t1.style = { color: 'red' };
+
+      state.addStyle('01', { 'font-style': 'italics' });
+      expect(t1.style).toEqual(style);
+    });
+
+    it('does not fail when no style was set before', function() {
+      var t1 = state.getToken('01');
+      state.addStyle('01', { color: 'red' });
+      expect(t1.style).toEqual({ color: 'red' });
+    });
+  });
+
+  describe('this.removeStyle', function() {
+    it('deletes specific style property from a token', function() {
+      var t1 = state.getToken('01');
+      t1.style = { color: 'red' };
+      state.removeStyle('01', 'color');
+      expect(t1.style).toEqual({});
+    });
+
+    it('does not fail when no style was set before', function() {
+      var t1 = state.getToken('01');
+      state.removeStyle('01', 'color');
+      expect(t1.style).toBeUndefined();
+    });
+
+    it('also takes an array of styles to be removed', function() {
+      var t1 = state.getToken('01');
+      t1.style = { color: 'red', 'font-style': 'bold' };
+      state.removeStyle('01', ['color', 'font-style']);
+      expect(t1.style).toEqual({});
+    });
+  });
+
   describe('this.unsetStyle', function() {
     it('deletes the style of a token, identified by id', function() {
       var t1 = state.getToken('01');
