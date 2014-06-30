@@ -238,6 +238,15 @@ describe("state", function() {
     });
   });
 
+  describe('this.removeStyle', function() {
+    it('deletes specific style property from a token', function() {
+      var t1 = state.getToken('01');
+      t1.style = { color: 'red' };
+      state.removeStyle('01', 'color');
+      expect(t1.style).toEqual({});
+    });
+  });
+
   describe('this.unsetStyle', function() {
     it('deletes the style of a token, identified by id', function() {
       var t1 = state.getToken('01');
