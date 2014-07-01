@@ -183,20 +183,14 @@ angular.module('arethusa.core').service('navigator', [
       self.updateId();
     };
 
-    function initKeyCaptures() {
-      var kC = keyCapture;
-      var conf = kC.conf('navigation');
-      var nextKey = conf.nextSentence;
-      var prevKey = conf.prevSentence;
-      var list    = conf.list;
-      var captures = {};
-      captures[nextKey] = function() { kC.doRepeated(self.nextSentence); };
-      captures[prevKey] = function() { kC.doRepeated(self.prevSentence); };
-      captures[list] = function() { self.switchView(); };
-
-      keyCapture.registerCaptures(captures);
-    }
-
-    initKeyCaptures();
+    keyCapture.initCaptures(function(kC) {
+      return {
+        navigation: [
+          kC.create('nextSentence', function() { kC.doRepeated(self.nextSentence); }),
+          kC.create('prevSentence', function() { kC.doRepeated(self.prevSentence); }),
+          kC.create('list', function() { self.switchView(); })
+        ]
+      };
+    });
   }
 ]);

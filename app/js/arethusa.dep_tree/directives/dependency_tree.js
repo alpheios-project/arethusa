@@ -396,17 +396,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         });
 
-        function initKeyCaptures() {
-          var kC = keyCapture;
-          var conf = kC.conf('tree');
-          var captures = {};
-
-          var dirChange = conf.directionChange;
-          captures[dirChange] = function() { scope.changeDir(); };
-
-          kC.registerCaptures(captures);
-        }
-        initKeyCaptures();
+        keyCapture.initCaptures(function(kC) {
+          return {
+            tree: [
+              kC.create('directionChange', function() { scope.changeDir(); })
+            ]
+          };
+        });
       },
       template: '<svg class="full-height full-width"><g/></svg>'
     };

@@ -34,19 +34,15 @@ angular.module('arethusa.core').directive('sidepanel', [
           selectPluginByIndex(index);
         }
 
-        var conf = keyCapture.conf('sidepanel');
-        var defaults = {
-          nextTab: ['j', moveToNext],
-          prevTab: ['k', moveToPrev],
-          toggle:  ['s', sidepanel.toggle]
-        };
-
-        var captures = arethusaUtil.inject({}, defaults, function(memo, keyName, keyAndFn) {
-          var key = conf[keyName] || keyAndFn[0];
-          memo[key] = keyAndFn[1];
+        keyCapture.initCaptures(function(kC) {
+          return {
+            sidepanel: [
+              kC.create('nextTab', function() { moveToNext(); }),
+              kC.create('prevTab', function() { moveToPrev(); }),
+              kC.create('toggle',  function() { sidepanel.toggle(); }, 's'),
+            ]
+          };
         });
-
-        keyCapture.registerCaptures(captures, scope);
       }
     };
   }
