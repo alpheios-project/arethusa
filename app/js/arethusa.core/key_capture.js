@@ -157,6 +157,7 @@ angular.module('arethusa.core').service('keyCapture', [
       });
     }
 
+    // deprecated - use initCaptures instead
     this.registerCaptures = function(captures, scope) {
       scope = scope ? scope : $rootScope;
       angular.forEach(captures, function(fn, key) {
@@ -165,6 +166,30 @@ angular.module('arethusa.core').service('keyCapture', [
             scope.$apply(fn);
           });
         }
+      });
+    };
+
+    function Capture(confKey, fn, defaultKey) {
+      this.confKey = confKey;
+      this.fn = fn;
+      this.defaultKey = defaultKey;
+    }
+
+    this.create = function(confKey, fn, defaultKey) {
+      return new Capture(confKey, fn, defaultKey);
+    };
+
+    this.initCaptures = function(callback) {
+      angular.forEach(callback(self), function(captures, section) {
+        var conf = self.conf(section);
+        angular.forEach(captures, function(capture, i) {
+          var key = conf[capture.confKey] || capture.defaultKey;
+          if (angular.isDefined(key)) {
+            self.onKeyPressed(key, function() {
+              $rootScope.$apply(capture.fn);
+            });
+          }
+        });
       });
     };
   }
