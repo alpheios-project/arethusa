@@ -89,39 +89,49 @@ angular.module('arethusa.core').service('navigator', [
       self.updateState();
     };
 
-    var citationCache = $cacheFactory('citation', { number: 100 });
-    function getCitation() {
+    function updateCitation() {
       resetCitation();
+      self.getCitation(currentSentenceObj(), storeCitation);
+    }
+
+    var citationCache = $cacheFactory('citation', { number: 100 });
+    this.getCitation = function(sentence, callback) {
       if (!citeMapper) return;
 
       var citation;
-      var cite = currentSentenceObj().cite;
+      var cite = sentence.cite;
       if (cite) {
-        citation = citationCache.get(cite);
+        var citeSplit = splitCiteString(cite);
+        var doc = citeSplit[0];
+        var sec = citeSplit[1];
+        citation = citationCache.get(doc);
         if (! citation) {
-          citeMapper.get({ cite: cite}).then(function(res) {
+          citeMapper.get({ cite: doc}).then(function(res) {
             citation = res.data;
-            citationCache.put(cite, citation);
-            storeCitation(citation);
+            citationCache.put(doc, citation);
+            callback(citationToString(citation, sec));
           });
         } else {
-          storeCitation(citation);
+          callback(citationToString(citation, sec));
         }
       }
+    };
+
+    function splitCiteString(cite) {
+      var i = cite.lastIndexOf(':');
+      return [cite.slice(0, i), cite.slice(i + 1)];
     }
 
     function resetCitation() {
       delete self.status.citation;
     }
 
-    function storeCitation(citation) {
-      self.status.citation = citationToString(citation);
+    function storeCitation(citationString) {
+      self.status.citation = citationString;
     }
 
-    function citationToString(citation) {
-      return arethusaUtil.inject([], citation, function(memo, key, val) {
-        memo.push(val);
-      }).join(' ');
+    function citationToString(citation, sec) {
+      return [citation.author, citation.work, sec].join(' ');
     }
 
     this.updateState = function() {
@@ -142,7 +152,7 @@ angular.module('arethusa.core').service('navigator', [
     this.updateId = function () {
       self.status.currentId = currentId();
       updateNextAndPrev();
-      getCitation();
+      updateCitation();
     };
 
     this.sentenceToString = function(sentence) {
