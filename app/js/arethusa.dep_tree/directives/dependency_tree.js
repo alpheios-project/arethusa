@@ -280,7 +280,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         element.wrap('<div></div>');
         var wrapper = element.parent();
         var panel = '\
-          <div ng-click="settingOn = !settingOn">*</div>\
+          <div ng-click="settingOn = !settingOn"><i class="fi-widget"/></div>\
           <div ng-show="settingOn">\
             <span title="rankSep" tree-setting="rankSep"></span>&nbsp;\
             <span title="edgeSep" tree-setting="edgeSep"></span>&nbsp;\
