@@ -48,8 +48,26 @@ angular.module('arethusa').factory('TreebankRetriever', [
     function parseDocument(json) {
       var sentences = arethusaUtil.toAry(json.treebank.sentence);
       return arethusaUtil.inject([], sentences, function (memo, sentence, k) {
-        memo.push(xmlSentenceToState(sentence.word, sentence._id, sentence._cite));
+        var cite = extractCiteInfo(sentence);
+        memo.push(xmlSentenceToState(sentence.word, sentence._id, cite));
       });
+    }
+
+    // Try to support the new as well as the old schema for now
+    function extractCiteInfo(sentence) {
+      var cite = sentence._cite;
+      if (cite) {
+        return cite;
+      } else {
+
+        var docId = sentence._document_id;
+        var subdoc = sentence._subdoc;
+        if (subdoc) {
+          return docId + ':' + subdoc;
+        } else {
+          return docId;
+        }
+      }
     }
 
     function findAdditionalConfInfo(json) {
