@@ -15,6 +15,12 @@ angular.module('arethusa.core').directive('sentence', [
           }).join(' ');
         }
 
+        function getCitation() {
+          navigator.getCitation(scope.sentence, function(citation) {
+            scope.citation = citation;
+          });
+        }
+
         scope.goTo = function(id) {
           navigator.goTo(id);
           navigator.switchView();
@@ -22,6 +28,8 @@ angular.module('arethusa.core').directive('sentence', [
 
         scope.sentenceString = sentenceToString();
         scope.id = scope.sentence.id;
+
+        getCitation();
       },
       templateUrl: 'templates/arethusa.core/sentence.html'
     };
