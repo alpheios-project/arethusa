@@ -97,31 +97,39 @@ angular.module('arethusa.core').service('navigator', [
       var citation;
       var cite = currentSentenceObj().cite;
       if (cite) {
-        citation = citationCache.get(cite);
+        var citeSplit = splitCiteString(cite);
+        var doc = citeSplit[0];
+        var sec = citeSplit[1];
+        citation = citationCache.get(doc);
         if (! citation) {
-          citeMapper.get({ cite: cite}).then(function(res) {
+          citeMapper.get({ cite: doc}).then(function(res) {
             citation = res.data;
-            citationCache.put(cite, citation);
-            storeCitation(citation);
+            citationCache.put(doc, citation);
+            storeCitation(citation, sec);
           });
         } else {
-          storeCitation(citation);
+          storeCitation(citation,  sec);
         }
       }
+    }
+
+    function splitCiteString(cite) {
+      var i = cite.lastIndexOf(':');
+      return [cite.slice(0, i), cite.slice(i + 1)];
     }
 
     function resetCitation() {
       delete self.status.citation;
     }
 
-    function storeCitation(citation) {
-      self.status.citation = citationToString(citation);
+    function storeCitation(citation, sec) {
+      var str = citationToString(citation);
+      str = sec ? str + ' ' + sec : str;
+      self.status.citation = str;
     }
 
     function citationToString(citation) {
-      return arethusaUtil.inject([], citation, function(memo, key, val) {
-        memo.push(val);
-      }).join(' ');
+      return [citation.author, citation.work].join(' ');
     }
 
     this.updateState = function() {
