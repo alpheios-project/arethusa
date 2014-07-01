@@ -123,13 +123,11 @@ angular.module('arethusa.core').service('navigator', [
     }
 
     function storeCitation(citation, sec) {
-      var str = citationToString(citation);
-      str = sec ? str + ' ' + sec : str;
-      self.status.citation = str;
+      self.status.citation = citationToString(citation, sec);
     }
 
-    function citationToString(citation) {
-      return [citation.author, citation.work].join(' ');
+    function citationToString(citation, sec) {
+      return [citation.author, citation.work, sec].join(' ');
     }
 
     this.updateState = function() {
