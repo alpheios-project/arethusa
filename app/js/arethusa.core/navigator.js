@@ -89,13 +89,17 @@ angular.module('arethusa.core').service('navigator', [
       self.updateState();
     };
 
-    var citationCache = $cacheFactory('citation', { number: 100 });
-    function getCitation() {
+    function updateCitation() {
       resetCitation();
+      self.getCitation(currentSentenceObj(), storeCitation);
+    }
+
+    var citationCache = $cacheFactory('citation', { number: 100 });
+    this.getCitation = function(sentence, callback) {
       if (!citeMapper) return;
 
       var citation;
-      var cite = currentSentenceObj().cite;
+      var cite = sentence.cite;
       if (cite) {
         var citeSplit = splitCiteString(cite);
         var doc = citeSplit[0];
@@ -105,13 +109,13 @@ angular.module('arethusa.core').service('navigator', [
           citeMapper.get({ cite: doc}).then(function(res) {
             citation = res.data;
             citationCache.put(doc, citation);
-            storeCitation(citation, sec);
+            callback(citationToString(citation, sec));
           });
         } else {
-          storeCitation(citation,  sec);
+          callback(citationToString(citation, sec));
         }
       }
-    }
+    };
 
     function splitCiteString(cite) {
       var i = cite.lastIndexOf(':');
@@ -122,8 +126,8 @@ angular.module('arethusa.core').service('navigator', [
       delete self.status.citation;
     }
 
-    function storeCitation(citation, sec) {
-      self.status.citation = citationToString(citation, sec);
+    function storeCitation(citationString) {
+      self.status.citation = citationString;
     }
 
     function citationToString(citation, sec) {
@@ -148,7 +152,7 @@ angular.module('arethusa.core').service('navigator', [
     this.updateId = function () {
       self.status.currentId = currentId();
       updateNextAndPrev();
-      getCitation();
+      updateCitation();
     };
 
     this.sentenceToString = function(sentence) {
