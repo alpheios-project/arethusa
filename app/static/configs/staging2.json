@@ -151,6 +151,9 @@
     },
     "tree" : {
       "directionChange" : "c"
+    },
+    "saver" : {
+      "save" : "ctrl-S"
     }
   }
 }

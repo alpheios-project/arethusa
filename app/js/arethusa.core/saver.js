@@ -3,7 +3,8 @@
 angular.module('arethusa.core').service('saver', [
   'configurator',
   'notifier',
-  function(configurator, notifier) {
+  'keyCapture',
+  function(configurator, notifier, keyCapture) {
     var self = this;
     var persisters;
 
@@ -33,6 +34,14 @@ angular.module('arethusa.core').service('saver', [
         });
       });
     };
+
+    keyCapture.initCaptures(function(kC) {
+      return {
+        saver: [
+          kC.create('save', function() { self.save(); })
+        ]
+      };
+    });
 
     this.init = function(newPersisters) {
       reset();
