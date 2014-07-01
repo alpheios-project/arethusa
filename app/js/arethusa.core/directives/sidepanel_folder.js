@@ -6,22 +6,23 @@ angular.module('arethusa.core').directive('sidepanelFolder', [
     return {
       scope: {},
       link: function (scope, element, attrs) {
-        function addText() {
-          var text = sidepanel.folded ? 'Show' : 'Fold';
-          element.text(text + ' Panel');
+        function setIconClass() {
+          var icon = sidepanel.folded ? 'compress' : 'expand';
+          scope.iconClass = 'fi-arrows-' + icon;
         }
 
         element.on('click', function () {
           sidepanel.toggle();
-          addText();
+          setIconClass();
         });
 
         scope.sp = sidepanel;
 
         scope.$watch('sp.folded', function(newVal, oldVal) {
-          addText();
+          setIconClass();
         });
-      }
+      },
+      template: '<i ng-class="iconClass"/>'
     };
   }
 ]);
