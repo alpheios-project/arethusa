@@ -28,20 +28,19 @@
         <hr>
     </accordion>
   </div>
-  <p>
-    <div ng-if="plugin.canEdit()">
-      <div class="small-6 columns">
-        <button
-          reveal-toggle="mfc{{ id }}"
-          class="micro radius">
-            Create new form
-        </button>
-      </div>
-      <morph-form-create
-        id="mfc{{ id }}"
-        morph-token="analysis"
-        class="hide">
-      </morph-form-create>
+  <div ng-if="plugin.canEdit()">
+    <div class="small-6 columns">
+      <button
+        reveal-toggle="mfc{{ id }}"
+        class="micro radius">
+          Create new form
+      </button>
     </div>
-  </p>
+    <morph-form-create
+      id="mfc{{ id }}"
+      morph-token="analysis"
+      class="hide">
+    </morph-form-create>
+  </div>
+  <div delimiter/>
 </div>
