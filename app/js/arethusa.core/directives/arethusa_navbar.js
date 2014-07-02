@@ -31,8 +31,18 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
         var win = angular.element($window);
         var windowSize;
 
+        function setScreenValues() {
+          setWindowSize();
+          setLogo();
+        }
+
         function setWindowSize() {
           windowSize = win.width();
+        }
+
+        function setLogo() {
+          var icon = windowSize > 1000 ? '' : 'icon-';
+          scope.logo = "css/arethusa-" + icon + "small.png";
         }
 
         function isVisible(threshold, defaultVal) {
@@ -41,8 +51,8 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
           }
         }
 
-        setWindowSize();
-        win.on('resize', setWindowSize);
+        setScreenValues();
+        win.on('resize', setScreenValues);
 
         scope.template = conf.template;
         scope.disable = conf.disable;
@@ -58,8 +68,6 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
         scope.showNotifier = function () {
           return isVisible(1200, conf.notifier);
         };
-
-        scope.logo = 'css/arethusa-small.png';
 
         // Foundation's topbar doesn't seem to work properly - could be an issue
         // with angular. If we make it fixed, it overlaps our body and no padding
