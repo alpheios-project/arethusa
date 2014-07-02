@@ -28,14 +28,22 @@
         <!--foundation topbar gives them a differnet look and feel when they are wrapped.-->
         <li>
           <div>
-            <a class="nav-link" ng-click="goToFirst()" ng-class="{ disabled: !navStat.hasPrev }">
+            <a
+              class="nav-link"
+              title="go to first"
+              ng-click="goToFirst()"
+              ng-class="{ disabled: !navStat.hasPrev }">
               <i class="fi-previous"></i>
             </a>
           </div>
         </li>
         <li>
         <div>
-          <a class="nav-link" ng-click="prev()" ng-class="{ disabled: !navStat.hasPrev }">
+          <a
+            class="nav-link"
+            title="go to previous"
+            ng-click="prev()"
+            ng-class="{ disabled: !navStat.hasPrev }">
             <i class="fi-arrow-left"></i>
           </a>
         </div>
@@ -63,14 +71,22 @@
         </li>
         <li>
           <div>
-            <a class="nav-link" ng-click="next()" ng-class="{ disabled: !navStat.hasNext }">
+            <a
+              class="nav-link"
+              title="go to next"
+              ng-click="next()"
+              ng-class="{ disabled: !navStat.hasNext }">
               <i class="fi-arrow-right"></i>
           </a>
         </div>
         </li>
         <li>
           <div>
-            <a class="nav-link" ng-click="goToLast()" ng-class="{ disabled: !navStat.hasNext }">
+            <a
+              class="nav-link"
+              title="go to last"
+              ng-click="goToLast()"
+              ng-class="{ disabled: !navStat.hasNext }">
               <i class="fi-next"></i>
             </a>
           </div>
