@@ -2,7 +2,9 @@
 
 angular.module('arethusa.morph').directive('morphFormAttributes', [
   'morph',
-  function(morph) {
+  'notifier',
+  'state',
+  function(morph, notifier, state) {
     return {
       restrict: 'A',
       scope: {
@@ -29,6 +31,7 @@ angular.module('arethusa.morph').directive('morphFormAttributes', [
             morph.unsetState(id);
           }
           morph.removeForm(id, scope.form);
+          notifier.success('Removed form of ' + state.asString(id));
         };
       },
       templateUrl: 'templates/arethusa.morph/morph_form_attributes.html'

@@ -2,8 +2,9 @@
 
 angular.module('arethusa.morph').directive('morphFormCreate', [
   'morph',
-  '$timeout',
-  function(morph, $timeout) {
+  'state',
+  'notifier',
+  function(morph, state, notifier) {
     return {
       restrict: 'E',
       scope: {
@@ -87,6 +88,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           var newForm = angular.copy(scope.form);
           scope.forms.push(newForm);
           morph.setState(scope.id, newForm);
+          notifier.success('Added form for ' + state.asString(scope.id));
         }
 
         scope.$watch('form.attributes', function (newVal, oldVal) {
