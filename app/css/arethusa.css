@@ -389,3 +389,8 @@ div.citbibl {
 .nav-link {
   padding: 0 10px !important;
 }
+
+.navbar-dropdown {
+  position: absolute;
+}
+
