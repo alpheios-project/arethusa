@@ -1,7 +1,19 @@
 <div class="small-6 columns">
-  <div class="button-group">
-    <span class="right button micro radius" ng-click="reset()">Reset</span>
-    <span class="right button micro radius" ng-click="save()">Save</span>
+  <ul class="button-group right">
+    <li>
+      <span
+        class="button micro radius"
+        ng-click="reset()">
+        Reset
+      </span>
+    </li>
+    <li>
+      <span
+        class="button micro radius"
+        ng-click="save()">
+        Save
+      </span>
+    </li>
   </div>
 </div>
 
@@ -13,7 +25,12 @@
     <label class="right">Lemma</label>
   </div>
   <div class="small-9 columns">
-    <input class="compact" type="text" ng-model="form.lemma"></input>
+    <input
+      class="compact"
+      type="text"
+      required
+      ng-model="form.lemma">
+    </input>
   </div>
 </div>
 </div>
@@ -30,6 +47,7 @@
   <div class="small-9 columns">
     <select
       class="compact"
+      required
       ng-model="form.attributes[attr]"
       ng-options="options[key].long for key in options | keys"
       ng-change="m.updatePostag(form, attr, form.attributes[attr])">
