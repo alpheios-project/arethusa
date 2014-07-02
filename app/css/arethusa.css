@@ -385,3 +385,7 @@ div.citbibl {
   pointer-events: none;
   opacity: 0.4;
 }
+
+.nav-link {
+  padding: 0 10px !important;
+}
