@@ -455,3 +455,11 @@ input.compact {
   border-color: rgb(255, 100, 100);
   transition: background-color 700ms ease-in-out;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+.center {
+  text-align: center;
+}
