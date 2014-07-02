@@ -4,34 +4,29 @@ angular.module('arethusa.morph').directive('formSelector', function () {
     restrict: 'A',
     link: function(scope, element, attrs) {
       var id = scope.id;
-      var form = scope.form;
-
-      scope.isSelected = function() {
-        return scope.plugin.isFormSelected(id, form);
-      };
-
-      scope.text = function () {
-        return scope.isSelected() ? 'D' : 'S';
-      };
 
       function action(event) {
         event.stopPropagation();
         scope.$apply(function() {
-          if (scope.isSelected()) {
+          if (scope.form.selected) {
             scope.plugin.unsetState(id);
           } else {
-            scope.plugin.setState(id, form);
+            scope.plugin.setState(id, scope.form);
           }
         });
       }
+
+      scope.$watch('form.selected', function(newVal, oldVal) {
+        scope.text = newVal ? 'D' : 'S';
+      });
 
       element.bind('click', action);
     },
     template: '\
       <span\
         class="button micro radius"\
-        ng-class="{success: isSelected()}">\
-         {{ text() }}\
+        ng-class="{ success: form.selected }">\
+         {{ text }}\
       </span>\
     '
   };
