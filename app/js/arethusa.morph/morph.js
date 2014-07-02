@@ -250,7 +250,7 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     function deselectAll(id) {
-      angular.forEach(self.analyses[id], function(form, i) {
+      angular.forEach(self.analyses[id].forms, function(form, i) {
         form.selected = false;
       });
     }
@@ -258,14 +258,14 @@ angular.module('arethusa.morph').service('morph', [
     this.setState = function (id, form) {
       deleteFromIndex(id);
       addToIndex(form, id);
-      deselectAll();
+      deselectAll(id);
       form.selected = true;
       state.addStyle(id, self.styleOf(form));
       state.setState(id, 'morphology', form);
     };
     this.unsetState = function (id) {
       deleteFromIndex(id);
-      deselectAll();
+      deselectAll(id);
       state.unsetStyle(id);
       state.unsetState(id, 'morphology');
     };
