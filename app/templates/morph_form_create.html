@@ -7,13 +7,15 @@
 
 <div delimiter/>
 
+<div class="row">
 <div class="small-12 columns">
   <div class="small-3 columns">
     <label class="right">Lemma</label>
   </div>
   <div class="small-9 columns">
-    <input type="text" ng-model="form.lemma"></input>
+    <input class="compact" type="text" ng-model="form.lemma"></input>
   </div>
+</div>
 </div>
 
 <div
@@ -27,6 +29,7 @@
 
   <div class="small-9 columns">
     <select
+      class="compact"
       ng-model="form.attributes[attr]"
       ng-options="options[key].long for key in options | keys"
       ng-change="m.updatePostag(form, attr, form.attributes[attr])">
