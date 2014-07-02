@@ -119,6 +119,7 @@ angular.module('arethusa.morph').service('morph', [
       if (analysis && postagNotEmpty(analysis.postag)) {
         self.postagToAttributes(analysis);
         analysis.origin = 'document';
+        analysis.selected = true;
         val.forms.push(analysis);
         state.addStyle(id, self.styleOf(analysis));
       }
@@ -248,14 +249,23 @@ angular.module('arethusa.morph').service('morph', [
       return self.attributeValueObj(styler, styleVal).style;
     };
 
+    function deselectAll(id) {
+      angular.forEach(self.analyses[id], function(form, i) {
+        form.selected = false;
+      });
+    }
+
     this.setState = function (id, form) {
       deleteFromIndex(id);
       addToIndex(form, id);
+      deselectAll();
+      form.selected = true;
       state.addStyle(id, self.styleOf(form));
       state.setState(id, 'morphology', form);
     };
     this.unsetState = function (id) {
       deleteFromIndex(id);
+      deselectAll();
       state.unsetStyle(id);
       state.unsetState(id, 'morphology');
     };
