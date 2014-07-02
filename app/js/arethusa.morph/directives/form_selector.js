@@ -17,7 +17,8 @@ angular.module('arethusa.morph').directive('formSelector', function () {
       }
 
       scope.$watch('form.selected', function(newVal, oldVal) {
-        scope.text = newVal ? 'D' : 'S';
+        scope.iconClass = newVal ? 'minus' : 'plus';
+        scope.title     = newVal ? 'deselect' : 'select';
       });
 
       element.bind('click', action);
@@ -25,8 +26,9 @@ angular.module('arethusa.morph').directive('formSelector', function () {
     template: '\
       <span\
         class="button micro radius"\
+        title="{{ title }}"\
         ng-class="{ success: form.selected }">\
-         {{ text }}\
+          <i class="fi-{{ iconClass }}"></i>\
       </span>\
     '
   };
