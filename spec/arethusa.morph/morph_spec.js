@@ -289,4 +289,14 @@ describe("morph", function() {
       expect(cA['01'].forms).toEqual([f1]);
     });
   });
+
+  describe('this.removeForm', function() {
+    it('removes a form', function() {
+      var f1 = state.getToken('01').morphology;
+      expect(morph.analyses['01'].forms).toEqual([f1]);
+
+      morph.removeForm('01', f1);
+      expect(morph.analyses['01'].forms).toEqual([]);
+    });
+  });
 });

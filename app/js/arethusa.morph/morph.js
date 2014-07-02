@@ -249,6 +249,12 @@ angular.module('arethusa.morph').service('morph', [
       return self.attributeValueObj(styler, styleVal).style;
     };
 
+    this.removeForm = function(id, form) {
+      var forms = self.analyses[id].forms;
+      var i = forms.indexOf(form);
+      forms.splice(i, 1);
+    };
+
     function deselectAll(id) {
       angular.forEach(self.analyses[id].forms, function(form, i) {
         form.selected = false;
