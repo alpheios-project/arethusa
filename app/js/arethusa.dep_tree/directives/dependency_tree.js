@@ -276,19 +276,42 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         renderer.transition(transition);
 
         // Prepend Tree settings panel
-        scope.settingOn = false;
+        scope.settingsOn = false;
         element.wrap('<div></div>');
         var wrapper = element.parent();
+
+        // We temporarily disable the fine-grained tree settings - they are a
+        // little buggy.
+            //<span title="rankSep" tree-setting="rankSep"></span>&nbsp;\
+            //<span title="edgeSep" tree-setting="edgeSep"></span>&nbsp;\
+            //<span title="nodeSep" tree-setting="nodeSep"></span>&nbsp;\
+        scope.classForIcon = function() {
+          return scope.settingsOn ? 'settings-triggered' : 'settings-trigger';
+        };
+
         var panel = '\
-          <div ng-click="settingOn = !settingOn"><i class="fi-widget"/></div>\
-          <div ng-show="settingOn">\
-            <span title="rankSep" tree-setting="rankSep"></span>&nbsp;\
-            <span title="edgeSep" tree-setting="edgeSep"></span>&nbsp;\
-            <span title="nodeSep" tree-setting="nodeSep"></span>&nbsp;\
-            <span class="label radius tiny" ng-click="compactTree()">compact</span>&nbsp;\
-            <span class="label radius tiny" ng-click="wideTree()">wide</span>&nbsp;\
-            <span class="label radius tiny" ng-click="changeDir()">change direction</span>\
-         </div>\
+          <div ng-click="settingsOn = !settingsOn">\
+            <i title="Settings" class="fi-widget" ng-class="classForIcon()"/>\
+          </div>\
+          <span ng-show="settingsOn">\
+            <ul class="button-group">\
+              <li>\
+                <span title="compact tree" class="button radius tiny" ng-click="compactTree()">\
+                  <i class="fi-arrows-in"></i>\
+                </span>\
+              </li>\
+              <li>\
+                <span title="widen tree" class="button radius tiny" ng-click="wideTree()">\
+                  <i class="fi-arrows-out"></i>\
+                </span>\
+              </li>\
+              <li>\
+                <span title="change direction" class="button radius tiny" ng-click="changeDir()">\
+                  <i class="fi-loop"></i>\
+                </span>\
+              </li>\
+            </ul>\
+         </span>\
         ';
         wrapper.prepend($compile(panel)(scope));
 
