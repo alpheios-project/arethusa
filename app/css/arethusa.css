@@ -394,6 +394,20 @@ div.citbibl {
 
 .accordion-selected {
   background-color: rgb(235, 255, 235) !important;
+  transition: background-color 300ms ease-in-out;
+}
+
+.accordion-selected:hover {
+  background-color: rgb(199, 226, 199) !important;
+  transition: background-color 300ms ease-in-out;
+}
+
+.accordion dd > a:hover {
+  transition: background-color 300ms ease-in-out;
+}
+
+.accordion dd > a {
+  transition: background-color 300ms ease-in-out;
 }
 
 .settings-trigger:hover {
