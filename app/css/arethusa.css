@@ -390,6 +390,12 @@ div.citbibl {
   position: absolute;
 }
 
+/*Morphology related*/
+
+.accordion-selected {
+  background-color: rgb(235, 255, 235) !important;
+}
+
 .settings-trigger:hover {
   animation: rotate-forward 1s;
   -webkit-animation: rotate-forward 1s;

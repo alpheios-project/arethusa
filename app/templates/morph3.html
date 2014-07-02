@@ -8,26 +8,26 @@
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
   <div class="small-12 columns" lang-specific>
     <p token-with-id value="analysis.string" token-id="id"/>
+    <accordion close-others="oneAtATime">
+      <accordion-group ng-repeat="form in analysis.forms">
+        <accordion-heading>
+          <div class="row" accordion-highlighter>
+            <div class="columns large-3 small-5 left text">
+              <span ng-style="plugin.styleOf(form)" lang-specific>{{ form.lemma }}
+              <br>
+              </span> {{ plugin.concatenatedAttributes(form) }}
+            </div>
+            <div class="columns large-4 small-5 text">{{ form.postag }}</div>
+            <div class="columns large-1 hide-for-small hide-for-medium note">{{ form.origin }}</div>
+            <div form-selector class="columns large-2 small-2 right end"></div>
+          </div>
+          <hr class="small">
+        </accordion-heading>
+        <div class="small-12 columns" morph-form-attributes="form" token-id="id"></div>
+        <p class="small-12 columns"/>
+        <hr>
+    </accordion>
   </div>
-  <accordion close-others="oneAtATime">
-    <accordion-group ng-repeat="form in analysis.forms" >
-      <accordion-heading>
-         <div class="row">
-           <div class="columns large-3 small-5 left text">
-             <span ng-style="plugin.styleOf(form)" lang-specific>{{ form.lemma }}
-             <br>
-             </span> {{ plugin.concatenatedAttributes(form) }}
-           </div>
-           <div class="columns large-4 small-5 text">{{ form.postag }}</div>
-           <div class="columns large-1 hide-for-small hide-for-medium note">{{ form.origin }}</div>
-           <div form-selector class="columns large-2 small-2 right end"></div>
-         </div>
-      <hr class="small">
-      </accordion-heading>
-      <div class="small-12 columns" morph-form-attributes="form" token-id="id"></div>
-      <p class="small-12 columns"/>
-      <hr>
-  </accordion>
   <div ng-if="plugin.canEdit()">
     <div class="small-6 columns">
       <button reveal-toggle="mfc{{ id }}" class="micro radius">Create new form</button>
