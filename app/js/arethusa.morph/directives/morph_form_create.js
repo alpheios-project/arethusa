@@ -3,7 +3,7 @@
 angular.module('arethusa.morph').directive('morphFormCreate', [
   'morph',
   '$timeout',
-    function(morph, $timeout) {
+  function(morph, $timeout) {
     return {
       restrict: 'E',
       scope: {
