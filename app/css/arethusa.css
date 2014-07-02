@@ -394,3 +394,32 @@ div.citbibl {
   position: absolute;
 }
 
+.settings-trigger:hover {
+  animation: rotate-forward 1s;
+  -webkit-animation: rotate-forward 1s;
+}
+
+.settings-triggered:hover {
+  animation: rotate-backward 1s;
+  -webkit-animation: rotate-backward 1s;
+}
+
+@keyframes rotate-forward {
+    0% { transform: rotate(  0deg) }
+  100% { transform: rotate(360deg) }
+}
+
+@-webkit-keyframes rotate-forward {
+    0% { -webkit-transform: rotate(  0deg) }
+  100% { -webkit-transform: rotate(360deg) }
+}
+
+@keyframes rotate-backward{
+    0% { transform: rotate(   0deg) }
+  100% { transform: rotate(-360deg) }
+}
+
+@-webkit-keyframes rotate-backward {
+    0% { -webkit-transform: rotate(   0deg) }
+  100% { -webkit-transform: rotate(-360deg) }
+}

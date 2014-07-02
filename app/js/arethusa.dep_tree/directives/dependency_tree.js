@@ -285,9 +285,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             //<span title="rankSep" tree-setting="rankSep"></span>&nbsp;\
             //<span title="edgeSep" tree-setting="edgeSep"></span>&nbsp;\
             //<span title="nodeSep" tree-setting="nodeSep"></span>&nbsp;\
+        scope.classForIcon = function() {
+          return scope.settingsOn ? 'settings-triggered' : 'settings-trigger';
+        };
+
         var panel = '\
           <div ng-click="settingsOn = !settingsOn">\
-            <i title="Settings" class="fi-widget"/>\
+            <i title="Settings" class="fi-widget" ng-class="classForIcon()"/>\
           </div>\
           <span ng-show="settingsOn">\
             <ul class="button-group">\
