@@ -29,25 +29,24 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
         var conf = configurator.configurationFor('navbar');
 
         var win = angular.element($window);
-        var windowSize;
 
         function setScreenValues() {
-          setWindowSize();
+          setWindowWidth();
           setLogo();
         }
 
-        function setWindowSize() {
-          windowSize = win.width();
+        function setWindowWidth() {
+          scope.windowWidth = win.width();
         }
 
         function setLogo() {
-          var icon = windowSize > 1000 ? '' : 'icon-';
+          var icon = scope.windowWidth > 1000 ? '' : 'icon-';
           scope.logo = "css/arethusa-" + icon + "small.png";
         }
 
         function isVisible(threshold, defaultVal) {
           if (defaultVal) {
-            return windowSize > threshold;
+            return scope.windowWidth > threshold;
           }
         }
 
