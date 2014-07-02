@@ -451,8 +451,8 @@ input.compact {
 }
 
 .error {
-  background-color: rgb(255, 100, 100);
-  border-color: rgb(255, 100, 100);
+  background-color: #D3414D;
+  border-color: #D3414D;
   transition: background-color 700ms ease-in-out;
 }
 
