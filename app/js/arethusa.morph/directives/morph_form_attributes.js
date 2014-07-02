@@ -3,8 +3,7 @@
 angular.module('arethusa.morph').directive('morphFormAttributes', [
   'morph',
   '$document',
-  'state',
-  function(morph, $document, state) {
+  function(morph, $document) {
     return {
       restrict: 'A',
       scope: {
