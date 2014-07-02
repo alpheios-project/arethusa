@@ -36,15 +36,17 @@ angular.module('arethusa.morph').service('morph', [
       }
     }
 
-    this.seedAnalyses = function (tokens) {
-      return arethusaUtil.inject({}, tokens, function (obj, id, token) {
-        obj[id] = {
-          string: token.string,
-          forms: [],
-          analyzed: false
-        };
+    function Forms(string) {
+      this.string = string;
+      this.forms  = [];
+      this.analyzed = false;
+    }
+
+    function seedAnalyses() {
+      return arethusaUtil.inject({}, state.tokens, function (obj, id, token) {
+        obj[id] = new Forms(token.string);
       });
-    };
+    }
 
     this.postagToAttributes = function (form) {
       var attrs = {};
@@ -172,9 +174,8 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     function loadInitalAnalyses() {
-      var analyses = self.seedAnalyses(state.tokens);
       if (self.noRetrieval !== "all") {
-        angular.forEach(analyses, function (val, id) {
+        angular.forEach(self.analyses, function (val, id) {
           self.getAnalysisFromState(val, id);
           if (self.noRetrieval !== "online") {
             self.getExternalAnalyses(val, id);
@@ -183,7 +184,6 @@ angular.module('arethusa.morph').service('morph', [
           self.resetCustomForm(val);
         });
       }
-      return analyses;
     }
 
     self.resetCustomForm = function(val) {
@@ -339,7 +339,8 @@ angular.module('arethusa.morph').service('morph', [
     this.init = function () {
       configure();
       self.emptyPostag = createEmptyPostag();
-      self.analyses = loadInitalAnalyses();
+      self.analyses = seedAnalyses();
+      loadInitalAnalyses();
       createSearchIndex();
     };
   }
