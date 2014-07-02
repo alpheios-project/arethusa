@@ -270,10 +270,6 @@ angular.module('arethusa.morph').service('morph', [
       state.unsetState(id, 'morphology');
     };
 
-    this.isFormSelected = function (id, form) {
-      return state.tokens[id].morphology == form;
-    };
-
     this.dependenciesOf = function (attr) {
       return self.selectAttribute(attr).dependencies;
     };

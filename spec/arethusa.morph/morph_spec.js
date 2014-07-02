@@ -242,18 +242,6 @@ describe("morph", function() {
     });
   });
 
-  describe('this.isFormSelected', function() {
-    it('checks if a form is currently selected as correct morphological analyses', function() {
-      var form = state.getToken('01').morphology;
-      expect(morph.isFormSelected('01', form)).toBeTruthy();
-    });
-
-    it("doesn't create false positives", function() {
-      var form = state.getToken('01').morphology;
-      expect(morph.isFormSelected('02', form)).toBeFalsy();
-    });
-  });
-
   describe('this.concatenatedAttributes', function() {
     it('returns a concatenated string of all attributes (short representation), joined by a dot', function() {
       var f1 = state.getToken('01').morphology;
