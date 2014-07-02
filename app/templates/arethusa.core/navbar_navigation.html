@@ -1,0 +1,72 @@
+<ul ng-show="showNavigation()">
+  <li>
+    <a>{{ navStat.citation }}</a>
+  </li>
+  <!--The wrapping divs around the a elements are only there for styling - the-->
+  <!--foundation topbar gives them a differnet look and feel when they are wrapped.-->
+  <li>
+    <div>
+      <a
+        class="nav-link"
+        title="go to first"
+        ng-click="goToFirst()"
+        ng-class="{ disabled: !navStat.hasPrev }">
+        <i class="fi-previous"></i>
+      </a>
+    </div>
+  </li>
+  <li>
+  <div>
+    <a
+      class="nav-link"
+      title="go to previous"
+      ng-click="prev()"
+      ng-class="{ disabled: !navStat.hasPrev }">
+      <i class="fi-arrow-left"></i>
+    </a>
+  </div>
+  </li>
+  <li>
+    <div>
+      <ul class="navigation">
+        <li>
+          <a>
+            {{ navStat.currentId }}
+          </a>
+          <ul>
+            <div class="navigation-menu small-12 large-12 columns">
+              <div>
+                <form ng-submit="goTo(goToLocation)">
+                  <input class="inline" type="text" ng-model="goToLocation"/>
+                </form>
+              </div>
+              <div><a sentence-list>List</a></div>
+            </div>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </li>
+  <li>
+    <div>
+      <a
+        class="nav-link"
+        title="go to next"
+        ng-click="next()"
+        ng-class="{ disabled: !navStat.hasNext }">
+        <i class="fi-arrow-right"></i>
+    </a>
+  </div>
+  </li>
+  <li>
+    <div>
+      <a
+        class="nav-link"
+        title="go to last"
+        ng-click="goToLast()"
+        ng-class="{ disabled: !navStat.hasNext }">
+        <i class="fi-next"></i>
+      </a>
+    </div>
+  </li>
+</ul>

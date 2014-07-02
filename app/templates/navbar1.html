@@ -2,72 +2,14 @@
   <nav class="top-bar" data-topbar>
     <ul class="title-area">
       <li class="name">
-        <h1><a href="#"><img ng-src="{{$scope.baseurl + 'css/arethusa.png'}}"/></a></h1>
+      <h1><a href="#"><img ng-src="{{ logo }}"/></a></h1>
       </li>
     </ul>
     <section class="top-bar-section">
-      <ul ng-show="showSearch()" class="left" ng-controller="SearchCtrl">
-        <li class="has-form">
-          <div class="row collapse">
-            <div class="large-9 small-10 columns">
-              <form ng-submit="search()">
-                <input type="text" ng-model="query" placeholder="Search for text...">
-              </form>
-            </div>
-            <div class="large-3 small-2 columns">
-              <button class="alert button expand" ng-click="search()">Search</button>
-            </div>
-          </div>
-        </li>
-      </ul>
-      <ul ng-show="showNavigation()" ng-controller="NavigatorCtrl">
-        <li>
-          <a>{{ navStat.citation }}</a>
-        </li>
-        <li>
-          <div><a ng-click="goToFirst()">&#8676;</a></div>
-        </li>
-        <li>
-          <div ng-if="navStat.hasPrev"><a ng-click="prev()">&laquo;</a></div>
-        </li>
-        <li>
-          <div>
-            <ul class="navigation">
-              <li>
-                <a>
-                  {{ navStat.currentId }}
-                </a>
-                <ul>
-                  <div class="navigation-menu small-12 large-12 columns">
-                    <div>
-                      <form ng-submit="goTo(goToLocation)">
-                        <input class="inline" type="text" ng-model="goToLocation"/>
-                      </form>
-                    </div>
-                    <div><a sentence-list>List</a></div>
-                  </div>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div ng-if="navStat.hasNext"><a ng-click="next()">&raquo;</a></div>
-        </li>
-        <li>
-          <div><a ng-click="goToLast()">&#8677;</a></div>
-        </li>
-      </ul>
-      <ul ng-show="showNotifier()">
-        <span current-message/>
-      </ul>
-      <ul class="has-form button-group right">
-        <li><a class="button" title="Save" saver><i class="fi-save"/></a></li>
-        <li><a class="button" sidepanel-folder/></li>
-        <li><a class="button" title="Deselect all" deselector><i class="fi-unlock"/></a></li>
-        <li><a class="button" title="Messages" context-menu menu-id="all-messages" menu-trigger="click"><i class="fi-mail"/></a></li>
-        <li><a class="button" title="Contact us" id="uservoicebutton" data-uv-trigger="contact"><i class="fi-comment"/></a></li>
-      </ul>
+      <ul navbar-search/>
+      <ul navbar-navigation/>
+      <ul navbar-notifier/>
+      <ul navbar-buttons>
     </section>
   </nav>
 </div>

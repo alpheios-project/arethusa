@@ -20,22 +20,52 @@
  */
 angular.module('arethusa.core').directive('arethusaNavbar', [
   'configurator',
-  function (configurator) {
+  '$window',
+  function (configurator, $window) {
     return {
       restrict: 'AE',
       scope: true,
       link: function (scope, element, attrs) {
         var conf = configurator.configurationFor('navbar');
+
+        var win = angular.element($window);
+
+        function setScreenValues() {
+          setWindowWidth();
+          setLogo();
+        }
+
+        function setWindowWidth() {
+          scope.windowWidth = win.width();
+        }
+
+        function setLogo() {
+          var icon = scope.windowWidth > 1000 ? '' : 'icon-';
+          scope.logo = "css/arethusa-" + icon + "small.png";
+        }
+
+        function isVisible(threshold, defaultVal) {
+          if (defaultVal) {
+            return scope.windowWidth > threshold;
+          }
+        }
+
+        setScreenValues();
+        win.on('resize', setScreenValues);
+
         scope.template = conf.template;
         scope.disable = conf.disable;
+
         scope.showSearch = function () {
           return conf.search;
         };
+
         scope.showNavigation = function () {
           return conf.navigation;
         };
+
         scope.showNotifier = function () {
-          return conf.notifier;
+          return isVisible(1200, conf.notifier);
         };
 
         // Foundation's topbar doesn't seem to work properly - could be an issue
@@ -43,7 +73,7 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
         // is added. We do it manually through this directive.
         angular.element(document.body).css({ padding: '45px'});
       },
-      template: '<div ng-if="! disable" ng-include="template"></div>'
+      template: '<div ng-if="!disable" ng-include="template"></div>'
     };
   }
 ]);

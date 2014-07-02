@@ -378,3 +378,19 @@ div.citbibl {
 .fade.in {
   opacity: 1;
 }
+
+/*Topbar*/
+.top-bar a.disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.nav-link {
+  padding: 0 10px !important;
+}
+
+.navbar-dropdown {
+  position: absolute;
+}
+
