@@ -291,7 +291,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         var panel = '\
           <div ng-click="settingsOn = !settingsOn">\
-            <i title="Settings" class="fi-widget" ng-class="classForIcon()"/>\
+            <i title="Settings" class="fi-widget clickable" ng-class="classForIcon()"/>\
           </div>\
           <span ng-show="settingsOn">\
             <ul class="button-group">\
