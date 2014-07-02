@@ -9,13 +9,15 @@
       <ul ng-show="showSearch()" class="left" ng-controller="SearchCtrl">
         <li class="has-form">
           <div class="row collapse">
-            <div class="large-9 small-10 columns">
+            <div class="large-10 small-10 columns">
               <form ng-submit="search()">
-                <input type="text" ng-model="query" placeholder="Search for text...">
+                <input type="text" ng-model="query" placeholder="Search for documents...">
               </form>
             </div>
-            <div class="large-3 small-2 columns">
-              <button class="alert button expand" ng-click="search()">Search</button>
+            <div class="large-2 small-2 columns">
+              <button class="alert button expand" ng-click="search()">
+                <i class="fi-magnifying-glass"></i>
+              </button>
             </div>
           </div>
         </li>
