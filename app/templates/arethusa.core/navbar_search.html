@@ -1,0 +1,16 @@
+<ul ng-show="showSearch()">
+  <li class="has-form">
+    <div class="row collapse">
+      <div class="large-10 small-10 columns">
+        <form ng-submit="search()">
+          <input type="text" ng-model="query" placeholder="Search for documents...">
+        </form>
+      </div>
+      <div class="large-2 small-2 columns">
+        <button class="alert button expand" ng-click="search()">
+          <i class="fi-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
+  </li>
+</ul>
