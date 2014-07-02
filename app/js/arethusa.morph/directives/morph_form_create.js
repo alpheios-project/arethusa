@@ -2,7 +2,8 @@
 
 angular.module('arethusa.morph').directive('morphFormCreate', [
   'morph',
-    function(morph) {
+  '$timeout',
+    function(morph, $timeout) {
     return {
       restrict: 'E',
       scope: {
@@ -44,14 +45,28 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         }
 
         scope.reset = function() {
+          scope.resetAlert();
           morph.resetCustomForm(scope.token);
         };
 
-        scope.save = function() {
-          cleanUpAttributes();
-          addOrigin();
-          addForm();
-          scope.reset();
+        scope.resetAlert = function() {
+          scope.alert = false;
+        };
+
+        scope.formError = {
+          msg: 'Cannot save an incomplete form',
+          type: 'error'
+        };
+
+        scope.save = function(valid) {
+          if (valid) {
+            cleanUpAttributes();
+            addOrigin();
+            addForm();
+            scope.reset();
+          } else {
+            scope.alert = true;
+          }
         };
 
         // At the point of saving we have undefined values around in the

@@ -450,3 +450,8 @@ input.compact {
   padding: 0.3rem;
 }
 
+.error {
+  background-color: rgb(255, 100, 100);
+  border-color: rgb(255, 100, 100);
+  transition: background-color 700ms ease-in-out;
+}
