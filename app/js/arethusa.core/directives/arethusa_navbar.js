@@ -59,6 +59,8 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
           return isVisible(1200, conf.notifier);
         };
 
+        scope.logo = 'css/arethusa-small.png';
+
         // Foundation's topbar doesn't seem to work properly - could be an issue
         // with angular. If we make it fixed, it overlaps our body and no padding
         // is added. We do it manually through this directive.
