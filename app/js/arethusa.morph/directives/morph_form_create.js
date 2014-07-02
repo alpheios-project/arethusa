@@ -7,7 +7,8 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
     return {
       restrict: 'E',
       scope: {
-        token: '=morphToken'
+        token: '=morphToken',
+        id: '=morphId'
       },
       link: function (scope, element, attrs) {
         var inArray = arethusaUtil.isIncluded;
@@ -83,7 +84,9 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         }
 
         function addForm() {
-          scope.forms.push(angular.copy(scope.form));
+          var newForm = angular.copy(scope.form);
+          scope.forms.push(newForm);
+          morph.setState(scope.id, newForm);
         }
 
         scope.$watch('form.attributes', function (newVal, oldVal) {
