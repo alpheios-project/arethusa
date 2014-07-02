@@ -111,7 +111,7 @@ angular.module('arethusa.morph').service('morph', [
     // Once we have all information we need, the plugin also tries to
     // write back style information to the state object, e.g. to colorize
     // tokens according to their Part of Speech value.
-    this.getAnalysisFromState = function (val, id) {
+    function getAnalysisFromState (val, id) {
       var analysis = state.tokens[id].morphology;
       // We could always have no analysis sitting in the data we are
       // looking at - no data also means that the postag is an empty
@@ -123,13 +123,13 @@ angular.module('arethusa.morph').service('morph', [
         val.forms.push(analysis);
         state.addStyle(id, self.styleOf(analysis));
       }
-    };
+    }
 
     function postagNotEmpty(postag) {
       return postag && !postag.match(/^-*$/);
     }
 
-    var mapAttributes = function (attrs) {
+    function mapAttributes(attrs) {
       // We could use inject on attrs directly, but this wouldn't give us
       // the correct order of properties inside the newly built object.
       // Let's iterate over the postag schema for to guarantee it.
@@ -148,7 +148,7 @@ angular.module('arethusa.morph').service('morph', [
           memo[k] = obj ? obj.short : v;
         }
       });
-    };
+    }
 
     this.getExternalAnalyses = function (analysisObj, id) {
       angular.forEach(morphRetrievers, function (retriever, name) {
@@ -177,7 +177,7 @@ angular.module('arethusa.morph').service('morph', [
     function loadInitalAnalyses() {
       if (self.noRetrieval !== "all") {
         angular.forEach(self.analyses, function (val, id) {
-          self.getAnalysisFromState(val, id);
+          getAnalysisFromState(val, id);
           if (self.noRetrieval !== "online") {
             self.getExternalAnalyses(val, id);
           }
