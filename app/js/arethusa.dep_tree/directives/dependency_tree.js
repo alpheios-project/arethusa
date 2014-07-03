@@ -304,13 +304,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Prepend focus controls
         scope.focusRoot = function() {
-          var root = angular.element(node(rootId)[0]);
-          var translate = root.parents('.node').attr('transform');
-          var match = /translate\((.*),(.*)\)/.exec(translate);
-          var tX = match[1];
-          var tY = match[2];
-
-          var newX = xCenter - tX;
+          var rootPos = nodePosition(rootId);
+          var newX = xCenter - rootPos.x;
           moveGraph(newX, 20);
         };
         element.prepend($compile('<span class="clickable flash-on-hover note" ng-click="focusRoot()">Focus</span>')(scope));
@@ -322,6 +317,18 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           var h = tree.height();
           xCenter = w / 2;
           yCenter = h / 2;
+        }
+
+        function Point(x, y) {
+          this.x = x;
+          this.y = y;
+        }
+
+        function nodePosition(id) {
+          var n = angular.element(node(id)[0]);
+          var translate = n.parents('.node').attr('transform');
+          var match = /translate\((.*),(.*)\)/.exec(translate);
+          return new Point(match[1], match[2]);
         }
 
         // Prepend Tree settings panel
