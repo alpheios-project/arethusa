@@ -6,6 +6,7 @@ angular.module('arethusa.core').directive('sentenceList', [
   function($compile, navigator) {
     return {
       restrict: 'A',
+      scope: true,
       link: function(scope, element, attrs) {
         scope.n = navigator;
 
