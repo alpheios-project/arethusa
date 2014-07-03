@@ -231,10 +231,6 @@ span.right-answer {
   font-size: 0.8em;
 }
 
-.accordion dd>a {
-  padding: 0.5em;
-}
-
 .f-dropdown.content {
   padding: 0.7rem;
 }
@@ -394,6 +390,27 @@ div.citbibl {
   position: absolute;
 }
 
+/*Morphology related*/
+
+.accordion-selected {
+  background-color: rgb(235, 255, 235) !important;
+  transition: background-color 300ms ease-in-out;
+}
+
+.accordion-selected:hover {
+  background-color: rgb(199, 226, 199) !important;
+  transition: background-color 300ms ease-in-out;
+}
+
+.accordion dd > a:hover {
+  transition: background-color 300ms ease-in-out;
+}
+
+.accordion dd > a {
+  padding: 0.7rem;
+  transition: background-color 300ms ease-in-out;
+}
+
 .settings-trigger:hover {
   animation: rotate-forward 1s;
   -webkit-animation: rotate-forward 1s;
@@ -422,4 +439,32 @@ div.citbibl {
 @-webkit-keyframes rotate-backward {
     0% { -webkit-transform: rotate(   0deg) }
   100% { -webkit-transform: rotate(-360deg) }
+}
+
+select.compact {
+  height: 1.8rem;
+  padding: 0.3rem;
+}
+
+input.compact {
+  height: 1.9rem;
+  padding: 0.3rem;
+}
+
+.error {
+  background-color: #D3414D;
+  border-color: #D3414D;
+  transition: background-color 700ms ease-in-out;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.copy-cursor{
+  cursor: copy !important;
+}
+
+.center {
+  text-align: center;
 }

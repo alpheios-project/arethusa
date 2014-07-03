@@ -2,11 +2,14 @@
 
 angular.module('arethusa.morph').directive('morphFormCreate', [
   'morph',
-    function(morph) {
+  'state',
+  'notifier',
+  function(morph, state, notifier) {
     return {
       restrict: 'E',
       scope: {
-        token: '=morphToken'
+        token: '=morphToken',
+        id: '=morphId'
       },
       link: function (scope, element, attrs) {
         var inArray = arethusaUtil.isIncluded;
@@ -44,14 +47,28 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         }
 
         scope.reset = function() {
+          scope.resetAlert();
           morph.resetCustomForm(scope.token);
         };
 
-        scope.save = function() {
-          cleanUpAttributes();
-          addOrigin();
-          addForm();
-          scope.reset();
+        scope.resetAlert = function() {
+          scope.alert = false;
+        };
+
+        scope.formError = {
+          msg: 'Cannot save an incomplete form',
+          type: 'error'
+        };
+
+        scope.save = function(valid) {
+          if (valid) {
+            cleanUpAttributes();
+            addOrigin();
+            addForm();
+            scope.reset();
+          } else {
+            scope.alert = true;
+          }
         };
 
         // At the point of saving we have undefined values around in the
@@ -68,7 +85,10 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         }
 
         function addForm() {
-          scope.forms.push(angular.copy(scope.form));
+          var newForm = angular.copy(scope.form);
+          scope.forms.push(newForm);
+          morph.setState(scope.id, newForm);
+          notifier.success('Added form for ' + state.asString(scope.id));
         }
 
         scope.$watch('form.attributes', function (newVal, oldVal) {

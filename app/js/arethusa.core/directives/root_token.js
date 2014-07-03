@@ -26,11 +26,15 @@ angular.module('arethusa.core').directive('rootToken', [
         element.bind('mouseenter', function () {
           apply(function() {
             element.addClass('hovered');
+            if (changeHeads && state.hasSelections()) {
+              element.addClass('copy-cursor');
+            }
           });
         });
         element.bind('mouseleave', function () {
           apply(function() {
             element.removeClass('hovered');
+            element.removeClass('copy-cursor');
           });
         });
       }

@@ -36,15 +36,17 @@ angular.module('arethusa.morph').service('morph', [
       }
     }
 
-    this.seedAnalyses = function (tokens) {
-      return arethusaUtil.inject({}, tokens, function (obj, id, token) {
-        obj[id] = {
-          string: token.string,
-          forms: [],
-          analyzed: false
-        };
+    function Forms(string) {
+      this.string = string;
+      this.forms  = [];
+      this.analyzed = false;
+    }
+
+    function seedAnalyses() {
+      return arethusaUtil.inject({}, state.tokens, function (obj, id, token) {
+        obj[id] = new Forms(token.string);
       });
-    };
+    }
 
     this.postagToAttributes = function (form) {
       var attrs = {};
@@ -109,7 +111,7 @@ angular.module('arethusa.morph').service('morph', [
     // Once we have all information we need, the plugin also tries to
     // write back style information to the state object, e.g. to colorize
     // tokens according to their Part of Speech value.
-    this.getAnalysisFromState = function (val, id) {
+    function getAnalysisFromState (val, id) {
       var analysis = state.tokens[id].morphology;
       // We could always have no analysis sitting in the data we are
       // looking at - no data also means that the postag is an empty
@@ -117,16 +119,17 @@ angular.module('arethusa.morph').service('morph', [
       if (analysis && postagNotEmpty(analysis.postag)) {
         self.postagToAttributes(analysis);
         analysis.origin = 'document';
+        analysis.selected = true;
         val.forms.push(analysis);
         state.addStyle(id, self.styleOf(analysis));
       }
-    };
+    }
 
     function postagNotEmpty(postag) {
       return postag && !postag.match(/^-*$/);
     }
 
-    var mapAttributes = function (attrs) {
+    function mapAttributes(attrs) {
       // We could use inject on attrs directly, but this wouldn't give us
       // the correct order of properties inside the newly built object.
       // Let's iterate over the postag schema for to guarantee it.
@@ -145,7 +148,7 @@ angular.module('arethusa.morph').service('morph', [
           memo[k] = obj ? obj.short : v;
         }
       });
-    };
+    }
 
     this.getExternalAnalyses = function (analysisObj, id) {
       angular.forEach(morphRetrievers, function (retriever, name) {
@@ -172,10 +175,9 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     function loadInitalAnalyses() {
-      var analyses = self.seedAnalyses(state.tokens);
       if (self.noRetrieval !== "all") {
-        angular.forEach(analyses, function (val, id) {
-          self.getAnalysisFromState(val, id);
+        angular.forEach(self.analyses, function (val, id) {
+          getAnalysisFromState(val, id);
           if (self.noRetrieval !== "online") {
             self.getExternalAnalyses(val, id);
           }
@@ -183,7 +185,6 @@ angular.module('arethusa.morph').service('morph', [
           self.resetCustomForm(val);
         });
       }
-      return analyses;
     }
 
     self.resetCustomForm = function(val) {
@@ -248,20 +249,31 @@ angular.module('arethusa.morph').service('morph', [
       return self.attributeValueObj(styler, styleVal).style;
     };
 
+    this.removeForm = function(id, form) {
+      var forms = self.analyses[id].forms;
+      var i = forms.indexOf(form);
+      forms.splice(i, 1);
+    };
+
+    function deselectAll(id) {
+      angular.forEach(self.analyses[id].forms, function(form, i) {
+        form.selected = false;
+      });
+    }
+
     this.setState = function (id, form) {
       deleteFromIndex(id);
       addToIndex(form, id);
+      deselectAll(id);
+      form.selected = true;
       state.addStyle(id, self.styleOf(form));
       state.setState(id, 'morphology', form);
     };
     this.unsetState = function (id) {
       deleteFromIndex(id);
+      deselectAll(id);
       state.unsetStyle(id);
       state.unsetState(id, 'morphology');
-    };
-
-    this.isFormSelected = function (id, form) {
-      return state.tokens[id].morphology == form;
     };
 
     this.dependenciesOf = function (attr) {
@@ -339,7 +351,8 @@ angular.module('arethusa.morph').service('morph', [
     this.init = function () {
       configure();
       self.emptyPostag = createEmptyPostag();
-      self.analyses = loadInitalAnalyses();
+      self.analyses = seedAnalyses();
+      loadInitalAnalyses();
       createSearchIndex();
     };
   }
