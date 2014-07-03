@@ -19,6 +19,7 @@ html, body {
 
 .token {
   transition: background-color 100ms linear;
+  transition: color 900ms ease-in-out;
 }
 
 .selected {
