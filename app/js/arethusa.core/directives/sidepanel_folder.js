@@ -2,10 +2,13 @@
 
 angular.module('arethusa.core').directive('sidepanelFolder', [
   'sidepanel',
-  function(sidepanel) {
+  '$window',
+  function(sidepanel, $window) {
     return {
       scope: {},
       link: function (scope, element, attrs) {
+        var win = angular.element($window);
+
         function setIconClassAndText() {
           var icon = sidepanel.folded ? 'expand' : 'compress';
           var text = sidepanel.folded ? 'Show' : 'Fold';
@@ -22,6 +25,7 @@ angular.module('arethusa.core').directive('sidepanelFolder', [
 
         scope.$watch('sp.folded', function(newVal, oldVal) {
           setIconClassAndText();
+          win.trigger('resize');
         });
       },
       template: '<i title="{{ text }}" ng-class="iconClass"/>'
