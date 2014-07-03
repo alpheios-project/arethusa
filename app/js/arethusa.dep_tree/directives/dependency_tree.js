@@ -288,8 +288,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           .rankSep(scope.rankSep);
 
         var svg = d3.select(element[0]);
+        var treeScale = 1;
+
         svg.call(d3.behavior.zoom().on('zoom', function () {
           var ev = d3.event;
+          treeScale = ev.scale;
           svg.select('g').attr('transform', 'translate(' + ev.translate + ') scale(' + ev.scale + ')');
         }).scaleExtent([0.3, 2.5]));
         var renderer = new dagreD3.Renderer();
@@ -318,14 +321,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
 
         // Prepend focus controls
-
-        scope.perfectWidth = function() {
-          var x = parseTransformTranslate(vis);
-          console.log(x);
-          console.log(width);
-          console.log(height);
-        };
-
         function focusNode(id, offset) {
           if (id) {
             offset = offset || 20;
@@ -355,16 +350,15 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           yCenter = height / 2;
         }
 
-        function Position(x, y, scale) {
+        function Point(x, y) {
           this.x = x;
           this.y = y;
-          this.scale = scale || 1;
         }
 
         function parseTransformTranslate(node) {
           var translate = node.attr('transform');
-          var match = /translate\((.*),(.*?)\)( scale\((.*)\))?/.exec(translate);
-          return new Position(match[1], match[2], match[4]);
+          var match = /translate\((.*),(.*?)\)/.exec(translate);
+          return new Point(match[1], match[2]);
         }
 
         function nodePosition(id) {
