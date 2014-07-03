@@ -9,6 +9,7 @@ angular.module('arethusa.core').directive('greekKeys',[
           var input = event.target.value;
           var gr = keyCapture.getGreekKey(event);
           event.target.value = input + gr;
+          return false;
         });
       }
     };
