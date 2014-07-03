@@ -326,6 +326,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
 
         // Prepend focus controls
+        scope.centerGraph = function() {
+          var xPos = (width - graphSize().width) / 2;
+          moveGraph(xPos, treeMargin);
+        };
+
         scope.perfectWidth = function() {
           var gWidth  = graphSize().width;
           var targetW = width - treeMargin * 2;
@@ -467,7 +472,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           if (graphSize().width > width - treeMargin * 2) {
             scope.perfectWidth();
           } else {
-            scope.focusRoot();
+            scope.centerGraph();
           }
         }
 
