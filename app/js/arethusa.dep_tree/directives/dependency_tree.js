@@ -290,11 +290,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         var svg = d3.select(element[0]);
         var treeScale = 1;
+        var zoomer = d3.behavior.zoom();
 
-        svg.call(d3.behavior.zoom().on('zoom', function () {
+        svg.call(zoomer.on('zoom', function () {
           var ev = d3.event;
           treeScale = ev.scale;
-          svg.select('g').attr('transform', 'translate(' + ev.translate + ') scale(' + ev.scale + ')');
+          vis.attr('transform', 'translate(' + ev.translate + ') scale(' + ev.scale + ')');
         }).scaleExtent([0.3, 2.5]));
         var renderer = new dagreD3.Renderer();
 
@@ -304,12 +305,20 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         renderer.transition(transition);
 
         function moveGraph(x, y, sc) {
+          syncZoomAndDrag(x, y, sc);
           var translate = 'translate(' + x + ',' + y +' )';
-          var scale = sc? ' scale(' + sc+ ')' : '';
+          var scale = sc ? ' scale(' + sc+ ')' : '';
           vis.transition()
             .attr('transform', translate + scale)
             .duration(800)
             .ease();
+        }
+
+        // We have saved our d3 zoom behaviour in a variable. The offsets
+        // need to be updated manually when we do transformations by hand!
+        function syncZoomAndDrag(x, y, scale) {
+          zoomer.translate([x, y]);
+          zoomer.scale(scale || 1);
         }
 
         function templatePath(name) {
@@ -481,6 +490,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           moveToStart();
           createHeadWatches();
         });
+
         scope.$watch('styles', function (newVal, oldVal) {
           if (newVal !== oldVal) {
             render();
