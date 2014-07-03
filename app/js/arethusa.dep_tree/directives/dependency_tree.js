@@ -65,9 +65,10 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         //
         // The svg element is held in a variable. This is one step closer
         // to create independent subtrees (as individual g elements)!
+        var treeMargin = 15;
         var treeTemplate = '\
           <svg class="tree-canvas full-height full-width">\
-            <g transform="translate(20, 20)"/>\
+            <g transform="translate(' + treeMargin + ',' + treeMargin + ')"/>\
           </svg>\
         ';
         var tree = angular.element(treeTemplate);
@@ -320,10 +321,21 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           element.prepend($compile(el)(scope));
         }
 
+        function graphSize() {
+          return vis.node().getBBox();
+        }
+
         // Prepend focus controls
+        scope.perfectWidth = function() {
+          var gWidth  = graphSize().width;
+          var targetW = width - treeMargin * 2;
+          var scale = targetW / gWidth;
+          moveGraph(treeMargin, treeMargin, scale);
+        };
+
         function focusNode(id, offset) {
           if (id) {
-            offset = offset || 20;
+            offset = offset || treeMargin;
             var nodePos = nodePosition(id);
             var newX = xCenter - nodePos.x;
             var newY = yCenter - nodePos.y + offset;
@@ -451,9 +463,17 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         }
 
+        function moveToStart() {
+          if (graphSize().width > width - treeMargin * 2) {
+            scope.perfectWidth();
+          } else {
+            scope.focusRoot();
+          }
+        }
+
         scope.$watch('tokens', function (newVal, oldVal) {
           createGraph();
-          moveGraph(20, 20);
+          moveToStart();
           createHeadWatches();
         });
         scope.$watch('styles', function (newVal, oldVal) {
