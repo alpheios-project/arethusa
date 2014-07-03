@@ -43,7 +43,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
   'keyCapture',
   'idHandler',
   '$window',
-  function ($compile, languageSettings, keyCapture, idHandler, $window) {
+  'state',
+  function ($compile, languageSettings, keyCapture, idHandler, $window, state) {
     return {
       restrict: 'A',
       scope: {
@@ -318,7 +319,17 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         scope.focusRoot = function() {
           var rootPos = nodePosition(rootId);
           var newX = xCenter - rootPos.x;
-          moveGraph(newX, yCenter - rootPos.y);
+          moveGraph(newX, 20);
+        };
+
+        scope.focusSelection = function() {
+          var firstId = state.firstSelected();
+          if (firstId) {
+            var nodePos = nodePosition(firstId);
+            var newX = xCenter - nodePos.x;
+            var newY = 50;
+            moveGraph(newX, newY);
+          }
         };
 
         scope.focusTemplate = templatePath('focus_controls');
