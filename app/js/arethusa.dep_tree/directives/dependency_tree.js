@@ -336,13 +336,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         scope.focusTemplate = templatePath('focus_controls');
         prependTemplate('focusTemplate');
 
-        var xCenter;
-        var yCenter;
+        var height, width, xCenter, yCenter;
+
         function calculateSvgHotspots() {
-          var w = tree.width();
-          var h = tree.height();
-          xCenter = w / 2;
-          yCenter = h / 2;
+          width   = tree.width();
+          height  = tree.height();
+          xCenter = width  / 2;
+          yCenter = height / 2;
         }
 
         function Point(x, y) {
@@ -356,17 +356,16 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return new Point(match[1], match[2]);
 
         }
-
         function nodePosition(id) {
           var n = angular.element(node(id)[0]);
           return parseTransformTranslate(n.parents('.node'));
         }
-
         // Prepend Tree settings panel
         scope.settingsOn = false;
 
         // We temporarily disable the fine-grained tree settings - they are a
         // little buggy.
+
             //<span title="rankSep" tree-setting="rankSep"></span>&nbsp;\
             //<span title="edgeSep" tree-setting="edgeSep"></span>&nbsp;\
             //<span title="nodeSep" tree-setting="nodeSep"></span>&nbsp;\
