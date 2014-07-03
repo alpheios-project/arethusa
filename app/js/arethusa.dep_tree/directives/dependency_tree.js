@@ -345,27 +345,29 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           yCenter = height / 2;
         }
 
-        function Point(x, y) {
+        function Position(x, y, scale) {
           this.x = x;
           this.y = y;
+          this.scale = scale || 1;
         }
 
         function parseTransformTranslate(node) {
           var translate = node.attr('transform');
-          var match = /translate\((.*),(.*)\)/.exec(translate);
-          return new Point(match[1], match[2]);
-
+          console.log(translate);
+          var match = /translate\((.*),(.*?)\)( scale\((.*)\))?/.exec(translate);
+          return new Position(match[1], match[2], match[4]);
         }
+
         function nodePosition(id) {
           var n = angular.element(node(id)[0]);
           return parseTransformTranslate(n.parents('.node'));
         }
+
         // Prepend Tree settings panel
         scope.settingsOn = false;
 
         // We temporarily disable the fine-grained tree settings - they are a
         // little buggy.
-
             //<span title="rankSep" tree-setting="rankSep"></span>&nbsp;\
             //<span title="edgeSep" tree-setting="edgeSep"></span>&nbsp;\
             //<span title="nodeSep" tree-setting="nodeSep"></span>&nbsp;\
