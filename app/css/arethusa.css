@@ -407,6 +407,7 @@ div.citbibl {
 }
 
 .accordion dd > a {
+  padding: 0.7rem;
   transition: background-color 300ms ease-in-out;
 }
 
