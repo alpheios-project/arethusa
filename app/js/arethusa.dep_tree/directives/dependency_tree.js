@@ -72,6 +72,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           </svg>\
         ';
         var tree = angular.element(treeTemplate);
+        var viewModeFn;
 
         element.append(tree);
 
@@ -293,9 +294,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         var zoomer = d3.behavior.zoom();
 
         svg.call(zoomer.on('zoom', function () {
+          unsetViewModeFn();
           var ev = d3.event;
           treeScale = ev.scale;
-          vis.attr('transform', 'translate(' + ev.translate + ') scale(' + ev.scale + ')');
+          var val = 'translate(' + ev.translate + ') scale(' + treeScale + ')';
+          vis.attr('transform', val);
         }).scaleExtent([0.3, 2.5]));
         var renderer = new dagreD3.Renderer();
 
@@ -336,11 +339,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Prepend focus controls
         scope.centerGraph = function() {
+          setViewModeFn(scope.centerGraph);
           var xPos = (width - graphSize().width) / 2;
           moveGraph(xPos, treeMargin);
         };
 
         scope.perfectWidth = function() {
+          setViewModeFn(scope.perfectWidth);
           var gWidth  = graphSize().width;
           var targetW = width - treeMargin * 2;
           var scale = targetW / gWidth;
@@ -357,10 +362,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           }
         }
         scope.focusRoot = function() {
+          setViewModeFn(scope.focusRoot);
           focusNode(rootId);
         };
 
         scope.focusSelection = function() {
+          setViewModeFn(scope.focusSelection);
           focusNode(state.firstSelected(), 180);
         };
 
@@ -390,6 +397,20 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         function nodePosition(id) {
           var n = angular.element(node(id)[0]);
           return parseTransformTranslate(n.parents('.node'));
+        }
+
+        function applyViewMode() {
+          if (angular.isDefined(viewModeFn)) {
+            viewModeFn();
+          }
+        }
+
+        function setViewModeFn(fn) {
+          viewModeFn = fn;
+        }
+
+        function unsetViewModeFn() {
+          viewModeFn = undefined;
         }
 
         // Prepend Tree settings panel
@@ -521,7 +542,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         });
 
-        angular.element($window).on('resize', calculateSvgHotspots);
+        angular.element($window).on('resize', function() {
+          calculateSvgHotspots();
+          applyViewMode();
+        });
+
         calculateSvgHotspots();
 
         keyCapture.initCaptures(function(kC) {
