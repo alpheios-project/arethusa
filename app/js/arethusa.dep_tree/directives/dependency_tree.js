@@ -299,8 +299,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Prepend Tree settings panel
         scope.settingsOn = false;
-        element.wrap('<div></div>');
-        var wrapper = element.parent();
 
         // We temporarily disable the fine-grained tree settings - they are a
         // little buggy.
@@ -312,9 +310,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         };
 
         var panel = '\
-          <div ng-click="settingsOn = !settingsOn">\
+          <span ng-click="settingsOn = !settingsOn">\
             <i title="Settings" class="fi-widget clickable" ng-class="classForIcon()"/>\
-          </div>\
+          </span>\
           <span ng-show="settingsOn">\
             <ul class="button-group">\
               <li>\
@@ -335,7 +333,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             </ul>\
          </span>\
         ';
-        wrapper.prepend($compile(panel)(scope));
+        element.prepend($compile(panel)(scope));
 
         function insertRootDirective() {
           node(rootId).append(function() {
