@@ -42,7 +42,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
   'languageSettings',
   'keyCapture',
   'idHandler',
-  function ($compile, languageSettings, keyCapture, idHandler) {
+  '$window',
+  function ($compile, languageSettings, keyCapture, idHandler, $window) {
     return {
       restrict: 'A',
       scope: {
@@ -297,6 +298,32 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
         renderer.transition(transition);
 
+        function moveGraph(x, y) {
+          vis.attr('transform', 'translate(' + x + ',' + y +' )');
+        }
+
+        // Prepend focus controls
+        scope.focusRoot = function() {
+          var root = angular.element(node(rootId)[0]);
+          var translate = root.parents('.node').attr('transform');
+          var match = /translate\((.*),(.*)\)/.exec(translate);
+          var tX = match[1];
+          var tY = match[2];
+
+          var newX = xCenter - tX;
+          moveGraph(newX, 20);
+        };
+        element.prepend($compile('<span class="clickable flash-on-hover note" ng-click="focusRoot()">Focus</span>')(scope));
+
+        var xCenter;
+        var yCenter;
+        function calculateSvgHotspots() {
+          var w = tree.width();
+          var h = tree.height();
+          xCenter = w / 2;
+          yCenter = h / 2;
+        }
+
         // Prepend Tree settings panel
         scope.settingsOn = false;
 
@@ -312,6 +339,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         scope.panelTemplate = "templates/arethusa.dep_tree/settings.html";
         var panel = '<span ng-include="panelTemplate"/>';
         element.prepend($compile(panel)(scope));
+
 
         function insertRootDirective() {
           node(rootId).append(function() {
@@ -385,6 +413,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         scope.$watch('tokens', function (newVal, oldVal) {
           createGraph();
+          moveGraph(20, 20);
           createHeadWatches();
         });
         scope.$watch('styles', function (newVal, oldVal) {
@@ -416,6 +445,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             }
           });
         });
+
+        angular.element($window).on('resize', calculateSvgHotspots);
+        calculateSvgHotspots();
 
         keyCapture.initCaptures(function(kC) {
           return {
