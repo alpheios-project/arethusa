@@ -44,7 +44,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
   'idHandler',
   '$window',
   'state',
-  function ($compile, languageSettings, keyCapture, idHandler, $window, state) {
+  '$timeout',
+  function ($compile, languageSettings, keyCapture, idHandler, $window, state, $timeout) {
     return {
       restrict: 'A',
       scope: {
@@ -73,6 +74,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         ';
         var tree = angular.element(treeTemplate);
         var viewModeFn;
+        var transitionDuration = 700;
 
         element.append(tree);
 
@@ -303,7 +305,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         var renderer = new dagreD3.Renderer();
 
         function transition(selection) {
-          return selection.transition().duration(700);
+          return selection.transition().duration(transitionDuration);
         }
         renderer.transition(transition);
 
@@ -313,7 +315,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           var scale = sc ? ' scale(' + sc+ ')' : '';
           vis.transition()
             .attr('transform', translate + scale)
-            .duration(800)
+            .duration(transitionDuration)
             .ease();
         }
 
@@ -538,6 +540,15 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             if (newVal !== oldVal) {
               fn(newVal);
               render();
+              // We need to timeout this call. The render() function uses
+              // a transition as well. D3 transitions work with keyframes -
+              // if we call our method during the start and end frame, we
+              // will not get the values we want when we call for the size
+              // of the new graph (and all viewMode functions operate on
+              // them, because they will be built gradually against the
+              // end keyframe. We therefore wait until the end of this
+              // transition before we do the next move.
+              $timeout(applyViewMode, transitionDuration);
             }
           });
         });
