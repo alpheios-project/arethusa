@@ -60,6 +60,18 @@ angular.module('arethusa.core').service('keyCapture', [
       return [parts, keyCodes[k]];
     }
 
+    var greekKeyTable = { "a" : "α" };
+
+    this.getGreekKey = function(event) {
+      var res;
+      angular.forEach(keyCodes, function(code, key) {
+        if (code == event.keyCode) {
+          res = greekKeyTable[key];
+        }
+      });
+      return res;
+    };
+
     var keyPressedCallbacks = {};
 
     function modifiedKeyCode(event) {
