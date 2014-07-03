@@ -476,3 +476,14 @@ input.compact {
 .margined-hor-tiny {
   margin: 0 4px;
 }
+
+.flash-on-hover:hover {
+  color: dimgrey;
+  transition: color 300ms ease-out;
+}
+
+.flash-on-hover {
+  /*body color - use a variable for this later on*/
+  color: #222;
+  transition: color 500ms ease-out;
+}
