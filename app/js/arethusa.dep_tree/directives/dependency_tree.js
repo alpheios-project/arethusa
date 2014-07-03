@@ -316,20 +316,21 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
 
         // Prepend focus controls
+        function focusNode(id, offset) {
+          if (id) {
+            offset = offset || 20;
+            var nodePos = nodePosition(id);
+            var newX = xCenter - nodePos.x;
+            var newY = yCenter - nodePos.y + offset;
+            moveGraph(newX, newY);
+          }
+        }
         scope.focusRoot = function() {
-          var rootPos = nodePosition(rootId);
-          var newX = xCenter - rootPos.x;
-          moveGraph(newX, 20);
+          focusNode(rootId);
         };
 
         scope.focusSelection = function() {
-          var firstId = state.firstSelected();
-          if (firstId) {
-            var nodePos = nodePosition(firstId);
-            var newX = xCenter - nodePos.x;
-            var newY = 50;
-            moveGraph(newX, newY);
-          }
+          focusNode(state.firstSelected(), 180);
         };
 
         scope.focusTemplate = templatePath('focus_controls');
