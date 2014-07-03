@@ -299,9 +299,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
         renderer.transition(transition);
 
-        function moveGraph(x, y) {
+        function moveGraph(x, y, sc) {
+          var translate = 'translate(' + x + ',' + y +' )';
+          var scale = sc? ' scale(' + sc+ ')' : '';
           vis.transition()
-            .attr('transform', 'translate(' + x + ',' + y +' )')
+            .attr('transform', translate + scale)
             .duration(800)
             .ease();
         }
@@ -316,6 +318,14 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
 
         // Prepend focus controls
+
+        scope.perfectWidth = function() {
+          var x = parseTransformTranslate(vis);
+          console.log(x);
+          console.log(width);
+          console.log(height);
+        };
+
         function focusNode(id, offset) {
           if (id) {
             offset = offset || 20;
@@ -353,7 +363,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         function parseTransformTranslate(node) {
           var translate = node.attr('transform');
-          console.log(translate);
           var match = /translate\((.*),(.*?)\)( scale\((.*)\))?/.exec(translate);
           return new Position(match[1], match[2], match[4]);
         }
