@@ -23,6 +23,7 @@ html, body {
 
 .hovered {
   background-color: #5BC8DC;
+  transition: background-color 300ms ease-in-out;
 }
 
 .underline {
