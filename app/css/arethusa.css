@@ -8,8 +8,13 @@ html, body {
 .scrollable {
   overflow: auto;
 }
+
 .canvas-border {
   height: 20px;
+}
+
+.tree-canvas {
+  border: 1px solid rgb(216, 216, 216)
 }
 
 .selected {

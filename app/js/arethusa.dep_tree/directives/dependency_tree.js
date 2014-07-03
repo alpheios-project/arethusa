@@ -427,7 +427,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           };
         });
       },
-      template: '<svg class="full-height full-width"><g/></svg>'
+      template: '\
+        <svg class="tree-canvas full-height full-width">\
+          <g transform="translate(20, 20)"/>\
+        </svg>\
+      '
     };
   }
 ]);
