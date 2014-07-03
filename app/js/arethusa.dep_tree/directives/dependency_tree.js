@@ -346,7 +346,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return scope.settingsOn ? 'settings-triggered' : 'settings-trigger';
         };
 
-        scope.panelTemplate = "templates/arethusa.dep_tree/settings.html";
+        function templatePath(name) {
+          return "templates/arethusa.dep_tree/" + name + ".html";
+        }
+
+        scope.panelTemplate = templatePath('settings');
         var panel = '<span ng-include="panelTemplate"/>';
         element.prepend($compile(panel)(scope));
 
