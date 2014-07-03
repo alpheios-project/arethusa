@@ -309,30 +309,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return scope.settingsOn ? 'settings-triggered' : 'settings-trigger';
         };
 
-        var panel = '\
-          <span ng-click="settingsOn = !settingsOn">\
-            <i title="Settings" class="fi-widget clickable" ng-class="classForIcon()"/>\
-          </span>\
-          <span ng-show="settingsOn">\
-            <ul class="button-group">\
-              <li>\
-                <span title="compact tree" class="button radius tiny" ng-click="compactTree()">\
-                  <i class="fi-arrows-in"></i>\
-                </span>\
-              </li>\
-              <li>\
-                <span title="widen tree" class="button radius tiny" ng-click="wideTree()">\
-                  <i class="fi-arrows-out"></i>\
-                </span>\
-              </li>\
-              <li>\
-                <span title="change direction" class="button radius tiny" ng-click="changeDir()">\
-                  <i class="fi-loop"></i>\
-                </span>\
-              </li>\
-            </ul>\
-         </span>\
-        ';
+        scope.panelTemplate = "templates/arethusa.dep_tree/settings.html";
+        var panel = '<span ng-include="panelTemplate"/>';
         element.prepend($compile(panel)(scope));
 
         function insertRootDirective() {

@@ -472,3 +472,7 @@ input.compact {
 .center {
   text-align: center;
 }
+
+.margined-hor-tiny {
+  margin: 0 4px;
+}
