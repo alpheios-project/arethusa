@@ -299,7 +299,10 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         renderer.transition(transition);
 
         function moveGraph(x, y) {
-          vis.attr('transform', 'translate(' + x + ',' + y +' )');
+          vis.transition()
+            .attr('transform', 'translate(' + x + ',' + y +' )')
+            .duration(800)
+            .ease();
         }
 
         // Prepend focus controls
