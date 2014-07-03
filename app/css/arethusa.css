@@ -422,16 +422,6 @@ div.citbibl {
   transition: background-color 300ms ease-in-out;
 }
 
-.settings-trigger:hover {
-  animation: rotate-forward 1s;
-  -webkit-animation: rotate-forward 1s;
-}
-
-.settings-triggered:hover {
-  animation: rotate-backward 1s;
-  -webkit-animation: rotate-backward 1s;
-}
-
 .rotate-on-hover:hover {
   animation: rotate-forward 1s;
   -webkit-animation: rotate-forward 1s;
