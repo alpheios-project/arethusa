@@ -350,11 +350,16 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           this.y = y;
         }
 
-        function nodePosition(id) {
-          var n = angular.element(node(id)[0]);
-          var translate = n.parents('.node').attr('transform');
+        function parseTransformTranslate(node) {
+          var translate = node.attr('transform');
           var match = /translate\((.*),(.*)\)/.exec(translate);
           return new Point(match[1], match[2]);
+
+        }
+
+        function nodePosition(id) {
+          var n = angular.element(node(id)[0]);
+          return parseTransformTranslate(n.parents('.node'));
         }
 
         // Prepend Tree settings panel
