@@ -5,12 +5,11 @@ html, body {
   overflow: hidden;
 }
 
+.scrollable {
+  overflow: auto;
+}
 .canvas-border {
   height: 20px;
-}
-
-#canvas {
-  overflow-y: auto;
 }
 
 .selected {
