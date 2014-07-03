@@ -432,6 +432,11 @@ div.citbibl {
   -webkit-animation: rotate-backward 1s;
 }
 
+.rotate-on-hover:hover {
+  animation: rotate-forward 1s;
+  -webkit-animation: rotate-forward 1s;
+}
+
 @keyframes rotate-forward {
     0% { transform: rotate(  0deg) }
   100% { transform: rotate(360deg) }
