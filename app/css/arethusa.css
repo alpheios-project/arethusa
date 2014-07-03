@@ -17,13 +17,18 @@ html, body {
   border: 1px solid rgb(216, 216, 216)
 }
 
+.token {
+  transition: background-color 100ms linear;
+}
+
 .selected {
   background-color: #F6D918;
+  transition: background-color 100ms linear;
 }
 
 .hovered {
   background-color: #5BC8DC;
-  transition: background-color 300ms ease-in-out;
+  transition: background-color 200ms ease-in-out;
 }
 
 .underline {
