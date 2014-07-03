@@ -305,13 +305,24 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             .ease();
         }
 
+        function templatePath(name) {
+          return "templates/arethusa.dep_tree/" + name + ".html";
+        }
+
+        function prependTemplate(template) {
+          var el = '<span ng-include="' + template + '"/>';
+          element.prepend($compile(el)(scope));
+        }
+
         // Prepend focus controls
         scope.focusRoot = function() {
           var rootPos = nodePosition(rootId);
           var newX = xCenter - rootPos.x;
-          moveGraph(newX, 20);
+          moveGraph(newX, yCenter - rootPos.y);
         };
-        element.prepend($compile('<span class="clickable flash-on-hover note" ng-click="focusRoot()">Focus</span>')(scope));
+
+        scope.focusTemplate = templatePath('focus_controls');
+        prependTemplate('focusTemplate');
 
         var xCenter;
         var yCenter;
@@ -346,14 +357,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return scope.settingsOn ? 'settings-triggered' : 'settings-trigger';
         };
 
-        function templatePath(name) {
-          return "templates/arethusa.dep_tree/" + name + ".html";
-        }
-
         scope.panelTemplate = templatePath('settings');
-        var panel = '<span ng-include="panelTemplate"/>';
-        element.prepend($compile(panel)(scope));
-
+        prependTemplate('panelTemplate');
 
         function insertRootDirective() {
           node(rootId).append(function() {
