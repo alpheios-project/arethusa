@@ -460,6 +460,10 @@ input.compact {
   cursor: pointer;
 }
 
+.copy-cursor{
+  cursor: copy !important;
+}
+
 .center {
   text-align: center;
 }
