@@ -50,6 +50,28 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         styles: '='
       },
       link: function (scope, element, attrs) {
+        // We don't use a template in this directive on purpose and
+        // append our tree to the element. This way a view can create
+        // wrapping elements around the tree, where information about
+        // the tree can be displayed. This space is also the place
+        // where the tree settings can be triggered.
+        //
+        // It's imperative that appending the svg is the first action
+        // inside this directive, otherwise it would fail: The link
+        // function already works with this element - so it needs to be
+        // there before any other computations can be made.
+        //
+        // The svg element is held in a variable. This is one step closer
+        // to create independent subtrees (as individual g elements)!
+        var treeTemplate = '\
+          <svg class="tree-canvas full-height full-width">\
+            <g transform="translate(20, 20)"/>\
+          </svg>\
+        ';
+        var tree = angular.element(treeTemplate);
+
+        element.append(tree);
+
         var rootText = "[ROOT]";
         var rootId = idHandler.getId('0');
 
@@ -427,11 +449,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           };
         });
       },
-      template: '\
-        <svg class="tree-canvas full-height full-width">\
-          <g transform="translate(20, 20)"/>\
-        </svg>\
-      '
     };
   }
 ]);
