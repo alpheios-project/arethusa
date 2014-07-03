@@ -1,0 +1,26 @@
+<span
+  ng-click="settingsOn = !settingsOn"
+  class="clickable"
+  style="margin-right: 10px">
+  <i title="Settings" class="fi-widget" ng-class="classForIcon()"></i>
+</span>
+<span ng-show="settingsOn">
+  <span
+    class="margined-hor-tiny clickable flash-on-hover"
+    ng-click="compactTree()">
+    <i class="fi-arrows-in"></i>
+  </span>
+  <span
+    title="compact tree"
+    title="widen tree"
+    class="margined-hor-tiny clickable flash-on-hover"
+    ng-click="wideTree()">
+    <i class="fi-arrows-out"></i>
+  </span>
+  <span
+    title="change direction"
+    class="margined-hor-tiny clickable flash-on-hover"
+    ng-click="changeDir()">
+    <i class="fi-loop"></i>
+  </span>
+</span>

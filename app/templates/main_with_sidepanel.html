@@ -5,13 +5,13 @@
     <div class="canvas-border"/>
 
     <div id="canvas" class="row panel full-height" full-height>
-      <div id="main-body" class="columns small-7">
+      <div id="main-body" to-bottom class="columns small-7">
         <div ng-repeat="pl in mainPlugins">
           <plugin name="pl"/>
         </div>
       </div>
 
-      <div id="sidepanel" sidepanel class="columns small-5">
+      <div id="sidepanel" sidepanel to-bottom class="columns small-5 scrollable">
         <div id="sidepanel-resizer" resizable to-bottom></div>
         <div id="sidepanel-body">
           <tabset>

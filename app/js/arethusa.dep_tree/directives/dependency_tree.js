@@ -50,6 +50,28 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         styles: '='
       },
       link: function (scope, element, attrs) {
+        // We don't use a template in this directive on purpose and
+        // append our tree to the element. This way a view can create
+        // wrapping elements around the tree, where information about
+        // the tree can be displayed. This space is also the place
+        // where the tree settings can be triggered.
+        //
+        // It's imperative that appending the svg is the first action
+        // inside this directive, otherwise it would fail: The link
+        // function already works with this element - so it needs to be
+        // there before any other computations can be made.
+        //
+        // The svg element is held in a variable. This is one step closer
+        // to create independent subtrees (as individual g elements)!
+        var treeTemplate = '\
+          <svg class="tree-canvas full-height full-width">\
+            <g transform="translate(20, 20)"/>\
+          </svg>\
+        ';
+        var tree = angular.element(treeTemplate);
+
+        element.append(tree);
+
         var rootText = "[ROOT]";
         var rootId = idHandler.getId('0');
 
@@ -277,8 +299,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Prepend Tree settings panel
         scope.settingsOn = false;
-        element.wrap('<div></div>');
-        var wrapper = element.parent();
 
         // We temporarily disable the fine-grained tree settings - they are a
         // little buggy.
@@ -289,31 +309,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return scope.settingsOn ? 'settings-triggered' : 'settings-trigger';
         };
 
-        var panel = '\
-          <div ng-click="settingsOn = !settingsOn">\
-            <i title="Settings" class="fi-widget clickable" ng-class="classForIcon()"/>\
-          </div>\
-          <span ng-show="settingsOn">\
-            <ul class="button-group">\
-              <li>\
-                <span title="compact tree" class="button radius tiny" ng-click="compactTree()">\
-                  <i class="fi-arrows-in"></i>\
-                </span>\
-              </li>\
-              <li>\
-                <span title="widen tree" class="button radius tiny" ng-click="wideTree()">\
-                  <i class="fi-arrows-out"></i>\
-                </span>\
-              </li>\
-              <li>\
-                <span title="change direction" class="button radius tiny" ng-click="changeDir()">\
-                  <i class="fi-loop"></i>\
-                </span>\
-              </li>\
-            </ul>\
-         </span>\
-        ';
-        wrapper.prepend($compile(panel)(scope));
+        scope.panelTemplate = "templates/arethusa.dep_tree/settings.html";
+        var panel = '<span ng-include="panelTemplate"/>';
+        element.prepend($compile(panel)(scope));
 
         function insertRootDirective() {
           node(rootId).append(function() {
@@ -427,7 +425,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           };
         });
       },
-      template: '<svg class="full-height full-width"><g/></svg>'
     };
   }
 ]);

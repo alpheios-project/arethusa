@@ -1,21 +1,3 @@
-<div class="small-12 columns">
-  <span
-    class="note clickable"
-    tooltip="Click to highlight unused tokens"
-    tooltip-popup-delay="700"
-    tooltip-placement="right"
-    unused-token-highlighter>
-  </span>
-  <div class="small-6 columns"></div>
-  <div class="small-2 columns right end">
-    <span
-      class="button radius tiny right"
-      ng-show="plugin.diffPresent"
-      ng-click="plugin.toggleDiff()">
-      Toggle Diff
-    </span>
-  </div>
-</div>
 <div
   lang-specific
   dependency-tree
@@ -23,4 +5,18 @@
   styles="plugin.diffStyles()"
   to-bottom
   class="full-width">
+  <span
+    class="note clickable flash-on-hover"
+    style="margin-left: 10px"
+    tooltip="Click to highlight unused tokens"
+    tooltip-popup-delay="700"
+    tooltip-placement="right"
+    unused-token-highlighter>
+  </span>
+  <span
+    class="note clickable right flash-on-hover"
+    ng-show="plugin.diffPresent"
+    ng-click="plugin.toggleDiff()">
+    Toggle Diff
+  </span>
 </div>

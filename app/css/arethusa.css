@@ -5,12 +5,16 @@ html, body {
   overflow: hidden;
 }
 
+.scrollable {
+  overflow: auto;
+}
+
 .canvas-border {
   height: 20px;
 }
 
-#canvas {
-  overflow-y: auto;
+.tree-canvas {
+  border: 1px solid rgb(216, 216, 216)
 }
 
 .selected {
@@ -467,4 +471,19 @@ input.compact {
 
 .center {
   text-align: center;
+}
+
+.margined-hor-tiny {
+  margin: 0 4px;
+}
+
+.flash-on-hover:hover {
+  color: dimgrey;
+  transition: color 300ms ease-out;
+}
+
+.flash-on-hover {
+  /*body color - use a variable for this later on*/
+  color: #222;
+  transition: color 500ms ease-out;
 }
