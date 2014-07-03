@@ -5,6 +5,8 @@ angular.module('arethusa.core').service('keyCapture', [
   function(configurator, $rootScope) {
     var self = this;
 
+    this.grKeyTable = configurator.configurationFor('keyCapture').grKeys;
+
     this.conf = function(name) {
       var c = configurator.configurationFor('keyCapture') || {};
       return c[name] || {};
@@ -60,13 +62,11 @@ angular.module('arethusa.core').service('keyCapture', [
       return [parts, keyCodes[k]];
     }
 
-    var greekKeyTable = { "a" : "α" };
-
     this.getGreekKey = function(event) {
       var res;
       angular.forEach(keyCodes, function(code, key) {
         if (code == event.keyCode) {
-          res = greekKeyTable[key];
+          res = self.grKeyTable[key];
         }
       });
       return res;
