@@ -12,7 +12,8 @@
 angular.module('arethusa.core').factory('Resource', [
   '$resource',
   '$location',
-  function ($resource, $location) {
+  'spinner',
+  function ($resource, $location, spinner) {
     function paramsToObj(params) {
       return arethusaUtil.inject({}, params, function (obj, param, i) {
         obj[param] = $location.search()[param];
@@ -58,15 +59,23 @@ angular.module('arethusa.core').factory('Resource', [
         }
       });
 
+      function stopSpinning(req) {
+        var promise = req.$promise;
+        promise['finally'](spinner.stop);
+        return promise;
+      }
+
       this.get = function (otherParams) {
+        spinner.spin();
         var params = collectedParams(self.params, otherParams);
-        return self.resource.get(params).$promise;
+        return stopSpinning(self.resource.get(params));
       };
 
       this.save = function (data,mimetype) {
+        spinner.spin();
         var params = collectedParams(self.params,{});
         self.mimetype = mimetype;
-        return self.resource.save(params,data).$promise;
+        return stopSpinning(self.resource.save(params,data));
       };
 
     };
