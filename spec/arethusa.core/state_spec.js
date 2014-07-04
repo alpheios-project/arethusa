@@ -149,6 +149,18 @@ describe("state", function() {
     });
   });
 
+  describe('this.firstSelected', function() {
+    it('returns the id of the first selected token', function() {
+      state.selectToken('01', 'ctrl-click');
+      state.selectToken('02', 'ctrl-click');
+      expect(state.firstSelected()).toEqual('01');
+    });
+
+    it('returns undefined when nothing is selected', function() {
+      expect(state.firstSelected()).toBeUndefined();
+    });
+  });
+
   describe('this.selectNextToken', function() {
     it('watches the first active selection and selects the next token', function() {
       state.selectToken('01', 'click');

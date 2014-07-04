@@ -9,6 +9,7 @@ angular.module('arethusa.core').directive('resizable', [
         var maxSize = $window.innerWidth;
         var maxPos = maxSize - 400;
         var main = angular.element(document.getElementById('main-body'));
+        var win = angular.element($window);
 
         element.on('mousedown', function (event) {
           event.preventDefault();
@@ -38,6 +39,7 @@ angular.module('arethusa.core').directive('resizable', [
         }
 
         function mouseup() {
+          win.trigger('resize');
           $document.unbind('mousemove', mousemove);
           $document.unbind('mouseup', mouseup);
         }

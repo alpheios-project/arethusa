@@ -4,8 +4,6 @@
  * Can be used in isolation and awaits tokens passed into it, which have
  * a head.id property.
  *
- * The directive needs to be set on an svg element as attribute.
- *
  * Styling of the tree can be customized by passing a styles object as
  * attribute.
  * This object should be a dictionary of token ids with style information
@@ -33,16 +31,25 @@
  *
  * Example, given a tokens and a styles object in the current scope:
  *
- *   <svg dependency-tree tokens="tokens" styles="styles/>
+ *   <div dependency-tree tokens="tokens" styles="styles/>
+ *
+ * The element carrying the directive can contain additional html elements.
+ * They will be rendered on top of the tree's SVG canvas and are therefore
+ * a good option to add additional control elements. The directive uses this
+ * space itself and will place some span elements there.
  *
  */
+
 /* global dagreD3 */
 angular.module('arethusa.depTree').directive('dependencyTree', [
   '$compile',
   'languageSettings',
   'keyCapture',
   'idHandler',
-  function ($compile, languageSettings, keyCapture, idHandler) {
+  '$window',
+  'state',
+  '$timeout',
+  function ($compile, languageSettings, keyCapture, idHandler, $window, state, $timeout) {
     return {
       restrict: 'A',
       scope: {
@@ -50,6 +57,10 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         styles: '='
       },
       link: function (scope, element, attrs) {
+
+        // General margin value so that trees don't touch the canvas border.
+        var treeMargin = 15;
+
         // We don't use a template in this directive on purpose and
         // append our tree to the element. This way a view can create
         // wrapping elements around the tree, where information about
@@ -65,16 +76,103 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         // to create independent subtrees (as individual g elements)!
         var treeTemplate = '\
           <svg class="tree-canvas full-height full-width">\
-            <g transform="translate(20, 20)"/>\
+            <g transform="translate(' + treeMargin + ',' + treeMargin + ')"/>\
           </svg>\
         ';
         var tree = angular.element(treeTemplate);
 
-        element.append(tree);
+        // Common duration for all transitions of the graph
+        var transitionDuration = 700;
 
+
+        // Values for the synthetic root node on top of the dependency tree
         var rootText = "[ROOT]";
         var rootId = idHandler.getId('0');
 
+        // This function will be used to store special function that can move
+        // and resize the tree, such as a perfectWidth mode. If this function
+        // is set resize events of the window or direction changes of the tree
+        // will trigger it.
+        var viewModeFn;
+
+        // Will contain the dagreD3 graph, including all nodes, edges and label.
+        var g;
+
+        // The g element contained in the svg canvas.
+        var vis;
+
+        // The svg itself.
+        var svg = d3.select(element[0]);
+
+        // Introspective variables about the tree canvas
+        var height, width, xCenter, yCenter;
+
+        // d3 object responsible for zooming and dragging
+        var zoomer = d3.behavior.zoom();
+
+        // Register listener for zooming and dragging.
+        //
+        // Add scale boundaries so that a user cannot go to unreasonable
+        // zoom levels.
+        svg.call(zoomer.on('zoom', zoomAndDrag).scaleExtent([0.3, 2.5]));
+
+        // Zoom and Drag function
+        //
+        // Unsets viewModeFn: When a user wants to a focus on a particular area
+        // we don't want to use automatic resizings and movements.
+        function zoomAndDrag() {
+          unsetViewModeFn();
+          var ev, val;
+          ev  = d3.event;
+          val = 'translate(' + ev.translate + ') scale(' + ev.scale + ')';
+          vis.attr('transform', val);
+        }
+
+        // dagre renderer
+        var renderer = new dagreD3.Renderer();
+
+        // Use transitions for all movements inside the graph
+        renderer.transition(function(selection) {
+          return selection.transition().duration(transitionDuration);
+        });
+
+        // control variable for show/hide status of the tree's settings panel
+        scope.settingsOn = false;
+
+
+        // Templates to be compiled in the course of this directive
+        var rootTokenHtml = '<span root-token>' + rootText + '</span>';
+        var tokenHtml = '\
+          <span token="token"\
+            colorize="STYLE"\
+            click="true"\
+            hover="true"/>\
+        ';
+        var edgeLabelTemplate = '\
+          <span\
+           value-watch\
+           target="obj"\
+           property="label"/>\
+        ';
+
+        // Templates driven out to their own files
+        function templatePath(name) {
+          return "templates/arethusa.dep_tree/" + name + ".html";
+        }
+
+        function prependTemplate(template) {
+          var el = '<span ng-include="' + template + '"/>';
+          element.prepend($compile(el)(scope));
+        }
+
+        scope.focusTemplate = templatePath('focus_controls');
+        scope.panelTemplate = templatePath('settings');
+
+
+        // Placeholder values during the intial drawing phase of the tree.
+        // They will get replaced by fully functional directives afterwards.
+        //
+        // Needed so that properly sized boxed inside the graph are accessible.
         function rootPlaceholder() {
           return '<div id="tph' + rootId + '">' + rootText + '</div>';
         }
@@ -82,65 +180,24 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         function tokenPlaceholder(token) {
           return '<div class="node" id="tph' + token.id + '">' + token.string + '</div>';
         }
+
         function labelPlaceholder(token) {
-          //var label = generateLabel(token);
           var label = 'xxxxxxxxxxx';
           var id = token.id;
           var classes = 'text-center tree-label';
           return '<div id="' + labelId(id) + '" class="' + classes + '">' + label + '</div>';
         }
-        function generateLabel(token) {
-          return (token.relation || {}).label;
-        }
-        function tokenHasCustomStyling(token) {
-          var t = scope.styles[token.id] || {};
-          return t.token;
-        }
-        function applyTokenStyling(childScope, token) {
-          childScope.style = scope.styles[token.id].token;
-        }
-        // Right now this function is responsible for managing the label and
-        // edge colors when a custom styling is available.
+
+        // Compile functions
         //
-        // Once the relation plugin is ready, the label will be handled by
-        // a directive that is coming from there.
-        //
-        // The directive will only stay responsible for the edges.
-        //
-        // If an edge style is overridden, we safe the old value in the
-        // styleResets object. the resetEdgeStyling() function will now
-        // how to operate with this then.
-        var styleResets = {};
-        function applyCustomStyling() {
-          var edges = vis.selectAll('g.edgePath path');
-          angular.forEach(scope.styles, function (style, id) {
-            var labelStyle = style.label;
-            var edgeStyle = style.edge;
-            if (labelStyle) {
-              label(id).style(labelStyle);
-            }
-            if (edgeStyle) {
-              saveOldEdgeStyles(id, edgeStyle);
-              edge(id).style(edgeStyle);
-            }
-          });
-        }
-        function saveOldEdgeStyles(id, properties) {
-          if (properties) {
-            var e = edge(id);
-            var style = {};
-            angular.forEach(properties, function (_, property) {
-              style[property] = e.style(property);
-            });
-            styleResets[id] = style;
-          }
-        }
+        // Their return values will be inserted into
+        // the tree and replace the placeholders.
         function compiledEdgeLabel(token) {
-          var template = '<span value-watch target="obj" property="label"></span>';
           var childScope = scope.$new();
           childScope.obj = token.relation;
-          return $compile(template)(childScope)[0];
+          return $compile(edgeLabelTemplate)(childScope)[0];
         }
+
         function compiledToken(token) {
           var childScope = scope.$new();
           childScope.token = token;
@@ -164,33 +221,58 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           }
           return $compile(tokenHtml.replace('STYLE', style))(childScope)[0];
         }
-        var tokenHtml ='<span token="token" colorize="STYLE" click="true" hover="true"/>';
-        var rootTokenHtml = '<span root-token>' + rootText + '</span>';
 
-        // Creating the node set
-        // g will hold the graph and be set when new tokens are loaded,
-        // vis will be it's d3 representation
-        var g;
-        var vis;
-        function createRootNode() {
-          g.addNode(rootId, { label: rootPlaceholder() });
+        // Styling functions
+        // Responsible for formatting edges with a custom styling
+        //
+        // If an edge style is overridden, we safe the old value in the
+        // styleResets object. the resetEdgeStyling() function will now
+        // how to operate with this then.
+        function tokenHasCustomStyling(token) {
+          var t = scope.styles[token.id] || {};
+          return t.token;
         }
-        function createNode(token) {
-          g.addNode(token.id, { label: tokenPlaceholder(token) });
+
+        function applyTokenStyling(childScope, token) {
+          childScope.style = scope.styles[token.id].token;
         }
-        function nodePresent(id) {
-          return g._nodes[id];
-        }
-        function hasHead(token) {
-          return (token.head || {}).id;
-        }
-        function createEdges() {
-          angular.forEach(scope.tokens, function (token, index) {
-            if (hasHead(token)) {
-              drawEdge(token);
+
+        var styleResets = {};
+        function applyCustomStyling() {
+          var edges = vis.selectAll('g.edgePath path');
+          angular.forEach(scope.styles, function (style, id) {
+            var labelStyle = style.label;
+            var edgeStyle = style.edge;
+            if (labelStyle) {
+              label(id).style(labelStyle);
+            }
+            if (edgeStyle) {
+              saveOldEdgeStyles(id, edgeStyle);
+              edge(id).style(edgeStyle);
             }
           });
         }
+
+        function saveOldEdgeStyles(id, properties) {
+          if (properties) {
+            var e = edge(id);
+            var style = {};
+            angular.forEach(properties, function (_, property) {
+              style[property] = e.style(property);
+            });
+            styleResets[id] = style;
+          }
+        }
+
+        function resetEdgeStyling() {
+          angular.forEach(styleResets, function (style, id) {
+            edge(id).style(style);
+          });
+          styleResets = {};  // clean up, to avoid constant resetting
+        }
+
+        // Getter functions for nodes, labels, edges,  generators for
+        // properly namespaced ids and query methods for these elements.
         function edges() {
           return vis.selectAll('g.edgePath path');
         }
@@ -218,6 +300,35 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         function nodes() {
           return vis.selectAll('div.node');
         }
+        function nodePresent(id) {
+          return g._nodes[id];
+        }
+        function hasHead(token) {
+          return (token.head || {}).id;
+        }
+
+
+        // Functions to create, update and render the graph
+        //
+        // They are solely called by watches.
+        function createGraph(subtrees) {
+          g = new dagreD3.Digraph();
+          createRootNode();
+          createEdges();
+          render();
+        }
+
+        function createRootNode() {
+          g.addNode(rootId, { label: rootPlaceholder() });
+        }
+        function createNode(token) {
+          g.addNode(token.id, { label: tokenPlaceholder(token) });
+        }
+        function createEdges() {
+          angular.forEach(scope.tokens, function (token, index) {
+            if (hasHead(token)) drawEdge(token);
+          });
+        }
         function drawEdge(token) {
           if (!nodePresent(token.id)) {
             createNode(token);
@@ -233,110 +344,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           }
           drawEdge(token);
         }
-        function resetEdgeStyling() {
-          angular.forEach(styleResets, function (style, id) {
-            edge(id).style(style);
-          });
-          styleResets = {};  // clean up, to avoid constant resetting
-        }
-        function createGraph(subtrees) {
-          g = new dagreD3.Digraph();
-          createRootNode();
-          createEdges();
-          render();
-        }
-        // Initialize the graph
-        scope.compactTree = function() {
-          scope.nodeSep = 30;
-          scope.edgeSep = 10;
-          scope.rankSep = 30;
-        };
 
-        scope.wideTree = function() {
-          scope.nodeSep = 80;
-          scope.edgeSep = 5;
-          scope.rankSep = 40;
-        };
-        scope.changeDir = function() {
-          var horDir;
-          if (sortRankByIdAscending()) {
-            horDir = "RL";
-          } else {
-            horDir = "LR";
-            scope.textDirection = !scope.textDirection;
-          }
-          scope.rankDir = scope.rankDir === "BT" ? horDir : "BT";
-        };
-
-        function sortRankByIdAscending() {
-          var langSettings = languageSettings.getFor('treebank');
-          return langSettings ? langSettings.leftToRight : true;
-        }
-
-        scope.textDirection = sortRankByIdAscending();
-
-        scope.rankDir = 'BT';
-        scope.compactTree();
-
-        scope.layout = dagreD3.layout()
-          .sortRankByIdAscending(scope.textDirection)
-          .rankDir(scope.rankDir)
-          .nodeSep(scope.nodeSep)
-          .edgeSep(scope.edgeSep)
-          .rankSep(scope.rankSep);
-
-        var svg = d3.select(element[0]);
-        svg.call(d3.behavior.zoom().on('zoom', function () {
-          var ev = d3.event;
-          svg.select('g').attr('transform', 'translate(' + ev.translate + ') scale(' + ev.scale + ')');
-        }).scaleExtent([0.3, 2.5]));
-        var renderer = new dagreD3.Renderer();
-
-        function transition(selection) {
-          return selection.transition().duration(700);
-        }
-        renderer.transition(transition);
-
-        // Prepend Tree settings panel
-        scope.settingsOn = false;
-
-        // We temporarily disable the fine-grained tree settings - they are a
-        // little buggy.
-            //<span title="rankSep" tree-setting="rankSep"></span>&nbsp;\
-            //<span title="edgeSep" tree-setting="edgeSep"></span>&nbsp;\
-            //<span title="nodeSep" tree-setting="nodeSep"></span>&nbsp;\
-        scope.classForIcon = function() {
-          return scope.settingsOn ? 'settings-triggered' : 'settings-trigger';
-        };
-
-        scope.panelTemplate = "templates/arethusa.dep_tree/settings.html";
-        var panel = '<span ng-include="panelTemplate"/>';
-        element.prepend($compile(panel)(scope));
-
-        function insertRootDirective() {
-          node(rootId).append(function() {
-            this.textContent = '';
-            return $compile(rootTokenHtml)(scope)[0];
-          });
-        }
-        function insertTokenDirectives() {
-          nodes().append(function () {
-            // This is the element we append to and we created as a placeholder
-            // We clear out its text content so that we can display the content
-            // of our compiled token directive.
-            // The placholder has an id in the format of tphXXXX where XXXX is the id.
-            this.textContent = '';
-            return compiledToken(scope.tokens[this.id.slice(3)]);
-          });
-        }
-        function insertEdgeDirectives() {
-          angular.forEach(scope.tokens, function (token, id) {
-            label(id).append(function () {
-              this.textContent = '';
-              return compiledEdgeLabel(token);
-            });
-          });
-        }
         function render() {
           vis = svg.select('g');
           renderer.layout(scope.layout).run(g, vis);
@@ -362,31 +370,178 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         }
 
-        function createHeadWatches() {
+        function insertRootDirective() {
+          node(rootId).append(function() {
+            this.textContent = '';
+            return $compile(rootTokenHtml)(scope)[0];
+          });
+        }
+
+        function insertTokenDirectives() {
+          nodes().append(function () {
+            // This is the element we append to and we created as a placeholder
+            // We clear out its text content so that we can display the content
+            // of our compiled token directive.
+            // The placholder has an id in the format of tphXXXX where XXXX is the id.
+            this.textContent = '';
+            return compiledToken(scope.tokens[this.id.slice(3)]);
+          });
+        }
+
+        function insertEdgeDirectives() {
           angular.forEach(scope.tokens, function (token, id) {
-            var childScope = scope.$new();
-            childScope.token = token.id;
-            childScope.head = token.head;
-            childScope.$watch('head.id', function (newVal, oldVal) { // Very important to do here, otherwise the tree will
-              // be render a little often on startup...
-              if (newVal !== oldVal) {
-                // If a disconnection has been requested, we just
-                // have to delete the edge and do nothing else
-                if (newVal === "") {
-                  g.delEdge(token.id);
-                } else {
-                  updateEdge(token);
-                }
-                render();
-              }
+            label(id).append(function () {
+              this.textContent = '';
+              return compiledEdgeLabel(token);
             });
           });
         }
 
+        // Tree manipulations
+        //
+        // Change the trees layout, position and size
+
+        scope.compactTree = function() {
+          scope.nodeSep = 30;
+          scope.edgeSep = 10;
+          scope.rankSep = 30;
+        };
+
+        scope.wideTree = function() {
+          scope.nodeSep = 80;
+          scope.edgeSep = 5;
+          scope.rankSep = 40;
+        };
+
+        scope.changeDir = function() {
+          var horDir;
+          if (sortRankByIdAscending()) {
+            horDir = "RL";
+          } else {
+            horDir = "LR";
+            scope.textDirection = !scope.textDirection;
+          }
+          scope.rankDir = scope.rankDir === "BT" ? horDir : "BT";
+        };
+
+        scope.centerGraph = function() {
+          setViewModeFn(scope.centerGraph);
+          var xPos = (width - graphSize().width) / 2;
+          moveGraph(xPos, treeMargin);
+        };
+
+        scope.perfectWidth = function() {
+          setViewModeFn(scope.perfectWidth);
+          var gWidth  = graphSize().width;
+          var targetW = width - treeMargin * 2;
+          var scale = targetW / gWidth;
+          moveGraph(treeMargin, treeMargin, scale);
+        };
+
+        scope.focusRoot = function() {
+          setViewModeFn(scope.focusRoot);
+          focusNode(rootId);
+        };
+
+        scope.focusSelection = function() {
+          setViewModeFn(scope.focusSelection);
+          focusNode(state.firstSelected(), height / 3);
+        };
+
+        function sortRankByIdAscending() {
+          var langSettings = languageSettings.getFor('treebank');
+          return langSettings ? langSettings.leftToRight : true;
+        }
+
+        function moveGraph(x, y, sc) {
+          syncZoomAndDrag(x, y, sc);
+          var translate = 'translate(' + x + ',' + y +' )';
+          var scale = sc ? ' scale(' + sc+ ')' : '';
+          vis.transition()
+            .attr('transform', translate + scale)
+            .duration(transitionDuration)
+            .ease();
+        }
+
+        function focusNode(id, offset) {
+          if (id) {
+            offset = offset || treeMargin;
+            var nodePos = nodePosition(id);
+            var newX = xCenter - nodePos.x;
+            var newY = 0 - nodePos.y + offset;
+            moveGraph(newX, newY);
+          }
+        }
+
+        // We have saved our d3 zoom behaviour in a variable. The offsets
+        // need to be updated manually when we do transformations by hand!
+        function syncZoomAndDrag(x, y, scale) {
+          zoomer.translate([x, y]);
+          zoomer.scale(scale || 1);
+        }
+
+        function graphSize() {
+          return vis.node().getBBox();
+        }
+
+        function calculateSvgHotspots() {
+          width   = tree.width();
+          height  = tree.height();
+          xCenter = width  / 2;
+          yCenter = height / 2;
+        }
+
+        function Point(x, y) {
+          this.x = x;
+          this.y = y;
+        }
+
+        function parseTransformTranslate(node) {
+          var translate = node.attr('transform');
+          var match = /translate\((.*),(.*?)\)/.exec(translate);
+          return new Point(match[1], match[2]);
+        }
+
+        function nodePosition(id) {
+          var n = angular.element(node(id)[0]);
+          return parseTransformTranslate(n.parents('.node'));
+        }
+
+
+
+        // Functions for automated tree movements
+        function applyViewMode() {
+          if (angular.isDefined(viewModeFn)) {
+            viewModeFn();
+          }
+        }
+
+        function setViewModeFn(fn) {
+          viewModeFn = fn;
+        }
+
+        function unsetViewModeFn() {
+          viewModeFn = undefined;
+        }
+
+        function moveToStart() {
+          if (graphSize().width > width - treeMargin * 2) {
+            scope.perfectWidth();
+          } else {
+            scope.centerGraph();
+          }
+        }
+
+
+        // Watches and Event listeners
+
+        // This watch is responsible for firing up the directive
         scope.$watch('tokens', function (newVal, oldVal) {
           createGraph();
+          moveToStart();
           createHeadWatches();
         });
+
         scope.$watch('styles', function (newVal, oldVal) {
           if (newVal !== oldVal) {
             render();
@@ -413,17 +568,82 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             if (newVal !== oldVal) {
               fn(newVal);
               render();
+              // We need to timeout this call. The render() function uses
+              // a transition as well. D3 transitions work with keyframes -
+              // if we call our method during the start and end frame, we
+              // will not get the values we want when we call for the size
+              // of the new graph (and all viewMode functions operate on
+              // them, because they will be built gradually against the
+              // end keyframe. We therefore wait until the end of this
+              // transition before we do the next move.
+              $timeout(applyViewMode, transitionDuration);
             }
           });
         });
 
-        keyCapture.initCaptures(function(kC) {
+        angular.element($window).on('resize', function() {
+          calculateSvgHotspots();
+          applyViewMode();
+        });
+
+        function createHeadWatches() {
+          angular.forEach(scope.tokens, function (token, id) {
+            var childScope = scope.$new();
+            childScope.token = token.id;
+            childScope.head = token.head;
+            childScope.$watch('head.id', function (newVal, oldVal) {
+              // Very important to do here, otherwise the tree will
+              // be render a little often on startup...
+              if (newVal !== oldVal) {
+                // If a disconnection has been requested, we just
+                // have to delete the edge and do nothing else
+                if (newVal === "") {
+                  g.delEdge(token.id);
+                } else {
+                  updateEdge(token);
+                }
+                render();
+              }
+            });
+          });
+        }
+
+
+        // Keybindings for this directive
+        function keyBindings(kC) {
           return {
             tree: [
-              kC.create('directionChange', function() { scope.changeDir(); })
+              kC.create('directionChange', function() { scope.changeDir(); }),
+              kC.create('centerTree', function() { scope.centerGraph(); }),
+              kC.create('focusRoot', function() { scope.focusRoot(); }),
+              kC.create('focusSelection', function() { scope.focusSelection(); }),
+              kC.create('perfectWidth', function() { scope.perfectWidth(); }),
             ]
           };
-        });
+        }
+
+        // Initial tree layout
+
+        scope.textDirection = sortRankByIdAscending();
+        scope.rankDir = 'BT';
+        scope.compactTree();
+        scope.layout = dagreD3.layout()
+          .sortRankByIdAscending(scope.textDirection)
+          .rankDir(scope.rankDir)
+          .nodeSep(scope.nodeSep)
+          .edgeSep(scope.edgeSep)
+          .rankSep(scope.rankSep);
+
+
+        // Append and prepend all templates
+        element.append(tree);
+        prependTemplate('focusTemplate');
+        prependTemplate('panelTemplate');
+
+
+        // Initialize some more starting values
+        calculateSvgHotspots();
+        keyCapture.initCaptures(keyBindings);
       },
     };
   }
