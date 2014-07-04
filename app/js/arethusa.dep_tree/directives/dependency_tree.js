@@ -613,7 +613,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         function keyBindings(kC) {
           return {
             tree: [
-              kC.create('directionChange', function() { scope.changeDir(); })
+              kC.create('directionChange', function() { scope.changeDir(); }),
+              kC.create('centerTree', function() { scope.centerGraph(); }),
+              kC.create('focusRoot', function() { scope.focusRoot(); }),
+              kC.create('focusSelection', function() { scope.focusSelection(); }),
+              kC.create('perfectWidth', function() { scope.perfectWidth(); }),
             ]
           };
         }
