@@ -72,10 +72,10 @@
             "color" : "purple"
           }
         },
-        "intj" : {
-          "long" : "interjection",
-          "short" : "intj",
-          "postag" : "i",
+        "excl" : {
+          "long" : "exclamation",
+          "short" : "excl",
+          "postag" : "e",
           "style" : {
             "color" : "gold"
           }
