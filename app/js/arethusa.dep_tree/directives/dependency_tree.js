@@ -445,7 +445,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         scope.focusSelection = function() {
           setViewModeFn(scope.focusSelection);
-          focusNode(state.firstSelected(), 180);
+          focusNode(state.firstSelected(), height / 3);
         };
 
         function sortRankByIdAscending() {
