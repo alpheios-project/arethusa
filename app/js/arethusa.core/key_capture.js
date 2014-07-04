@@ -66,6 +66,9 @@ angular.module('arethusa.core').service('keyCapture', [
       var res;
       angular.forEach(keyCodes, function(code, key) {
         if (code == event.keyCode) {
+          if (event.shiftKey) {
+            key = key.toUpperCase();
+          }
           res = self.grKeyTable[key];
         }
       });
