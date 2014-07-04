@@ -7,10 +7,6 @@
       "sections" : "1021-1029",
       "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
     },
-    "PRON" : {
-      "short" : "PRON",
-      "long" : "pronominal"
-    },
     "NORM" : {
       "short" : "NORM",
       "long" : "normal"

@@ -1,0 +1,14 @@
+{
+  "nested" : {
+    "SBS" : {
+      "short" : "SBS",
+      "long" : "substantive",
+      "nestedDependency" : true,
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    },
+    "ADJ" : {
+      "short" : "ADJ",
+      "long" : "adjective"
+    }
+  }
+}

@@ -23,7 +23,8 @@
       "sections" : "1190-1278",
       "dependency" : {
         "pos" : "pron"
-      }
+      },
+      "fileUrl" : "./static/configs/sg/sg_labels/pronouns.json"
     },
     "ADP" : {
       "short" : "ADP",
