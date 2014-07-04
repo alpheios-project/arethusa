@@ -40,14 +40,6 @@
             "color" : "darkorange"
           }
         },
-        "part" : {
-          "long" : "participle",
-          "short" : "part",
-          "postag" : "t",
-          "style" : {
-            "color" : "darkred"
-          }
-        },
         "conj" : {
           "long" : "conjunction",
           "short" : "conj",

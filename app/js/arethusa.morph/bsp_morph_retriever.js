@@ -93,7 +93,7 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
                   renameValues(form, {
                     'pos': [
                       'verb\nparticiple',
-                      'participle'
+                      'verb'
                     ]
                   });
                   results.push({
