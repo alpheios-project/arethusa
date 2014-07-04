@@ -468,7 +468,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             offset = offset || treeMargin;
             var nodePos = nodePosition(id);
             var newX = xCenter - nodePos.x;
-            var newY = yCenter - nodePos.y + offset;
+            var newY = 0 - nodePos.y + offset;
             moveGraph(newX, newY);
           }
         }
