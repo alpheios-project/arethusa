@@ -1,10 +1,20 @@
 <div class="small-12 columns">
-  <label class="right">
-    Expand Selected
-    <input
-      type="checkbox"
-      ng-model="expandSelection"/>
-  </label>
+  <span
+    title="Settings"
+    class="clickable right"
+    style="margin-left: 10px"
+    ng-click="settingsOn = !settingsOn">
+    <i class="fi-widget rotate-bw-on-hover" style="font-size: 1.2rem"></i>
+  </span>
+  <span ng-show="settingsOn">
+    <label class="right">
+      Expand Selected
+      <input
+        type="checkbox"
+        style="margin: 0"
+        ng-model="expandSelection"/>
+    </label>
+  </span>
 </div>
 
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
