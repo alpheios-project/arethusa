@@ -142,7 +142,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           var container = angular.element(document.getElementById('sidepanel'));
           // We need to scroll to the first child - the element itself is placed
           // at a completely different place in the DOM.
-          container.scrollTo(element.children(), 0, 300);
+          container.scrollTo(element.children(), 0, 500);
         });
       },
       templateUrl: 'templates/morph_form_create.html'
