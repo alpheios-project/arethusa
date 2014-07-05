@@ -276,8 +276,8 @@ angular.module('arethusa.morph').service('morph', [
       state.unsetState(id, 'morphology');
     };
 
-    this.dependenciesOf = function (attr) {
-      return self.selectAttribute(attr).dependencies;
+    this.rulesOf = function (attr) {
+      return self.selectAttribute(attr).rules;
     };
 
     function findThroughOr(keywords) {
