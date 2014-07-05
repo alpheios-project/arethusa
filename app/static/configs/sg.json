@@ -16,11 +16,11 @@
     },
     "plugins" : [
       "text",
-      "search",
       "morph",
       "sg",
       "relation",
-      "depTree"
+      "depTree",
+      "search"
     ]
   },
 
