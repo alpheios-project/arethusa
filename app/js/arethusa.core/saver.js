@@ -28,6 +28,9 @@ angular.module('arethusa.core').service('saver', [
     }
 
     this.save = function() {
+      notifier.info('Saving...');
+      // We only have one persister right now, later we'll want
+      // to handle the success notification better.
       angular.forEach(persisters, function(persister, name) {
         persister.saveData(function(data) {
           notifier.success('Document saved!');
