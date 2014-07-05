@@ -2,11 +2,7 @@
 
 angular.module('arethusa.morph').directive('mirrorMorphForm', [
   'morph',
-  '$location',
-  '$anchorScroll',
-  '$document',
-  '$timeout',
-  function(morph, $location, $anchorScroll, $document, $timeout) {
+  function(morph) {
     return {
       restrict: 'A',
       scope: {
