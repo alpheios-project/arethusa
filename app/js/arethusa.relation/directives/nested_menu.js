@@ -62,6 +62,30 @@ angular.module('arethusa.relation').directive('nestedMenu', [
             }
           });
         });
+
+
+        var p = angular.element(document.getElementById('sidepanel'));
+        var leftDistance;
+        if (scope.labelObj.nested) {
+          element.on('mouseenter', function() {
+            var domPanel = p[0];
+            var totalW = p.width();
+            var leftScroll = element.scrollLeft();
+            var leftDistance = domPanel.scrollWidth - leftScroll - totalW;
+            if (leftDistance > 0) {
+              p.scrollLeft(leftScroll + leftDistance, 500);
+            }
+          });
+          // Would be nice to get back somehow too. Sadly, the event only fires
+          // when the whole menu is left - which makes no sense...
+          // It's logically also not very sound - work on this later.
+          //element.on('mouseleave', function() {
+            //if (leftDistance > 0) {
+              //console.log(element.scrollLeft());
+              //p.scrollLeft(element.scrollLeft() - leftDistance, 500);
+            //}
+          //});
+        }
       },
       template: '{{ labelRepresentation }}'
     };
