@@ -37,7 +37,11 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
 
         function checkAttribute(dependencies, attr) {
           var value = dependencies[attr];
-          return inArray(value, scope.form.attributes[attr]);
+          if (value[0] === "*") {
+            return angular.isDefined(scope.form.attributes[attr]);
+          } else {
+            return inArray(value, scope.form.attributes[attr]);
+          }
         }
 
         function ifDependencyMet(dependencies) {
