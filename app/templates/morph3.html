@@ -1,15 +1,23 @@
 <div class="small-12 columns">
-  <ul class="button-group right">
-    <li><span next-token class="button micro radius">prev</span></li>
-    <li><span prev-token class="button micro radius">next</span></li>
-  </ul>
+  <span settings-trigger="right"/>
+  <span ng-show="settingsOn">
+    <label class="right">
+      Expand Selected
+      <input
+        type="checkbox"
+        style="margin: 0"
+        ng-model="expandSelection"/>
+    </label>
+  </span>
 </div>
 
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
   <div class="small-12 columns" lang-specific>
     <p token-with-id value="analysis.string" token-id="id"/>
     <accordion close-others="oneAtATime">
-      <accordion-group ng-repeat="form in analysis.forms">
+      <accordion-group
+        ng-repeat="form in analysis.forms"
+        is-open="expandSelection && form.selected">
         <accordion-heading>
           <div class="row" accordion-highlighter>
             <div class="columns large-3 small-5 left text">
