@@ -52,10 +52,28 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           return depdencencyMet(dependencies, true);
         }
 
+        function rulesMet(rules) {
+          // No rules, everything ok
+          var isOk;
+          if (!rules) {
+            isOk = true;
+          } else {
+            for (var i = rules.length - 1; i >= 0; i--){
+              var rule = rules[i];
+              var ifDep = ifDependencyMet(rule['if']);
+              var unDep = unlessDependencyMet(rule.unless);
+              if (ifDep && unDep) {
+                isOk = true;
+                break;
+              }
+            }
+          }
+          return isOk;
+        }
+
         function getVisibleAttributes() {
           return arethusaUtil.inject([], morph.postagSchema, function (memo, attr) {
-            var ifDependencies = (morph.dependenciesOf(attr) || {}).if;
-            if (dependencyMet(ifDependencies)) {
+            if (rulesMet(morph.rulesOf(attr))) {
               memo.push(attr);
             }
           });
