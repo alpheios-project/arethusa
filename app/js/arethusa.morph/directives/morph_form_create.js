@@ -18,19 +18,34 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         scope.form = scope.token.customForm;
         scope.forms = scope.token.forms;
 
-        function dependencyMet(dependencies) {
+        function depdencencyMet(dependencies, type) {
           if (!dependencies) {
             return true;
           }
           var ok = true;
           for (var k in dependencies) {
-            var depArray = dependencies[k];
-            if (!inArray(depArray, scope.form.attributes[k])) {
+            var condition;
+            condition = checkAttribute(dependencies, k);
+            condition = type ? condition : !condition;
+            if (condition) {
               ok = false;
               break;
             }
           }
           return ok;
+        }
+
+        function checkAttribute(dependencies, attr) {
+          var value = dependencies[attr];
+          return inArray(value, scope.form.attributes[attr]);
+        }
+
+        function ifDependencyMet(dependencies) {
+          return depdencencyMet(dependencies, false);
+        }
+
+        function unlessDependencyMet(dependencies) {
+          return depdencencyMet(dependencies, true);
         }
 
         function getVisibleAttributes() {
