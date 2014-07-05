@@ -4,12 +4,21 @@ angular.module('arethusa.core').directive('revealToggle', function() {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
+      var tId = attrs.revealToggle;
+
       function el() {
-        return angular.element(document.getElementById(attrs.revealToggle));
+        return angular.element(document.getElementById(tId));
       }
 
       element.bind('click', function() {
-        el().toggleClass('hide');
+        var t = el();
+        if (t.hasClass('hide')) {
+          t.removeClass('hide');
+          t.trigger('show-' + tId);
+        } else {
+          t.addClass('hide');
+          t.trigger('hide-' + tId);
+        }
       });
     }
   };

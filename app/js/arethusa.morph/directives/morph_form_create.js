@@ -135,6 +135,15 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         scope.$watch('token.customForm', function(newVal, oldVal) {
           scope.form = newVal;
         });
+
+        element.on('show-mfc' + scope.id, function() {
+          // This hardcodes the idea of a sidepanel. Might rethink how to do this
+          // at a later stage.
+          var container = angular.element(document.getElementById('sidepanel'));
+          // We need to scroll to the first child - the element itself is placed
+          // at a completely different place in the DOM.
+          container.scrollTo(element.children(), 0, 500);
+        });
       },
       templateUrl: 'templates/morph_form_create.html'
     };
