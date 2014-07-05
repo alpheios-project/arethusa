@@ -18,14 +18,16 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         scope.form = scope.token.customForm;
         scope.forms = scope.token.forms;
 
-        function dependencyMet(dependencies) {
+        function depdencencyMet(dependencies, type) {
           if (!dependencies) {
             return true;
           }
           var ok = true;
           for (var k in dependencies) {
-            var depArray = dependencies[k];
-            if (!inArray(depArray, scope.form.attributes[k])) {
+            var condition;
+            condition = checkAttribute(dependencies, k);
+            condition = type ? condition : !condition;
+            if (condition) {
               ok = false;
               break;
             }
@@ -33,10 +35,45 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           return ok;
         }
 
+        function checkAttribute(dependencies, attr) {
+          var value = dependencies[attr];
+          if (value === "*") {
+            return angular.isDefined(scope.form.attributes[attr]);
+          } else {
+            return inArray(arethusaUtil.toAry(value), scope.form.attributes[attr]);
+          }
+        }
+
+        function ifDependencyMet(dependencies) {
+          return depdencencyMet(dependencies, false);
+        }
+
+        function unlessDependencyMet(dependencies) {
+          return depdencencyMet(dependencies, true);
+        }
+
+        function rulesMet(rules) {
+          // No rules, everything ok
+          var isOk;
+          if (!rules) {
+            isOk = true;
+          } else {
+            for (var i = rules.length - 1; i >= 0; i--){
+              var rule = rules[i];
+              var ifDep = ifDependencyMet(rule['if']);
+              var unDep = unlessDependencyMet(rule.unless);
+              if (ifDep && unDep) {
+                isOk = true;
+                break;
+              }
+            }
+          }
+          return isOk;
+        }
+
         function getVisibleAttributes() {
           return arethusaUtil.inject([], morph.postagSchema, function (memo, attr) {
-            var ifDependencies = (morph.dependenciesOf(attr) || {}).if;
-            if (dependencyMet(ifDependencies)) {
+            if (rulesMet(morph.rulesOf(attr))) {
               memo.push(attr);
             }
           });

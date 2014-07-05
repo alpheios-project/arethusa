@@ -40,14 +40,6 @@
             "color" : "darkorange"
           }
         },
-        "part" : {
-          "long" : "participle",
-          "short" : "part",
-          "postag" : "t",
-          "style" : {
-            "color" : "darkred"
-          }
-        },
         "conj" : {
           "long" : "conjunction",
           "short" : "conj",
@@ -139,20 +131,37 @@
           "postag" : "3"
         }
       },
-      "dependencies" : {
-        "if" : {
-          "pos" : [ "verb" ]
+      "rules" : [
+        {
+          "if" : {
+            "pos" : "verb",
+            "mood" : "*"
+          },
+          "unless" : {
+            "mood" : "part"
+          }
         }
-      }
+      ]
     },
     "num" : {
       "long" : "Number",
       "short" : "num",
-      "dependencies" : {
-        "if" : {
-          "pos" : [ "noun", "art", "nrl", "verb", "part", "adj", "pron" ]
+      "rules" : [
+        {
+          "if" : {
+            "pos" : [ "noun", "art", "nrl", "part", "adj", "pron" ]
+          }
+        },
+        {
+          "if" : {
+            "pos" : "verb",
+            "mood" : "*"
+          },
+          "unless" : {
+            "mood" : "part"
+          }
         }
-      },
+      ],
       "values" : {
         "sg" : {
           "long" : "singular",
@@ -174,11 +183,13 @@
     "tense" : {
       "long" : "Tense",
       "short" : "tense",
-      "dependencies" : {
-        "if" : {
-          "pos" : [ "verb", "part" ]
+      "rules" : [
+        {
+          "if" : {
+            "pos" : "verb"
+          }
         }
-      },
+      ],
       "values" : {
         "pr" : {
           "long" : "present",
@@ -220,11 +231,13 @@
     "mood" : {
       "long" : "Mood",
       "short" : "mood",
-      "dependencies" : {
-        "if" : {
-          "pos" : [ "verb", "part" ]
+      "rules" : [
+        {
+          "if" : {
+            "pos" : "verb"
+          }
         }
-      },
+      ],
       "values" : {
         "ind" : {
           "long" : "indicative",
@@ -261,11 +274,13 @@
     "voice" : {
       "long" : "Voice",
       "short" : "voice",
-      "dependencies" : {
-        "if" : {
-          "pos" : [ "verb", "part" ]
+      "rules" : [
+        {
+          "if" : {
+            "pos" : "verb"
+          }
         }
-      },
+      ],
       "values" : {
         "act" : {
           "long" : "active",
@@ -297,11 +312,19 @@
     "gend" : {
       "long" : "gender",
       "short" : "gend",
-      "dependencies" : {
-        "if" : {
-          "pos" : [ "part", "art", "noun", "adj", "pron", "nrl" ]
+      "rules" : [
+        {
+          "if" : {
+            "pos" : [ "art", "noun", "adj", "pron", "nrl" ]
+          }
+        },
+        {
+          "if" : {
+            "pos" : "verb",
+            "mood" : "part"
+          }
         }
-      },
+      ],
       "values" : {
         "masc" : {
           "long" : "masculine",
@@ -323,11 +346,19 @@
     "case" : {
       "long" : "Casus",
       "short" : "case",
-      "dependencies" : {
-        "if" : {
-          "pos" : [ "part", "art", "noun", "adj", "pron", "nrl" ]
+      "rules" : [
+        {
+          "if" : {
+            "pos" : [ "art", "noun", "adj", "pron", "nrl" ]
+          }
+        },
+        {
+          "if" : {
+            "pos" : "verb",
+            "mood" : "part"
+          }
         }
-      },
+      ],
       "values" : {
         "nom" : {
           "long" : "nominative",
@@ -364,11 +395,19 @@
     "degree" : {
       "long" : "Degree",
       "short" : "degree",
-      "dependencies" : {
-        "if" : {
-          "pos" : [ "part", "adj" ]
+      "rules" : [
+        {
+          "if" : {
+            "pos" : "adj"
+          }
+        },
+        {
+          "if" : {
+            "pos" : "verb",
+            "mood" : "part"
+          }
         }
-      },
+      ],
       "values" : {
         "pos" : {
           "long" : "positive",
