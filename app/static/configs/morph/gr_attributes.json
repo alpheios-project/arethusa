@@ -140,11 +140,22 @@
     "num" : {
       "long" : "Number",
       "short" : "num",
-      "dependencies" : {
-        "if" : {
-          "pos" : [ "noun", "art", "nrl", "verb", "part", "adj", "pron" ]
+      "rules" : [
+        {
+          "if" : {
+            "pos" : [ "noun", "art", "nrl", "part", "adj", "pron" ]
+          }
+        },
+        {
+          "if" : {
+            "pos" : "verb",
+            "mood" : "*"
+          },
+          "unless" : {
+            "mood" : "part"
+          }
         }
-      },
+      ],
       "values" : {
         "sg" : {
           "long" : "singular",
