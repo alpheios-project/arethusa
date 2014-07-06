@@ -6,6 +6,8 @@ describe("revealToggle", function() {
 
   beforeEach(inject(function($compile, $rootScope) {
     element = angular.element('<p><span reveal-toggle="1"/><target id="1"/></p>');
+    // We're using a jQuery function in this directive!
+    angular.element.prototype.trigger = function() {};
     $compile(element)($rootScope);
   }));
 
