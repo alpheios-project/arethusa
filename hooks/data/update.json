@@ -1,0 +1,14 @@
+[
+{
+  "file": "Gruntfile.json",
+  "command": "grunt githooks"
+},
+{
+  "file": "package.json",
+  "command": "npm install"
+},
+{
+  "file": "bower.json",
+  "command": "bower install"
+}
+]

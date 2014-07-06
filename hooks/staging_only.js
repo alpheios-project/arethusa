@@ -14,6 +14,7 @@ if (branchName !== '(no branch)') {
       // stash unstaged changes - only test what's being committed
       sh('git stash --keep-index --quiet');
 
+      console.log('after stash');
       exec('grunt {{task}}', function (err, stdout, stderr) {
 
         console.log(stdout); // jshint ignore:line

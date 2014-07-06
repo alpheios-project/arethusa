@@ -248,6 +248,13 @@ module.exports = function(grunt) {
           'template': 'hooks/staging_only.js'
         },
         'pre-commit': 'default'
+      },
+      update: {
+        options: {
+          template: 'hooks/update.js'
+        },
+        'post-merge': true,
+        'post-checkout': true
       }
     }
   });
