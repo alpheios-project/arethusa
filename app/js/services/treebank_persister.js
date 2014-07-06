@@ -50,10 +50,10 @@ angular.module('arethusa').factory('TreebankPersister', [
         return documentStore.store[conf.docIdentifier];
       }
 
-      this.saveData = function(callback) {
+      this.saveData = function(callback, errCallback) {
         updateDocument();
         updateXml();
-        resource.save(doc().xml,'text/xml').then(callback);
+        resource.save(doc().xml,'text/xml').then(callback, errCallback);
       };
     };
   }
