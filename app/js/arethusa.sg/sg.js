@@ -16,12 +16,16 @@ angular.module('arethusa.sg').service('sg', [
 
     configure();
 
-    function sgTemplate() {
-      return {
-        morph: {},
-        ancestors: [],
-        definingAttrs: [],
-        menu: {}
+    function SgTemplate() {
+      var self = this;
+
+      this.morph = {};
+      this.ancestors = [];
+      this.definingAttrs = [];
+      this.menu = {};
+      this.hasChanged = true;
+      this.markChange = function() {
+        self.hasChanged = true;
       };
     }
 
@@ -32,7 +36,7 @@ angular.module('arethusa.sg').service('sg', [
 
     function createInternalState() {
       return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
-        var grammar = sgTemplate();
+        var grammar = new SgTemplate();
         var morph = token.morphology || {};
         grammar.string = token.string;
         checkAndUpdateGrammar(morph, grammar);
@@ -85,6 +89,7 @@ angular.module('arethusa.sg').service('sg', [
       grammarReset(grammar);
       findDefiningAttributes(self.labels, grammar, grammar.definingAttrs);
       extractMenu(grammar);
+      grammar.markChange();
     }
 
     function findDefiningAttributes(labels, grammar, target) {
@@ -145,12 +150,10 @@ angular.module('arethusa.sg').service('sg', [
     };
 
     this.init = function() {
-      self.loaded = false;
       configure();
       self.grammar = createInternalState();
       self.readerRequested = false;
       propagateToState();
-      self.loaded = true;
     };
   }
 ]);
