@@ -1,3 +1,4 @@
+// Code from https://github.com/Melindrea/grunt-githooks-example
 "use strict";
 
 var sh = require('execSync').run;

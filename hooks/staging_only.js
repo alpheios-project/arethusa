@@ -11,15 +11,11 @@ if (branchName !== '(no branch)') {
     // only run if there are staged changes
     // i.e. what you would be committing if you ran "git commit" without "-a" option.
     if (err) {
-      // stash unstaged changes - only test what's being committed
       sh('git stash --keep-index --quiet');
 
-      console.log('after stash');
       exec('grunt {{task}}', function (err, stdout, stderr) {
-
         console.log(stdout); // jshint ignore:line
 
-        // restore stashed changes
         sh('git stash pop --quiet');
 
         var exitCode = 0;
@@ -27,6 +23,7 @@ if (branchName !== '(no branch)') {
           console.log(stderr); // jshint ignore:line
           exitCode = -1;
         }
+
         process.exit(exitCode);
       });
     }
