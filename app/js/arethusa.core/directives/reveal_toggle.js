@@ -5,6 +5,7 @@ angular.module('arethusa.core').directive('revealToggle', function() {
     restrict: 'A',
     link: function(scope, element, attrs) {
       var tId = attrs.revealToggle;
+      var alwaysReveal = attrs.alwaysReveal;
 
       function el() {
         return angular.element(document.getElementById(tId));
@@ -12,7 +13,7 @@ angular.module('arethusa.core').directive('revealToggle', function() {
 
       element.bind('click', function() {
         var t = el();
-        if (t.hasClass('hide')) {
+        if (alwaysReveal || t.hasClass('hide')) {
           t.removeClass('hide');
           t.trigger('show-' + tId);
         } else {
