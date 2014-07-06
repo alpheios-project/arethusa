@@ -23,8 +23,15 @@ angular.module('arethusa.sg').directive('sgAncestors', [
           return sg.readerRequested.short === obj.short;
         };
 
-        scope.$watchCollection('obj.ancestors', function(newVal, oldVal) {
-          scope.hierarchy = scope.obj.definingAttrs.concat(newVal);
+        function updateHierarchy(ancestors) {
+          scope.hierarchy = scope.obj.definingAttrs.concat(ancestors);
+        }
+
+        scope.$watch('obj.hasChanged', function(newVal, oldVal) {
+          if (newVal) {
+            updateHierarchy(scope.obj.ancestors);
+            scope.obj.hasChanged = false;
+          }
         });
       },
       templateUrl: './templates/arethusa.sg/ancestors.html'
