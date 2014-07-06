@@ -12,7 +12,9 @@ describe('treebank persister', function() {
     },
     provideResource: function(name) {
       return {
-        'save' : function() {}
+        'save' : function() {
+          return { then: function() {} };
+        }
       };
     }
   };
