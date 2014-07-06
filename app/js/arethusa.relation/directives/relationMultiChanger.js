@@ -7,7 +7,7 @@ angular.module('arethusa.relation').directive('relationMultiChanger', [
       restrict: 'A',
       link: function(scope, element, attrs) {
         scope.isPossible = relation.multiChangePossible;
-        scope.apply = relation.apply;
+        scope.apply = relation.applyMultiChanger;
         scope.r = relation;
 
         scope.$watch('r.mode', function(newVal, oldVal) {
