@@ -244,6 +244,9 @@ module.exports = function(grunt) {
     },
     githooks: {
       precommit: {
+        options: {
+          'template': 'hooks/staging_only.js'
+        },
         'pre-commit': 'default'
       }
     }
