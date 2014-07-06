@@ -27,14 +27,28 @@ angular.module('arethusa.core').service('saver', [
       self.canSave = false;
     }
 
+    function success(res) {
+      notifier.success('Document saved!');
+    }
+
+    function error(res) {
+      // Can't figure out why we return 406 from our development server
+      // all the time when we do POSTs.
+      // The save succeeds anyway - print the success message in such a
+      // case as to not confuse the user...
+      if (res.status == 406) {
+        notifier.success('Document saved!');
+      } else {
+        notifier.error('Failed to save! Try again?');
+      }
+    }
+
     this.save = function() {
       notifier.info('Saving...');
       // We only have one persister right now, later we'll want
       // to handle the success notification better.
       angular.forEach(persisters, function(persister, name) {
-        persister.saveData(function(data) {
-          notifier.success('Document saved!');
-        });
+        persister.saveData(success, error);
       });
     };
 
