@@ -50,9 +50,16 @@ angular.module('arethusa.relation').directive('nestedMenu', [
           }
         };
 
+        function markChange() {
+          if (angular.isFunction(scope.relObj.markChange)) {
+            scope.relObj.markChange();
+          }
+        }
+
         element.bind('click', function(event) {
           scope.$apply(function() {
             if (event.eventPhase === 2) { // at target, three would be bubbling!
+              markChange();
               scope.selectLabel();
               if (scope.ancestors) {
                 scope.resetAncestors(scope.relObj);
