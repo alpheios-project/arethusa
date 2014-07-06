@@ -1,6 +1,7 @@
 <div class="small-12 columns">
   <div ng-repeat="(id, grammar) in plugin.currentGrammar()">
     <p token-with-id value="grammar.string" token-id="id"/>
+    <p>{{ grammar.hint }}</p>
     <div sg-ancestors="grammar"/>
     <br/>
     <ul class="nested-dropdown">

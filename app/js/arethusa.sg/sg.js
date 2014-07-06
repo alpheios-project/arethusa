@@ -49,16 +49,22 @@ angular.module('arethusa.sg').service('sg', [
       var menu = grammar.menu;
       angular.forEach(ancestors, function(ancestor, i) {
         var el = menu[ancestor];
-        target.push(el);
         menu = el.nested;
       });
     }
 
+    var hint = "Select morphology first!";
+
     this.currentGrammar = function() {
       return arethusaUtil.inject({}, state.selectedTokens, function(memo, id, event) {
-        var morph = state.tokens[id].morphology || {};
+        var morph = state.tokens[id].morphology;
         var grammar = self.grammar[id];
-        checkAndUpdateGrammar(morph, grammar);
+        if (morph && morph.attributes) {
+          delete grammar.hint;
+          checkAndUpdateGrammar(morph, grammar);
+        } else {
+          grammar.hint = hint;
+        }
         memo[id] = grammar;
       });
     };
@@ -139,10 +145,12 @@ angular.module('arethusa.sg').service('sg', [
     };
 
     this.init = function() {
+      self.loaded = false;
       configure();
       self.grammar = createInternalState();
       self.readerRequested = false;
       propagateToState();
+      self.loaded = true;
     };
   }
 ]);
