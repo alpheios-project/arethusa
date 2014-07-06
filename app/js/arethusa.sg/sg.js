@@ -57,7 +57,7 @@ angular.module('arethusa.sg').service('sg', [
       });
     }
 
-    var hint = "Select morphology first!";
+    var hint = "Please select a morphological form first!";
 
     this.currentGrammar = function() {
       return arethusaUtil.inject({}, state.selectedTokens, function(memo, id, event) {
