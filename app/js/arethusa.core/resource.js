@@ -28,6 +28,15 @@ angular.module('arethusa.core').factory('Resource', [
       return angular.extend(paramsToObj(a), b) || {};
     }
 
+    function parseResponse(data, headers) {
+      var res = {};
+      res.data = isJson(headers()['content-type']) ? JSON.parse(data) : data;
+      res.headers = headers;
+      res.source = 'tbd';
+      // we need to define and http interceptor
+      return res;
+    }
+
     return function (conf,auth) {
       var self = this;
       this.route = conf.route;
@@ -37,25 +46,19 @@ angular.module('arethusa.core').factory('Resource', [
       this.resource = $resource(self.route, null, {
         get: {
           method: 'GET',
-          transformResponse: function (data, headers) {
-            var res = {};
-            res.data = isJson(headers()['content-type']) ? JSON.parse(data) : data;
-            res.headers = headers;
-            res.source = 'tbd';
-            // we need to define and http interceptor
-            return res;
-          }
+          transformResponse: parseResponse
         },
         save: {
           // TODO we need save and partial save -- latter will use PATCH
           method: 'POST',
           transformRequest: function(data,headers) {
             if (self.mimetype) {
-                headers()["Content-Type"] = self.mimetype;
+              headers()["Content-Type"] = self.mimetype;
             }
             self.auth.transformRequest(headers);
             return data;
-          }
+          },
+          transformResponse: parseResponse
         }
       });
 
