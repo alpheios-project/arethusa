@@ -24,6 +24,7 @@
     "grunt-concurrent": "0.5.0",
     "grunt-githooks": "^0.3.1",
     "load-grunt-tasks": "^0.6.0"
+    "execSync": "latest"
   },
   "scripts": {
     "test": "grunt karma:spec coveralls jshint && protractor protractor-config-travis.js",
