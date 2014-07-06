@@ -1,22 +1,28 @@
-<div
-  lang-specific
-  dependency-tree
-  tokens="state.tokens"
-  styles="plugin.diffStyles()"
-  to-bottom
-  class="full-width">
-  <span
-    class="note clickable right margined-hor-tiny flash-on-hover"
-    ng-show="plugin.diffPresent"
-    ng-click="plugin.toggleDiff()">
-    Toggle Diff
-  </span>
-  <span
-    class="note clickable right margined-hor-tiny flash-on-hover"
-    style="margin-left: 10px"
-    tooltip="Click to highlight unused tokens"
-    tooltip-popup-delay="700"
-    tooltip-placement="left"
-    unused-token-highlighter>
-  </span>
+<div class="panel">
+  <div>
+    <span ng-include="templates/arethusa.dep_tree/settings.html"/>
+    <span ng-include="templates/arethusa.dep_tree/focus_controls.html"/>
+    <span
+      class="note clickable right margined-hor-tiny flash-on-hover"
+      ng-show="plugin.diffPresent"
+      ng-click="plugin.toggleDiff()">
+      Toggle Diff
+    </span>
+    <span
+      class="note clickable right margined-hor-tiny flash-on-hover"
+      style="margin-left: 10px"
+      tooltip="Click to highlight unused tokens"
+      tooltip-popup-delay="700"
+      tooltip-placement="left"
+      unused-token-highlighter>
+    </span>
+  </div>
+  <div
+    lang-specific
+    dependency-tree
+    tokens="state.tokens"
+    styles="plugin.diffStyles()"
+    to-bottom
+    >
+  </div>
 </div>

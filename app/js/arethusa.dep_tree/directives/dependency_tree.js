@@ -75,7 +75,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         // The svg element is held in a variable. This is one step closer
         // to create independent subtrees (as individual g elements)!
         var treeTemplate = '\
-          <svg class="tree-canvas full-height full-width">\
+          <svg class="full-height full-width">\
             <g transform="translate(' + treeMargin + ',' + treeMargin + ')"/>\
           </svg>\
         ';
