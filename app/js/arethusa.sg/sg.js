@@ -3,11 +3,14 @@
 angular.module('arethusa.sg').service('sg', [
   'state',
   'configurator',
-  function(state, configurator) {
+  '$cacheFactory',
+  function(state, configurator, $cacheFactory) {
     var self = this;
     var retriever;
     this.labelAs = "long";
     this.defineAncestors = true;
+
+    var sgCache = $cacheFactory('sg', { number:  100 });
 
     function configure() {
       configurator.getConfAndDelegate('sg', self, ['labels']);
@@ -65,7 +68,6 @@ angular.module('arethusa.sg').service('sg', [
         var grammar = self.grammar[id];
         if (morph && morph.attributes) {
           delete grammar.hint;
-          grammar.markChange();
           checkAndUpdateGrammar(morph, grammar);
         } else {
           grammarReset(grammar);
@@ -91,50 +93,52 @@ angular.module('arethusa.sg').service('sg', [
       grammarReset(grammar);
       findDefiningAttributes(self.labels, grammar, grammar.definingAttrs);
       extractMenu(grammar);
-      //cacheUpdateProcess(grammar);
+      cacheUpdateProcess(grammar);
     }
 
     function cacheUpdateProcess(grammar) {
-      self.cache[cacheKey(grammar)] = grammar.definingAttrs;
+      var key = cacheKey(grammar);
+      if (!sgCache.get(key)) {
+        sgCache.put(key, grammar.definingAttrs);
+      }
     }
 
     function cacheKey(grammar) {
       return arethusaUtil.inject([], grammar.morph, function(memo, k, v) {
         memo.push(k + '-' + v);
-      }).sort.join('|');
+      }).sort().join('|');
     }
 
     function findDefiningAttributes(labels, grammar, target) {
-      var cached = self.cache[cacheKey(grammar)];
+      var cached = sgCache.get(cacheKey(grammar));
       if (cached) {
-        grammar.definingAttrs = cached;
-        return;
-      }
-
-      arethusaUtil.inject(target, labels, function(memo, label, val) {
-        var dep = val.dependency;
-        if (dep) {
-          var morph = grammar.morph;
-          var nextLevel;
-          angular.forEach(dep, function(depVal, depCat) {
-            if (dependencyMet(morph[depCat], depVal)) {
-              val = angular.copy(val);
-              memo.push(val);
-              nextLevel = val.nested;
-              if (nextLevel) {
-                angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
-                  if (nestedMenu.nestedDependency) {
-                    var nextNestedLevel = [];
-                    findDefiningAttributes(nestedMenu.nested, grammar, nextNestedLevel);
-                    nestedMenu.nested = { nested: nextNestedLevel.pop() };
-                  }
-                });
-                findDefiningAttributes(nextLevel, grammar, target);
+        arethusaUtil.pushAll(target, cached);
+      } else {
+        arethusaUtil.inject(target, labels, function(memo, label, val) {
+          var dep = val.dependency;
+          if (dep) {
+            var morph = grammar.morph;
+            var nextLevel;
+            angular.forEach(dep, function(depVal, depCat) {
+              if (dependencyMet(morph[depCat], depVal)) {
+                val = angular.copy(val);
+                memo.push(val);
+                nextLevel = val.nested;
+                if (nextLevel) {
+                  angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
+                    if (nestedMenu.nestedDependency) {
+                      var nextNestedLevel = [];
+                      findDefiningAttributes(nestedMenu.nested, grammar, nextNestedLevel);
+                      nestedMenu.nested = { nested: nextNestedLevel.pop() };
+                    }
+                  });
+                  findDefiningAttributes(nextLevel, grammar, target);
+                }
               }
-            }
-          });
-        }
-      });
+            });
+          }
+        });
+      }
     }
 
     function dependencyMet(morphValue, depValue) {
@@ -166,7 +170,6 @@ angular.module('arethusa.sg').service('sg', [
 
     this.init = function() {
       configure();
-      //self.cache = {};
       self.grammar = createInternalState();
       self.readerRequested = false;
       propagateToState();
