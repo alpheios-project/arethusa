@@ -223,6 +223,7 @@ describe('configurator', function() {
         'contextMenu',
         'contextMenuTemplate',
         'noView',
+        'advancedMode',
         'mode'
       ];
 
