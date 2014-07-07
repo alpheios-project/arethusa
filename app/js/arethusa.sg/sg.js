@@ -101,15 +101,17 @@ angular.module('arethusa.sg').service('sg', [
             if (dependencyMet(morph[depCat], depVal)) {
               val = angular.copy(val);
               memo.push(val);
-              nextLevel = val.nested || {};
-              angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
-                if (nestedMenu.nestedDependency) {
-                  var nextNestedLevel = [];
-                  findDefiningAttributes(nestedMenu.nested, grammar, nextNestedLevel);
-                  nestedMenu.nested = { nested: nextNestedLevel.pop() };
-                }
-              });
-              findDefiningAttributes(nextLevel, grammar, target);
+              nextLevel = val.nested;
+              if (nextLevel) {
+                angular.forEach(nextLevel, function(nestedMenu, nestedLabel) {
+                  if (nestedMenu.nestedDependency) {
+                    var nextNestedLevel = [];
+                    findDefiningAttributes(nestedMenu.nested, grammar, nextNestedLevel);
+                    nestedMenu.nested = { nested: nextNestedLevel.pop() };
+                  }
+                });
+                findDefiningAttributes(nextLevel, grammar, target);
+              }
             }
           });
         }
@@ -130,7 +132,7 @@ angular.module('arethusa.sg').service('sg', [
       var attrs = grammar.definingAttrs;
       // Could be that this array is empty!
       var lastAttr = attrs[attrs.length - 1] || {};
-      grammar.menu = lastAttr.nested || {};
+      grammar.menu = lastAttr.nested;
     }
 
     function propagateToState() {
