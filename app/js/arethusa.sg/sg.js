@@ -34,7 +34,7 @@ angular.module('arethusa.sg').service('sg', [
     }
 
     function grammarReset(grammar) {
-      grammar.ancestors = [];
+      arethusaUtil.empty(grammar.ancestors);
       // We have to redefine this property - it's untouchable now
       // that it's cached!
       grammar.definingAttrs = [];
@@ -111,6 +111,9 @@ angular.module('arethusa.sg').service('sg', [
 
     function checkAndUpdateGrammar(morph, grammar) {
       if (morphHasChanged(grammar.morph, morph.attributes)) {
+        // Need to empty first, otherwise we might mix attributes
+        // of various part of speech types together!
+        arethusaUtil.empty(grammar.morph);
         angular.extend(grammar.morph, morph.attributes);
         updateGrammar(self.labels, grammar);
       }
