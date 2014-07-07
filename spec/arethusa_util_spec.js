@@ -238,5 +238,11 @@ describe("arethusaUtil", function() {
       aU.empty(arr);
       expect(arr).toEqual([]);
     });
+
+    it('deletes all properties of an object', function() {
+      var obj = { a: 1, b: 2};
+      aU.empty(obj);
+      expect(obj).toEqual({});
+    });
   });
 });
