@@ -93,15 +93,17 @@ angular.module('arethusa.sg').service('sg', [
       return arethusaUtil.inject({}, state.selectedTokens, function(memo, id, event) {
         var morph = state.tokens[id].morphology;
         var grammar = self.grammar[id];
-        if (morph && morph.attributes) {
-          delete grammar.hint;
-          checkAndUpdateGrammar(morph, grammar);
-        } else {
-          grammarReset(grammar);
-          grammar.morph = {};
-          grammar.hint = hint;
+        if (grammar) {
+          if (morph && morph.attributes) {
+            delete grammar.hint;
+            checkAndUpdateGrammar(morph, grammar);
+          } else {
+            grammarReset(grammar);
+            grammar.morph = {};
+            grammar.hint = hint;
+          }
+          memo[id] = grammar;
         }
-        memo[id] = grammar;
       });
     };
 
