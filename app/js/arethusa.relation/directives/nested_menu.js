@@ -35,8 +35,10 @@ angular.module('arethusa.relation').directive('nestedMenu', [
         }
 
         scope.selectLabel = function() {
-          scope.relObj[scope.property] = scope.label;
-          relation.buildLabel(scope.relObj);
+          if (scope.property) {
+            scope.relObj[scope.property] = scope.label;
+            relation.buildLabel(scope.relObj);
+          }
         };
 
         scope.addAncestor = function(obj, ancestor) {
