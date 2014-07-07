@@ -91,9 +91,26 @@ angular.module('arethusa.sg').service('sg', [
       grammarReset(grammar);
       findDefiningAttributes(self.labels, grammar, grammar.definingAttrs);
       extractMenu(grammar);
+      //cacheUpdateProcess(grammar);
+    }
+
+    function cacheUpdateProcess(grammar) {
+      self.cache[cacheKey(grammar)] = grammar.definingAttrs;
+    }
+
+    function cacheKey(grammar) {
+      return arethusaUtil.inject([], grammar.morph, function(memo, k, v) {
+        memo.push(k + '-' + v);
+      }).sort.join('|');
     }
 
     function findDefiningAttributes(labels, grammar, target) {
+      var cached = self.cache[cacheKey(grammar)];
+      if (cached) {
+        grammar.definingAttrs = cached;
+        return;
+      }
+
       arethusaUtil.inject(target, labels, function(memo, label, val) {
         var dep = val.dependency;
         if (dep) {
@@ -149,6 +166,7 @@ angular.module('arethusa.sg').service('sg', [
 
     this.init = function() {
       configure();
+      //self.cache = {};
       self.grammar = createInternalState();
       self.readerRequested = false;
       propagateToState();
