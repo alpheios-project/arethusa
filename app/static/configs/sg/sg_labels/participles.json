@@ -87,6 +87,11 @@
       "long" : "substantive",
       "nestedDependency" : true,
       "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    },
+    "ATC" : {
+      "short" : "ATC",
+      "long" : "attraction",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
     }
   }
 }

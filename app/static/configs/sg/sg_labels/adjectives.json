@@ -15,6 +15,11 @@
       "short" : "VRB",
       "long" : "verbal"
     },
+    "ATC" : {
+      "short" : "ATC",
+      "long" : "attraction",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    },
     "IDK" : {
       "short" : "IDK",
       "long" : "I don't know"
