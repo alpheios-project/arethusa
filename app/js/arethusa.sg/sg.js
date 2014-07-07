@@ -27,38 +27,63 @@ angular.module('arethusa.sg').service('sg', [
       this.definingAttrs = [];
       this.menu = {};
       this.hasChanged = true;
+      this.isSgTemplate = true;
       this.markChange = function() {
         self.hasChanged = true;
       };
     }
 
     function grammarReset(grammar) {
-      arethusaUtil.empty(grammar.ancestors);
+      grammar.ancestors = [];
       // We have to redefine this property - it's untouchable now
       // that it's cached!
       grammar.definingAttrs = [];
     }
 
+    function sgFromStateComplete(sg) {
+      return sg && sg.isSgTemplate;
+    }
+
+    function sgFromRetriever(sg) {
+      return sg && sg.ancestors && !sg.isTemplate;
+    }
+
     function createInternalState() {
+      // 3 possibilites here:
+      //
+      // 1 When we have seen this token set before, we don't need to do anything
+      //   and can take the info we already created earlier in time.
+      // 2 We have not seen the tokens, but they have info from the retrieved
+      //   document. In such a case we build a new SgTemplate and add the sg
+      //   ancestors from the token to it.
+      // 3 We have to start from scratch.
       return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
-        var grammar = new SgTemplate();
-        var morph = token.morphology || {};
-        grammar.string = token.string;
-        checkAndUpdateGrammar(morph, grammar);
-        addAncestorsFromState(token.sg, grammar);
+        var grammar;
+        var fromState = token.sg;
+        if (sgFromStateComplete(fromState)) {
+          grammar = fromState;
+        } else {
+          grammar = new SgTemplate();
+          var morph = token.morphology || {};
+          grammar.string = token.string;
+          checkAndUpdateGrammar(morph, grammar);
+          if (sgFromRetriever(fromState)) {
+            addAncestorsFromState(fromState, grammar);
+          }
+        }
         memo[id] = grammar;
       });
     }
 
     function addAncestorsFromState(sg, grammar) {
-      if (!sg) return;
-
-      var ancestors = sg.ancestors || [];
-      var target = grammar.ancestors;
+      var ancestors = sg.ancestors;
       var menu = grammar.menu;
       angular.forEach(ancestors, function(ancestor, i) {
-        var el = menu[ancestor];
-        menu = el.nested;
+        if (menu) {
+          var expandedAncestor = menu[ancestor];
+          grammar.ancestors.push(expandedAncestor);
+          menu = expandedAncestor.nested;
+        }
       });
     }
 
@@ -174,6 +199,7 @@ angular.module('arethusa.sg').service('sg', [
     this.init = function() {
       configure();
       self.grammar = createInternalState();
+      console.log('reining');
       self.readerRequested = false;
       propagateToState();
     };
