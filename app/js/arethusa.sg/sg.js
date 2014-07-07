@@ -34,7 +34,9 @@ angular.module('arethusa.sg').service('sg', [
 
     function grammarReset(grammar) {
       arethusaUtil.empty(grammar.ancestors);
-      arethusaUtil.empty(grammar.definingAttrs);
+      // We have to redefine this property - it's untouchable now
+      // that it's cached!
+      grammar.definingAttrs = [];
     }
 
     function createInternalState() {
@@ -71,9 +73,9 @@ angular.module('arethusa.sg').service('sg', [
           checkAndUpdateGrammar(morph, grammar);
         } else {
           grammarReset(grammar);
+          grammar.morph = {};
           grammar.hint = hint;
         }
-          grammar.morph = {};
         memo[id] = grammar;
       });
     };
