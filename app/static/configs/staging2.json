@@ -86,7 +86,8 @@
     "search" : {
       "name" : "search",
       "template" : "templates/search.html",
-      "regex" : true
+      "regex" : true,
+      "fileUrl" : "./static/configs/keyboard/greek_regex.json"
     },
 
     "morph" : {
