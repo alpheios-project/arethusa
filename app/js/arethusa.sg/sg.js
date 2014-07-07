@@ -202,7 +202,6 @@ angular.module('arethusa.sg').service('sg', [
     this.init = function() {
       configure();
       self.grammar = createInternalState();
-      console.log('reining');
       self.readerRequested = false;
       propagateToState();
     };
