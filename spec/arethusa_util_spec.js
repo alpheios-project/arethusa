@@ -231,4 +231,12 @@ describe("arethusaUtil", function() {
       expect(aU.isIncluded(arr, 'c')).toBeFalsy();
     });
   });
+
+  describe('empty', function() {
+    it('empties an array without touching its identity', function() {
+      var arr = ['a', 'b'];
+      aU.empty(arr);
+      expect(arr).toEqual([]);
+    });
+  });
 });

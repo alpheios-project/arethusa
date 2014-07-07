@@ -103,6 +103,10 @@ var arethusaUtil = {
       return arr.indexOf(el) !== -1;
     },
 
+    empty: function(arr) {
+      arr.splice(0, arr.length);
+    },
+
     replaceAt: function (str, i, replacement) {
       return str.substring(0, i) + replacement + str.substring(i + 1);
     },
