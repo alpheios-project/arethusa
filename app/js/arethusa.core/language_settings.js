@@ -8,6 +8,10 @@ angular.module('arethusa.core').service('languageSettings', [
         lang: 'ar',
         leftToRight: false,
         font: 'Amiri'
+      },
+      'grc' : {
+        lang: 'gr',
+        leftToRight: true
       }
     };
 
