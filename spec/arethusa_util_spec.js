@@ -244,5 +244,17 @@ describe("arethusaUtil", function() {
       aU.empty(obj);
       expect(obj).toEqual({});
     });
+
+    it('deletes properties only!', function() {
+      function Test() {
+        this.a = 1;
+      }
+      Test.prototype.fn = function() {};
+
+      var obj = new Test();
+      aU.empty(obj);
+      expect(obj.fn).toBeDefined();
+      expect(obj.a).toBeUndefined();
+    });
   });
 });
