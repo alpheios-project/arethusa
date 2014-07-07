@@ -27,16 +27,7 @@ function pluginFiles(name) {
 }
 
 module.exports = function(grunt) {
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-protractor-runner');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-coveralls');
-  grunt.loadNpmTasks('grunt-sauce-connect-launcher');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-concurrent');
+  require('load-grunt-tasks')(grunt);
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -250,6 +241,21 @@ module.exports = function(grunt) {
       exercise: { files: pluginFiles('arethusa.exercise') },
       sg: { files: pluginFiles('arethusa.sg') },
       dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} }
+    },
+    githooks: {
+      precommit: {
+        options: {
+          'template': 'hooks/staging_only.js'
+        },
+        'pre-commit': 'default'
+      },
+      update: {
+        options: {
+          template: 'hooks/update.js'
+        },
+        'post-merge': true,
+        'post-checkout': true
+      }
     }
   });
 
