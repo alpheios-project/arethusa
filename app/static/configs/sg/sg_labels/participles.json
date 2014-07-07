@@ -91,6 +91,7 @@
     "ATC" : {
       "short" : "ATC",
       "long" : "attraction",
+      "sections" : "2522-2528",
       "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
     }
   }
