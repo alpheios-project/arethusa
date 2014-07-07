@@ -1,5 +1,18 @@
-<div>
+<div class="small-12 columns">
+  <span settings-trigger="right"/>
+  <span ng-show="settingsOn">
+    <label class="right">
+      Advanced Mode
+      <input
+        type="checkbox"
+        style="margin: 0"
+        ng-model="plugin.advancedMode"/>
+    </label>
+  </span>
+</div>
+<div ng-if="plugin.advancedMode">
   <div relation-multi-changer class="small-12 columns"/>
+  <div delimiter/>
 </div>
 
 
