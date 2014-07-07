@@ -125,6 +125,7 @@ angular.module('arethusa.sg').service('sg', [
       findDefiningAttributes(self.labels, grammar, grammar.definingAttrs);
       extractMenu(grammar);
       cacheUpdateProcess(grammar);
+      grammar.markChange();
     }
 
     function cacheUpdateProcess(grammar) {
