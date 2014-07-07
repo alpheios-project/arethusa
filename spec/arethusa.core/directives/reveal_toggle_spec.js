@@ -4,10 +4,16 @@ describe("revealToggle", function() {
   var element;
   beforeEach(module("arethusa.core"));
 
+  function stubFunctions(obj, functions) {
+    angular.forEach(functions, function(functionName, i) {
+      obj[functionName] = function() {};
+    });
+  }
+
   beforeEach(inject(function($compile, $rootScope) {
     element = angular.element('<p><span reveal-toggle="1"/><target id="1"/></p>');
-    // We're using a jQuery function in this directive!
-    angular.element.prototype.trigger = function() {};
+    // We're using jQuery functions in this directive!
+    stubFunctions(angular.element.prototype, ['trigger', 'slideUp', 'slideDown']);
     $compile(element)($rootScope);
   }));
 
