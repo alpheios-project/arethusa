@@ -65,8 +65,10 @@ angular.module('arethusa.sg').service('sg', [
         var grammar = self.grammar[id];
         if (morph && morph.attributes) {
           delete grammar.hint;
+          grammar.markChange();
           checkAndUpdateGrammar(morph, grammar);
         } else {
+          grammarReset(grammar);
           grammar.hint = hint;
         }
         memo[id] = grammar;
