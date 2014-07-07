@@ -27,8 +27,9 @@ angular.module('arethusa').factory('TreebankRetriever', [
         head: { id: idHandler.getId(token._head) },
       };
 
-      if (token._sg) {
-        obj.sg = { ancestors: token._sg.split(' ') };
+      var sg = token._sg;
+      if (sg && !sg.match(/^\s*$/)) {
+        obj.sg = { ancestors: sg.split(' ') };
       }
 
       return obj;
