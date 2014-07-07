@@ -8,11 +8,16 @@ angular.module('arethusa.search').service('search', [
     this.name = this.conf.name;
     this.template = this.conf.template;
     this.queryByRegex = this.conf.regex;
+    this.greekRegex = this.conf.greek;
     this.focusStringSearch = false;
 
     this.findByRegex = function(str) {
       // We might need to escape some chars here, we need to try
       // this out more
+      angular.forEach(self.greekRegex, function(diacr, plain) {
+        var toBeSubstituted = new RegExp(plain, 'g');
+        str = str.replace(toBeSubstituted, diacr);
+      });
       var regex = new RegExp(str, 'i');
       return arethusaUtil.inject([], self.strings, function (memo, string, ids) {
         if (string.match(regex)) {
