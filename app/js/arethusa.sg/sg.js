@@ -30,8 +30,8 @@ angular.module('arethusa.sg').service('sg', [
     }
 
     function grammarReset(grammar) {
-      grammar.ancestors = [];
-      grammar.definingAttrs = [];
+      arethusaUtil.empty(grammar.ancestors);
+      arethusaUtil.empty(grammar.definingAttrs);
     }
 
     function createInternalState() {
@@ -89,7 +89,6 @@ angular.module('arethusa.sg').service('sg', [
       grammarReset(grammar);
       findDefiningAttributes(self.labels, grammar, grammar.definingAttrs);
       extractMenu(grammar);
-      grammar.markChange();
     }
 
     function findDefiningAttributes(labels, grammar, target) {
@@ -99,11 +98,6 @@ angular.module('arethusa.sg').service('sg', [
           var morph = grammar.morph;
           var nextLevel;
           angular.forEach(dep, function(depVal, depCat) {
-            // More a hack than a solution so far, through
-            // the RegExp we can match "1st2nd3rd" of the
-            // pers dep. So far all works, but the RegExp
-            // could cause trouble, when wrong dependency
-            // values match...
             if (dependencyMet(morph[depCat], depVal)) {
               val = angular.copy(val);
               memo.push(val);

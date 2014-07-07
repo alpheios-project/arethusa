@@ -2,22 +2,24 @@
   <div ng-repeat="(id, grammar) in plugin.currentGrammar()">
     <p token-with-id value="grammar.string" token-id="id"/>
     <p class="text" style="margin-left: 0.75rem">{{ grammar.hint }}</p>
-    <div sg-ancestors="grammar"/>
-    <br/>
-    <ul class="nested-dropdown">
-      <li class="first-item">Select Smyth Categories
-        <ul
-          class="top-menu"
-          nested-menu-collection
-          property=""
-          current="grammar"
-          ancestors="plugin.defineAncestors"
-          all="grammar.menu"
-          label-as="plugin.labelAs"
-          empty-val="true">
-        </ul>
-      </li>
-    </ul>
+    <div ng-hide="grammar.hint">
+      <div sg-ancestors="grammar"/>
+      <br/>
+      <ul class="nested-dropdown">
+        <li class="first-item">Select Smyth Categories
+          <ul
+            class="top-menu"
+            nested-menu-collection
+            property=""
+            current="grammar"
+            ancestors="plugin.defineAncestors"
+            all="grammar.menu"
+            label-as="plugin.labelAs"
+            empty-val="true">
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div sg-grammar-reader>
