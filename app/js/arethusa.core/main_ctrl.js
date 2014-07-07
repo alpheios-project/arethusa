@@ -160,12 +160,11 @@ angular.module('arethusa.core').controller('MainCtrl', [
     });
 
     $scope.initPlugins = function () {
-      for (var plugin in $scope.plugins) {
-        try {
-          $scope.plugins[plugin].init();
-        } catch (err) {
+      angular.forEach($scope.plugins, function(plugin, name) {
+        if (angular.isFunction(plugin.init)) {
+          plugin.init();
         }
-      }
+      });
     };
 
     $scope.init = function () {

@@ -35,8 +35,10 @@ angular.module('arethusa.relation').directive('nestedMenu', [
         }
 
         scope.selectLabel = function() {
-          scope.relObj[scope.property] = scope.label;
-          relation.buildLabel(scope.relObj);
+          if (scope.property) {
+            scope.relObj[scope.property] = scope.label;
+            relation.buildLabel(scope.relObj);
+          }
         };
 
         scope.addAncestor = function(obj, ancestor) {
@@ -50,9 +52,16 @@ angular.module('arethusa.relation').directive('nestedMenu', [
           }
         };
 
+        function markChange() {
+          if (angular.isFunction(scope.relObj.markChange)) {
+            scope.relObj.markChange();
+          }
+        }
+
         element.bind('click', function(event) {
           scope.$apply(function() {
             if (event.eventPhase === 2) { // at target, three would be bubbling!
+              markChange();
               scope.selectLabel();
               if (scope.ancestors) {
                 scope.resetAncestors(scope.relObj);

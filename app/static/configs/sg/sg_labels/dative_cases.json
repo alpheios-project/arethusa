@@ -80,66 +80,68 @@
     },
     "INS" : {
       "short" : "INS",
-      "long" : "intrumental",
+      "long" : "instrumental",
       "sections" : "1503-1529",
-      "MNS" : {
-        "short" : "MNS",
-        "long" : "of means or instruments",
-        "sections" : "1507-1511"
-      },
-      "STN" : {
-        "short" : "STN",
-        "long" : "of standard of judgement",
-        "sections" : "1512"
-      },
-      "MNN" : {
-        "short" : "MNN",
-        "long" : "of manner",
-        "sections" : "1527"
-      },
-      "RSP" : {
-        "short" : "RSP",
-        "long" : "of respect",
-        "sections" : "1516"
-      },
-      "MEA" : {
-        "short" : "MEA",
-        "long" : "of measure of difference",
-        "sections" : "1513-1515"
-      },
-      "CAU" : {
-        "short" : "CAU",
-        "long" : "of cause",
-        "sections" : "1520"
-      },
-      "CMT" : {
-        "short" : "CMT",
-        "long" : "as comitative",
-        "sections" : "1521-1528",
-        "nested" : {
-          "ASS" : {
-            "short" : "ASS",
-            "long" : "of association",
-            "sections" : "1523"
-          },
-          "ACM" : {
-            "short" : "ACM",
-            "long" : "of accompaniment",
-            "sections" : "1524-1525"
-          },
-          "MLT" : {
-            "short" : "MLT",
-            "long" : "of military accompaniment",
-            "sections" : "1526"
-          },
-          "ACR" : {
-            "short" : "ACR",
-            "long" : "of accompanying circumstance",
-            "sections" : "1524-1527"
-          },
-          "IDK" : {
-            "short" : "IDK",
-            "long" : "I don't know"
+      "nested" : {
+        "MNS" : {
+          "short" : "MNS",
+          "long" : "of means or instruments",
+          "sections" : "1507-1511"
+        },
+        "STN" : {
+          "short" : "STN",
+          "long" : "of standard of judgement",
+          "sections" : "1512"
+        },
+        "MNN" : {
+          "short" : "MNN",
+          "long" : "of manner",
+          "sections" : "1527"
+        },
+        "RSP" : {
+          "short" : "RSP",
+          "long" : "of respect",
+          "sections" : "1516"
+        },
+        "MEA" : {
+          "short" : "MEA",
+          "long" : "of measure of difference",
+          "sections" : "1513-1515"
+        },
+        "CAU" : {
+          "short" : "CAU",
+          "long" : "of cause",
+          "sections" : "1520"
+        },
+        "CMT" : {
+          "short" : "CMT",
+          "long" : "as comitative",
+          "sections" : "1521-1528",
+          "nested" : {
+            "ASS" : {
+              "short" : "ASS",
+              "long" : "of association",
+              "sections" : "1523"
+            },
+            "ACM" : {
+              "short" : "ACM",
+              "long" : "of accompaniment",
+              "sections" : "1524-1525"
+            },
+            "MLT" : {
+              "short" : "MLT",
+              "long" : "of military accompaniment",
+              "sections" : "1526"
+            },
+            "ACR" : {
+              "short" : "ACR",
+              "long" : "of accompanying circumstance",
+              "sections" : "1524-1527"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
           }
         }
       },

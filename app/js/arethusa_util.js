@@ -103,6 +103,20 @@ var arethusaUtil = {
       return arr.indexOf(el) !== -1;
     },
 
+    empty: function(obj) {
+      if (arethusaUtil.isArray(obj)) {
+
+        obj.splice(0, obj.length);
+      } else {
+        for (var key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            delete obj[key];
+          }
+        }
+      }
+
+    },
+
     replaceAt: function (str, i, replacement) {
       return str.substring(0, i) + replacement + str.substring(i + 1);
     },

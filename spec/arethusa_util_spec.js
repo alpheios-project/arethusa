@@ -231,4 +231,30 @@ describe("arethusaUtil", function() {
       expect(aU.isIncluded(arr, 'c')).toBeFalsy();
     });
   });
+
+  describe('empty', function() {
+    it('empties an array without touching its identity', function() {
+      var arr = ['a', 'b'];
+      aU.empty(arr);
+      expect(arr).toEqual([]);
+    });
+
+    it('deletes all properties of an object', function() {
+      var obj = { a: 1, b: 2};
+      aU.empty(obj);
+      expect(obj).toEqual({});
+    });
+
+    it('deletes properties only!', function() {
+      function Test() {
+        this.a = 1;
+      }
+      Test.prototype.fn = function() {};
+
+      var obj = new Test();
+      aU.empty(obj);
+      expect(obj.fn).toBeDefined();
+      expect(obj.a).toBeUndefined();
+    });
+  });
 });

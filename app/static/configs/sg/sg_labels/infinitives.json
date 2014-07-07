@@ -75,7 +75,7 @@
       "short" : "INN",
       "long" : "independent",
       "nested" : {
-        "CMM" : {
+        "COM" : {
           "short" : "COM",
           "long" : "of command"
         },
