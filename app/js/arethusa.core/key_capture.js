@@ -5,7 +5,9 @@ angular.module('arethusa.core').service('keyCapture', [
   function(configurator, $rootScope) {
     var self = this;
 
-    this.grKeyTable = configurator.configurationFor('keyCapture').grKeys;
+    this.grKeyTable = function(key) {
+      return configurator.configurationFor('keyCapture').grKeys[key];
+     };
 
     this.conf = function(name) {
       var c = configurator.configurationFor('keyCapture') || {};
@@ -69,7 +71,7 @@ angular.module('arethusa.core').service('keyCapture', [
           if (event.shiftKey) {
             key = key.toUpperCase();
           }
-          res = self.grKeyTable[key];
+          res = self.grKeyTable(key);
         }
       });
       return res;
