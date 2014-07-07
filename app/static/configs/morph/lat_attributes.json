@@ -133,7 +133,7 @@
       "rules" : [
         {
           "if" : {
-            "pos" : [ "noun", "verb", "part", "adj", "pron" ]
+            "pos" : [ "noun", "adj", "pron" ]
           }
         },
         {
