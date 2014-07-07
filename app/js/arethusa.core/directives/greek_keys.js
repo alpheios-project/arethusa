@@ -1,18 +1,24 @@
 'use strict';
 angular.module('arethusa.core').directive('greekKeys',[
   'keyCapture',
-  function (keyCapture) {
+  'languageSettings',
+  function (keyCapture, languageSettings) {
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
         element.on('keydown', function (event) {
+          var lang = languageSettings.getFor('treebank').lang;
           var input = event.target.value;
-          var gr = keyCapture.getGreekKey(event);
-          if (gr === undefined) {
-            return true;
+          if (lang == "gr") {
+            var gr = keyCapture.getGreekKey(event);
+            if (gr === undefined) {
+              return true;
+            } else {
+              event.target.value = input + gr;
+              return false;
+            }
           } else {
-            event.target.value = input + gr;
-            return false;
+            return true;
           }
         });
       }
