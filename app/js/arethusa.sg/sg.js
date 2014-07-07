@@ -73,6 +73,7 @@ angular.module('arethusa.sg').service('sg', [
           grammarReset(grammar);
           grammar.hint = hint;
         }
+          grammar.morph = {};
         memo[id] = grammar;
       });
     };
