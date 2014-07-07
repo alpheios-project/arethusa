@@ -33,6 +33,10 @@ angular.module('arethusa.sg').directive('sgAncestors', [
             scope.obj.hasChanged = false;
           }
         });
+
+        scope.$watchCollection('obj.ancestors', function(newVal, oldVal) {
+          updateHierarchy(scope.obj.ancestors);
+        });
       },
       templateUrl: './templates/arethusa.sg/ancestors.html'
     };
