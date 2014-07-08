@@ -2,6 +2,8 @@
 
 angular.module('arethusa.core').service('idHandler', [
   function() {
+    var self = this;
+
     this.getId = function(id) {
       return arethusaUtil.formatNumber(id, 4);
     };
@@ -15,6 +17,14 @@ angular.module('arethusa.core').service('idHandler', [
       var wId = arethusaUtil.formatNumber(idParts.pop(), 0);
       var sId = arethusaUtil.formatNumber(idParts.pop(), 0);
       return format.replace('%w', wId);
+    };
+
+    this.decrement = function(id) {
+      var idParts = parseId(id);
+      var wId = idParts.pop();
+      var wParts = /(\d*)(\w*)?/.exec(wId);
+      var newWId = wParts[1] - 1;
+      return self.getId(newWId) + (wParts[2] || '');
     };
 
     function parseId(id) {
