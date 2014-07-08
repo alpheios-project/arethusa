@@ -2,7 +2,8 @@
 angular.module('arethusa.morph').service('morph', [
   'state',
   'configurator',
-  function (state, configurator) {
+  '$rootScope',
+  function (state, configurator, $rootScope) {
     var self = this;
     var morphRetrievers;
     var inventory;
@@ -349,6 +350,13 @@ angular.module('arethusa.morph').service('morph', [
     this.canEdit = function() {
       return self.mode === "editor";
     };
+
+    $rootScope.$on('tokenAdded', function(event, token) {
+      var id = token.id;
+      var forms = new Forms(token.string);
+      self.analyses[id] = forms;
+      loadToken(forms, id);
+    });
 
     this.init = function () {
       configure();
