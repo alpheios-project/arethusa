@@ -331,12 +331,14 @@ angular.module('arethusa.core').service('state', [
     };
 
     this.addStatusObjects = function () {
-      angular.forEach(self.tokens, function (token, id) {
-        if (! token.status) {
-          token.status = {};
-        }
-      });
+      angular.forEach(self.tokens, addStatus);
     };
+
+    function addStatus(token) {
+      if (! token.status) {
+        token.status = {};
+      }
+    }
 
     this.countTotalTokens = function () {
       self.totalTokens = Object.keys(self.tokens).length;
@@ -354,6 +356,7 @@ angular.module('arethusa.core').service('state', [
 
     this.addToken = function(token, id) {
       self.tokens[id] = token;
+      addStatus(token);
       // and fire an event
     };
 
