@@ -9,7 +9,12 @@ angular.module('arethusa.core').directive('tokenWithId', [
         tokenId: '='
       },
       link: function (scope, element, attrs) {
-        scope.formatted = idHandler.formatId(scope.tokenId, '%w');
+        function formatId(newId) {
+          scope.formatted = idHandler.formatId(newId, '%w');
+        }
+
+        scope.$watch('tokenId', formatId);
+
       },
       template: '<span>{{ value }} <sup class="note">{{ formatted }}</sup>'
     };
