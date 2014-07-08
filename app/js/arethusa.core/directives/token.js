@@ -136,7 +136,7 @@ angular.module('arethusa.core').directive('token', [
         }, true);
 
         // Special handling of articial tokens
-        if (scope.token.articial) {
+        if (scope.token.artificial) {
           element.addClass(scope.token.type);
         }
       },

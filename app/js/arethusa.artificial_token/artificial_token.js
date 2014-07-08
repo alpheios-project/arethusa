@@ -19,9 +19,10 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
     }
 
     function ArtificialToken (string, type) {
+      var self = this;
       this.string = string;
       this.type   = type || 'elliptic';
-      this.articial = true;
+      this.artificial = true;
     }
 
     this.supportedTypes = [
