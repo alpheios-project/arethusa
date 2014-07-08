@@ -2,7 +2,8 @@
 angular.module('arethusa.relation').service('relation', [
   'state',
   'configurator',
-  function (state, configurator) {
+  '$rootScope',
+  function (state, configurator, $rootScope) {
     var self = this;
 
     this.canSearch = true;
@@ -131,18 +132,25 @@ angular.module('arethusa.relation').service('relation', [
     };
 
     // Init
+    function addToInternalState(container, id, token) {
+      if (!token.relation) token.relation = self.relationTemplate();
+      container[id] = {
+        string: token.string,
+        relation: self.expandRelation(token.relation || '')
+      };
+    }
+
     this.createInternalState = function () {
-      return arethusaUtil.inject({}, state.tokens, function (memo, id, token) {
-        memo[id] = {
-          string: token.string,
-          relation: self.expandRelation(token.relation)
-        };
-      });
+      return arethusaUtil.inject({}, state.tokens, addToInternalState);
     };
 
     this.canEdit = function() {
       return self.mode === "editor";
     };
+
+    $rootScope.$on('tokenAdded', function(event, token) {
+      addToInternalState(self.relations, token.id, token);
+    });
 
     this.init = function () {
       configure();
