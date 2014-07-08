@@ -352,6 +352,11 @@ angular.module('arethusa.core').service('state', [
       return count;
     };
 
+    this.addToken = function(token, id) {
+      self.tokens[id] = token;
+      // and fire an event
+    };
+
     this.postInit = function () {
       self.addStatusObjects();
       self.countTotalTokens();
