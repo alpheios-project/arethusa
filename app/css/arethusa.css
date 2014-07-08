@@ -350,7 +350,7 @@ button[disabled],
   font-size: 0.875rem;
 }
 
-.note {
+.note, .elliptic {
   font-size: 0.7rem;
 }
 

@@ -134,6 +134,11 @@ angular.module('arethusa.core').directive('token', [
             }
           }
         }, true);
+
+        // Special handling of articial tokens
+        if (scope.token.articial) {
+          element.addClass(scope.token.type);
+        }
       },
       templateUrl: 'templates/token.html'
     };
