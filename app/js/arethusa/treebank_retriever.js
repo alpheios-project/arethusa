@@ -23,7 +23,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
           lemma: token._lemma,
           postag: token._postag
         },
-        relation: { label: token._relation },
+        relation: { label: token._relation || '' },
         head: { id: idHandler.getId(token._head) },
       };
 
