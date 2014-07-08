@@ -332,7 +332,9 @@ angular.module('arethusa.core').service('state', [
 
     this.addStatusObjects = function () {
       angular.forEach(self.tokens, function (token, id) {
-        token.status = {};
+        if (! token.status) {
+          token.status = {};
+        }
       });
     };
 
