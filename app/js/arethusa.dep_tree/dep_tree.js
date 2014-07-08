@@ -80,6 +80,10 @@ angular.module('arethusa.depTree').service('depTree', [
       self.diffMode = true;
     });
 
+    $rootScope.$on('tokenAdded', function(event, token) {
+      if (!token.head) token.head = {};
+    });
+
     // Used inside the context menu
     this.disconnect = function(token) {
       token.head.id = "";

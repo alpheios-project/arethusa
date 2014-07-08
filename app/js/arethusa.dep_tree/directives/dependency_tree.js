@@ -581,41 +581,49 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         });
 
+        // only do this if we are the main tree!
+        if (scope.tokens === state.tokens) {
+          scope.$on('tokenAdded', function(event, token) {
+            createGraph();
+            createHeadWatch(token, token.id);
+          });
+        }
+
         angular.element($window).on('resize', function() {
           calculateSvgHotspots();
           applyViewMode();
         });
 
         var headWatches = [];
-        function createHeadWatches() {
-          destroyOldHeadWatches();
-          angular.forEach(scope.tokens, function (token, id) {
-            var childScope = scope.$new();
-            childScope.token = token.id;
-            childScope.head = token.head;
-            childScope.$watch('head.id', function (newVal, oldVal) {
-              // Very important to do here, otherwise the tree will
-              // be render a little often on startup...
-              if (newVal !== oldVal) {
-                // If a disconnection has been requested, we just
-                // have to delete the edge and do nothing else
-                if (newVal === "") {
-                  g.delEdge(token.id);
-                } else {
-                  updateEdge(token);
-                }
-                render();
-              }
-            });
-            headWatches.push(childScope);
-          });
-        }
-
         function destroyOldHeadWatches() {
           angular.forEach(headWatches, function(childScope, i) {
             childScope.$destroy();
           });
           headWatches = [];
+        }
+        function createHeadWatch(token, id) {
+          var childScope = scope.$new();
+          childScope.token = token.id;
+          childScope.head = token.head;
+          childScope.$watch('head.id', function (newVal, oldVal) {
+            // Very important to do here, otherwise the tree will
+            // be render a little often on startup...
+            if (newVal !== oldVal) {
+              // If a disconnection has been requested, we just
+              // have to delete the edge and do nothing else
+              if (newVal === "") {
+                g.delEdge(token.id);
+              } else {
+                updateEdge(token);
+              }
+              render();
+            }
+          });
+        }
+
+        function createHeadWatches() {
+          destroyOldHeadWatches();
+          angular.forEach(scope.tokens, createHeadWatch);
         }
 
 
