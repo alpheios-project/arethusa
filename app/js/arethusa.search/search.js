@@ -2,7 +2,8 @@
 angular.module('arethusa.search').service('search', [
   'state',
   'configurator',
-  function (state, configurator) {
+  '$rootScope',
+  function (state, configurator, $rootScope) {
     var self = this;
     this.conf = configurator.configurationFor('search');
     this.name = this.conf.name;
@@ -33,16 +34,6 @@ angular.module('arethusa.search').service('search', [
       state.multiSelect(ids);
     };
 
-    this.collectTokenStrings = function () {
-      return arethusaUtil.inject({}, state.tokens, function (memo, id, token) {
-        var str = token.string;
-        if (!memo[str]) {
-          memo[str] = [];
-        }
-        memo[str].push(id);
-      });
-    };
-
     this.pluginsWithSearch = function(plugins) {
       return arethusaUtil.inject([], plugins, function(memo, name, plugin) {
         if (plugin.canSearch) {
@@ -50,6 +41,23 @@ angular.module('arethusa.search').service('search', [
         }
       });
     };
+
+    // Init
+    function collectTokenString(container, id, token) {
+      var str = token.string;
+      if (!container[str]) {
+        container[str] = [];
+      }
+      container[str].push(id);
+    }
+
+    this.collectTokenStrings = function () {
+      return arethusaUtil.inject({}, state.tokens, collectTokenString);
+    };
+
+    $rootScope.$on('tokenAdded', function(event, token) {
+      collectTokenString(self.strings, token.id, token);
+    });
 
     this.init = function () {
       self.strings = self.collectTokenStrings();
