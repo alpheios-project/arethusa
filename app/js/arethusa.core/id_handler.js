@@ -7,6 +7,8 @@ angular.module('arethusa.core').service('idHandler', [
     };
 
     this.formatId = function(id, format) {
+      if (!id) return;
+
       format = format ? format : '%w';
       // in case we have an id formatted like 1-1 here
       var idParts = parseId(id);
