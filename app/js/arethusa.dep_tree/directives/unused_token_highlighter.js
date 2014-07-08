@@ -26,13 +26,15 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
           return !(token.head || {}).id;
         }
 
+        function checkIfUnused(token, id) {
+          if (hasNoHead(token)) {
+            scope.unusedCount++;
+            unusedTokens[id] = true;
+          }
+        }
+
         function findUnusedTokens() {
-          angular.forEach(state.tokens, function(token, id) {
-            if (hasNoHead(token)) {
-              scope.unusedCount++;
-              unusedTokens[id] = true;
-            }
-          });
+          angular.forEach(state.tokens, checkIfUnused);
         }
 
         function initHeadWatches() {
@@ -108,6 +110,11 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
 
         scope.$watch('s.tokens', function(newVal, oldVal) {
           init();
+        });
+
+        scope.$on('tokenAdded', function(event, token) {
+          scope.total++;
+          checkIfUnused(token, token.id);
         });
       },
       template: '{{ unusedCount }} of {{ total }} unused'
