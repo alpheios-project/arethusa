@@ -80,7 +80,10 @@ angular.module('arethusa.sg').service('sg', [
       var menu = grammar.menu;
       angular.forEach(ancestors, function(ancestor, i) {
         if (menu) {
-          var expandedAncestor = menu[ancestor];
+          // The || menu.nested party is very hacky, but effective.
+          // It can appear in menus that show a morph preselection -
+          // I guess... Check a word with a dative proper e.g.
+          var expandedAncestor = menu[ancestor] || menu.nested;
           grammar.ancestors.push(expandedAncestor);
           menu = expandedAncestor.nested;
         }
