@@ -19,11 +19,14 @@
           ng-model="plugin.model.type"
           ng-options="type for type in plugin.supportedTypes">
         </select>
-        {{ plugin.supportedTypes }}
       </div>
       <!--<button class="micro radius">Mirror token</button>-->
       <div delimiter/>
     </form>
-    <button class="tiny radius">Add token</button>
+    <button
+      class="tiny radius"
+      ng-click="plugin.propagateToState()">
+      Add token
+    </button>
   </div>
 </div>

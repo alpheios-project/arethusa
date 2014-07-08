@@ -3,19 +3,25 @@
 angular.module('arethusa.artificialToken').service('artificialToken', [
   'state',
   'configurator',
-  function(state, configurator) {
+  'idHandler',
+  function(state, configurator, idHandler) {
     var self = this;
 
     function configure() {
       configurator.getConfAndDelegate('artificialToken', self);
-      self.model = new ArtificialToken();
+      resetModel();
     }
 
     configure();
 
+    function resetModel() {
+      self.model = new ArtificialToken();
+    }
+
     function ArtificialToken (string, type) {
       this.string = string;
       this.type   = type || 'elliptic';
+      this.articial = true;
     }
 
     this.supportedTypes = [
@@ -29,6 +35,11 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
 
     this.hasType = function(type) {
       return self.model.type === type;
+    };
+
+    this.propagateToState = function() {
+      state.addToken(self.model, idHandler.getId(1000));
+      resetModel();
     };
 
 
