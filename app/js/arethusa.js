@@ -14,6 +14,7 @@ angular.module('arethusa', [
   'arethusa.relation',
   'arethusa.sg',
   'arethusa.text',
+  'arethusa.artificialToken'
 ], ['$routeProvider', 'MAIN_ROUTE', 'CONF_ROUTE',
 function ($routeProvider, MAIN_ROUTE, CONF_ROUTE) {
   $routeProvider.when('/', MAIN_ROUTE);

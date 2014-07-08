@@ -229,6 +229,7 @@ module.exports = function(grunt) {
       },
       main: { files: pluginFiles('arethusa') },
       core: { files: pluginFiles('arethusa.core') },
+      artificialToken: { files: pluginFiles('arethusa.artificial_token') },
       contextMenu: { files: pluginFiles('arethusa.context_menu') },
       confEditor: { files: pluginFiles('arethusa.conf_editor') },
       morph: { files: pluginFiles('arethusa.morph') },
@@ -280,6 +281,7 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', ['minify', 'connect:devserver']);
+    'uglify:artificialToken',
   // Ok, the concurrent watches don't work, because the grunt contrib server
   // is listening only to one port :( Fix this at a later stage.
   //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
@@ -288,6 +290,7 @@ module.exports = function(grunt) {
     'cssmin:css',
     'uglify:main',
     'uglify:util',
+    'uglify:artificialToken',
     'uglify:core',
     'uglify:morph',
     'uglify:contextMenu',
