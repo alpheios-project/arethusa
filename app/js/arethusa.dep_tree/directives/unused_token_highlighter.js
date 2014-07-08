@@ -37,30 +37,32 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
           angular.forEach(state.tokens, checkIfUnused);
         }
 
+        function initHeadWatch(token, id) {
+          var childScope = scope.$new();
+          childScope.head = token.head;
+          childScope.id   = id;
+          childScope.$watch('head.id', function(newVal, oldVal) {
+            if (newVal !== oldVal) {
+              if (newVal) {
+                // Check if the token was used before!
+                if (!oldVal) {
+                  scope.unusedCount--;
+                  delete unusedTokens[id];
+                  if (highlightMode) removeStyle(id);
+                }
+              } else {
+                scope.unusedCount++;
+                unusedTokens[id] = true;
+                if (highlightMode) state.addStyle(id, style);
+              }
+            }
+          });
+          headWatches.push(childScope);
+        }
+
         function initHeadWatches() {
           destroyOldHeadWatches();
-          angular.forEach(state.tokens, function(token, id) {
-            var childScope = scope.$new();
-            childScope.head = token.head;
-            childScope.id   = id;
-            childScope.$watch('head.id', function(newVal, oldVal) {
-              if (newVal !== oldVal) {
-                if (newVal) {
-                  // Check if the token was used before!
-                  if (!oldVal) {
-                    scope.unusedCount--;
-                    delete unusedTokens[id];
-                    if (highlightMode) removeStyle(id);
-                  }
-                } else {
-                  scope.unusedCount++;
-                  unusedTokens[id] = true;
-                  if (highlightMode) state.addStyle(id, style);
-                }
-              }
-            });
-            headWatches.push(childScope);
-          });
+          angular.forEach(state.tokens, initHeadWatch);
         }
 
         function destroyOldHeadWatches() {
@@ -113,8 +115,10 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
         });
 
         scope.$on('tokenAdded', function(event, token) {
+          var id = token.id;
           scope.total++;
-          checkIfUnused(token, token.id);
+          checkIfUnused(token, id);
+          initHeadWatch(token, id);
         });
       },
       template: '{{ unusedCount }} of {{ total }} unused'
