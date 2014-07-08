@@ -357,8 +357,7 @@ angular.module('arethusa.core').service('state', [
     this.addToken = function(token, id) {
       self.tokens[id] = token;
       addStatus(token);
-      self.totalTokens++;
-      // and fire an event
+      $rootScope.$broadcast('tokenAdded', token);
     };
 
     this.postInit = function () {
