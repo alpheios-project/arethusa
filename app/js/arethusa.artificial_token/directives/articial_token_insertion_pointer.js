@@ -8,19 +8,17 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
       restrict: 'A',
       scope: {},
       link: function(scope, element, attrs) {
-        var aT = artificialToken;
         var modeClass = 'crosshair-cursor';
         var selectMode;
         var watch;
-        scope.insertionPoint;
+
+        scope.aT = artificialToken;
 
         function tokens() {
           return angular.element('[token]');
         }
 
         scope.state = state;
-        scope.insertionPointSet = true;
-        scope.text = '-';
 
         scope.enterSelectMode = function() {
           selectMode = true;
@@ -36,8 +34,7 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
         }
 
         function setInsertionPoint(id) {
-           scope.insertionPoint = state.getToken(id);
-           artificialToken.model.insertionPoint = scope.insertionPoint;
+          artificialToken.model.insertionPoint = state.getToken(id);
         }
 
         function setWatch() {
@@ -53,10 +50,9 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
           }, true);
         }
 
-
-        scope.select = function() {
-
-        };
+        scope.$watch('aT.model.insertionPoint', function(newVal, oldVal) {
+          scope.insertionPoint = newVal;
+        });
 
       },
       templateUrl: 'templates/arethusa.artificial_token/artificial_token_insertion_pointer.html'

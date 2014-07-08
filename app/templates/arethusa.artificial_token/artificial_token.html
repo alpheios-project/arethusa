@@ -20,11 +20,12 @@
           ng-options="type for type in plugin.supportedTypes">
         </select>
       </div>
-      <!--<button class="micro radius">Mirror token</button>-->
+      <span artificial-token-insertion-pointer/>
       <div delimiter/>
     </form>
     <button
       class="tiny radius"
+      ng-disabled="!plugin.modelValid()"
       ng-click="plugin.propagateToState()">
       Add token
     </button>
