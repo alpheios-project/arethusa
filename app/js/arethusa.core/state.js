@@ -297,7 +297,7 @@ angular.module('arethusa.core').service('state', [
       // state tokens are replaced
       if (!keepSelections) self.deselectAll();
       self.tokens = tokens;
-      self.broadcastReload();
+      self.broadcast('stateLoaded');
     };
 
     this.setStyle = function (id, style) {
@@ -324,10 +324,6 @@ angular.module('arethusa.core').service('state', [
 
     this.unsetStyle = function (id) {
       delete self.getToken(id).style;
-    };
-
-    this.broadcastReload = function () {
-      $rootScope.$broadcast('stateLoaded');
     };
 
     this.addStatusObjects = function () {
@@ -357,7 +353,16 @@ angular.module('arethusa.core').service('state', [
     this.addToken = function(token, id) {
       self.tokens[id] = token;
       addStatus(token);
-      $rootScope.$broadcast('tokenAdded', token);
+      self.broadcast('tokenAdded', token);
+    };
+
+    // New event handling through $rootScope
+    this.on = function(event, fn) {
+      $rootScope.$on(event, fn);
+    };
+
+    this.broadcast = function(event, arg) {
+      $rootScope.$broadcast(event, arg);
     };
 
     this.postInit = function () {
