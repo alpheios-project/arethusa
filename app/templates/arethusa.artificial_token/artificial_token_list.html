@@ -19,7 +19,15 @@
       {{ formatId(id) }}
     </sup>
   </span>
-  <span class="right">
-    Edit
+  <span class="righ">
+    <span
+      class="button tiny radius">
+      Edit
+    </span>
+    <span
+      ng-click="aT.removeToken(id)"
+      class="button tiny radius">
+      Delete
+    </span>
   </span>
 </div>

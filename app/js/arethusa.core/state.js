@@ -356,6 +356,12 @@ angular.module('arethusa.core').service('state', [
       self.broadcast('tokenAdded', token);
     };
 
+    this.removeToken = function(id) {
+      var token = self.getToken(id);
+      delete self.tokens[id];
+      self.broadcast('tokenRemoved', token);
+    };
+
     // New event handling through $rootScope
     this.on = function(event, fn) {
       $rootScope.$on(event, fn);

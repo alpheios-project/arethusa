@@ -26,6 +26,7 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       this.string = string;
       this.type   = type || 'elliptic';
       this.artificial = true;
+      this.insertionPoint = { id: '0004', string: 'x' };
     }
 
     this.supportedTypes = [
@@ -74,6 +75,16 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       self.createdTokens[id] = self.model;
       recountATs();
     }
+
+    function removeArtificialToken(id) {
+      delete self.createdTokens[id];
+      recountATs();
+    }
+
+    this.removeToken = function(id) {
+      state.removeToken(id);
+      removeArtificialToken(id);
+    };
 
     this.propagateToState = function() {
       setString();
