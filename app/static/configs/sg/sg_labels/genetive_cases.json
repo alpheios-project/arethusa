@@ -118,7 +118,7 @@
           }
         },
         "TI-SP" : {
-          "short" : "TISP",
+          "short" : "TI-SP",
           "long" : "of time & space",
           "sections" : "1444-1449",
           "nested" : {
