@@ -7,7 +7,17 @@
 
 <div ng-repeat="(id, token) in aT.createdTokens">
   <span class="left">
-    {{ token.string }}
+    <span
+      class="normal-size"
+      token="token"
+      colorize="true"
+      click="true"
+      hover="true">
+    </span>
+    <sup
+      class="note">
+      {{ formatId(id) }}
+    </sup>
   </span>
   <span class="right">
     Edit

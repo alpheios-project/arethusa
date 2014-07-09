@@ -354,6 +354,10 @@ button[disabled],
   font-size: 0.7rem;
 }
 
+.normal-size {
+  font-size: 1rem;
+}
+
 hr.small {
   margin: 0.5rem 0 0.3rem
 }
