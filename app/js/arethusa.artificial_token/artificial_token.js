@@ -82,6 +82,7 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       var newId = idBefore + idIdentifier(idBefore);
       self.model.id = newId;
       addArtificialToken(newId, self.model);
+      state.addToken(self.model, newId);
       resetModel();
     };
 
