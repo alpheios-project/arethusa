@@ -1,0 +1,15 @@
+<p
+  ng-if="aT.count === 0"
+  class="text"
+  style="margin-left: 0.75rem">
+  No artificial tokens present
+</p>
+
+<div ng-repeat="(id, token) in aT.createdTokens">
+  <span class="left">
+    {{ token.string }}
+  </span>
+  <span class="right">
+    Edit
+  </span>
+</div>
