@@ -33,8 +33,8 @@
         "short" : "PNOM",
         "long" : "predicate nominal"
       },
-      "OCCOMP" : {
-        "short" : "OCCOMP",
+      "OCOMP" : {
+        "short" : "OCOMP",
         "long" : "object complement"
       },
       "COORD" : {
