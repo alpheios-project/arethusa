@@ -2,8 +2,7 @@
 angular.module('arethusa.search').service('search', [
   'state',
   'configurator',
-  '$rootScope',
-  function (state, configurator, $rootScope) {
+  function (state, configurator) {
     var self = this;
     this.conf = configurator.configurationFor('search');
     this.name = this.conf.name;
@@ -55,7 +54,7 @@ angular.module('arethusa.search').service('search', [
       return arethusaUtil.inject({}, state.tokens, collectTokenString);
     };
 
-    $rootScope.$on('tokenAdded', function(event, token) {
+    state.on('tokenAdded', function(event, token) {
       collectTokenString(self.strings, token.id, token);
     });
 

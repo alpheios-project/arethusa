@@ -2,8 +2,7 @@
 angular.module('arethusa.relation').service('relation', [
   'state',
   'configurator',
-  '$rootScope',
-  function (state, configurator, $rootScope) {
+  function (state, configurator) {
     var self = this;
 
     this.canSearch = true;
@@ -148,7 +147,7 @@ angular.module('arethusa.relation').service('relation', [
       return self.mode === "editor";
     };
 
-    $rootScope.$on('tokenAdded', function(event, token) {
+    state.on('tokenAdded', function(event, token) {
       addToInternalState(self.relations, token.id, token);
     });
 

@@ -21,8 +21,7 @@
 angular.module('arethusa.depTree').service('depTree', [
   'state',
   'configurator',
-  '$rootScope',
-  function (state, configurator, $rootScope) {
+  function (state, configurator) {
     var self = this;
 
     function configure() {
@@ -74,13 +73,13 @@ angular.module('arethusa.depTree').service('depTree', [
       }
     };
 
-    $rootScope.$on('diffLoaded', function () {
+    state.on('diffLoaded', function () {
       self.diffPresent = true;
       self.diffInfo = analyseDiffs(state.tokens);
       self.diffMode = true;
     });
 
-    $rootScope.$on('tokenAdded', function(event, token) {
+    state.on('tokenAdded', function(event, token) {
       if (!token.head) token.head = {};
     });
 
