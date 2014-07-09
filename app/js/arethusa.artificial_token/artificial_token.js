@@ -9,6 +9,8 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
 
     function configure() {
       configurator.getConfAndDelegate('artificialToken', self);
+      self.createdTokens = {};
+      delete self.mode;
       resetModel();
     }
 
@@ -38,6 +40,14 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       return self.model.type === type;
     };
 
+    this.toggleMode = function(mode) {
+      if (self.mode === mode) {
+        delete self.mode;
+      } else {
+        self.mode = mode;
+      }
+    };
+
     var count = 0;
 
     function setString() {
@@ -62,6 +72,7 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       var newId = idBefore + idIdentifier(idBefore);
       self.model.id = newId;
       state.addToken(self.model, newId);
+      self.createdTokens[newId] = self.model;
       resetModel();
     };
 

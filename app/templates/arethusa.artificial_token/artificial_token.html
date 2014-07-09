@@ -1,12 +1,16 @@
 <div class="small-12 columns text-center">
-  <button
-    class="tiny radius"
-    ng-model="createMode"
-    ng-click="createMode = !createMode">
-    Create artificial Token
-  </button>
+  <span
+    class="button tiny radius"
+    ng-click="plugin.toggleMode('create')">
+    Create
+  </span>
+  <span
+    class="button tiny radius"
+    ng-click="plugin.toggleMode('list')">
+    List
+  </span>
   <div delimiter/>
-  <div ng-if="createMode">
+  <div ng-if="plugin.mode === 'create'">
     <form name="cAT">
       <label>
         Visual representation of new token (optional)
@@ -29,5 +33,8 @@
       ng-click="plugin.propagateToState()">
       Add token
     </button>
+  </div>
+  <div ng-if="plugin.mode === 'list'">
+    This will be a list.
   </div>
 </div>
