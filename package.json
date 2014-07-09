@@ -27,7 +27,6 @@
     "load-grunt-tasks": "^0.6.0"
   },
   "scripts": {
-    "test": "grunt karma:spec coveralls jshint && protractor protractor-config-travis.js",
-    "postinstall": "grunt githooks"
+    "test": "grunt karma:spec coveralls jshint && protractor protractor-config-travis.js"
   }
 }
