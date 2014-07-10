@@ -241,7 +241,7 @@ module.exports = function(grunt) {
       exercise: { files: pluginFiles('arethusa.exercise') },
       sg: { files: pluginFiles('arethusa.sg') },
       dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
-      templates: { files: { "dist/templates.min.js": "templates/templates.js"} }
+      templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} }
     },
     githooks: {
       precommit: {
