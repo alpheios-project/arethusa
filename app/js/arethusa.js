@@ -12,7 +12,8 @@ angular.module('arethusa', [
   'arethusa.search',
   'arethusa.exercise',
   'arethusa.relation',
-  'arethusa.sg'
+  'arethusa.sg',
+  'arethusa.text',
 ], ['$routeProvider', 'MAIN_ROUTE', 'CONF_ROUTE',
 function ($routeProvider, MAIN_ROUTE, CONF_ROUTE) {
   $routeProvider.when('/', MAIN_ROUTE);

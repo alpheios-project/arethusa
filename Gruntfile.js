@@ -241,6 +241,7 @@ module.exports = function(grunt) {
       relation: { files: pluginFiles('arethusa.relation') },
       exercise: { files: pluginFiles('arethusa.exercise') },
       sg: { files: pluginFiles('arethusa.sg') },
+      text: { files: pluginFiles('arethusa.text') },
       dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
       templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} }
     },
@@ -289,6 +290,7 @@ module.exports = function(grunt) {
     'uglify:relation',
     'uglify:exercise',
     'uglify:sg',
+    'uglify:text',
     'ngtemplates',
     'uglify:templates'
   ]);

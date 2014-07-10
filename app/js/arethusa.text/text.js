@@ -1,5 +1,5 @@
 'use strict';
-angular.module('arethusa').service('text', [
+angular.module('arethusa.text').service('text', [
   'state',
   'configurator',
   function (state, configurator) {
