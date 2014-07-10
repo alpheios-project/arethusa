@@ -229,6 +229,7 @@ module.exports = function(grunt) {
         sourceMap: true,
         report: 'gzip'
       },
+      main: { files: { 'dist/arethusa.min.js': 'app/js/arethusa.js' } },
       core: { files: pluginFiles('arethusa.core') },
       contextMenu: { files: pluginFiles('arethusa.context_menu') },
       confEditor: { files: pluginFiles('arethusa.conf_editor') },
@@ -276,6 +277,7 @@ module.exports = function(grunt) {
   //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
   grunt.registerTask('reloader', 'watch:server');
   grunt.registerTask('minify', [
+    'uglify:main',
     'uglify:core',
     'uglify:morph',
     'uglify:contextMenu',
