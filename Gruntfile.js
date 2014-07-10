@@ -225,8 +225,7 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        sourceMap: true,
-        report: 'gzip'
+        sourceMap: true
       },
       main: { files: pluginFiles('arethusa') },
       core: { files: pluginFiles('arethusa.core') },
@@ -249,9 +248,6 @@ module.exports = function(grunt) {
     },
     cssmin: {
       css: {
-        options: {
-          report: 'gzip'
-        },
         src: ['app/css/arethusa.css', 'app/css/fonts/**/*.css'],
         dest: 'dist/arethusa.min.css'
       }
