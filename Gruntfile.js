@@ -229,7 +229,7 @@ module.exports = function(grunt) {
         sourceMap: true,
         report: 'gzip'
       },
-      main: { files: { 'dist/arethusa.min.js': 'app/js/arethusa.js' } },
+      main: { files: pluginFiles('arethusa') },
       core: { files: pluginFiles('arethusa.core') },
       contextMenu: { files: pluginFiles('arethusa.context_menu') },
       confEditor: { files: pluginFiles('arethusa.conf_editor') },
