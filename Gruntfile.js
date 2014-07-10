@@ -117,7 +117,6 @@ module.exports = function(grunt) {
             './vendor/dagre-d3/dagre-d3.min.js',
             // Some source files we'll need to include manually, otherwise
             // the load order is wrong
-            'app/js/other/history_obj.js',
             'app/js/*.js',
             'app/js/arethusa*/**/*.js',
             'app/js/util/**/*.js',
