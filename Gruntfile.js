@@ -247,6 +247,15 @@ module.exports = function(grunt) {
       util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
       external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } }
     },
+    cssmin: {
+      css: {
+        options: {
+          report: 'gzip'
+        },
+        src: ['app/css/arethusa.css', 'app/css/fonts/**/*.css'],
+        dest: 'dist/arethusa.min.css'
+      }
+    },
     githooks: {
       precommit: {
         options: {
