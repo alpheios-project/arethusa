@@ -120,7 +120,7 @@ module.exports = function(grunt) {
             'app/js/other/history_obj.js',
             'app/js/*.js',
             'app/js/arethusa*/**/*.js',
-            'app/js/services/**/*.js',
+            'app/js/util/**/*.js',
             specFiles
           ],
           frameworks: ['jasmine'],
@@ -243,7 +243,8 @@ module.exports = function(grunt) {
       sg: { files: pluginFiles('arethusa.sg') },
       text: { files: pluginFiles('arethusa.text') },
       dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
-      templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} }
+      templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} },
+      util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } }
     },
     githooks: {
       precommit: {
@@ -279,6 +280,7 @@ module.exports = function(grunt) {
   grunt.registerTask('reloader', 'watch:server');
   grunt.registerTask('minify', [
     'uglify:main',
+    'uglify:util',
     'uglify:core',
     'uglify:morph',
     'uglify:contextMenu',
