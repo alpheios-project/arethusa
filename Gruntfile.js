@@ -240,7 +240,8 @@ module.exports = function(grunt) {
       relation: { files: pluginFiles('arethusa.relation') },
       exercise: { files: pluginFiles('arethusa.exercise') },
       sg: { files: pluginFiles('arethusa.sg') },
-      dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} }
+      dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
+      templates: { files: { "dist/templates.min.js": "dist/templates.js"} }
     },
     githooks: {
       precommit: {
@@ -256,13 +257,20 @@ module.exports = function(grunt) {
         'post-merge': true,
         'post-checkout': true
       }
+    },
+    ngtemplates: {
+      arethusa: {
+        cwd: "app",
+        src: "templates/**/*.html",
+        dest: "dist/templates.js"
+      }
     }
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
-  grunt.registerTask('server', ['minify', 'connect:devserver']);
+  grunt.registerTask('server', ['ngtemplates', 'minify', 'connect:devserver']);
   // Ok, the concurrent watches don't work, because the grunt contrib server
   // is listening only to one port :( Fix this at a later stage.
   //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
@@ -278,7 +286,8 @@ module.exports = function(grunt) {
     'uglify:hist',
     'uglify:relation',
     'uglify:exercise',
-    'uglify:sg'
+    'uglify:sg',
+    'uglify:templates'
   ]);
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
