@@ -345,6 +345,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           drawEdge(token);
         }
 
+
         function render() {
           vis = svg.select('g');
           renderer.layout(scope.layout).run(g, vis);
@@ -606,6 +607,21 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           childScope.token = token.id;
           childScope.head = token.head;
           childScope.$watch('head.id', function (newVal, oldVal) {
+            // We need to skip a digest, when a token has been removed,
+            // because we listen to the tokenRemoved event, where we delete
+            // a node - and deleting a node in dagre means also deleting all
+            // adjacent edges.
+            // We can't however keep this strange value for head.id around.
+            // A change fires this watch again - another digest cycle we need
+            // to skip. We do that by looking at the old Value.
+            if (newVal === 'tokenRemoved') {
+              childScope.head.id = '';
+              return;
+            }
+            if (oldVal === 'tokenRemoved') {
+              return;
+            }
+
             // Very important to do here, otherwise the tree will
             // be render a little often on startup...
             if (newVal !== oldVal) {
@@ -639,6 +655,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             ]
           };
         }
+
+        state.on('tokenRemoved', function(event, token) {
+          g.delNode(token.id);
+          render();
+        });
 
         // Initial tree layout
 

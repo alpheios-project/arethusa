@@ -83,6 +83,18 @@ angular.module('arethusa.depTree').service('depTree', [
       if (!token.head) token.head = {};
     });
 
+    state.on('tokenRemoved', function(event, token) {
+      var id = token.id;
+      angular.forEach(state.tokens, function(t, i) {
+        var head = t.head;
+        if (head.id === id) {
+          // We need to clearly say what happens, so that the dependencyTree
+          // head watch knows what to do.
+          head.id = "tokenRemoved";
+        }
+      });
+    });
+
     // Used inside the context menu
     this.disconnect = function(token) {
       token.head.id = "";
