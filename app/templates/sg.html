@@ -5,7 +5,7 @@
     <div ng-hide="grammar.hint">
       <div sg-ancestors="grammar"/>
       <br/>
-      <ul class="nested-dropdown">
+      <ul ng-if="plugin.canEdit()" class="nested-dropdown">
         <li class="first-item">Select Smyth Categories
           <ul
             class="top-menu"

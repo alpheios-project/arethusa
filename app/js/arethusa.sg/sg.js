@@ -205,6 +205,10 @@ angular.module('arethusa.sg').service('sg', [
       retriever.getData(sections, callback);
     };
 
+    this.canEdit = function() {
+      return self.mode === "editor";
+    };
+
     this.init = function() {
       configure();
       self.grammar = createInternalState();

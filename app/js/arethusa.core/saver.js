@@ -18,9 +18,13 @@ angular.module('arethusa.core').service('saver', [
     }
 
     function updateStatus() {
-      if (hasPersisters()) {
+      if (hasPersisters() && canEdit()) {
         self.canSave = true;
       }
+    }
+
+    function canEdit() {
+      return configurator.mode() === 'editor';
     }
 
     function reset() {

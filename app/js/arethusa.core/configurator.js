@@ -247,21 +247,27 @@ angular.module('arethusa.core').service('configurator', [
       setGlobalDefaults(obj);
     };
 
-    var globalDefaults = {
-      'mode' : 'editor'
-    };
-
     function setGlobalDefaults(obj) {
-      var customDefaults = self.configuration.main.globalDefaults || {};
-      var routeDefaults  = getGlobalDefaultsFromRoute();
-      var defaults = angular.extend(globalDefaults, customDefaults, routeDefaults);
-      angular.forEach(defaults, function(value, key) {
+      angular.forEach(getGlobalDefaults(), function(value, key) {
         // Explicitly ask for undefined, as a false value can be a
         // valid configuration seting!
         if (obj[key] === undefined) {
           obj[key] = value;
         }
       });
+    }
+
+    var globalDefaults = {
+      'mode' : 'editor'
+    };
+    function getGlobalDefaults() {
+      var customDefaults = getGlobalCustomDefaults();
+      var routeDefaults  = getGlobalDefaultsFromRoute();
+      return angular.extend({}, globalDefaults, customDefaults, routeDefaults);
+    }
+
+    function getGlobalCustomDefaults() {
+      return self.configuration.main.globalDefaults || {};
     }
 
     var routeParams = ['mode'];
@@ -271,6 +277,10 @@ angular.module('arethusa.core').service('configurator', [
         if (value) memo[param] = value;
       });
     }
+
+    this.mode = function() {
+      return getGlobalDefaults().mode;
+    };
 
     this.getConfAndDelegate = function (name, obj, keys) {
       obj.conf = self.configurationFor(name);
