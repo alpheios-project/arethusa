@@ -50,13 +50,22 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       }
     };
 
-    var count = 0;
-
+    var count;
     function setString() {
       if (! self.model.string) {
         self.model.string = '[' + count + ']';
         count++;
       }
+    }
+
+    function findNextPlacerHolderCount() {
+      var strings = arethusaUtil.inject([], self.createdTokens, function(memo, id, token) {
+        var match = /\[(\d+)\]/.exec(token.string);
+        if (match) {
+          memo.push(match[1]);
+        }
+      }).sort();
+      count = strings.length === 0 ? 0 : parseInt(strings[strings.length - 1]) + 1;
     }
 
     this.modelValid = function() {
@@ -116,6 +125,7 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
     this.init = function() {
       configure();
       findArtificialTokensInState();
+      findNextPlacerHolderCount();
     };
   }
 ]);
