@@ -657,8 +657,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
 
         state.on('tokenRemoved', function(event, token) {
-          g.delNode(token.id);
-          render();
+          var id = token.id;
+          if (scope.tokens[id] === token) {
+            g.delNode(id);
+            render();
+          }
         });
 
         // Initial tree layout
