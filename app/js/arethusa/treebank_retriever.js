@@ -16,7 +16,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
       //
       // Remember that attributes of the converted xml are prefixed with underscore
       var obj = {
-        id: idHandler.getId(token._id),
+        id: xmlTokenId(token),
         sentenceId: sentenceId,
         string: token._form,
         morphology: {
@@ -32,8 +32,18 @@ angular.module('arethusa').factory('TreebankRetriever', [
         obj.sg = { ancestors: sg.split(' ') };
       }
 
+      if (token._artificial) {
+        obj.artificial = true;
+        obj.type = token._artificial;
+      }
+
       return obj;
     }
+
+    function xmlTokenId(token) {
+      return token._artificial ? token._insertion_id : idHandler.getId(token._id);
+    }
+
     function xmlSentenceToState(words, id, cite) {
       var tokens = {};
       angular.forEach(words, function (xmlToken, i) {
