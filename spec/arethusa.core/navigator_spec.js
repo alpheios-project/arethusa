@@ -233,6 +233,11 @@ describe("navigator", function() {
       navigator.goTo('5');
       expect(state.tokens).toBe(navigator.currentSentence());
     });
+
+    it('returns true when the call succeeds', function() {
+      navigator.addSentences(sentences);
+      expect(navigator.goTo('5')).toBeTruthy();
+    });
   });
 
   describe('this.hasNext()', function() {

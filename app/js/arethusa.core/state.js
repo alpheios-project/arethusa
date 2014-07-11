@@ -5,7 +5,8 @@ angular.module('arethusa.core').service('state', [
   '$rootScope',
   'documentStore',
   'keyCapture',
-  function (configurator, navigator, $rootScope, documentStore, keyCapture) {
+  '$location',
+  function (configurator, navigator, $rootScope, documentStore, keyCapture, $location) {
     var self = this;
     var tokenRetrievers;
 
@@ -14,8 +15,8 @@ angular.module('arethusa.core').service('state', [
     };
 
     function configure() {
-      var conf = configurator.configurationFor('main');
-      tokenRetrievers = configurator.getRetrievers(conf.retrievers);
+      self.conf = configurator.configurationFor('main');
+      tokenRetrievers = configurator.getRetrievers(self.conf.retrievers);
     }
 
     // We hold tokens locally during retrieval phase.
@@ -45,7 +46,7 @@ angular.module('arethusa.core').service('state', [
       angular.forEach(tokenRetrievers, function (retriever, name) {
         retriever.getData(function (data) {
           navigator.addSentences(data);
-          navigator.updateId();
+          moveToSentence();
           saveTokens(container, navigator.currentSentence());
           //saveTokens(container, data[0].tokens);
           declarePreselections(retriever.preselections);
@@ -54,6 +55,20 @@ angular.module('arethusa.core').service('state', [
       });
       tokens = container;
     };
+
+    function moveToSentence() {
+      var param = self.conf.chunkParam;
+      if (param) {
+        var id = $location.search()[param];
+        if (id) {
+          if (navigator.goTo(id)) {
+            return;
+          }
+        }
+      }
+      // If goTo failed, we just update the id with the starting value 0
+      navigator.updateId();
+    }
 
     this.checkLoadStatus = function () {
       var loaded = true;

@@ -74,6 +74,7 @@ angular.module('arethusa.core').service('navigator', [
         var i = self.sentences.indexOf(s);
         self.currentPosition = i;
         self.updateState();
+        return true;
       } else {
         // Not totally sure what we want to do here -
         //  maybe add a notification?

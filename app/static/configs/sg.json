@@ -1,6 +1,7 @@
 {
   "main" : {
     "template"  : "templates/main_with_sidepanel.html",
+    "chunkParam" : "c",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "fakePerseids",
