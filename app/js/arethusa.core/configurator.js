@@ -28,8 +28,9 @@ angular.module('arethusa.core').service('configurator', [
   'Resource',
   'Auth',
   '$timeout',
+  '$location',
   'Loader',
-  function ($injector, $http, $rootScope, Resource, Auth, $timeout, Loader) {
+  function ($injector, $http, $rootScope, Resource, Auth, $timeout, $location, Loader) {
     var self = this;
     var includeParam = 'fileUrl';
 
@@ -252,13 +253,22 @@ angular.module('arethusa.core').service('configurator', [
 
     function setGlobalDefaults(obj) {
       var customDefaults = self.configuration.main.globalDefaults || {};
-      var defaults = angular.extend(globalDefaults, customDefaults);
+      var routeDefaults  = getGlobalDefaultsFromRoute();
+      var defaults = angular.extend(globalDefaults, customDefaults, routeDefaults);
       angular.forEach(defaults, function(value, key) {
         // Explicitly ask for undefined, as a false value can be a
         // valid configuration seting!
         if (obj[key] === undefined) {
           obj[key] = value;
         }
+      });
+    }
+
+    var routeParams = ['mode'];
+    function getGlobalDefaultsFromRoute() {
+      return arethusaUtil.inject({}, routeParams, function(memo, param) {
+        var value = $location.search()[param];
+        if (value) memo[param] = value;
       });
     }
 
