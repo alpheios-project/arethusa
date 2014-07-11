@@ -8,6 +8,7 @@ angular.module('arethusa').factory('TreebankPersister', [
   function (documentStore, configurator, navigator, idHandler) {
     return function(conf) {
       var resource = configurator.provideResource(conf.resource);
+      var identifier = conf.docIdentifier;
 
       function updateXml() {
         doc().xml = arethusaUtil.json2xml(doc().json);
@@ -47,31 +48,35 @@ angular.module('arethusa').factory('TreebankPersister', [
         angular.forEach(stored, function(sentence, i) {
           var updated = sentences[sentence._id];
           var wordsInXml = sentence.word;
-          // We create a new object that holds all tokens of a sentence
-          var updatedTokens = angular.extend({}, updated.tokens);
+          // We create a new object that holds all tokens of a sentence,
+          // identified by their mappings in the original document.
+          // Unmapped tokens are exposed through an array and will receive
+          // mapped ids later
+          var tokens = idHandler.transformToSoureIds(updated.tokens, identifier);
+          var withMappings = tokens.mapped;
           angular.forEach(wordsInXml, function(word, i) {
-            var id = idHandler.getId(word._id);
-            var stateWord = updatedTokens[id];
+            var stateWord = withMappings[word._id];
             updateWord(word, stateWord);
-            // After we updated a word, we delete it from our new object
-            delete updatedTokens[id];
           });
 
           // Usually, updatedTokens will be empty by now - it won't be
           // if artificialTokens were added during the annotation. New
           // word nodes needs to be inserted in the document now.
           var lastId = wordsInXml[wordsInXml.length - 1]._id;
-          angular.forEach(updatedTokens, function(word, realId) {
+          angular.forEach(tokens.unmapped, function(token, i) {
+            var internalId = token.id;
             lastId++;
-            var newWord = new ArtificialNode(lastId, realId);
-            updateWord(newWord, word);
+            var newWord = new ArtificialNode(lastId, internalId);
+            updateWord(newWord, token);
             wordsInXml.push(newWord);
+            // update the formerly unmapped token
+            token.idMap.add(identifier, internalId, lastId);
           });
         });
       }
 
       function doc() {
-        return documentStore.store[conf.docIdentifier];
+        return documentStore.store[identifier];
       }
 
       this.saveData = function(callback, errCallback) {
