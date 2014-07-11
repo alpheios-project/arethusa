@@ -148,7 +148,7 @@ ul.nested-dropdown li:hover {
 ul.nested-dropdown li.nested {
   background-repeat: no-repeat;
   background-position: 97% center;
-  background-image: url(menu_arrow_right.png);
+  background-image: url(../app/images/menu_arrow_right.png);
   background-size: 7px auto;
 }
 
