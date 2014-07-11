@@ -254,7 +254,7 @@ angular.module('arethusa.core').service('configurator', [
     function setGlobalDefaults(obj) {
       var customDefaults = self.configuration.main.globalDefaults || {};
       var routeDefaults  = getGlobalDefaultsFromRoute();
-      var defaults = angular.extend(globalDefaults, customDefaults, routeDefaults);
+      var defaults = angular.extend({}, globalDefaults, customDefaults, routeDefaults);
       angular.forEach(defaults, function(value, key) {
         // Explicitly ask for undefined, as a false value can be a
         // valid configuration seting!
