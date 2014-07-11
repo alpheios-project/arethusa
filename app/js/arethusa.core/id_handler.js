@@ -25,6 +25,26 @@ angular.module('arethusa.core').service('idHandler', [
       return /(\d*)(\w*)?/.exec(wId);
     }
 
+    function IdMapping(internalId, sourceId) {
+      // We don't need the internalId here strictly speaking, but who knows...
+      this.internalId = internalId;
+      this.sourceId   = sourceId;
+    }
+
+    this.Map = function() {
+      var self = this;
+      this.mappings = {};
+
+      this.add = function(identifier, internalId, sourceId) {
+        self.mappings[identifier] = new IdMapping(internalId, sourceId);
+      };
+
+      this.sourceId = function(identifier) {
+        var map = self.mappings[identifier];
+        if (map) return map.sourceId;
+      };
+    };
+
     this.decrement = function(id) {
       var idParts = parseId(id);
       var wId = idParts.pop();

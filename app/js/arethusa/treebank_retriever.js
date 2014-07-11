@@ -41,16 +41,11 @@ angular.module('arethusa').factory('TreebankRetriever', [
       return obj;
     }
 
-    function IdMapping(internalId, sourceId) {
-      this.internalId = internalId;
-      this.sourceId   = sourceId;
-    }
-
     function createId(stateToken, xmlToken, docIdentifier) {
-      var idMap = {};
+      var idMap = new idHandler.Map();
       var internalId = xmlTokenId(xmlToken);
       var sourceId   = xmlToken._id;
-      idMap[docIdentifier] = new IdMapping(internalId, sourceId);
+      idMap.add(docIdentifier, internalId, sourceId);
       stateToken.id = internalId;
       stateToken.idMap = idMap;
     }
