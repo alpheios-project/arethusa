@@ -120,6 +120,10 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
           checkIfUnused(token, id);
           initHeadWatch(token, id);
         });
+
+        scope.$on('tokenRemoved', function(event, token) {
+          scope.total--;
+        });
       },
       template: '{{ unusedCount }} of {{ total }} unused'
     };
