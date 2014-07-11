@@ -353,13 +353,17 @@ angular.module('arethusa.core').service('state', [
     this.addToken = function(token, id) {
       self.tokens[id] = token;
       addStatus(token);
+      self.countTotalTokens();
       self.broadcast('tokenAdded', token);
     };
 
     this.removeToken = function(id) {
       var token = self.getToken(id);
-      delete self.tokens[id];
+      // broadcast before we actually delete, in case a plugin needs access
+      // during the cleanup process
       self.broadcast('tokenRemoved', token);
+      delete self.tokens[id];
+      self.countTotalTokens();
     };
 
     // New event handling through $rootScope
