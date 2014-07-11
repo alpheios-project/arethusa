@@ -42,34 +42,37 @@ angular.module('arethusa.search').service('search', [
     };
 
     // Init
-    function collectTokenString(container, id, token) {
+    this.collectTokenString = function(container, id, token) {
       var str = token.string;
       if (!container[str]) {
         container[str] = [];
       }
       container[str].push(id);
-    }
-
-    this.collectTokenStrings = function () {
-      return arethusaUtil.inject({}, state.tokens, collectTokenString);
     };
 
+    function collectTokenStrings() {
+      return arethusaUtil.inject({}, state.tokens, self.collectTokenString);
+    }
+
+    this.removeTokenFromIndex = function(id, string) {
+      var ids = self.strings[string];
+      ids.splice(ids.indexOf(id), 1);
+      if (ids.length === 0) {
+        delete self.strings[string];
+      }
+    };
+
+
     state.on('tokenAdded', function(event, token) {
-      collectTokenString(self.strings, token.id, token);
+      self.collectTokenString(self.strings, token.id, token);
     });
 
     state.on('tokenRemoved', function(event, token) {
-      var id  = token.id;
-      var ids = self.strings[token.string];
-      ids.splice(ids.indexOf(id), 1);
-      if (ids.length === 0) {
-        delete self.strings[token.string];
-      }
-
+      self.removeTokenFromIndex(token.id, token.string);
     });
 
     this.init = function () {
-      self.strings = self.collectTokenStrings();
+      self.strings = collectTokenStrings();
       self.tokenQuery = '';  // model used by the input form
     };
   }

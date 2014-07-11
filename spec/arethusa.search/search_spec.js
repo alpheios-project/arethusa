@@ -106,8 +106,9 @@ describe('search', function() {
     });
   });
 
+  // This function has been made private
   describe('this.collectTokenStrings', function() {
-    it('collects all strings of tokens as keys with their ids as values in an array', function() {
+    xit('collects all strings of tokens as keys with their ids as values in an array', function() {
       var res = {'Arma': ['01'], 'virum': ['02', '03'], 'cano': ['04']};
       expect(search.collectTokenStrings()).toEqual(res);
     });
