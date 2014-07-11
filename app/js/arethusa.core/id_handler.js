@@ -71,12 +71,29 @@ angular.module('arethusa.core').service('idHandler', [
       });
     };
 
+    var alphabet = [];
+    for (var i = 97; i < 123; i++){
+      alphabet.push(String.fromCharCode(i));
+    }
+
+    function letterInFront(letter) {
+      var i = alphabet.indexOf(letter) - 1;
+      return alphabet[i];
+    }
+
     this.decrement = function(id) {
       var idParts = parseId(id);
       var wId = idParts.pop();
       var wParts = wIdParts(wId);
-      var newWId = wParts[1] - 1;
-      return self.getId(newWId) + (wParts[2] || '');
+
+      var newId  = wParts[1];
+      var letter = wParts[2] || '';
+      if (letter) {
+        letter = letterInFront(letter);
+      } else {
+        newId--;
+      }
+      return self.getId(newId) + letter;
     };
 
     function parseId(id) {
