@@ -1,0 +1,156 @@
+{
+  "main" : {
+    "template"  : "templates/main_with_sidepanel.html",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "plugins" : [
+      "text",
+      "search",
+      "morph",
+      "relation",
+      "depTree",
+      "history"
+    ],
+    "chunkParam" : "chunk"
+  },
+
+  "auths": {
+    "perseidsAuth" : {
+      "type": "CSRF",
+      "cookie": "csrftoken",
+      "header": "X-CSRF-Token",
+      "ping" : "http://sosol.perseids.org/sosol/dmm_api/ping"
+    }
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "resources" : {
+    "perseidsResource" : {
+      "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
+      "params" : [
+        "doc"
+      ],
+      "auth": "perseidsAuth"
+    },
+
+    "fakeGold" : {
+      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
+      "params" : [
+        "gold",
+        "s"
+      ]
+    },
+
+    "lexInvFusekiEndpoint" : {
+      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
+    },
+
+    "morphologyService" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+    },
+
+    "citeMapper" : {
+      "route" : "http://services.perseids.org/cite_mapper/find_cite"
+    }
+  },
+
+  "plugins" : {
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
+
+    "depTree" : {
+      "name" : "depTree",
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
+      "template" : "templates/dep_tree.html"
+    },
+
+    "search" : {
+      "name" : "search",
+      "template" : "templates/search.html",
+      "regex" : true
+    },
+
+    "morph" : {
+      "name" : "morph",
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
+      "template"  : "templates/morph3.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
+      "lexicalInventory" : {
+        "retriever" : {
+          "LexicalInventoryRetriever" : {
+            "resource" : "lexInvFusekiEndpoint"
+          }
+        }
+      },
+      "matchAll" : true,
+      "fileUrl" : "./static/configs/morph/lat_attributes.json"
+    },
+
+    "relation" : {
+      "name" : "relation",
+      "template" : "templates/relation.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
+      "fileUrl" : "./static/configs/relation/relations.json"
+    },
+
+    "history" : {
+      "name" : "history",
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "templates/history.html"
+    },
+
+    "comment" : {
+      "name" : "comment",
+      "template" : "templates/comment2.html"
+    },
+
+    "keyCapture" : {
+      "sidepanel" : {
+        "nextTab" : "W",
+        "prevTab" : "E"
+      },
+      "selections" : {
+        "nextToken" : "w",
+        "prevToken" : "e"
+      },
+      "navigation" : {
+        "nextSentence" : "u",
+        "prevSentence" : "i",
+        "list" : "L"
+      },
+      "tree" : {
+        "directionChange" : "c"
+      }
+    }
+  }
+}
+
+
+
