@@ -12,20 +12,44 @@ angular.module('arethusa.text').service('text', [
 
     configure();
 
-    function selectRealTokens() {
-      return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
-        if (!token.artificial) {
-          memo[id] = token;
-        }
-      });
+    function addRealToken(container, id, token) {
+      if (!token.artificial) {
+        container[id] = token;
+      }
     }
 
-    function setTokens() {
-      self.tokens = self.hideArtificialTokens ? selectRealTokens() : state.tokens;
+    function removeRealToken(container, id, token) {
+      if (!token.artificial) {
+        delete container[id];
+      }
     }
+
+    function selectRealTokens() {
+      return arethusaUtil.inject({}, state.tokens, addRealToken);
+    }
+
+    this.setTokens = function() {
+      self.tokens = self.hideArtificialTokens ? selectRealTokens() : state.tokens;
+    };
+
+    // tokenAdded and tokenRemoved only have to do something, when
+    // artificial tokens are hidden. Otherwise self.tokens is the
+    // same as state.tokens anyway.
+    state.on('tokenAdded', function(event, token) {
+      if (self.hideArtificialTokens) {
+        addRealToken(self.tokens, token.id, token);
+      }
+    });
+
+    state.on('tokenRemoved', function(event, token) {
+      if (self.hideArtificialTokens) {
+        removeRealToken(self.tokens, token.id, token);
+      }
+    });
 
     this.init = function() {
-      setTokens();
+      configure();
+      self.setTokens();
     };
   }
 ]);
