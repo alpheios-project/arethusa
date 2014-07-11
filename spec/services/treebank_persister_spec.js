@@ -18,6 +18,12 @@ describe('treebank persister', function() {
       };
     }
   };
+  var IdMap = function(id) {
+    this.add = function() {};
+    this.sourceId = function() {
+      return id;
+    };
+  };
   var mockNavigator = {
     sentencesById: {
       "2": {
@@ -25,12 +31,14 @@ describe('treebank persister', function() {
           "0001": {
             head: {
               id: 2
-            }
+            },
+            idMap: new IdMap(1)
           },
           "0002": {
             head: {
               id: 0
-            }
+            },
+            idMap: new IdMap(2)
           }
         }
       }
