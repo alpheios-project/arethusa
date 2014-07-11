@@ -117,10 +117,9 @@ module.exports = function(grunt) {
             './vendor/dagre-d3/dagre-d3.min.js',
             // Some source files we'll need to include manually, otherwise
             // the load order is wrong
-            'app/js/other/history_obj.js',
             'app/js/*.js',
             'app/js/arethusa*/**/*.js',
-            'app/js/services/**/*.js',
+            'app/js/util/**/*.js',
             specFiles
           ],
           frameworks: ['jasmine'],
@@ -226,9 +225,9 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        sourceMap: true,
-        report: 'gzip'
+        sourceMap: true
       },
+      main: { files: pluginFiles('arethusa') },
       core: { files: pluginFiles('arethusa.core') },
       contextMenu: { files: pluginFiles('arethusa.context_menu') },
       confEditor: { files: pluginFiles('arethusa.conf_editor') },
@@ -240,7 +239,18 @@ module.exports = function(grunt) {
       relation: { files: pluginFiles('arethusa.relation') },
       exercise: { files: pluginFiles('arethusa.exercise') },
       sg: { files: pluginFiles('arethusa.sg') },
-      dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} }
+      text: { files: pluginFiles('arethusa.text') },
+      dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
+      uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
+      templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} },
+      util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
+      external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } }
+    },
+    cssmin: {
+      css: {
+        src: ['app/css/arethusa.css', 'app/css/fonts/**/*.css'],
+        dest: 'dist/arethusa.min.css'
+      }
     },
     githooks: {
       precommit: {
@@ -256,6 +266,13 @@ module.exports = function(grunt) {
         'post-merge': true,
         'post-checkout': true
       }
+    },
+    ngtemplates: {
+      arethusa: {
+        cwd: "app",
+        src: "templates/**/*.html",
+        dest: "app/templates/templates.js"
+      }
     }
   });
 
@@ -268,6 +285,8 @@ module.exports = function(grunt) {
   //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
   grunt.registerTask('reloader', 'watch:server');
   grunt.registerTask('minify', [
+    'uglify:main',
+    'uglify:util',
     'uglify:core',
     'uglify:morph',
     'uglify:contextMenu',
@@ -278,7 +297,11 @@ module.exports = function(grunt) {
     'uglify:hist',
     'uglify:relation',
     'uglify:exercise',
-    'uglify:sg'
+    'uglify:sg',
+    'uglify:external',
+    'uglify:text',
+    'ngtemplates',
+    'uglify:templates'
   ]);
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
