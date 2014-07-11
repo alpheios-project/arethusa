@@ -81,6 +81,11 @@ angular.module('arethusa.core').service('idHandler', [
       return alphabet[i];
     }
 
+    function letterAfter(letter) {
+      var i = alphabet.indexOf(letter) + 1;
+      return alphabet[i];
+    }
+
     this.isExtendedId = function(id) {
       return id.match(/.*[a-z]$/);
     };
@@ -90,8 +95,7 @@ angular.module('arethusa.core').service('idHandler', [
       return id + extender;
     };
 
-
-    this.decrement = function(id) {
+    function incDec(id, increment) {
       var idParts = parseId(id);
       var wId = idParts.pop();
       var wParts = wIdParts(wId);
@@ -99,11 +103,20 @@ angular.module('arethusa.core').service('idHandler', [
       var newId  = wParts[1];
       var letter = wParts[2] || '';
       if (letter) {
-        letter = letterInFront(letter);
+        letter = increment ? letterAfter(letter) : letterInFront(letter);
       } else {
-        newId--;
+        if (increment) newId++; else newId--;
       }
       return self.getId(newId) + letter;
+    }
+
+
+    this.decrement = function(id) {
+      return incDec(id, false);
+    };
+
+    this.increment = function(id) {
+      return incDec(id, true);
     };
 
     function parseId(id) {

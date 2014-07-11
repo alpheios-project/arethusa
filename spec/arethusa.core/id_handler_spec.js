@@ -9,12 +9,22 @@ describe("idHandler", function() {
   }));
 
   describe("this.decrement()", function() {
-    it('it decrements formatted ids', function() {
+    it('decrements formatted ids', function() {
       expect(idHandler.decrement('0004')).toEqual('0003');
     });
 
-    it('it decrements ids that are extended with letters', function() {
+    it('decrements ids that are extended with letters', function() {
       expect(idHandler.decrement('0004e')).toEqual('0004d');
+    });
+  });
+
+  describe('this.increment()', function() {
+    it('increments formatted ids', function() {
+      expect(idHandler.increment('0004')).toEqual('0005');
+    });
+
+    it('increments ids that are extendend with letters', function() {
+      expect(idHandler.increment('0004e')).toEqual('0004f');
     });
   });
 
