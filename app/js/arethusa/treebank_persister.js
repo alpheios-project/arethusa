@@ -4,7 +4,8 @@ angular.module('arethusa').factory('TreebankPersister', [
   'documentStore',
   'configurator',
   'navigator',
-  function (documentStore, configurator, navigator) {
+  'idHandler',
+  function (documentStore, configurator, navigator, idHandler) {
     return function(conf) {
       var resource = configurator.provideResource(conf.resource);
 
@@ -13,7 +14,7 @@ angular.module('arethusa').factory('TreebankPersister', [
       }
 
       function updateWord(word, stateWord) {
-        if (stateWord.head) {
+        if (stateWord.head && stateWord.head.id) {
           word._head = arethusaUtil.formatNumber(stateWord.head.id, 0);
         }
         if (stateWord.relation) {
@@ -31,6 +32,12 @@ angular.module('arethusa').factory('TreebankPersister', [
         word._form = stateWord.string;
       }
 
+      function ArtificialNode(id, insertionId, type) {
+        this._id = id;
+        this._insertion_id = insertionId;
+        this._artificial = type || 'elliptic';
+      }
+
       function updateDocument() {
         var stored = arethusaUtil.toAry(doc().json.treebank.sentence);
         // navigator has to provide means to retrieve sentences by id
@@ -39,9 +46,26 @@ angular.module('arethusa').factory('TreebankPersister', [
 
         angular.forEach(stored, function(sentence, i) {
           var updated = sentences[sentence._id];
-          angular.forEach(sentence.word, function(word, i) {
-            var stateWord = updated.tokens[arethusaUtil.formatNumber(word._id, 4)];
+          var wordsInXml = sentence.word;
+          // We create a new object that holds all tokens of a sentence
+          var updatedTokens = angular.extend({}, updated.tokens);
+          angular.forEach(wordsInXml, function(word, i) {
+            var id = idHandler.getId(word._id);
+            var stateWord = updatedTokens[id];
             updateWord(word, stateWord);
+            // After we updated a word, we delete it from our new object
+            delete updatedTokens[id];
+          });
+
+          // Usually, updatedTokens will be empty by now - it won't be
+          // if artificialTokens were added during the annotation. New
+          // word nodes needs to be inserted in the document now.
+          var lastId = wordsInXml[wordsInXml.length - 1]._id;
+          angular.forEach(updatedTokens, function(word, realId) {
+            lastId++;
+            var newWord = new ArtificialNode(lastId, realId);
+            updateWord(newWord, word);
+            wordsInXml.push(newWord);
           });
         });
       }
