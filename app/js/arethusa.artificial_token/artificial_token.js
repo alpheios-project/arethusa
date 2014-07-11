@@ -90,6 +90,14 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       removeArtificialToken(id);
     };
 
+    function findNextNewId(id) {
+      var artificialIds = Object.keys(self.createdTokens);
+      while (arethusaUtil.isIncluded(artificialIds, id)) {
+        id = idHandler.increment(id);
+      }
+      return id;
+    }
+
     this.propagateToState = function() {
       setString();
       var id = self.model.insertionPoint.id;
@@ -97,6 +105,7 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       if (!idHandler.isExtendedId(id)) {
         newId = idHandler.extendId(newId);
       }
+      newId = findNextNewId(newId);
       self.model.id = newId;
       addArtificialToken(newId, self.model);
       state.addToken(self.model, newId);
