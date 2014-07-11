@@ -26,6 +26,7 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       this.string = string;
       this.type   = type || 'elliptic';
       this.artificial = true;
+      this.idMap = new idHandler.Map();
     }
 
     this.supportedTypes = [
