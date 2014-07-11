@@ -65,9 +65,18 @@ angular.module('arethusa').factory('TreebankPersister', [
           var tokens = idHandler.transformToSoureIds(updated.tokens, identifier, idCreator);
           var withMappings = tokens.mapped;
           var fullMap = tokens.fullMap;
+          var toDelete = [];
           angular.forEach(wordsInXml, function(word, i) {
             var stateWord = withMappings[word._id];
-            updateWord(word, stateWord, fullMap);
+            if (stateWord) {
+              updateWord(word, stateWord, fullMap);
+            } else {
+              toDelete.unshift(i); // unshift, because we want reverse order
+            }
+          });
+
+          angular.forEach(toDelete, function(index, i) {
+            wordsInXml.splice(index, 1);
           });
 
           // Usually, updatedTokens will be empty by now - it won't be
