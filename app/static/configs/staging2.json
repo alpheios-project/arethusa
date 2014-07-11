@@ -161,6 +161,9 @@
     },
     "saver" : {
       "save" : "ctrl-S"
+    },
+    "search" : {
+      "focus" : "A"
     }
   }
 }
