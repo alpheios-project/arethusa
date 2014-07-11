@@ -63,10 +63,6 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       return self.model.type && self.model.insertionPoint;
     };
 
-    function idIdentifier(id) {
-      return 'a';
-    }
-
     function recountATs() {
       self.count = Object.keys(self.createdTokens).length;
     }
@@ -97,8 +93,10 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
     this.propagateToState = function() {
       setString();
       var id = self.model.insertionPoint.id;
-      var idBefore = idHandler.decrement(id);
-      var newId = idBefore + idIdentifier(idBefore);
+      var newId = idHandler.decrement(id);
+      if (!idHandler.isExtendedId(id)) {
+        newId = idHandler.extendId(newId);
+      }
       self.model.id = newId;
       addArtificialToken(newId, self.model);
       state.addToken(self.model, newId);
