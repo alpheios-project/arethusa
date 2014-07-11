@@ -11,7 +11,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
   '$location',
   'idHandler',
   function (documentStore, configurator, $location, idHandler) {
-    function xmlTokenToState(docIdentifier, token, sentenceId) {
+    function xmlTokenToState(docIdentifier, token, sentenceId, artificials) {
       // One could formalize this to real rules that are configurable...
       //
       // Remember that attributes of the converted xml are prefixed with underscore
@@ -22,8 +22,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
           lemma: token._lemma,
           postag: token._postag
         },
-        relation: { label: token._relation || '' },
-        head: { id: idHandler.getId(token._head) },
+        relation: { label: token._relation || '' }
+
       };
 
       var sg = token._sg;
@@ -37,6 +37,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
       }
 
       createId(obj, token, docIdentifier);
+      createHead(obj, token, artificials);
 
       return obj;
     }
@@ -50,14 +51,31 @@ angular.module('arethusa').factory('TreebankRetriever', [
       stateToken.idMap = idMap;
     }
 
+    function createHead(stateToken, xmlToken, artificials) {
+      var head = xmlToken._head;
+      if (angular.isDefined(head)) {
+        var newHead = {};
+        var artHead = artificials[head];
+        newHead.id = artHead ? artHead : idHandler.getId(head);
+        stateToken.head = newHead;
+      }
+    }
+
     function xmlTokenId(token) {
       return token._artificial ? token._insertion_id : idHandler.getId(token._id);
     }
 
+    function extractArtificial(memo, token, i) {
+      if (token._artificial) {
+        memo[token._id] = token._insertion_id;
+      }
+    }
+
     function xmlSentenceToState(docIdentifier, words, id, cite) {
       var tokens = {};
+      var artificials = arethusaUtil.inject({}, words, extractArtificial);
       angular.forEach(words, function (xmlToken, i) {
-        var token = xmlTokenToState(docIdentifier, xmlToken, id);
+        var token = xmlTokenToState(docIdentifier, xmlToken, id, artificials);
         tokens[token.id] = token;
       });
       return {
@@ -66,6 +84,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
         cite: cite
       };
     }
+
     function parseDocument(json, docIdentifier) {
       var sentences = arethusaUtil.toAry(json.treebank.sentence);
       return arethusaUtil.inject([], sentences, function (memo, sentence, k) {
