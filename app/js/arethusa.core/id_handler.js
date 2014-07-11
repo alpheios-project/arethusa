@@ -81,6 +81,16 @@ angular.module('arethusa.core').service('idHandler', [
       return alphabet[i];
     }
 
+    this.isExtendedId = function(id) {
+      return id.match(/.*[a-z]$/);
+    };
+
+    var extender = 'e';
+    this.extendId = function(id) {
+      return id + extender;
+    };
+
+
     this.decrement = function(id) {
       var idParts = parseId(id);
       var wId = idParts.pop();
