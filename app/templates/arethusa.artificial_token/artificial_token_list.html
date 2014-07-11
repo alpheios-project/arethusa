@@ -5,29 +5,35 @@
   No artificial tokens present
 </p>
 
-<div ng-repeat="(id, token) in aT.createdTokens">
-  <span class="left">
-    <span
-      class="normal-size"
-      token="token"
-      colorize="true"
-      click="true"
-      hover="true">
+<div class="panel" ng-repeat="(id, token) in aT.createdTokens">
+  <div>
+    <span class="left">
+      <span
+        class="normal-size"
+        token="token"
+        colorize="true"
+        click="true"
+        hover="true">
+      </span>
+      <sup
+        class="note">
+        {{ formatId(id) }}
+      </sup>
     </span>
-    <sup
-      class="note">
-      {{ formatId(id) }}
-    </sup>
-  </span>
-  <span class="righ">
-    <span
-      class="button tiny radius">
-      Edit
+    <span class="right">
+      <span
+        ng-click="aT.removeToken(id)"
+        class="button tiny radius">
+        Delete
+      </span>
     </span>
-    <span
-      ng-click="aT.removeToken(id)"
-      class="button tiny radius">
-      Delete
-    </span>
-  </span>
+  </div>
+
+  <input type="text" ng-model="token.string"/>
+  <select
+    class="compact"
+    required
+    ng-model="token.type"
+    ng-options="type for type in plugin.supportedTypes">
+  </select>
 </div>
