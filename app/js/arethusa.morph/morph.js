@@ -161,11 +161,34 @@ angular.module('arethusa.morph').service('morph', [
             // try to obtain additional info from the inventory
             getDataFromInventory(el);
           });
+          mergeDuplicateForms(analysisObj.forms[0], res);
           arethusaUtil.pushAll(analysisObj.forms, res);
           preselectForm(analysisObj.forms[0], id);
         });
       });
     };
+
+    function mergeDuplicateForms(firstForm, otherForms) {
+      if (firstForm && firstForm.origin === 'document') {
+        var duplicate;
+        for (var i = otherForms.length - 1; i >= 0; i--){
+          var el = otherForms[i];
+          if (isSameForm(firstForm, el)) {
+            duplicate = el;
+            break;
+          }
+        }
+        if (duplicate) {
+          angular.extend(firstForm, duplicate);
+          firstForm.origin = 'document';
+          otherForms.splice(otherForms.indexOf(duplicate), 1);
+        }
+      }
+    }
+
+    function isSameForm(a, b) {
+      return a.lemma === b.lemma && a.postag === b.postag;
+    }
 
     function preselectForm(form, id) {
       var currentSel = state.getToken(id).morphology;
