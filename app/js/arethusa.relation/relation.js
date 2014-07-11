@@ -151,6 +151,10 @@ angular.module('arethusa.relation').service('relation', [
       addToInternalState(self.relations, token.id, token);
     });
 
+    state.on('tokenRemoved', function(event, token) {
+      delete self.relations[token.id];
+    });
+
     this.init = function () {
       configure();
       self.relations = self.createInternalState();

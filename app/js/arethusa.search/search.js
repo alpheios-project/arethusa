@@ -58,6 +58,16 @@ angular.module('arethusa.search').service('search', [
       collectTokenString(self.strings, token.id, token);
     });
 
+    state.on('tokenRemoved', function(event, token) {
+      var id  = token.id;
+      var ids = self.strings[token.string];
+      ids.splice(ids.indexOf(id), 1);
+      if (ids.length === 0) {
+        delete self.strings[token.string];
+      }
+
+    });
+
     this.init = function () {
       self.strings = self.collectTokenStrings();
       self.tokenQuery = '';  // model used by the input form

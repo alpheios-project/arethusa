@@ -357,6 +357,12 @@ angular.module('arethusa.morph').service('morph', [
       loadToken(forms, id);
     });
 
+    state.on('tokenRemoved', function(event, token) {
+      var id = token.id;
+      deleteFromIndex(id);
+      delete self.analyses[id];
+    });
+
     this.init = function () {
       configure();
       self.emptyPostag = createEmptyPostag();
