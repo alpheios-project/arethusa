@@ -285,6 +285,7 @@ module.exports = function(grunt) {
   //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
   grunt.registerTask('reloader', 'watch:server');
   grunt.registerTask('minify', [
+    'cssmin:css',
     'uglify:main',
     'uglify:util',
     'uglify:core',
