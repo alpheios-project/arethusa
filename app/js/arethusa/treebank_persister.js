@@ -14,9 +14,11 @@ angular.module('arethusa').factory('TreebankPersister', [
         doc().xml = arethusaUtil.json2xml(doc().json);
       }
 
-      function updateWord(word, stateWord) {
+      function updateWord(word, stateWord, fullMap) {
         if (stateWord.head && stateWord.head.id) {
-          word._head = arethusaUtil.formatNumber(stateWord.head.id, 0);
+          // If the token has a head and it's not inside the full map,
+          // it's the root token.
+          word._head = fullMap[stateWord.head.id] || 0;
         }
         if (stateWord.relation) {
           word._relation = stateWord.relation.label;
@@ -39,6 +41,12 @@ angular.module('arethusa').factory('TreebankPersister', [
         this._artificial = type || 'elliptic';
       }
 
+      var lastId;
+      function idCreator() {
+        lastId++;
+        return lastId;
+      }
+
       function updateDocument() {
         var stored = arethusaUtil.toAry(doc().json.treebank.sentence);
         // navigator has to provide means to retrieve sentences by id
@@ -52,22 +60,24 @@ angular.module('arethusa').factory('TreebankPersister', [
           // identified by their mappings in the original document.
           // Unmapped tokens are exposed through an array and will receive
           // mapped ids later
-          var tokens = idHandler.transformToSoureIds(updated.tokens, identifier);
+          lastId = wordsInXml[wordsInXml.length - 1]._id;
+
+          var tokens = idHandler.transformToSoureIds(updated.tokens, identifier, idCreator);
           var withMappings = tokens.mapped;
+          var fullMap = tokens.fullMap;
           angular.forEach(wordsInXml, function(word, i) {
             var stateWord = withMappings[word._id];
-            updateWord(word, stateWord);
+            updateWord(word, stateWord, fullMap);
           });
 
           // Usually, updatedTokens will be empty by now - it won't be
           // if artificialTokens were added during the annotation. New
           // word nodes needs to be inserted in the document now.
-          var lastId = wordsInXml[wordsInXml.length - 1]._id;
           angular.forEach(tokens.unmapped, function(token, i) {
             var internalId = token.id;
-            lastId++;
-            var newWord = new ArtificialNode(lastId, internalId);
-            updateWord(newWord, token);
+            var sourceId   = token.idMap.sourceId(identifier);
+            var newWord = new ArtificialNode(sourceId, internalId);
+            updateWord(newWord, token, fullMap);
             wordsInXml.push(newWord);
             // update the formerly unmapped token
             token.idMap.add(identifier, internalId, lastId);

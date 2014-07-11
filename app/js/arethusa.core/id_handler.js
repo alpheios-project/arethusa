@@ -49,20 +49,25 @@ angular.module('arethusa.core').service('idHandler', [
       var self = this;
       this.mapped = {};
       this.unmapped = [];
-      this.add = function(token, identifier) {
+      this.fullMap = {};
+      this.add = function(token, identifier, idCreator) {
         var sourceId = token.idMap.sourceId(identifier);
+        var internalId = token.id;
         if (sourceId) {
           self.mapped[sourceId] = token;
         } else {
           self.unmapped.push(token);
+          sourceId = idCreator();
+          token.idMap.add(identifier, internalId, sourceId);
         }
+        self.fullMap[internalId] = sourceId;
       };
     }
 
-    this.transformToSoureIds = function(tokens, docIdentifier) {
+    this.transformToSoureIds = function(tokens, docIdentifier, idCreator) {
       var transformation = new Transformation();
       return arethusaUtil.inject(new Transformation(), tokens, function(memo, id, token) {
-        memo.add(token, docIdentifier);
+        memo.add(token, docIdentifier, idCreator);
       });
     };
 
