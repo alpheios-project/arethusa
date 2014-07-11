@@ -70,8 +70,16 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       self.count = Object.keys(self.createdTokens).length;
     }
 
+    function findArtificialTokensInState() {
+      angular.forEach(state.tokens, function(token, id) {
+        if (token.artificial) {
+          addArtificialToken(id, token);
+        }
+      });
+    }
+
     function addArtificialToken(id, token) {
-      self.createdTokens[id] = self.model;
+      self.createdTokens[id] = token;
       recountATs();
     }
 
@@ -99,6 +107,7 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
 
     this.init = function() {
       configure();
+      findArtificialTokensInState();
     };
   }
 ]);
