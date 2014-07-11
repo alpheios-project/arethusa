@@ -26,34 +26,40 @@ angular.module('arethusa.core').service('state', [
     var tokens = {};
 
     // Loading a state
-    var saveTokens = function (container, tokens) {
-      angular.forEach(tokens, function (token, id) {
-        var updatedToken;
-        var savedToken = container[id];
-        if (savedToken) {
-          updatedToken = angular.extend(savedToken, token);
-        } else {
-          updatedToken = token;
-        }
-        container[id] = token;
-      });
-    };
+    // Premature optimization - we need something like that only when we start
+    // to act on several documents at once. For now we have only one retriever
+    // anyway...
+    //
+    //var saveTokens = function (container, tokens) {
+      //angular.forEach(tokens, function (token, id) {
+        //var updatedToken;
+        //var savedToken = container[id];
+        //if (savedToken) {
+          //updatedToken = angular.extend(savedToken, token);
+        //} else {
+          //updatedToken = token;
+        //}
+        //container[id] = token;
+      //});
+    //};
 
     this.retrieveTokens = function () {
-      var container = {};
+      //var container = {};
       navigator.reset();
       self.deselectAll();
       angular.forEach(tokenRetrievers, function (retriever, name) {
         retriever.getData(function (data) {
           navigator.addSentences(data);
           moveToSentence();
-          saveTokens(container, navigator.currentSentence());
-          //saveTokens(container, data[0].tokens);
+          // Check comment for saveTokens
+          //saveTokens(container, navigator.currentSentence());
+          tokens = navigator.currentSentence();
+
           declarePreselections(retriever.preselections);
           declareLoaded(retriever);
         });
       });
-      tokens = container;
+      //tokens = container;
     };
 
     function moveToSentence() {
