@@ -1,0 +1,46 @@
+<div class="small-12 columns">
+  <span settings-trigger="right"/>
+  <span ng-show="settingsOn" artificial-token-toggle/>
+</div>
+
+<div class="small-12 columns text-center">
+  <span
+    class="button tiny radius"
+    ng-click="plugin.toggleMode('create')">
+    Create
+  </span>
+  <span
+    class="button tiny radius"
+    ng-click="plugin.toggleMode('list')">
+    List
+  </span>
+  <div delimiter/>
+  <div ng-if="plugin.mode === 'create'">
+    <form name="cAT">
+      <label>
+        Visual representation of new token (optional)
+        <input type="text" ng-model="plugin.model.string"/>
+      </label>
+      <div class="text-left">
+        <select
+          class="compact"
+          required
+          ng-model="plugin.model.type"
+          ng-options="type for type in plugin.supportedTypes">
+        </select>
+      </div>
+      <span artificial-token-insertion-pointer/>
+      <div delimiter/>
+    </form>
+    <button
+      class="tiny radius"
+      ng-disabled="!plugin.modelValid()"
+      ng-click="plugin.propagateToState()">
+      Add token
+    </button>
+  </div>
+  <div
+    ng-if="plugin.mode === 'list'"
+    artificial-token-list>
+  </div>
+</div>

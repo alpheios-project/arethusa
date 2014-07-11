@@ -11,20 +11,19 @@ angular.module('arethusa').factory('TreebankRetriever', [
   '$location',
   'idHandler',
   function (documentStore, configurator, $location, idHandler) {
-    function xmlTokenToState(token, sentenceId) {
+    function xmlTokenToState(docIdentifier, token, sentenceId, artificials) {
       // One could formalize this to real rules that are configurable...
       //
       // Remember that attributes of the converted xml are prefixed with underscore
       var obj = {
-        id: idHandler.getId(token._id),
         sentenceId: sentenceId,
         string: token._form,
         morphology: {
           lemma: token._lemma,
           postag: token._postag
         },
-        relation: { label: token._relation },
-        head: { id: idHandler.getId(token._head) },
+        relation: { label: token._relation || '' }
+
       };
 
       var sg = token._sg;
@@ -32,12 +31,51 @@ angular.module('arethusa').factory('TreebankRetriever', [
         obj.sg = { ancestors: sg.split(' ') };
       }
 
+      if (token._artificial) {
+        obj.artificial = true;
+        obj.type = token._artificial;
+      }
+
+      createId(obj, token, docIdentifier);
+      createHead(obj, token, artificials);
+
       return obj;
     }
-    function xmlSentenceToState(words, id, cite) {
+
+    function createId(stateToken, xmlToken, docIdentifier) {
+      var idMap = new idHandler.Map();
+      var internalId = xmlTokenId(xmlToken);
+      var sourceId   = xmlToken._id;
+      idMap.add(docIdentifier, internalId, sourceId);
+      stateToken.id = internalId;
+      stateToken.idMap = idMap;
+    }
+
+    function createHead(stateToken, xmlToken, artificials) {
+      var head = xmlToken._head;
+      if (angular.isDefined(head)) {
+        var newHead = {};
+        var artHead = artificials[head];
+        newHead.id = artHead ? artHead : idHandler.getId(head);
+        stateToken.head = newHead;
+      }
+    }
+
+    function xmlTokenId(token) {
+      return token._artificial ? token._insertion_id : idHandler.getId(token._id);
+    }
+
+    function extractArtificial(memo, token, i) {
+      if (token._artificial) {
+        memo[token._id] = token._insertion_id;
+      }
+    }
+
+    function xmlSentenceToState(docIdentifier, words, id, cite) {
       var tokens = {};
+      var artificials = arethusaUtil.inject({}, words, extractArtificial);
       angular.forEach(words, function (xmlToken, i) {
-        var token = xmlTokenToState(xmlToken, id);
+        var token = xmlTokenToState(docIdentifier, xmlToken, id, artificials);
         tokens[token.id] = token;
       });
       return {
@@ -46,11 +84,12 @@ angular.module('arethusa').factory('TreebankRetriever', [
         cite: cite
       };
     }
-    function parseDocument(json) {
+
+    function parseDocument(json, docIdentifier) {
       var sentences = arethusaUtil.toAry(json.treebank.sentence);
       return arethusaUtil.inject([], sentences, function (memo, sentence, k) {
         var cite = extractCiteInfo(sentence);
-        memo.push(xmlSentenceToState(sentence.word, sentence._id, cite));
+        memo.push(xmlSentenceToState(docIdentifier, sentence.word, sentence._id, cite));
       });
     }
 
@@ -88,7 +127,9 @@ angular.module('arethusa').factory('TreebankRetriever', [
     }
 
     return function (conf) {
+      var self = this;
       var resource = configurator.provideResource(conf.resource);
+      var docIdentifier = conf.docIdentifier;
 
       this.preselections = parsePreselections(conf.preselector);
       this.getData = function (callback) {
@@ -96,12 +137,12 @@ angular.module('arethusa').factory('TreebankRetriever', [
           var xml = res.data;
           var json = arethusaUtil.xml2json(res.data);
           var moreConf = findAdditionalConfInfo(json);
-          documentStore.addDocument(conf.docIdentifier, {
+          documentStore.addDocument(docIdentifier, {
             json: json,
             xml: xml,
             conf: moreConf
           });
-          callback(parseDocument(json));
+          callback(parseDocument(json, docIdentifier));
         });
       };
     };

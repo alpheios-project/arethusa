@@ -345,6 +345,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           drawEdge(token);
         }
 
+
         function render() {
           vis = svg.select('g');
           renderer.layout(scope.layout).run(g, vis);
@@ -581,41 +582,64 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         });
 
+        // only do this if we are the main tree!
+        if (scope.tokens === state.tokens) {
+          scope.$on('tokenAdded', function(event, token) {
+            createGraph();
+            createHeadWatch(token, token.id);
+          });
+        }
+
         angular.element($window).on('resize', function() {
           calculateSvgHotspots();
           applyViewMode();
         });
 
         var headWatches = [];
-        function createHeadWatches() {
-          destroyOldHeadWatches();
-          angular.forEach(scope.tokens, function (token, id) {
-            var childScope = scope.$new();
-            childScope.token = token.id;
-            childScope.head = token.head;
-            childScope.$watch('head.id', function (newVal, oldVal) {
-              // Very important to do here, otherwise the tree will
-              // be render a little often on startup...
-              if (newVal !== oldVal) {
-                // If a disconnection has been requested, we just
-                // have to delete the edge and do nothing else
-                if (newVal === "") {
-                  g.delEdge(token.id);
-                } else {
-                  updateEdge(token);
-                }
-                render();
-              }
-            });
-            headWatches.push(childScope);
-          });
-        }
-
         function destroyOldHeadWatches() {
           angular.forEach(headWatches, function(childScope, i) {
             childScope.$destroy();
           });
           headWatches = [];
+        }
+        function createHeadWatch(token, id) {
+          var childScope = scope.$new();
+          childScope.token = token.id;
+          childScope.head = token.head;
+          childScope.$watch('head.id', function (newVal, oldVal) {
+            // We need to skip a digest, when a token has been removed,
+            // because we listen to the tokenRemoved event, where we delete
+            // a node - and deleting a node in dagre means also deleting all
+            // adjacent edges.
+            // We can't however keep this strange value for head.id around.
+            // A change fires this watch again - another digest cycle we need
+            // to skip. We do that by looking at the old Value.
+            if (newVal === 'tokenRemoved') {
+              childScope.head.id = '';
+              return;
+            }
+            if (oldVal === 'tokenRemoved') {
+              return;
+            }
+
+            // Very important to do here, otherwise the tree will
+            // be render a little often on startup...
+            if (newVal !== oldVal) {
+              // If a disconnection has been requested, we just
+              // have to delete the edge and do nothing else
+              if (newVal === "") {
+                g.delEdge(token.id);
+              } else {
+                updateEdge(token);
+              }
+              render();
+            }
+          });
+        }
+
+        function createHeadWatches() {
+          destroyOldHeadWatches();
+          angular.forEach(scope.tokens, createHeadWatch);
         }
 
 
@@ -631,6 +655,14 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             ]
           };
         }
+
+        state.on('tokenRemoved', function(event, token) {
+          var id = token.id;
+          if (scope.tokens[id] === token && nodePresent(id)) {
+            g.delNode(id);
+            render();
+          }
+        });
 
         // Initial tree layout
 

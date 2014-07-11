@@ -18,19 +18,29 @@ describe('treebank persister', function() {
       };
     }
   };
+  var IdMap = function(id) {
+    this.add = function() {};
+    this.sourceId = function() {
+      return id;
+    };
+  };
   var mockNavigator = {
     sentencesById: {
       "2": {
         "tokens": {
           "0001": {
+            id: '0001',
             head: {
-              id: 2
-            }
+              id: '0002'
+            },
+            idMap: new IdMap(1)
           },
           "0002": {
+            id: '0002',
             head: {
-              id: 0
-            }
+              id: '0000'
+            },
+            idMap: new IdMap(2)
           }
         }
       }
@@ -86,6 +96,6 @@ describe('treebank persister', function() {
 
     var updatedJson = documentStore.store['some-treebank'];
     expect(updatedJson).toBeDefined();
-    expect(updatedJson.json.treebank.sentence.word[0]._head).toBe("2");
+    expect(updatedJson.json.treebank.sentence.word[0]._head).toBe(2);
   }));
 });

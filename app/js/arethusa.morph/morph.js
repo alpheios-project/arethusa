@@ -176,15 +176,17 @@ angular.module('arethusa.morph').service('morph', [
 
     function loadInitalAnalyses() {
       if (self.noRetrieval !== "all") {
-        angular.forEach(self.analyses, function (val, id) {
-          getAnalysisFromState(val, id);
-          if (self.noRetrieval !== "online") {
-            self.getExternalAnalyses(val, id);
-          }
-          val.analyzed = true;
-          self.resetCustomForm(val);
-        });
+        angular.forEach(self.analyses, loadToken);
       }
+    }
+
+    function loadToken(val, id) {
+      getAnalysisFromState(val, id);
+      if (self.noRetrieval !== "online") {
+        self.getExternalAnalyses(val, id);
+      }
+      val.analyzed = true;
+      self.resetCustomForm(val);
     }
 
     self.resetCustomForm = function(val) {
@@ -347,6 +349,19 @@ angular.module('arethusa.morph').service('morph', [
     this.canEdit = function() {
       return self.mode === "editor";
     };
+
+    state.on('tokenAdded', function(event, token) {
+      var id = token.id;
+      var forms = new Forms(token.string);
+      self.analyses[id] = forms;
+      loadToken(forms, id);
+    });
+
+    state.on('tokenRemoved', function(event, token) {
+      var id = token.id;
+      deleteFromIndex(id);
+      delete self.analyses[id];
+    });
 
     this.init = function () {
       configure();

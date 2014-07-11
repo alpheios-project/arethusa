@@ -21,8 +21,7 @@
 angular.module('arethusa.depTree').service('depTree', [
   'state',
   'configurator',
-  '$rootScope',
-  function (state, configurator, $rootScope) {
+  function (state, configurator) {
     var self = this;
 
     function configure() {
@@ -74,10 +73,34 @@ angular.module('arethusa.depTree').service('depTree', [
       }
     };
 
-    $rootScope.$on('diffLoaded', function () {
+    state.on('diffLoaded', function () {
       self.diffPresent = true;
       self.diffInfo = analyseDiffs(state.tokens);
       self.diffMode = true;
+    });
+
+    function addMissingHeadsToState() {
+      angular.forEach(state.tokens, addHead);
+    }
+
+    function addHead(token) {
+      if (!token.head) token.head = {};
+    }
+
+    state.on('tokenAdded', function(event, token) {
+      addHead(token);
+    });
+
+    state.on('tokenRemoved', function(event, token) {
+      var id = token.id;
+      angular.forEach(state.tokens, function(t, i) {
+        var head = t.head;
+        if (head.id === id) {
+          // We need to clearly say what happens, so that the dependencyTree
+          // head watch knows what to do.
+          head.id = "tokenRemoved";
+        }
+      });
     });
 
     // Used inside the context menu
@@ -91,6 +114,7 @@ angular.module('arethusa.depTree').service('depTree', [
 
     this.init = function () {
       configure();
+      addMissingHeadsToState();
     };
   }
 ]);

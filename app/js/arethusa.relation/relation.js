@@ -131,18 +131,29 @@ angular.module('arethusa.relation').service('relation', [
     };
 
     // Init
+    function addToInternalState(container, id, token) {
+      if (!token.relation) token.relation = self.relationTemplate();
+      container[id] = {
+        string: token.string,
+        relation: self.expandRelation(token.relation || '')
+      };
+    }
+
     this.createInternalState = function () {
-      return arethusaUtil.inject({}, state.tokens, function (memo, id, token) {
-        memo[id] = {
-          string: token.string,
-          relation: self.expandRelation(token.relation)
-        };
-      });
+      return arethusaUtil.inject({}, state.tokens, addToInternalState);
     };
 
     this.canEdit = function() {
       return self.mode === "editor";
     };
+
+    state.on('tokenAdded', function(event, token) {
+      addToInternalState(self.relations, token.id, token);
+    });
+
+    state.on('tokenRemoved', function(event, token) {
+      delete self.relations[token.id];
+    });
 
     this.init = function () {
       configure();

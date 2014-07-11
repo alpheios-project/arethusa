@@ -350,8 +350,12 @@ button[disabled],
   font-size: 0.875rem;
 }
 
-.note {
+.note, .elliptic {
   font-size: 0.7rem;
+}
+
+.normal-size {
+  font-size: 1rem;
 }
 
 hr.small {
@@ -493,4 +497,13 @@ input.compact {
   /*body color - use a variable for this later on*/
   color: #222;
   transition: color 500ms ease-out;
+}
+
+.small-panel {
+  border: 1px solid #d8d8d8;
+  padding: 0.5rem;
+}
+
+.crosshair-cursor {
+  cursor: crosshair !important;
 }

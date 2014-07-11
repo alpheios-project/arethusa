@@ -26,34 +26,40 @@ angular.module('arethusa.core').service('state', [
     var tokens = {};
 
     // Loading a state
-    var saveTokens = function (container, tokens) {
-      angular.forEach(tokens, function (token, id) {
-        var updatedToken;
-        var savedToken = container[id];
-        if (savedToken) {
-          updatedToken = angular.extend(savedToken, token);
-        } else {
-          updatedToken = token;
-        }
-        container[id] = token;
-      });
-    };
+    // Premature optimization - we need something like that only when we start
+    // to act on several documents at once. For now we have only one retriever
+    // anyway...
+    //
+    //var saveTokens = function (container, tokens) {
+      //angular.forEach(tokens, function (token, id) {
+        //var updatedToken;
+        //var savedToken = container[id];
+        //if (savedToken) {
+          //updatedToken = angular.extend(savedToken, token);
+        //} else {
+          //updatedToken = token;
+        //}
+        //container[id] = token;
+      //});
+    //};
 
     this.retrieveTokens = function () {
-      var container = {};
+      //var container = {};
       navigator.reset();
       self.deselectAll();
       angular.forEach(tokenRetrievers, function (retriever, name) {
         retriever.getData(function (data) {
           navigator.addSentences(data);
           moveToSentence();
-          saveTokens(container, navigator.currentSentence());
-          //saveTokens(container, data[0].tokens);
+          // Check comment for saveTokens
+          //saveTokens(container, navigator.currentSentence());
+          tokens = navigator.currentSentence();
+
           declarePreselections(retriever.preselections);
           declareLoaded(retriever);
         });
       });
-      tokens = container;
+      //tokens = container;
     };
 
     function moveToSentence() {
@@ -297,7 +303,7 @@ angular.module('arethusa.core').service('state', [
       // state tokens are replaced
       if (!keepSelections) self.deselectAll();
       self.tokens = tokens;
-      self.broadcastReload();
+      self.broadcast('stateLoaded');
     };
 
     this.setStyle = function (id, style) {
@@ -326,15 +332,15 @@ angular.module('arethusa.core').service('state', [
       delete self.getToken(id).style;
     };
 
-    this.broadcastReload = function () {
-      $rootScope.$broadcast('stateLoaded');
+    this.addStatusObjects = function () {
+      angular.forEach(self.tokens, addStatus);
     };
 
-    this.addStatusObjects = function () {
-      angular.forEach(self.tokens, function (token, id) {
+    function addStatus(token) {
+      if (! token.status) {
         token.status = {};
-      });
-    };
+      }
+    }
 
     this.countTotalTokens = function () {
       self.totalTokens = Object.keys(self.tokens).length;
@@ -348,6 +354,31 @@ angular.module('arethusa.core').service('state', [
         }
       });
       return count;
+    };
+
+    this.addToken = function(token, id) {
+      self.tokens[id] = token;
+      addStatus(token);
+      self.countTotalTokens();
+      self.broadcast('tokenAdded', token);
+    };
+
+    this.removeToken = function(id) {
+      var token = self.getToken(id);
+      // broadcast before we actually delete, in case a plugin needs access
+      // during the cleanup process
+      self.broadcast('tokenRemoved', token);
+      delete self.tokens[id];
+      self.countTotalTokens();
+    };
+
+    // New event handling through $rootScope
+    this.on = function(event, fn) {
+      $rootScope.$on(event, fn);
+    };
+
+    this.broadcast = function(event, arg) {
+      $rootScope.$broadcast(event, arg);
     };
 
     this.postInit = function () {
