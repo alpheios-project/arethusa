@@ -79,8 +79,16 @@ angular.module('arethusa.depTree').service('depTree', [
       self.diffMode = true;
     });
 
-    state.on('tokenAdded', function(event, token) {
+    function addMissingHeadsToState() {
+      angular.forEach(state.tokens, addHead);
+    }
+
+    function addHead(token) {
       if (!token.head) token.head = {};
+    }
+
+    state.on('tokenAdded', function(event, token) {
+      addHead(token);
     });
 
     state.on('tokenRemoved', function(event, token) {
@@ -106,6 +114,7 @@ angular.module('arethusa.depTree').service('depTree', [
 
     this.init = function () {
       configure();
+      addMissingHeadsToState();
     };
   }
 ]);
