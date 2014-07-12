@@ -15,8 +15,8 @@
     },
     "plugins" : [
       "text",
-      "search",
-      "hebrewMorph"
+      "hebrewMorph",
+      "search"
     ]
   },
 
@@ -55,7 +55,8 @@
     },
     "hebrewMorph" : {
       "name" : "morph",
-      "template" : "templates/arethusa.hebrew_morph/hebrew_morph.html"
+      "template" : "templates/arethusa.hebrew_morph/hebrew_morph.html",
+      "fileUrl" : "./static/configs/morph/heb_attributes.json"
     }
   },
   "keyCapture" : {
