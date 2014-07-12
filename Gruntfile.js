@@ -281,7 +281,6 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', ['minify', 'connect:devserver']);
-    'uglify:artificialToken',
   // Ok, the concurrent watches don't work, because the grunt contrib server
   // is listening only to one port :( Fix this at a later stage.
   //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
