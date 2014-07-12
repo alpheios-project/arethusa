@@ -7,7 +7,8 @@ angular.module('arethusa.core').directive('greekKeys',[
       restrict: 'A',
       link: function (scope, element, attrs) {
         element.on('keydown', function (event) {
-          var lang = languageSettings.getFor('treebank').lang;
+
+          var lang = (languageSettings.getFor('treebank') || {}).lang;
           var input = event.target.value;
           if (lang == "gr") {
             var gr = keyCapture.getGreekKey(event);
