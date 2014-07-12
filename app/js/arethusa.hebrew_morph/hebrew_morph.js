@@ -44,6 +44,13 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
       return res;
     }
 
+    this.hyphenatedForm = function(form) {
+      return arethusaUtil.inject([], ['prefix', 'base', 'suffix'], function(memo, el) {
+        var str = form[el].string;
+        if (str) memo.push(str);
+      }).join(' - ');
+    };
+
     this.parse = function(xmlToken, token) {
       var morph = new Morph(token.string);
       token.morphology = morph;

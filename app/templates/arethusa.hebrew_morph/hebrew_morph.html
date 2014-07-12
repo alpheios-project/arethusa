@@ -1,1 +1,13 @@
-This is the HTML template for arethusa.hebrew_morph
+<div ng-repeat="(id, analysis) in plugin.currentSelection()">
+  <div class="small-12 columns" lang-specific>
+    <p token-with-id value="analysis.string" token-id="id"/>
+    <accordion close-others="oneAtATime">
+      <accordion-group ng-repeat="form in analysis.forms">
+        <accordion-heading class="text">
+            {{ plugin.hyphenatedForm(form) }}
+          <hr class="small">
+        </accordion-heading>
+      </accordion-group>
+    </accordion>
+  </div>
+</div>
