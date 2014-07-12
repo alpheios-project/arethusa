@@ -50,6 +50,17 @@ angular.module('arethusa.search').directive('searchByString', [
         scope.$watch('state.tokens', function(newVal, oldVal) {
           initStringWatches();
         });
+
+        var inputField = element.find('input')[0];
+        scope.$watch('search.focusStringSearch', function(newVal, oldVal) {
+          if (newVal) {
+            inputField.focus();
+          }
+        });
+
+        element.bind('blur', function() {
+          search.focusStringSearch = false;
+        });
       },
       templateUrl: 'templates/arethusa.search/search_by_string.html'
     };

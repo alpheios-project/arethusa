@@ -7,7 +7,8 @@ angular.module('arethusa.core').controller('MainCtrl', [
   'documentStore',
   'notifier',
   'saver',
-  function ($scope, $injector, configurator, state, documentStore, notifier, saver) {
+  'keyCapture',
+  function ($scope, $injector, configurator, state, documentStore, notifier, saver, keyCapture) {
     // This is the entry point to the application.
     notifier.info('Loading...');
 
@@ -166,6 +167,26 @@ angular.module('arethusa.core').controller('MainCtrl', [
         }
       });
     };
+
+    // This will naturally go to the searchservice once we have it in the
+    // plugin service in place.
+    // The keyCapture service doesn't need to be injected into the MainCtrl
+    // anymore then.
+    function focusSearch() {
+      var s = $scope.plugins.search;
+      if (s) {
+        $scope.declareActive(s);
+        s.focusStringSearch = true;
+      }
+    }
+
+    keyCapture.initCaptures(function(kC) {
+      return {
+        search: [
+          kC.create('focus', focusSearch)
+        ]
+      };
+    });
 
     $scope.init = function () {
       $scope.plugins = $scope.retrievePlugins(conf.plugins);

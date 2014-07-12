@@ -8,6 +8,7 @@ angular.module('arethusa.search').service('search', [
     this.name = this.conf.name;
     this.template = this.conf.template;
     this.queryByRegex = this.conf.regex;
+    this.focusStringSearch = false;
 
     this.findByRegex = function(str) {
       // We might need to escape some chars here, we need to try
