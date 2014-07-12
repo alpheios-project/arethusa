@@ -3,7 +3,8 @@
 angular.module('arethusa.search').directive('searchByString', [
   'search',
   'state',
-  function(search, state) {
+  'sidepanel',
+  function(search, state, sidepanel) {
     return {
       restrict: 'A',
       scope: {},
@@ -52,14 +53,15 @@ angular.module('arethusa.search').directive('searchByString', [
         });
 
         var inputField = element.find('input')[0];
+        var inSidepanel = element.parents('#sidepanel')[0];
         scope.$watch('search.focusStringSearch', function(newVal, oldVal) {
           if (newVal) {
+            if (inSidepanel) {
+              if (sidepanel.folded) sidepanel.toggle();
+            }
             inputField.focus();
+            search.focusStringSearch = false;
           }
-        });
-
-        element.bind('blur', function() {
-          search.focusStringSearch = false;
         });
       },
       templateUrl: 'templates/arethusa.search/search_by_string.html'

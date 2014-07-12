@@ -150,6 +150,16 @@ angular.module('arethusa.morph').service('morph', [
       });
     }
 
+    // When we find no form even after retrieving, we need to unset
+    // the token style. This is important when we move from chunk
+    // to chunk, as token might still have style from a former chunk.
+    // When no analysis is present, this can be very misleading.
+    function unsetStyleWithoutAnalyses(forms, id) {
+      if (forms.length === 0) {
+        state.unsetStyle(id);
+      }
+    }
+
     this.getExternalAnalyses = function (analysisObj, id) {
       angular.forEach(morphRetrievers, function (retriever, name) {
         retriever.getData(analysisObj.string, function (res) {
@@ -161,9 +171,11 @@ angular.module('arethusa.morph').service('morph', [
             // try to obtain additional info from the inventory
             getDataFromInventory(el);
           });
-          mergeDuplicateForms(analysisObj.forms[0], res);
-          arethusaUtil.pushAll(analysisObj.forms, res);
-          preselectForm(analysisObj.forms[0], id);
+          var forms = analysisObj.forms;
+          mergeDuplicateForms(forms[0], res);
+          arethusaUtil.pushAll(forms, res);
+          preselectForm(forms[0], id);
+          unsetStyleWithoutAnalyses(forms, id);
         });
       });
     };
@@ -207,6 +219,12 @@ angular.module('arethusa.morph').service('morph', [
       getAnalysisFromState(val, id);
       if (self.noRetrieval !== "online") {
         self.getExternalAnalyses(val, id);
+      } else {
+        // We only need to do this when we don't
+        // retrieve externally. If we do, we call
+        // this function from within the request's
+        // callback.
+        unsetStyleWithoutAnalyses(val.forms, id);
       }
       val.analyzed = true;
       self.resetCustomForm(val);
