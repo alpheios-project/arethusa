@@ -17,8 +17,18 @@ angular.module('arethusa.core').directive('foreignKeys',[
           return (languageSettings.getFor('treebank') || {}).lang;
         }
 
+        function lang() {
+          return scope.foreignKeys || extractLanguage();
+        }
+
+        // This will not detect changes right now
+        function placeHolderText() {
+          var language = languageSettings.langNames[lang()];
+          return  language ? language + ' input enabled!' : '';
+        }
+        element.attr('placeholder', placeHolderText);
+
         element.on('keydown', function (event) {
-          var lang = scope.foreignKeys || extractLanguage();
           var input = event.target.value;
           if (lang) {
             var fK = keyCapture.getForeignKey(event, lang);
