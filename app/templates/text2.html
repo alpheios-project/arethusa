@@ -1,10 +1,12 @@
 <p lang-specific>
-  <span
-    ng-repeat="token in plugin.tokens"
-    token="token"
-    colorize="true"
-    click="true"
-    hover="true"
-    highlight="true">
+  <span ng-repeat="token in plugin.tokens">
+    <span
+      token="token"
+      colorize="true"
+      click="true"
+      hover="true"
+      highlight="true">
+    </span>
+    <br ng-if="token.terminator"/>
   </span>
 </p>
