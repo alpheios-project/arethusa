@@ -5,10 +5,6 @@ angular.module('arethusa.core').service('keyCapture', [
   function(configurator, $rootScope) {
     var self = this;
 
-    this.grKeyTable = function(key) {
-      return configurator.configurationFor('keyCapture').grKeys[key];
-     };
-
     this.conf = function(name) {
       var c = configurator.configurationFor('keyCapture') || {};
       return c[name] || {};
@@ -30,6 +26,10 @@ angular.module('arethusa.core').service('keyCapture', [
     for (var i = 97; i < 123; i++){
       keyCodes[String.fromCharCode(i)] = i - 32;
     }
+
+    var CodesToKeys = arethusaUtil.inject({}, keyCodes, function(memo, key, code) {
+      memo[code] = key;
+    });
 
     this.shiftModifier = 1000;
     this.ctrlModifier  = 2000;
@@ -68,49 +68,48 @@ angular.module('arethusa.core').service('keyCapture', [
       return [parts, keyCodes[k]];
     }
 
-    var modifiers = function() {
-      return arethusaUtil.inject([], self.grKeyTable("modifiers"), function(memo, i, key) {
+    function modifiers(keys) {
+      return arethusaUtil.inject([], keys.modifiers, function(memo, i, key) {
         memo.push(key);
       });
-    };
+    }
 
-    this.lookUpKey = [];
-
-    this.getGreekKey = function(event) {
-      var stop;
+    var lookUpKey = [];
+    this.getForeignKey = function(event, language) {
       var res = [];
-      angular.forEach(keyCodes, function(code, key) {
-        if (code == event.keyCode) {
-          if (event.shiftKey) {
-            res.push('shift');
-          }
-          if (arethusaUtil.isIncluded(modifiers(), key)) {
-            res.push(key);
-            var joined = res.join('-');
-            self.lookUpKey.push(joined);
-            stop = true;
-            return;
-          } else {
-            if (arethusaUtil.isIncluded(res, 'shift')) {
-              // Following lines provide that 'shift-a'
-              // and 'A' is the same.
-              var i = res.indexOf("shift");
-              res.splice(i, 1);
-              key = key.toUpperCase();
-            }
-            res.push(key);
-          }
+      var keys = keysFor(language);
+      var key = CodesToKeys[event.keyCode];
+      if (key) {
+        if (event.shiftKey) {
+          res.push('shift');
         }
-      });
-      if (stop) {
-        return false;
-      } else {
-        var lookUp = self.lookUpKey.concat(res);
-        var key = self.grKeyTable(lookUp.join('-'));
-        self.lookUpKey = [];
-        return key;
+        if (arethusaUtil.isIncluded(modifiers(keys), key)) {
+          res.push(key);
+          var joined = res.join('-');
+          lookUpKey.push(joined);
+          return false;
+        } else {
+          if (arethusaUtil.isIncluded(res, 'shift')) {
+            // Following lines provide that 'shift-a'
+            // and 'A' is the same.
+            var i = res.indexOf("shift");
+            res.splice(i, 1);
+            key = key.toUpperCase();
+          }
+          res.push(key);
+        }
       }
+
+      var lookUp = lookUpKey.concat(res);
+      var foreignKey = keys[lookUp.join('-')];
+      lookUpKey = [];
+      return foreignKey;
     };
+
+    function keysFor(language) {
+      var keys = (self.conf('keys') || {})[language];
+      return keys || {};
+    }
 
     var keyPressedCallbacks = {};
 
