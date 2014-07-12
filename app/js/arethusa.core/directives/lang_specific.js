@@ -6,7 +6,7 @@ angular.module('arethusa.core').directive('langSpecific', [
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
-        var settings = languageSettings.getFor('treebank');
+        var settings = languageSettings.getFor('treebank') || languageSettings.getFor('hebrewMorph');
         if (settings) {
           element.attr('lang', settings.lang);
           element.attr('dir', settings.leftToRight ? 'ltr' : 'rtl');
