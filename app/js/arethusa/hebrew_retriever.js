@@ -21,7 +21,7 @@ angular.module('arethusa').factory('HebrewRetriever', [
 
       function createIds(id) {
         var match = /^ref\.(\d+\.){3}(\d+)\.(\d+)$/.exec(id);
-        var internalId = match[2] + '-' + match[3];
+        var internalId = idHandler.getId(match[2]) + '-' + idHandler.getId(match[3]);
         var sourceId   = id;
         var idMap = new idHandler.Map();
         idMap.add(docIdentifier, internalId, sourceId);
