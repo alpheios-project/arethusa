@@ -11,22 +11,27 @@ angular.module('arethusa').factory('HebrewRetriever', [
       var resource = configurator.provideResource(conf.resource);
       var docIdentifier = conf.docIdentifier;
 
+      function Token(id, string, terminator) {
+        this.id = id;
+        this.string = string;
+        this.terminator = terminator;
+      }
+
       function extractTokens(paragraph) {
-        var tokens = {};
+        var result = {};
 
         angular.forEach(arethusaUtil.toAry(paragraph.sentence), function(sentence, i) {
-          angular.forEach(arethusaUtil.toAry(sentence.token), function(token, otherI) {
+          var tokens = arethusaUtil.toAry(sentence.token);
+          var lastTokenI = tokens.length - 1;
+          angular.forEach(tokens, function(token, otherI) {
             var id = token._id;
             var string = token._surface;
-            tokens[id] = {
-              id: id,
-              string: string
-            };
+            var term = otherI === lastTokenI;
+            result[id] = new Token(id, string, term);
           });
         });
 
-        return tokens;
-
+        return result;
       }
 
       function parseDocument(doc, identifier) {
