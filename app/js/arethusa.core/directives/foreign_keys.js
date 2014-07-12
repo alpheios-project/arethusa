@@ -14,7 +14,7 @@ angular.module('arethusa.core').directive('foreignKeys',[
         var parent = scope.$parent;
 
         function extractLanguage() {
-          return (languageSettings.getFor('treebank') || {}).lang;
+          return (languageSettings.getFor('treebank') || languageSettings.getFor('hebrewMorph') || {}).lang;
         }
 
         function lang() {
@@ -31,6 +31,7 @@ angular.module('arethusa.core').directive('foreignKeys',[
         element.on('keydown', function (event) {
           var input = event.target.value;
           var l = lang();
+          console.log(l);
           if (l) {
             var fK = keyCapture.getForeignKey(event, l);
             if (fK === false) {
