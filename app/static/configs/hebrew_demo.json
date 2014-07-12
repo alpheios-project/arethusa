@@ -1,0 +1,50 @@
+{
+  "main" : {
+    "template"  : "templates/main_with_sidepanel.html",
+    "retrievers" : {
+      "HebrewRetriever" : {
+        "resource" : "fakePerseids",
+        "docIdentifier" : "hebrewMorph"
+      }
+    },
+    "persisters" : {
+      "HebrewPersister" : {
+        "resource" : "fakePerseids",
+        "docIdentifier" : "hebrewMorph"
+      }
+    },
+    "plugins" : [
+      "text"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true,
+    "notifier" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "resources" : {
+    "fakePerseids" : {
+      "route" : "http://74.70.97.104:8085/xml_server/:doc",
+      "params" : [
+        "doc",
+        "s"
+      ]
+    }
+  },
+
+  "plugins" : {
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    }
+  }
+}
