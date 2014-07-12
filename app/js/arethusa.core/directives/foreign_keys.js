@@ -1,5 +1,5 @@
 'use strict';
-angular.module('arethusa.core').directive('greekKeys',[
+angular.module('arethusa.core').directive('foreignKeys',[
   'keyCapture',
   'languageSettings',
   function (keyCapture, languageSettings) {
@@ -15,17 +15,17 @@ angular.module('arethusa.core').directive('greekKeys',[
         element.on('keydown', function (event) {
           var lang = (languageSettings.getFor('treebank') || {}).lang;
           var input = event.target.value;
-          if (lang == "gr") {
-            var gr = keyCapture.getGreekKey(event);
-            if (gr === false) {
+          if (lang) {
+            var fK = keyCapture.getForeignKey(event, lang);
+            if (fK === false) {
               return false;
             }
-            if (gr === undefined) {
+            if (fK === undefined) {
               return true;
             } else {
-              event.target.value = input + gr;
+              event.target.value = input + fK;
               scope.$apply(function() {
-                parent.$eval(scope.ngModel + ' = i + g', { i: input, g: gr });
+                parent.$eval(scope.ngModel + ' = i + k', { i: input, k: fK });
                 scope.ngChange();
               });
               return false;
