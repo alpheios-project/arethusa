@@ -7,13 +7,18 @@ angular.module('arethusa.core').directive('foreignKeys',[
       restrict: 'A',
       scope: {
         ngChange: '&',
-        ngModel: '@'
+        ngModel: '@',
+        foreignKeys: '='
       },
       link: function (scope, element, attrs) {
         var parent = scope.$parent;
 
+        function extractLanguage() {
+          return (languageSettings.getFor('treebank') || {}).lang;
+        }
+
         element.on('keydown', function (event) {
-          var lang = (languageSettings.getFor('treebank') || {}).lang;
+          var lang = scope.foreignKeys || extractLanguage();
           var input = event.target.value;
           if (lang) {
             var fK = keyCapture.getForeignKey(event, lang);
