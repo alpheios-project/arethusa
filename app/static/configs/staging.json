@@ -132,7 +132,8 @@
   "keyCapture" : {
     "sidepanel" : {
       "nextTab" : "W",
-      "prevTab" : "E"
+      "prevTab" : "E",
+      "toggle"  : "q"
     },
     "selections" : {
       "nextToken" : "w",
@@ -144,8 +145,16 @@
       "list" : "L"
     },
     "tree" : {
-      "directionChange" : "c"
+      "directionChange" : "c",
+      "focusSelection"  : "a",
+      "centerTree" : "s",
+      "perfectWidth" : "d"
+    },
+    "saver" : {
+      "save" : "ctrl-S"
+    },
+    "search" : {
+      "focus" : "A"
     }
   }
 }
-
