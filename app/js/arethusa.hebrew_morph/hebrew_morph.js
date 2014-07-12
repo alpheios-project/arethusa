@@ -35,10 +35,20 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
       }
       return res;
     }
-    function parseSuffix(form) {
-      var suffix = form.suffix;
+    function parseSuffix(xmlForm, form, string) {
+      var suffix = xmlForm.suffix;
       var res = {};
+      if (suffix) {
+        res.string = extractSuffixString(form, string);
+      }
       return res;
+    }
+
+    function extractSuffixString(form, string) {
+      var str;
+      str = string.replace((form.prefix.string || ''), '');
+      str = str.replace((form.base  .string || ''), '');
+      return str;
     }
 
     function parseBase(form) {
@@ -73,7 +83,7 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
         var form = new Form(anal._id, anal._score);
         form.base = parseBase(anal);
         form.prefix = parsePrefix(anal);
-        form.suffix = parseSuffix(anal);
+        form.suffix = parseSuffix(anal, form, token.string);
         morph.forms.push(form);
       });
     };
