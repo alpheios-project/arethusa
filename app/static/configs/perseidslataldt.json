@@ -15,11 +15,11 @@
     },
     "plugins" : [
       "text",
-      "search",
       "morph",
       "relation",
-      "depTree",
-      "history"
+      "artificialToken",
+      "search",
+      "depTree"
     ],
     "chunkParam" : "chunk"
   },
@@ -118,16 +118,9 @@
       "fileUrl" : "./static/configs/relation/relations.json"
     },
 
-    "history" : {
-      "name" : "history",
-      "listener" : true,
-      "maxSize" : 5,
-      "template" : "templates/history.html"
-    },
-
-    "comment" : {
-      "name" : "comment",
-      "template" : "templates/comment2.html"
+    "artificialToken" : {
+      "name" : "aT",
+      "template" : "templates/arethusa.artificial_token/artificial_token.html"
     }
   },
 

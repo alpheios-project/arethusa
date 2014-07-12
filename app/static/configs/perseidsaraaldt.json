@@ -18,8 +18,7 @@
       "search",
       "morph",
       "relation",
-      "depTree",
-      "history"
+      "depTree"
     ],
     "chunkParam" : "chunk"
   },
@@ -102,18 +101,6 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
       "fileUrl" : "./static/configs/relation/relations.json"
-    },
-
-    "history" : {
-      "name" : "history",
-      "listener" : true,
-      "maxSize" : 5,
-      "template" : "templates/history.html"
-    },
-
-    "comment" : {
-      "name" : "comment",
-      "template" : "templates/comment2.html"
     }
   },
 
