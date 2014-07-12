@@ -77,6 +77,7 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
 
     this.parse = function(xmlToken, token) {
       var morph = new Morph(token.string);
+      var forms = [];
       token.morphology = morph;
       var analyses = arethusaUtil.toAry(xmlToken.analysis);
       angular.forEach(analyses, function(anal, i) {
@@ -84,8 +85,11 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
         form.base = parseBase(anal);
         form.prefix = parsePrefix(anal);
         form.suffix = parseSuffix(anal, form, token.string);
-        morph.forms.push(form);
+        forms.push(form);
       });
+      arethusaUtil.pushAll(morph.forms, forms.sort(function(a, b) {
+        return a.score < b.score;
+      }));
     };
 
     this.currentSelection = function() {
