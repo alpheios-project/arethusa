@@ -19,7 +19,11 @@ angular.module('arethusa.core').service('keyCapture', [
       shift: 16,
       ctrl: 17,
       alt: 18,
-      esc: 27
+      esc: 27,
+      ":" : 186,
+      "[" : 219,
+      "'" : 222,
+      "]" : 221
     };
 
     // a-z codes
@@ -64,17 +68,48 @@ angular.module('arethusa.core').service('keyCapture', [
       return [parts, keyCodes[k]];
     }
 
+    var modifiers = function() {
+      return arethusaUtil.inject([], self.grKeyTable("modifiers"), function(memo, i, key) {
+        memo.push(key);
+      });
+    };
+
+    this.lookUpKey = [];
+
     this.getGreekKey = function(event) {
-      var res;
+      var stop;
+      var res = [];
       angular.forEach(keyCodes, function(code, key) {
         if (code == event.keyCode) {
           if (event.shiftKey) {
-            key = key.toUpperCase();
+            res.push('shift');
           }
-          res = self.grKeyTable(key);
+          if (arethusaUtil.isIncluded(modifiers(), key)) {
+            res.push(key);
+            var joined = res.join('-');
+            self.lookUpKey.push(joined);
+            stop = true;
+            return;
+          } else {
+            if (arethusaUtil.isIncluded(res, 'shift')) {
+              // Following lines provide that 'shift-a'
+              // and 'A' is the same.
+              var i = res.indexOf("shift");
+              res.splice(i, 1);
+              key = key.toUpperCase();
+            }
+            res.push(key);
+          }
         }
       });
-      return res;
+      if (stop) {
+        return false;
+      } else {
+        var lookUp = self.lookUpKey.concat(res);
+        var key = self.grKeyTable(lookUp.join('-'));
+        self.lookUpKey = [];
+        return key;
+      }
     };
 
     var keyPressedCallbacks = {};

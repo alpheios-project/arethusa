@@ -11,6 +11,9 @@ angular.module('arethusa.core').directive('greekKeys',[
           var input = event.target.value;
           if (lang == "gr") {
             var gr = keyCapture.getGreekKey(event);
+            if (gr === false) {
+              return false;
+            }
             if (gr === undefined) {
               return true;
             } else {
