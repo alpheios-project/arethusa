@@ -60,11 +60,8 @@ angular.module('arethusa.search').directive('searchByString', [
               if (sidepanel.folded) sidepanel.toggle();
             }
             inputField.focus();
+            search.focusStringSearch = false;
           }
-        });
-
-        element.bind('blur', function() {
-          search.focusStringSearch = false;
         });
       },
       templateUrl: 'templates/arethusa.search/search_by_string.html'
