@@ -144,7 +144,8 @@
     },
     "search" : {
       "focus" : "A"
-    }
+    },
+    "fileUrl" : "./static/configs/keyboard/key_map.json"
   }
 }
 
