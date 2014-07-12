@@ -1,17 +1,15 @@
 {
   "main" : {
     "template"  : "templates/main_with_sidepanel.html",
-    "foldSidepanel" : true,
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "staticFiles",
-        "docIdentifier" : "treebank",
-        "preselector" : "w"
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
       }
     },
     "persisters" : {
       "TreebankPersister" : {
-        "resource" : "staticFiles",
+        "resource" : "perseidsResource",
         "docIdentifier" : "treebank"
       }
     },
@@ -20,43 +18,42 @@
       "search",
       "morph",
       "relation",
-      "depTree",
-      "review",
-      "history"
-    ]
+      "depTree"
+    ],
+    "chunkParam" : "chunk"
+  },
+
+  "auths": {
+    "perseidsAuth" : {
+      "type": "CSRF",
+      "cookie": "csrftoken",
+      "header": "X-CSRF-Token",
+      "ping" : "http://sosol.perseids.org/sosol/dmm_api/ping"
+    }
   },
 
   "navbar" : {
     "template" : "templates/navbar1.html",
     "search" : true,
-    "navigation" : true,
-    "notifier" : true
+    "notifier" : true,
+    "navigation" : true
   },
 
   "resources" : {
-    "staticFiles" : {
-      "route" : "http://services.perseids.org/llt-data/:doc.xml",
-      "params" : ["doc"]
-    },
-
-    "fakeGold" : {
-      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
+    "perseidsResource" : {
+      "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
       "params" : [
-        "gold",
-        "s"
-      ]
-    },
-
-    "lexInvFusekiEndpoint" : {
-      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
+        "doc"
+      ],
+      "auth": "perseidsAuth"
     },
 
     "morphologyService" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=ara&engine=aramorph"
     }
   },
 
-  "plugins" : {
+  "plugins" : { 
     "text" : {
       "name" : "text",
       "main" : true,
@@ -87,13 +84,6 @@
       "template"  : "templates/morph3.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
-      "lexicalInventory" : {
-        "retriever" : {
-          "LexicalInventoryRetriever" : {
-            "resource" : "lexInvFusekiEndpoint"
-          }
-        }
-      },
       "matchAll" : true,
       "fileUrl" : "./static/configs/morph/lat_attributes.json"
     },
@@ -104,28 +94,6 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
       "fileUrl" : "./static/configs/relation/relations.json"
-    },
-
-    "review" : {
-      "name" : "review",
-      "template" : "templates/arethusa.review/review.html",
-      "retrievers" : {
-        "TreebankRetriever" : {
-          "resource" : "fakeGold"
-        }
-      }
-    },
-
-    "history" : {
-      "name" : "history",
-      "listener" : true,
-      "maxSize" : 5,
-      "template" : "templates/history.html"
-    },
-
-    "comment" : {
-      "name" : "comment",
-      "template" : "templates/comment2.html"
     }
   },
 
