@@ -128,25 +128,35 @@
     "comment" : {
       "name" : "comment",
       "template" : "templates/comment2.html"
+    }
+  },
+
+  "keyCapture" : {
+    "sidepanel" : {
+      "nextTab" : "W",
+      "prevTab" : "E",
+      "toggle"  : "q"
     },
-    "keyCapture" : {
-      "sidepanel" : {
-        "nextTab" : "W",
-        "prevTab" : "E"
-      },
-      "selections" : {
-        "nextToken" : "w",
-        "prevToken" : "e"
-      },
-      "navigation" : {
-        "nextSentence" : "u",
-        "prevSentence" : "i",
-        "list" : "L"
-      },
-      "tree" : {
-        "directionChange" : "c"
-      }
+    "selections" : {
+      "nextToken" : "w",
+      "prevToken" : "e"
+    },
+    "navigation" : {
+      "nextSentence" : "u",
+      "prevSentence" : "i",
+      "list" : "L"
+    },
+    "tree" : {
+      "directionChange" : "c",
+      "focusSelection"  : "a",
+      "centerTree" : "s",
+      "perfectWidth" : "d"
+    },
+    "saver" : {
+      "save" : "ctrl-S"
+    },
+    "search" : {
+      "focus" : "A"
     }
   }
 }
-
