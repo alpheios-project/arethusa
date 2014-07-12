@@ -38,9 +38,10 @@ angular.module('arethusa').factory('HebrewRetriever', [
             var ids = createIds(token._id);
             var string = token._surface;
             var term = otherI === lastTokenI;
-            var t = new Token(ids.id, string, ids.map, term);
+            var id = ids.id;
+            var t = new Token(id, string, ids.map, term);
             hebrewMorph.parse(token, t);
-            result[ids.id] = t;
+            result[id] = t;
           });
         });
 
