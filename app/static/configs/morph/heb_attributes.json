@@ -10,92 +10,92 @@
       "long" : "Part of Speech",
       "short" : "pos",
       "values" : {
-        "noun" : {
-          "long" : "noun",
-          "short" : "noun",
-          "style" : {
-            "color" : "black"
+        "noun": {
+          "long": "noun",
+          "short": "noun",
+          "style": {
+            "color": "black"
           }
         },
-        "adj" : {
-          "long" : "adjective",
-          "short" : "adj",
-          "style" : {
-            "color" : "blue"
+        "adjective": {
+          "long": "adjective",
+          "short": "adj",
+          "style": {
+            "color": "blue"
           }
         },
-        "int" : {
-          "long" : "interrogative",
-          "short" : "int",
-          "style" : {
-            "color" : "black"
+        "interrogative": {
+          "long": "interrogative",
+          "short": "int",
+          "style": {
+            "color": "black"
           }
         },
-        "adv" : {
-          "long" : "adverb",
-          "short" : "adv",
-          "style" : {
-            "color" : "darkorange"
+        "adverb": {
+          "long": "adverb",
+          "short": "adv",
+          "style": {
+            "color": "darkorange"
           }
         },
-        "conj" : {
-          "long" : "conjunction",
-          "short" : "conj",
-          "style" : {
-            "color" : "deeppink"
+        "conjunction": {
+          "long": "conjunction",
+          "short": "conj",
+          "style": {
+            "color": "deeppink"
           }
         },
-        "prep" : {
-          "long" : "preposition",
-          "short" : "prep",
-          "style" : {
-            "color" : "green"
+        "preposition": {
+          "long": "preposition",
+          "short": "prep",
+          "style": {
+            "color": "green"
           }
         },
-        "pron" : {
-          "long" : "pronoun",
-          "short" : "pron",
-          "style" : {
-            "color" : "purple"
+        "pronoun": {
+          "long": "pronoun",
+          "short": "pron",
+          "style": {
+            "color": "purple"
           }
         },
-        "prop" : {
-          "long" : "properName",
-          "short" : "prop",
-          "style" : {
-            "color" : "gold"
+        "properName": {
+          "long": "properName",
+          "short": "prop",
+          "style": {
+            "color": "gold"
           }
         },
-        "verb" : {
-          "long" : "verb",
-          "short" : "verb",
-          "style" : {
-            "color" : "red"
+        "verb": {
+          "long": "verb",
+          "short": "verb",
+          "style": {
+            "color": "red"
           }
         },
-        "part" : {
-          "long" : "participle",
-          "short" : "part",
-          "style" : {
-            "color" : "red"
+        "participle": {
+          "long": "participle",
+          "short": "part",
+          "style": {
+            "color": "red"
           }
         },
-        "nrl" : {
-          "long" : "numeral",
-          "short" : "nrl",
-          "style" : {
-            "color" : "gold"
+        "numeral": {
+          "long": "numeral",
+          "short": "nrl",
+          "style": {
+            "color": "gold"
           }
         },
-        "punct" : {
-          "long" : "punctuation",
-          "short" : "punct"
+        "punctuation": {
+          "long": "punctuation",
+          "short": "punct"
         },
-        "cop" : {
-          "long" : "copula",
-          "short" : "cop",
-          "style" : {
-            "color" : "black"
+        "copula": {
+          "long": "copula",
+          "short": "cop",
+          "style": {
+            "color": "black"
           }
         }
       }
