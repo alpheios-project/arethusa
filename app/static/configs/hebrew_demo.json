@@ -14,7 +14,8 @@
       }
     },
     "plugins" : [
-      "text"
+      "text",
+      "search"
     ]
   },
 
@@ -45,6 +46,34 @@
       "name" : "text",
       "main" : true,
       "template"  : "templates/text2.html"
+    },
+    "search" : {
+      "name" : "search",
+      "template" : "templates/search.html",
+      "regex" : true
     }
+  },
+  "keyCapture" : {
+    "sidepanel" : {
+      "nextTab" : "W",
+      "prevTab" : "E",
+      "toggle"  : "q"
+    },
+    "selections" : {
+      "nextToken" : "w",
+      "prevToken" : "e"
+    },
+    "navigation" : {
+      "nextSentence" : "u",
+      "prevSentence" : "i",
+      "list" : "L"
+    },
+    "saver" : {
+      "save" : "ctrl-S"
+    },
+    "search" : {
+      "focus" : "A"
+    },
+    "fileUrl" : "./static/configs/keyboard/key_map.json"
   }
 }
