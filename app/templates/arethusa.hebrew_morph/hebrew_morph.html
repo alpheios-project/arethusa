@@ -4,8 +4,9 @@
     <accordion close-others="oneAtATime">
       <accordion-group ng-repeat="form in analysis.forms">
         <accordion-heading class="text">
-          <span class="right">{{ plugin.hyphenatedForm(form) }}</span>
-          <span> {{ form.base.pos }} </span>
+          <span class="right" ng-style="plugin.styleOf(form)">
+            {{ plugin.hyphenatedForm(form) }}
+          </span>
           <span class="left">{{ form.score }}</span>
           <hr class="small">
         </accordion-heading>

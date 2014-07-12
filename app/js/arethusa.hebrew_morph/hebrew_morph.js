@@ -7,7 +7,12 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
     var self = this;
 
     function configure() {
-      configurator.getConfAndDelegate('hebrewMorph', self);
+      var props = [
+        'styledThrough',
+        'parts',
+        'attributes'
+      ];
+      configurator.getConfAndDelegate('hebrewMorph', self, props);
     }
 
     configure();
@@ -35,17 +40,26 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
       var res = {};
       return res;
     }
+
     function parseBase(form) {
       var base = form.base;
       var res = {};
       if (base) {
         res.string = base._lexiconItem;
+        res.pos = Object.keys(base)[0];
       }
       return res;
     }
 
+    this.styleOf = function (form) {
+      var styler = self.styledThrough;
+      var styleVal = form.base[styler];
+      var valObj = self.attributes[styler].values[styleVal] || {};
+      return valObj.style || {};
+    };
+
     this.hyphenatedForm = function(form) {
-      return arethusaUtil.inject([], ['prefix', 'base', 'suffix'], function(memo, el) {
+      return arethusaUtil.inject([], self.parts, function(memo, el) {
         var str = form[el].string;
         if (str) memo.push(str);
       }).join(' - ');
@@ -70,8 +84,16 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
       });
     };
 
+    function setStyles() {
+      angular.forEach(state.tokens, function(token, id) {
+        var morph = token.morphology;
+        state.setStyle(id, self.styleOf(morph.forms[0]));
+      });
+    }
+
     this.init = function() {
       configure();
+      setStyles();
     };
   }
 ]);
