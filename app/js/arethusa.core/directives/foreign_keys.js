@@ -30,8 +30,9 @@ angular.module('arethusa.core').directive('foreignKeys',[
 
         element.on('keydown', function (event) {
           var input = event.target.value;
-          if (lang) {
-            var fK = keyCapture.getForeignKey(event, lang);
+          var l = lang();
+          if (l) {
+            var fK = keyCapture.getForeignKey(event, l);
             if (fK === false) {
               return false;
             }
