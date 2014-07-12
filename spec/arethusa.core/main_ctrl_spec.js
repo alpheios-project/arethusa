@@ -21,13 +21,15 @@ describe('MainCtrl', function() {
       }
     };
     var saver = { init: function() {} };
+    var kC = { initCaptures: function() {} };
 
     var mainCtrlInits = {
       $scope: scope,
       configurator: configurator,
       state: state,
       notifier: notifier,
-      saver: saver
+      saver: saver,
+      keyCapture: kC
     };
 
     var ctrl = $controller('MainCtrl', mainCtrlInits);
