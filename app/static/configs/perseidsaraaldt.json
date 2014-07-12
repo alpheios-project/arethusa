@@ -47,14 +47,6 @@
       "auth": "perseidsAuth"
     },
 
-    "fakeGold" : {
-      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
-      "params" : [
-        "gold",
-        "s"
-      ]
-    },
-
     "morphologyService" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=ara&engine=aramorph"
     }
