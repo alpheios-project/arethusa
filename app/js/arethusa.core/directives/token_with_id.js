@@ -10,7 +10,7 @@ angular.module('arethusa.core').directive('tokenWithId', [
       },
       link: function (scope, element, attrs) {
         function formatId(newId) {
-          scope.formatted = idHandler.formatId(newId, '%w');
+          scope.formatted = idHandler.formatId(newId, '%s-%w');
         }
 
         scope.$watch('tokenId', formatId);
