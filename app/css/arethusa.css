@@ -196,6 +196,7 @@ ul.nested-dropdown ul ul {
   border-left: 1px solid;
   border-color: #d8d8d8;
   cursor: e-resize;
+  background: url(../app/images/handle-v.png) 3px 50% no-repeat;
 }
 
 svg {
