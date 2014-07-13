@@ -5,8 +5,23 @@ html, body {
   overflow: hidden;
 }
 
+#canvas {
+  overflow: hidden;
+  width: 100%;
+}
+
 .scrollable {
   overflow: auto;
+}
+
+#sidepanel {
+  float: right;
+  width: 33%;
+}
+
+#main-body {
+  width: 65%;
+  float: left;
 }
 
 .canvas-border {
