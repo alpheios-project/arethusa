@@ -5,8 +5,39 @@ html, body {
   overflow: hidden;
 }
 
+#canvas {
+  overflow: hidden;
+  width: 100%;
+}
+
 .scrollable {
   overflow: auto;
+}
+
+#sidepanel {
+  float: right;
+  width: 33%;
+  z-index: 1;
+  position: relative;
+}
+
+#sidepanel-body {
+  margin-left: 4px;
+}
+
+#sidepanel-resizer {
+  position: absolute;
+  width: 8px;
+  border-left: 1px solid;
+  border-color: #d8d8d8;
+  cursor: e-resize;
+  background: url(../app/images/handle-v.png) 3px 50% no-repeat;
+}
+
+
+#main-body {
+  width: 65%;
+  float: left;
 }
 
 .canvas-border {
@@ -166,23 +197,6 @@ ul.nested-dropdown ul ul {
   top: 0;
 }
 
-#sidepanel {
-  z-index: 1;
-  position: relative;
-}
-
-#sidepanel-body {
-  margin-left: 4px;
-}
-
-#sidepanel-resizer {
-  position: absolute;
-  width: 8px;
-  border-left: 1px solid;
-  border-color: #d8d8d8;
-  cursor: e-resize;
-}
-
 svg {
   overflow: hidden;
 }
@@ -241,9 +255,18 @@ span.right-answer {
 }
 
 /* Overrides to foundation */
-.tabs dd>a {
+dl.tabs {
+  border-bottom: 1px solid #d8d8d8;
+}
+.tabs dd a {
   padding: 0.5em 0.7em;
   font-size: 0.8em;
+  /*This is to override foundations default*/
+  border-width: 0;
+  border-left: 1px;
+  border-right: 1px;
+  border-top: 1px;
+  border-bottom: 0;
 }
 
 .f-dropdown.content {
@@ -282,7 +305,6 @@ a:hover, a:focus {
 
 .tabs dd a {
   border-style: solid;
-  border-width: 1px;
   border-color: #d8d8d8;
 }
 

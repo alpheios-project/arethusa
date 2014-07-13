@@ -35,7 +35,7 @@ angular.module('arethusa.core').directive('resizable', [
           var diff = x - leftPos;
           var newSize = width - diff;
           el.width(newSize);
-          main.width(main.width() + diff - 0.5);
+          main.width(main.width() + diff);
         }
 
         function mouseup() {
