@@ -18,6 +18,12 @@ angular.module('arethusa.core').directive('toBottom', [
             var offset = element.offset().top;
             var bottom = canvas.offset().top + canvas.height();
             element.height(bottom - offset);
+            var svg = element.find('svg');
+            if (svg[0]) {
+              var elBottom = element[0].getBoundingClientRect().bottom;
+              var svgTop = svg.offset().top;
+              svg.height(elBottom - svgTop);
+            }
           });
         }
 
