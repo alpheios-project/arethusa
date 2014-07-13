@@ -17,7 +17,23 @@ html, body {
 #sidepanel {
   float: right;
   width: 33%;
+  z-index: 1;
+  position: relative;
 }
+
+#sidepanel-body {
+  margin-left: 4px;
+}
+
+#sidepanel-resizer {
+  position: absolute;
+  width: 8px;
+  border-left: 1px solid;
+  border-color: #d8d8d8;
+  cursor: e-resize;
+  background: url(../app/images/handle-v.png) 3px 50% no-repeat;
+}
+
 
 #main-body {
   width: 65%;
@@ -179,24 +195,6 @@ ul.nested-dropdown ul ul {
   position: absolute;
   left: 100%;
   top: 0;
-}
-
-#sidepanel {
-  z-index: 1;
-  position: relative;
-}
-
-#sidepanel-body {
-  margin-left: 4px;
-}
-
-#sidepanel-resizer {
-  position: absolute;
-  width: 8px;
-  border-left: 1px solid;
-  border-color: #d8d8d8;
-  cursor: e-resize;
-  background: url(../app/images/handle-v.png) 3px 50% no-repeat;
 }
 
 svg {
