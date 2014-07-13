@@ -1,22 +1,27 @@
-<div
-  lang-specific
-  dependency-tree
-  tokens="state.tokens"
-  styles="plugin.diffStyles()"
-  to-bottom
-  class="full-width">
-  <span
-    class="note clickable right margined-hor-tiny flash-on-hover"
-    ng-show="plugin.diffPresent"
-    ng-click="plugin.toggleDiff()">
-    Toggle Diff
-  </span>
-  <span
-    class="note clickable right margined-hor-tiny flash-on-hover"
-    style="margin-left: 10px"
-    tooltip="Click to highlight unused tokens"
-    tooltip-popup-delay="700"
-    tooltip-placement="left"
-    unused-token-highlighter>
-  </span>
+<div class="tree-canvas">
+  <div class="tree-settings">
+    <span
+      class="note clickable right margined-hor-tiny flash-on-hover"
+      ng-show="plugin.diffPresent"
+      ng-click="plugin.toggleDiff()">
+      Toggle Diff
+    </span>
+    <span
+      class="note clickable right margined-hor-tiny flash-on-hover"
+      style="margin-left: 10px"
+      tooltip="Click to highlight unused tokens"
+      tooltip-popup-delay="700"
+      tooltip-placement="left"
+      unused-token-highlighter>
+    </span>
+  </div>
+
+  <div
+    lang-specific
+    dependency-tree
+    tokens="state.tokens"
+    styles="plugin.diffStyles()"
+    to-bottom
+    >
+  </div>
 </div>
