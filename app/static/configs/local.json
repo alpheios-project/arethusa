@@ -3,16 +3,24 @@
     "template"  : "templates/main_with_sidepanel.html",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "localPerseids"
+        "resource" : "localPerseids",
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "localPerseids",
+        "docIdentifier" : "treebank"
       }
     },
     "plugins" : [
       "text",
+      "artificialToken",
       "search",
       "morph",
       "relation",
       "depTree",
-      "review",
       "history"
     ]
   },
@@ -20,7 +28,13 @@
   "navbar" : {
     "template" : "templates/navbar1.html",
     "search" : true,
-    "navigation" : true
+    "navigation" : true,
+    "notifier" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
   },
 
   "resources" : {
@@ -28,14 +42,6 @@
       "route" : "http://localhost:8085/xml_server/:doc",
       "params" : [
         "doc",
-        "s"
-      ]
-    },
-
-    "localGold" : {
-      "route" : "http://localhost:8085/xml_server/gold:gold",
-      "params" : [
-        "gold",
         "s"
       ]
     },
@@ -67,11 +73,13 @@
     "search" : {
       "name" : "search",
       "template" : "templates/search.html",
-      "regex" : true
+      "regex" : true,
+      "fileUrl" : "./static/configs/keyboard/greek_regex.json"
     },
 
     "morph" : {
       "name" : "morph",
+      "noRetrieval" : "online",
       "retrievers" : {
         "BspMorphRetriever" : {
           "resource" : "morphologyService"
@@ -80,21 +88,14 @@
       "template"  : "templates/morph3.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
-      "lexicalInventory" : {
-        "retriever" : {
-          "LexicalInventoryRetriever" : {
-            "resource" : "lexInvFusekiEndpoint"
-          }
-        }
-      },
       "matchAll" : true,
-      "noRetrieval" : "online",
       "fileUrl" : "./static/configs/morph/lat_attributes.json"
     },
 
     "relation" : {
       "name" : "relation",
       "template" : "templates/relation.html",
+      "advancedMode" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
       "fileUrl" : "./static/configs/relation/relations.json"
@@ -105,7 +106,7 @@
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
-          "resource" : "localGold"
+          "resource" : "fakeGold"
         }
       }
     },
@@ -117,9 +118,44 @@
       "template" : "templates/history.html"
     },
 
+    "artificialToken" : {
+      "name" : "aT",
+      "template" : "templates/arethusa.artificial_token/artificial_token.html"
+    },
+
     "comment" : {
       "name" : "comment",
       "template" : "templates/comment2.html"
     }
+  },
+
+  "keyCapture" : {
+    "sidepanel" : {
+      "nextTab" : "W",
+      "prevTab" : "E",
+      "toggle"  : "q"
+    },
+    "selections" : {
+      "nextToken" : "w",
+      "prevToken" : "e"
+    },
+    "navigation" : {
+      "nextSentence" : "u",
+      "prevSentence" : "i",
+      "list" : "L"
+    },
+    "tree" : {
+      "directionChange" : "c",
+      "focusSelection"  : "a",
+      "centerTree" : "s",
+      "perfectWidth" : "d"
+    },
+    "saver" : {
+      "save" : "ctrl-S"
+    },
+    "search" : {
+      "focus" : "A"
+    },
+    "fileUrl" : "./static/configs/keyboard/key_map.json"
   }
 }
