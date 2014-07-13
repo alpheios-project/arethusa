@@ -255,9 +255,18 @@ span.right-answer {
 }
 
 /* Overrides to foundation */
-.tabs dd>a {
+dl.tabs {
+  border-bottom: 1px solid #d8d8d8;
+}
+.tabs dd a {
   padding: 0.5em 0.7em;
   font-size: 0.8em;
+  /*This is to override foundations default*/
+  border-width: 0;
+  border-left: 1px;
+  border-right: 1px;
+  border-top: 1px;
+  border-bottom: 0;
 }
 
 .f-dropdown.content {
@@ -296,7 +305,6 @@ a:hover, a:focus {
 
 .tabs dd a {
   border-style: solid;
-  border-width: 1px;
   border-color: #d8d8d8;
 }
 
