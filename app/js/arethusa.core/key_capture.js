@@ -308,6 +308,26 @@ angular.module('arethusa.core').service('keyCapture', [
       return keys;
     };
 
+    // Help
+    this.usKeyboardLayout = function() {
+      var layout = self.conf("keys");
+      return layout.us;
+    };
+
+    this.mappedKeyboard = function(language) {
+      var fKeys = self.conf('keys')[language];
+      var keyboardKeys = self.usKeyboardLayout();
+      var res = [];
+      angular.forEach(fKeys, function(fKey, latKey) {
+        angular.forEach(keyboardKeys, function(kKey, i) {
+          if (latKey == kKey) {
+            res.push(fKey);
+          }
+        });
+      });
+      return res;
+    };
+
     // We might have to reinit this at some point
     this.activeKeys = {};
     this.keyList = {};
