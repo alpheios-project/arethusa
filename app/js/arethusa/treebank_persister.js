@@ -55,7 +55,7 @@ angular.module('arethusa').factory('TreebankPersister', [
 
         angular.forEach(stored, function(sentence, i) {
           var updated = sentences[sentence._id];
-          var wordsInXml = sentence.word;
+          var wordsInXml = arethusaUtil.toAry(sentence.word);
           // We create a new object that holds all tokens of a sentence,
           // identified by their mappings in the original document.
           // Unmapped tokens are exposed through an array and will receive
