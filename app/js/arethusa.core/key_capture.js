@@ -70,9 +70,6 @@ angular.module('arethusa.core').service('keyCapture', [
 
     function modifiers(keys) {
       return Object.keys(keys.modifiers);
-      //return arethusaUtil.inject([], keys.modifiers, function(memo, i, key) {
-        //memo.push(key);
-      //});
     }
 
     var lookUpKey = [];
@@ -82,6 +79,11 @@ angular.module('arethusa.core').service('keyCapture', [
       var key = CodesToKeys[event.keyCode];
       var mod = keys.modifiers;
       if (key) {
+        // We don't want to match 'shift' as a key, so
+        // we return if it's the case.
+        if (key == 'shift') {
+          return;
+        }
         if (event.shiftKey) {
           res.push('shift');
         }
