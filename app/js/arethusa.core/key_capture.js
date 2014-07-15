@@ -318,12 +318,12 @@ angular.module('arethusa.core').service('keyCapture', [
       var fKeys = self.conf('keys')[language];
       var keyboardKeys = self.usKeyboardLayout();
       var res = [];
-      angular.forEach(fKeys, function(fKey, latKey) {
-        angular.forEach(keyboardKeys, function(kKey, i) {
-          if (latKey == kKey) {
-            res.push(fKey);
-          }
-        });
+      angular.forEach(keyboardKeys, function(kKey, i) {
+        if (fKeys[kKey]) {
+          res.push(fKeys[kKey]);
+        } else {
+          res.push(kKey);
+        }
       });
       return res;
     };
