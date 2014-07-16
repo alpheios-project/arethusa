@@ -12,6 +12,7 @@
     "angular-scroll": "0.5.8",
     "foundation": "5.2.2",
     "d3": "3.4.6",
-    "x2js": ""
+    "x2js": "",
+    "angulartics": "0.15.20"
   }
 }

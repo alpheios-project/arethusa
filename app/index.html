@@ -14,6 +14,8 @@
   <script src="../bower_components/angular-scroll/angular-scroll.min.js"></script>
   <script src="../bower_components/x2js/xml2json.min.js"></script>
   <script src="../bower_components/d3/d3.min.js"></script>
+  <script src="../bower_components/angulartics/dist/angulartics.min.js"></script>
+  <script src="../bower_components/angulartics/dist/angulartics-ga.min.js"></script>
   <script src="../vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js"></script>
   <script src="../vendor/mm-foundation/mm-foundation-tpls-0.2.2.js"></script>
   <script src="../vendor/dagre-d3/dagre-d3.min.js"></script>
@@ -47,5 +49,13 @@
 </head>
 <body key-capture>
   <div id="arethusa-main-view" ng-view></div>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-52883631-1', 'auto');
+  </script>
 </body>
 </html>
