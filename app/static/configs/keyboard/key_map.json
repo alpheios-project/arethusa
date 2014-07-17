@@ -28,13 +28,228 @@
       "y" : "ט",
       "z" : "ז"
     },
-    "us" : [
-      "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "delete",
-      "tab", "q" , "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "enter",
-      "caps lock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ":", "'", "\\",
-      "l-shift", "<", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "shift",
-      "l-ctrl", "alt", "space", "alt gr", "ctrl"
-    ],
+    "us" : {
+      "`" : {
+        "lower" : "`",
+        "style" : {
+        }
+      },
+      "1" : {
+        "lower" : "1"
+      },
+      "2" : {
+        "lower" : "2"
+      },
+      "3" : {
+        "lower" : "3"
+      },
+      "4" : {
+        "lower" : "4"
+      },
+      "5" : {
+        "lower" : "5"
+      },
+      "6" : {
+        "lower" : "6"
+      },
+      "7" : {
+        "lower" : "7"
+      },
+      "8" : {
+        "lower" : "8"
+      },
+      "9" : {
+        "lower" : "9"
+      },
+      "0" : {
+        "lower" : "0"
+      },
+      "-" : {
+        "lower" : "-"
+      },
+      "=" : {
+        "lower" : "="
+      },
+      "delete" : {
+        "hide" : false,
+        "lower" : "⌫",
+        "style" : {
+          "class" : "last-key delete"
+        }
+      },
+      "tab" : {
+        "hide" : false,
+        "lower" : "⇥",
+        "style" : {
+          "class" : "tab first-key"
+        }
+      },
+      "q"  : {
+        "lower" : "q"
+      },
+      "w" : {
+        "lower" : "w"
+      },
+      "e" : {
+        "lower" : "e"
+      },
+      "r" : {
+        "lower" : "r"
+      },
+      "t" : {
+        "lower" : "t"
+      },
+      "y" : {
+        "lower" : "y"
+      },
+      "u" : {
+        "lower" : "u"
+      },
+      "i" : {
+        "lower" : "i"
+      },
+      "o" : {
+        "lower" : "o"
+      },
+      "p" : {
+        "lower" : "p"
+      },
+      "[" : {
+        "lower" : "["
+      },
+      "]" : {
+        "lower" : "]"
+      },
+      "\\" : {
+        "lower" : "\\"
+      },
+      "caps lock" : {
+        "hide" : false,
+        "lower" : "⇪",
+        "style" : {
+          "class" : "capslock first-key"
+        }
+      },
+      "a" : {
+        "lower" : "a"
+      },
+      "s" : {
+        "lower" : "s"
+      },
+      "d" : {
+        "lower" : "d"
+      },
+      "f" : {
+        "lower" : "f"
+      },
+      "g" : {
+        "lower" : "g"
+      },
+      "h" : {
+        "lower" : "h"
+      },
+      "j" : {
+        "lower" : "j"
+      },
+      "k" : {
+        "lower" : "k"
+      },
+      "l" : {
+        "lower" : "l"
+      },
+      ":" : {
+        "lower" : ":"
+      },
+      "'" : {
+        "lower" : "'"
+      },
+      "return" : {
+        "hide" : false,
+        "lower" : "↩",
+        "style" : {
+          "class" : "last-key return"
+        }
+      },
+      "l-shift" : {
+        "hide" : false,
+        "lower" : "⇧",
+        "style" : {
+          "class" : "l-shift first-key"
+        }
+      },
+      "z" : {
+        "lower" : "z"
+      },
+      "x" : {
+        "lower" : "x"
+      },
+      "c" : {
+        "lower" : "c"
+      },
+      "v" : {
+        "lower" : "v"
+      },
+      "b" : {
+        "lower" : "b"
+      },
+      "n" : {
+        "lower" : "n"
+      },
+      "m" : {
+        "lower" : "m"
+      },
+      "," : {
+        "lower" : ","
+      },
+      "." : {
+        "lower" : "."
+      },
+      "/" : {
+        "lower" : "/"
+      },
+      "shift" : {
+        "hide" : false,
+        "lower" : "⇧",
+        "style" : {
+          "class" : "last-key shift"
+        }
+      },
+      "l-ctrl" : {
+        "hide" : false,
+        "lower" : "ctrl",
+        "style" : {
+          "class" : "first-key ctrl"
+        }
+      },
+      "alt" : {
+        "hide" : false,
+        "lower" : "alt",
+        "style" : {
+          "class" : "alt"
+        }
+      },
+      "space" : {
+        "hide" : false,
+        "lower" : "␣",
+        "style" : {
+          "class" : "space"
+        }
+      },
+      "alt gr" : {
+        "hide" : false,
+        "lower" : "alt gr",
+        "style" : {
+          "class" : "alt"
+        }
+      },
+      "ctrl" : {
+        "hide" : false,
+        "lower" : "ctrl",
+        "style" : {
+          "class" : "ctrl"
+        }
+      }
+    },
     "gr" : {
       "modifiers" : {
         ":" : "1",
