@@ -31,44 +31,55 @@
     "us" : {
       "`" : {
         "lower" : "`",
-        "style" : {
-        }
+        "style" : {}
       },
       "1" : {
-        "lower" : "1"
+        "lower" : "1",
+        "style" : {}
       },
       "2" : {
-        "lower" : "2"
+        "lower" : "2",
+        "style" : {}
       },
       "3" : {
-        "lower" : "3"
+        "lower" : "3",
+        "style" : {}
       },
       "4" : {
-        "lower" : "4"
+        "lower" : "4",
+        "style" : {}
       },
       "5" : {
-        "lower" : "5"
+        "lower" : "5",
+        "style" : {}
       },
       "6" : {
-        "lower" : "6"
+        "lower" : "6",
+        "style" : {}
       },
       "7" : {
-        "lower" : "7"
+        "lower" : "7",
+        "style" : {}
       },
       "8" : {
-        "lower" : "8"
+        "lower" : "8",
+        "style" : {}
       },
       "9" : {
-        "lower" : "9"
+        "lower" : "9",
+        "style" : {}
       },
       "0" : {
-        "lower" : "0"
+        "lower" : "0",
+        "style" : {}
       },
       "-" : {
-        "lower" : "-"
+        "lower" : "-",
+        "style" : {}
       },
       "=" : {
-        "lower" : "="
+        "lower" : "=",
+        "style" : {}
       },
       "delete" : {
         "hide" : false,
@@ -85,43 +96,56 @@
         }
       },
       "q"  : {
-        "lower" : "q"
+        "lower" : "q",
+        "style" : {}
       },
       "w" : {
-        "lower" : "w"
+        "lower" : "w",
+        "style" : {}
       },
       "e" : {
-        "lower" : "e"
+        "lower" : "e",
+        "style" : {}
       },
       "r" : {
-        "lower" : "r"
+        "lower" : "r",
+        "style" : {}
       },
       "t" : {
-        "lower" : "t"
+        "lower" : "t",
+        "style" : {}
       },
       "y" : {
-        "lower" : "y"
+        "lower" : "y",
+        "style" : {}
       },
       "u" : {
-        "lower" : "u"
+        "lower" : "u",
+        "style" : {}
       },
       "i" : {
-        "lower" : "i"
+        "lower" : "i",
+        "style" : {}
       },
       "o" : {
-        "lower" : "o"
+        "lower" : "o",
+        "style" : {}
       },
       "p" : {
-        "lower" : "p"
+        "lower" : "p",
+        "style" : {}
       },
       "[" : {
-        "lower" : "["
+        "lower" : "[",
+        "style" : {}
       },
       "]" : {
-        "lower" : "]"
+        "lower" : "]",
+        "style" : {}
       },
       "\\" : {
-        "lower" : "\\"
+        "lower" : "\\",
+        "style" : {}
       },
       "caps lock" : {
         "hide" : false,
@@ -131,37 +155,48 @@
         }
       },
       "a" : {
-        "lower" : "a"
+        "lower" : "a",
+        "style" : {}
       },
       "s" : {
-        "lower" : "s"
+        "lower" : "s",
+        "style" : {}
       },
       "d" : {
-        "lower" : "d"
+        "lower" : "d",
+        "style" : {}
       },
       "f" : {
-        "lower" : "f"
+        "lower" : "f",
+        "style" : {}
       },
       "g" : {
-        "lower" : "g"
+        "lower" : "g",
+        "style" : {}
       },
       "h" : {
-        "lower" : "h"
+        "lower" : "h",
+        "style" : {}
       },
       "j" : {
-        "lower" : "j"
+        "lower" : "j",
+        "style" : {}
       },
       "k" : {
-        "lower" : "k"
+        "lower" : "k",
+        "style" : {}
       },
       "l" : {
-        "lower" : "l"
+        "lower" : "l",
+        "style" : {}
       },
       ":" : {
-        "lower" : ":"
+        "lower" : ":",
+        "style" : {}
       },
       "'" : {
-        "lower" : "'"
+        "lower" : "'",
+        "style" : {}
       },
       "return" : {
         "hide" : false,
@@ -178,34 +213,44 @@
         }
       },
       "z" : {
-        "lower" : "z"
+        "lower" : "z",
+        "style" : {}
       },
       "x" : {
-        "lower" : "x"
+        "lower" : "x",
+        "style" : {}
       },
       "c" : {
-        "lower" : "c"
+        "lower" : "c",
+        "style" : {}
       },
       "v" : {
-        "lower" : "v"
+        "lower" : "v",
+        "style" : {}
       },
       "b" : {
-        "lower" : "b"
+        "lower" : "b",
+        "style" : {}
       },
       "n" : {
-        "lower" : "n"
+        "lower" : "n",
+        "style" : {}
       },
       "m" : {
-        "lower" : "m"
+        "lower" : "m",
+        "style" : {}
       },
       "," : {
-        "lower" : ","
+        "lower" : ",",
+        "style" : {}
       },
       "." : {
-        "lower" : "."
+        "lower" : ".",
+        "style" : {}
       },
       "/" : {
-        "lower" : "/"
+        "lower" : "/",
+        "style" : {}
       },
       "shift" : {
         "hide" : false,
@@ -246,7 +291,7 @@
         "hide" : false,
         "lower" : "ctrl",
         "style" : {
-          "class" : "ctrl"
+          "class" : "ctrl last-key"
         }
       }
     },
