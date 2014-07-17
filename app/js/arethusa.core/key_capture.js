@@ -322,9 +322,10 @@ angular.module('arethusa.core').service('keyCapture', [
         if (fKeys[kKey.lower]) {
           kKey.show = fKeys[kKey.lower];
         } else {
-          if (kKey.hide === false) {
-            kKey.show = kKey.lower;
+          if (kKey.hide === undefined) {
+            kKey.style.class = kKey.style.class + " inactive";
           }
+          kKey.show = kKey.lower;
         }
         res.push(kKey);
       });

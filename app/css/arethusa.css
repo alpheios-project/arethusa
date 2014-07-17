@@ -651,3 +651,7 @@ li.keyboard-key {
 #keyboard .space {
   width: 359px;
 }
+
+#keyboard .inactive {
+  color: #f2f2f2;
+}
