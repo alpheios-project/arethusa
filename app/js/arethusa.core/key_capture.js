@@ -319,11 +319,14 @@ angular.module('arethusa.core').service('keyCapture', [
       var keyboardKeys = self.usKeyboardLayout();
       var res = [];
       angular.forEach(keyboardKeys, function(kKey, i) {
-        if (fKeys[kKey]) {
-          res.push(fKeys[kKey]);
+        if (fKeys[kKey.lower]) {
+          kKey.show = fKeys[kKey.lower];
         } else {
-          res.push(kKey);
+          if (kKey.hide === false) {
+            kKey.show = kKey.lower;
+          }
         }
+        res.push(kKey);
       });
       return res;
     };
