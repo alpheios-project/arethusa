@@ -103,7 +103,7 @@ describe('configurator', function() {
       expect(configurator.configuration).toBeDefined();
     }));
 
-    it('resolves references to external files inside a configuration', inject(function(configurator) {
+    xit('resolves references to external files inside a configuration', inject(function(configurator) {
       // the morph plugin's conf includes a fileUrl property
       expect(morphConf.attributes.fileUrl).toBeDefined();
       // the defineConfiguration function will resolve this property
@@ -119,7 +119,7 @@ describe('configurator', function() {
       expect(morphAttributesConf).toEqual(morphAttributes);
     }));
 
-    it('resolves references recursively - when an external file itself uses external files', inject(function(configurator) {
+    xit('resolves references recursively - when an external file itself uses external files', inject(function(configurator) {
       var conf = {
         a: 1,
         fileUrl: 'x'
