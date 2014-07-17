@@ -603,3 +603,51 @@ ul.no-list {
    50% { opacity: 1 }
   100% { opacity: 0 }
 }
+
+#keyboard {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li.keyboard-key {
+  float: left;
+  margin: 0 5px 5px 0;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #f9f9f9;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+#keyboard .last-key {
+  margin-right: 0;
+}
+#keyboard .first-key {
+  clear: left;
+}
+#keyboard .tab, #keyboard .delete {
+  width: 70px;
+}
+#keyboard .ctrl, #keyboard .alt {
+  width: 70px;
+}
+#keyboard .capslock {
+  width: 80px;
+}
+#keyboard .return {
+  width: 77px;
+}
+#keyboard .l-shift {
+  width: 95px;
+}
+#keyboard .shift {
+  width: 109px;
+}
+
+#keyboard .space {
+  width: 359px;
+}
