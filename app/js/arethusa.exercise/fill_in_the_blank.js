@@ -58,7 +58,6 @@ angular.module('arethusa.exercise').service('fillInTheBlank', [
       configure();
       delete self.report;
       self.exercises = createExercise();
-      console.log(self.exercises);
     };
   }
 ]);
