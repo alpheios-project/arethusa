@@ -1,5 +1,9 @@
 <div class="small-12 columns" style="border:1px solid black">
   <ul id="keyboard">
-    <li ng-repeat="key in keys" class="keyboard-key">{{ key }}</li>
+    <li ng-repeat="key in keys"
+    ng-class="key.style.class"
+    class="keyboard-key">
+      {{ key.show }}
+    </li>
   </ul>
 </div>
