@@ -6,10 +6,12 @@ angular.module('arethusa.core').directive('resizable', [
     return {
       restrict: 'AEC',
       link: function (scope, element, attrs) {
-        var maxSize = $window.innerWidth;
-        var maxPos = maxSize - 400;
         var main = angular.element(document.getElementById('main-body'));
         var win = angular.element($window);
+        var panel = element.parent();
+
+        var panelMin = 260;
+        var mainMin  = 260;
 
         element.on('mousedown', function (event) {
           event.preventDefault();
@@ -28,14 +30,21 @@ angular.module('arethusa.core').directive('resizable', [
         // by step.
         function mousemove(event) {
           var x = Math.floor(event.pageX);
-          var el = element.parent();
-          var leftPos = Math.round(el.position().left);
-          var width = Math.round(el.width());
+          var leftPos = Math.round(panel.position().left);
+          var width = Math.round(panel.width());
           var border = leftPos + width;
           var diff = x - leftPos;
-          var newSize = width - diff;
-          el.width(newSize);
-          main.width(main.width() + diff);
+          var panelSize = width - diff;
+          var mainSize  = main.width() + diff;
+
+          if (withinBoundaries(panelSize, mainSize)) {
+            panel.width(panelSize);
+            main.width(mainSize);
+          }
+        }
+
+        function withinBoundaries(panel, main) {
+          return panel > panelMin && main > mainMin;
         }
 
         function mouseup() {
