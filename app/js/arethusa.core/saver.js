@@ -4,7 +4,8 @@ angular.module('arethusa.core').service('saver', [
   'configurator',
   'notifier',
   'keyCapture',
-  function(configurator, notifier, keyCapture) {
+  '$timeout',
+  function(configurator, notifier, keyCapture, $timeout) {
     var self = this;
     var persisters;
 
@@ -32,6 +33,7 @@ angular.module('arethusa.core').service('saver', [
     }
 
     function success(res) {
+      self.needsSave = false;
       notifier.success('Document saved!');
     }
 
