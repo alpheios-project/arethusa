@@ -38,7 +38,8 @@ angular.module('arethusa.morph').service('morph', [
         'attributes',
         'styledThrough',
         'noRetrieval',
-        'matchAll'
+        'matchAll',
+        'gloss'
       ];
 
       configurator.getConfAndDelegate('morph', self, props);

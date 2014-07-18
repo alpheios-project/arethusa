@@ -14,6 +14,16 @@
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
   <div class="small-12 columns" lang-specific>
     <p token-with-id value="analysis.string" token-id="id"/>
+    <p ng-if="plugin.gloss">
+      <label>Gloss
+        <input
+          foreign-keys
+          class="compact"
+          type="text"
+          ng-model="analysis.gloss">
+        </input>
+      </label>
+    </p>
     <accordion close-others="oneAtATime">
       <accordion-group
         ng-repeat="form in analysis.forms"
