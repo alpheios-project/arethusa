@@ -31,54 +31,67 @@
     "us" : {
       "`" : {
         "lower" : "`",
+        "upper" : "~",
         "style" : {}
       },
       "1" : {
         "lower" : "1",
+        "upper" : "!",
         "style" : {}
       },
       "2" : {
         "lower" : "2",
+        "upper" : "@",
         "style" : {}
       },
       "3" : {
         "lower" : "3",
+        "upper" : "#",
         "style" : {}
       },
       "4" : {
         "lower" : "4",
+        "upper" : "$",
         "style" : {}
       },
       "5" : {
         "lower" : "5",
+        "upper" : "%",
         "style" : {}
       },
       "6" : {
         "lower" : "6",
+        "upper" : "^",
         "style" : {}
       },
       "7" : {
         "lower" : "7",
+        "upper" : "&",
         "style" : {}
       },
       "8" : {
         "lower" : "8",
+        "upper" : "*",
         "style" : {}
       },
       "9" : {
         "lower" : "9",
+        "upper" : "(",
         "style" : {}
       },
       "0" : {
         "lower" : "0",
+        "upper" : ")",
         "style" : {}
       },
       "-" : {
         "lower" : "-",
+        "upper" : "_",
         "style" : {}
       },
       "=" : {
         "lower" : "=",
+        "upper" : "+",
         "style" : {}
       },
       "delete" : {
@@ -97,54 +110,67 @@
       },
       "q"  : {
         "lower" : "q",
+        "upper" : "Q",
         "style" : {}
       },
       "w" : {
         "lower" : "w",
+        "upper" : "W",
         "style" : {}
       },
       "e" : {
         "lower" : "e",
+        "upper" : "E",
         "style" : {}
       },
       "r" : {
         "lower" : "r",
+        "upper" : "R",
         "style" : {}
       },
       "t" : {
         "lower" : "t",
+        "upper" : "T",
         "style" : {}
       },
       "y" : {
         "lower" : "y",
+        "upper" : "Y",
         "style" : {}
       },
       "u" : {
         "lower" : "u",
+        "upper" : "U",
         "style" : {}
       },
       "i" : {
         "lower" : "i",
+        "upper" : "I",
         "style" : {}
       },
       "o" : {
         "lower" : "o",
+        "upper" : "O",
         "style" : {}
       },
       "p" : {
         "lower" : "p",
+        "upper" : "P",
         "style" : {}
       },
       "[" : {
         "lower" : "[",
+        "upper" : "{",
         "style" : {}
       },
       "]" : {
         "lower" : "]",
+        "upper" : "}",
         "style" : {}
       },
       "\\" : {
         "lower" : "\\",
+        "upper" : "|",
         "style" : {}
       },
       "caps lock" : {
@@ -156,46 +182,57 @@
       },
       "a" : {
         "lower" : "a",
+        "upper" : "A",
         "style" : {}
       },
       "s" : {
         "lower" : "s",
+        "upper" : "S",
         "style" : {}
       },
       "d" : {
         "lower" : "d",
+        "upper" : "D",
         "style" : {}
       },
       "f" : {
         "lower" : "f",
+        "upper" : "F",
         "style" : {}
       },
       "g" : {
         "lower" : "g",
+        "upper" : "G",
         "style" : {}
       },
       "h" : {
         "lower" : "h",
+        "upper" : "H",
         "style" : {}
       },
       "j" : {
         "lower" : "j",
+        "upper" : "J",
         "style" : {}
       },
       "k" : {
         "lower" : "k",
+        "upper" : "K",
         "style" : {}
       },
       "l" : {
         "lower" : "l",
+        "upper" : "L",
         "style" : {}
       },
       ":" : {
         "lower" : ":",
+        "upper" : ";",
         "style" : {}
       },
       "'" : {
         "lower" : "'",
+        "upper" : "\"",
         "style" : {}
       },
       "return" : {
@@ -214,42 +251,52 @@
       },
       "z" : {
         "lower" : "z",
+        "upper" : "Z",
         "style" : {}
       },
       "x" : {
         "lower" : "x",
+        "upper" : "X",
         "style" : {}
       },
       "c" : {
         "lower" : "c",
+        "upper" : "C",
         "style" : {}
       },
       "v" : {
         "lower" : "v",
+        "upper" : "V",
         "style" : {}
       },
       "b" : {
         "lower" : "b",
+        "upper" : "B",
         "style" : {}
       },
       "n" : {
         "lower" : "n",
+        "upper" : "N",
         "style" : {}
       },
       "m" : {
         "lower" : "m",
+        "upper" : "M",
         "style" : {}
       },
       "," : {
         "lower" : ",",
+        "upper" : "<",
         "style" : {}
       },
       "." : {
         "lower" : ".",
+        "upper" : ">",
         "style" : {}
       },
       "/" : {
         "lower" : "/",
+        "upper" : "?",
         "style" : {}
       },
       "shift" : {
