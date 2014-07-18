@@ -43,7 +43,7 @@ angular.module('arethusa.core').service('saver', [
       // The save succeeds anyway - print the success message in such a
       // case as to not confuse the user...
       if (res.status == 406) {
-        notifier.success('Document saved!');
+        success();
       } else {
         notifier.error('Failed to save! Try again?');
       }
@@ -70,6 +70,9 @@ angular.module('arethusa.core').service('saver', [
       reset();
       getPersisters();
       updateStatus();
+      $timeout(function() {
+        self.needsSave = true;
+      }, 3000);
     };
   }
 ]);
