@@ -15,6 +15,16 @@ angular.module('arethusa.core').directive('saver', [
         scope.$watch('saver.canSave', function(newVal, oldVal) {
           if (newVal) element.show(); else element.hide();
         });
+
+        scope.$watch('saver.needsSave', function(newVal, oldVal) {
+          if (saver.canSave) {
+            if (newVal) {
+              element.addClass('alert');
+            } else {
+              element.removeClass('alert');
+            }
+          }
+        });
       }
     };
   }
