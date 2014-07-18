@@ -20,7 +20,9 @@ angular.module('arethusa.core').directive('saver', [
           if (saver.canSave) {
             if (newVal) {
               element.addClass('alert');
+              element.removeClass('disabled');
             } else {
+              element.addClass('disabled');
               element.removeClass('alert');
             }
           }
