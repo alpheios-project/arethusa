@@ -39,6 +39,7 @@ angular.module('arethusa.morph').service('morph', [
         'styledThrough',
         'noRetrieval',
         'matchAll',
+        'preselect',
         'gloss'
       ];
 
@@ -198,7 +199,11 @@ angular.module('arethusa.morph').service('morph', [
           var forms = analysisObj.forms;
           mergeDuplicateForms(forms[0], res);
           arethusaUtil.pushAll(forms, res);
-          preselectForm(forms[0], id);
+
+          if (self.preselect) {
+            preselectForm(forms[0], id);
+          }
+
           unsetStyleWithoutAnalyses(forms, id);
         });
       });

@@ -1,12 +1,19 @@
 <div class="small-12 columns">
   <span settings-trigger="right"/>
   <span ng-show="settingsOn">
-    <label class="right">
+    <label class="margined-hor-tiny right">
       Expand Selected
       <input
         type="checkbox"
         style="margin: 0"
         ng-model="expandSelection"/>
+    </label>
+    <label class="margined-hor-tiny right">
+      Preselect
+      <input
+        type="checkbox"
+        style="margin: 0"
+        ng-model="plugin.preselect"/>
     </label>
   </span>
 </div>
