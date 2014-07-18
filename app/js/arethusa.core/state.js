@@ -6,7 +6,9 @@ angular.module('arethusa.core').service('state', [
   'documentStore',
   'keyCapture',
   '$location',
-  function (configurator, navigator, $rootScope, documentStore, keyCapture, $location) {
+  'StateChange',
+  function (configurator, navigator, $rootScope, documentStore, keyCapture,
+            $location, StateChange) {
     var self = this;
     var tokenRetrievers;
 
@@ -128,11 +130,14 @@ angular.module('arethusa.core').service('state', [
       });
     }
 
+
     this.changeHead = function (tokenId, newHeadId) {
       if (self.headsFor(newHeadId).indexOf(tokenId) !== -1) {
         self.tokens[newHeadId].head.id = self.tokens[tokenId].head.id;
       }
-      self.tokens[tokenId].head.id = newHeadId;
+      var token = self.getToken(tokenId);
+      var change = self.change(token, 'head.id', newHeadId);
+      change.exec();
     };
 
     this.handleChangeHead = function (newHeadId, type) {
@@ -375,6 +380,10 @@ angular.module('arethusa.core').service('state', [
     // New event handling through $rootScope
     this.on = function(event, fn) {
       $rootScope.$on(event, fn);
+    };
+
+    this.change = function(tokenOrId, property, newVal, undoFn) {
+      return new StateChange(self, tokenOrId, property, newVal, undoFn);
     };
 
     this.broadcast = function(event, arg) {
