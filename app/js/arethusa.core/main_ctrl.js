@@ -8,7 +8,9 @@ angular.module('arethusa.core').controller('MainCtrl', [
   'notifier',
   'saver',
   'keyCapture',
-  function ($scope, $injector, configurator, state, documentStore, notifier, saver, keyCapture) {
+  'history',
+  function ($scope, $injector, configurator, state, documentStore, notifier,
+            saver, keyCapture, history) {
     // This is the entry point to the application.
     notifier.info('Loading...');
 
@@ -147,6 +149,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
     $scope.$on('confLoaded', function () {
       $scope.arethusaLoaded = false;
       $scope.state.init();
+      history.init();
     });
 
     $scope.$on('stateLoaded', function () {
