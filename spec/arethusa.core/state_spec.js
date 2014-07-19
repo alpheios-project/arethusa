@@ -515,4 +515,35 @@ describe("state", function() {
       expect(test.arg).toEqual('testArg');
     });
   });
+
+  describe('this.change()', function() {
+    it('changes a state object through StateChange', function() {
+      var t1 = state.getToken('01');
+      expect(t1.head.id).toEqual('03');
+
+      state.change('01', 'head.id', '04');
+      expect(t1.head.id).toEqual('04');
+    });
+
+    it('broadcast a tokenChange event', function() {
+      var eventName;
+      state.on('tokenChange', function(event, change) {
+        eventName = event.name;
+      });
+
+      state.change('01', 'head.id', '04');
+      expect(eventName).toEqual('tokenChange');
+    });
+
+    it('passes the StateChange object to the event', function() {
+      var target;
+      state.on('tokenChange', function(event, change) {
+        target = change;
+      });
+
+      state.change('01', 'head.id', '04');
+      expect(target.token).toEqual(state.getToken('01'));
+      expect(target.newVal).toEqual('04');
+    });
+  });
 });
