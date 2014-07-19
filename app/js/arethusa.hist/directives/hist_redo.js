@@ -19,8 +19,12 @@ angular.module('arethusa.hist').directive('histRedo', [
         scope.$watch('history.canRedo', function(newVal, oldVal) {
           if (newVal !== oldVal) element.toggleClass('disabled');
         });
+
+        element.bind('click', function() {
+          scope.$apply(history.redo());
+        });
       },
-      template: '<i title="Redo" ng-click="history.redo()" class="fa fa-repeat"/>'
+      template: '<i title="Redo" class="fa fa-repeat"/>'
     };
   }
 ]);
