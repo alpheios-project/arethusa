@@ -11,7 +11,7 @@ angular.module('arethusa.core').factory('StateChange', [
       }
     }
 
-    return function(state, tokenOrId, property, newVal, undoFn) {
+    return function(state, tokenOrId, property, newVal, undoFn, preExecFn) {
       var self = this;
 
       this.token = getToken(state, tokenOrId);
@@ -23,9 +23,7 @@ angular.module('arethusa.core').factory('StateChange', [
       this.time = new Date();
 
       function inverse() {
-        var inv = state.change(self.token, property, self.oldVal);
-        inv.exec();
-        return inv;
+        state.change(self.token, property, self.oldVal);
       }
 
       this.undo   = function() {
@@ -33,7 +31,10 @@ angular.module('arethusa.core').factory('StateChange', [
       };
 
       this.exec   = function() {
+        if (angular.isFunction(preExecFn)) preExecFn();
+
         self.set(self.token, self.newVal);
+        return self;
       };
     };
   }
