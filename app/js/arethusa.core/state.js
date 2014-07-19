@@ -287,12 +287,13 @@ angular.module('arethusa.core').service('state', [
       });
     };
 
+    // DEPRECATED
     this.setState = function (id, category, val) {
-      self.change(id, category, val);
-      //var token = this.tokens[id];
-      //var oldVal = token[category];
-      //this.fireEvent(token, category, oldVal, val);
-      //token[category] = val;
+      arethusaLogger.log('state.setState is DEPRECATED. Use state.change() instead.');
+      var token = this.tokens[id];
+      var oldVal = token[category];
+      this.fireEvent(token, category, oldVal, val);
+      token[category] = val;
     };
 
     this.unsetState = function (id, category) {
