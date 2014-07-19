@@ -55,9 +55,11 @@ angular.module('arethusa.hist').service('history', [
     function saveEvent(event) {
       if (self.silence) return;
 
-      self.events.splice(0, self.position);
+      var events = self.events;
+      if (events.length === self.maxSize) events.pop();
+      events.splice(0, self.position);
       self.position = 0;
-      self.events.unshift(event);
+      events.unshift(event);
       checkAvailability();
     }
 
