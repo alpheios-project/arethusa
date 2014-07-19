@@ -20,7 +20,7 @@ angular.module('arethusa.hist').directive('histUndo', [
           if (newVal !== oldVal) element.toggleClass('disabled');
         });
       },
-      template: '<i title="Undo" ng-click="history.undo" class="fa fa-undo"/>'
+      template: '<i title="Undo" ng-click="history.undo()" class="fa fa-undo"/>'
     };
   }
 ]);

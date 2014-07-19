@@ -20,7 +20,7 @@ angular.module('arethusa.hist').directive('histRedo', [
           if (newVal !== oldVal) element.toggleClass('disabled');
         });
       },
-      template: '<i title="Redo" ng-click="history.redo" class="fa fa-repeat"/>'
+      template: '<i title="Redo" ng-click="history.redo()" class="fa fa-repeat"/>'
     };
   }
 ]);
