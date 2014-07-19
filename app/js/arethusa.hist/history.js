@@ -52,7 +52,11 @@ angular.module('arethusa.hist').service('history', [
     }
 
     function saveEvent(event) {
-      if (!silence) self.events.unshift(event);
+      if (!silence) {
+        self.events.splice(0, self.position);
+        self.position = 0;
+        self.events.unshift(event);
+      }
       checkAvailability();
     }
 
