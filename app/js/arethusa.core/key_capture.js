@@ -309,24 +309,37 @@ angular.module('arethusa.core').service('keyCapture', [
     };
 
     // Help
-    this.usKeyboardLayout = function() {
+    function usKeyboardLayout() {
       var layout = self.conf("keys");
       return layout.us;
-    };
+    }
+
+    function setStyle(kKey) {
+      if (kKey.hide === undefined) {
+        kKey.style.class = {};
+        kKey.style.class.case = "inactive";
+      }
+    }
+
+    function pushKeys(fKeys, kKey, cas) {
+      var display = kKey.show;
+      var typeCase = kKey[cas];
+      if (fKeys[typeCase]) {
+        display.push(fKeys[typeCase]);
+      } else {
+        setStyle(kKey);
+        display.push(typeCase);
+      }
+    }
 
     this.mappedKeyboard = function(language) {
-      var fKeys = self.conf('keys')[language];
-      var keyboardKeys = self.usKeyboardLayout();
+      var fKeys = keysFor(language);
+      var keyboardKeys = usKeyboardLayout();
       var res = [];
       angular.forEach(keyboardKeys, function(kKey, i) {
-        if (fKeys[kKey.lower]) {
-          kKey.show = fKeys[kKey.lower];
-        } else {
-          if (kKey.hide === undefined) {
-            kKey.style.class = kKey.style.class + " inactive";
-          }
-          kKey.show = kKey.lower;
-        }
+        kKey.show = [];
+        pushKeys(fKeys, kKey, "lower");
+        pushKeys(fKeys, kKey, "upper");
         res.push(kKey);
       });
       return res;
