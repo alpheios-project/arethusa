@@ -1,0 +1,8 @@
+<ol>
+  <p ng-if="events.length === 0" class="text">
+    No history events recorded.
+  </p>
+  <li ng-repeat="e in events" class="text">
+    <span history-event="e"/>
+  </li>
+</ol>
