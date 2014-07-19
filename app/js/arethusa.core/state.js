@@ -407,19 +407,20 @@ angular.module('arethusa.core').service('state', [
 
     var changeWatchers = { '*' : [] };
 
-    function EventWatch(event, fn, watchers) {
+    function EventWatch(event, fn, destroyFn, watchers) {
       var self = this;
       this.event = event;
       this.exec = fn;
       this.destroy = function() {
+        if (destroyFn) destroyFn();
         watchers.splice(watchers.indexOf(self), 1);
       };
     }
 
-    this.watch = function(event, fn) {
+    this.watch = function(event, fn, destroyFn) {
       var watchers = changeWatchers[event];
       if (!watchers) watchers = changeWatchers[event] = [];
-      var watch = new EventWatch(event, fn, watchers);
+      var watch = new EventWatch(event, fn, destroyFn, watchers);
       watchers.push(watch);
       return watch.destroy;
     };

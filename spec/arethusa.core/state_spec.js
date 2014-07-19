@@ -579,5 +579,32 @@ describe("state", function() {
       state.change('02', 'string', 'x');
       expect(test).toEqual(2);
     });
+
+    it('returns a deregistering function', function() {
+      var test = 0;
+      var watch = state.watch('*', function() { test++; });
+
+      state.change('01', 'head.id', '04');
+      expect(test).toEqual(1);
+
+      watch();
+
+      state.change('02', 'string', 'x');
+      expect(test).toEqual(1);
+    });
+
+    it('takes a function called before deregistering as fourth argument', function() {
+      var destroyed;
+      var watch = state.watch('*',
+                              function() {},
+                              function() { destroyed = true; }
+                             );
+
+      state.change('01', 'head.id', '04');
+
+      expect(destroyed).toBeFalsy();
+      watch();
+      expect(destroyed).toBeTruthy();
+    });
   });
 });
