@@ -607,4 +607,26 @@ describe("state", function() {
       expect(destroyed).toBeTruthy();
     });
   });
+
+  describe('this.lazyChange()', function() {
+    it('creates a StateChange object, but does not resolve it', function() {
+      var t1 = state.getToken('01');
+      var change = state.lazyChange('01', 'head.id', '04');
+
+      expect(t1.head.id).toEqual('03');
+      change.exec();
+      expect(t1.head.id).toEqual('04');
+    });
+
+    it('does not fire events on its own', function() {
+      var on;
+      var watch;
+      state.on('tokenChange', function() { on = true; });
+      state.watch('*', function() { watch = true; });
+
+      state.lazyChange('01', 'head.id', '04');
+      expect(on).toBeFalsy();
+      expect(watch).toBeFalsy();
+    });
+  });
 });
