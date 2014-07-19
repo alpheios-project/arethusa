@@ -49,7 +49,9 @@ describe("state", function() {
   }));
 
   var state;
-  beforeEach(inject(function(_state_) {
+  var $rootScope;
+  beforeEach(inject(function(_state_, _$rootScope_) {
+    $rootScope = _$rootScope_;
     state = _state_;
     state.tokens = createTokens();
   }));
@@ -483,6 +485,34 @@ describe("state", function() {
 
     it('returns an array of head ids', function() {
       expect(state.headsFor('01')).toEqual(['03', '04', '00']);
+    });
+  });
+
+  describe('this.broadcast()', function() {
+    it('broadcasts an event through $rootScope', function() {
+      var test;
+      $rootScope.$on('test', function(event, arg) {
+        test = { event: event, arg: arg };
+      });
+
+      expect(test).toBeUndefined();
+
+      state.broadcast('test', 'testArg');
+      expect(test.event.name).toEqual('test');
+      expect(test.arg).toEqual('testArg');
+    });
+  });
+
+  describe('this.on()', function() {
+    it('delegates to $rootScope.$on', function() {
+      var test;
+      state.on('test', function(event, arg) {
+        test = { event: event, arg: arg };
+      });
+
+      $rootScope.$broadcast('test', 'testArg');
+      expect(test.event.name).toEqual('test');
+      expect(test.arg).toEqual('testArg');
     });
   });
 });
