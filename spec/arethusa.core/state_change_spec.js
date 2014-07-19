@@ -69,6 +69,11 @@ describe('StateChange', function() {
     expect(change.time).toBeTruthy();
   });
 
+  it('has a the type "changed"', function() {
+    var change = new StateChange(state, '1', 'a.b.c', 'x');
+    expect(change.type).toEqual('change');
+  });
+
   describe('undo()', function() {
     it('provides means to undo a change as a simple inversion of oldVal and newVal', function() {
       var oldVal = token.a.b.c;

@@ -21,6 +21,7 @@ angular.module('arethusa.core').factory('StateChange', [
       this.property = property;
       this.newVal = newVal;
       this.oldVal = get(self.token);
+      this.type   = 'change';
       this.time = new Date();
 
       function inverse() {
