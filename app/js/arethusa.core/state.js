@@ -288,10 +288,11 @@ angular.module('arethusa.core').service('state', [
     };
 
     this.setState = function (id, category, val) {
-      var token = this.tokens[id];
-      var oldVal = token[category];
-      this.fireEvent(token, category, oldVal, val);
-      token[category] = val;
+      self.change(id, category, val);
+      //var token = this.tokens[id];
+      //var oldVal = token[category];
+      //this.fireEvent(token, category, oldVal, val);
+      //token[category] = val;
     };
 
     this.unsetState = function (id, category) {
@@ -381,8 +382,12 @@ angular.module('arethusa.core').service('state', [
       $rootScope.$on(event, fn);
     };
 
-    this.change = function(tokenOrId, property, newVal, undoFn) {
-      var event = new StateChange(self, tokenOrId, property, newVal, undoFn);
+    this.lazyChange = function(tokenOrId, property, newVal, undoFn, preExecFn) {
+      return new StateChange(self, tokenOrId, property, newVal, undoFn, preExecFn);
+    };
+
+    this.change = function(tokenOrId, property, newVal, undoFn, preExecFn) {
+      var event = self.lazyChange(tokenOrId, property, newVal, undoFn, preExecFn);
       event.exec();
       self.broadcast('change', event);
       return event;
