@@ -11,12 +11,13 @@ angular.module('arethusa.hist').service('history', [
       self.maxSize = self.maxSize || 20;
     }
 
-    var silence = false;
+    // Use this variable to temporarily silence the event saving
+    this.silence = false;
 
     function doSilent(fn) {
-      silence = true;
+      self.silence = true;
       fn();
-      silence = false;
+      self.silence = false;
       checkAvailability();
     }
 
@@ -52,11 +53,11 @@ angular.module('arethusa.hist').service('history', [
     }
 
     function saveEvent(event) {
-      if (!silence) {
-        self.events.splice(0, self.position);
-        self.position = 0;
-        self.events.unshift(event);
-      }
+      if (self.silence) return;
+
+      self.events.splice(0, self.position);
+      self.position = 0;
+      self.events.unshift(event);
       checkAvailability();
     }
 
