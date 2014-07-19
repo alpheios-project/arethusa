@@ -77,7 +77,7 @@ angular.module('arethusa.hist').service('history', [
       this.type = type;
       this.time = new Date();
 
-      if (type === 'added') {
+      if (type === 'add') {
         this.exec = function() {
           state.addToken(token, id);
         };
