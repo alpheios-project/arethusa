@@ -2,7 +2,6 @@
 
 describe('StateChange', function() {
   var StateChange;
-  var stateCalledCount;
   var token;
 
   function Token() {
@@ -12,7 +11,7 @@ describe('StateChange', function() {
   }
 
   var state = {
-    change: function() { stateCalledCount++; },
+    change: function(t, p, n) { new StateChange(state, t, p, n).exec();  },
     getToken: function(id) { if (id === '1') return token; }
   };
 
@@ -68,5 +67,34 @@ describe('StateChange', function() {
     var change = new StateChange(state, '1', 'a.b.c', 'x');
     change.exec();
     expect(change.time).toBeTruthy();
+  });
+
+  describe('undo()', function() {
+    it('provides means to undo a change as a simple inversion of oldVal and newVal', function() {
+      var oldVal = token.a.b.c;
+      var newVal = 'x';
+      var change = new StateChange(state, '1', 'a.b.c', newVal);
+
+      expect(token.a.b.c).toEqual(oldVal);
+      change.exec();
+      expect(token.a.b.c).toEqual(newVal);
+      change.undo();
+      expect(token.a.b.c).toEqual(oldVal);
+    });
+
+    it('takes a custom undo function as fourth argument', function() {
+      var oldVal = token.a.b.c;
+      var newVal = 'x';
+      var customVal = 'custom';
+      var undoFn = function() { token.a.b.c = customVal; };
+
+      var change = new StateChange(state, '1', 'a.b.c', newVal, undoFn);
+
+      expect(token.a.b.c).toEqual(oldVal);
+      change.exec();
+      expect(token.a.b.c).toEqual(newVal);
+      change.undo();
+      expect(token.a.b.c).toEqual(customVal);
+    });
   });
 });

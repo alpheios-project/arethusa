@@ -39,7 +39,7 @@ angular.module('arethusa.core').factory('StateChange', [
       }
 
       this.undo   = function() {
-        return angular.isFunction(undoFn) ? undoFn : inverse;
+        return angular.isFunction(undoFn) ? undoFn() : inverse();
       };
 
       this.exec   = function() {
