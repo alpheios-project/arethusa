@@ -15,7 +15,7 @@ angular.module('arethusa.core').factory('StateChange', [
       // We should check here if newVal and oldVal are objects, otherwise
       // the user won't see anything helpful. Ideally these objects come
       // with a toString function we could check for?
-      return "Changed " + property +" of "+
+      return "Changed " + property +" of " +
         token.string + " at " + token.id +
         " from " +oldVal +" to " + newVal;
     }
@@ -23,13 +23,13 @@ angular.module('arethusa.core').factory('StateChange', [
     return function(state, tokenOrId, property, newVal, undoFn, preExecFn) {
       var self = this;
 
+      var get = $parse(property);
+      var set = get.assign;
 
       this.token = getToken(state, tokenOrId);
       this.property = property;
-      this.get = $parse(property);
-      this.set = self.get.assign;
       this.newVal = newVal;
-      this.oldVal = self.get(self.token);
+      this.oldVal = get(self.token);
       this.time = new Date();
 
       this.message = buildMessage(self.token, self.property, self.newVal, self.oldVal);
@@ -45,7 +45,7 @@ angular.module('arethusa.core').factory('StateChange', [
       this.exec   = function() {
         if (angular.isFunction(preExecFn)) preExecFn();
 
-        self.set(self.token, self.newVal);
+        set(self.token, self.newVal);
         return self;
       };
     };
