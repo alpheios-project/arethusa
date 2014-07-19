@@ -27,6 +27,8 @@ angular.module('arethusa.hist').service('history', [
 
     this.init = function() {
       configure();
+      self.canRedo = false;
+      self.canUndo = false;
     };
 
     /* global HistoryObj */
