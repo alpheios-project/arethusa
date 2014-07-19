@@ -2,7 +2,8 @@
 angular.module('arethusa.hist').service('history', [
   'configurator',
   'keyCapture',
-  function (configurator, keyCapture) {
+  'state',
+  function (configurator, keyCapture, state) {
     var self = this;
 
     function configure() {
@@ -11,9 +12,15 @@ angular.module('arethusa.hist').service('history', [
     }
 
     this.undo = function() {
+      if (self.canUndo) {
+
+      }
     };
 
     this.redo = function() {
+      if (self.canRedo) {
+
+      }
     };
 
     keyCapture.initCaptures(function(kC) {
@@ -25,10 +32,15 @@ angular.module('arethusa.hist').service('history', [
       };
     });
 
+    state.watch('*', function(n, o, event) {
+      self.events.unshift(event);
+    });
+
     this.init = function() {
       configure();
       self.canRedo = false;
       self.canUndo = false;
+      self.events = [];
     };
 
     /* global HistoryObj */
