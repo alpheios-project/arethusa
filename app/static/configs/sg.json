@@ -21,7 +21,8 @@
       "sg",
       "relation",
       "depTree",
-      "search"
+      "search",
+      "history"
     ]
   },
 
@@ -127,6 +128,13 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
       "template" : "templates/dep_tree.html"
+    },
+
+    "history" : {
+      "name" : "history",
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "templates/history.html"
     }
   },
 
