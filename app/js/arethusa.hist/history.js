@@ -70,6 +70,40 @@ angular.module('arethusa.hist').service('history', [
       saveEvent(event);
     });
 
+    function HistEvent(token, type) {
+      var id = token.id;
+
+      this.token = token;
+      this.type = type;
+      this.time = new Date();
+
+      if (type === 'added') {
+        this.exec = function() {
+          state.addToken(token, id);
+        };
+        this.undo = function() {
+          state.removeToken(id);
+        };
+      } else { // type === removed
+        this.exec = function() {
+          state.removeToken(id);
+        };
+        this.undo = function() {
+          state.addToken(token, id);
+        };
+      }
+    }
+
+    state.on('tokenAdded', function(event, token) {
+      var histEvent = new HistEvent(token, 'add');
+      saveEvent(histEvent);
+    });
+
+    state.on('tokenRemoved', function(event, token) {
+      var histEvent = new HistEvent(token, 'remove');
+      saveEvent(histEvent);
+    });
+
     this.init = function() {
       configure();
       self.canRedo = false;
