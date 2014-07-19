@@ -66,7 +66,7 @@ angular.module('arethusa.core').service('saver', [
       };
     });
 
-    state.on('tokenChange', function() {
+    state.watch('*', function() {
       self.needsSave = true;
     });
 
