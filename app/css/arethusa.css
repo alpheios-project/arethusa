@@ -655,3 +655,9 @@ li.keyboard-key {
 #keyboard .inactive {
   color: #f2f2f2;
 }
+
+#keyboard .shifted-1 {
+  padding-left: 0.1em;
+  font-size:0.7em;
+  vertical-align: super;
+}
