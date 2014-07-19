@@ -546,4 +546,38 @@ describe("state", function() {
       expect(target.newVal).toEqual('04');
     });
   });
+
+  describe('this.watch()', function() {
+    it('inits a watch for changes on a specific token property', function() {
+      var test;
+      state.watch('head.id', function(newVal, oldVal) {
+        test = { newVal: newVal, oldVal: oldVal };
+      });
+
+      state.change('01', 'head.id', '04');
+      expect(test.newVal).toEqual('04');
+      expect(test.oldVal).toEqual('03');
+    });
+
+    it('passes the StateChange obj as third arg to the listener function', function() {
+      var testToken;
+      state.watch('head.id', function(newVal, oldVal, event) {
+        testToken = event.token;
+      });
+
+      state.change('01', 'head.id', '04');
+      expect(testToken).toEqual(state.getToken('01'));
+    });
+
+    it('takes the special property * to listen to all changes', function() {
+      var test = 0;
+      state.watch('*', function() { test++; });
+
+      state.change('01', 'head.id', '04');
+      expect(test).toEqual(1);
+
+      state.change('02', 'string', 'x');
+      expect(test).toEqual(2);
+    });
+  });
 });
