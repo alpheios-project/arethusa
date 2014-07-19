@@ -4,7 +4,8 @@ angular.module('arethusa.core').service('saver', [
   'configurator',
   'notifier',
   'keyCapture',
-  function(configurator, notifier, keyCapture) {
+  'state',
+  function(configurator, notifier, keyCapture, state) {
     var self = this;
     var persisters;
 
@@ -63,6 +64,10 @@ angular.module('arethusa.core').service('saver', [
           kC.create('save', function() { self.save(); })
         ]
       };
+    });
+
+    state.on('change', function() {
+      self.needsSave = true;
     });
 
     this.init = function(newPersisters) {
