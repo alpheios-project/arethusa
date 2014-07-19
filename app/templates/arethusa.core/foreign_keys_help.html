@@ -1,9 +1,11 @@
-<div class="small-12 columns" style="border:1px solid black">
+<div class="small-12 columns">
   <ul id="keyboard">
     <li ng-repeat="key in keys"
-    ng-class="key.style.class"
-    class="keyboard-key">
-      {{ key.show }}
+      ng-class="key.style.class"
+      class="keyboard-key">
+      <span ng-repeat="char in key.show"
+        class="shifted-{{$index}}"
+        ng-class="key.style.class.case">{{ char }}</span>
     </li>
   </ul>
 </div>
