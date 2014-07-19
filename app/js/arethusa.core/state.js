@@ -136,7 +136,7 @@ angular.module('arethusa.core').service('state', [
         self.tokens[newHeadId].head.id = self.tokens[tokenId].head.id;
       }
       var token = self.getToken(tokenId);
-      self.change(token, 'head.id', newHeadId).exec();
+      self.change(token, 'head.id', newHeadId);
     };
 
     this.handleChangeHead = function (newHeadId, type) {
@@ -383,6 +383,7 @@ angular.module('arethusa.core').service('state', [
 
     this.change = function(tokenOrId, property, newVal, undoFn) {
       var event = new StateChange(self, tokenOrId, property, newVal, undoFn);
+      event.exec();
       self.broadcast('change', event);
       return event;
     };
