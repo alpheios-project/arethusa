@@ -175,6 +175,10 @@
     "search" : {
       "focus" : "A"
     },
+    "history" : {
+      "undo" : ":",
+      "redo" : "'"
+    },
     "fileUrl" : "./static/configs/keyboard/key_map.json"
   }
 }
