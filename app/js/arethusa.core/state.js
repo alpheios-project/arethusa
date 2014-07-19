@@ -19,6 +19,7 @@ angular.module('arethusa.core').service('state', [
     function configure() {
       self.conf = configurator.configurationFor('main');
       tokenRetrievers = configurator.getRetrievers(self.conf.retrievers);
+      self.silent = false;
     }
 
     // We hold tokens locally during retrieval phase.
@@ -435,6 +436,12 @@ angular.module('arethusa.core').service('state', [
 
     this.broadcast = function(event, arg) {
       $rootScope.$broadcast(event, arg);
+    };
+
+    this.doSilent = function(fn) {
+      self.silent = true;
+      fn();
+      self.silent = false;
     };
 
     this.postInit = function () {

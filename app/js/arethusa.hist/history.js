@@ -11,13 +11,8 @@ angular.module('arethusa.hist').service('history', [
       self.maxSize = self.maxSize || 20;
     }
 
-    // Use this variable to temporarily silence the event saving
-    this.silence = false;
-
     function doSilent(fn) {
-      self.silence = true;
-      fn();
-      self.silence = false;
+      state.doSilent(fn);
       checkAvailability();
     }
 
@@ -53,7 +48,7 @@ angular.module('arethusa.hist').service('history', [
     }
 
     function saveEvent(event) {
-      if (self.silence) return;
+      if (state.silent) return;
 
       var events = self.events;
       if (events.length === self.maxSize) events.pop();

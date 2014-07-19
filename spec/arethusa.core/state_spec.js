@@ -629,4 +629,16 @@ describe("state", function() {
       expect(watch).toBeFalsy();
     });
   });
+
+  describe('this.doSilent()', function() {
+    it('calls a function in silent mode', function() {
+      var wasSilent = false;
+      var fn = function() { wasSilent = state.silent; };
+
+      expect(state.silent).toBeFalsy();
+
+      state.doSilent(fn);
+      expect(wasSilent).toBeTruthy();
+    });
+  });
 });
