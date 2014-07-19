@@ -3,6 +3,6 @@
     No history events recorded.
   </p>
   <li ng-repeat="e in events" class="text">
-    <span history-event="e"/>
+    <span ng-class="{ italic: $index === position }" history-event="e"/>
   </li>
 </ol>

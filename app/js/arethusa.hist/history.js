@@ -32,8 +32,12 @@ angular.module('arethusa.hist').service('history', [
       };
     });
 
-    state.watch('*', function(n, o, event) {
+    function saveEvent(event) {
       self.events.unshift(event);
+    }
+
+    state.watch('*', function(n, o, event) {
+      saveEvent(event);
     });
 
     this.init = function() {
@@ -41,26 +45,7 @@ angular.module('arethusa.hist').service('history', [
       self.canRedo = false;
       self.canUndo = false;
       self.events = [];
+      self.position = 0;
     };
-
-    /* global HistoryObj */
-    //var hist = new HistoryObj(this.maxSize);
-    //this.history = hist.elements;
-    //this.save = function (event) {
-      //hist.save(event);
-    //};
-    //this.undo = function () {
-      //hist.undo();
-    //};
-    //this.canBeUndone = function () {
-      //return hist.canBeUndone();
-    //};
-    //this.redo = function () {
-      //hist.redo();
-    //};
-    //this.canBeRedone = function () {
-      //return hist.canBeRedone();
-    //};
-    //this.catchEvent = this.save;
   }
 ]);
