@@ -391,7 +391,37 @@ angular.module('arethusa.core').service('state', [
       var event = self.lazyChange(tokenOrId, property, newVal, undoFn, preExecFn);
       event.exec();
       self.broadcast('change', event);
+      notifiyWatchers(event);
       return event;
+    };
+
+    function notifiyWatchers(event) {
+      function execWatch(watch) { watch.exec(event); }
+
+      var watchers = changeWatchers[event.property] || [];
+
+      angular.forEach(watchers, execWatch);
+      angular.forEach(changeWatchers['*'], execWatch);
+    }
+
+
+    var changeWatchers = { '*' : [] };
+
+    function EventWatch(event, fn, watchers) {
+      var self = this;
+      this.event = event;
+      this.exec = fn;
+      this.destroy = function() {
+        watchers.splice(watchers.indexOf(self), 1);
+      };
+    }
+
+    this.watch = function(event, fn) {
+      var watchers = changeWatchers[event];
+      if (!watchers) watchers = changeWatchers[event] = [];
+      var watch = new EventWatch(event, fn, watchers);
+      watchers.push(watch);
+      return watch.destroy;
     };
 
     this.broadcast = function(event, arg) {
