@@ -204,7 +204,7 @@ angular.module('arethusa.core').service('navigator', [
       };
     });
 
-    $rootScope.$on('change', function(event, change) {
+    $rootScope.$on('tokenChange', function(event, change) {
       currentSentenceObj().changed = true;
     });
   }

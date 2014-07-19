@@ -390,7 +390,7 @@ angular.module('arethusa.core').service('state', [
     this.change = function(tokenOrId, property, newVal, undoFn, preExecFn) {
       var event = self.lazyChange(tokenOrId, property, newVal, undoFn, preExecFn);
       event.exec();
-      self.broadcast('change', event);
+      self.broadcast('tokenChange', event);
       notifiyWatchers(event);
       return event;
     };
