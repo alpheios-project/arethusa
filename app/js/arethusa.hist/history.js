@@ -2,12 +2,17 @@
 angular.module('arethusa.hist').service('history', [
   'configurator',
   function (configurator) {
-    this.conf = configurator.configurationFor('history');
-    this.template = this.conf.template;
-    this.maxSize = this.conf.maxSize || 20;
-    this.main = this.conf.main;
-    this.listener = this.conf.listener;
-    this.name = this.conf.name;
+    var self = this;
+
+    function configure() {
+      configurator.getConfAndDelegate('history', self);
+      self.maxSize = self.maxSize || 20;
+    }
+
+    this.init = function() {
+      configure();
+    };
+
     /* global HistoryObj */
     var hist = new HistoryObj(this.maxSize);
     this.history = hist.elements;
