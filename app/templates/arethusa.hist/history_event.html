@@ -4,5 +4,5 @@
     class="note">
     {{ formatId(id) }}
   </sup>
-  from {{ oldVal }} to {{ newVal }}
+  <span ng-if="!blocked">from {{ oldVal }} to {{ newVal }}</span>
 </div>

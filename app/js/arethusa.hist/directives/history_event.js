@@ -20,11 +20,18 @@ angular.module('arethusa.hist').directive('historyEvent', [
           </span>\
         ';
 
+        function valToString(val) {
+          if (val && typeof val === 'object') scope.blocked = true;
+          return val || 'nothing';
+        }
+
+        scope.blocked = false;
+
         scope.token = scope.event.token;
         scope.id    = scope.token.id;
         scope.property = scope.event.property;
-        scope.oldVal = scope.event.oldVal || 'nothing';
-        scope.newVal = scope.event.newVal || 'nothing';
+        scope.oldVal = valToString(scope.event.oldVal);
+        scope.newVal = valToString(scope.event.newVal);
 
         scope.formatId = function(id) {
           return idHandler.formatId(id, '%w');
