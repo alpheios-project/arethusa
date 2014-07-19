@@ -208,7 +208,9 @@ angular.module('arethusa.morph').service('morph', [
 
     function preselectForm(form, id) {
       if (form && selectedForm(id) !== form) {
-        self.setState(id, form);
+        state.doSilent(function() {
+          self.setState(id, form);
+        });
       }
     }
 

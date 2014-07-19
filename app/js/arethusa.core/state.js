@@ -19,7 +19,9 @@ angular.module('arethusa.core').service('state', [
     function configure() {
       self.conf = configurator.configurationFor('main');
       tokenRetrievers = configurator.getRetrievers(self.conf.retrievers);
-      self.silent = false;
+
+      // We start silent - during init we don't want to track events
+      self.silent = true;
     }
 
     // We hold tokens locally during retrieval phase.

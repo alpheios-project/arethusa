@@ -201,6 +201,9 @@ angular.module('arethusa.core').controller('MainCtrl', [
       $scope.arethusaLoaded = true;
       notifier.success('Load complete');
       UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
+
+      // start listening for events
+      state.silent = false;
     };
   }
 ]);
