@@ -36,7 +36,7 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
           angular.forEach(state.tokens, checkIfUnused);
         }
 
-        state.watch('head.id', function(newVal, oldVal, event) {
+        function watchHeadChange(newVal, oldVal, event) {
           var id = event.token.id;
           if (newVal) {
             // Check if the token was used before!
@@ -50,7 +50,9 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
             unusedTokens[id] = true;
             if (highlightMode) state.addStyle(id, style);
           }
-        });
+        }
+
+        state.watch('head.id', watchHeadChange);
 
         function init() {
           scope.total = state.totalTokens;
