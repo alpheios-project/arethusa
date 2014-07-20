@@ -34,6 +34,7 @@ angular.module('arethusa.core').service('saver', [
 
     function success(res) {
       self.needsSave = false;
+      setChangeWatch();
       notifier.success('Document saved!');
     }
 
@@ -70,14 +71,19 @@ angular.module('arethusa.core').service('saver', [
       };
     });
 
-    state.watch('*', function() {
-      self.needsSave = true;
-    });
+    var changeWatch;
+    function setChangeWatch() {
+      changeWatch = state.watch('*', function() {
+        self.needsSave = true;
+        changeWatch();
+      });
+    }
 
     this.init = function(newPersisters) {
       reset();
       getPersisters();
       updateStatus();
+      setChangeWatch();
     };
   }
 ]);
