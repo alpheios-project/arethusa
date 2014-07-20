@@ -618,9 +618,13 @@ li.keyboard-key {
   line-height: 40px;
   text-align: center;
   background: #fff;
-  border: 1px solid #f9f9f9;
+  border: 1px solid #c9c9c9;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+}
+
+li.keyboard-key:hover {
+  background-color: aliceblue;
 }
 
 #keyboard .last-key {
@@ -653,11 +657,20 @@ li.keyboard-key {
 }
 
 #keyboard .inactive {
-  color: #f2f2f2;
+  color: rgb(228, 228, 228);
 }
 
 #keyboard .shifted-1 {
   padding-left: 0.1em;
   font-size:0.7em;
   vertical-align: super;
+}
+
+#keyboard .shift-clicked {
+  background-color: rgb(228, 228, 228);
+  border: 1px solid lightgray;
+}
+
+#keyboard .shifter {
+  cursor: pointer;
 }
