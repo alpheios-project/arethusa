@@ -174,5 +174,27 @@ describe('history', function() {
       expect(history.events).toContain(d);
     });
   });
+
+  describe('watches', function() {
+    it('all events issued through state.change and saves them', function() {
+      var event = { property: 'head.id', newVal: 1, oldVal: 2 };
+
+      expect(history.events.length).toEqual(0);
+      state.change({}, 'head.id', 1, 2);
+      expect(history.events.length).toEqual(1);
+    });
+
+    it('all tokenAdded events', function() {
+      expect(history.events.length).toEqual(0);
+      state.broadcast('tokenAdded', {});
+      expect(history.events.length).toEqual(1);
+    });
+
+    it('all tokenRemoved events', function() {
+      expect(history.events.length).toEqual(0);
+      state.broadcast('tokenRemoved', {});
+      expect(history.events.length).toEqual(1);
+    });
+  });
 });
 
