@@ -50,12 +50,16 @@ angular.module('arethusa.core').service('saver', [
     }
 
     this.save = function() {
-      notifier.info('Saving...');
-      // We only have one persister right now, later we'll want
-      // to handle the success notification better.
-      angular.forEach(persisters, function(persister, name) {
-        persister.saveData(success, error);
-      });
+      if (self.needsSave) {
+        notifier.info('Saving...');
+        // We only have one persister right now, later we'll want
+        // to handle the success notification better.
+        angular.forEach(persisters, function(persister, name) {
+          persister.saveData(success, error);
+        });
+      } else {
+        notifier.info('Nothing to save yet!');
+      }
     };
 
     keyCapture.initCaptures(function(kC) {
