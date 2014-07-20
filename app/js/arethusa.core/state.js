@@ -149,12 +149,14 @@ angular.module('arethusa.core').service('state', [
 
     this.handleChangeHead = function (newHeadId, type) {
       var preventSelection = false;
-      angular.forEach(this.selectedTokens, function (type, index) {
+      angular.forEach(self.selectedTokens, function (type, index) {
         if (self.headCanBeChanged(index, newHeadId, type)) {
+          if (!self.batchChange) self.batchChangeStart();
           self.changeHead(index, newHeadId);
           preventSelection = preventSelection || true;
         }
       });
+      if (self.batchChange) self.batchChangeStop();
       return preventSelection;
     };
 
