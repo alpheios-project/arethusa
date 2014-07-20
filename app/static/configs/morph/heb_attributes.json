@@ -1,0 +1,263 @@
+{
+  "styledThrough" : "pos",
+  "parts" : [
+    "prefix",
+    "base",
+    "suffix"
+  ],
+  "attributes" : {
+    "pos" : {
+      "long" : "Part of Speech",
+      "short" : "pos",
+      "values" : {
+        "noun": {
+          "long": "noun",
+          "short": "noun",
+          "style": {
+            "color": "black"
+          }
+        },
+        "adjective": {
+          "long": "adjective",
+          "short": "adj",
+          "style": {
+            "color": "blue"
+          }
+        },
+        "interrogative": {
+          "long": "interrogative",
+          "short": "int",
+          "style": {
+            "color": "black"
+          }
+        },
+        "adverb": {
+          "long": "adverb",
+          "short": "adv",
+          "style": {
+            "color": "darkorange"
+          }
+        },
+        "conjunction": {
+          "long": "conjunction",
+          "short": "conj",
+          "style": {
+            "color": "deeppink"
+          }
+        },
+        "preposition": {
+          "long": "preposition",
+          "short": "prep",
+          "style": {
+            "color": "green"
+          }
+        },
+        "pronoun": {
+          "long": "pronoun",
+          "short": "pron",
+          "style": {
+            "color": "purple"
+          }
+        },
+        "properName": {
+          "long": "properName",
+          "short": "prop",
+          "style": {
+            "color": "gold"
+          }
+        },
+        "verb": {
+          "long": "verb",
+          "short": "verb",
+          "style": {
+            "color": "red"
+          }
+        },
+        "participle": {
+          "long": "participle",
+          "short": "part",
+          "style": {
+            "color": "red"
+          }
+        },
+        "numeral": {
+          "long": "numeral",
+          "short": "nrl",
+          "style": {
+            "color": "gold"
+          }
+        },
+        "punctuation": {
+          "long": "punctuation",
+          "short": "punct"
+        },
+        "copula": {
+          "long": "copula",
+          "short": "cop",
+          "style": {
+            "color": "black"
+          }
+        }
+      }
+    },
+    "def" : {
+      "long" : "definitness",
+      "short" : "def",
+      "values" : true
+    },
+    "stat" : {
+      "long" : "status",
+      "short" : "stat",
+      "values" : {
+        "abs" : {
+          "long" : "absolute"
+        },
+        "con" : {
+          "long" : "construct"
+        }
+      }
+    },
+    "pers" : {
+      "long" : "Person",
+      "short" : "pers",
+      "values" : {
+        "1st" : {
+          "long" : "first person",
+          "short" : "1st"
+        },
+        "2nd" : {
+          "long" : "second person",
+          "short" : "2nd"
+        },
+        "3rd" : {
+          "long" : "third person",
+          "short" : "3rd"
+        }
+      }
+    },
+    "num" : {
+      "long" : "Number",
+      "short" : "num",
+      "values" : {
+        "sg" : {
+          "long" : "singular",
+          "short" : "sg"
+        },
+        "pl" : {
+          "long" : "plural",
+          "short" : "pl"
+        }
+      }
+    },
+    "tense" : {
+      "long" : "Tense",
+      "short" : "tense",
+      "values" : {
+        "pr" : {
+          "long" : "present",
+          "short" : "pr"
+        },
+        "imp" : {
+          "long" : "imperative",
+          "short" : "imp"
+        },
+        "inf" : {
+          "long" : "infinitive",
+          "short" : "inf"
+        },
+        "fut" : {
+          "long" : "future",
+          "short" : "fut"
+        },
+        "past" : {
+          "long" : "past",
+          "short" : "past"
+        }
+      }
+    },
+    "type" : {
+      "long" : "type",
+      "short" : "type"
+    },
+    "gend" : {
+      "long" : "gender",
+      "short" : "gend",
+      "values" : {
+        "masc" : {
+          "long" : "masculine",
+          "short" : "masc"
+        },
+        "fem" : {
+          "long" : "feminine",
+          "short" : "fem"
+        },
+        "mnf" : {
+          "long" : "masculine and feminine",
+          "short" : "mnf"
+        }
+      }
+    },
+    "case" : {
+      "long" : "Casus",
+      "short" : "case",
+      "values" : {
+        "nom" : {
+          "long" : "nominative",
+          "short" : "nom",
+          "postag" : "n"
+        },
+        "gen" : {
+          "long" : "genitive",
+          "short" : "gen",
+          "postag" : "g"
+        },
+        "dat" : {
+          "long" : "dative",
+          "short" : "dat",
+          "postag" : "d"
+        },
+        "acc" : {
+          "long" : "accusative",
+          "short" : "acc",
+          "postag" : "a"
+        },
+        "voc" : {
+          "long" : "vocative",
+          "short" : "voc",
+          "postag" : "v"
+        },
+        "abl" : {
+          "long" : "ablative",
+          "short" : "abl",
+          "postag" : "b"
+        },
+        "loc" : {
+          "long" : "locative",
+          "short" : "loc",
+          "postag" : "l"
+        }
+      }
+    },
+    "degree" : {
+      "long" : "Degree",
+      "short" : "degree",
+      "values" : {
+        "pos" : {
+          "long" : "positive",
+          "short" : "pos",
+          "postag" : "p"
+        },
+        "comp" : {
+          "long" : "comparative",
+          "short" : "comp",
+          "postag" : "c"
+        },
+        "sup" : {
+          "long" : "superlative",
+          "short" : "sup",
+          "postag" : "s"
+        }
+      }
+    }
+  }
+}

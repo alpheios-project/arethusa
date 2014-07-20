@@ -18,7 +18,12 @@ angular.module('arethusa.core').service('idHandler', [
       var wParts = wIdParts(wId);
       var wIdNumericPart = arethusaUtil.formatNumber(wParts[1]);
       var sId = arethusaUtil.formatNumber(idParts.pop(), 0);
-      return format.replace('%w', wIdNumericPart + (wParts[2] || ''));
+      var res;
+      res = format.replace('%w', wIdNumericPart + (wParts[2] || ''));
+      if (format.indexOf('%s' > 1)) {
+        res = sId ? res.replace('%s', sId) : res.replace('%s-', '');
+      }
+      return res;
     };
 
     function wIdParts(wId) {

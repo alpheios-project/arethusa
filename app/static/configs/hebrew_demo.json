@@ -1,0 +1,85 @@
+{
+  "main" : {
+    "template"  : "templates/main_with_sidepanel.html",
+    "retrievers" : {
+      "HebrewRetriever" : {
+        "resource" : "fakePerseids",
+        "docIdentifier" : "hebrewMorph"
+      }
+    },
+    "persisters" : {
+      "HebrewPersister" : {
+        "resource" : "fakePerseids",
+        "docIdentifier" : "hebrewMorph"
+      }
+    },
+    "plugins" : [
+      "text",
+      "hebrewMorph",
+      "search"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true,
+    "notifier" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "resources" : {
+    "fakePerseids" : {
+      "route" : "http://74.70.97.104:8085/xml_server/:doc",
+      "params" : [
+        "doc",
+        "s"
+      ]
+    }
+  },
+
+  "plugins" : {
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
+    "search" : {
+      "name" : "search",
+      "template" : "templates/search.html",
+      "regex" : true
+    },
+    "hebrewMorph" : {
+      "name" : "morph",
+      "template" : "templates/arethusa.hebrew_morph/hebrew_morph.html",
+      "fileUrl" : "./static/configs/morph/heb_attributes.json"
+    }
+  },
+  "keyCapture" : {
+    "sidepanel" : {
+      "nextTab" : "W",
+      "prevTab" : "E",
+      "toggle"  : "q"
+    },
+    "selections" : {
+      "nextToken" : "w",
+      "prevToken" : "e"
+    },
+    "navigation" : {
+      "nextSentence" : "u",
+      "prevSentence" : "i",
+      "list" : "L"
+    },
+    "saver" : {
+      "save" : "ctrl-S"
+    },
+    "search" : {
+      "focus" : "A"
+    },
+    "fileUrl" : "./static/configs/keyboard/key_map.json"
+  }
+}

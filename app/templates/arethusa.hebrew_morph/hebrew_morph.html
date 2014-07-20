@@ -1,0 +1,16 @@
+<div ng-repeat="(id, analysis) in plugin.currentSelection()">
+  <div class="small-12 columns" lang-specific>
+    <p token-with-id value="analysis.string" token-id="id"/>
+    <accordion close-others="oneAtATime">
+      <accordion-group ng-repeat="form in analysis.forms">
+        <accordion-heading class="text">
+          <span class="right" ng-style="plugin.styleOf(form)">
+            {{ plugin.hyphenatedForm(form) }}
+          </span>
+          <span class="left">{{ form.score }}</span>
+          <hr class="small">
+        </accordion-heading>
+      </accordion-group>
+    </accordion>
+  </div>
+</div>

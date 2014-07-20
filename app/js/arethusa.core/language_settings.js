@@ -16,6 +16,11 @@ angular.module('arethusa.core').service('languageSettings', [
         name: 'Greek',
         lang: 'gr',
         leftToRight: true
+      },
+      'heb' : {
+        name: 'Hebrew',
+        lang: 'he',
+        leftToRight: false
       }
     };
 
@@ -23,18 +28,30 @@ angular.module('arethusa.core').service('languageSettings', [
       memo[obj.lang] = obj.name;
     });
 
+    var settings = {};
+    this.setFor = function(documentName, lang) {
+      settings[documentName] = self.languageSpecifics[lang];
+    };
+
     this.getFor = function(documentName) {
-      var document = documentStore.store[documentName];
-      if (document === undefined) {
+      var cached = settings[documentName];
+      if (cached) {
+        return cached;
+      } else {
+        var document = documentStore.store[documentName];
+        if (document === undefined) {
+          return undefined;
+        }
+
+        var lang = document.json.treebank["_xml:lang"];
+        if (lang in self.languageSpecifics) {
+          var langObj = self.languageSpecifics[lang];
+          self.setFor('treebank', langObj);
+          return langObj;
+        }
+
         return undefined;
       }
-
-      var lang = document.json.treebank["_xml:lang"];
-      if (lang in this.languageSpecifics) {
-        return this.languageSpecifics[lang];
-      }
-
-      return undefined;
     };
   }
 ]);
