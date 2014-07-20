@@ -104,7 +104,12 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
           scope.total--;
         });
       },
-      template: '{{ unusedCount }} of {{ total }} unused'
+      template: '\
+        <span\
+          translate="UNUSED_COUNT"\
+          translate-value-count="{{ unusedCount }}"\
+          translate-value-total="{{ total }}">\
+      '
     };
   }
 ]);
