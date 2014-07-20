@@ -4,7 +4,10 @@
       No history events recorded.
     </p>
     <li ng-repeat="e in events" class="text">
-      <span ng-class="{ italic: $index === position }" history-event="e"/>
+      <span ng-switch="e.type" ng-class="{ italic: $index === position }">
+        <span ng-switch-when="batch" history-batch="e"/>
+        <span ng-switch-default history-event="e"/>
+      </span>
     </li>
   </ol>
 </div>

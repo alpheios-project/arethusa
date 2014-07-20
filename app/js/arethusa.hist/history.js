@@ -76,6 +76,7 @@ angular.module('arethusa.hist').service('history', [
     function BatchEvent() {
       var self = this;
       this.events = [];
+      this.type = 'batch';
 
       this.push = function(event) {
         self.events.push(event);
