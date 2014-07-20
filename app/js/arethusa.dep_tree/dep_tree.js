@@ -105,11 +105,11 @@ angular.module('arethusa.depTree').service('depTree', [
 
     // Used inside the context menu
     this.disconnect = function(token) {
-      token.head.id = "";
+      state.change(token, 'head.id', '');
     };
 
     this.toRoot = function(token) {
-      token.head.id = '0000';
+      state.change(token, 'head.id', '0000');
     };
 
     this.init = function () {

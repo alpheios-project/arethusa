@@ -49,7 +49,9 @@ describe("state", function() {
   }));
 
   var state;
-  beforeEach(inject(function(_state_) {
+  var $rootScope;
+  beforeEach(inject(function(_state_, _$rootScope_) {
+    $rootScope = _$rootScope_;
     state = _state_;
     state.tokens = createTokens();
   }));
@@ -483,6 +485,195 @@ describe("state", function() {
 
     it('returns an array of head ids', function() {
       expect(state.headsFor('01')).toEqual(['03', '04', '00']);
+    });
+  });
+
+  describe('this.broadcast()', function() {
+    it('broadcasts an event through $rootScope', function() {
+      var test;
+      $rootScope.$on('test', function(event, arg) {
+        test = { event: event, arg: arg };
+      });
+
+      expect(test).toBeUndefined();
+
+      state.broadcast('test', 'testArg');
+      expect(test.event.name).toEqual('test');
+      expect(test.arg).toEqual('testArg');
+    });
+  });
+
+  describe('this.on()', function() {
+    it('delegates to $rootScope.$on', function() {
+      var test;
+      state.on('test', function(event, arg) {
+        test = { event: event, arg: arg };
+      });
+
+      $rootScope.$broadcast('test', 'testArg');
+      expect(test.event.name).toEqual('test');
+      expect(test.arg).toEqual('testArg');
+    });
+  });
+
+  describe('this.change()', function() {
+    it('changes a state object through StateChange', function() {
+      var t1 = state.getToken('01');
+      expect(t1.head.id).toEqual('03');
+
+      state.change('01', 'head.id', '04');
+      expect(t1.head.id).toEqual('04');
+    });
+
+    it('broadcast a tokenChange event', function() {
+      var eventName;
+      state.on('tokenChange', function(event, change) {
+        eventName = event.name;
+      });
+
+      state.change('01', 'head.id', '04');
+      expect(eventName).toEqual('tokenChange');
+    });
+
+    it('passes the StateChange object to the event', function() {
+      var target;
+      state.on('tokenChange', function(event, change) {
+        target = change;
+      });
+
+      state.change('01', 'head.id', '04');
+      expect(target.token).toEqual(state.getToken('01'));
+      expect(target.newVal).toEqual('04');
+    });
+  });
+
+  describe('this.watch()', function() {
+    it('inits a watch for changes on a specific token property', function() {
+      var test;
+      state.watch('head.id', function(newVal, oldVal) {
+        test = { newVal: newVal, oldVal: oldVal };
+      });
+
+      state.change('01', 'head.id', '04');
+      expect(test.newVal).toEqual('04');
+      expect(test.oldVal).toEqual('03');
+    });
+
+    it('passes the StateChange obj as third arg to the listener function', function() {
+      var testToken;
+      state.watch('head.id', function(newVal, oldVal, event) {
+        testToken = event.token;
+      });
+
+      state.change('01', 'head.id', '04');
+      expect(testToken).toEqual(state.getToken('01'));
+    });
+
+    it('takes the special property * to listen to all changes', function() {
+      var test = 0;
+      state.watch('*', function() { test++; });
+
+      state.change('01', 'head.id', '04');
+      expect(test).toEqual(1);
+
+      state.change('02', 'string', 'x');
+      expect(test).toEqual(2);
+    });
+
+    it('returns a deregistering function', function() {
+      var test = 0;
+      var watch = state.watch('*', function() { test++; });
+
+      state.change('01', 'head.id', '04');
+      expect(test).toEqual(1);
+
+      watch();
+
+      state.change('02', 'string', 'x');
+      expect(test).toEqual(1);
+    });
+
+    it('takes a function called before deregistering as fourth argument', function() {
+      var destroyed;
+      var watch = state.watch('*',
+                              function() {},
+                              function() { destroyed = true; }
+                             );
+
+      state.change('01', 'head.id', '04');
+
+      expect(destroyed).toBeFalsy();
+      watch();
+      expect(destroyed).toBeTruthy();
+    });
+  });
+
+  describe('this.lazyChange()', function() {
+    it('creates a StateChange object, but does not resolve it', function() {
+      var t1 = state.getToken('01');
+      var change = state.lazyChange('01', 'head.id', '04');
+
+      expect(t1.head.id).toEqual('03');
+      change.exec();
+      expect(t1.head.id).toEqual('04');
+    });
+
+    it('does not fire events on its own', function() {
+      var on;
+      var watch;
+      state.on('tokenChange', function() { on = true; });
+      state.watch('*', function() { watch = true; });
+
+      state.lazyChange('01', 'head.id', '04');
+      expect(on).toBeFalsy();
+      expect(watch).toBeFalsy();
+    });
+  });
+
+  describe('this.doSilent()', function() {
+    it('calls a function in silent mode', function() {
+      var wasSilent = false;
+      var fn = function() { wasSilent = state.silent; };
+
+      expect(state.silent).toBeFalsy();
+
+      state.doSilent(fn);
+      expect(wasSilent).toBeTruthy();
+    });
+  });
+
+  describe('this.doBatched()', function() {
+    it('calls a function in batchChange mode', function() {
+      var wasBatchChange = false;
+      var fn = function() { wasBatchChange = state.batchChange; };
+
+      expect(state.batchChange).toBeFalsy();
+
+      state.doBatched(fn);
+      expect(wasBatchChange).toBeTruthy();
+    });
+  });
+
+  describe('this.batchChangeStart()', function() {
+    it('starts batchChangeMode', function() {
+      expect(state.batchChange).toBeFalsy();
+      state.batchChangeStart();
+      expect(state.batchChange).toBeTruthy();
+    });
+  });
+
+  describe('this.batchChangeStop()', function() {
+    it('stops batchChangeMode and broadcast an event', function() {
+      var listenerCalled = false;
+      state.on('batchChangeStop', function() {
+        listenerCalled = true;
+      });
+
+      state.batchChangeStart();
+      expect(state.batchChange).toBeTruthy();
+      state.batchChangeStop();
+      expect(state.batchChange).toBeFalsy();
+      expect(listenerCalled).toBeTruthy();
     });
   });
 });

@@ -6,7 +6,9 @@ angular.module('arethusa.core').service('state', [
   'documentStore',
   'keyCapture',
   '$location',
-  function (configurator, navigator, $rootScope, documentStore, keyCapture, $location) {
+  'StateChange',
+  function (configurator, navigator, $rootScope, documentStore, keyCapture,
+            $location, StateChange) {
     var self = this;
     var tokenRetrievers;
 
@@ -17,6 +19,14 @@ angular.module('arethusa.core').service('state', [
     function configure() {
       self.conf = configurator.configurationFor('main');
       tokenRetrievers = configurator.getRetrievers(self.conf.retrievers);
+
+      // We start silent - during init we don't want to track events
+      self.silent = true;
+
+      // Listeners to changes might be interested in recording several
+      // little changes as one single step. Plugins can look at this var
+      // so that they can adjust accordingly.
+      self.batchChange = false;
     }
 
     // We hold tokens locally during retrieval phase.
@@ -128,21 +138,25 @@ angular.module('arethusa.core').service('state', [
       });
     }
 
+
     this.changeHead = function (tokenId, newHeadId) {
       if (self.headsFor(newHeadId).indexOf(tokenId) !== -1) {
         self.tokens[newHeadId].head.id = self.tokens[tokenId].head.id;
       }
-      self.tokens[tokenId].head.id = newHeadId;
+      var token = self.getToken(tokenId);
+      self.change(token, 'head.id', newHeadId);
     };
 
     this.handleChangeHead = function (newHeadId, type) {
       var preventSelection = false;
-      angular.forEach(this.selectedTokens, function (type, index) {
+      angular.forEach(self.selectedTokens, function (type, index) {
         if (self.headCanBeChanged(index, newHeadId, type)) {
+          if (!self.batchChange) self.batchChangeStart();
           self.changeHead(index, newHeadId);
           preventSelection = preventSelection || true;
         }
       });
+      if (self.batchChange) self.batchChangeStop();
       return preventSelection;
     };
 
@@ -283,7 +297,9 @@ angular.module('arethusa.core').service('state', [
       });
     };
 
+    // DEPRECATED
     this.setState = function (id, category, val) {
+      arethusaLogger.log('state.setState is DEPRECATED. Use state.change() instead.');
       var token = this.tokens[id];
       var oldVal = token[category];
       this.fireEvent(token, category, oldVal, val);
@@ -372,13 +388,83 @@ angular.module('arethusa.core').service('state', [
       self.countTotalTokens();
     };
 
-    // New event handling through $rootScope
+    this.lazyChange = function(tokenOrId, property, newVal, undoFn, preExecFn) {
+      return new StateChange(self, tokenOrId, property, newVal, undoFn, preExecFn);
+    };
+
+    this.change = function(tokenOrId, property, newVal, undoFn, preExecFn) {
+      var event = self.lazyChange(tokenOrId, property, newVal, undoFn, preExecFn);
+      event.exec();
+
+      // It might seem redundant to broadcast this event, when listeners
+      // could just use state.watch().
+      // But it's not: Depending the time of init, a listener might not
+      // have the chance to inject state - he has to listen through a
+      // $scope then. In addition, $on brings some additional info about
+      // the scope in use etc., which might be handy at times. We won't
+      // replicate this in state.watch(), as most of the time it's overkill.
+      self.broadcast('tokenChange', event);
+      notifiyWatchers(event);
+      return event;
+    };
+
+    function notifiyWatchers(event) {
+      function execWatch(watch) { watch.exec(event.newVal, event.oldVal, event); }
+
+      var watchers = changeWatchers[event.property] || [];
+
+      angular.forEach(watchers, execWatch);
+      angular.forEach(changeWatchers['*'], execWatch);
+    }
+
+
+    var changeWatchers = { '*' : [] };
+
+    function EventWatch(event, fn, destroyFn, watchers) {
+      var self = this;
+      this.event = event;
+      this.exec = fn;
+      this.destroy = function() {
+        if (destroyFn) destroyFn();
+        watchers.splice(watchers.indexOf(self), 1);
+      };
+    }
+
+    this.watch = function(event, fn, destroyFn) {
+      var watchers = changeWatchers[event];
+      if (!watchers) watchers = changeWatchers[event] = [];
+      var watch = new EventWatch(event, fn, destroyFn, watchers);
+      watchers.push(watch);
+      return watch.destroy;
+    };
+
     this.on = function(event, fn) {
       $rootScope.$on(event, fn);
     };
 
     this.broadcast = function(event, arg) {
       $rootScope.$broadcast(event, arg);
+    };
+
+    this.doSilent = function(fn) {
+      self.silent = true;
+      fn();
+      self.silent = false;
+    };
+
+    this.doBatched = function(fn) {
+      self.batchChangeStart();
+      fn();
+      self.batchChangeStop();
+    };
+
+    this.batchChangeStart = function() {
+      self.batchChange = true;
+    };
+
+    this.batchChangeStop = function() {
+      self.batchChange = false;
+      self.broadcast('batchChangeStop');
     };
 
     this.postInit = function () {

@@ -533,3 +533,12 @@ input.compact {
 .crosshair-cursor {
   cursor: crosshair !important;
 }
+
+.current-hist-event {
+  background-color: #C8E5FF;
+  transition: background-color 700ms ease-in-out;
+}
+
+.hist-event {
+  transition: background-color 300ms ease-in-out;
+}

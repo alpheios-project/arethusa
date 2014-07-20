@@ -94,10 +94,7 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       recountATs();
     }
 
-    this.removeToken = function(id) {
-      state.removeToken(id);
-      removeArtificialToken(id);
-    };
+    this.removeToken = state.removeToken;
 
     function findNextNewId(id) {
       var artificialIds = Object.keys(self.createdTokens);
@@ -116,10 +113,17 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       }
       newId = findNextNewId(newId);
       self.model.id = newId;
-      addArtificialToken(newId, self.model);
       state.addToken(self.model, newId);
       resetModel();
     };
+
+    state.on('tokenAdded', function(event, token) {
+      addArtificialToken(token.id, token);
+    });
+
+    state.on('tokenRemoved', function(event, token) {
+      removeArtificialToken(token.id);
+    });
 
 
     this.init = function() {

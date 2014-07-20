@@ -21,6 +21,7 @@ describe('MainCtrl', function() {
       }
     };
     var saver = { init: function() {} };
+    var history = { init: function() {} };
     var kC = { initCaptures: function() {} };
 
     var mainCtrlInits = {
@@ -29,7 +30,8 @@ describe('MainCtrl', function() {
       state: state,
       notifier: notifier,
       saver: saver,
-      keyCapture: kC
+      keyCapture: kC,
+      history: history
     };
 
     var ctrl = $controller('MainCtrl', mainCtrlInits);

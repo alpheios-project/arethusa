@@ -1,3 +1,8 @@
+// DEPRECATED in this form - we have a much nicer API through state events
+// now - we'll update this later, when we need it.
+//
+// Is NOT functional atm.
+
 'use strict';
 window.arethusaInitPlugin = function (name, fn) {
   var templateCode = fn();

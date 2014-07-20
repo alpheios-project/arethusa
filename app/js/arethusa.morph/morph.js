@@ -202,10 +202,15 @@ angular.module('arethusa.morph').service('morph', [
       return a.lemma === b.lemma && a.postag === b.postag;
     }
 
+    function selectedForm(id) {
+      return state.getToken(id).morphology;
+    }
+
     function preselectForm(form, id) {
-      var currentSel = state.getToken(id).morphology;
-      if (form && currentSel !== form) {
-        self.setState(id, form);
+      if (form && selectedForm(id) !== form) {
+        state.doSilent(function() {
+          self.setState(id, form);
+        });
       }
     }
 
@@ -304,14 +309,28 @@ angular.module('arethusa.morph').service('morph', [
       });
     }
 
+    function undoFn(id) {
+      var current = selectedForm(id);
+      if (current) {
+        return function() { self.setState(id, current); };
+      } else
+        return function() { self.unsetState(id); };
+    }
+
+    function preExecFn(id, form) {
+      return function() {
+        deleteFromIndex(id);
+        addToIndex(form, id);
+        deselectAll(id);
+        form.selected = true;
+        state.addStyle(id, self.styleOf(form));
+      };
+    }
+
     this.setState = function (id, form) {
-      deleteFromIndex(id);
-      addToIndex(form, id);
-      deselectAll(id);
-      form.selected = true;
-      state.addStyle(id, self.styleOf(form));
-      state.setState(id, 'morphology', form);
+      state.change(id, 'morphology', form, undoFn(id), preExecFn(id, form));
     };
+
     this.unsetState = function (id) {
       deleteFromIndex(id);
       deselectAll(id);

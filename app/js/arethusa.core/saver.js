@@ -4,7 +4,8 @@ angular.module('arethusa.core').service('saver', [
   'configurator',
   'notifier',
   'keyCapture',
-  function(configurator, notifier, keyCapture) {
+  'state',
+  function(configurator, notifier, keyCapture, state) {
     var self = this;
     var persisters;
 
@@ -32,6 +33,8 @@ angular.module('arethusa.core').service('saver', [
     }
 
     function success(res) {
+      self.needsSave = false;
+      setChangeWatch();
       notifier.success('Document saved!');
     }
 
@@ -41,19 +44,23 @@ angular.module('arethusa.core').service('saver', [
       // The save succeeds anyway - print the success message in such a
       // case as to not confuse the user...
       if (res.status == 406) {
-        notifier.success('Document saved!');
+        success();
       } else {
         notifier.error('Failed to save! Try again?');
       }
     }
 
     this.save = function() {
-      notifier.info('Saving...');
-      // We only have one persister right now, later we'll want
-      // to handle the success notification better.
-      angular.forEach(persisters, function(persister, name) {
-        persister.saveData(success, error);
-      });
+      if (self.needsSave) {
+        notifier.info('Saving...');
+        // We only have one persister right now, later we'll want
+        // to handle the success notification better.
+        angular.forEach(persisters, function(persister, name) {
+          persister.saveData(success, error);
+        });
+      } else {
+        notifier.info('Nothing to save yet!');
+      }
     };
 
     keyCapture.initCaptures(function(kC) {
@@ -64,10 +71,19 @@ angular.module('arethusa.core').service('saver', [
       };
     });
 
+    var changeWatch;
+    function setChangeWatch() {
+      changeWatch = state.watch('*', function() {
+        self.needsSave = true;
+        changeWatch();
+      });
+    }
+
     this.init = function(newPersisters) {
       reset();
       getPersisters();
       updateStatus();
+      setChangeWatch();
     };
   }
 ]);
