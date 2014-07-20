@@ -3,8 +3,11 @@
     <p ng-if="events.length === 0" class="text">
       No history events recorded.
     </p>
-    <li ng-repeat="e in events" class="text">
-      <span ng-switch="e.type" ng-class="{ italic: $index === position }">
+    <li
+      ng-repeat="e in events"
+      ng-class="{ 'current-hist-event': $index === position }"
+      class="text">
+      <span ng-switch="e.type" >
         <span ng-switch-when="batch" history-batch="e"/>
         <span ng-switch-default history-event="e"/>
       </span>
