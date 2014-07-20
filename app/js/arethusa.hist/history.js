@@ -47,7 +47,7 @@ angular.module('arethusa.hist').service('history', [
       return self.events[self.position];
     }
 
-    function saveEvent(event) {
+    this.saveEvent = function(event) {
       if (state.silent) return;
 
       var events = self.events;
@@ -56,7 +56,7 @@ angular.module('arethusa.hist').service('history', [
       self.position = 0;
       events.unshift(event);
       checkAvailability();
-    }
+    };
 
     function checkAvailability() {
       var any = self.events.length > 0;
@@ -65,7 +65,7 @@ angular.module('arethusa.hist').service('history', [
     }
 
     state.watch('*', function(n, o, event) {
-      saveEvent(event);
+      self.saveEvent(event);
     });
 
     function HistEvent(token, type) {
@@ -94,12 +94,12 @@ angular.module('arethusa.hist').service('history', [
 
     state.on('tokenAdded', function(event, token) {
       var histEvent = new HistEvent(token, 'add');
-      saveEvent(histEvent);
+      self.saveEvent(histEvent);
     });
 
     state.on('tokenRemoved', function(event, token) {
       var histEvent = new HistEvent(token, 'remove');
-      saveEvent(histEvent);
+      self.saveEvent(histEvent);
     });
 
     this.init = function() {
