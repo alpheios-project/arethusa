@@ -73,8 +73,30 @@ angular.module('arethusa.hist').service('history', [
       }
     };
 
+    function BatchEvent() {
+      var self = this;
+      this.events = [];
+
+      this.push = function(event) {
+        self.events.push(event);
+      };
+
+      this.count = function() {
+        return self.events.length;
+      };
+
+      this.pop = function() {
+        return self.events.pop();
+      };
+    }
+
+    var batchedEvent = new BatchEvent();
     this.saveEvent = function(event) {
       if (state.silent) return;
+      if (state.batchChange) {
+        batchedEvent.push(event);
+        return;
+      }
 
       var events = self.events;
       if (events.length === self.maxSize) events.pop();
@@ -101,6 +123,15 @@ angular.module('arethusa.hist').service('history', [
     state.on('tokenRemoved', function(event, token) {
       var histEvent = new HistEvent(token, 'remove');
       self.saveEvent(histEvent);
+    });
+
+    state.on('batchChangeStop', function() {
+      // We are a little careless with setting the batch mode -
+      // if the batch event has only a single event anyway,
+      // we save this and not the whole BatchEvent.
+      var e = batchedEvent.count() === 1 ? batchedEvent.pop() : batchedEvent;
+      self.events.unshift(e);
+      batchedEvent = new BatchEvent();
     });
 
 
