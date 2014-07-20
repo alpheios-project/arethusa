@@ -69,9 +69,7 @@ angular.module('arethusa.core').service('keyCapture', [
     }
 
     function modifiers(keys) {
-      return arethusaUtil.inject([], keys.modifiers, function(memo, i, key) {
-        memo.push(key);
-      });
+      return Object.keys(keys.modifiers);
     }
 
     var lookUpKey = [];
@@ -79,7 +77,13 @@ angular.module('arethusa.core').service('keyCapture', [
       var res = [];
       var keys = keysFor(language);
       var key = CodesToKeys[event.keyCode];
+      var mod = keys.modifiers;
       if (key) {
+        // We don't want to match 'shift' as a key, so
+        // we return if it's the case.
+        if (key == 'shift') {
+          return;
+        }
         if (event.shiftKey) {
           res.push('shift');
         }
@@ -101,10 +105,21 @@ angular.module('arethusa.core').service('keyCapture', [
       }
 
       var lookUp = lookUpKey.concat(res);
-      var foreignKey = keys[lookUp.join('-')];
+      var sortedLookUp = sortLookUp(lookUp, mod);
+      var foreignKey = keys[sortedLookUp.join('-')];
       lookUpKey = [];
       return foreignKey;
     };
+
+    function sortLookUp(lookUp, modifiers) {
+      var lastItem = lookUp.length - 1;
+      var letter = lookUp[lastItem];
+      var mod = lookUp.slice(0, lastItem);
+      mod.sort(function(a,b) {
+        return modifiers[a]-modifiers[b];
+      });
+      return mod.concat(letter);
+    }
 
     function keysFor(language) {
       var keys = (self.conf('keys') || {})[language];
