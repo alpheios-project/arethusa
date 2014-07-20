@@ -26,21 +26,17 @@ angular.module('arethusa').config([
   '$translateProvider',
   'MAIN_ROUTE',
   'CONF_ROUTE',
-  function ($routeProvider, $translateProvider, MAIN_ROUTE, CONF_ROUTE) {
+  function ($routeProvider, $translateProvider,
+            MAIN_ROUTE, CONF_ROUTE) {
     $routeProvider.when('/', MAIN_ROUTE);
     $routeProvider.when('/conf_editor', CONF_ROUTE);
     $routeProvider.when('/:conf', MAIN_ROUTE);
     $routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
 
     $translateProvider
-      .translations('en', {
-        SEARCH_DOCUMENTS: 'Search for documents',
-        LANGUAGE: 'Language'
-      })
-
-      .translations('de', {
-        SEARCH_DOCUMENTS: 'Suche Dokumente',
-        LANGUAGE: 'Sprache'
+      .useStaticFilesLoader({
+        prefix: 'static/i18n/',
+        suffix: '.json'
       })
 
       .determinePreferredLanguage()
