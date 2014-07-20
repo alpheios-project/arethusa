@@ -7,12 +7,8 @@ angular.module('arethusa.core').directive('translateLanguage', [
       restrict: 'A',
       scope: {},
       link: function(scope, element, attrs) {
-        function normalizedCurrentKey(key) {
-          return key ? key.split('_')[0] : 'en';
-        }
-
         function useKey(key) {
-          scope.langKey = key || normalizedCurrentKey($translate.use());
+          scope.langKey = key || $translate.use();
           $translate.use(scope.langKey);
         }
 

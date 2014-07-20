@@ -38,7 +38,10 @@ angular.module('arethusa').config([
         prefix: 'static/i18n/',
         suffix: '.json'
       })
-
+      .registerAvailableLanguageKeys(['en', 'de'], {
+        'en_*' : 'en',
+        'de_*' : 'de'
+      })
       .determinePreferredLanguage()
       .fallbackLanguage('en');
   }
