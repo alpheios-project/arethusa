@@ -1,1 +1,5 @@
-angular.module('arethusa.core', ['ngResource','ngCookies', 'duScroll']);
+angular.module('arethusa.core', [
+  'ngResource',
+  'ngCookies',
+  'duScroll'
+]);
