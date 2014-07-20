@@ -177,7 +177,7 @@
         "hide" : false,
         "lower" : "⇪",
         "style" : {
-          "class" : "capslock first-key"
+          "class" : "capslock first-key shifter"
         }
       },
       "a" : {
@@ -246,7 +246,7 @@
         "hide" : false,
         "lower" : "⇧",
         "style" : {
-          "class" : "l-shift first-key"
+          "class" : "l-shift first-key shifter"
         }
       },
       "z" : {
@@ -303,7 +303,7 @@
         "hide" : false,
         "lower" : "⇧",
         "style" : {
-          "class" : "last-key shift"
+          "class" : "last-key shift shifter"
         }
       },
       "l-ctrl" : {

@@ -324,6 +324,8 @@ angular.module('arethusa.core').service('keyCapture', [
     function pushKeys(fKeys, kKey, cas) {
       var display = kKey.show;
       var typeCase = kKey[cas];
+      if (!typeCase) return;
+
       if (fKeys[typeCase]) {
         display.push(fKeys[typeCase]);
       } else {
@@ -332,14 +334,17 @@ angular.module('arethusa.core').service('keyCapture', [
       }
     }
 
-    this.mappedKeyboard = function(language) {
+    this.mappedKeyboard = function(language, shifted) {
       var fKeys = keysFor(language);
       var keyboardKeys = usKeyboardLayout();
       var res = [];
+      var modes = ['lower', 'upper'];
+      modes = shifted ? modes.reverse() : modes;
       angular.forEach(keyboardKeys, function(kKey, i) {
         kKey.show = [];
-        pushKeys(fKeys, kKey, "lower");
-        pushKeys(fKeys, kKey, "upper");
+        angular.forEach(modes, function(mode, i) {
+          pushKeys(fKeys, kKey, mode);
+        });
         res.push(kKey);
       });
       return res;
