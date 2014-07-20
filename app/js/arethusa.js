@@ -44,6 +44,6 @@ angular.module('arethusa').config([
       })
 
       .determinePreferredLanguage()
-      .fallbackLanguage('de');
+      .fallbackLanguage('en');
   }
 ]);
