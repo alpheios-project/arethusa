@@ -1,4 +1,5 @@
-<div class="small-12 columns">
+<span ng-click="visible = !visible">⌨</span>
+<div class="small-12 columns" ng-show="visible">
   <ul id="keyboard">
     <li ng-repeat="key in keys"
       ng-class="key.style.class"
