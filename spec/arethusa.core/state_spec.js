@@ -641,4 +641,39 @@ describe("state", function() {
       expect(wasSilent).toBeTruthy();
     });
   });
+
+  describe('this.doBatched()', function() {
+    it('calls a function in batchChange mode', function() {
+      var wasBatchChange = false;
+      var fn = function() { wasBatchChange = state.batchChange; };
+
+      expect(state.batchChange).toBeFalsy();
+
+      state.doBatched(fn);
+      expect(wasBatchChange).toBeTruthy();
+    });
+  });
+
+  describe('this.batchChangeStart()', function() {
+    it('starts batchChangeMode', function() {
+      expect(state.batchChange).toBeFalsy();
+      state.batchChangeStart();
+      expect(state.batchChange).toBeTruthy();
+    });
+  });
+
+  describe('this.batchChangeStop()', function() {
+    it('stops batchChangeMode and broadcast an event', function() {
+      var listenerCalled = false;
+      state.on('batchChangeStop', function() {
+        listenerCalled = true;
+      });
+
+      state.batchChangeStart();
+      expect(state.batchChange).toBeTruthy();
+      state.batchChangeStop();
+      expect(state.batchChange).toBeFalsy();
+      expect(listenerCalled).toBeTruthy();
+    });
+  });
 });

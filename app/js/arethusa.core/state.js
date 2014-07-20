@@ -22,6 +22,11 @@ angular.module('arethusa.core').service('state', [
 
       // We start silent - during init we don't want to track events
       self.silent = true;
+
+      // Listeners to changes might be interested in recording several
+      // little changes as one single step. Plugins can look at this var
+      // so that they can adjust accordingly.
+      self.batchChange = false;
     }
 
     // We hold tokens locally during retrieval phase.
@@ -381,11 +386,6 @@ angular.module('arethusa.core').service('state', [
       self.countTotalTokens();
     };
 
-    // New event handling through $rootScope
-    this.on = function(event, fn) {
-      $rootScope.$on(event, fn);
-    };
-
     this.lazyChange = function(tokenOrId, property, newVal, undoFn, preExecFn) {
       return new StateChange(self, tokenOrId, property, newVal, undoFn, preExecFn);
     };
@@ -436,6 +436,10 @@ angular.module('arethusa.core').service('state', [
       return watch.destroy;
     };
 
+    this.on = function(event, fn) {
+      $rootScope.$on(event, fn);
+    };
+
     this.broadcast = function(event, arg) {
       $rootScope.$broadcast(event, arg);
     };
@@ -444,6 +448,21 @@ angular.module('arethusa.core').service('state', [
       self.silent = true;
       fn();
       self.silent = false;
+    };
+
+    this.doBatched = function(fn) {
+      self.batchChangeStart();
+      fn();
+      self.batchChangeStop();
+    };
+
+    this.batchChangeStart = function() {
+      self.batchChange = true;
+    };
+
+    this.batchChangeStop = function() {
+      self.batchChange = false;
+      self.broadcast('batchChangeStop');
     };
 
     this.postInit = function () {
