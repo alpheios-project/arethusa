@@ -34,11 +34,13 @@ angular.module('arethusa').config([
 
     $translateProvider
       .translations('en', {
-        SEARCH_DOCUMENTS: 'Search for documents'
+        SEARCH_DOCUMENTS: 'Search for documents',
+        LANGUAGE: 'Language'
       })
 
       .translations('de', {
-        SEARCH_DOCUMENTS: 'Suche Dokumente'
+        SEARCH_DOCUMENTS: 'Suche Dokumente',
+        LANGUAGE: 'Sprache'
       })
 
       .determinePreferredLanguage()
