@@ -89,6 +89,32 @@ angular.module('arethusa.hist').service('history', [
       this.pop = function() {
         return self.events.pop();
       };
+
+      function silentBatch(fn) {
+        doSilent(function() {
+          state.doBatched(fn);
+        });
+      }
+
+      function multiExec() {
+        angular.forEach(self.events, function(event, i) {
+          event.exec();
+        });
+      }
+
+      function multiUndo() {
+        angular.forEach(self.events, function(event, i) {
+          event.undo();
+        });
+      }
+
+      this.exec = function() {
+        silentBatch(multiExec);
+      };
+
+      this.undo = function() {
+        silentBatch(multiUndo);
+      };
     }
 
     var batchedEvent = new BatchEvent();
@@ -127,11 +153,15 @@ angular.module('arethusa.hist').service('history', [
     });
 
     state.on('batchChangeStop', function() {
+      // We don't want to listen for batchUndo/batchRedo
+      if (state.silent) return;
+
       // We are a little careless with setting the batch mode -
       // if the batch event has only a single event anyway,
       // we save this and not the whole BatchEvent.
       var e = batchedEvent.count() === 1 ? batchedEvent.pop() : batchedEvent;
       self.events.unshift(e);
+      checkAvailability();
       batchedEvent = new BatchEvent();
     });
 
