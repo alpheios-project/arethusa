@@ -1,7 +1,13 @@
 'use strict';
+
+// TODO
+//
+// Extract a foreignKeys service which handles common operations
+
 angular.module('arethusa.core').directive('foreignKeysHelp', [
   'keyCapture',
-  function(keyCapture) {
+  'languageSettings',
+  function(keyCapture, languageSettings) {
     return {
       restrict: 'AE',
       link: function(scope, element, attr) {
@@ -11,7 +17,8 @@ angular.module('arethusa.core').directive('foreignKeysHelp', [
         var shifters;
 
         function generateKeys() {
-          scope.keys = keyCapture.mappedKeyboard('gr', scope.shifted);
+          var lang = (languageSettings.getFor('treebank') || languageSettings.getFor('hebrewMorph') || {}).lang;
+          scope.keys = keyCapture.mappedKeyboard(lang, scope.shifted);
         }
 
         function bindShift() {
