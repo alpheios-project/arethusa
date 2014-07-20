@@ -24,7 +24,7 @@ angular.module('arethusa.hist').directive('histUndo', [
           scope.$apply(history.undo());
         });
       },
-      template: '<i title="Undo" ng-click="history.undo()" class="fa fa-undo"/>'
+      template: '<i title="Undo" class="fa fa-undo"/>'
     };
   }
 ]);
