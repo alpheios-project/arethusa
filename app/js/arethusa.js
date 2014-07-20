@@ -38,11 +38,21 @@ angular.module('arethusa').config([
         prefix: 'static/i18n/',
         suffix: '.json'
       })
-      .registerAvailableLanguageKeys(['en', 'de'], {
-        'en_*' : 'en',
-        'de_*' : 'de'
-      })
-      .determinePreferredLanguage()
-      .fallbackLanguage('en');
+
+      // Right now we only support English. Still many strings we need to
+      // change to the new translate syntax. Once we've made progress with it,
+      // we activate it again.
+      // The reason we include it right now is that we want to use it for all
+      // future strings. We're too far behind on l10n/i18n matters - don't want
+      // to make the situation worse.
+      //
+      //.registerAvailableLanguageKeys(['en', 'de'], {
+        //'en_*' : 'en',
+        //'de_*' : 'de'
+      //})
+      //.determinePreferredLanguage()
+      //.fallbackLanguage('en');
+      .registerAvailableLanguageKeys(['en'])
+      .preferredLanguage('en');
   }
 ]);
