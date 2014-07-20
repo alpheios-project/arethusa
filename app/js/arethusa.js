@@ -17,12 +17,31 @@ angular.module('arethusa', [
   'arethusa.relation',
   'arethusa.sg',
   'arethusa.text',
-  'arethusa.artificialToken',
-  'arethusa.hebrewMorph'
-], ['$routeProvider', 'MAIN_ROUTE', 'CONF_ROUTE',
-function ($routeProvider, MAIN_ROUTE, CONF_ROUTE) {
-  $routeProvider.when('/', MAIN_ROUTE);
-  $routeProvider.when('/conf_editor', CONF_ROUTE);
-  $routeProvider.when('/:conf', MAIN_ROUTE);
-  $routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
-}]);
+  'arethusa.hebrewMorph',
+  'arethusa.artificialToken'
+]);
+
+angular.module('arethusa').config([
+  '$routeProvider',
+  '$translateProvider',
+  'MAIN_ROUTE',
+  'CONF_ROUTE',
+  function ($routeProvider, $translateProvider, MAIN_ROUTE, CONF_ROUTE) {
+    $routeProvider.when('/', MAIN_ROUTE);
+    $routeProvider.when('/conf_editor', CONF_ROUTE);
+    $routeProvider.when('/:conf', MAIN_ROUTE);
+    $routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
+
+    $translateProvider
+      .translations('en', {
+        SEARCH_DOCUMENTS: 'Search for documents'
+      })
+
+      .translations('de', {
+        SEARCH_DOCUMENTS: 'Suche Dokumente'
+      })
+
+      .determinePreferredLanguage()
+      .fallbackLanguage('de');
+  }
+]);
