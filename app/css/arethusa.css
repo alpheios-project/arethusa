@@ -615,7 +615,7 @@ li.keyboard-key {
   margin: 0 5px 5px 0;
   width: 40px;
   height: 40px;
-  line-height: 40px;
+  line-height: 35px;
   text-align: center;
   background: #fff;
   border: 1px solid #c9c9c9;
@@ -625,6 +625,10 @@ li.keyboard-key {
 
 li.keyboard-key:hover {
   background-color: aliceblue;
+}
+
+#keyboard {
+  width: 685px;
 }
 
 #keyboard .last-key {
