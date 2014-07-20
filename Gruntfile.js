@@ -109,6 +109,8 @@ module.exports = function(grunt) {
             './bower_components/angular-resource/angular-resource.js',
             './bower_components/angular-cookies/angular-cookies.js',
             './bower_components/angular-scroll/angular-scroll.js',
+            './bower_components/angular-translate/angular-translate.js',
+            './bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
             './bower_components/angulartics/dist/angulartics.min.js',
             './bower_components/angulartics/dist/angulartics-ga.min.js',
             './bower_components/x2js/xml2json.min.js',

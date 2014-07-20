@@ -1,0 +1,5 @@
+{
+  "SEARCH_DOCUMENTS": "Search for documents",
+  "LANGUAGE": "Language",
+  "UNUSED_COUNT": "{{ count }} of {{ total }} unused"
+}
