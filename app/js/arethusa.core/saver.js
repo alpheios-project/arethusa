@@ -63,13 +63,15 @@ angular.module('arethusa.core').service('saver', [
       }
     };
 
-    keyCapture.initCaptures(function(kC) {
+    this.activeKeys = {};
+    var keys = keyCapture.initCaptures(function(kC) {
       return {
         saver: [
           kC.create('save', function() { self.save(); })
         ]
       };
     });
+    angular.extend(self.activeKeys, keys.saver);
 
     var changeWatch;
     function setChangeWatch() {

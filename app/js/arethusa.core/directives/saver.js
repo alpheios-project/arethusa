@@ -5,6 +5,7 @@ angular.module('arethusa.core').directive('saver', [
   function(saver) {
     return {
       restrict: 'A',
+      scope: {},
       link: function(scope, element, attrs) {
         scope.saver = saver;
         var saveWatch;
@@ -42,7 +43,11 @@ angular.module('arethusa.core').directive('saver', [
         function removeSaveWatch() {
           if (saveWatch) saveWatch();
         }
-      }
+
+        var hint = arethusaUtil.formatKeyHint(saver.activeKeys.save);
+        scope.title = "Save " + hint;
+      },
+      template: '<i title="{{ title }}" class="fi-save"/>'
     };
   }
 ]);
