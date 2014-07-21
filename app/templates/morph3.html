@@ -24,9 +24,9 @@
     <p ng-if="plugin.gloss">
       <label>Gloss
         <input
-          foreign-keys
           class="compact"
           type="text"
+          ng-change="plugin.updateGloss(id)"
           ng-model="analysis.gloss">
         </input>
       </label>

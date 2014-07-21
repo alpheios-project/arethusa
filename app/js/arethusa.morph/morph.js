@@ -356,7 +356,18 @@ angular.module('arethusa.morph').service('morph', [
       };
     }
 
+    this.updateGloss = function(id, form) {
+      if (self.gloss) {
+        var gloss = self.analyses[id].gloss;
+        if (gloss) {
+          form = form || selectedForm(id);
+          form.gloss = gloss;
+        }
+      }
+    };
+
     this.setState = function (id, form) {
+      self.updateGloss(id, form);
       state.change(id, 'morphology', form, undoFn(id), preExecFn(id, form));
     };
 
