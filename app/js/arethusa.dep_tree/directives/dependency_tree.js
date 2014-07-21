@@ -685,7 +685,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Initialize some more starting values
         calculateSvgHotspots();
-        keyCapture.initCaptures(keyBindings);
+        var keys = keyCapture.initCaptures(keyBindings);
+
+        scope.keyHints = arethusaUtil.inject({}, keys.tree, function(memo, name, key) {
+          memo[name] = arethusaUtil.formatKeyHint(key);
+        });
       },
     };
   }
