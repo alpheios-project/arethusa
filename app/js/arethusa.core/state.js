@@ -472,7 +472,9 @@ angular.module('arethusa.core').service('state', [
       self.countTotalTokens();
     };
 
-    keyCapture.initCaptures(function(kC) {
+    this.activeKeys = {};
+
+    var keys = keyCapture.initCaptures(function(kC) {
       return {
         selections: [
           kC.create('nextToken', function() { kC.doRepeated(self.selectNextToken); }),
@@ -481,6 +483,8 @@ angular.module('arethusa.core').service('state', [
         ]
       };
     });
+    angular.extend(self.activeKeys, keys.selections);
+
 
     this.init = function () {
       configure();
