@@ -1,0 +1,100 @@
+{
+  "nested" : {
+    "ATR_PRT" : {
+      "short" : "ATR_PRT",
+      "long" : "attributive",
+      "sections" : "2049-2053"
+    },
+    "CRC_PRT" : {
+      "short" : "CRC_PRT",
+      "long" : "circumstantial",
+      "sections" : "2054-2087",
+      "nested" : {
+        "TMP_PRT" : {
+          "short" : "TMP_PRT",
+          "long" : "time",
+          "sections" : "2061"
+        },
+        "MNN_PRT" : {
+          "short" : "MNN_PRT",
+          "long" : "manner",
+          "sections" : "2062"
+        },
+        "MNS_PRT" : {
+          "short" : "MNS_PRT",
+          "long" : "means",
+          "sections" : "2063"
+        },
+        "CAU_PRT" : {
+          "short" : "CAU_PRT",
+          "long" : "cause",
+          "sections" : "2064"
+        },
+        "PRP_PRT" : {
+          "short" : "PRP_PRT",
+          "long" : "purpose",
+          "sections" : "2065"
+        },
+        "CNC_PRT" : {
+          "short" : "CNC_PRT",
+          "long" : "concession",
+          "sections" : "2066"
+        },
+        "CND_PRT" : {
+          "short" : "CND_PRT",
+          "long" : "condition",
+          "sections" : "2067"
+        },
+        "ATD_PRT" : {
+          "short" : "ATD_PRT",
+          "long" : "of any attendant circumstance",
+          "sections" : "2068"
+        },
+        "CRC_NAB" : {
+          "short" : "CRC_NAB",
+          "long" : "none of the above"
+        },
+        "CRC_IDK" : {
+          "short" : "CRC_IDK",
+          "long" : "I do not know"
+        }
+      }
+    },
+    "SPL_PRT" : {
+      "short" : "SPL_PRT",
+      "long" : "supplementary",
+      "sections" : "2088-2148",
+      "nested" : {
+        "IND_PRT" : {
+          "short" : "IND_PRT",
+          "long" : "in indirect discourse"
+        },
+        "NIN_PRT" : {
+          "short" : "NIN_PRT",
+          "long" : "not in indirect discourse"
+        },
+        "SPL_NAB" : {
+          "short" : "SPL_NAB",
+          "long" : "none of the above"
+        },
+        "SPL_IDK" : {
+          "short" : "SPL_IDK",
+          "long" : "I do not know"
+        }
+      }
+    },
+    "PRH_PRT" : {
+      "short" : "PRH_PRT",
+      "long" : "periphrastic",
+      "sections" : "2091"
+    },
+    "ADJ_PRT_NAB" : {
+      "short" : "ADJ_PRT_NAB",
+      "long" : "none of the above"
+    },
+    "ADJ_PRT_IDK" : {
+      "short" : "ADJ_PRT_IDK",
+      "long" : "I do not know"
+    } 
+  }
+}

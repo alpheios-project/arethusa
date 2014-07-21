@@ -1,0 +1,132 @@
+{
+  "nested" : {
+    "DPN" : {
+      "short" : "DPN",
+      "long" : "dependent",
+      "nested" : {
+        "EFF" : {
+          "short" : "EFF",
+          "long" : "internal object",
+          "sections" : "1563-1577",
+          "nested" : {
+            "CGN" : {
+              "short" : "CGN",
+              "long" : "of result/cognate",
+              "sections" : "1563-1579"
+            },
+            "NAB" : {
+              "short" : "NAB",
+              "long" : "none of the above"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
+          }
+        },
+        "AFF" : {
+          "short" : "AFF",
+          "long" : "external object",
+          "sections" : "1590-1598"
+        },
+        "EXT" : {
+          "short" : "EXT",
+          "long" : "extent",
+          "sections" : "1580-1587",
+          "nested" : {
+            "TMP" : {
+              "short" : "TMP",
+              "long" : "time",
+              "sections" : "1582-1587"
+            },
+            "SPC" : {
+              "short" : "SPC",
+              "long" : "space",
+              "sections" : "1581"
+            },
+            "NAB" : {
+              "short" : "NAB",
+              "long" : "none of the above"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
+            }
+          }
+        },
+        "TRM" : {
+          "short" : "TRM",
+          "long" : "terminal of space",
+          "sections" : "1588-1589"
+        },
+        "RSP" : {
+          "short" : "RSP",
+          "long" : "of respect",
+          "sections" : "1600-1605"
+        },
+        "ADP" : {
+          "short" : "ADP",
+          "long" : "prepositional",
+          "nested" : {
+            "TMP" : {
+              "short" : "TMP",
+              "long" : "terminal of time (with ἀνά, εἰς, μετά, κατά, παρά, πρός, ὑπό, ὑπέρ)"
+            },
+            "MNN" : {
+              "short" : "MNN",
+              "long" : "manner (with ἀνά, εἰς, κατά)"
+            },
+            "CAU" : {
+              "short" : "CAU",
+              "long" : "cause (with διά, παρά)"
+            },
+            "PUR" : {
+              "short" : "PUR",
+              "long" : "purpose (with διά, εἰς, ἐπί, κατά, πρός)"
+            },
+            "MEA" : {
+              "short" : "MEA",
+              "long" : "measure (with εἰς, ἐπί, παρά, ὑπέρ)"
+            },
+            "STN" : {
+              "short" : "STN",
+              "long" : "of standard of judgement (with πρός)"
+            }
+          }
+        },
+        "UNS" : {
+          "short" : "UNS",
+          "long" : "unspecified (only if depending on adj., adv. or adp.)"
+        },
+        "NAB" : {
+          "short" : "NAB",
+          "long" : "none of the above"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "IND" : {
+      "short" : "IND",
+      "long" : "independent",
+      "sections" : "1599",
+      "nested" : {
+        "ELL" : {
+          "short" : "ELL",
+          "long" : "elliptical accusative",
+          "sections" : "1599"
+        },
+        "NAB" : {
+          "short" : "NAB",
+          "long" : "none of the above"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    }
+  }
+}

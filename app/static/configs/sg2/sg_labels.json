@@ -1,0 +1,69 @@
+{
+  "labels" : {
+    "ADJ" : {
+      "short" : "ADJ",
+      "long" : "adjective",
+      "sections" : "1018-1093",
+      "dependency" : {
+        "pos" : "adj"
+      },
+      "fileUrl" : "./static/configs/sg2/sg_labels/adjectives.json"
+    },
+    "ART" : {
+      "short" : "ART",
+      "long" : "article",
+      "sections" : "1099-1189",
+      "dependency" : {
+        "pos" : "art"
+      }
+    },
+    "PRN" : {
+      "short" : "PRN",
+      "long" : "pronoun",
+      "sections" : "1190-1278",
+      "dependency" : {
+        "pos" : "pron"
+      },
+      "fileUrl" : "./static/configs/sg2/sg_labels/pronouns.json"
+    },
+    "ADP" : {
+      "short" : "ADP",
+      "long" : "adposition",
+      "sections" : "1636-1702",
+      "dependency" : {
+        "pos" : "prep"
+      }
+    },
+    "NOUN" : {
+      "short" : "NOUN",
+      "long" : "noun",
+      "sections" : "1279-1635",
+      "dependency" : {
+        "pos" : "noun"
+      },
+      "fileUrl" : "./static/configs/sg2/sg_labels/cases.json"
+    },
+    "VERB" : {
+      "short" : "VERB",
+      "long" : "verb",
+      "dependency" : {
+        "pos" : "verb"
+      },
+      "fileUrl" : "./static/configs/sg2/sg_labels/verbs.json"
+    },
+    "ADV" : {
+      "short" : "ADV",
+      "long" : "adverb",
+      "sections" : "1094-1098",
+      "dependency" : {
+        "pos" : "adv"
+      },
+      "fileUrl" : "./static/configs/sg2/sg_labels/adverbs.json"
+    },
+    "CLS" : {
+      "short" : "CLS",
+      "long" : "clause",
+      "fileUrl" : "./static/configs/sg2/sg_labels/clauses.json"
+    }
+  }
+}

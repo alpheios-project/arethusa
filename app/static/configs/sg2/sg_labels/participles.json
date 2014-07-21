@@ -1,0 +1,22 @@
+{
+  "nested" : {
+    "ADJ_PRT" : {
+      "short" : "ADJ_PRT",
+      "long" : "adjective participle",
+      "fileUrl" : "./static/configs/sg/sg_labels/adj_prt.json"
+    },
+    "SBS_PRT" : {
+      "short" : "SBS_PRT",
+      "long" : "substantive participle",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    },
+    "PRT_NAB" : {
+      "short" : "PRT_NAB",
+      "long" : "none of the above"
+    },
+    "PRT_IDK" : {
+      "short" : "PRT_IDK",
+      "long" : "I do not know"
+    } 
+  }
+}

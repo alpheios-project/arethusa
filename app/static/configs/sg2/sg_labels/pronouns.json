@@ -1,0 +1,21 @@
+{
+  "nested" : {
+    "SBS_PRN" : {
+      "short" : "SBS_PRN",
+      "long" : "substantive",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    },
+    "ADJ_PRN" : {
+      "short" : "ADJ_PRN",
+      "long" : "adjective"
+    },
+    "PRN_NAB" : {
+      "short" : "PRN_NAB",
+      "long" : "none of the above"
+    },
+    "PRN_IDK" : {
+      "short" : "PRN_IDK",
+      "long" : "I do not know"
+    } 
+  }
+}

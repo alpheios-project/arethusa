@@ -1,0 +1,20 @@
+{
+  "nested" : {
+    "IND" : {
+      "short" : "IND",
+      "long" : "in indirect speech"
+    },
+    "NOT_IND" : {
+      "short" : "NOT_IND",
+      "long" : "not in indirect speech"
+    },
+    "NAB" : {
+      "short" : "NAB",
+      "long" : "none of the above"
+    },
+    "IDK" : {
+      "short" : "IDK",
+      "long" : "I do not know"
+    } 
+  }
+}

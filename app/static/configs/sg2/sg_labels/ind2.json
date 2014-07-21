@@ -1,0 +1,24 @@
+{
+  "nested" : {
+    "IND" : {
+      "short" : "IND",
+      "long" : "in indirect speech",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    },
+    "NOT_IND" : {
+      "short" : "NOT_IND",
+      "long" : "not in indirect speech",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    },
+    "NAB" : {
+      "short" : "NAB",
+      "long" : "none of the above",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    },
+    "IDK" : {
+      "short" : "IDK",
+      "long" : "I do not know",
+      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+    } 
+  }
+}
