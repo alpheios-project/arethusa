@@ -314,10 +314,20 @@ angular.module('arethusa.core').service('keyCapture', [
       return layout.us;
     }
 
-    function setStyle(kKey) {
+    function setStyle(kKey, cas) {
+      // 0 and 1 as properties of kKey.style.class may seem cryptic:
+      // ng-repeat in the foreign-keys-help-template iterates
+      // over the kKey.show array and provides class names with the
+      // $index value. The first element is always the lower case
+      // char, the second one the upper case char. This function
+      // handles cases, where we want to set either the lower
+      // case or the upper case key inactive.
+
+      var style = kKey.style;
+      var number = { "lower" : "0", "upper" : "1"};
+      style.class = style.class || {};
       if (kKey.hide === undefined) {
-        kKey.style.class = {};
-        kKey.style.class.case = "inactive";
+        style.class[number[cas]] = "inactive";
       }
     }
 
@@ -329,7 +339,7 @@ angular.module('arethusa.core').service('keyCapture', [
       if (fKeys[typeCase]) {
         display.push(fKeys[typeCase]);
       } else {
-        setStyle(kKey);
+        setStyle(kKey, cas);
         display.push(typeCase);
       }
     }

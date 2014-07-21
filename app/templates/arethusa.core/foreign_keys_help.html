@@ -6,7 +6,7 @@
       class="keyboard-key">
       <span ng-repeat="char in key.show"
         class="shifted-{{$index}}"
-        ng-class="key.style.class.case">{{ char }}</span>
+        ng-class="key.style.class[{{$index}}]">{{ char }}</span>
     </li>
   </ul>
 </div>
