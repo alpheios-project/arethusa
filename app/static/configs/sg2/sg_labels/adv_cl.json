@@ -4,13 +4,13 @@
       "short" : "PRP",
       "long" : "purpose clause",
       "sections" : "2193-2206",
-      "fileUrl" : "./static/configs/sg2/sg_labels/drc_ind.json"
+      "fileUrl" : "./static/configs/sg2/sg_labels/ind.json"
     },
     "CAU" : {
       "short" : "CAU",
       "long" : "causal clause",
       "sections" : "2240-2248",
-      "fileUrl" : "./static/configs/sg2/sg_labels/drc_ind.json"
+      "fileUrl" : "./static/configs/sg2/sg_labels/ind.json"
     },
     "RSL" : {
       "short" : "RSL",
