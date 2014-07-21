@@ -97,6 +97,7 @@
           }
         }
       },
+      "gloss" : true,
       "matchAll" : true,
       "fileUrl" : "./static/configs/morph/gr_attributes.json"
     },
