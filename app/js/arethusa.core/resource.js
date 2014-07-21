@@ -12,8 +12,9 @@
 angular.module('arethusa.core').factory('Resource', [
   '$resource',
   '$location',
+  '$q',
   'spinner',
-  function ($resource, $location, spinner) {
+  function ($resource, $location, $q, spinner) {
     function paramsToObj(params) {
       return arethusaUtil.inject({}, params, function (obj, param, i) {
         obj[param] = $location.search()[param];
@@ -37,30 +38,42 @@ angular.module('arethusa.core').factory('Resource', [
       return res;
     }
 
+    function createAborter() {
+      return $q.defer();
+    }
+
     return function (conf,auth) {
       var self = this;
       this.route = conf.route;
       this.params = conf.params || [];
       this.auth = auth;
       auth.preflight();
-      this.resource = $resource(self.route, null, {
-        get: {
-          method: 'GET',
-          transformResponse: parseResponse
-        },
-        save: {
-          // TODO we need save and partial save -- latter will use PATCH
-          method: 'POST',
-          transformRequest: function(data,headers) {
-            if (self.mimetype) {
-              headers()["Content-Type"] = self.mimetype;
-            }
-            self.auth.transformRequest(headers);
-            return data;
+
+      var aborter;
+
+      function createResource() {
+        aborter = createAborter();
+        return $resource(self.route, null, {
+          get: {
+            method: 'GET',
+            transformResponse: parseResponse,
+            timeout: aborter.promise
           },
-          transformResponse: parseResponse
-        }
-      });
+          save: {
+            // TODO we need save and partial save -- latter will use PATCH
+            method: 'POST',
+            transformRequest: function(data,headers) {
+              if (self.mimetype) {
+                headers()["Content-Type"] = self.mimetype;
+              }
+              self.auth.transformRequest(headers);
+              return data;
+            },
+            transformResponse: parseResponse
+          }
+        });
+      }
+      this.resource = createResource();
 
       function stopSpinning(req) {
         var promise = req.$promise;
@@ -81,6 +94,20 @@ angular.module('arethusa.core').factory('Resource', [
         return stopSpinning(self.resource.save(params,data));
       };
 
+      // This is not ideal - we have to re-create the complete resource, just
+      // because we need one with a new resolvable promises, so that we can
+      // abort it again.
+      //
+      // Needs another look. What I tried to do is to renew just the promise,
+      // but not the complete promise. Wasn't really able to pull it off.
+      // I guess the promise needs to be wrapped by another promise?!
+      // It's no big deal to renew the resource, it just would be a little less
+      // expensive to deal with a new promise only and leave the resource
+      // untouched.
+      this.abort = function() {
+        aborter.resolve();
+        self.resource = createResource();
+      };
     };
   }
 ]);
