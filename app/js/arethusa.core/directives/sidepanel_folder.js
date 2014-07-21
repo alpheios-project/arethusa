@@ -12,8 +12,9 @@ angular.module('arethusa.core').directive('sidepanelFolder', [
         function setIconClassAndText() {
           var icon = sidepanel.folded ? 'expand' : 'compress';
           var text = sidepanel.folded ? 'Show' : 'Fold';
+          var key  = arethusaUtil.formatKeyHint(sidepanel.activeKeys.toggle);
           scope.iconClass = 'fi-arrows-' + icon;
-          scope.text = text + " Panel";
+          scope.text = text + " Panel " + key;
         }
 
         element.on('click', function () {
