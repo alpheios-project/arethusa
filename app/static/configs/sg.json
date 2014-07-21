@@ -111,7 +111,7 @@
       "template" : "templates/sg.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
-      "fileUrl" : "./static/configs/sg/sg_labels.json"
+      "fileUrl" : "./static/configs/sg2/sg_labels.json"
     },
 
     "relation" : {

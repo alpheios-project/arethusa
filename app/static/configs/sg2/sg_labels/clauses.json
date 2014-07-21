@@ -1,0 +1,116 @@
+{
+  "nested" : {
+    "SBS" : {
+      "short" : "SBS",
+      "long" : "substantive",
+      "sections" : "2574-2588",
+      "nested" : {
+        "STM" : {
+          "short" : "STM",
+          "long" : "statement",
+          "sections" : "2575"
+        },
+        "WDS" : {
+          "short" : "WDS",
+          "long" : "will or desire",
+          "sections" : "2575"
+        },
+        "QST" : {
+          "short" : "QST",
+          "long" : "question",
+          "sections" : "2575"
+        },
+        "EXC" : {
+          "short" : "EXC",
+          "long" : "exclamation",
+          "sections" : "2575"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "ADJ" : {
+      "short" : "ADJ",
+      "long" : "adjective",
+      "sections" : "2488-2573",
+      "nested" : {
+        "PUR" : {
+          "short" : "PUR",
+          "long" : "as relative clause of purpose",
+          "sections" : "2554"
+        },
+        "CAU" : {
+          "short" : "CAU",
+          "long" : "as relative clause of cause",
+          "sections" : "2555"
+        },
+        "RSL" : {
+          "short" : "RSL",
+          "long" : "as relative clause of result",
+          "sections" : "2556-2559"
+        },
+        "CND" : {
+          "short" : "CND",
+          "long" : "as relative clause of condition",
+          "sections" : "2560-2573"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "ADV" : {
+      "short" : "ADV",
+      "sections" : "2191-2487",
+      "long" : "adverd",
+      "nested" : {
+        "PUR" : {
+          "short" : "PUR",
+          "long" : "of purpose",
+          "sections" : "2193-2206"
+        },
+        "CAU" : {
+          "short" : "CAU",
+          "long" : "of cause",
+          "sections" : "2240-2248"
+        },
+        "RSL" : {
+          "short" : "RSL",
+          "long" : "of result",
+          "sections" : "2249-2279"
+        },
+        "CND" : {
+          "short" : "CND",
+          "long" : "of condition",
+          "sections" : "2279-2368"
+        },
+        "CNC" : {
+          "short" : "CNC",
+          "long" : "of concession",
+          "sections" : "2369-2382"
+        },
+        "TMP" : {
+          "short" : "TMP",
+          "long" : "of time",
+          "sections" : "2383-2461"
+        },
+        "CMP" : {
+          "short" : "CMP",
+          "long" : "of comparison",
+          "sections" : "2462"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "IDK" : {
+      "short" : "IDK",
+      "long" : "I don't know"
+    }
+  }
+}
