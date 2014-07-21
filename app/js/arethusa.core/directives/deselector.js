@@ -10,10 +10,11 @@ angular.module('arethusa.core').directive('deselector', [
           state.deselectAll();
           scope.$apply();
         });
+
         var hint = arethusaUtil.formatKeyHint(state.activeKeys.deselect);
-        scope.title = "Deselect all " + hint;
+        element.attr('title', 'Deselect all ' + hint);
       },
-      template: '<i title="{{ title }}" class="fi-unlock"/>'
+      template: '<i class="fi-unlock"/>'
     };
   }
 ]);

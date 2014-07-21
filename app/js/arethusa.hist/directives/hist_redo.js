@@ -25,9 +25,10 @@ angular.module('arethusa.hist').directive('histRedo', [
           scope.$apply(history.redo());
         });
 
-        scope.hint = arethusaUtil.formatKeyHint(history.activeKeys.redo);
+        var hint = arethusaUtil.formatKeyHint(history.activeKeys.redo);
+        element.attr('title', 'Redo ' + hint);
       },
-      template: '<i title="Redo {{ hint }}" class="fa fa-repeat"/>'
+      template: '<i class="fa fa-repeat"/>'
     };
   }
 ]);

@@ -45,9 +45,9 @@ angular.module('arethusa.core').directive('saver', [
         }
 
         var hint = arethusaUtil.formatKeyHint(saver.activeKeys.save);
-        scope.title = "Save " + hint;
+        element.attr('title', "Save " + hint);
       },
-      template: '<i title="{{ title }}" class="fi-save"/>'
+      template: '<i class="fi-save"/>'
     };
   }
 ]);

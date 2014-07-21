@@ -25,9 +25,10 @@ angular.module('arethusa.hist').directive('histUndo', [
           scope.$apply(history.undo());
         });
 
-        scope.hint = arethusaUtil.formatKeyHint(history.activeKeys.undo);
+        var hint = arethusaUtil.formatKeyHint(history.activeKeys.undo);
+        element.attr('title', "Undo " + hint);
       },
-      template: '<i title="Undo {{ hint }}" class="fa fa-undo"/>'
+      template: '<i class="fa fa-undo"/>'
     };
   }
 ]);
