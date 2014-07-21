@@ -5,6 +5,7 @@ angular.module('arethusa.hist').directive('histRedo', [
   function(history) {
     return {
       restrict: 'A',
+      scope: {},
       link: function(scope, element, attrs) {
         scope.history = history;
 
@@ -23,8 +24,10 @@ angular.module('arethusa.hist').directive('histRedo', [
         element.bind('click', function() {
           scope.$apply(history.redo());
         });
+
+        scope.hint = arethusaUtil.formatKeyHint(history.activeKeys.redo);
       },
-      template: '<i title="Redo" class="fa fa-repeat"/>'
+      template: '<i title="Redo {{ hint }}" class="fa fa-repeat"/>'
     };
   }
 ]);

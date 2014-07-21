@@ -5,6 +5,7 @@ angular.module('arethusa.hist').directive('histUndo', [
   function(history) {
     return {
       restrict: 'A',
+      scope: {},
       link: function(scope, element, attrs) {
         scope.history = history;
 
@@ -23,8 +24,10 @@ angular.module('arethusa.hist').directive('histUndo', [
         element.bind('click', function() {
           scope.$apply(history.undo());
         });
+
+        scope.hint = arethusaUtil.formatKeyHint(history.activeKeys.undo);
       },
-      template: '<i title="Undo" class="fa fa-undo"/>'
+      template: '<i title="Undo {{ hint }}" class="fa fa-undo"/>'
     };
   }
 ]);
