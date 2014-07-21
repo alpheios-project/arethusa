@@ -47,7 +47,8 @@
           "short" : "FNT_MOO_IDK",
           "long" : "I don't know"
         }
-      },
+      }
+    },
     "FNT_MOO_NAB" : {
       "short" : "FNT_MOO_NAB",
       "long" : "none of the above"

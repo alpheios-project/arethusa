@@ -200,8 +200,8 @@
         }
       }
     },
-    "PRP" : {
-      "short" : "PRP",
+    "PREP" : {
+      "short" : "PREP",
       "long" : "prepositional",
       "nested" : {
         "PUR" : {
