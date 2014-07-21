@@ -145,6 +145,7 @@ angular.module('arethusa.morph').service('morph', [
         self.postagToAttributes(analysis);
         analysis.origin = 'document';
         analysis.selected = true;
+        setGloss(id, analysis);
         val.forms.push(analysis);
         state.addStyle(id, self.styleOf(analysis));
       }
@@ -356,6 +357,10 @@ angular.module('arethusa.morph').service('morph', [
       };
     }
 
+    function setGloss(id, form) {
+      if (self.gloss) self.analyses[id].gloss = form.gloss;
+    }
+
     this.updateGloss = function(id, form) {
       if (self.gloss) {
         var gloss = self.analyses[id].gloss;
@@ -367,7 +372,7 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     this.setState = function (id, form) {
-      self.updateGloss(id, form);
+      setGloss(id, form);
       state.change(id, 'morphology', form, undoFn(id), preExecFn(id, form));
     };
 
