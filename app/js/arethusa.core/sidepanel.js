@@ -59,6 +59,8 @@ angular.module('arethusa.core').service('sidepanel', [
       self.folded = !self.folded;
     };
 
+    this.activeKeys = {};
+
     init();
   }
 ]);

@@ -34,7 +34,7 @@ angular.module('arethusa.core').directive('sidepanel', [
           selectPluginByIndex(index);
         }
 
-        keyCapture.initCaptures(function(kC) {
+        var keys = keyCapture.initCaptures(function(kC) {
           return {
             sidepanel: [
               kC.create('nextTab', function() { moveToNext(); }),
@@ -43,6 +43,7 @@ angular.module('arethusa.core').directive('sidepanel', [
             ]
           };
         });
+        angular.extend(sidepanel.activeKeys, keys.sidepanel);
       }
     };
   }
