@@ -9,6 +9,29 @@ angular.module('arethusa.morph').service('morph', [
 
     this.canSearch = true;
 
+    // When a user is moving fast between chunks, a lot of outstanding
+    // requests can build up in the retrievers. As they are all asynchronous
+    // their callbacks fire when we have already moved away from the chunk which
+    // started the calls.
+    // This can lead to quite a bit of confusion and is generally not a very
+    // good solution.
+    // We therefore use the new abort() API of Resource to cancel all requests
+    // we don't need anymore. All morph retrievers need to provide an abort()
+    // function now (usually just a delegator to Resource.abort).
+    //
+    // On init, we check if morphRetrievers were already defined and if they
+    // are we abort all outstanding requests.
+    function abortOutstandingRequests() {
+      if (morphRetrievers) {
+        angular.forEach(morphRetrievers, abortRetriever);
+      }
+    }
+
+    function abortRetriever(retriever) {
+      retriever.abort();
+    }
+
+
     function configure() {
       var props = [
         'postagSchema',
@@ -424,6 +447,7 @@ angular.module('arethusa.morph').service('morph', [
     });
 
     this.init = function () {
+      abortOutstandingRequests();
       configure();
       self.emptyPostag = createEmptyPostag();
       self.analyses = seedAnalyses();

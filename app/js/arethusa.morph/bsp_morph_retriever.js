@@ -57,6 +57,7 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
       this.getWord = function (word) {
         return resource.get({ 'word': word });
       };
+      this.abort = resource.abort;
       this.getData = function (string, callback) {
         self.getWord(string).then(function (res) {
           try {
