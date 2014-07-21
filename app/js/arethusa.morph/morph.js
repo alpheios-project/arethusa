@@ -39,7 +39,6 @@ angular.module('arethusa.morph').service('morph', [
         'styledThrough',
         'noRetrieval',
         'matchAll',
-        'preselect',
         'gloss'
       ];
 
@@ -53,6 +52,9 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     configure();
+    // We need to do this outside - we don't want it reconfigured on every init
+    // if the user sets it by hand, that's what we stick to.
+    self.preselect = self.conf.preselect;
 
     function getDataFromInventory(form) {
       if (inventory) {
