@@ -29,312 +29,312 @@
       "z" : "ז"
     },
     "us" : {
-      "`" : {
+      "0" : {
         "lower" : "`",
         "upper" : "~",
         "style" : {}
       },
-      "1" : {
+      "2" : {
         "lower" : "1",
         "upper" : "!",
         "style" : {}
       },
-      "2" : {
+      "3" : {
         "lower" : "2",
         "upper" : "@",
         "style" : {}
       },
-      "3" : {
+      "4" : {
         "lower" : "3",
         "upper" : "#",
         "style" : {}
       },
-      "4" : {
+      "5" : {
         "lower" : "4",
         "upper" : "$",
         "style" : {}
       },
-      "5" : {
+      "6" : {
         "lower" : "5",
         "upper" : "%",
         "style" : {}
       },
-      "6" : {
+      "7" : {
         "lower" : "6",
         "upper" : "^",
         "style" : {}
       },
-      "7" : {
+      "8" : {
         "lower" : "7",
         "upper" : "&",
         "style" : {}
       },
-      "8" : {
+      "9" : {
         "lower" : "8",
         "upper" : "*",
         "style" : {}
       },
-      "9" : {
+      "10" : {
         "lower" : "9",
         "upper" : "(",
         "style" : {}
       },
-      "0" : {
+      "11" : {
         "lower" : "0",
         "upper" : ")",
         "style" : {}
       },
-      "-" : {
+      "12" : {
         "lower" : "-",
         "upper" : "_",
         "style" : {}
       },
-      "=" : {
+      "13" : {
         "lower" : "=",
         "upper" : "+",
         "style" : {}
       },
-      "delete" : {
+      "14" : {
         "hide" : false,
         "lower" : "⌫",
         "style" : {
           "class" : "last-key delete"
         }
       },
-      "tab" : {
+      "15" : {
         "hide" : false,
         "lower" : "⇥",
         "style" : {
           "class" : "tab first-key"
         }
       },
-      "q"  : {
+      "16"  : {
         "lower" : "q",
         "upper" : "Q",
         "style" : {}
       },
-      "w" : {
+      "17" : {
         "lower" : "w",
         "upper" : "W",
         "style" : {}
       },
-      "e" : {
+      "18" : {
         "lower" : "e",
         "upper" : "E",
         "style" : {}
       },
-      "r" : {
+      "19" : {
         "lower" : "r",
         "upper" : "R",
         "style" : {}
       },
-      "t" : {
+      "20" : {
         "lower" : "t",
         "upper" : "T",
         "style" : {}
       },
-      "y" : {
+      "21" : {
         "lower" : "y",
         "upper" : "Y",
         "style" : {}
       },
-      "u" : {
+      "22" : {
         "lower" : "u",
         "upper" : "U",
         "style" : {}
       },
-      "i" : {
+      "23" : {
         "lower" : "i",
         "upper" : "I",
         "style" : {}
       },
-      "o" : {
+      "24" : {
         "lower" : "o",
         "upper" : "O",
         "style" : {}
       },
-      "p" : {
+      "25" : {
         "lower" : "p",
         "upper" : "P",
         "style" : {}
       },
-      "[" : {
+      "26" : {
         "lower" : "[",
         "upper" : "{",
         "style" : {}
       },
-      "]" : {
+      "27" : {
         "lower" : "]",
         "upper" : "}",
         "style" : {}
       },
-      "\\" : {
+      "28" : {
         "lower" : "\\",
         "upper" : "|",
         "style" : {}
       },
-      "caps lock" : {
+      "29" : {
         "hide" : false,
         "lower" : "⇪",
         "style" : {
           "class" : "capslock first-key shifter"
         }
       },
-      "a" : {
+      "30" : {
         "lower" : "a",
         "upper" : "A",
         "style" : {}
       },
-      "s" : {
+      "31" : {
         "lower" : "s",
         "upper" : "S",
         "style" : {}
       },
-      "d" : {
+      "32" : {
         "lower" : "d",
         "upper" : "D",
         "style" : {}
       },
-      "f" : {
+      "33" : {
         "lower" : "f",
         "upper" : "F",
         "style" : {}
       },
-      "g" : {
+      "34" : {
         "lower" : "g",
         "upper" : "G",
         "style" : {}
       },
-      "h" : {
+      "35" : {
         "lower" : "h",
         "upper" : "H",
         "style" : {}
       },
-      "j" : {
+      "36" : {
         "lower" : "j",
         "upper" : "J",
         "style" : {}
       },
-      "k" : {
+      "37" : {
         "lower" : "k",
         "upper" : "K",
         "style" : {}
       },
-      "l" : {
+      "38" : {
         "lower" : "l",
         "upper" : "L",
         "style" : {}
       },
-      ":" : {
+      "39" : {
         "lower" : ":",
         "upper" : ";",
         "style" : {}
       },
-      "'" : {
+      "40" : {
         "lower" : "'",
         "upper" : "\"",
         "style" : {}
       },
-      "return" : {
+      "41" : {
         "hide" : false,
         "lower" : "↩",
         "style" : {
           "class" : "last-key return"
         }
       },
-      "l-shift" : {
+      "42" : {
         "hide" : false,
         "lower" : "⇧",
         "style" : {
           "class" : "l-shift first-key shifter"
         }
       },
-      "z" : {
+      "43" : {
         "lower" : "z",
         "upper" : "Z",
         "style" : {}
       },
-      "x" : {
+      "44" : {
         "lower" : "x",
         "upper" : "X",
         "style" : {}
       },
-      "c" : {
+      "45" : {
         "lower" : "c",
         "upper" : "C",
         "style" : {}
       },
-      "v" : {
+      "46" : {
         "lower" : "v",
         "upper" : "V",
         "style" : {}
       },
-      "b" : {
+      "47" : {
         "lower" : "b",
         "upper" : "B",
         "style" : {}
       },
-      "n" : {
+      "48" : {
         "lower" : "n",
         "upper" : "N",
         "style" : {}
       },
-      "m" : {
+      "49" : {
         "lower" : "m",
         "upper" : "M",
         "style" : {}
       },
-      "," : {
+      "50" : {
         "lower" : ",",
         "upper" : "<",
         "style" : {}
       },
-      "." : {
+      "51" : {
         "lower" : ".",
         "upper" : ">",
         "style" : {}
       },
-      "/" : {
+      "52" : {
         "lower" : "/",
         "upper" : "?",
         "style" : {}
       },
-      "shift" : {
+      "53" : {
         "hide" : false,
         "lower" : "⇧",
         "style" : {
           "class" : "last-key shift shifter"
         }
       },
-      "l-ctrl" : {
+      "54" : {
         "hide" : false,
         "lower" : "ctrl",
         "style" : {
           "class" : "first-key ctrl"
         }
       },
-      "alt" : {
+      "55" : {
         "hide" : false,
         "lower" : "alt",
         "style" : {
           "class" : "alt"
         }
       },
-      "space" : {
+      "56" : {
         "hide" : false,
         "lower" : "␣",
         "style" : {
           "class" : "space"
         }
       },
-      "alt gr" : {
+      "57" : {
         "hide" : false,
         "lower" : "alt gr",
         "style" : {
           "class" : "alt"
         }
       },
-      "ctrl" : {
+      "58" : {
         "hide" : false,
         "lower" : "ctrl",
         "style" : {
