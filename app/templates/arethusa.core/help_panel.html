@@ -1,14 +1,14 @@
 <div>
   <br/>
-  <p class="text">Under Construction</p>
-  <div class="small-12 columns">
-    <ul style="list-style-type: none" ng-repeat="(section, keys) in kC.activeKeys">
+  <p class="text">Keyboard Hotkeys</p>
+  <div class="small-12 columns scrollable text" style="height: 400px">
+    <ul class="no-list" ng-repeat="(section, keys) in kC.activeKeys">
       <li>{{ section }}</li>
-      <ul>
-        <li ng-repeat="(name, key) in keys">
-           {{ key }}: {{ name}}
-        </li>
-      <ul>
+      <table class="small">
+        <tr ng-repeat="(name, key) in keys">
+          <td><strong>{{ key }}</strong></td><td>{{ name}}</td>
+        </tr>
+      </table>
     </ul>
   </div>
 </div>

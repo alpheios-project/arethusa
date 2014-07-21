@@ -376,6 +376,16 @@ button[disabled],
   font-size: 0.875rem;
 }
 
+.text li {
+  font-size: 0.875rem;
+}
+
+table.small tr td {
+  font-size: 0.875rem;
+  padding: 0.4rem 0.4rem;
+  background-color: #fff;
+}
+
 .note, .elliptic {
   font-size: 0.7rem;
 }
@@ -541,4 +551,8 @@ input.compact {
 
 .hist-event {
   transition: background-color 300ms ease-in-out;
+}
+
+ul.no-list {
+  list-style-type: none;
 }
