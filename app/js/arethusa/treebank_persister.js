@@ -15,17 +15,21 @@ angular.module('arethusa').factory('TreebankPersister', [
       }
 
       function updateWord(word, stateWord, fullMap) {
-        if (stateWord.head && stateWord.head.id) {
+        var head = stateWord.head;
+        if (head && head.id) {
           // If the token has a head and it's not inside the full map,
           // it's the root token.
-          word._head = fullMap[stateWord.head.id] || 0;
+          word._head = fullMap[head.id] || 0;
         }
         if (stateWord.relation) {
           word._relation = stateWord.relation.label;
         }
-        if (stateWord.morphology) {
-          word._lemma = stateWord.morphology.lemma;
-          word._postag = stateWord.morphology.postag;
+
+        var morph = stateWord.morphology;
+        if (morph) {
+          word._lemma = morph.lemma;
+          word._postag = morph.postag;
+          if (angular.isDefined(morph.gloss)) word._gloss = morph.gloss;
         }
         if (stateWord.sg) {
           word._sg = arethusaUtil.map(stateWord.sg.ancestors, function(el) {

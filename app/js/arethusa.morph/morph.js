@@ -38,7 +38,9 @@ angular.module('arethusa.morph').service('morph', [
         'attributes',
         'styledThrough',
         'noRetrieval',
-        'matchAll'
+        'matchAll',
+        'preselect',
+        'gloss'
       ];
 
       configurator.getConfAndDelegate('morph', self, props);
@@ -143,6 +145,7 @@ angular.module('arethusa.morph').service('morph', [
         self.postagToAttributes(analysis);
         analysis.origin = 'document';
         analysis.selected = true;
+        setGloss(id, analysis);
         val.forms.push(analysis);
         state.addStyle(id, self.styleOf(analysis));
       }
@@ -197,7 +200,11 @@ angular.module('arethusa.morph').service('morph', [
           var forms = analysisObj.forms;
           mergeDuplicateForms(forms[0], res);
           arethusaUtil.pushAll(forms, res);
-          preselectForm(forms[0], id);
+
+          if (self.preselect) {
+            preselectForm(forms[0], id);
+          }
+
           unsetStyleWithoutAnalyses(forms, id);
         });
       });
@@ -350,7 +357,22 @@ angular.module('arethusa.morph').service('morph', [
       };
     }
 
+    function setGloss(id, form) {
+      if (self.gloss) self.analyses[id].gloss = form.gloss;
+    }
+
+    this.updateGloss = function(id, form) {
+      if (self.gloss) {
+        var gloss = self.analyses[id].gloss;
+        if (gloss) {
+          form = form || selectedForm(id);
+          form.gloss = gloss;
+        }
+      }
+    };
+
     this.setState = function (id, form) {
+      setGloss(id, form);
       state.change(id, 'morphology', form, undoFn(id), preExecFn(id, form));
     };
 

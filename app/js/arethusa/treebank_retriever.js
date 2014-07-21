@@ -26,6 +26,11 @@ angular.module('arethusa').factory('TreebankRetriever', [
 
       };
 
+      var gloss = token._gloss;
+      if (gloss) {
+        obj.morphology.gloss = gloss;
+      }
+
       var sg = token._sg;
       if (sg && !sg.match(/^\s*$/)) {
         obj.sg = { ancestors: sg.split(' ') };
