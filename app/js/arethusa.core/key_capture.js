@@ -245,18 +245,36 @@ angular.module('arethusa.core').service('keyCapture', [
       return new Capture(confKey, fn, defaultKey);
     };
 
+    function addToKeys(keys, sec, name, key) {
+      if (!keys[sec]) keys[sec] = {};
+      keys[sec][name] = key;
+    }
+
+    // Tries to init keyCaptures - returns every successful keybinding in the format:
+    //
+    // { section: { nameOfAction: key }
+    //
+    // keyCapture stores them in keyCapture.activeKeys as well.
     this.initCaptures = function(callback) {
-      angular.forEach(callback(self), function(captures, section) {
+      var keys = arethusaUtil.inject({}, callback(self), function(memo, section, captures) {
         var conf = self.conf(section);
         angular.forEach(captures, function(capture, i) {
           var key = conf[capture.confKey] || capture.defaultKey;
           if (angular.isDefined(key)) {
+            addToKeys(memo, section, capture.confKey, key);
             self.onKeyPressed(key, function() {
               $rootScope.$apply(capture.fn);
             });
           }
         });
       });
+      if (!angular.equals({}, keys)) {
+        angular.extend(self.activeKeys, keys);
+      }
+      return keys;
     };
+
+    // We might have to reinit this at some point
+    this.activeKeys = {};
   }
 ]);

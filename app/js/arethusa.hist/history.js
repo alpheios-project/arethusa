@@ -157,7 +157,7 @@ angular.module('arethusa.hist').service('history', [
  *                                  Init                                   *
  ***************************************************************************/
 
-    keyCapture.initCaptures(function(kC) {
+    var keys = keyCapture.initCaptures(function(kC) {
       return {
         history: [
           kC.create('undo', self.undo),
@@ -165,6 +165,7 @@ angular.module('arethusa.hist').service('history', [
         ]
       };
     });
+    this.activeKeys = angular.extend({}, keys.history);
 
     this.init = function() {
       configure();

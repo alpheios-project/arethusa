@@ -17,6 +17,10 @@ var arethusaUtil = {
       }
     },
 
+    formatKeyHint: function(mapping) {
+      return mapping ? '(' + mapping +')' : '';
+    },
+
     map: function (container, fn) {
       var result = [];
       container.forEach(function (e) {
