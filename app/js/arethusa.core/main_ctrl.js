@@ -11,7 +11,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
   'history',
   'exitHandler',
   function ($scope, $injector, configurator, state, documentStore, notifier,
-            saver, keyCapture, history, exitHandler) {
+            saver, keyCapture, history) {
     // This is the entry point to the application.
     notifier.info('Loading...');
 
