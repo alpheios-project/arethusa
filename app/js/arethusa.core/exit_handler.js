@@ -53,6 +53,5 @@ angular.module('arethusa.core').service('exitHandler', [
       targetWin = targetWin || '_self';
       $window.open(exitUrl(), targetWin);
     };
-
   }
 ]);
