@@ -21,7 +21,7 @@
           "short" : "noun",
           "postag" : "n",
           "style" : {
-            "color" : "black"
+            "color" : "rgb(43, 114, 124)"
           }
         },
         "adj" : {
@@ -85,7 +85,7 @@
           "short" : "nrl",
           "postag" : "m",
           "style" : {
-            "color" : "lightblue"
+            "color" : "lightgreen"
           }
         },
         "punct" : {
@@ -98,7 +98,7 @@
           "short" : "art",
           "postag" : "l",
           "style" : {
-            "color" : "blue"
+            "color" : "lightblue"
           }
         },
         "prtl" : {
@@ -106,7 +106,7 @@
           "short" : "prtl",
           "postag" : "g",
           "style" : {
-            "color" : "blue"
+            "color" : "lightcoral"
           }
         }
       }
