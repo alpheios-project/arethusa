@@ -86,24 +86,26 @@ angular.module('arethusa.core').service('saver', [
     // Don't let the user leave without a prompt, when
     // he's leaving when a save is needed.
 
-    var confirmNote = "You have unsaved changes!";
-    var confirmQuestion = "Are you sure you want to leave?";
+    if (!state.debug) {
+      var confirmNote = "You have unsaved changes!";
+      var confirmQuestion = "Are you sure you want to leave?";
 
-    // We need this when the user wants to reload, or move to another url
-    // altogether.
-    $window.onbeforeunload = function() { return confirmNote; };
+      // We need this when the user wants to reload, or move to another url
+      // altogether.
+      $window.onbeforeunload = function() { return confirmNote; };
 
-    // We need this when a user is changing the url from within the application
-    $rootScope.$on('$locationChangeStart', function(event) {
-      if (self.needsSave) {
-        if (!$window.confirm(confirmNote + "\n" + confirmQuestion)) {
-          event.preventDefault();
+      // We need this when a user is changing the url from within the application
+      $rootScope.$on('$locationChangeStart', function(event) {
+        if (self.needsSave) {
+          if (!$window.confirm(confirmNote + "\n" + confirmQuestion)) {
+            event.preventDefault();
+          }
         }
-      }
-    });
+      });
 
-    // When we really leave, clean up on onbeforeunload event
-    $rootScope.$on('destroy', function() { $window.onbeforeunload = undefined; });
+      // When we really leave, clean up on onbeforeunload event
+      $rootScope.$on('destroy', function() { $window.onbeforeunload = undefined; });
+    }
 
     this.init = function(newPersisters) {
       reset();
