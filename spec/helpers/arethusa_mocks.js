@@ -1,8 +1,16 @@
 "use strict";
 
 function ArethusaMocks() {
-  var mockFn = function () {};
-  var mockFnWithObject = function() { return {}; };
+  var self = this;
+
+  function mockFn() {}
+  function mockFnWithObject() { return {}; }
+
+  function initOnly(customizations) {
+    return withCustomizations({
+      init: mockFn
+    }, customizations);
+  }
 
   function withCustomizations(obj, overrides) {
     return angular.extend(obj, overrides);
@@ -20,6 +28,18 @@ function ArethusaMocks() {
   this.keyCapture = function(customizations) {
     return withCustomizations({
       initCaptures: mockFnWithObject
+    }, customizations);
+  };
+
+  this.saver = initOnly;
+  this.history = initOnly;
+
+  this.notifier = function(customizations) {
+    return withCustomizations({
+      init: mockFn,
+      success: mockFn,
+      info: mockFn,
+      error: mockFn
     }, customizations);
   };
 }
