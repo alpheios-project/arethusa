@@ -8,6 +8,7 @@
     "angular" : false,
     "d3" : false,
     "arethusaUtil" : true,
+    "arethusaMocks" : true,
     "arethusaLogger" : true,
     "UserVoice" : true,
     "inject" : false,
