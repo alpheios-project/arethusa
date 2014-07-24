@@ -19,7 +19,7 @@ angular.module('arethusa.core').directive('exit', [
             // want the user to exit to a new tab - we leave the code in
             // though, in case we change our mind one day.
 
-            scope.$apply(exitHandler.leave("_self"));
+            exitHandler.leave("_self");
           });
           element.attr("title", "Exit to " + exitHandler.title);
         } else {
