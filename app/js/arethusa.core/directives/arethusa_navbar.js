@@ -40,7 +40,7 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
         }
 
         function setLogo() {
-          var icon = scope.windowWidth > 1140 ? '' : 'icon-';
+          var icon = scope.windowWidth > 1190 ? '' : 'icon-';
           scope.logo = "images/arethusa-" + icon + "small.png";
         }
 
@@ -65,7 +65,7 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
         };
 
         scope.showNotifier = function () {
-          return isVisible(1200, conf.notifier);
+          return isVisible(1310, conf.notifier);
         };
 
         // Foundation's topbar doesn't seem to work properly - could be an issue
