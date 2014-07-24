@@ -119,7 +119,7 @@
 
   "exitHandler" : {
     "title" : "Perseids",
-    "route" : "http:sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/return/edit",
+    "route" : "http//:sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/return/edit",
     "params" : [
       ":doc"
     ]
