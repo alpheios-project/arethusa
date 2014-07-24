@@ -12,6 +12,12 @@ function ArethusaMocks() {
       getRetrievers: mockFnWithObject
     };
   };
+
+  this.keyCapture = function() {
+    return {
+      initCaptures: mockFnWithObject
+    };
+  };
 }
 
 var arethusaMocks = new ArethusaMocks();
