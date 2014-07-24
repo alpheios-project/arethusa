@@ -1,16 +1,6 @@
 "use strict";
 
 describe("state", function() {
-  var mockConfigurator = {
-    configurationFor: function(name) {
-      return {};
-    },
-    getRetrievers: function(name) {
-      return {};
-    },
-    provideResource: function() {}
-  };
-
   var createTokens = function() {
     return {
       '01': {
@@ -45,7 +35,7 @@ describe("state", function() {
   };
 
   beforeEach(module("arethusa.core", function($provide) {
-    $provide.value('configurator', mockConfigurator);
+    $provide.value('configurator', arethusaMocks.configurator());
   }));
 
   var state;

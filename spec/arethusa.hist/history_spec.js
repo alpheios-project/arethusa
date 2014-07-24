@@ -1,15 +1,11 @@
 "use strict";
 
 describe('history', function() {
-  var mockKC = {
-    initCaptures: function() { return {}; },
-  };
-
   beforeEach(module("arethusa.core"));
 
   beforeEach(module("arethusa.hist", function($provide) {
     $provide.value('configurator', arethusaMocks.configurator());
-    $provide.value('keyCapture', mockKC);
+    $provide.value('keyCapture', arethusaMocks.keyCapture());
   }));
 
   var history, state;
