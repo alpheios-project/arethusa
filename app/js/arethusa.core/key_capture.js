@@ -46,7 +46,7 @@ angular.module('arethusa.core').service('keyCapture', [
           case 'ctrl':  mod = self.ctrlModifier;  break;
           case 'shift': mod = self.shiftModifier; break;
           case 'alt':   mod = self.altModifier;   break;
-          case 'meta':  mod = self.altModifier;   break;
+          case 'meta':  mod = self.metaModifier;   break;
         }
         k = k + mod;
       });
