@@ -23,11 +23,30 @@ angular.module('arethusa.core').service('exitHandler', [
       });
     }
 
+    function routeWithQueryParams(route, params) {
+      if (!angular.equals({}, params)) {
+        route = route+ "?";
+        var queryStrings = arethusaUtil.inject([], params, function(memo, k, v) {
+          memo.push(k + "=" + v);
+        });
+        route = route + queryStrings.join('&');
+      }
+      return route;
+    }
 
     function exitUrl() {
       var params = getParams();
-      // build the real route
-      return route;
+      var parsedRoute = route;
+      var queryParams = arethusaUtil.inject({}, params, function(memo, param, val) {
+        // checking for www.test.com/:param
+        if (parsedRoute.indexOf(':' + param) > -1) {
+          parsedRoute = parsedRoute.replace(':' + param, val);
+        } else {
+          memo[param] = val;
+        }
+      });
+
+      return routeWithQueryParams(parsedRoute, queryParams);
     }
 
     this.leave = function(targetWin) {
