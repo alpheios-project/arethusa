@@ -157,14 +157,6 @@
     }
   },
 
-  "exitHandler" : {
-    "title" : "Google",
-    "route" : "http://www.google.com",
-    "params" : [
-      "exit"
-    ]
-  },
-
   "keyCapture" : {
     "sidepanel" : {
       "nextTab" : "W",
