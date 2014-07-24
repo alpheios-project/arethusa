@@ -164,7 +164,6 @@ angular.module('arethusa.core').service('keyCapture', [
         repeater = repeater + rep;
         return;
       }
-      var keyCode = modifiedKeyCode(event);
       handleCallbacks(event);
       resetRepeater();
     };
