@@ -1,22 +1,11 @@
 "use strict";
 
 describe('history', function() {
-  var mockConfigurator = {
-    getConfAndDelegate: function() {},
-    configurationFor: function() { return {}; },
-    getRetrievers: function() { return {}; },
-    provideResource: function() {}
-  };
-
-  var mockKC = {
-    initCaptures: function() { return {}; },
-  };
-
   beforeEach(module("arethusa.core"));
 
   beforeEach(module("arethusa.hist", function($provide) {
-    $provide.value('configurator', mockConfigurator);
-    $provide.value('keyCapture', mockKC);
+    $provide.value('configurator', arethusaMocks.configurator());
+    $provide.value('keyCapture', arethusaMocks.keyCapture());
   }));
 
   var history, state;

@@ -1,60 +1,51 @@
 "use strict";
 
 describe("morph", function() {
-  var mockConfigurator = {
-    configurationFor: function(name) {
-      return {};
-    },
-    getRetrievers: function(name) {
-      return {};
-    },
-    provideResource: function() {},
-    getConfAndDelegate: function(name, obj) {
-      obj.attributes = {
-        "pos" : {
-          "long" : "Part of Speech",
-          "short" : "pos",
-          "values" : {
-            "noun" : {
-              "long" : "noun",
-              "short" : "noun",
-              "postag" : "n",
-              "style" : {
-                "color" : "black"
-              }
-            },
-            "adj" : {
-              "long" : "adjective",
-              "short" : "adj",
-              "postag" : "a",
-              "style" : {
-                "color" : "blue"
-              }
+  function morphConf(name, obj) {
+    obj.attributes = {
+      "pos" : {
+        "long" : "Part of Speech",
+        "short" : "pos",
+        "values" : {
+          "noun" : {
+            "long" : "noun",
+            "short" : "noun",
+            "postag" : "n",
+            "style" : {
+              "color" : "black"
             }
-          }
-        },
-        "pers" : {
-          "long" : "Person",
-          "short" : "pers",
-          "values" : {
-            "1st" : {
-              "long" : "first person",
-              "short" : "1st",
-              "postag" : "1"
-            },
-            "2nd" : {
-              "long" : "second person",
-              "short" : "2nd",
-              "postag" : "2"
+          },
+          "adj" : {
+            "long" : "adjective",
+            "short" : "adj",
+            "postag" : "a",
+            "style" : {
+              "color" : "blue"
             }
           }
         }
-      };
-      obj.postagSchema = ['pos', 'pers'];
-      obj.styledThrough = 'pos';
-      obj.conf = {};
-    }
-  };
+      },
+      "pers" : {
+        "long" : "Person",
+        "short" : "pers",
+        "values" : {
+          "1st" : {
+            "long" : "first person",
+            "short" : "1st",
+            "postag" : "1"
+          },
+          "2nd" : {
+            "long" : "second person",
+            "short" : "2nd",
+            "postag" : "2"
+          }
+        }
+      }
+    };
+    obj.postagSchema = ['pos', 'pers'];
+    obj.styledThrough = 'pos';
+    obj.conf = {};
+  }
 
   var createTokens = function() {
     return {
@@ -78,7 +69,8 @@ describe("morph", function() {
   };
 
   beforeEach(module("arethusa.core", function($provide) {
-    $provide.value('configurator', mockConfigurator);
+    var custom = { getConfAndDelegate: morphConf };
+    $provide.value('configurator', arethusaMocks.configurator(custom));
   }));
 
   beforeEach(module("arethusa.morph"));

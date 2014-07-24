@@ -1,23 +1,17 @@
 "use strict";
 
 describe("sg", function() {
-  var mockConfigurator = {
-    configurationFor: function(name) {
-      return {};
-    },
-    getRetrievers: function(name) {
-      return {};
-    },
+  var confCustom = {
     getConfAndDelegate: function(name, obj) {
       var labels = {
         NOUN: { long: "noun", dependency: { pos: "noun" } },
         VERB : { long : "verb", dependency : { pos : "verb" }, }
       };
-        obj.conf = {labels: labels};
-      }
-    };
+      obj.conf = {labels: labels};
+    }
+  };
 
-    var createTokens = function() {
+  var createTokens = function() {
     return {
       '01': {
         id: '01',
@@ -35,7 +29,7 @@ describe("sg", function() {
   };
 
   beforeEach(module("arethusa.core", function($provide) {
-    $provide.value('configurator', mockConfigurator);
+    $provide.value('configurator', arethusaMocks.configurator(confCustom));
   }));
 
   beforeEach(module("arethusa.sg"));

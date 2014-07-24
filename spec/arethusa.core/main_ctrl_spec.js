@@ -5,33 +5,24 @@ describe('MainCtrl', function() {
 
   it('sets scope values', inject(function($controller, $rootScope) {
     var scope = $rootScope.$new();
+
     var state = {
       init: function() {},
       allLoaded: false
     };
-    var notifier = {
-      init: function() {},
-      success: function() {},
-      info: function() {},
-      error: function() {}
-    };
-    var configurator =  {
-      configurationFor: function(name) {
-        return { plugins: {}, template: "template"};
-      }
-    };
-    var saver = { init: function() {} };
-    var history = { init: function() {} };
-    var kC = { initCaptures: function() {} };
 
     var mainCtrlInits = {
       $scope: scope,
-      configurator: configurator,
+      configurator: arethusaMocks.configurator({
+        configurationFor: function () {
+          return { template: "template", plugins: {} };
+        }
+      }),
       state: state,
-      notifier: notifier,
-      saver: saver,
-      keyCapture: kC,
-      history: history
+      notifier: arethusaMocks.notifier(),
+      saver: arethusaMocks.saver(),
+      keyCapture: arethusaMocks.keyCapture(),
+      history: arethusaMocks.history()
     };
 
     var ctrl = $controller('MainCtrl', mainCtrlInits);
