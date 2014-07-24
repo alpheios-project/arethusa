@@ -635,6 +635,7 @@ describe("state", function() {
       var wasSilent = false;
       var fn = function() { wasSilent = state.silent; };
 
+      state.silent = false; // true by default
       expect(state.silent).toBeFalsy();
 
       state.doSilent(fn);

@@ -24,6 +24,7 @@ describe('history', function() {
   beforeEach(inject(function(_history_, _state_) {
     history = _history_;
     state   = _state_;
+    state.silent = false; // true by default
     history.init();
     undone = 0;
     redone = 0;
