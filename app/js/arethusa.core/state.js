@@ -27,6 +27,9 @@ angular.module('arethusa.core').service('state', [
       // little changes as one single step. Plugins can look at this var
       // so that they can adjust accordingly.
       self.batchChange = false;
+
+      // Cheap way of defining a debug mode
+      self.debug = self.conf.debug;
     }
 
     // We hold tokens locally during retrieval phase.

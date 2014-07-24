@@ -1,5 +1,6 @@
 {
   "main" : {
+    "debug" : true,
     "template"  : "templates/main_with_sidepanel.html",
     "retrievers" : {
       "TreebankRetriever" : {
@@ -155,6 +156,12 @@
       "name" : "comment",
       "template" : "templates/comment2.html"
     }
+  },
+
+  "exitHandler" : {
+    "title" : "somewhere",
+    "route" : "http://www.:x.com",
+    "params" : ["x", "q"]
   },
 
   "keyCapture" : {
