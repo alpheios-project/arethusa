@@ -612,10 +612,11 @@ ul.no-list {
 
 li.keyboard-key {
   float: left;
-  margin: 0 5px 5px 0;
-  width: 40px;
-  height: 40px;
-  line-height: 35px;
+  margin: 0 3px 3px 0;
+  width: 30px;
+  height: 30px;
+  font-size: 0.9em;
+  line-height: 27px;
   text-align: center;
   background: #fff;
   border: 1px solid #c9c9c9;
@@ -628,7 +629,7 @@ li.keyboard-key:hover {
 }
 
 #keyboard {
-  width: 685px;
+  width: 514px;
 }
 
 #keyboard .last-key {
@@ -638,26 +639,26 @@ li.keyboard-key:hover {
   clear: left;
 }
 #keyboard .tab, #keyboard .delete {
-  width: 70px;
+  width: 52px;
 }
 #keyboard .ctrl, #keyboard .alt {
-  width: 70px;
+  width: 52px;
 }
 #keyboard .capslock {
-  width: 80px;
+  width: 60px;
 }
 #keyboard .return {
-  width: 77px;
+  width: 56px;
 }
 #keyboard .l-shift {
-  width: 95px;
+  width: 70px;
 }
 #keyboard .shift {
-  width: 109px;
+  width: 79px;
 }
 
 #keyboard .space {
-  width: 359px;
+  width: 262px;
 }
 
 #keyboard .inactive {
