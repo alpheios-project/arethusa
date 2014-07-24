@@ -5,7 +5,8 @@ describe("deselector", function() {
   var state;
   var configurator = {
     provideResource: function() {},
-    configurationFor: function() {}
+    configurationFor: function() { return {}; },
+    getRetrievers: function() { return {}; }
   };
 
   beforeEach(module("arethusa.core", function($provide) {

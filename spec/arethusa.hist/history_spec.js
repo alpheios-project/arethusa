@@ -3,11 +3,13 @@
 describe('history', function() {
   var mockConfigurator = {
     getConfAndDelegate: function() {},
+    configurationFor: function() { return {}; },
+    getRetrievers: function() { return {}; },
     provideResource: function() {}
   };
 
   var mockKC = {
-    initCaptures: function() {}
+    initCaptures: function() { return {}; },
   };
 
   beforeEach(module("arethusa.core"));

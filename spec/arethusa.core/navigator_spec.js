@@ -5,7 +5,8 @@ describe("navigator", function() {
   var state;
   var configurator = {
     provideResource: function() {},
-    configurationFor : function() {}
+    configurationFor : function() { return {}; },
+    getRetrievers: function() { return {}; }
   };
 
   var s1 = {
