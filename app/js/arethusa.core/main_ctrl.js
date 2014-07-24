@@ -9,6 +9,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
   'saver',
   'keyCapture',
   'history',
+  'exitHandler',
   function ($scope, $injector, configurator, state, documentStore, notifier,
             saver, keyCapture, history) {
     // This is the entry point to the application.
