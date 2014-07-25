@@ -17,10 +17,11 @@ angular.module('arethusa.core').directive('keysToScreen', [
 
         function parseKey(key) {
           var keys, elements;
-          keys = (key + '').split('-'); // key can also be a number
           // This looks a bit ugly, but a regular + might also be a
           // valid keybinding - we therefore use an unambigous value here.
-          keys = keys.join('-PLUS-').split('-');
+          //
+          // Key can also be a number - we therefore typecast.
+          keys = (key + '').replace(/-/g, '-PLUS-').split();
           elements = arethusaUtil.inject([], keys, function(memo, key) {
             if (key.match(/^[A-Z]$/)) {
               arethusaUtil.pushAll(memo, ['shift', 'PLUS', key.toLowerCase()]);
