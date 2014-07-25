@@ -17,7 +17,12 @@ angular.module('arethusa.core').directive('keysToScreen', [
         }
 
         function parseKey(key) {
-          scope.actions = keyCapture.keyList[key];
+          // Producing new objects here in purpose, so that angular
+          // has to redo the html element in the ngRepeat - we can
+          // benefit from renewing the nice css animations then.
+          scope.actions = arethusaUtil.map(keyCapture.keyList[key], function(el) {
+            return { str: el };
+          });
 
           var keys, elements;
           // This looks a bit ugly, but a regular + might also be a
