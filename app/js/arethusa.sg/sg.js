@@ -48,6 +48,14 @@ angular.module('arethusa.sg').service('sg', [
       return sg && sg.ancestors && !sg.isTemplate;
     }
 
+    function createNewSgObject(token) {
+      var grammar = new SgTemplate();
+      var morph = token.morphology || {};
+      grammar.string = token.string;
+      checkAndUpdateGrammar(morph, grammar);
+      return grammar;
+    }
+
     function createInternalState() {
       // 3 possibilites here:
       //
@@ -63,10 +71,7 @@ angular.module('arethusa.sg').service('sg', [
         if (sgFromStateComplete(fromState)) {
           grammar = fromState;
         } else {
-          grammar = new SgTemplate();
-          var morph = token.morphology || {};
-          grammar.string = token.string;
-          checkAndUpdateGrammar(morph, grammar);
+          grammar = createNewSgObject(token);
           if (sgFromRetriever(fromState)) {
             addAncestorsFromState(fromState, grammar);
           }
@@ -208,6 +213,14 @@ angular.module('arethusa.sg').service('sg', [
     this.canEdit = function() {
       return self.mode === "editor";
     };
+
+    state.on('tokenAdded', function(event, token) {
+      self.grammar[token.id] = createNewSgObject(token);
+    });
+
+    state.on('tokenRemoved', function(event, token) {
+      delete self.grammar[token.id];
+    });
 
     this.init = function() {
       configure();
