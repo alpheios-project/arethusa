@@ -69,7 +69,7 @@ angular.module('arethusa.core').service('saver', [
     var keys = keyCapture.initCaptures(function(kC) {
       return {
         saver: [
-          kC.create('save', function() { self.save(); })
+          kC.create('save', function() { self.save(); }, 'ctrl-S')
         ]
       };
     });
