@@ -106,7 +106,7 @@ module.exports = function(grunt) {
             './bower_components/angular/angular.js',
             './bower_components/angular-mocks/angular-mocks.js',
             './bower_components/angular-route/angular-route.js',
-            './bower_components/angular-resource/angular-resource.js',
+            './vendor/angular-resource/angular-resource.js',
             './bower_components/angular-cookies/angular-cookies.js',
             './bower_components/angular-scroll/angular-scroll.js',
             './bower_components/angular-translate/angular-translate.js',
@@ -250,7 +250,8 @@ module.exports = function(grunt) {
       uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
       templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} },
       util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
-      external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } }
+      external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } },
+      ngResource: { files: { "vendor/angular-resource/angular-resource.min.js": "vendor/angular-resource/angular-resource.js"}}
     },
     cssmin: {
       css: {
@@ -310,7 +311,8 @@ module.exports = function(grunt) {
     'uglify:external',
     'uglify:text',
     'ngtemplates',
-    'uglify:templates'
+    'uglify:templates',
+    'uglify:ngResource'
   ]);
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
