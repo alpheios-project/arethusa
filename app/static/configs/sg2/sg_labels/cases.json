@@ -4,45 +4,35 @@
       "short" : "NMN",
       "long" : "nominative",
       "sections" : "938-943",
-      "dependency" : {
-        "case" : "nom"
-      },
+      "dependency" : {},
       "fileUrl" : "./static/configs/sg2/sg_labels/nominative_cases.json"
     },
     "GNT" : {
       "short" : "GNT",
       "long" : "genitive",
       "sections" : "1289-1449",
-      "dependency" : {
-        "case" : "gen"
-      },
+      "dependency" : {},
       "fileUrl" : "./static/configs/sg2/sg_labels/genetive_cases.json"
     },
     "DTV" : {
       "short" : "DTV",
       "long" : "dative",
       "sections" : "1450-1550",
-      "dependency" : {
-        "case" : "dat"
-      },
+      "dependency" : {},
       "fileUrl" : "./static/configs/sg2/sg_labels/dative_cases.json"
     },
     "ACC" : {
       "short" : "ACC",
       "long" : "accusative",
       "sections" : "1551-1635",
-      "dependency" : {
-        "case" : "acc"
-      },
+      "dependency" : {},
       "fileUrl" : "./static/configs/sg2/sg_labels/accusative_cases.json"
     },
     "VOC" : {
       "short" : "VOC",
       "long" : "vocative",
       "sections" : "1283-1288",
-      "dependency" : {
-        "case" : "voc"
-      }
+      "dependency" : {}
     }
   }
 }
