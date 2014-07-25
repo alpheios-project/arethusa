@@ -92,7 +92,10 @@ angular.module('arethusa.core').service('saver', [
 
       // We need this when the user wants to reload, or move to another url
       // altogether.
-      $window.onbeforeunload = function() { return confirmNote; };
+
+      $window.onbeforeunload = function() {
+        if (self.needsSave) { return confirmNote; }
+      };
 
       // We need this when a user is changing the url from within the application
       $rootScope.$on('$locationChangeStart', function(event) {
