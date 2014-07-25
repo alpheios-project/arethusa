@@ -20,7 +20,9 @@ angular.module('arethusa.core').directive('keysToScreen', [
           // Producing new objects here in purpose, so that angular
           // has to redo the html element in the ngRepeat - we can
           // benefit from renewing the nice css animations then.
-          scope.actions = arethusaUtil.map(keyCapture.keyList[key], function(el) {
+          //
+          // We need || [] in case we encounter a numeric modifier.
+          scope.actions = arethusaUtil.map(keyCapture.keyList[key] || [], function(el) {
             return { str: el };
           });
 
