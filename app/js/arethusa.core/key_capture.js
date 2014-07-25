@@ -272,6 +272,18 @@ angular.module('arethusa.core').service('keyCapture', [
       keys[sec][name] = key;
     }
 
+    function addToKeyLists(keys) {
+      angular.extend(self.activeKeys, keys);
+      angular.forEach(keys, function(captures, section) {
+        angular.forEach(captures, function(key, capture) {
+          var keysDefined = self.keyList[key];
+          if (!keysDefined) keysDefined = self.keyList[key] = [];
+          keysDefined.push(section + "." + capture);
+        });
+      });
+    }
+
+
     // Tries to init keyCaptures - returns every successful keybinding in the format:
     //
     // { section: { nameOfAction: key }
@@ -291,12 +303,13 @@ angular.module('arethusa.core').service('keyCapture', [
         });
       });
       if (!angular.equals({}, keys)) {
-        angular.extend(self.activeKeys, keys);
+        addToKeyLists(keys);
       }
       return keys;
     };
 
     // We might have to reinit this at some point
     this.activeKeys = {};
+    this.keyList = {};
   }
 ]);
