@@ -31,6 +31,10 @@ angular.module('arethusa.core').service('keyCapture', [
       memo[code] = key;
     });
 
+    this.codeToKey = function(keyCode) {
+      return CodesToKeys[keyCode];
+    };
+
     this.shiftModifier = 1000;
     this.ctrlModifier  = 2000;
     this.altModifier   = 4000;
