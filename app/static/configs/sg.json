@@ -22,6 +22,7 @@
       "relation",
       "depTree",
       "search",
+      "artificialToken",
       "history"
     ]
   },
@@ -136,6 +137,11 @@
       "listener" : true,
       "maxSize" : 5,
       "template" : "templates/history.html"
+    },
+
+    "artificialToken" : {
+      "name" : "aT",
+      "template" : "templates/arethusa.artificial_token/artificial_token.html"
     }
   },
 
