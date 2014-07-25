@@ -2,7 +2,8 @@
 angular.module('arethusa.core').directive('foreignKeys',[
   'keyCapture',
   'languageSettings',
-  function (keyCapture, languageSettings) {
+  '$compile',
+  function (keyCapture, languageSettings, $compile) {
     return {
       restrict: 'A',
       scope: {
@@ -27,6 +28,7 @@ angular.module('arethusa.core').directive('foreignKeys',[
           return  language ? language + ' input enabled!' : '';
         }
         element.attr('placeholder', placeHolderText);
+        element.parent().append($compile('<div foreign-keys-help/>')(scope));
 
         element.on('keydown', function (event) {
           var input = event.target.value;
