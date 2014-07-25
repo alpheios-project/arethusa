@@ -27,6 +27,11 @@ angular.module('arethusa.core').directive('foreignKeys',[
           var language = languageSettings.langNames[lang()];
           return  language ? language + ' input enabled!' : '';
         }
+
+        function broadcast(event) {
+          scope.$broadcast('convertingKey', event.keyCode);
+        }
+
         element.attr('placeholder', placeHolderText);
         element.parent().append($compile('<div foreign-keys-help/>')(scope));
 
@@ -36,12 +41,13 @@ angular.module('arethusa.core').directive('foreignKeys',[
           if (l) {
             var fK = keyCapture.getForeignKey(event, l);
             if (fK === false) {
+              broadcast(event);
               return false;
             }
             if (fK === undefined) {
               return true;
             } else {
-              scope.$broadcast('convertingKey', event.keyCode);
+              broadcast(event);
               event.target.value = input + fK;
               scope.$apply(function() {
                 parent.$eval(scope.ngModel + ' = i + k', { i: input, k: fK });
