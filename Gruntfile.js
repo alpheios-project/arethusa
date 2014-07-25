@@ -250,8 +250,7 @@ module.exports = function(grunt) {
       uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
       templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} },
       util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
-      external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } },
-      ngResource: { files: { "vendor/angular-resource/angular-resource.min.js": "vendor/angular-resource/angular-resource.js"}}
+      external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } }
     },
     cssmin: {
       css: {
@@ -311,8 +310,7 @@ module.exports = function(grunt) {
     'uglify:external',
     'uglify:text',
     'ngtemplates',
-    'uglify:templates',
-    'uglify:ngResource'
+    'uglify:templates'
   ]);
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
