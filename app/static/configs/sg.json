@@ -146,22 +146,7 @@
   },
 
   "keyCapture" : {
-    "sidepanel" : {
-      "nextTab" : "W",
-      "prevTab" : "E"
-    },
-    "selections" : {
-      "nextToken" : "w",
-      "prevToken" : "e"
-    },
-    "navigation" : {
-      "nextSentence" : "u",
-      "prevSentence" : "i",
-      "list" : "L"
-    },
-    "tree" : {
-      "directionChange" : "c"
-    }
+    "fileUrl" : "./static/configs/keyboard/key_map.json"
   }
 }
 
