@@ -39,6 +39,8 @@ function shallowClearAndCopy(src, dst) {
     delete dst[key];
   });
 
+  if (typeof src === 'string') return dst;
+
   for (var key in src) {
     if (src.hasOwnProperty(key) && !(key.charAt(0) === '$' && key.charAt(1) === '$')) {
       dst[key] = src[key];
@@ -546,7 +548,6 @@ angular.module('ngResource', ['ng']).
                   value.push(new Resource(item));
                 });
               } else {
-                console.log(value);
                 shallowClearAndCopy(data, value);
                 value.$promise = promise;
               }
