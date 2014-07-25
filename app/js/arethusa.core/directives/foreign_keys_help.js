@@ -50,7 +50,10 @@ angular.module('arethusa.core').directive('foreignKeysHelp', [
 
         scope.$on('convertingKey', function(event, keyCode) {
           if (scope.visible) {
-            var key = element.find('#' + keyCapture.codeToKey(keyCode));
+            // Not using jQuery selectors here, as we have to deal with
+            // colons and the like!
+            var el = document.getElementById(keyCapture.codeToKey(keyCode));
+            var key = angular.element(el);
             key.addClass('key-hit');
             $timeout(function() {
               key.removeClass('key-hit');
