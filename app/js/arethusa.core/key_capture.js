@@ -148,11 +148,23 @@ angular.module('arethusa.core').service('keyCapture', [
       }
     };
 
-    this.keydown = function (event) {
-      // we're only acting on keyup for now
-    };
+    function broadcastKey(key) {
+      $rootScope.$broadcast('keyCaptureLaunched', keyList[key]);
+    }
 
     var forbiddenTags = ['INPUT'];
+    this.keydown = function (event) {
+      if (arethusaUtil.isIncluded(forbiddenTags, event.target.tagName) ||
+          isRepeater(event.keyCode)) {
+        return;
+      }
+
+      var keyCode = modifiedKeyCode(event);
+      if (keyPressedCallbacks[keyCode]) {
+        broadcastKey(keyCode);
+      }
+    };
+
     var repeater = '';
 
     this.keyup = function (event) {
@@ -161,6 +173,9 @@ angular.module('arethusa.core').service('keyCapture', [
       }
       if (isRepeater(event.keyCode)) {
         var rep = event.keyCode - 48;
+        // A number needs to be broadcasted here, as it doesn't have a keydown
+        // event at all.
+        broadcastKey(rep);
         repeater = repeater + rep;
         return;
       }
@@ -191,8 +206,16 @@ angular.module('arethusa.core').service('keyCapture', [
       this.priority = priority || 0;
     }
 
+    // The keyList is just a dictionary of string representations
+    // of the keyCode we use internally.
+    var keyList = {};
+    function addToKeyList(code, key) {
+      keyList[code] = key;
+    }
+
     this.onKeyPressed = function(key, callback, priority) {
       var keyCode = self.getKeyCode(key);
+      addToKeyList(keyCode, key);
       var callbacks = keyPressedCallbacks[keyCode] || [];
       callbacks.push(new Callback(callback, priority));
       keyPressedCallbacks[keyCode] = sortedByPriority(callbacks);
