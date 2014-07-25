@@ -17,6 +17,8 @@ angular.module('arethusa.core').directive('keysToScreen', [
         }
 
         function parseKey(key) {
+          scope.actions = keyCapture.keyList[key];
+
           var keys, elements;
           // This looks a bit ugly, but a regular + might also be a
           // valid keybinding - we therefore use an unambigous value here.
@@ -37,6 +39,7 @@ angular.module('arethusa.core').directive('keysToScreen', [
         // it isn't.
         if (conf.showKeys) {
           scope.keys = [];
+          scope.actions = [];
 
           var clear, override, readyToOverride;
           scope.$on('keyCaptureLaunched', function(event, key) {
@@ -59,6 +62,7 @@ angular.module('arethusa.core').directive('keysToScreen', [
 
             clear = $timeout(function() {
               scope.keys = [];
+              scope.actions = [];
             }, 3200);
           });
         }

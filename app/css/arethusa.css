@@ -576,6 +576,13 @@ ul.no-list {
   -webkit-animation: slow-fade 2.8s;
 }
 
+#keys-to-screen > .action {
+  color: gray;
+  opacity: 0;
+  animation: slow-fade 2.8s;
+  -webkit-animation: slow-fade 2.8s;
+}
+
 #keys-to-screen > .joiner {
   color: black;
   background-color: #f2f2f2;
