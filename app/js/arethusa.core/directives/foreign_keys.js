@@ -39,6 +39,7 @@ angular.module('arethusa.core').directive('foreignKeys',[
             if (fK === undefined) {
               return true;
             } else {
+              scope.$broadcast('convertingKey', event.keyCode);
               event.target.value = input + fK;
               scope.$apply(function() {
                 parent.$eval(scope.ngModel + ' = i + k', { i: input, k: fK });
