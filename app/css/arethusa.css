@@ -556,3 +556,43 @@ input.compact {
 ul.no-list {
   list-style-type: none;
 }
+
+#keys-to-screen {
+  margin-top: 10px;
+}
+
+.key-to-screen {
+  margin: 0 2px;
+  border: 1px solid #4E6476;
+  border-radius: 5px;
+  padding: 0.2rem 0.5rem;
+  background-color: #4E6476;
+  font-size: 1.2rem;
+  color: white;
+  text-align: center;
+  box-shadow: 3px 3px 2px #888888;
+  opacity: 0;
+  animation: slow-fade 2.8s;
+  -webkit-animation: slow-fade 2.8s;
+}
+
+#keys-to-screen > .joiner {
+  color: black;
+  background-color: #f2f2f2;
+  box-shadow: none;
+  padding: 0.1rem 0.1rem 0.1rem 0.2rem;
+  border: none;
+}
+
+
+@keyframes slow-fade {
+    0% { opacity: 1 }
+   50% { opacity: 1 }
+  100% { opacity: 0 }
+}
+
+@-webkit-keyframes slow-fade {
+    0% { opacity: 1 }
+   50% { opacity: 1 }
+  100% { opacity: 0 }
+}
