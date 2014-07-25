@@ -32,6 +32,12 @@ angular.module('arethusa.morph').service('morph', [
     }
 
 
+    this.defaultConf = {
+      name: "morph",
+      gloss: false,
+      matchAll: true
+    };
+
     function configure() {
       var props = [
         'postagSchema',
