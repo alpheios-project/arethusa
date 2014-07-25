@@ -622,6 +622,7 @@ li.keyboard-key {
   border: 1px solid #c9c9c9;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+  box-shadow: 3px 2px 10px #888888;
 }
 
 li.keyboard-key:hover {
@@ -674,6 +675,7 @@ li.keyboard-key:hover {
 #keyboard .shift-clicked {
   background-color: rgb(228, 228, 228);
   border: 1px solid lightgray;
+  box-shadow: none;
 }
 
 #keyboard .shifter {
