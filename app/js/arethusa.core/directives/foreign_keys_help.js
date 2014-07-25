@@ -7,9 +7,11 @@
 angular.module('arethusa.core').directive('foreignKeysHelp', [
   'keyCapture',
   'languageSettings',
-  function(keyCapture, languageSettings) {
+  '$timeout',
+  function(keyCapture, languageSettings, $timeout) {
     return {
       restrict: 'AE',
+      scope: true,
       link: function(scope, element, attr) {
         var shiftersBound = false;
 
@@ -43,6 +45,16 @@ angular.module('arethusa.core').directive('foreignKeysHelp', [
             } else {
               shifters.removeClass('shift-clicked');
             }
+          }
+        });
+
+        scope.$on('convertingKey', function(event, keyCode) {
+          if (scope.visible) {
+            var key = element.find('#' + keyCapture.codeToKey(keyCode));
+            key.addClass('key-hit');
+            $timeout(function() {
+              key.removeClass('key-hit');
+            }, 750);
           }
         });
 

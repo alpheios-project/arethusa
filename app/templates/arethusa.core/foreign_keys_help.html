@@ -2,6 +2,7 @@
 <div class="small-12 columns" ng-show="visible">
   <ul id="keyboard">
     <li ng-repeat="key in keys"
+      id="{{ key.lower }}"
       ng-class="key.style.class"
       class="keyboard-key">
       <span ng-repeat="char in key.show"
