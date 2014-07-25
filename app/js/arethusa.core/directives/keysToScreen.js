@@ -3,7 +3,8 @@
 angular.module('arethusa.core').directive('keysToScreen', [
   '$timeout',
   'configurator',
-  function($timeout, configurator) {
+  'keyCapture',
+  function($timeout, configurator, keyCapture) {
     return {
       restrict: 'A',
       scope: {},
