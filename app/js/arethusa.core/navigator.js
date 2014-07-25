@@ -197,9 +197,9 @@ angular.module('arethusa.core').service('navigator', [
     keyCapture.initCaptures(function(kC) {
       return {
         navigation: [
-          kC.create('nextSentence', function() { kC.doRepeated(self.nextSentence); }),
-          kC.create('prevSentence', function() { kC.doRepeated(self.prevSentence); }),
-          kC.create('list', function() { self.switchView(); })
+          kC.create('nextSentence', function() { kC.doRepeated(self.nextSentence); }, 'u'),
+          kC.create('prevSentence', function() { kC.doRepeated(self.prevSentence); }, 'i'),
+          kC.create('list', function() { self.switchView(); }, 'L')
         ]
       };
     });

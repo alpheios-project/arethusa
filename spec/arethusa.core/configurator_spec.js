@@ -259,6 +259,19 @@ describe('configurator', function() {
       });
     }));
 
+    it('reads from an optional defaultConf property if need be', inject(function(configurator) {
+      configurator.configuration = conf1;
+      var obj = {
+        defaultConf: {
+          contextMenu: true
+        }
+      };
+      obj.conf = configurator.configurationFor('morph');
+
+      configurator.delegateConf(obj);
+      expect(obj.contextMenu).toBeTruthy();
+    }));
+
     it('sets global default values', inject(function(configurator) {
       configurator.configuration = conf1;
       var obj = {};

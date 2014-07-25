@@ -241,8 +241,11 @@ angular.module('arethusa.core').service('configurator', [
     // a more direct access.
     this.delegateConf = function (obj, otherKeys) {
       var props = arethusaUtil.pushAll(standardProperties, otherKeys);
+      var defConf = obj.defaultConf || {};
       angular.forEach(props, function (property, i) {
-        obj[property] = obj.conf[property];
+        var confProp = obj.conf[property];
+        var val = angular.isDefined(confProp) ? confProp : defConf[property];
+        obj[property] = val;
       });
       setGlobalDefaults(obj);
     };

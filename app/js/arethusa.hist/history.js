@@ -160,8 +160,8 @@ angular.module('arethusa.hist').service('history', [
     var keys = keyCapture.initCaptures(function(kC) {
       return {
         history: [
-          kC.create('undo', self.undo),
-          kC.create('redo', self.redo)
+          kC.create('undo', self.undo, ':'),
+          kC.create('redo', self.redo, "'")
         ]
       };
     });

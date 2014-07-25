@@ -482,8 +482,8 @@ angular.module('arethusa.core').service('state', [
     var keys = keyCapture.initCaptures(function(kC) {
       return {
         selections: [
-          kC.create('nextToken', function() { kC.doRepeated(self.selectNextToken); }),
-          kC.create('prevToken', function() { kC.doRepeated(self.selectPrevToken); }),
+          kC.create('nextToken', function() { kC.doRepeated(self.selectNextToken); }, 'w'),
+          kC.create('prevToken', function() { kC.doRepeated(self.selectPrevToken); }, 'e'),
           kC.create('deselect', function() { self.deselectAll(); }, 'esc' )
         ]
       };

@@ -647,11 +647,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         function keyBindings(kC) {
           return {
             tree: [
-              kC.create('directionChange', function() { scope.changeDir(); }),
-              kC.create('centerTree', function() { scope.centerGraph(); }),
+              kC.create('directionChange', function() { scope.changeDir(); }, 'x'),
+              kC.create('centerTree', function() { scope.centerGraph(); }, 's'),
               kC.create('focusRoot', function() { scope.focusRoot(); }),
-              kC.create('focusSelection', function() { scope.focusSelection(); }),
-              kC.create('perfectWidth', function() { scope.perfectWidth(); }),
+              kC.create('focusSelection', function() { scope.focusSelection(); }, 'a'),
+              kC.create('perfectWidth', function() { scope.perfectWidth(); }, 'd'),
             ]
           };
         }

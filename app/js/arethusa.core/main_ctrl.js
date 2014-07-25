@@ -186,7 +186,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
     keyCapture.initCaptures(function(kC) {
       return {
         search: [
-          kC.create('focus', focusSearch)
+          kC.create('focus', focusSearch, 'A')
         ]
       };
     });
