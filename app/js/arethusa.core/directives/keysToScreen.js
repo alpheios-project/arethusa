@@ -2,12 +2,13 @@
 
 angular.module('arethusa.core').directive('keysToScreen', [
   '$timeout',
-  function($timeout) {
+  'configurator',
+  function($timeout, configurator) {
     return {
       restrict: 'A',
       scope: {},
       link: function(scope, element, attrs) {
-        scope.keys = [];
+        var conf = configurator.configurationFor('main');
 
         function Key(key) {
           this.str = key === "PLUS" ? '+' : key;
@@ -30,29 +31,36 @@ angular.module('arethusa.core').directive('keysToScreen', [
           return arethusaUtil.map(elements, function(el) { return new Key(el); });
         }
 
-        var clear, override, readyToOverride;
-        scope.$on('keyCaptureLaunched', function(event, key) {
-          var keys = parseKey(key);
-          scope.$apply(function() {
-            if (readyToOverride) {
-              scope.keys = keys;
-              readyToOverride = false;
-            } else {
-              arethusaUtil.pushAll(scope.keys, keys);
-            }
+        // This isn't updated know - it's either activated on startup, or
+        // it isn't.
+        if (conf.showKeys) {
+          scope.keys = [];
+
+          var clear, override, readyToOverride;
+          scope.$on('keyCaptureLaunched', function(event, key) {
+            var keys = parseKey(key);
+            scope.$apply(function() {
+              if (readyToOverride) {
+                scope.keys = keys;
+                readyToOverride = false;
+              } else {
+                arethusaUtil.pushAll(scope.keys, keys);
+              }
+            });
+
+            if (override) $timeout.cancel(override);
+            if (clear) $timeout.cancel(clear);
+
+            override = $timeout(function() {
+              readyToOverride = true;
+            }, 1500);
+
+            clear = $timeout(function() {
+              scope.keys = [];
+            }, 3200);
           });
+        }
 
-          if (override) $timeout.cancel(override);
-          if (clear) $timeout.cancel(clear);
-
-          override = $timeout(function() {
-            readyToOverride = true;
-          }, 1500);
-
-          clear = $timeout(function() {
-            scope.keys = [];
-          }, 3200);
-        });
       },
       templateUrl: 'templates/arethusa.core/keys_to_screen.html'
     };
