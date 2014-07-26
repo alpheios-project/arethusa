@@ -41,9 +41,9 @@ angular.module('arethusa.core').directive('foreignKeysHelp', [
         scope.$watch('shifted', function(newVal, oldVal) {
           if (shifters) {
             if (newVal) {
-              shifters.addClass('shift-clicked');
+              shifters.addClass('key-hit');
             } else {
-              shifters.removeClass('shift-clicked');
+              shifters.removeClass('key-hit');
             }
           }
         });
@@ -57,7 +57,7 @@ angular.module('arethusa.core').directive('foreignKeysHelp', [
             key.addClass('key-hit');
             $timeout(function() {
               key.removeClass('key-hit');
-            }, 750);
+            }, 450);
           }
         });
 
@@ -66,9 +66,28 @@ angular.module('arethusa.core').directive('foreignKeysHelp', [
           this.shiftKey = scope.shifted;
         }
 
+        function doShift(event, bool) {
+          if (keyCapture.codeToKey(event.keyCode) === 'shift') {
+            scope.$apply(function() {
+              scope.shifted = bool;
+              generateKeys();
+            });
+          }
+        }
+
+        scope.element.on('keydown', function(event) {
+          doShift(event, true);
+        });
+
+        scope.element.on('keyup', function(event) {
+          doShift(event, false);
+        });
+
         scope.generate = function(key) {
           var keyCode = keyCapture.keyToCode(key);
           scope.parseEvent(new FakeEvent(keyCode), true);
+          scope.shifted = false;
+          generateKeys();
         };
 
         generateKeys();

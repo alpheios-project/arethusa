@@ -12,6 +12,8 @@ angular.module('arethusa.core').directive('foreignKeys',[
         foreignKeys: '='
       },
       link: function (scope, element, attrs) {
+        scope.element = element;
+
         var parent = scope.$parent;
 
         function extractLanguage() {
