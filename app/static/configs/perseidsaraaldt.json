@@ -18,7 +18,8 @@
       "search",
       "morph",
       "relation",
-      "depTree"
+      "depTree",
+      "history"
     ],
     "chunkParam" : "chunk",
     "showKeys" : true
