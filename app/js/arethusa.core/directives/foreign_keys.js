@@ -56,7 +56,12 @@ angular.module('arethusa.core').directive('foreignKeys',[
         element.attr('placeholder', placeHolderText);
         appendHelp();
 
-        scope.parseEvent = function (event) {
+        function applyModifiedKey(parent, input, fK) {
+          parent.$eval(scope.ngModel + ' = i + k', { i: input, k: fK });
+          scope.ngChange();
+        }
+
+        scope.parseEvent = function (event, noApply) {
           var input = element[0].value;
           var l = lang();
           if (l) {
@@ -69,11 +74,16 @@ angular.module('arethusa.core').directive('foreignKeys',[
               return true;
             } else {
               broadcast(event);
-              element[0].value = input + fK;
-              scope.$apply(function() {
-                parent.$eval(scope.ngModel + ' = i + k', { i: input, k: fK });
-                scope.ngChange();
-              });
+              element.value = input + fK;
+
+              // When we call this method from an ng-click we might
+              // already be digesting!
+              if (noApply) {
+                applyModifiedKey(parent, input, fK);
+              } else {
+                scope.$apply(applyModifiedKey(parent, input, fK));
+              }
+
               return false;
             }
           } else {

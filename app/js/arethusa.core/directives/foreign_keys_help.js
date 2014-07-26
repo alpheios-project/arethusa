@@ -61,6 +61,16 @@ angular.module('arethusa.core').directive('foreignKeysHelp', [
           }
         });
 
+        function FakeEvent(keyCode) {
+          this.keyCode  = keyCode;
+          this.shiftKey = scope.shifted;
+        }
+
+        scope.generate = function(key) {
+          var keyCode = keyCapture.keyToCode(key);
+          scope.parseEvent(new FakeEvent(keyCode), true);
+        };
+
         generateKeys();
       },
       templateUrl: './templates/arethusa.core/foreign_keys_help.html'
