@@ -1,0 +1,14 @@
+<div ng-show="visible">
+  <ul id="keyboard">
+    <li ng-repeat="key in keys"
+      id="{{ key.lower }}"
+      ng-click="generate(key.lower)"
+      ng-class="key.style.class"
+      class="keyboard-key">
+      <span ng-repeat="char in key.show"
+        class="shifted-{{$index}}"
+        ng-class="key.style.class[{{$index}}]">{{ char }}</span>
+    </li>
+  </ul>
+  <div delimiter/>
+</div>

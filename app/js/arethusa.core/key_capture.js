@@ -27,9 +27,17 @@ angular.module('arethusa.core').service('keyCapture', [
       keyCodes[String.fromCharCode(i)] = i - 32;
     }
 
-    var CodesToKeys = arethusaUtil.inject({}, keyCodes, function(memo, key, code) {
+    var codesToKeys = arethusaUtil.inject({}, keyCodes, function(memo, key, code) {
       memo[code] = key;
     });
+
+    this.codeToKey = function(keyCode) {
+      return codesToKeys[keyCode];
+    };
+
+    this.keyToCode = function(key) {
+      return keyCodes[key];
+    };
 
     this.shiftModifier = 1000;
     this.ctrlModifier  = 2000;
@@ -76,7 +84,7 @@ angular.module('arethusa.core').service('keyCapture', [
     this.getForeignKey = function(event, language) {
       var res = [];
       var keys = keysFor(language);
-      var key = CodesToKeys[event.keyCode];
+      var key = codesToKeys[event.keyCode];
       var mod = keys.modifiers;
       if (key) {
         // We don't want to match 'shift' as a key, so
@@ -306,6 +314,58 @@ angular.module('arethusa.core').service('keyCapture', [
         addToKeyLists(keys);
       }
       return keys;
+    };
+
+    // Help
+    function usKeyboardLayout() {
+      var layout = self.conf("keys");
+      return layout.us;
+    }
+
+    function setStyle(kKey, cas) {
+      // 0 and 1 as properties of kKey.style.class may seem cryptic:
+      // ng-repeat in the foreign-keys-help-template iterates
+      // over the kKey.show array and provides class names with the
+      // $index value. The first element is always the lower case
+      // char, the second one the upper case char. This function
+      // handles cases, where we want to set either the lower
+      // case or the upper case key inactive.
+
+      var style = kKey.style;
+      var number = { "lower" : "0", "upper" : "1"};
+      style.class = style.class || {};
+      if (kKey.hide === undefined) {
+        style.class[number[cas]] = "inactive";
+      }
+    }
+
+    function pushKeys(fKeys, kKey, cas) {
+      var display = kKey.show;
+      var typeCase = kKey[cas];
+      if (!typeCase) return;
+
+      if (fKeys[typeCase]) {
+        display.push(fKeys[typeCase]);
+      } else {
+        setStyle(kKey, cas);
+        display.push(typeCase);
+      }
+    }
+
+    this.mappedKeyboard = function(language, shifted) {
+      var fKeys = keysFor(language);
+      var keyboardKeys = usKeyboardLayout();
+      var res = [];
+      var modes = ['lower', 'upper'];
+      modes = shifted ? modes.reverse() : modes;
+      angular.forEach(keyboardKeys, function(kKey, i) {
+        kKey.show = [];
+        angular.forEach(modes, function(mode, i) {
+          pushKeys(fKeys, kKey, mode);
+        });
+        res.push(kKey);
+      });
+      return res;
     };
 
     // We might have to reinit this at some point

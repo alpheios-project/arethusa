@@ -28,6 +28,320 @@
       "y" : "ט",
       "z" : "ז"
     },
+    "us" : {
+      "0" : {
+        "lower" : "`",
+        "upper" : "~",
+        "style" : {}
+      },
+      "2" : {
+        "lower" : "1",
+        "upper" : "!",
+        "style" : {}
+      },
+      "3" : {
+        "lower" : "2",
+        "upper" : "@",
+        "style" : {}
+      },
+      "4" : {
+        "lower" : "3",
+        "upper" : "#",
+        "style" : {}
+      },
+      "5" : {
+        "lower" : "4",
+        "upper" : "$",
+        "style" : {}
+      },
+      "6" : {
+        "lower" : "5",
+        "upper" : "%",
+        "style" : {}
+      },
+      "7" : {
+        "lower" : "6",
+        "upper" : "^",
+        "style" : {}
+      },
+      "8" : {
+        "lower" : "7",
+        "upper" : "&",
+        "style" : {}
+      },
+      "9" : {
+        "lower" : "8",
+        "upper" : "*",
+        "style" : {}
+      },
+      "10" : {
+        "lower" : "9",
+        "upper" : "(",
+        "style" : {}
+      },
+      "11" : {
+        "lower" : "0",
+        "upper" : ")",
+        "style" : {}
+      },
+      "12" : {
+        "lower" : "-",
+        "upper" : "_",
+        "style" : {}
+      },
+      "13" : {
+        "lower" : "=",
+        "upper" : "+",
+        "style" : {}
+      },
+      "14" : {
+        "hide" : false,
+        "lower" : "⌫",
+        "style" : {
+          "class" : "last-key delete"
+        }
+      },
+      "15" : {
+        "hide" : false,
+        "lower" : "⇥",
+        "style" : {
+          "class" : "tab first-key"
+        }
+      },
+      "16"  : {
+        "lower" : "q",
+        "upper" : "Q",
+        "style" : {}
+      },
+      "17" : {
+        "lower" : "w",
+        "upper" : "W",
+        "style" : {}
+      },
+      "18" : {
+        "lower" : "e",
+        "upper" : "E",
+        "style" : {}
+      },
+      "19" : {
+        "lower" : "r",
+        "upper" : "R",
+        "style" : {}
+      },
+      "20" : {
+        "lower" : "t",
+        "upper" : "T",
+        "style" : {}
+      },
+      "21" : {
+        "lower" : "y",
+        "upper" : "Y",
+        "style" : {}
+      },
+      "22" : {
+        "lower" : "u",
+        "upper" : "U",
+        "style" : {}
+      },
+      "23" : {
+        "lower" : "i",
+        "upper" : "I",
+        "style" : {}
+      },
+      "24" : {
+        "lower" : "o",
+        "upper" : "O",
+        "style" : {}
+      },
+      "25" : {
+        "lower" : "p",
+        "upper" : "P",
+        "style" : {}
+      },
+      "26" : {
+        "lower" : "[",
+        "upper" : "{",
+        "style" : {}
+      },
+      "27" : {
+        "lower" : "]",
+        "upper" : "}",
+        "style" : {}
+      },
+      "28" : {
+        "lower" : "\\",
+        "upper" : "|",
+        "style" : {}
+      },
+      "29" : {
+        "hide" : false,
+        "lower" : "⇪",
+        "style" : {
+          "class" : "capslock first-key shifter"
+        }
+      },
+      "30" : {
+        "lower" : "a",
+        "upper" : "A",
+        "style" : {}
+      },
+      "31" : {
+        "lower" : "s",
+        "upper" : "S",
+        "style" : {}
+      },
+      "32" : {
+        "lower" : "d",
+        "upper" : "D",
+        "style" : {}
+      },
+      "33" : {
+        "lower" : "f",
+        "upper" : "F",
+        "style" : {}
+      },
+      "34" : {
+        "lower" : "g",
+        "upper" : "G",
+        "style" : {}
+      },
+      "35" : {
+        "lower" : "h",
+        "upper" : "H",
+        "style" : {}
+      },
+      "36" : {
+        "lower" : "j",
+        "upper" : "J",
+        "style" : {}
+      },
+      "37" : {
+        "lower" : "k",
+        "upper" : "K",
+        "style" : {}
+      },
+      "38" : {
+        "lower" : "l",
+        "upper" : "L",
+        "style" : {}
+      },
+      "39" : {
+        "lower" : ":",
+        "upper" : ";",
+        "style" : {}
+      },
+      "40" : {
+        "lower" : "'",
+        "upper" : "\"",
+        "style" : {}
+      },
+      "41" : {
+        "hide" : false,
+        "lower" : "↩",
+        "style" : {
+          "class" : "last-key return"
+        }
+      },
+      "42" : {
+        "hide" : false,
+        "lower" : "⇧",
+        "style" : {
+          "class" : "l-shift first-key shifter"
+        }
+      },
+      "43" : {
+        "lower" : "z",
+        "upper" : "Z",
+        "style" : {}
+      },
+      "44" : {
+        "lower" : "x",
+        "upper" : "X",
+        "style" : {}
+      },
+      "45" : {
+        "lower" : "c",
+        "upper" : "C",
+        "style" : {}
+      },
+      "46" : {
+        "lower" : "v",
+        "upper" : "V",
+        "style" : {}
+      },
+      "47" : {
+        "lower" : "b",
+        "upper" : "B",
+        "style" : {}
+      },
+      "48" : {
+        "lower" : "n",
+        "upper" : "N",
+        "style" : {}
+      },
+      "49" : {
+        "lower" : "m",
+        "upper" : "M",
+        "style" : {}
+      },
+      "50" : {
+        "lower" : ",",
+        "upper" : "<",
+        "style" : {}
+      },
+      "51" : {
+        "lower" : ".",
+        "upper" : ">",
+        "style" : {}
+      },
+      "52" : {
+        "lower" : "/",
+        "upper" : "?",
+        "style" : {}
+      },
+      "53" : {
+        "hide" : false,
+        "lower" : "⇧",
+        "style" : {
+          "class" : "last-key shift shifter"
+        }
+      },
+      "54" : {
+        "hide" : false,
+        "lower" : "ctrl",
+        "style" : {
+          "class" : "first-key ctrl"
+        }
+      },
+      "55" : {
+        "hide" : false,
+        "lower" : "alt",
+        "style" : {
+          "class" : "alt"
+        }
+      },
+      "56" : {
+        "hide" : false,
+        "lower" : "␣",
+        "style" : {
+          "class" : "space"
+        }
+      },
+      "57" : {
+        "hide" : false,
+        "lower" : "alt gr",
+        "style" : {
+          "class" : "alt"
+        }
+      },
+      "58" : {
+        "hide" : false,
+        "lower" : "ctrl",
+        "style" : {
+          "class" : "ctrl last-key"
+        }
+      }
+    },
     "gr" : {
       "modifiers" : {
         ":" : "1",
@@ -278,7 +592,13 @@
       ":-]-v" : "ῴ",
       "'-]-v" : "ῲ",
       "[-]-v" : "ῷ",
-      "]-v" : "ῳ"
+      "]-v" : "ῳ",
+      ":" : "´",
+      "'" : "`",
+      ";" : " ̓",
+      "\"": " ̔",
+      "[" : " ͂",
+      "]" : "ͺ"
     }
   }
 }

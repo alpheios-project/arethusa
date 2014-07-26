@@ -603,3 +603,83 @@ ul.no-list {
    50% { opacity: 1 }
   100% { opacity: 0 }
 }
+
+#keyboard {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li.keyboard-key {
+  float: left;
+  margin: 0 3px 3px 0;
+  width: 30px;
+  height: 30px;
+  font-size: 0.9em;
+  line-height: 27px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #c9c9c9;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 3px 2px 10px #888888;
+  transition: background-color 0.2s ease-out;
+  -webkit-transition: background-color 0.2s ease-out;
+}
+
+li.keyboard-key:hover {
+  background-color: aliceblue;
+}
+
+#keyboard {
+  width: 514px;
+}
+
+#keyboard .last-key {
+  margin-right: 0;
+}
+#keyboard .first-key {
+  clear: left;
+}
+#keyboard .tab, #keyboard .delete {
+  width: 52px;
+}
+#keyboard .ctrl, #keyboard .alt {
+  width: 52px;
+}
+#keyboard .capslock {
+  width: 60px;
+}
+#keyboard .return {
+  width: 56px;
+}
+#keyboard .l-shift {
+  width: 70px;
+}
+#keyboard .shift {
+  width: 79px;
+}
+
+#keyboard .space {
+  width: 262px;
+}
+
+#keyboard .inactive {
+  color: rgb(228, 228, 228);
+}
+
+#keyboard .shifted-1 {
+  padding-left: 0.1em;
+  font-size:0.7em;
+  vertical-align: super;
+}
+
+#keyboard .shifter {
+  cursor: pointer;
+}
+
+#keyboard .key-hit {
+  background-color: #C3E3FF;
+  border: 1px solid lightgray;
+  box-shadow: none;
+}
