@@ -21,7 +21,8 @@
       "search",
       "depTree"
     ],
-    "chunkParam" : "chunk"
+    "chunkParam" : "chunk",
+    "showKeys" : true
   },
 
   "auths": {
