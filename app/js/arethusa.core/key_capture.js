@@ -27,12 +27,12 @@ angular.module('arethusa.core').service('keyCapture', [
       keyCodes[String.fromCharCode(i)] = i - 32;
     }
 
-    var CodesToKeys = arethusaUtil.inject({}, keyCodes, function(memo, key, code) {
+    var codesToKeys = arethusaUtil.inject({}, keyCodes, function(memo, key, code) {
       memo[code] = key;
     });
 
     this.codeToKey = function(keyCode) {
-      return CodesToKeys[keyCode];
+      return codesToKeys[keyCode];
     };
 
     this.keyToCode = function(key) {
@@ -84,7 +84,7 @@ angular.module('arethusa.core').service('keyCapture', [
     this.getForeignKey = function(event, language) {
       var res = [];
       var keys = keysFor(language);
-      var key = CodesToKeys[event.keyCode];
+      var key = codesToKeys[event.keyCode];
       var mod = keys.modifiers;
       if (key) {
         // We don't want to match 'shift' as a key, so
