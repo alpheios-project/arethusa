@@ -157,7 +157,7 @@ angular.module('arethusa.core').service('keyCapture', [
     };
 
     function broadcastKey(key) {
-      $rootScope.$broadcast('keyCaptureLaunched', keyList[key]);
+      $rootScope.$broadcast('keyCaptureLaunched', keyList[key] || key);
     }
 
     var forbiddenTags = ['INPUT'];
