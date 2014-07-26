@@ -22,9 +22,13 @@ angular.module('arethusa.core').directive('foreignKeys',[
           return scope.foreignKeys || extractLanguage();
         }
 
+        function activeLanguage() {
+          return languageSettings.langNames[lang()];
+        }
+
         // This will not detect changes right now
         function placeHolderText() {
-          var language = languageSettings.langNames[lang()];
+          var language = activeLanguage();
           return  language ? language + ' input enabled!' : '';
         }
 
@@ -32,8 +36,25 @@ angular.module('arethusa.core').directive('foreignKeys',[
           scope.$broadcast('convertingKey', event.keyCode);
         }
 
+        function appendHelp() {
+          if (!activeLanguage()) return;
+
+          var parent = element.parent();
+          var margin = element.css('margin');
+
+          var trigger   = '<span ng-click="visible = !visible">⌨</span>';
+          var help      = '<div foreign-keys-help/>';
+          var newMargin = '<div style="margin: ' + margin + '"/>';
+
+
+          element.css('margin', 0);
+          parent.append($compile(trigger)(scope));
+          parent.append($compile(help)(scope));
+          parent.append(newMargin);
+        }
+
         element.attr('placeholder', placeHolderText);
-        element.parent().append($compile('<div foreign-keys-help/>')(scope));
+        appendHelp();
 
         element.on('keydown', function (event) {
           var input = event.target.value;
