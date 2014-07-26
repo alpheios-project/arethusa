@@ -3,20 +3,20 @@
     <label>by token
       <div class="row collapse">
         <div class="small-10 columns">
-        <input type="text"
-          foreign-keys
-          ng-change="search.queryTokens()"
-          ng-model="search.tokenQuery" />
-          </div>
-        <div class="small-2 columns">
-        <label class="postfix">
-          regex
-          <input
-            id="regex-checkbox"
-            type="checkbox"
+          <input type="text"
+            foreign-keys
             ng-change="search.queryTokens()"
-            ng-model="search.queryByRegex"/>
-        </label>
+            ng-model="search.tokenQuery" />
+        </div>
+        <div class="small-2 columns">
+          <label class="postfix">
+            regex
+            <input
+              id="regex-checkbox"
+              type="checkbox"
+              ng-change="search.queryTokens()"
+              ng-model="search.queryByRegex"/>
+          </label>
         </div>
       </div>
     </label>
