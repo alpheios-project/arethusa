@@ -56,8 +56,8 @@ angular.module('arethusa.core').directive('foreignKeys',[
         element.attr('placeholder', placeHolderText);
         appendHelp();
 
-        element.on('keydown', function (event) {
-          var input = event.target.value;
+        scope.parseEvent = function (event) {
+          var input = element[0].value;
           var l = lang();
           if (l) {
             var fK = keyCapture.getForeignKey(event, l);
@@ -69,7 +69,7 @@ angular.module('arethusa.core').directive('foreignKeys',[
               return true;
             } else {
               broadcast(event);
-              event.target.value = input + fK;
+              element[0].value = input + fK;
               scope.$apply(function() {
                 parent.$eval(scope.ngModel + ' = i + k', { i: input, k: fK });
                 scope.ngChange();
@@ -79,7 +79,9 @@ angular.module('arethusa.core').directive('foreignKeys',[
           } else {
             return true;
           }
-        });
+        };
+
+        element.on('keydown', scope.parseEvent);
       }
     };
   }
