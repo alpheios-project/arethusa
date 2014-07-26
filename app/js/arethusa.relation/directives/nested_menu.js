@@ -4,7 +4,8 @@ angular.module('arethusa.relation').directive('nestedMenu', [
   '$compile',
   'relation',
   '$timeout',
-  function($compile, relation, $timeout) {
+  'saver',
+  function($compile, relation, $timeout, saver) {
     return {
       restrict: 'A',
       scope: {
@@ -60,6 +61,11 @@ angular.module('arethusa.relation').directive('nestedMenu', [
 
         element.bind('click', function(event) {
           scope.$apply(function() {
+            // Temporary solution. Eventually we want to trigger a tokenChange
+            // event here, so that other plugins can listen to it. This event
+            // would also notifiy the saver that a save is needed.
+            saver.needsSave = true;
+
             if (event.eventPhase === 2) { // at target, three would be bubbling!
               markChange();
               scope.selectLabel();
