@@ -136,6 +136,11 @@
     "artificialToken" : {
       "name" : "aT",
       "template" : "templates/arethusa.artificial_token/artificial_token.html"
+    },
+
+    "history" : {
+      "name" : "history",
+      "template" : "templates/history.html"
     }
   },
 
