@@ -36,11 +36,9 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
       for (var category in renamers) {
         var val = form[category];
         var actions = renamers[category];
-        for (var orig in actions) {
-          var actual = actions[orig];
-          if (val === orig) {
-            form[category] = actual;
-          }
+        var actual = actions[val];
+        if (actual) {
+          form[category] = actual;
         }
       }
     }
