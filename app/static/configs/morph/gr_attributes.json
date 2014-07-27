@@ -426,5 +426,17 @@
         }
       }
     }
+  },
+  "mappings" : {
+    "BspMorphRetriever" : {
+      "attributes" : {
+        "pofs" : "pos"
+      },
+      "values" : {
+        "pos" : {
+          "verb\nparticiple": "verb"
+        }
+      }
+    }
   }
 }
