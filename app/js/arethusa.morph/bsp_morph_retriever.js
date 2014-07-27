@@ -23,21 +23,24 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
       });
     }
 
-    function renameAttributes(form, renamers) {
-      for (var oldName in renamers) {
-        var newName = renamers[oldName];
+    function renameAttributes(form, mappings) {
+      if (!mappings) return;
+      for (var oldName in mappings) {
+        var newName = mappings[oldName];
         var val = form[oldName];
         delete form[oldName];
         form[newName] = val;
       }
     }
 
-    function renameValues(form, renamers) {
-      for (var key in renamers) {
-        var val = form[key];
-        var naming = renamers[key];
-        if (val === naming[0]) {
-          form[key] = naming[1];
+    function renameValues(form, mappings) {
+      if (!mappings) return;
+      for (var category in mappings) {
+        var val = form[category];
+        var actions = mappings[category];
+        var actual = actions[val];
+        if (actual) {
+          form[category] = actual;
         }
       }
     }
@@ -54,10 +57,13 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
     return function (conf) {
       var self = this;
       var resource = configurator.provideResource(conf.resource);
+
       this.getWord = function (word) {
         return resource.get({ 'word': word });
       };
+
       this.abort = resource.abort;
+
       this.getData = function (string, callback) {
         self.getWord(string).then(function (res) {
           try {
@@ -89,14 +95,9 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
                     'case',
                     'pofs'
                   ]);
-                  // These renaming stuff could probably be configurable...
-                  renameAttributes(form, { 'pofs': 'pos' });
-                  renameValues(form, {
-                    'pos': [
-                      'verb\nparticiple',
-                      'verb'
-                    ]
-                  });
+                  renameAttributes(form, self.mapping.attributes);
+                  renameValues(form, self.mapping.values);
+
                   results.push({
                     lexInvLocation: formatLexInvData(entry.uri),
                     lemma: lemma,
