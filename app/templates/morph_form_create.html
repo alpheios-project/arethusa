@@ -20,35 +20,32 @@
 <div delimiter></div>
 
 <form name="mFCForm">
-  <div class="row">
-    <div class="small-12 columns">
-      <alert
-        ng-if="alert"
-        class="radius center"
-        type="formError.type"
-        close="resetAlert()">
-        {{ formError.msg }}
-      </alert>
-    </div>
+  <div class="small-12 columns">
+    <alert
+      ng-if="alert"
+      class="radius center"
+      type="formError.type"
+      close="resetAlert()">
+      {{ formError.msg }}
+    </alert>
+  </div>
 
-    <div class="small-12 columns">
-      <div class="small-3 columns">
-        <label class="right">Lemma</label>
-      </div>
-      <div class="small-9 columns">
-        <input
-          foreign-keys
-          class="compact"
-          type="text"
-          required
-          ng-model="form.lemma">
-        </input>
-      </div>
+  <div class="small-12 columns">
+    <div class="small-3 columns">
+      <label class="right">Lemma</label>
+    </div>
+    <div class="small-9 columns">
+      <input
+        foreign-keys
+        class="compact"
+        type="text"
+        required
+        ng-model="form.lemma">
+      </input>
     </div>
   </div>
 
   <div
-    class="row"
     ng-repeat="attr in visibleAttributes"
     ng-init="options= m.attributeValues(attr)">
     <div class="small-12 columns">
@@ -66,6 +63,5 @@
         </select>
       </div>
     </div>
-
   </div>
 </form>
