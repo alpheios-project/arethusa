@@ -33,11 +33,14 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
     }
 
     function renameValues(form, renamers) {
-      for (var key in renamers) {
-        var val = form[key];
-        var naming = renamers[key];
-        if (val === naming[0]) {
-          form[key] = naming[1];
+      for (var category in renamers) {
+        var val = form[category];
+        var actions = renamers[category];
+        for (var orig in actions) {
+          var actual = actions[orig];
+          if (val === orig) {
+            form[category] = actual;
+          }
         }
       }
     }
@@ -92,10 +95,9 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
                   // These renaming stuff could probably be configurable...
                   renameAttributes(form, { 'pofs': 'pos' });
                   renameValues(form, {
-                    'pos': [
-                      'verb\nparticiple',
-                      'verb'
-                    ]
+                    'pos': {
+                      'verb\nparticiple': 'verb'
+                    }
                   });
                   results.push({
                     lexInvLocation: formatLexInvData(entry.uri),
