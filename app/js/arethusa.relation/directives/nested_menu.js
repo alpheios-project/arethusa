@@ -31,9 +31,15 @@ angular.module('arethusa.relation').directive('nestedMenu', [
 
         scope.labelRepresentation = scope.label ? scope.label : '---';
 
-        if (scope.labelObj.nested) {
-          element.append($compile(html)(scope));
+        var nested = scope.labelObj.nested;
+
+        if (nested) {
           element.addClass('nested');
+
+          element.bind('mouseenter', function() {
+            element.append($compile(html)(scope));
+            element.unbind('mouseenter');
+          });
         }
 
         scope.selectLabel = function() {
