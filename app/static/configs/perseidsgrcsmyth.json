@@ -110,7 +110,7 @@
       "gloss" : true,
       "matchAll" : true,
       "preselect" : false,
-      "fileUrl" : "./static/configs/morph/gr_attributes.json"
+      "fileUrl" : "./static/configs/morph/gr_attributes2.json"
     },
 
     "sg" : {
