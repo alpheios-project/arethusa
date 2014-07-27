@@ -271,7 +271,7 @@ describe("state", function() {
       t1.style =  style;
 
       state.unsetStyle('01');
-      expect(t1.style).toBeUndefined();
+      expect(t1.style).toEqual({});
     });
   });
 

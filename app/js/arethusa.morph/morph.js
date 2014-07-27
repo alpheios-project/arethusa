@@ -273,6 +273,27 @@ angular.module('arethusa.morph').service('morph', [
       self.resetCustomForm(val);
     }
 
+    self.preselectToggled = function() {
+      if (self.preselect) applyPreselections();
+    };
+
+    function applyPreselections() {
+      angular.forEach(self.analyses, function(analysis, id) {
+        if (analysis.forms.length > 0) {
+          var hasSelection;
+          for (var i = analysis.forms.length - 1; i >= 0; i--){
+            if (analysis.forms[i].selected) {
+              hasSelection = true;
+              break;
+            }
+          }
+          if (!hasSelection) {
+            self.setState(id, analysis.forms[0]);
+          }
+        }
+      });
+    }
+
     self.resetCustomForm = function(val) {
       val.customForm = self.emptyForm();
     };

@@ -4,7 +4,9 @@ angular.module('arethusa.relation').directive('nestedMenu', [
   '$compile',
   'relation',
   '$timeout',
-  function($compile, relation, $timeout) {
+  'saver',
+  'navigator',
+  function($compile, relation, $timeout, saver, navigator) {
     return {
       restrict: 'A',
       scope: {
@@ -29,9 +31,15 @@ angular.module('arethusa.relation').directive('nestedMenu', [
 
         scope.labelRepresentation = scope.label ? scope.label : '---';
 
-        if (scope.labelObj.nested) {
-          element.append($compile(html)(scope));
+        var nested = scope.labelObj.nested;
+
+        if (nested) {
           element.addClass('nested');
+
+          element.bind('mouseenter', function() {
+            element.append($compile(html)(scope));
+            element.unbind('mouseenter');
+          });
         }
 
         scope.selectLabel = function() {
@@ -60,6 +68,12 @@ angular.module('arethusa.relation').directive('nestedMenu', [
 
         element.bind('click', function(event) {
           scope.$apply(function() {
+            // Temporary solution. Eventually we want to trigger a tokenChange
+            // event here, so that other plugins can listen to it. This event
+            // would also notifiy the saver that a save is needed.
+            navigator.markChunkChanged();
+            saver.needsSave = true;
+
             if (event.eventPhase === 2) { // at target, three would be bubbling!
               markChange();
               scope.selectLabel();

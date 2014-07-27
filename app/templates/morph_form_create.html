@@ -51,19 +51,21 @@
     class="row"
     ng-repeat="attr in visibleAttributes"
     ng-init="options= m.attributeValues(attr)">
+    <div class="small-12 columns">
+      <div class="small-3 columns">
+        <label class="right">{{ m.longAttributeName(attr) }}</label>
+      </div>
 
-    <div class="small-3 columns">
-      <label class="right">{{ m.longAttributeName(attr) }}</label>
+      <div class="small-9 columns">
+        <select
+          class="compact"
+          required
+          ng-model="form.attributes[attr]"
+          ng-options="options[key].long for key in options | keys"
+          ng-change="m.updatePostag(form, attr, form.attributes[attr])">
+        </select>
+      </div>
     </div>
 
-    <div class="small-9 columns">
-      <select
-        class="compact"
-        required
-        ng-model="form.attributes[attr]"
-        ng-options="options[key].long for key in options | keys"
-        ng-change="m.updatePostag(form, attr, form.attributes[attr])">
-      </select>
-    </div>
   </div>
 </form>

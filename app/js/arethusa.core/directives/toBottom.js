@@ -9,9 +9,8 @@ angular.module('arethusa.core').directive('toBottom', [
       link: function(scope, element, attrs) {
         var canvas = angular.element(document.getElementById('canvas'));
         var win  = angular.element($window);
-        win.on('resize', function() {
-          setHeight();
-        });
+        win.on('resize', setHeight);
+        scope.$on('stateLoaded', setHeight);
 
         function setHeight() {
           $timeout(function() {

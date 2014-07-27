@@ -20,9 +20,11 @@
       "relation",
       "artificialToken",
       "search",
-      "depTree"
+      "depTree",
+      "history"
     ],
-    "chunkParam" : "chunk"
+    "chunkParam" : "chunk",
+    "showKeys" : true
   },
 
   "auths": {
@@ -135,6 +137,11 @@
     "artificialToken" : {
       "name" : "aT",
       "template" : "templates/arethusa.artificial_token/artificial_token.html"
+    },
+
+    "history" : {
+      "name" : "history",
+      "template" : "templates/history.html"
     }
   },
 

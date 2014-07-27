@@ -350,7 +350,7 @@ angular.module('arethusa.core').service('state', [
     };
 
     this.unsetStyle = function (id) {
-      delete self.getToken(id).style;
+      self.getToken(id).style = {};
     };
 
     this.addStatusObjects = function () {

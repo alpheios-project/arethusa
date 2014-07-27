@@ -204,9 +204,11 @@ angular.module('arethusa.core').service('navigator', [
       };
     });
 
-    // Probably could deregister/reregister that watch, but it doesn't hurt...
-    $rootScope.$on('tokenChange', function(event, change) {
+    this.markChunkChanged = function() {
       currentSentenceObj().changed = true;
-    });
+    };
+
+    // Probably could deregister/reregister that watch, but it doesn't hurt...
+    $rootScope.$on('tokenChange', self.markChunkChanged);
   }
 ]);

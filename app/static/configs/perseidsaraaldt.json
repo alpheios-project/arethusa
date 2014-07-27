@@ -18,9 +18,11 @@
       "search",
       "morph",
       "relation",
-      "depTree"
+      "depTree",
+      "history"
     ],
-    "chunkParam" : "chunk"
+    "chunkParam" : "chunk",
+    "showKeys" : true
   },
 
   "auths": {
@@ -94,6 +96,11 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
       "fileUrl" : "./static/configs/relation/relations.json"
+    },
+
+    "history" : {
+      "name" : "history",
+      "template" : "templates/history.html"
     }
   },
 

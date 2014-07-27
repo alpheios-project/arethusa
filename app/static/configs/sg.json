@@ -135,7 +135,6 @@
 
     "history" : {
       "name" : "history",
-      "listener" : true,
       "maxSize" : 5,
       "template" : "templates/history.html"
     },

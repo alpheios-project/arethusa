@@ -12,6 +12,10 @@
             "CGN" : {
               "sections" : "1563-1579"
             },
+            "ACR" : {
+              "short" : "ACR",
+              "long" : "cognate accusative/accusative of result"
+            },
             "NAB" : {
               "short" : "NAB",
               "long" : "none of the above"
