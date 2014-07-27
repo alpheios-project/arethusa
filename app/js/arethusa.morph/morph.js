@@ -55,6 +55,12 @@ angular.module('arethusa.morph').service('morph', [
       morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
       propagateMappings(morphRetrievers);
 
+      // This is useful for the creation of new forms. Usually we want to
+      // validate if all attributes are set properly - the inclusion of
+      // special empty attributes allows to say specifically that something
+      // should be left unannotated/unknown. Useful for elliptic nodes etc.
+      addSpecialEmptyAttributes();
+
       if (self.conf.lexicalInventory) {
         inventory = configurator.getRetriever(self.conf.lexicalInventory.retriever);
       }
@@ -64,6 +70,22 @@ angular.module('arethusa.morph').service('morph', [
     // We need to do this outside - we don't want it reconfigured on every init
     // if the user sets it by hand, that's what we stick to.
     self.preselect = self.conf.preselect;
+
+
+    var emptyAttribute = {
+      long: '---',
+      short: '---',
+      postag: '_'
+    };
+
+    function addSpecialEmptyAttribute(attrObj, name) {
+      attrObj.values['---'] = emptyAttribute;
+    }
+
+    function addSpecialEmptyAttributes() {
+      angular.forEach(self.attributes, addSpecialEmptyAttribute);
+    }
+
 
     function propagateMapping(retriever, name) {
       retriever.mapping = self.mappings[name] || {};
