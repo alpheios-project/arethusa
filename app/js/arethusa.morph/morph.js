@@ -34,6 +34,7 @@ angular.module('arethusa.morph').service('morph', [
 
     this.defaultConf = {
       name: "morph",
+      mappings: {},
       gloss: false,
       matchAll: true
     };
@@ -42,6 +43,7 @@ angular.module('arethusa.morph').service('morph', [
       var props = [
         'postagSchema',
         'attributes',
+        'mappings',
         'styledThrough',
         'noRetrieval',
         'matchAll',
@@ -51,6 +53,7 @@ angular.module('arethusa.morph').service('morph', [
       configurator.getConfAndDelegate('morph', self, props);
       self.analyses = {};
       morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
+      propagateMappings(morphRetrievers);
 
       if (self.conf.lexicalInventory) {
         inventory = configurator.getRetriever(self.conf.lexicalInventory.retriever);
@@ -61,6 +64,14 @@ angular.module('arethusa.morph').service('morph', [
     // We need to do this outside - we don't want it reconfigured on every init
     // if the user sets it by hand, that's what we stick to.
     self.preselect = self.conf.preselect;
+
+    function propagateMapping(retriever, name) {
+      retriever.mapping = self.mappings[name] || {};
+    }
+
+    function propagateMappings(retrievers) {
+      angular.forEach(retrievers, propagateMapping);
+    }
 
     function getDataFromInventory(form) {
       if (inventory) {
