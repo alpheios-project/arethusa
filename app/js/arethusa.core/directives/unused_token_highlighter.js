@@ -2,13 +2,14 @@
 
 angular.module('arethusa.core').directive('unusedTokenHighlighter', [
   'state',
-  function(state) {
+  '$parse',
+  function(state, $parse) {
     return {
       restrict: 'A',
       scope: {
         highlightMode: '@unusedTokenHighlighter',
         style: '=unusedTokenStyle',
-        uthCheck: '&'
+        uthCheckProperty: '@'
       },
       link: function(scope, element, attrs) {
         var unusedTokens;
@@ -16,8 +17,10 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
         var highlightMode = !!scope.highlightMode;
         scope.s = state;
 
+        var getter = $parse(scope.uthCheckProperty);
+
         function checkIfUnused(token, id) {
-          if (scope.uthCheck({ token: token })) {
+          if (!getter(token)) {
             scope.unusedCount++;
             unusedTokens[id] = true;
           }
@@ -27,7 +30,7 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
           angular.forEach(state.tokens, checkIfUnused);
         }
 
-        function watchHeadChange(newVal, oldVal, event) {
+        function watchChange(newVal, oldVal, event) {
           var id = event.token.id;
           if (newVal) {
             // Check if the token was used before!
@@ -43,7 +46,7 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
           }
         }
 
-        state.watch('head.id', watchHeadChange);
+        state.watch(scope.uthCheckProperty, watchChange);
 
         function init() {
           scope.total = state.totalTokens;
