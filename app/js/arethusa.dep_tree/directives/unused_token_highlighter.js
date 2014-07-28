@@ -7,7 +7,8 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
       restrict: 'A',
       scope: {
         highlightMode: '@unusedTokenHighlighter',
-        style: '=unusedTokenStyle'
+        style: '=unusedTokenStyle',
+        uthCheck: '&'
       },
       link: function(scope, element, attrs) {
         var unusedTokens;
@@ -15,18 +16,8 @@ angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
         var highlightMode = !!scope.highlightMode;
         scope.s = state;
 
-        function tokensWithoutHeadCount() {
-          return state.countTokens(function (token) {
-            return hasNoHead(token);
-          });
-        }
-
-        function hasNoHead(token) {
-          return !(token.head || {}).id;
-        }
-
         function checkIfUnused(token, id) {
-          if (hasNoHead(token)) {
+          if (scope.uthCheck({ token: token })) {
             scope.unusedCount++;
             unusedTokens[id] = true;
           }
