@@ -171,10 +171,6 @@
               "short" : "SPC",
               "long" : "space extension (with διά, μέχρι)"
             },
-            "CAU" : {
-              "short" : "CAU",
-              "long" : "cause (with ἀπό, ἐξ, ὑπό)"
-            },
             "MNS" : {
               "short" : "MNS",
               "long" : "means or instrument (with ἀπό, διά, ἐξ)"

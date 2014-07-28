@@ -6,7 +6,7 @@
     },
     "ADV_TMP_ABL" : {
       "short" : "ADV_TMP_ABL",
-      "long" : "time (with the force of genitive of separation)"
+      "long" : "time (with force of genitive of separation)"
     },
     "ADV_TMP_EXT" : {
       "short" : "ADV_TMP_EXT",
@@ -22,7 +22,7 @@
     },
     "ADV_PLC_ABL" : {
       "short" : "ADV_PLC_ABL",
-      "long" : "place (with the force of genitive of separation)"
+      "long" : "place (with force of genitive of separation)"
     },
     "ADV_PLC_EXT" : {
       "short" : "ADV_PLC_EXT",
@@ -79,6 +79,6 @@
     "ADV_IDK" : {
       "short" : "ADV_IDK",
       "long" : "I do not know"
-    } 
+    }
   }
 }

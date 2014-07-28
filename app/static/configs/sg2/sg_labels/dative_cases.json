@@ -60,6 +60,11 @@
           "long" : "relation",
           "sections" : "1495-1498",
           "nested" : {
+            "REL" : {
+              "short" : "REL",
+              "long" : "relation proper",
+              "sections" : "1495"
+            },
             "RFR" : {
               "short" : "RFR",
               "long" : "reference",
@@ -155,6 +160,11 @@
               "long" : "accompaniment",
               "sections" : "1524-1525"
             },
+            "CRC" : {
+              "short" : "CRC",
+              "long" : "dative of accompanying circumstance",
+              "sections" : "1527"
+            },
             "NAB" : {
               "short" : "NAB",
               "long" : "none of the above"
@@ -164,6 +174,14 @@
               "long" : "I don't know"
             }
           }
+        },
+        "NAB" : {
+          "short" : "NAB",
+          "long" : "none of the above"
+        },
+        "IDK" : {
+          "short" : "IDK",
+          "long" : "I don't know"
         }
       },
       "NAB" : {
@@ -208,6 +226,10 @@
         "short" : "PUR",
         "long" : "purpose (with ἐπί)"
         },
+        "PSS" : {
+          "short" : "PSS",
+          "long" : "(with παρά) possession or belonging"
+        },
         "NAB" : {
           "short" : "NAB",
           "long" : "none of the above"
@@ -215,7 +237,7 @@
         "IDK" : {
           "short" : "IDK",
           "long" : "I don't know"
-        }    
+        }
       }
     },
     "UNS" : {

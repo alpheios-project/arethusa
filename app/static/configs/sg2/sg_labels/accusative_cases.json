@@ -9,12 +9,10 @@
           "long" : "internal object",
           "sections" : "1563-1577",
           "nested" : {
-            "CGN" : {
+            "CGR" : {
+              "short" : "CGR",
+              "long" : "cognate accusative/accusative of result",
               "sections" : "1563-1579"
-            },
-            "ACR" : {
-              "short" : "ACR",
-              "long" : "cognate accusative/accusative of result"
             },
             "NAB" : {
               "short" : "NAB",
@@ -90,9 +88,25 @@
               "short" : "MEA",
               "long" : "measure (with εἰς, ἐπί, παρά, ὑπέρ)"
             },
+            "ADV" : {
+              "short" : "ADV",
+              "long" : "(with εἰς, πρός) advantage/disadvantage (for/against)"
+            },
+            "CMP" : {
+              "short" : "CMP",
+              "long" : "(with παρά) comparison"
+            },
             "STN" : {
               "short" : "STN",
               "long" : "of standard of judgement (with πρός)"
+            },
+            "NAB" : {
+              "short" : "NAB",
+              "long" : "none of the above"
+            },
+            "IDK" : {
+              "short" : "IDK",
+              "long" : "I don't know"
             }
           }
         },
@@ -129,6 +143,14 @@
           "long" : "I don't know"
         }
       }
+    },
+    "NAB" : {
+      "short" : "NAB",
+      "long" : "none of the above"
+    },
+    "IDK" : {
+      "short" : "IDK",
+      "long" : "I don't know"
     }
   }
 }

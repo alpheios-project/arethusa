@@ -68,7 +68,7 @@
             },
             "INF_TMP" : {
               "short" : "INF_TMP",
-              "long" : "infinitive with πρίν",
+              "long" : "temporal infinitive",
 	      "sections" : "2453-2461"
             },
             "VRB_NAB" : {
