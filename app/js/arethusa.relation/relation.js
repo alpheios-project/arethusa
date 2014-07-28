@@ -25,8 +25,8 @@ angular.module('arethusa.relation').service('relation', [
     // Label handling
     function splitLabel(relation) {
       var split = relation.label.split('_');
-      relation.prefix = split[0];
-      relation.suffix = split[1];
+      relation.prefix = split[0] || '';
+      relation.suffix = split[1] || '';
     }
 
     this.buildLabel = function (relation) {
