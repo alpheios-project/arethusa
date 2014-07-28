@@ -18,7 +18,7 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
       scope.emptyObj = {};
       scope.$watch('current[property]', function(newVal, oldVal) {
         if (newVal !== oldVal) {
-          scope.change();
+          scope.change({ obj: scope.current });
         }
       });
 
@@ -37,6 +37,7 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
           property="property"\
           rel-obj="current"\
           ancestors="ancestors"\
+          change="change"\
           label="emptyLabel"\
           label-obj="emptyObj">\
         </li>\
