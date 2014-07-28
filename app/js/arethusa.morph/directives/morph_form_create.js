@@ -125,7 +125,25 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           var newForm = angular.copy(scope.form);
           scope.forms.push(newForm);
           morph.setState(scope.id, newForm);
+          propagateToEqualTokens(newForm);
           notifier.success('Added form for ' + state.asString(scope.id));
+        }
+
+        function propagateToEqualTokens(form) {
+          var str = scope.token.string;
+          angular.forEach(state.tokens, function(token, id) {
+            if (id !== scope.id) {
+              if (token.string === str) {
+                var morphForm = morph.analyses[id];
+                var newForm = angular.copy(form);
+                newForm.selected = false;
+                morphForm.forms.push(newForm);
+                if (!morph.hasSelection(morphForm)) {
+                  morph.setState(id, newForm);
+                }
+              }
+            }
+          });
         }
 
         scope.$watch('form.attributes', function (newVal, oldVal) {
