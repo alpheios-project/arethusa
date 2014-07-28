@@ -11,16 +11,10 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
       ancestors: '=',
       emptyVal: '@',
       labelAs: "=",
-      change: "&"
     },
     link: function(scope, element, attrs) {
       scope.emptyLabel = "";
       scope.emptyObj = {};
-      scope.$watch('current[property]', function(newVal, oldVal) {
-        if (newVal !== oldVal) {
-          scope.change({ obj: scope.current });
-        }
-      });
 
       scope.labelView = function(labelObj) {
         if (scope.labelAs) {
@@ -37,7 +31,6 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', function()
           property="property"\
           rel-obj="current"\
           ancestors="ancestors"\
-          change="change"\
           label="emptyLabel"\
           label-obj="emptyObj">\
         </li>\
