@@ -409,11 +409,15 @@
   "mappings" : {
     "BspMorphRetriever" : {
       "attributes" : {
-        "pofs" : "pos"
+        "pofs" : "pos",
+        "comp" : "degree"
       },
       "values" : {
         "pos" : {
           "verb\nparticiple": "verb"
+        },
+        "tense" : {
+          "pluperfect" : "plusquamperfect"
         }
       }
     }

@@ -414,7 +414,8 @@
   "mappings" : {
     "BspMorphRetriever" : {
       "attributes" : {
-        "pofs" : "pos"
+        "pofs" : "pos",
+        "comp" : "degree"
       },
       "values" : {
         "pos" : {
@@ -423,6 +424,9 @@
           "particle": "adverb",
           "preposition": "adposition",
           "exclamation": "interjection"
+        },
+        "tense" : {
+          "pluperfect" : "plusquamperfect"
         }
       }
     }
