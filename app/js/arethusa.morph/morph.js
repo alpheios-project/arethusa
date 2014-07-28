@@ -310,21 +310,27 @@ angular.module('arethusa.morph').service('morph', [
       if (self.preselect) applyPreselections();
     };
 
-    function applyPreselections() {
-      angular.forEach(self.analyses, function(analysis, id) {
-        if (analysis.forms.length > 0) {
-          var hasSelection;
-          for (var i = analysis.forms.length - 1; i >= 0; i--){
-            if (analysis.forms[i].selected) {
-              hasSelection = true;
-              break;
-            }
-          }
-          if (!hasSelection) {
-            self.setState(id, analysis.forms[0]);
-          }
+    this.hasSelection = function(analysis) {
+      var hasSelection;
+      for (var i = analysis.forms.length - 1; i >= 0; i--){
+        if (analysis.forms[i].selected) {
+          hasSelection = true;
+          break;
         }
-      });
+      }
+      return hasSelection;
+    };
+
+    function applyPreselection(analysis, id) {
+      if (analysis.forms.length > 0) {
+        if (!self.hasSelection(analysis)) {
+          self.setState(id, analysis.forms[0]);
+        }
+      }
+    }
+
+    function applyPreselections() {
+      angular.forEach(self.analyses, applyPreselection);
     }
 
     self.resetCustomForm = function(val) {
