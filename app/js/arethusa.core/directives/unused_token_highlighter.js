@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.depTree').directive('unusedTokenHighlighter', [
+angular.module('arethusa.core').directive('unusedTokenHighlighter', [
   'state',
   function(state) {
     return {
