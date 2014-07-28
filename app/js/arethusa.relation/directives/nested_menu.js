@@ -44,6 +44,7 @@ angular.module('arethusa.relation').directive('nestedMenu', [
         scope.selectLabel = function() {
           if (scope.property) {
             scope.relObj[scope.property] = scope.label;
+            scope.$emit('nestedMenuSelection', scope.relObj);
           }
         };
 
