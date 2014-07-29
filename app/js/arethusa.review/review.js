@@ -1,4 +1,7 @@
 'use strict';
+
+/* global jsondiffpatch */
+
 angular.module('arethusa.review').service('review', [
   'configurator',
   'state',
@@ -7,13 +10,22 @@ angular.module('arethusa.review').service('review', [
   function (configurator, state, morph, $rootScope) {
     var self = this;
     var retriever;
+
     function configure() {
       configurator.getConfAndDelegate('review', self);
       self.goldTokens = {};
+      self.comparators = [
+        'morphology.lemma',
+        'morphology.attributes',
+        'head.id',
+        'relation.label'
+      ];
       var retrievers = configurator.getRetrievers(self.conf.retrievers);
       retriever = retrievers.TreebankRetriever;
     }
+
     configure();
+
     function addStyleInfo(tokens) {
       angular.forEach(tokens, function (token, id) {
         var form = token.morphology;
@@ -23,6 +35,7 @@ angular.module('arethusa.review').service('review', [
         }
       });
     }
+
     function broadcast() {
       $rootScope.$broadcast('diffLoaded');
     }
@@ -30,54 +43,21 @@ angular.module('arethusa.review').service('review', [
       self.goldTokens = res[0].tokens;
       addStyleInfo(self.goldTokens);
     });
+
+    function extract(obj) {
+      return arethusaUtil.inject({}, obj, function(memo, id, token) {
+        memo[id] = arethusaUtil.copySelection(token, self.comparators);
+      });
+    }
+
     this.compare = function () {
-      // mockup object right now
-      var obj = {
-          '0002': {
-            relation: {
-              label: {
-                original: 'OBJ',
-                new: 'PNOM'
-              }
-            }
-          },
-          '0005': {
-            head: {
-              id: {
-                original: 7,
-                new: 6
-              }
-            }
-          },
-          '0011': {
-            head: {
-              id: {
-                original: 16,
-                new: 18
-              }
-            }
-          },
-          '0016': {
-            relation: {
-              label: {
-                original: 'OBJ',
-                new: 'SBJ'
-              }
-            },
-            lemma: {},
-            postag: {}
-          },
-          '0017': {
-            relation: {
-              label: {
-                original: 'SBJ',
-                new: 'ATR'
-              }
-            }
-          }
-        };
-      if (obj) {
-        angular.forEach(obj, function (diff, id) {
+      var diff = jsondiffpatch.diff(
+        extract(state.tokens),
+        extract(self.goldTokens)
+      );
+
+      if (diff) {
+        angular.forEach(diff, function (diff, id) {
           state.setState(id, 'diff', diff);
         });
         broadcast();
