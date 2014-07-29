@@ -16,6 +16,10 @@ angular.module('arethusa.relation').directive('labelSelector', [
         scope.$watch('plugin.mode', function(newVal, oldVal) {
           scope.showMenu = relation.canEdit();
         });
+
+        scope.$on('nestedMenuSelection', function(event, obj) {
+          relation.changeState(obj);
+        });
       },
       templateUrl: 'templates/arethusa.relation/label_selector.html'
     };

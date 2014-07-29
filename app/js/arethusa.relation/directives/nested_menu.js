@@ -2,11 +2,10 @@
 
 angular.module('arethusa.relation').directive('nestedMenu', [
   '$compile',
-  'relation',
   '$timeout',
   'saver',
   'navigator',
-  function($compile, relation, $timeout, saver, navigator) {
+  function($compile, $timeout, saver, navigator) {
     return {
       restrict: 'A',
       scope: {
@@ -45,7 +44,7 @@ angular.module('arethusa.relation').directive('nestedMenu', [
         scope.selectLabel = function() {
           if (scope.property) {
             scope.relObj[scope.property] = scope.label;
-            relation.buildLabel(scope.relObj);
+            scope.$emit('nestedMenuSelection', scope.relObj);
           }
         };
 
