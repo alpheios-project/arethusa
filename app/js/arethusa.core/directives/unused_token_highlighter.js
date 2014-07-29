@@ -3,7 +3,8 @@
 angular.module('arethusa.core').directive('unusedTokenHighlighter', [
   'state',
   '$parse',
-  function(state, $parse) {
+  '$window',
+  function(state, $parse, $window) {
     return {
       restrict: 'A',
       scope: {
@@ -93,6 +94,12 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
           scope.$apply(function() {
             selectUnusedTokens();
           });
+
+          // Trying to prevent the native browser behaviour
+          // for dblclicks - they are pretty browser-dependent
+          event.preventDefault();
+          $window.getSelection().empty();
+          return false;
         });
 
         scope.$watch('s.tokens', function(newVal, oldVal) {
