@@ -73,6 +73,11 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
           });
         }
 
+        function selectUnusedTokens() {
+          unapplyHighlighting();
+          state.multiSelect(Object.keys(unusedTokens));
+        }
+
         element.bind('click', function() {
           scope.$apply(function() {
             if (highlightMode) {
@@ -82,6 +87,12 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
             }
           });
           highlightMode = !highlightMode;
+        });
+
+        element.bind('dblclick', function(event) {
+          scope.$apply(function() {
+            selectUnusedTokens();
+          });
         });
 
         scope.$watch('s.tokens', function(newVal, oldVal) {
