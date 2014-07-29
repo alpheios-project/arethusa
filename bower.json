@@ -17,6 +17,7 @@
     "x2js": "",
     "angulartics": "0.15.20",
     "lunr.js": "~0.5.4",
-    "bourbon": "~4.0.2"
+    "bourbon": "~4.0.2",
+    "jsondiffpatch": "~0.1.8"
   }
 }
