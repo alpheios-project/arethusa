@@ -101,7 +101,7 @@ describe("relation", function() {
           var relationLabel = { label: "PRED" };
           relation.expandRelation(relationLabel);
           expect(relationLabel.prefix).toEqual("PRED");
-          expect(relationLabel.suffix).toBeUndefined();
+          expect(relationLabel.suffix).toEqual('');
         });
       });
     });
@@ -126,7 +126,7 @@ describe("relation", function() {
       it('changes the relation value of all selected tokens', function() {
         state.selectToken('01', 'ctrl-click');
         state.selectToken('02', 'ctrl-click');
-        var newRel = { label: "ATR" };
+        var newRel = { label: "ATR", prefix: 'ATR', suffix: '' };
         relation.multiChanger = newRel;
         relation.applyMultiChanger();
 
