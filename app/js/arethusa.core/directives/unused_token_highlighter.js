@@ -3,7 +3,8 @@
 angular.module('arethusa.core').directive('unusedTokenHighlighter', [
   'state',
   '$parse',
-  function(state, $parse) {
+  '$window',
+  function(state, $parse, $window) {
     return {
       restrict: 'A',
       scope: {
@@ -73,6 +74,11 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
           });
         }
 
+        function selectUnusedTokens() {
+          unapplyHighlighting();
+          state.multiSelect(Object.keys(unusedTokens));
+        }
+
         element.bind('click', function() {
           scope.$apply(function() {
             if (highlightMode) {
@@ -82,6 +88,18 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
             }
           });
           highlightMode = !highlightMode;
+        });
+
+        element.bind('dblclick', function(event) {
+          scope.$apply(function() {
+            selectUnusedTokens();
+          });
+
+          // Trying to prevent the native browser behaviour
+          // for dblclicks - they are pretty browser-dependent
+          event.preventDefault();
+          $window.getSelection().empty();
+          return false;
         });
 
         scope.$watch('s.tokens', function(newVal, oldVal) {
@@ -100,6 +118,9 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
       },
       template: '\
         <span\
+          tooltip-html-unsafe="{{ \'UNUSED_TOOLTIP\' | translate }}"\
+          tooltip-popup-delay="700"\
+          tooltip-placement="left"\
           translate="UNUSED_COUNT"\
           translate-value-count="{{ unusedCount }}"\
           translate-value-total="{{ total }}">\
