@@ -138,5 +138,14 @@ var arethusaUtil = {
 
     json2xml: function(json) {
       return arethusaUtil.xmlParser.json2xml_str(json);
+    },
+
+    getProperty: function(obj, getter) {
+      var props = getter.split('.');
+      for (var i = 0; i  < props.length; i ++) {
+        obj = obj[props[i]];
+        if (!obj) break;
+      }
+      return obj;
     }
   };

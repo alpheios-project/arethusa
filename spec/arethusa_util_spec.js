@@ -257,4 +257,23 @@ describe("arethusaUtil", function() {
       expect(obj.a).toBeUndefined();
     });
   });
+
+  describe('getProperty', function() {
+    var obj = {
+      a: {
+        b: {
+          c: 1
+        }
+      }
+    };
+
+    it('access a nested property through a string', function() {
+      expect(aU.getProperty(obj, 'a.b.c')).toEqual(1);
+    });
+
+    it('returns undefined when undefined is encountered at any point of the chain', function() {
+      expect(aU.getProperty(obj, 'a.b.d')).toBeUndefined();
+      expect(aU.getProperty(obj, 'a.c.c')).toBeUndefined();
+    });
+  });
 });
