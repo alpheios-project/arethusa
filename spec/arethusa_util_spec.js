@@ -300,4 +300,25 @@ describe("arethusaUtil", function() {
       expect(x.a.x.y).toBeTruthy();
     });
   });
+
+  describe('copySelection', function() {
+    var obj = {
+      a: { b: { c: 1, d: 2 } },
+      x: { y: { z: 2 } }
+    };
+
+    it('copies a selection of properties, identified by getter strings', function() {
+      var expected = {
+        a: { b: { d: 2 } },
+        x: { y: { z: 2 } }
+      };
+      var actual = aU.copySelection(obj, ['a.b.d', 'x.y']);
+      expect(actual).toEqual(expected);
+    });
+
+    it('copied elements are really copied, not referenced', function() {
+      var actual = aU.copySelection(obj, ['a.b.d', 'x.y']);
+      expect(actual.x).not.toBe(obj.x);
+    });
+  });
 });

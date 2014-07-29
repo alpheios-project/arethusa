@@ -162,6 +162,14 @@ var arethusaUtil = {
         }
       }
       obj[lastProp] = value;
-    }
+    },
 
+    copySelection: function(obj, getters){
+      var newVal;
+      return arethusaUtil.inject({}, getters, function(memo, el) {
+        newVal = arethusaUtil.getProperty(obj, el);
+        if (angular.isObject(newVal)) newVal = angular.copy(newVal);
+        arethusaUtil.setProperty(memo, el, newVal);
+      });
+    }
   };
