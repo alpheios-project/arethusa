@@ -633,6 +633,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
                 updateEdge(token);
               }
               render();
+              $timeout(applyViewMode, transitionDuration);
             }
           });
         }
