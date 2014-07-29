@@ -118,6 +118,9 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
       },
       template: '\
         <span\
+          tooltip-html-unsafe="{{ \'UNUSED_TOOLTIP\' | translate }}"\
+          tooltip-popup-delay="700"\
+          tooltip-placement="left"\
           translate="UNUSED_COUNT"\
           translate-value-count="{{ unusedCount }}"\
           translate-value-total="{{ total }}">\
