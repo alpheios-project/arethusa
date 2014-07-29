@@ -14,6 +14,11 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
 
         scope.aT = artificialToken;
 
+        function setInsertDirText() {
+          scope.insertDirText = scope.aT.insertBehind ? 'behind' : 'in front of';
+          scope.arrow = scope.aT.insertBehind ? 'right' : 'left';
+        }
+
         function tokens() {
           return angular.element('[token]');
         }
@@ -25,6 +30,11 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
           state.deselectAll();
           tokens().addClass(modeClass);
           setWatch();
+        };
+
+        scope.toggleDir = function() {
+          scope.aT.insertBehind = !scope.aT.insertBehind;
+          setInsertDirText();
         };
 
         function leaveSelectMode() {
@@ -54,6 +64,7 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
           scope.insertionPoint = newVal;
         });
 
+        setInsertDirText();
       },
       templateUrl: 'templates/arethusa.artificial_token/artificial_token_insertion_pointer.html'
     };

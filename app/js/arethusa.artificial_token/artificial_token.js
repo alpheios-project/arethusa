@@ -104,10 +104,12 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       return id;
     }
 
+    this.insertBehind = false;
+
     this.propagateToState = function() {
       setString();
       var id = self.model.insertionPoint.id;
-      var newId = idHandler.decrement(id);
+      var newId = self.insertBehind ? id : idHandler.decrement(id);
       if (!idHandler.isExtendedId(id)) {
         newId = idHandler.extendId(newId);
       }
