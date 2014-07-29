@@ -147,5 +147,21 @@ var arethusaUtil = {
         if (!obj) break;
       }
       return obj;
+    },
+
+    setProperty: function(obj, propertyPath, value) {
+      var props = propertyPath.split('.');
+      var lastProp = props.pop();
+      for (var i = 0; i  < props.length; i ++) {
+        var prop = props[i];
+        var next = obj[prop];
+        if (next) {
+          obj = next;
+        } else {
+          obj = obj[prop] = {};
+        }
+      }
+      obj[lastProp] = value;
     }
+
   };

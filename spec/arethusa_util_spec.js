@@ -276,4 +276,28 @@ describe("arethusaUtil", function() {
       expect(aU.getProperty(obj, 'a.c.c')).toBeUndefined();
     });
   });
+
+  describe('setProperty', function() {
+    function obj() {
+      return {
+        a: {
+          b: {
+            c: 1
+          }
+        }
+      };
+    }
+
+    it('sets a property in a nested object', function() {
+      var x = obj();
+      aU.setProperty(x, 'a.b.c', 2);
+      expect(x.a.b.c).toEqual(2);
+    });
+
+    it('can add new nesting levels', function() {
+      var x = obj();
+      aU.setProperty(x, 'a.x.y', true);
+      expect(x.a.x.y).toBeTruthy();
+    });
+  });
 });
