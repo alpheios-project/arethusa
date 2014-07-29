@@ -1,22 +1,27 @@
 <div class="small-12 columns">
   <label>Insertion point
     <div class="small-panel row text-left">
-      <div class="small-10 middle-10 large-11 columns">
         <span ng-if="!insertionPoint">-</span>
         <span ng-if=" insertionPoint">
-          <span>in front of</span>
+          <span>{{ insertDirText }}</span>
           <span
             token-with-id
             value="insertionPoint.string"
             token-id="insertionPoint.id">
           </span>
         </span>
-      </div>
-      <div class="small-2 middle-2 large-1 columns">
-        <button ng-click="enterSelectMode()" class="micro radius right">
-          <i class="fa fa-crosshairs rotate-on-hover"></i>
-        </button>
-      </div>
+        <span class="right">
+          <span
+            ng-click="enterSelectMode()"
+            class="button micro radius">
+            <i class="fa fa-crosshairs rotate-on-hover"></i>
+          </span>
+          <span class="button micro radius"
+            ng-click="toggleDir()"
+            title="{{ insertDirText }} token (click to toggle)">
+            <i class="fa fa-arrow-{{ arrow }}"></i>
+          </span>
+        </span>
     </div>
   </label>
 </div>
