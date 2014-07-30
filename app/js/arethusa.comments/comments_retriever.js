@@ -12,7 +12,12 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
     }
 
     function addComments(id, comment) {
-      arethusaUtil.setProperty(comments, id, comment);
+      var arr = arethusaUtil.getProperty(comments, id);
+      if (!arr) {
+        arr = [];
+        arethusaUtil.setProperty(comments, id, arr);
+      }
+      arr.push(comment);
     }
 
     function parseComments(res) {
