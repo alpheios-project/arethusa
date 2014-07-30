@@ -1,0 +1,19 @@
+<div class="small-12 columns">
+  <div search-by-string/>
+</div>
+
+<div class="small-12 columns" ng-repeat="pl in plugin.pluginsWithSearch(plugins)">
+  <div plugin-search="pl"></div>
+</div>
+
+<div class="small-12 columns">
+  <label class="inline">Found tokens</label>
+  <ul lang-specific>
+    <li
+      ng-repeat="(id, type) in state.selectedTokens"
+      token-with-id
+      value="state.asString(id)"
+      token-id="id">
+    </li>
+  </ul>
+</div>
