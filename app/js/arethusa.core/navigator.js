@@ -136,8 +136,8 @@ angular.module('arethusa.core').service('navigator', [
     }
 
     this.updateState = function() {
-      self.state().replaceState(self.currentSentence());
       self.updateId();
+      self.state().replaceState(self.currentSentence());
     };
 
     function movePosition(steps) {
