@@ -114,16 +114,6 @@ describe('search', function() {
     });
   });
 
-  describe('this.pluginsWithSearch', function() {
-    it('returns an array of plugins that have a search function', function() {
-      var pluginA = { canSearch: true };
-      var pluginB = { canSearch: false };
-      var pluginC = { canSearch: true };
-      var plugins = { "a": pluginA, "b": pluginB, "c": pluginC };
-      expect(search.pluginsWithSearch(plugins)).toEqual([ pluginA, pluginC ]);
-    });
-  });
-
   describe('this.init', function() {
     it('initializes the plugin by collecting all token strings and providing a model for input form', function() {
       search.init();

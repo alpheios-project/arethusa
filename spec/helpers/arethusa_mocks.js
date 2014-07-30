@@ -42,6 +42,17 @@ function ArethusaMocks() {
       error: mockFn
     }, customizations);
   };
+
+  this.plugins = function(customizations) {
+    return withCustomizations({
+      startUp: mockFn,
+      init: mockFn,
+      all: {},
+      main: [],
+      sub: [],
+      withMenu: []
+    });
+  };
 }
 
 var arethusaMocks = new ArethusaMocks();
