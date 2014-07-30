@@ -3,16 +3,6 @@
 angular.module('arethusa.comments').factory('CommentsRetriever', [
   'configurator',
   function(configurator) {
-    var test = [
-      { "id": 47,
-        "user": "Bridget Almas",
-        "reason": "general",
-        "created_at": "2014-07-30T12:34:33Z",
-        "updated_at": "2014-07-30T12:34:33Z",
-        "comment": "##1.3##\n\ntest comment"
-      }
-    ];
-
     var comments = {};
 
     function splitIdAndComment(comment) {
@@ -45,7 +35,8 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
           callback(comments[chunkId]);
         } else {
           resource.get().then(function(res) {
-            parseComments(test); // this will be res.data of course
+            parseComments(res.data);
+            alreadyLoaded = true;
             callback(comments[chunkId]);
           });
         }

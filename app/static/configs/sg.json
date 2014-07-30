@@ -45,6 +45,13 @@
       ]
     },
 
+    "fakePerseidsComments" : {
+      "route" : "http://74.70.97.104:8085/comments/:doc",
+      "params" : [
+        "doc"
+      ]
+    },
+
     "fakeGold" : {
       "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
       "params" : [
@@ -148,7 +155,7 @@
     "comments" : {
       "retriever" : {
         "CommentsRetriever" : {
-          "resource" : "fakePerseids"
+          "resource" : "fakePerseidsComments"
         }
       }
     }
