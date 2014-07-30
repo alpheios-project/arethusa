@@ -257,4 +257,68 @@ describe("arethusaUtil", function() {
       expect(obj.a).toBeUndefined();
     });
   });
+
+  describe('getProperty', function() {
+    var obj = {
+      a: {
+        b: {
+          c: 1
+        }
+      }
+    };
+
+    it('access a nested property through a string', function() {
+      expect(aU.getProperty(obj, 'a.b.c')).toEqual(1);
+    });
+
+    it('returns undefined when undefined is encountered at any point of the chain', function() {
+      expect(aU.getProperty(obj, 'a.b.d')).toBeUndefined();
+      expect(aU.getProperty(obj, 'a.c.c')).toBeUndefined();
+    });
+  });
+
+  describe('setProperty', function() {
+    function obj() {
+      return {
+        a: {
+          b: {
+            c: 1
+          }
+        }
+      };
+    }
+
+    it('sets a property in a nested object', function() {
+      var x = obj();
+      aU.setProperty(x, 'a.b.c', 2);
+      expect(x.a.b.c).toEqual(2);
+    });
+
+    it('can add new nesting levels', function() {
+      var x = obj();
+      aU.setProperty(x, 'a.x.y', true);
+      expect(x.a.x.y).toBeTruthy();
+    });
+  });
+
+  describe('copySelection', function() {
+    var obj = {
+      a: { b: { c: 1, d: 2 } },
+      x: { y: { z: 2 } }
+    };
+
+    it('copies a selection of properties, identified by getter strings', function() {
+      var expected = {
+        a: { b: { d: 2 } },
+        x: { y: { z: 2 } }
+      };
+      var actual = aU.copySelection(obj, ['a.b.d', 'x.y']);
+      expect(actual).toEqual(expected);
+    });
+
+    it('copied elements are really copied, not referenced', function() {
+      var actual = aU.copySelection(obj, ['a.b.d', 'x.y']);
+      expect(actual.x).not.toBe(obj.x);
+    });
+  });
 });

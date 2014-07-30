@@ -138,5 +138,38 @@ var arethusaUtil = {
 
     json2xml: function(json) {
       return arethusaUtil.xmlParser.json2xml_str(json);
+    },
+
+    getProperty: function(obj, getter) {
+      var props = getter.split('.');
+      for (var i = 0; i  < props.length; i ++) {
+        obj = obj[props[i]];
+        if (!obj) break;
+      }
+      return obj;
+    },
+
+    setProperty: function(obj, propertyPath, value) {
+      var props = propertyPath.split('.');
+      var lastProp = props.pop();
+      for (var i = 0; i  < props.length; i ++) {
+        var prop = props[i];
+        var next = obj[prop];
+        if (next) {
+          obj = next;
+        } else {
+          obj = obj[prop] = {};
+        }
+      }
+      obj[lastProp] = value;
+    },
+
+    copySelection: function(obj, getters){
+      var newVal;
+      return arethusaUtil.inject({}, getters, function(memo, el) {
+        newVal = arethusaUtil.getProperty(obj, el);
+        if (angular.isObject(newVal)) newVal = angular.copy(newVal);
+        arethusaUtil.setProperty(memo, el, newVal);
+      });
     }
   };
