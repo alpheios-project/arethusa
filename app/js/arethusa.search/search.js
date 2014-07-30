@@ -2,7 +2,9 @@
 angular.module('arethusa.search').service('search', [
   'state',
   'configurator',
-  function (state, configurator) {
+  'keyCapture',
+  'plugins',
+  function (state, configurator, keyCapture, plugins) {
     var self = this;
     this.conf = configurator.configurationFor('search');
     this.name = this.conf.name;
@@ -39,14 +41,6 @@ angular.module('arethusa.search').service('search', [
       state.multiSelect(ids);
     };
 
-    this.pluginsWithSearch = function(plugins) {
-      return arethusaUtil.inject([], plugins, function(memo, name, plugin) {
-        if (plugin.canSearch) {
-          memo.push(plugin);
-        }
-      });
-    };
-
     // Init
     this.collectTokenString = function(container, id, token) {
       var str = token.string;
@@ -77,8 +71,28 @@ angular.module('arethusa.search').service('search', [
       self.removeTokenFromIndex(token.id, token.string);
     });
 
+    function focusSearch() {
+      plugins.setActive(self);
+      self.focusStringSearch = true;
+    }
+
+    keyCapture.initCaptures(function(kC) {
+      return {
+        search: [
+          kC.create('focus', focusSearch, 'A')
+        ]
+      };
+    });
+
+    function getSearchPlugins() {
+      return arethusaUtil.inject([], plugins.all, function(memo, name, plugin) {
+        if (plugin.canSearch) memo.push(plugin);
+      });
+    }
+
     this.init = function () {
       self.strings = collectTokenStrings();
+      self.searchPlugins = getSearchPlugins();
       self.tokenQuery = '';  // model used by the input form
     };
   }
