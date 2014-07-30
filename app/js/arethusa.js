@@ -18,7 +18,8 @@ angular.module('arethusa', [
   'arethusa.sg',
   'arethusa.text',
   'arethusa.hebrewMorph',
-  'arethusa.artificialToken'
+  'arethusa.artificialToken',
+  'arethusa.comments'
 ]);
 
 angular.module('arethusa').config([
@@ -54,5 +55,5 @@ angular.module('arethusa').config([
       //.fallbackLanguage('en');
       .registerAvailableLanguageKeys(['en'])
       .preferredLanguage('en');
-  }
+  },
 ]);
