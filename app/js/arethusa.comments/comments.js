@@ -3,7 +3,8 @@
 angular.module('arethusa.comments').service('comments', [
   'state',
   'configurator',
-  function(state, configurator) {
+  'navigator',
+  function(state, configurator, navigator) {
     var self = this;
     var retriever;
 
@@ -21,8 +22,7 @@ angular.module('arethusa.comments').service('comments', [
 
     function retrieveComments() {
       self.comments = {};
-      // hardcoded for development
-      retriever.getData('1', function(comments) {
+      retriever.getData(navigator.status.currentId, function(comments) {
         angular.extend(self.comments, comments);
       });
     }
