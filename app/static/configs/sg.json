@@ -24,7 +24,8 @@
       "depTree",
       "search",
       "artificialToken",
-      "history"
+      "history",
+      "comments"
     ]
   },
 
@@ -142,6 +143,14 @@
     "artificialToken" : {
       "name" : "aT",
       "template" : "templates/arethusa.artificial_token/artificial_token.html"
+    },
+
+    "comments" : {
+      "retriever" : {
+        "CommentsRetriever" : {
+          "resource" : "fakePerseids"
+        }
+      }
     }
   },
 
