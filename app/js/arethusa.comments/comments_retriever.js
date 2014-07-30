@@ -29,7 +29,8 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       angular.forEach(res, function(commentObj, i) {
         var comment = commentObj.comment;
         var extracted = splitIdAndComment(comment);
-        addComments(extracted[0], extracted[1]);
+        commentObj.comment = extracted[1];
+        addComments(extracted[0], commentObj);
       });
     }
 
