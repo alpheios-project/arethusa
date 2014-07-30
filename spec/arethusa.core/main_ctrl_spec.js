@@ -21,14 +21,13 @@ describe('MainCtrl', function() {
       state: state,
       notifier: arethusaMocks.notifier(),
       saver: arethusaMocks.saver(),
-      keyCapture: arethusaMocks.keyCapture(),
-      history: arethusaMocks.history()
+      history: arethusaMocks.history(),
+      plugins: arethusaMocks.plugins()
     };
 
     var ctrl = $controller('MainCtrl', mainCtrlInits);
 
     expect(scope.state).toBe(state);
-    expect(scope.plugins).toBeUndefined();
     expect(scope.template).toBe("template");
   }));
 });

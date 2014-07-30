@@ -91,8 +91,8 @@ angular.module('arethusa.search').service('search', [
     }
 
     this.init = function () {
-      self.strings = collectTokenStrings();
       self.searchPlugins = getSearchPlugins();
+      self.strings = collectTokenStrings();
       self.tokenQuery = '';  // model used by the input form
     };
   }
