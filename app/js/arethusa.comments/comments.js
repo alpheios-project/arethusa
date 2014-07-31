@@ -10,6 +10,8 @@ angular.module('arethusa.comments').service('comments', [
     var retriever;
     var idMap;
 
+    this.filter = {};
+
     this.defaultConf = {
       name: "comments",
       template: "templates/arethusa.comments/comments.html"
@@ -38,6 +40,15 @@ angular.module('arethusa.comments').service('comments', [
     function createIdMap() {
       idMap = idHandler.sourceIdMap(state.tokens, 'treebank');
     }
+
+    this.currentComments = function() {
+      return arethusaUtil.inject({}, self.comments, function(memo, id, comment) {
+        var add = true;
+        if (!(self.filter.selection && !state.isSelected(id))) {
+          memo[id] = comment;
+        }
+      });
+    };
 
     this.init = function() {
       configure();
