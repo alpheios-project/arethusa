@@ -2,8 +2,7 @@
 
 angular.module('arethusa.comments').factory('CommentsRetriever', [
   'configurator',
-  'idHandler',
-  function(configurator, idHandler) {
+  function(configurator) {
     var comments = {};
     var alreadyLoaded;
 
