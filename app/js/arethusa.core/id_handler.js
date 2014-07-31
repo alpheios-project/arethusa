@@ -69,6 +69,12 @@ angular.module('arethusa.core').service('idHandler', [
       };
     }
 
+    this.sourceIdMap = function(tokens, identifier) {
+      return arethusaUtil.inject({}, tokens, function(memo, id, token) {
+        memo[token.idMap.sourceId(identifier)] = id;
+      });
+    };
+
     this.transformToSoureIds = function(tokens, docIdentifier, idCreator) {
       var transformation = new Transformation();
       return arethusaUtil.inject(new Transformation(), tokens, function(memo, id, token) {
