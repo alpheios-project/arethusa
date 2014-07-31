@@ -5,6 +5,7 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
   'idHandler',
   function(configurator, idHandler) {
     var comments = {};
+    var alreadyLoaded;
 
     function splitIdAndComment(comment) {
       var regexp = new RegExp('^##(.*?)##\n\n(.*)$');
@@ -34,17 +35,15 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       var self = this;
       var resource = configurator.provideResource(conf.resource);
 
-      var alreadyLoaded;
-
       this.getData = function(chunkId, callback) {
         if (alreadyLoaded) {
           callback(comments[chunkId]);
         } else {
           resource.get().then(function(res) {
             parseComments(res.data);
-            alreadyLoaded = true;
             callback(comments[chunkId]);
           });
+          alreadyLoaded = true;
         }
       };
     };
