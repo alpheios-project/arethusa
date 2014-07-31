@@ -4,9 +4,11 @@ angular.module('arethusa.comments').service('comments', [
   'state',
   'configurator',
   'navigator',
-  function(state, configurator, navigator) {
+  'idHandler',
+  function(state, configurator, navigator, idHandler) {
     var self = this;
     var retriever;
+    var idMap;
 
     this.defaultConf = {
       name: "comments",
@@ -23,12 +25,23 @@ angular.module('arethusa.comments').service('comments', [
     function retrieveComments() {
       self.comments = {};
       retriever.getData(navigator.status.currentId, function(comments) {
-        angular.extend(self.comments, comments);
+        angular.extend(self.comments, withMappedIds(comments));
       });
+    }
+
+    function withMappedIds(comments) {
+      return arethusaUtil.inject({}, comments, function(memo, id, comment) {
+        memo[idMap[id]] = comment;
+      });
+    }
+
+    function createIdMap() {
+      idMap = idHandler.sourceIdMap(state.tokens, 'treebank');
     }
 
     this.init = function() {
       configure();
+      createIdMap();
       retrieveComments();
     };
   }
