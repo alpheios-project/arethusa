@@ -50,7 +50,7 @@ angular.module('arethusa.core').service('plugins', [
       self.all = arethusaUtil.inject({}, pluginNames, function(memo, name) {
         memo[name] = retrievePlugin(name);
       });
-
+      console.log(self.all);
       partitionPlugins();
       self.init();
     };
