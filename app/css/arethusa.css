@@ -672,6 +672,23 @@ li.keyboard-key:hover {
   box-shadow: none;
 }
 
+.comments {
+  padding: 1rem;
+}
+
+.comment {
+  padding: 0.5rem 0.2rem;
+}
+
+.comment-header {
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 0.4rem;
+}
+
+.comment-body {
+  font-size: 0.875rem;
+}
+
 /***************************************************************************
  *                               Animations                                *
  ***************************************************************************/

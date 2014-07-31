@@ -18,14 +18,14 @@
     },
     "plugins" : [
       "text",
+      "comments",
       "morph",
       "sg",
       "relation",
       "depTree",
       "search",
       "artificialToken",
-      "history",
-      "comments"
+      "history"
     ]
   },
 
