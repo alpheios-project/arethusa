@@ -105,13 +105,12 @@
     },
 
     "ne" : {
-      "retrievers" : {
+      "retriever" : {
         "PleiadesNeRetriever" : {
           "resource" : "pleiadesSearch"
         }
-      },
-      "template"  : "templates/ne.html",
-      },
+      }
+    },
 
     "morph" : {
       "retrievers" : {

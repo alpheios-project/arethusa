@@ -1,0 +1,31 @@
+
+<div><button ng-click="annotPers=true">Is Personal Name</button>
+	<button ng-click="annotTop=true">Is Toponym</button>
+	<!--<button ng-click="annotEth=true">Is Ethnonym</button>--></div>
+	
+<!--be able to further filter results through search
+
+	<input type="text" name="lookup" ng-model="text"></input> -->
+
+<div ng-show="annotTop">
+<ul>
+<li ng-repeat="(id,obj) in plugin.neInfo">{{obj[0].label}}, also called {{obj[0].altLabels}}<div form-selector class="columns large-2 small-2 right end"></div>
+</li>
+</ul>
+</div>
+
+<div ng-show="annotPers">
+<ul>
+<li> Personal Name Functionality will go here<div form-selector class="columns large-2 small-2 right end"></div>
+</li>
+</ul>
+</div>
+
+<div ng-show="annotEth">
+<ul>
+<li> Ethnonym Functionality will go here<div form-selector class="columns large-2 small-2 right end"></div>
+</li>
+</ul>
+</div>
+
+
