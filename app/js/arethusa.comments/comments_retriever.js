@@ -2,7 +2,8 @@
 
 angular.module('arethusa.comments').factory('CommentsRetriever', [
   'configurator',
-  function(configurator) {
+  'idHandler',
+  function(configurator, idHandler) {
     var comments = {};
 
     function splitIdAndComment(comment) {

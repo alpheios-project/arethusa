@@ -1,1 +1,5 @@
-{{ plugin.comments }}
+<div
+  ng-repeat="(id, commentsPerToken) in plugin.comments"
+  comments="commentsPerToken"
+  comment-target="id">
+</div>
