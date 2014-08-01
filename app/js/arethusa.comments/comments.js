@@ -50,6 +50,10 @@ angular.module('arethusa.comments').service('comments', [
       });
     };
 
+    this.commentCountFor = function(token) {
+      return (self.comments[token.id] || []).length;
+    };
+
     this.init = function() {
       configure();
       createIdMap();

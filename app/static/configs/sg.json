@@ -157,7 +157,9 @@
         "CommentsRetriever" : {
           "resource" : "fakePerseidsComments"
         }
-      }
+      },
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.comments/context_menu.html"
     }
   },
 
