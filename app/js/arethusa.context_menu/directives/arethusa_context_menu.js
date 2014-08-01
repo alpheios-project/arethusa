@@ -4,17 +4,11 @@ angular.module('arethusa.contextMenu').directive('arethusaContextMenu', [
     return {
       restrict: 'AE',
       scope: {
-        tokenObj: '=',
+        token: '=tokenObj',
         plugins: '='
       },
       link: function (scope, element, attrs) {
-        scope.idKey = 'tcm';
-
-        scope.token   = scope.tokenObj;
-
-        scope.active = function () {
-          return scope.token.status.contextMenuOpen;
-        };
+        scope.status  = scope.token.status;
       },
       templateUrl: 'templates/arethusa.context_menu/arethusa_context_menu.html'
     };
