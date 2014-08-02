@@ -160,7 +160,7 @@ angular.module('arethusa.core').service('keyCapture', [
       $rootScope.$broadcast('keyCaptureLaunched', keyList[key] || key);
     }
 
-    var forbiddenTags = ['INPUT'];
+    var forbiddenTags = ['INPUT', 'TEXTAREA'];
     this.keydown = function (event) {
       if (arethusaUtil.isIncluded(forbiddenTags, event.target.tagName) ||
           isRepeater(event.keyCode)) {
