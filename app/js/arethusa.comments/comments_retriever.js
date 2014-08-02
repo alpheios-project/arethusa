@@ -21,13 +21,15 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       arr.push(comment);
     }
 
+    function parseComment(commentObj, i) {
+      var comment = commentObj.comment;
+      var extracted = splitIdAndComment(comment);
+      commentObj.comment = extracted[1];
+      addComments(extracted[0], commentObj);
+    }
+
     function parseComments(res) {
-      angular.forEach(res, function(commentObj, i) {
-        var comment = commentObj.comment;
-        var extracted = splitIdAndComment(comment);
-        commentObj.comment = extracted[1];
-        addComments(extracted[0], commentObj);
-      });
+      angular.forEach(res, parseComment);
     }
 
     return function(conf) {
@@ -44,6 +46,13 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
           });
           alreadyLoaded = true;
         }
+      };
+
+      this.saveData = function(data, success, error) {
+        resource.save(data).then(function(res) {
+          parseComment(res.data);
+          success();
+        }, error);
       };
     };
   }
