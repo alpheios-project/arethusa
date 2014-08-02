@@ -63,8 +63,10 @@ angular.module('arethusa.core').factory('Resource', [
             // TODO we need save and partial save -- latter will use PATCH
             method: 'POST',
             transformRequest: function(data,headers) {
-              if (self.mimetype) {
-                headers()["Content-Type"] = self.mimetype;
+              var contentType = self.mimetype || 'application/json';
+              headers()["Content-Type"] = contentType;
+              if (isJson(contentType)) {
+                data = angular.toJson(data);
               }
               self.auth.transformRequest(headers);
               return data;
