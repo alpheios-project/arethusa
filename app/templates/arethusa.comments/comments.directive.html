@@ -1,19 +1,21 @@
 <div class="comments">
   <div class="italic">
     <span>on</span>
-    <span
-      class="normal-size"
-      token="token"
-      colorize="true"
-      click="true"
-      hover="true">
+    <span ng-repeat="token in tokens">
+      <span
+        class="normal-size"
+        token="token"
+        colorize="true"
+        click="true"
+        hover="true">
+      </span>
+      <sup
+        class="note">
+        {{ formatId(token.id) }}
+      </sup>
     </span>
-    <sup
-      class="note">
-      {{ formatId(id) }}
-    </sup>
   </div>
-  <div ng-repeat="comment in comments" comment="comment"></div>
+  <div ng-repeat="comment in comments.comments" comment="comment"></div>
   <div class="text-center">
     <span class="button micro radius success"
       ng-click="addComment('general')">

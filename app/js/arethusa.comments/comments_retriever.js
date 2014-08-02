@@ -2,23 +2,54 @@
 
 angular.module('arethusa.comments').factory('CommentsRetriever', [
   'configurator',
-  function(configurator) {
+  'idHandler',
+  function(configurator, idHandler) {
     var comments = {};
     var alreadyLoaded;
 
     function splitIdAndComment(comment) {
       var regexp = new RegExp('^##(.*?)##\n\n(.*)$');
       var match = regexp.exec(comment);
-      return match ? match.slice(1, 3) : ['noId', comment];
+      return match.slice(1, 3);
+    }
+
+    function WrappedComment(ids, comment) {
+      this.ids = ids;
+      this.comments = [comment];
     }
 
     function addComments(id, comment) {
-      var arr = arethusaUtil.getProperty(comments, id);
+      var sIdAndWIds = id.split('.');
+
+      var sId  = sIdAndWIds[0];
+      var wIds = arethusaUtil.map(sIdAndWIds[1].split(','), function(id) {
+        return idHandler.getId(id);
+      });
+
+      var arr = arethusaUtil.getProperty(comments, sId);
       if (!arr) {
         arr = [];
-        arethusaUtil.setProperty(comments, id, arr);
+        arethusaUtil.setProperty(comments, sId, arr);
       }
-      arr.push(comment);
+
+      var span = sameSpan(arr, wIds);
+      if (span) {
+        span.comments.push(comment);
+      } else {
+        arr.push(new WrappedComment(wIds, comment));
+      }
+    }
+
+    function sameSpan(arr, ids) {
+      var ret;
+      for (var i = 0; i < arr.length; i++) {
+        var span = arr[i];
+        if (angular.equals(span.ids, ids)) {
+          ret = span;
+          break;
+        }
+      }
+      return ret;
     }
 
     function parseComment(commentObj, i) {
@@ -30,7 +61,30 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
 
     function parseComments(res) {
       angular.forEach(res, parseComment);
+      sortComments();
     }
+
+    function sortCommentsOfChunk(wrappedComments, sId) {
+      comments[sId] = wrappedComments.sort(function(a, b) {
+        return a.ids > b.ids;
+      });
+    }
+
+
+    function sortComments() {
+      angular.forEach(comments, sortCommentsOfChunk);
+    }
+
+    function addFakeIds(comment) {
+      var sId = comment.sId;
+      var ids = comment.ids;
+      var sourceIds = arethusaUtil.map(ids, function(id) {
+        return idHandler.formatId(id, '%w');
+      });
+      var fakeId = '##' + sId + '.' + sourceIds.join(',') + '##\n\n';
+      comment.comment = fakeId + comment.comment;
+    }
+
 
     return function(conf) {
       var self = this;
@@ -48,8 +102,9 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
         }
       };
 
-      this.saveData = function(data, success, error) {
-        resource.save(data).then(function(res) {
+      this.saveData = function(comment, success, error) {
+        addFakeIds(comment);
+        resource.save(comment).then(function(res) {
           parseComment(res.data);
           success();
         }, error);

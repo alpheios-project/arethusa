@@ -1,7 +1,7 @@
 <div comment-filter/>
 <hr class="small"/>
 <div
-  ng-repeat="(id, commentsPerToken) in plugin.currentComments()"
-  comments="commentsPerToken"
+  ng-repeat="comments in plugin.currentComments()"
+  comments="comments"
   comment-target="id">
 </div>

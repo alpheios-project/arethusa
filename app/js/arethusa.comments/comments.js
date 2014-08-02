@@ -4,9 +4,8 @@ angular.module('arethusa.comments').service('comments', [
   'state',
   'configurator',
   'navigator',
-  'idHandler',
   'notifier',
-  function(state, configurator, navigator, idHandler, notifier) {
+  function(state, configurator, navigator, notifier) {
     var self = this;
     var retriever, persister;
     var idMap;
@@ -27,41 +26,30 @@ angular.module('arethusa.comments').service('comments', [
     configure();
 
     function retrieveComments() {
-      self.comments = {};
+      self.comments = [];
       retriever.getData(navigator.status.currentId, function(comments) {
-        angular.extend(self.comments, withMappedIds(comments));
+        arethusaUtil.pushAll(self.comments, comments);
       });
-    }
-
-    function withMappedIds(comments) {
-      return arethusaUtil.inject({}, comments, function(memo, id, comment) {
-        memo[idMap[id]] = comment;
-      });
-    }
-
-    function createIdMap() {
-      idMap = idHandler.sourceIdMap(state.tokens, 'treebank');
     }
 
     this.currentComments = function() {
-      return arethusaUtil.inject({}, self.comments, function(memo, id, comment) {
-        var add = true;
-        if (!(self.filter.selection && !state.isSelected(id))) {
-          memo[id] = comment;
-        }
-      });
+      //return arethusaUtil.inject({}, self.comments, function(memo, id, comment) {
+        //var add = true;
+        //if (!(self.filter.selection && !state.isSelected(id))) {
+          //memo[id] = comment;
+        //}
+      //});
+      return self.comments;
     };
 
     this.commentCountFor = function(token) {
       return (self.comments[token.id] || []).length;
     };
 
-    function Comment(id, sId, comment, type) {
-      function fakeId(sId, id) {
-        return '##' + sId + '.' + idHandler.formatId(id, '%w') + '##\n\n';
-      }
-
-      this.comment = fakeId(sId, id) + comment;
+    function Comment(ids, sId, comment, type) {
+      this.ids = ids;
+      this.sId = sId;
+      this.comment = comment;
       this.type = type;
     }
 
@@ -73,14 +61,13 @@ angular.module('arethusa.comments').service('comments', [
       notifier.error('Failed to create comment');
     }
 
-    this.createNewComment = function(id, comment, type) {
-      var newComment = new Comment(id, navigator.status.currentId, comment, type);
+    this.createNewComment = function(ids, comment, type) {
+      var newComment = new Comment(ids, navigator.status.currentId, comment, type);
       persister.saveData(newComment, saveSuccess, saveError);
     };
 
     this.init = function() {
       configure();
-      createIdMap();
       retrieveComments();
     };
   }

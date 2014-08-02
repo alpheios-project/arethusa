@@ -16,7 +16,9 @@ angular.module('arethusa.comments').directive('comments', [
           pre: function(scope, iElement, iAttrs) {
             // Need to define the token in a pre-compile function,
             // otherwise the directive in the template cannot render!
-            scope.token = state.getToken(scope.id);
+            scope.tokens = arethusaUtil.map(scope.comments.ids, function(id) {
+              return state.getToken(id);
+            });
           },
           post: function(scope, iElement, iAttrs) {
             scope.formatId = function(id) {
@@ -42,7 +44,7 @@ angular.module('arethusa.comments').directive('comments', [
             };
 
             scope.submit = function() {
-              comments.createNewComment(scope.id,
+              comments.createNewComment(scope.comments.ids,
                                         scope.comment,
                                         scope.commentType);
             };
