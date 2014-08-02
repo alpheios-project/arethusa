@@ -5,9 +5,10 @@ angular.module('arethusa.comments').service('comments', [
   'configurator',
   'navigator',
   'idHandler',
-  function(state, configurator, navigator, idHandler) {
+  'notifier',
+  function(state, configurator, navigator, idHandler, notifier) {
     var self = this;
-    var retriever;
+    var retriever, persister;
     var idMap;
 
     this.filter = {};
@@ -20,6 +21,7 @@ angular.module('arethusa.comments').service('comments', [
     function configure() {
       configurator.getConfAndDelegate('comments', self);
       retriever = configurator.getRetriever(self.conf.retriever);
+      persister = retriever;
     }
 
     configure();
@@ -54,15 +56,26 @@ angular.module('arethusa.comments').service('comments', [
       return (self.comments[token.id] || []).length;
     };
 
-    function Comment(id, comment, type) {
-      this.id = id;
-      this.comment = comment;
+    function Comment(id, sId, comment, type) {
+      function fakeId(sId, id) {
+        return '##' + sId + '.' + idHandler.formatId(id, '%w') + '##\n\n';
+      }
+
+      this.comment = fakeId(sId, id) + comment;
       this.type = type;
     }
 
-    this.createNewComment = function(id, comment, type) {
-      var newComment = new Comment(id, comment, type);
+    function saveSuccess(res) {
+      notifier.success('Comment created!');
+    }
 
+    function saveError() {
+      notifier.error('Failed to create comment');
+    }
+
+    this.createNewComment = function(id, comment, type) {
+      var newComment = new Comment(id, navigator.status.currentId, comment, type);
+      persister.saveData(newComment, saveSuccess, saveError);
     };
 
     this.init = function() {
