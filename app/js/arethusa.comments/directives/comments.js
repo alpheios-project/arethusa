@@ -14,11 +14,25 @@ angular.module('arethusa.comments').directive('comments', [
       compile: function(tElement, tAttrs, transclude) {
         return {
           pre: function(scope, iElement, iAttrs) {
+            function findNonSequentials() {
+              angular.forEach(scope.tokens, function(token, i) {
+                var next = scope.tokens[i + 1];
+                if (next) {
+                  if (idHandler.decrement(next.id) !== token.id) {
+                    scope.nonSequential[i] = true;
+                  }
+                }
+              });
+            }
+
             // Need to define the token in a pre-compile function,
             // otherwise the directive in the template cannot render!
             scope.tokens = arethusaUtil.map(scope.comments.ids, function(id) {
               return state.getToken(id);
             });
+
+            scope.nonSequential = {};
+            findNonSequentials();
           },
           post: function(scope, iElement, iAttrs) {
             scope.formatId = function(id) {
@@ -47,6 +61,9 @@ angular.module('arethusa.comments').directive('comments', [
               comments.createNewComment(scope.comments.ids,
                                         scope.comment,
                                         scope.commentType);
+            };
+
+            scope.isNotSequential = function(token, i) {
             };
           }
         };

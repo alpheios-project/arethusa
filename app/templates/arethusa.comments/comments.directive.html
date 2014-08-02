@@ -13,6 +13,7 @@
         class="note">
         {{ formatId(token.id) }}
       </sup>
+      <span ng-if="nonSequential[$index]">...</span>
     </span>
   </div>
   <div ng-repeat="comment in comments.comments" comment="comment"></div>
