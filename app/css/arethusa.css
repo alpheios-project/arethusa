@@ -571,6 +571,11 @@ ul.no-list {
   -webkit-animation: slow-fade 2.8s;
 }
 
+#keys-to-screen > .action.ng-leave {
+  animation: slow-fade 0s;
+  -webkit-animation: slow-fade 0s;
+}
+
 #keys-to-screen > .joiner {
   color: black;
   background-color: #f2f2f2;
