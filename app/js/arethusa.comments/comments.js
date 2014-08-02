@@ -28,7 +28,7 @@ angular.module('arethusa.comments').service('comments', [
     function retrieveComments() {
       self.comments = [];
       retriever.getData(navigator.status.currentId, function(comments) {
-        arethusaUtil.pushAll(self.comments, comments);
+        self.comments = comments;
       });
     }
 
