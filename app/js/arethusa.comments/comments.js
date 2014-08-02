@@ -54,6 +54,17 @@ angular.module('arethusa.comments').service('comments', [
       return (self.comments[token.id] || []).length;
     };
 
+    function Comment(id, comment, type) {
+      this.id = id;
+      this.comment = comment;
+      this.type = type;
+    }
+
+    this.createNewComment = function(id, comment, type) {
+      var newComment = new Comment(id, comment, type);
+
+    };
+
     this.init = function() {
       configure();
       createIdMap();

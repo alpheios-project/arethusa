@@ -17,12 +17,36 @@ angular.module('arethusa.comments').directive('comments', [
             // Need to define the token in a pre-compile function,
             // otherwise the directive in the template cannot render!
             scope.token = state.getToken(scope.id);
-
-            // Could also be in a post function of course
+          },
+          post: function(scope, iElement, iAttrs) {
             scope.formatId = function(id) {
               return idHandler.formatId(id, '%w');
             };
-          },
+
+            function openInput(type) {
+              scope.inputOpen = true;
+              scope.commentType = type;
+            }
+
+            function closeInput(type) {
+              scope.inputOpen = false;
+              delete scope.commentType;
+            }
+
+            scope.addComment = function(type) {
+              if (type === scope.commentType) {
+                closeInput(type);
+              } else {
+                openInput(type);
+              }
+            };
+
+            scope.submit = function() {
+              comments.createNewComment(scope.id,
+                                        scope.comment,
+                                        scope.commentType);
+            };
+          }
         };
       },
       templateUrl: 'templates/arethusa.comments/comments.directive.html'
