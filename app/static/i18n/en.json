@@ -1,5 +1,7 @@
 {
   "SEARCH_DOCUMENTS": "Search for documents",
+  "loadInProgress" : "Loading...",
+  "loadComplete" : "Load complete!",
   "language": "English",
   "help" : "Help",
   "on" : "on",
