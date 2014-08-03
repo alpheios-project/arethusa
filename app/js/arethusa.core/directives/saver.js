@@ -2,7 +2,8 @@
 
 angular.module('arethusa.core').directive('saver', [
   'saver',
-  function(saver) {
+  'translator',
+  function(saver, translator) {
     return {
       restrict: 'A',
       scope: {},
@@ -44,8 +45,11 @@ angular.module('arethusa.core').directive('saver', [
           if (saveWatch) saveWatch();
         }
 
+        var parent = element.parent();
         var hint = arethusaUtil.formatKeyHint(saver.activeKeys.save);
-        element.attr('title', "Save " + hint);
+        translator('saver.save', function(translation) {
+          parent.attr('title', translation + " " + hint);
+        });
       },
       template: '<i class="fi-save"/>'
     };

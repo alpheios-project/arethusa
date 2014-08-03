@@ -4,6 +4,24 @@
   "help" : "Hilfe",
   "on" : "zu",
   "of" : "von",
+  "contactUs" : "Schreib uns",
+  "messages"  : "Benachrichtigungen",
+  "deselectAll" : "Alle deselektieren",
+
+  "saver" : {
+    "save" : "Speichern"
+  },
+
+  "sidepanel" : {
+    "fold" : "Panel verbergen",
+    "show" : "Panel anzeigen"
+  },
+
+  "history" : {
+    "undo" : "Rückgängig",
+    "redo" : "Wiederherstellen",
+    "noRecords" : "Keine Ereignisse aufgenommen."
+  },
 
   "uth" : {
     "count"   : "{{ count }} von {{ total }} unbenutzt",

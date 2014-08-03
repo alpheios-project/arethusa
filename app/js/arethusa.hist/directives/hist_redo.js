@@ -2,7 +2,8 @@
 
 angular.module('arethusa.hist').directive('histRedo', [
   'history',
-  function(history) {
+  'translator',
+  function(history, translator) {
     return {
       restrict: 'A',
       scope: {},
@@ -26,7 +27,9 @@ angular.module('arethusa.hist').directive('histRedo', [
         });
 
         var hint = arethusaUtil.formatKeyHint(history.activeKeys.redo);
-        element.attr('title', 'Redo ' + hint);
+        translator('history.redo', function(translation) {
+          element.attr('title', translation + ' ' + hint);
+        });
       },
       template: '<i class="fa fa-repeat"/>'
     };

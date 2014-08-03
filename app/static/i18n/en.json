@@ -4,6 +4,24 @@
   "help" : "Help",
   "on" : "on",
   "of" : "of",
+  "contactUs" : "Contact us",
+  "messages"  : "Messages",
+  "deselectAll" : "Deselect all",
+
+  "saver" : {
+    "save" : "Save"
+  },
+
+  "sidepanel" : {
+    "fold" : "Fold Panel",
+    "show" : "Show Panel"
+  },
+
+  "history" : {
+    "undo" : "Undo",
+    "redo" : "Redo",
+    "noRecords" : "No history events recorded."
+  },
 
   "uth" : {
     "count"   : "{{ count }} of {{ total }} unused",

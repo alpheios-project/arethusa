@@ -2,7 +2,8 @@
 
 angular.module('arethusa.hist').directive('histUndo', [
   'history',
-  function(history) {
+  'translator',
+  function(history, translator) {
     return {
       restrict: 'A',
       scope: {},
@@ -26,7 +27,9 @@ angular.module('arethusa.hist').directive('histUndo', [
         });
 
         var hint = arethusaUtil.formatKeyHint(history.activeKeys.undo);
-        element.attr('title', "Undo " + hint);
+        translator('history.undo', function(translation) {
+          element.attr('title', translation + ' ' + hint);
+        });
       },
       template: '<i class="fa fa-undo"/>'
     };
