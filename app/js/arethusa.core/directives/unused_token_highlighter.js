@@ -4,7 +4,8 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
   'state',
   '$parse',
   '$window',
-  function(state, $parse, $window) {
+  'translator',
+  function(state, $parse, $window, translator) {
     return {
       restrict: 'A',
       scope: {
@@ -115,13 +116,16 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
         scope.$on('tokenRemoved', function(event, token) {
           scope.total--;
         });
+
+        scope.tooltip = {};
+        translator('uth.tooltip', scope.tooltip, 'text');
       },
       template: '\
         <span\
-          tooltip-html-unsafe="{{ \'UNUSED_TOOLTIP\' | translate }}"\
+          tooltip-html-unsafe="{{ tooltip.text }}"\
           tooltip-popup-delay="700"\
           tooltip-placement="left"\
-          translate="UNUSED_COUNT"\
+          translate="uth.count"\
           translate-value-count="{{ unusedCount }}"\
           translate-value-total="{{ total }}">\
       '

@@ -1,10 +1,14 @@
 {
   "SEARCH_DOCUMENTS": "Suche Dokumente",
   "language": "Deutsch",
-  "UNUSED_COUNT": "{{ count }} von {{ total }} unbenutzt",
   "help" : "Hilfe",
   "on" : "zu",
+  "of" : "von",
 
+  "uth" : {
+    "count"   : "{{ count }} von {{ total }} unbenutzt",
+    "tooltip" : "Linksklick um hervorzuheben<br>Doppelklick um zu selektieren"
+  },
 
   "comments" : {
     "newComment" : "Neuer Kommentar",

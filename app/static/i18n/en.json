@@ -1,10 +1,14 @@
 {
   "SEARCH_DOCUMENTS": "Search for documents",
   "language": "English",
-  "UNUSED_COUNT": "{{ count }} of {{ total }} unused",
-  "UNUSED_TOOLTIP": "Click to toggle highlighting<br>Double-click to select",
   "help" : "Help",
   "on" : "on",
+  "of" : "of",
+
+  "uth" : {
+    "count"   : "{{ count }} of {{ total }} unused",
+    "tooltip" : "Click to toggle highlighting<br>Double-click to select"
+  },
 
   "comments" : {
     "newComment" : "New Comment",
