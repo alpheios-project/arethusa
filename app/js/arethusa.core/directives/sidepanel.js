@@ -38,8 +38,8 @@ angular.module('arethusa.core').directive('sidepanel', [
         var keys = keyCapture.initCaptures(function(kC) {
           return {
             sidepanel: [
-              kC.create('nextTab', function() { moveToNext(); }, 'W'),
-              kC.create('prevTab', function() { moveToPrev(); }, 'E'),
+              kC.create('nextTab', function() { kC.doRepeated(moveToNext); }, 'W'),
+              kC.create('prevTab', function() { kC.doRepeated(moveToPrev); }, 'E'),
               kC.create('toggle',  function() { sidepanel.toggle(); }, 'q'),
             ]
           };
