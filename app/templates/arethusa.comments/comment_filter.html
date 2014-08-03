@@ -1,9 +1,16 @@
 <div class="small-12 columns">
   <label>
+    Full Text Search
+    <input
+      type="search"
+      style="margin: 0"
+      ng-model="filter.fullText"/>
+  </label>
+  <label>
     Filter selected
     <input
       type="checkbox"
       style="margin: 0"
-      ng-model="filterSelected"/>
+      ng-model="filter.selection"/>
   </label>
 </div>

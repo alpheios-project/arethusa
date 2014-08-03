@@ -8,15 +8,7 @@ angular.module('arethusa.comments').directive('commentFilter', [
       restrict: 'A',
       scope: {},
       link: function(scope, element, attrs) {
-        scope.$watch('filterSelected', function(newVal, oldVal) {
-          if (newVal !== oldVal) {
-            if (newVal) {
-              comments.filter.selection = true;
-            } else {
-              delete comments.filter.selection;
-            }
-          }
-        });
+        scope.filter = comments.filter;
       },
       templateUrl: 'templates/arethusa.comments/comment_filter.html'
     };
