@@ -7,6 +7,7 @@
   "globals" : {
     "angular" : false,
     "d3" : false,
+    "lunr" : true,
     "arethusaUtil" : true,
     "arethusaMocks" : true,
     "arethusaLogger" : true,
