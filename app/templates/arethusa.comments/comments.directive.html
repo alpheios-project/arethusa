@@ -5,20 +5,15 @@
   <div ng-repeat="comment in comments.comments" comment="comment"></div>
   <div class="text-center">
     <span class="button micro radius success"
-      ng-click="addComment('general')">
-      <i class="fa fa-comment"></i>
+      ng-click="inputOpen = !inputOpen">
+      <i class="fa fa-reply"></i>
     </span>
-    <button class="micro radius alert"
-      ng-click="addComment('reject')">
-      <i class="fa fa-comment"></i>
-    </button>
     <form ng-if="inputOpen">
-      <label class="text-left">{{ commentType }} comment
-        <!--Need to explicitly ask for $parent, because ng-if opens a new scope-->
-        <textarea rows="3" ng-model="$parent.comment">
-        </textarea>
-      </label>
+      <!--Need to explicitly ask for $parent, because ng-if opens a new scope-->
+      <textarea rows="3" ng-model="$parent.comment">
+      </textarea>
       <span ng-click="submit()" class="button micro radius">Submit</span>
     </form>
+    <hr class="tiny">
   </div>
 </div>

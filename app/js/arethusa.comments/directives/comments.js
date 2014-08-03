@@ -2,14 +2,12 @@
 
 angular.module('arethusa.comments').directive('comments', [
   'comments',
-  'idHandler',
   'state',
-  function(comments, idHandler, state) {
+  function(comments, state) {
     return {
       restrict: 'A',
       scope: {
         comments: "=",
-        id: '=commentTarget'
       },
       compile: function(tElement, tAttrs, transclude) {
         return {
@@ -21,28 +19,6 @@ angular.module('arethusa.comments').directive('comments', [
             });
           },
           post: function(scope, iElement, iAttrs) {
-            scope.formatId = function(id) {
-              return idHandler.formatId(id, '%w');
-            };
-
-            function openInput(type) {
-              scope.inputOpen = true;
-              scope.commentType = type;
-            }
-
-            function closeInput(type) {
-              scope.inputOpen = false;
-              delete scope.commentType;
-            }
-
-            scope.addComment = function(type) {
-              if (type === scope.commentType) {
-                closeInput(type);
-              } else {
-                openInput(type);
-              }
-            };
-
             scope.submit = function() {
               comments.createNewComment(scope.comments.ids, scope.comment);
             };
