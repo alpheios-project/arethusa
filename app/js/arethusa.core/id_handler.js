@@ -133,5 +133,18 @@ angular.module('arethusa.core').service('idHandler', [
     function parseId(id) {
       return id.split('-');
     }
+
+    this.nonSequentialIds = function(ids) {
+      var nonSequential = {};
+      angular.forEach(ids, function(id, i) {
+        var next = ids[i + 1];
+        if (next) {
+          if (self.decrement(next) !== id) {
+            nonSequential[i] = true;
+          }
+        }
+      });
+      return nonSequential;
+    };
   }
 ]);

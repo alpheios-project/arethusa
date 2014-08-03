@@ -43,4 +43,11 @@ describe("idHandler", function() {
       expect(idHandler.extendId('0003')).toEqual('0003e');
     });
   });
+
+  describe('this.nonSequentialIds', function() {
+    it('takes an array of ids and returns indices of non sequential ids', function() {
+      var ids = ['0001', '0002', '0004', '0006'];
+      expect(idHandler.nonSequentialIds(ids)).toEqual({ 1: true, 2: true });
+    });
+  });
 });
