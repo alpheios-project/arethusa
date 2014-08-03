@@ -80,6 +80,7 @@ describe("state", function() {
       state.selectToken('03', 'click');
 
       expect(state.selectedTokens).toEqual({'03': 'click'});
+      expect(state.clickedTokens).toEqual({'03' : 'click'});
     });
 
     it('deselects all tokens after head change', function() {
@@ -95,14 +96,24 @@ describe("state", function() {
 
       expect(state.selectedTokens).toEqual({'01': 'ctrl-click', '03': 'ctrl-click'});
     });
+
+    it('distincts between hovered and clicked tokens', function() {
+      state.selectToken('01', 'click');
+      state.selectToken('02', 'hover');
+
+      expect(state.selectedTokens).toEqual({ '01': 'click', '02': 'hover'});
+      expect(state.clickedTokens).toEqual({ '01': 'click' });
+    });
   });
 
   describe('this.deselectToken', function() {
     it('deselects a token', function() {
       state.selectToken('01', 'click');
       expect(state.isSelected('01')).toBeTruthy();
+      expect(state.isClicked('01')).toBeTruthy();
       state.deselectToken('01', 'click');
       expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isClicked('01')).toBeFalsy();
     });
 
     it('selection type has to be the same to do a proper deselect', function() {
@@ -122,6 +133,24 @@ describe("state", function() {
       state.deselectAll();
       expect(state.isSelected('01')).toBeFalsy();
       expect(state.isSelected('03')).toBeFalsy();
+    });
+  });
+
+  describe('this.isSelected', function() {
+    it('returns true when a token is selected', function() {
+      state.selectToken('01', 'ctrl-click');
+      state.selectToken('02', 'hover');
+      expect(state.isSelected('01')).toBeTruthy();
+      expect(state.isSelected('02')).toBeTruthy();
+    });
+  });
+
+  describe('this.isClicked', function() {
+    it('returns true when a token was click-selected', function() {
+      state.selectToken('01', 'ctrl-click');
+      state.selectToken('02', 'hover');
+      expect(state.isClicked('01')).toBeTruthy();
+      expect(state.isClicked('02')).toBeFalsy();
     });
   });
 

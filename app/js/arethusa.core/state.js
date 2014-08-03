@@ -121,18 +121,22 @@ angular.module('arethusa.core').service('state', [
 
     // Selections
     this.selectedTokens = {};
-    // ids will be inserted here
+    this.clickedTokens  = {};
 
     this.hasSelections = function() {
       return Object.keys(self.selectedTokens).length !== 0;
     };
 
-    this.isSelected = function (id) {
+    this.isSelected = function(id) {
       return id in this.selectedTokens;
     };
 
+    this.isClicked = function(id) {
+      return id in this.clickedTokens;
+    };
+
     // multi-selects tokens, given an array of ids
-    this.multiSelect = function (ids) {
+    this.multiSelect = function(ids) {
       self.deselectAll();
       selectMultipleTokens(ids);
     };
@@ -189,11 +193,14 @@ angular.module('arethusa.core').service('state', [
       }
       if (!preventSelection && self.isSelectable(self.selectionType(id), type)) {
         self.selectedTokens[id] = type;
+        if (type !== 'hover') {
+          self.clickedTokens[id] = type;
+        }
       }
     };
 
     this.selectionType = function (id) {
-      return this.selectedTokens[id];
+      return self.selectedTokens[id];
     };
 
     this.isSelectable = function (oldVal, newVal) {
@@ -207,8 +214,9 @@ angular.module('arethusa.core').service('state', [
       // only deselect when the old selection type is the same as
       // the argument, i.e. a hover selection can only deselect a
       // hover selection, but not a click selection
-      if (this.selectionType(id) === type) {
-        delete this.selectedTokens[id];
+      if (self.selectionType(id) === type) {
+        delete self.selectedTokens[id];
+        delete self.clickedTokens[id];
       }
     };
 
@@ -223,8 +231,9 @@ angular.module('arethusa.core').service('state', [
     };
 
     this.deselectAll = function () {
-      for (var el in this.selectedTokens)
-        delete this.selectedTokens[el];
+      for (var el in self.selectedTokens)
+        delete self.selectedTokens[el];
+        delete self.clickedTokens[el];
     };
 
     this.firstSelected = function() {
