@@ -679,7 +679,7 @@ li.keyboard-key:hover {
 }
 
 .comments {
-  padding: 0.7rem;
+  padding: 0.9rem;
 }
 
 .comment {
@@ -687,12 +687,21 @@ li.keyboard-key:hover {
 }
 
 .comment-header {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px dotted lightgray;
   margin-bottom: 0.4rem;
 }
 
 .comment-body {
   font-size: 0.875rem;
+}
+
+.ornament-delimiter:after {
+  content: "\2767";
+  display: inline-block;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
 }
 
 /***************************************************************************
