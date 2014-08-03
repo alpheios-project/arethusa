@@ -291,6 +291,12 @@ button.micro {
   margin: 0;
 }
 
+.button.nano, button.nano {
+  padding: 0.3rem 0.5rem 0.3rem
+  font-size: 0.7rem;
+  margin: 0;
+}
+
 /* Alpheios theme overrides -- better to use sass at some point */
 body {
 
