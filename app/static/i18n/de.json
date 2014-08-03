@@ -2,5 +2,16 @@
   "SEARCH_DOCUMENTS": "Suche Dokumente",
   "LANGUAGE": "Sprache",
   "UNUSED_COUNT": "{{ count }} von {{ total }} unbenutzt",
-  "help" : "Hilfe"
+  "help" : "Hilfe",
+  "on" : "zu",
+
+
+  "comments" : {
+    "newComment" : "Neuer Kommentar",
+    "fullTextSearch" : "Volltext Suche",
+    "filterSelected" : "Filter Selektion",
+    "successMessage" : "Kommentar erstellt!",
+    "errorMessage"   : "Kommentieren fehlgeschlagen",
+    "selectFirst"    : "Tokenselektion erfordert"
+  }
 }

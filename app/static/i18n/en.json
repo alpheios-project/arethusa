@@ -3,5 +3,15 @@
   "LANGUAGE": "Language",
   "UNUSED_COUNT": "{{ count }} of {{ total }} unused",
   "UNUSED_TOOLTIP": "Click to toggle highlighting<br>Double-click to select",
-  "help" : "Help"
+  "help" : "Help",
+  "on" : "on",
+
+  "comments" : {
+    "newComment" : "New Comment",
+    "fullTextSearch" : "Full Text Search",
+    "filterSelected" : "Filter selected",
+    "successMessage" : "Comment created!",
+    "errorMessage"   : "Failed to create comment",
+    "selectFirst"    : "Need to select some tokens first"
+  }
 }
