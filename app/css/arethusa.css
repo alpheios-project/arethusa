@@ -283,8 +283,8 @@ dl.tabs {
 }
 
 .button.nano, button.nano {
-  padding: 0.3rem 0.5rem 0.3rem
-  font-size: 0.7rem;
+  padding: .3rem .5rem .3rem .5rem;
+  font-size: .7rem;
   margin: 0;
 }
 
