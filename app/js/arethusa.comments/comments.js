@@ -109,7 +109,15 @@ angular.module('arethusa.comments').service('comments', [
     };
 
     this.commentCountFor = function(token) {
-      return (self.comments[token.id] || []).length;
+      var count = 0;
+      var commentIds = reverseIndex[token.id];
+      if (commentIds) {
+        var idArr = Object.keys(commentIds);
+        angular.forEach(getFromIndex(idArr), function(commentObj) {
+          count = count + commentObj.comments.length;
+        });
+      }
+      return count;
     };
 
     function Comment(ids, sId, comment, type) {
