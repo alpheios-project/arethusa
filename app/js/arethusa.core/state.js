@@ -259,62 +259,18 @@ angular.module('arethusa.core').service('state', [
       self.selectSurroundingToken('prev');
     };
 
-    // Events
-    // Listeners can be internal (angular-implementation) or external (everything
-    // else). The future might bring a further distinction between different
-    // of events listeners listen to - we'll see.
-    this.listeners = [];
-    this.externalListeners = [];
-
-    this.registerListener = function (listener) {
-      if (listener.external) {
-        this.externalListeners.push(listener);
-      } else {
-        this.listeners.push(listener);
-      }
-    };
-
-    this.fireEvent = function (target, property, oldVal, newVal) {
-      var event = {
-          target: target,
-          property: property,
-          oldVal: oldVal,
-          newVal: newVal
-        };
-      event.time = new Date();
-      this.notifyListeners(event);
-    };
-
-    this.notifyListeners = function (event) {
-      this.notifyAngularListeners(event);
-      this.notifyExternalListeners(event);
-    };
-
-    this.notifyAngularListeners = function (event) {
-      angular.forEach(this.listeners, function (obj, i) {
-        obj.catchEvent(event);
-      });
-    };
-
-    this.notifyExternalListeners = function (event) {
-      angular.forEach(this.externalListeners, function (obj, i) {
-        obj.catchArethusaEvent(event);
-      });
-    };
 
     // DEPRECATED
     this.setState = function (id, category, val) {
       arethusaLogger.log('state.setState is DEPRECATED. Use state.change() instead.');
       var token = this.tokens[id];
       var oldVal = token[category];
-      this.fireEvent(token, category, oldVal, val);
       token[category] = val;
     };
 
     this.unsetState = function (id, category) {
       var token = this.tokens[id];
       var oldVal = token[category];
-      this.fireEvent(token, category, oldVal, null);
       delete token[category];
     };
 
