@@ -38,8 +38,10 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       } else {
         // We unshift on purpose - we want newly added comments on runtime to
         // appear on top of the list.
-        arr.unshift(new WrappedComment(wIds, comment));
+        span = new WrappedComment(wIds, comment);
+        arr.unshift(span);
       }
+      return span;
     }
 
     function sameSpan(arr, ids) {
@@ -58,7 +60,7 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       var comment = commentObj.comment;
       var extracted = splitIdAndComment(comment);
       commentObj.comment = extracted[1];
-      addComments(extracted[0], commentObj);
+      return addComments(extracted[0], commentObj);
     }
 
     function parseComments(res) {
@@ -114,8 +116,7 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
         addFakeIds(comment);
         addReason(comment);
         resource.save(comment).then(function(res) {
-          parseComment(res.data);
-          success();
+          success(parseComment(res.data));
         }, error);
       };
     };
