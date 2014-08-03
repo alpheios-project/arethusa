@@ -3,23 +3,24 @@
 angular.module('arethusa.core').directive('sidepanel', [
   'sidepanel',
   'keyCapture',
-  function(sidepanel, keyCapture) {
+  'plugins',
+  function(sidepanel, keyCapture, plugins) {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
         var minIndex = 0;
 
         function currentIndex() {
-          return scope.subPlugins.indexOf(scope.activePlugin);
+          return plugins.sub.indexOf(plugins.active);
         }
 
         function maxIndex() {
-          return scope.subPlugins.length - 1;
+          return plugins.sub.length - 1;
         }
 
         function selectPluginByIndex(index) {
-          var plugin = scope.subPlugins[index];
-          scope.declareActive(plugin);
+          var plugin = plugins.sub[index];
+          plugins.setActive(plugin);
         }
 
         function moveToNext() {
