@@ -127,6 +127,10 @@ angular.module('arethusa.core').service('state', [
       return Object.keys(self.selectedTokens).length !== 0;
     };
 
+    this.hasClickSelections = function() {
+      return Object.keys(self.clickedTokens).length;
+    };
+
     this.isSelected = function(id) {
       return id in this.selectedTokens;
     };

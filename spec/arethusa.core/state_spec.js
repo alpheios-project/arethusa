@@ -154,6 +154,24 @@ describe("state", function() {
     });
   });
 
+  describe('this.hasSelections', function() {
+    it('returns true when selections are present', function() {
+      expect(state.hasSelections()).toBeFalsy();
+      state.selectToken('02', 'hover');
+      expect(state.hasSelections()).toBeTruthy();
+    });
+  });
+
+  describe('this.hasClickSelections', function() {
+    it('returns true when click selections are present', function() {
+      expect(state.hasClickSelections()).toBeFalsy();
+      state.selectToken('02', 'hover');
+      expect(state.hasClickSelections()).toBeFalsy();
+      state.selectToken('02', 'click');
+      expect(state.hasClickSelections()).toBeTruthy();
+    });
+  });
+
   describe('this.toggleSelection', function() {
     it('toggles the selection of a token', function() {
       state.toggleSelection('01', 'click');
