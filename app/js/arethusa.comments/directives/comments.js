@@ -58,12 +58,7 @@ angular.module('arethusa.comments').directive('comments', [
             };
 
             scope.submit = function() {
-              comments.createNewComment(scope.comments.ids,
-                                        scope.comment,
-                                        scope.commentType);
-            };
-
-            scope.isNotSequential = function(token, i) {
+              comments.createNewComment(scope.comments.ids, scope.comment);
             };
           }
         };

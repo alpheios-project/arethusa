@@ -50,7 +50,6 @@ angular.module('arethusa.comments').service('comments', [
       this.ids = ids;
       this.sId = sId;
       this.comment = comment;
-      this.type = type;
     }
 
     function saveSuccess(res) {
@@ -62,7 +61,7 @@ angular.module('arethusa.comments').service('comments', [
     }
 
     this.createNewComment = function(ids, comment, type) {
-      var newComment = new Comment(ids, navigator.status.currentId, comment, type);
+      var newComment = new Comment(ids, navigator.status.currentId, comment);
       persister.saveData(newComment, saveSuccess, saveError);
     };
 
