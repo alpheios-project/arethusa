@@ -1,6 +1,6 @@
 {
   "SEARCH_DOCUMENTS": "Search for documents",
-  "LANGUAGE": "Language",
+  "LANGUAGE": "English",
   "UNUSED_COUNT": "{{ count }} of {{ total }} unused",
   "UNUSED_TOOLTIP": "Click to toggle highlighting<br>Double-click to select",
   "help" : "Help",

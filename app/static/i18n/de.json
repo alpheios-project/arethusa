@@ -1,6 +1,6 @@
 {
   "SEARCH_DOCUMENTS": "Suche Dokumente",
-  "LANGUAGE": "Sprache",
+  "LANGUAGE": "Deutsch",
   "UNUSED_COUNT": "{{ count }} von {{ total }} unbenutzt",
   "help" : "Hilfe",
   "on" : "zu",
