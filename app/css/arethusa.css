@@ -398,6 +398,10 @@ hr.small {
   margin: 0.5rem 0 0.3rem
 }
 
+hr.tiny {
+  margin: 0.5rem 25% 0.3rem 25%;
+}
+
 /*TEI Stuff for Smyth Grammar Reader*/
 
 div.citbibl {
