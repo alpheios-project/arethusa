@@ -52,17 +52,20 @@ angular.module('arethusa.comments').service('comments', [
       this.comment = comment;
     }
 
-    function saveSuccess(res) {
-      notifier.success('Comment created!');
+    function saveSuccess(fn) {
+      return function() {
+        fn();
+        notifier.success('Comment created!');
+      };
     }
 
     function saveError() {
       notifier.error('Failed to create comment');
     }
 
-    this.createNewComment = function(ids, comment, type) {
+    this.createNewComment = function(ids, comment, successFn) {
       var newComment = new Comment(ids, navigator.status.currentId, comment);
-      persister.saveData(newComment, saveSuccess, saveError);
+      persister.saveData(newComment, saveSuccess(successFn), saveError);
     };
 
     this.init = function() {
