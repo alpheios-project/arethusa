@@ -1,20 +1,6 @@
 <div class="comments">
   <div class="italic">
-    <span>on</span>
-    <span ng-repeat="token in tokens">
-      <span
-        class="normal-size"
-        token="token"
-        colorize="true"
-        click="true"
-        hover="true">
-      </span>
-      <sup
-        class="note">
-        {{ formatId(token.id) }}
-      </sup>
-      <span ng-if="nonSequential[$index]">...</span>
-    </span>
+    <span comment-targets="tokens"/>
   </div>
   <div ng-repeat="comment in comments.comments" comment="comment"></div>
   <div class="text-center">
