@@ -9,7 +9,13 @@
   "deselectAll" : "Alle deselektieren",
 
   "saver" : {
-    "save" : "Speichern"
+    "save" : "Speichern",
+    "success" : "Dokument gespeichert!",
+    "error" : "Speichern fehlgeschlagen! Versuch's nochmal?",
+    "inProgress" : "Speichere...",
+    "nothingToSave" : "Noch nichts zu speichern!",
+    "confirmNote" : "Du hast ungespeicherte Änderungen!",
+    "confirmQuestion" : "Bist du sicher, dass du gehen willst?"
   },
 
   "sidepanel" : {

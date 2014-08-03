@@ -9,7 +9,13 @@
   "deselectAll" : "Deselect all",
 
   "saver" : {
-    "save" : "Save"
+    "save" : "Save",
+    "success" : "Document saved!",
+    "error" : "Failed to save! Try again?",
+    "inProgress" : "Saving...",
+    "nothingToSave" : "Nothing to save yet!",
+    "confirmNote" : "You have unsaved changes!",
+    "confirmQuestion" : "Are you sure you want to leave?"
   },
 
   "sidepanel" : {
