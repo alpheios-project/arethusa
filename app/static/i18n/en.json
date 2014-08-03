@@ -4,6 +4,8 @@
   "help" : "Help",
   "on" : "on",
   "of" : "of",
+  "from" : "from",
+  "to" : "to",
   "contactUs" : "Contact us",
   "messages"  : "Messages",
   "deselectAll" : "Deselect all",
@@ -26,7 +28,10 @@
   "history" : {
     "undo" : "Undo",
     "redo" : "Redo",
-    "noRecords" : "No history events recorded."
+    "noRecords" : "No history events recorded.",
+    "add" : "Added",
+    "remove" : "Removed",
+    "change" : "Changed"
   },
 
   "uth" : {
