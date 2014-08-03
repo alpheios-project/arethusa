@@ -2,7 +2,8 @@
 
 angular.module('arethusa.core').directive('translateLanguage', [
   '$translate',
-  function($translate) {
+  'translator',
+  function($translate, translator) {
     return {
       restrict: 'A',
       scope: {},
@@ -23,6 +24,11 @@ angular.module('arethusa.core').directive('translateLanguage', [
 
         element.bind('click', function() {
           scope.$apply(toggleLang);
+        });
+
+        var parent = element.parent();
+        translator('language', function(translation) {
+          parent.attr('title', translation);
         });
 
         useKey();
