@@ -2,7 +2,10 @@
   <div class="italic">
     <span comment-targets="tokens"/>
   </div>
-  <div ng-repeat="comment in comments.comments" comment="comment"></div>
+  <div
+    class="fade-in"
+    ng-repeat="comment in comments.comments"
+    comment="comment"/>
   <div class="text-center">
     <span class="button micro radius success"
       ng-click="inputOpen = !inputOpen">
