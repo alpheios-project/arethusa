@@ -19,9 +19,9 @@
       "relation",
       "artificialToken",
       "search",
-      "depTree",
       "history",
-      "comments"
+      "comments",
+      "depTree"
     ],
     "chunkParam" : "chunk",
     "showKeys" : true
