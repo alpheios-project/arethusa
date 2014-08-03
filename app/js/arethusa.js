@@ -4,7 +4,6 @@ angular.module('arethusa', [
   'angulartics.google.analytics',
   'mm.foundation',
   'ngRoute',
-  'pascalprecht.translate',
   'arethusa.core',
   'arethusa.contextMenu',
   'arethusa.confEditor',
