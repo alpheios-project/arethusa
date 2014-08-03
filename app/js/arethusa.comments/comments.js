@@ -128,7 +128,14 @@ angular.module('arethusa.comments').service('comments', [
 
     function saveSuccess(fn) {
       return function(commentContainer) {
-        addToIndex(commentContainer);
+        // Could be that this chunk had no comments before,
+        // so we need to get the just newly created object
+        // from the retriever and build up all our indices.
+        if (self.comments) {
+          addToIndex(commentContainer);
+        } else {
+          retrieveComments();
+        }
         fn();
         notifier.success('Comment created!');
       };
