@@ -9,6 +9,8 @@ angular.module('arethusa.comments').service('comments', [
     var self = this;
     var retriever, persister;
     var idMap;
+    var commentIndex;
+    var reverseIndex;
 
     this.filter = {};
 
@@ -29,17 +31,43 @@ angular.module('arethusa.comments').service('comments', [
       self.comments = [];
       retriever.getData(navigator.status.currentId, function(comments) {
         self.comments = comments;
+        createIndices();
+      });
+    }
+
+    function addToIndex(commentContainer) {
+      var ids = commentContainer.ids;
+      var id = ids.join('|'); // using a . would interfere with aU.setProperty
+      commentIndex[id] = commentContainer;
+
+      angular.forEach(ids, function(tId) {
+        arethusaUtil.setProperty(reverseIndex, tId + '.' + id, true);
+      });
+    }
+
+    function createIndices() {
+      commentIndex = {};
+      reverseIndex = {};
+      angular.forEach(self.comments, addToIndex);
+    }
+
+    function selectionFilter() {
+      var targets = {};
+      angular.forEach(state.selectedTokens, function(token, id) {
+        angular.extend(targets, reverseIndex[id]);
+      });
+      var sorted = Object.keys(targets).sort();
+      return arethusaUtil.map(sorted, function(el) {
+        return commentIndex[el];
       });
     }
 
     this.currentComments = function() {
-      //return arethusaUtil.inject({}, self.comments, function(memo, id, comment) {
-        //var add = true;
-        //if (!(self.filter.selection && !state.isSelected(id))) {
-          //memo[id] = comment;
-        //}
-      //});
-      return self.comments;
+      var res = self.comments;
+      if (self.filter.selection) {
+        res = selectionFilter();
+      }
+      return res;
     };
 
     this.commentCountFor = function(token) {
