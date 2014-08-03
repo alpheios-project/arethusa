@@ -18,14 +18,14 @@
     },
     "plugins" : [
       "text",
-      "comments",
       "morph",
-      "sg",
       "relation",
-      "depTree",
+      "sg",
       "search",
       "artificialToken",
-      "history"
+      "history",
+      "comments",
+      "depTree"
     ]
   },
 
@@ -157,9 +157,7 @@
         "CommentsRetriever" : {
           "resource" : "fakePerseidsComments"
         }
-      },
-      "contextMenu" : true,
-      "contextMenuTemplate": "templates/arethusa.comments/context_menu.html"
+      }
     }
   },
 
