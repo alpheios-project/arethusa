@@ -5,7 +5,8 @@ angular.module('arethusa.comments').service('comments', [
   'configurator',
   'navigator',
   'notifier',
-  function(state, configurator, navigator, notifier) {
+  'plugins',
+  function(state, configurator, navigator, notifier, plugins) {
     var self = this;
     var retriever, persister;
     var idMap;
@@ -150,6 +151,14 @@ angular.module('arethusa.comments').service('comments', [
     this.createNewComment = function(ids, comment, successFn) {
       var newComment = new Comment(ids, navigator.status.currentId, comment);
       persister.saveData(newComment, saveSuccess(successFn), saveError);
+    };
+
+    this.goToComments = function(tId) {
+      state.deselectAll();
+      state.selectToken(tId);
+      self.filter.selection = true;
+      self.filter.fullText = '';
+      plugins.setActive(self);
     };
 
     this.init = function() {
