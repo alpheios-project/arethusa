@@ -19,8 +19,8 @@ angular.module('arethusa.comments').directive('comments', [
             });
           },
           post: function(scope, iElement, iAttrs) {
-            scope.submit = function() {
-              comments.createNewComment(scope.comments.ids, scope.comment);
+            scope.select = function() {
+              state.multiSelect(scope.comments.ids);
             };
           }
         };
