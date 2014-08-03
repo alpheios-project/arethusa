@@ -87,6 +87,12 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       comment.comment = fakeId + comment.comment;
     }
 
+    // This is to satisfy the Perseids API for now, will later be
+    // handled by Perseids itself.
+    // Cf. http://github.com/PerseusDL/perseids_docs/issues/152
+    function addReason(comment) {
+      comment.reason = "general";
+    }
 
     return function(conf) {
       var self = this;
@@ -106,6 +112,7 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
 
       this.saveData = function(comment, success, error) {
         addFakeIds(comment);
+        addReason(comment);
         resource.save(comment).then(function(res) {
           parseComment(res.data);
           success();
