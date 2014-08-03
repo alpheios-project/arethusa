@@ -235,9 +235,10 @@ angular.module('arethusa.core').service('state', [
     };
 
     this.deselectAll = function () {
-      for (var el in self.selectedTokens)
+      for (var el in self.selectedTokens) {
         delete self.selectedTokens[el];
         delete self.clickedTokens[el];
+      }
     };
 
     this.firstSelected = function() {

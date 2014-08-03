@@ -130,9 +130,13 @@ describe("state", function() {
       state.selectToken('03', 'ctrl-click');
       expect(state.isSelected('01')).toBeTruthy();
       expect(state.isSelected('03')).toBeTruthy();
+      expect(state.isClicked('01')).toBeTruthy();
+      expect(state.isClicked('03')).toBeTruthy();
       state.deselectAll();
       expect(state.isSelected('01')).toBeFalsy();
       expect(state.isSelected('03')).toBeFalsy();
+      expect(state.isClicked('01')).toBeFalsy();
+      expect(state.isClicked('03')).toBeFalsy();
     });
   });
 
