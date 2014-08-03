@@ -36,7 +36,9 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       if (span) {
         span.comments.push(comment);
       } else {
-        arr.push(new WrappedComment(wIds, comment));
+        // We unshift on purpose - we want newly added comments on runtime to
+        // appear on top of the list.
+        arr.unshift(new WrappedComment(wIds, comment));
       }
     }
 
