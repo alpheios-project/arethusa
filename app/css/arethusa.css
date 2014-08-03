@@ -702,6 +702,7 @@ li.keyboard-key:hover {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
+  color: rgb(112, 112, 112)
 }
 
 /***************************************************************************
