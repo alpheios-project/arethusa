@@ -1,0 +1,16 @@
+<div>
+  <div delimiter/>
+  <div>
+    <span
+      ng-click="toggle()"
+      ng-disabled="!hasSelections()" class="button radius micro">Comment
+    </span>
+    <span class="italic">{{ currentTokenStrings }}</span>
+  </div>
+  <p>
+    <form ng-if="inputOpen">
+      <textarea rows="3" ng-model="$parent.comment"/>
+      <span ng-click="submit()" class="button micro radius">Submit</span>
+    </form>
+  </p>
+</div>
