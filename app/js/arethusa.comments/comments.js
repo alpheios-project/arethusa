@@ -17,7 +17,9 @@ angular.module('arethusa.comments').service('comments', [
 
     this.defaultConf = {
       name: "comments",
-      template: "templates/arethusa.comments/comments.html"
+      template: "templates/arethusa.comments/comments.html",
+      contextMenu: true,
+      contextMenuTemplate: "templates/arethusa.comments/context_menu.html"
     };
 
     function configure() {
