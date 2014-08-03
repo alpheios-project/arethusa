@@ -81,7 +81,8 @@ angular.module('arethusa.comments').service('comments', [
     }
 
     function saveSuccess(fn) {
-      return function() {
+      return function(commentContainer) {
+        addToIndex(commentContainer);
         fn();
         notifier.success('Comment created!');
       };
