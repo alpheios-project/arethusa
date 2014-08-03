@@ -8,12 +8,7 @@
       ng-click="inputOpen = !inputOpen">
       <i class="fa fa-reply"></i>
     </span>
-    <form ng-if="inputOpen">
-      <!--Need to explicitly ask for $parent, because ng-if opens a new scope-->
-      <textarea rows="3" ng-model="$parent.comment">
-      </textarea>
-      <span ng-click="submit()" class="button micro radius">Submit</span>
-    </form>
+    <div comment-input-form="inputOpen" target="comments.ids"/>
     <hr class="tiny">
   </div>
 </div>

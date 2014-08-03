@@ -15,15 +15,9 @@ angular.module('arethusa.comments').directive('commentCreator', [
 
         scope.hasSelections = state.hasClickSelections;
 
-        scope.commentTypes = ['general', 'reject'];
-        scope.commentType = scope.commentTypes[0];
-
-        scope.toggle = function() {
-          scope.inputOpen = !scope.inputOpen;
-        };
-
         function currentTokens() {
-          if (ids.length) {
+          if (scope.active) {
+            var ids = scope.ids;
             var nonSequentials = idHandler.nonSequentialIds(ids);
             var res = ['on '];
             angular.forEach(ids, function(id, i) {
@@ -39,7 +33,8 @@ angular.module('arethusa.comments').directive('commentCreator', [
         }
 
         scope.$watchCollection('state.clickedTokens', function(newVal, oldVal) {
-          ids = Object.keys(newVal).sort();
+          scope.ids = Object.keys(newVal).sort();
+          scope.active = scope.ids.length;
           scope.currentTokenStrings = currentTokens();
         });
 
