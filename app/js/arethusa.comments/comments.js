@@ -11,6 +11,7 @@ angular.module('arethusa.comments').service('comments', [
     var idMap;
     var commentIndex;
     var reverseIndex;
+    var fullTextIndex;
 
     this.filter = {};
 
@@ -35,20 +36,41 @@ angular.module('arethusa.comments').service('comments', [
       });
     }
 
+    function fullText(commentContainer) {
+      return arethusaUtil.map(commentContainer.comments, function(el) {
+        return el.comment;
+      }).join(' ');
+    }
+
     function addToIndex(commentContainer) {
       var ids = commentContainer.ids;
       var id = ids.join('|'); // using a . would interfere with aU.setProperty
       commentIndex[id] = commentContainer;
+      fullTextIndex.add({ id: id, body: fullText(commentContainer) });
 
       angular.forEach(ids, function(tId) {
         arethusaUtil.setProperty(reverseIndex, tId + '.' + id, true);
       });
     }
 
+    function lunrIndex() {
+      return lunr(function() {
+        this.field('body');
+        this.ref('id');
+      });
+    }
+
     function createIndices() {
       commentIndex = {};
       reverseIndex = {};
+      fullTextIndex = lunrIndex();
       angular.forEach(self.comments, addToIndex);
+    }
+
+    function getFromIndex(ids) {
+      return arethusaUtil.map(ids, function(el) {
+        return commentIndex[el];
+      });
     }
 
     function selectionFilter() {
@@ -56,18 +78,34 @@ angular.module('arethusa.comments').service('comments', [
       angular.forEach(state.selectedTokens, function(token, id) {
         angular.extend(targets, reverseIndex[id]);
       });
-      var sorted = Object.keys(targets).sort();
-      return arethusaUtil.map(sorted, function(el) {
-        return commentIndex[el];
-      });
+      return Object.keys(targets).sort();
+    }
+
+    function searchText(txt, otherIds) {
+      // A former filter returned empty, so we can just return,
+      // but it could also be that this fn is the first filter
+      // applied.
+      if (otherIds && !otherIds.length) return otherIds;
+
+      var hits = fullTextIndex.search(txt);
+      var ids = arethusaUtil.map(hits, function(el) { return el.ref; });
+      return otherIds ? arethusaUtil.intersect(ids, otherIds) : ids;
+    }
+
+    function filteredComments() {
+      var sel = self.filter.selection;
+      var txt = self.filter.fullText;
+
+      if (sel || txt) {
+        var ids;
+        if (sel) { ids = selectionFilter(); }
+        if (txt) { ids = searchText(txt, ids); }
+        return getFromIndex(ids);
+      }
     }
 
     this.currentComments = function() {
-      var res = self.comments;
-      if (self.filter.selection) {
-        res = selectionFilter();
-      }
-      return res;
+      return filteredComments() || self.comments;
     };
 
     this.commentCountFor = function(token) {
