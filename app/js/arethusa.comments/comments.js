@@ -14,6 +14,7 @@ angular.module('arethusa.comments').service('comments', [
     var fullTextIndex;
 
     this.filter = {};
+    this.reverseIndex = {};
 
     this.defaultConf = {
       name: "comments",
