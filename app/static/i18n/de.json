@@ -50,5 +50,15 @@
     "errorMessage"   : "Kommentieren fehlgeschlagen",
     "selectFirst"    : "Tokenselektion erfordert",
     "count" : "{{ count }} von {{ total }} kommentiert"
+  },
+
+  "tree" : {
+    "changeDir" : "Ändere Richtung",
+    "focusRoot" : "Fokusiere Root",
+    "focusSel"  : "Fokusiere Selektion",
+    "centerTree" : "Baum zentrieren",
+    "perfectWidth" : "Breite anpassen",
+    "compact" : "Baum verdichten",
+    "widen" : "Baum ausdehnen"
   }
 }
