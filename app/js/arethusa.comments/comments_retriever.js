@@ -3,14 +3,25 @@
 angular.module('arethusa.comments').factory('CommentsRetriever', [
   'configurator',
   'idHandler',
-  function(configurator, idHandler) {
+  'state',
+  function(configurator, idHandler, state) {
     var comments = {};
     var alreadyLoaded;
 
     function splitIdAndComment(comment) {
-      var regexp = new RegExp('^##(.*?)##\n\n(.*)$');
-      var match = regexp.exec(comment);
-      return match.slice(1, 3);
+      var i = lastIndexOfHeaderSection(comment);
+      var header = comment.slice(0, i - 1);
+      var comm = comment.slice(i);
+      var regexp = new RegExp('^##(.*?)##');
+      var match = regexp.exec(header);
+      return [match[1], comm];
+    }
+
+    function lastIndexOfHeaderSection(comment) {
+      var i = comment.indexOf('#!#\n\n');
+      // Backwards compabitilty for comments that didn't
+      // have the token strings attached
+      return i === -1 ? comment.indexOf('##\n\n') + 4 : i + 5;
     }
 
     function WrappedComment(ids, comment) {
@@ -79,14 +90,15 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       angular.forEach(comments, sortCommentsOfChunk);
     }
 
-    function addFakeIds(comment) {
+    function addFakeIdsAndStrings(comment) {
       var sId = comment.sId;
       var ids = comment.ids;
       var sourceIds = arethusaUtil.map(ids, function(id) {
         return idHandler.formatId(id, '%w');
       });
       var fakeId = '##' + sId + '.' + sourceIds.join(',') + '##\n\n';
-      comment.comment = fakeId + comment.comment;
+      var strings = '#!# ' + state.toTokenStrings(ids) + ' #!#\n\n';
+      comment.comment = fakeId + strings + comment.comment;
     }
 
     // This is to satisfy the Perseids API for now, will later be
@@ -113,7 +125,7 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       };
 
       this.saveData = function(comment, success, error) {
-        addFakeIds(comment);
+        addFakeIdsAndStrings(comment);
         addReason(comment);
         resource.save(comment).then(function(res) {
           success(parseComment(res.data));
