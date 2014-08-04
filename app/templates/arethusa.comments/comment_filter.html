@@ -6,11 +6,23 @@
       style="margin: 0"
       ng-model="filter.fullText"/>
   </label>
+<div class="small-6 columns">
   <label>
     Filter selected
     <input
       type="checkbox"
       style="margin: 0"
       ng-model="filter.selection"/>
+  </label>
+</div>
+<div class="small-6 columns">
+  <label
+    class="right clickable"
+    tooltip-html-unsafe="{{ 'UNUSED_TOOLTIP' | translate }}"
+    tooltip-popup-delay="700"
+    tooltip-placement="left"
+    ng-click="highlightCommented()"
+    ng-dblclick="selectCommented()">
+    {{ count }} of {{ total }} commented
   </label>
 </div>
