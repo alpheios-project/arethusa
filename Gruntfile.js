@@ -108,6 +108,7 @@ module.exports = function(grunt) {
             './bower_components/angular-route/angular-route.js',
             './vendor/angular-resource/angular-resource.js',
             './bower_components/angular-cookies/angular-cookies.js',
+            './bower_components/angular-animate/angular-animate.js',
             './bower_components/angular-scroll/angular-scroll.js',
             './bower_components/angular-translate/angular-translate.js',
             './bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
@@ -116,6 +117,7 @@ module.exports = function(grunt) {
             './bower_components/x2js/xml2json.min.js',
             './bower_components/jquery/dist/jquery.min.js',
             './bower_components/d3/d3.min.js',
+            './bower_components/lunr.js/lunr.min.js',
             './vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.js',
             './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
             './vendor/dagre-d3/dagre-d3.min.js',
@@ -233,6 +235,7 @@ module.exports = function(grunt) {
       },
       main: { files: pluginFiles('arethusa') },
       core: { files: pluginFiles('arethusa.core') },
+      comments: { files: pluginFiles('arethusa.comments') },
       hebrewMorph: { files: pluginFiles('arethusa.hebrew_morph') },
       artificialToken: { files: pluginFiles('arethusa.artificial_token') },
       contextMenu: { files: pluginFiles('arethusa.context_menu') },
@@ -291,6 +294,7 @@ module.exports = function(grunt) {
   //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
   grunt.registerTask('reloader', 'watch:server');
   grunt.registerTask('minify', [
+    'uglify:comments',
     'uglify:hebrewMorph',
     'cssmin:css',
     'uglify:main',

@@ -1,0 +1,14 @@
+<span>on</span>
+<span ng-repeat="token in tokens">
+  <span
+    class="normal-size"
+    token="token"
+    colorize="true"
+    click="true"
+    hover="true">
+  </span>
+  <span>
+  <span ng-if="nonSequential[$index]">
+    ...
+  </span>
+</span>

@@ -50,14 +50,14 @@ angular.module('arethusa.core').controller('MainCtrl', [
     // changed completely. Therefore, the confLoaded event sets arethusaLoaded to
     // false every time it's triggered.
     $scope.$on('confLoaded', function () {
-      $scope.arethusaLoaded = false;
+      state.arethusaLoaded = false;
       state.init();
       history.init();
     });
 
     $scope.$on('stateLoaded', function () {
       state.postInit();
-      if ($scope.arethusaLoaded) {
+      if (state.arethusaLoaded) {
         // We don't have to retrieve all plugins again, but we have
         // to reload them so that they can update their internal state
         plugins.init();
@@ -70,7 +70,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
       plugins.start(conf.plugins);
       notifier.init(); // also clears the Loading message for now.
       saver.init();
-      $scope.arethusaLoaded = true;
+      state.arethusaLoaded = true;
       notifier.success('Load complete');
       UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
 

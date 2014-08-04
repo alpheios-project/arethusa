@@ -7,8 +7,9 @@ angular.module('arethusa.core').service('state', [
   'keyCapture',
   '$location',
   'StateChange',
+  'idHandler',
   function (configurator, navigator, $rootScope, documentStore, keyCapture,
-            $location, StateChange) {
+            $location, StateChange, idHandler) {
     var self = this;
     var tokenRetrievers;
 
@@ -112,7 +113,7 @@ angular.module('arethusa.core').service('state', [
 
     // Delegators
     this.asString = function (id) {
-      return this.tokens[id].string;
+      return self.tokens[id].string;
     };
 
     this.getToken = function (id) {
@@ -121,18 +122,26 @@ angular.module('arethusa.core').service('state', [
 
     // Selections
     this.selectedTokens = {};
-    // ids will be inserted here
+    this.clickedTokens  = {};
 
     this.hasSelections = function() {
       return Object.keys(self.selectedTokens).length !== 0;
     };
 
-    this.isSelected = function (id) {
+    this.hasClickSelections = function() {
+      return Object.keys(self.clickedTokens).length;
+    };
+
+    this.isSelected = function(id) {
       return id in this.selectedTokens;
     };
 
+    this.isClicked = function(id) {
+      return id in this.clickedTokens;
+    };
+
     // multi-selects tokens, given an array of ids
-    this.multiSelect = function (ids) {
+    this.multiSelect = function(ids) {
       self.deselectAll();
       selectMultipleTokens(ids);
     };
@@ -189,11 +198,14 @@ angular.module('arethusa.core').service('state', [
       }
       if (!preventSelection && self.isSelectable(self.selectionType(id), type)) {
         self.selectedTokens[id] = type;
+        if (type !== 'hover') {
+          self.clickedTokens[id] = type;
+        }
       }
     };
 
     this.selectionType = function (id) {
-      return this.selectedTokens[id];
+      return self.selectedTokens[id];
     };
 
     this.isSelectable = function (oldVal, newVal) {
@@ -207,8 +219,9 @@ angular.module('arethusa.core').service('state', [
       // only deselect when the old selection type is the same as
       // the argument, i.e. a hover selection can only deselect a
       // hover selection, but not a click selection
-      if (this.selectionType(id) === type) {
-        delete this.selectedTokens[id];
+      if (self.selectionType(id) === type) {
+        delete self.selectedTokens[id];
+        delete self.clickedTokens[id];
       }
     };
 
@@ -223,8 +236,10 @@ angular.module('arethusa.core').service('state', [
     };
 
     this.deselectAll = function () {
-      for (var el in this.selectedTokens)
-        delete this.selectedTokens[el];
+      for (var el in self.selectedTokens) {
+        delete self.selectedTokens[el];
+        delete self.clickedTokens[el];
+      }
     };
 
     this.firstSelected = function() {
@@ -259,62 +274,28 @@ angular.module('arethusa.core').service('state', [
       self.selectSurroundingToken('prev');
     };
 
-    // Events
-    // Listeners can be internal (angular-implementation) or external (everything
-    // else). The future might bring a further distinction between different
-    // of events listeners listen to - we'll see.
-    this.listeners = [];
-    this.externalListeners = [];
-
-    this.registerListener = function (listener) {
-      if (listener.external) {
-        this.externalListeners.push(listener);
-      } else {
-        this.listeners.push(listener);
-      }
-    };
-
-    this.fireEvent = function (target, property, oldVal, newVal) {
-      var event = {
-          target: target,
-          property: property,
-          oldVal: oldVal,
-          newVal: newVal
-        };
-      event.time = new Date();
-      this.notifyListeners(event);
-    };
-
-    this.notifyListeners = function (event) {
-      this.notifyAngularListeners(event);
-      this.notifyExternalListeners(event);
-    };
-
-    this.notifyAngularListeners = function (event) {
-      angular.forEach(this.listeners, function (obj, i) {
-        obj.catchEvent(event);
+    this.toTokenStrings = function(ids) {
+      var nonSequentials = idHandler.nonSequentialIds(ids);
+      var res = [];
+      angular.forEach(ids, function(id, i) {
+        res.push(self.asString(id));
+        if (nonSequentials[i]) res.push('...');
       });
+      return res.join(' ');
     };
 
-    this.notifyExternalListeners = function (event) {
-      angular.forEach(this.externalListeners, function (obj, i) {
-        obj.catchArethusaEvent(event);
-      });
-    };
 
     // DEPRECATED
     this.setState = function (id, category, val) {
       arethusaLogger.log('state.setState is DEPRECATED. Use state.change() instead.');
       var token = this.tokens[id];
       var oldVal = token[category];
-      this.fireEvent(token, category, oldVal, val);
       token[category] = val;
     };
 
     this.unsetState = function (id, category) {
       var token = this.tokens[id];
       var oldVal = token[category];
-      this.fireEvent(token, category, oldVal, null);
       delete token[category];
     };
 

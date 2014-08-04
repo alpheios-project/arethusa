@@ -80,6 +80,7 @@ describe("state", function() {
       state.selectToken('03', 'click');
 
       expect(state.selectedTokens).toEqual({'03': 'click'});
+      expect(state.clickedTokens).toEqual({'03' : 'click'});
     });
 
     it('deselects all tokens after head change', function() {
@@ -95,14 +96,24 @@ describe("state", function() {
 
       expect(state.selectedTokens).toEqual({'01': 'ctrl-click', '03': 'ctrl-click'});
     });
+
+    it('distincts between hovered and clicked tokens', function() {
+      state.selectToken('01', 'click');
+      state.selectToken('02', 'hover');
+
+      expect(state.selectedTokens).toEqual({ '01': 'click', '02': 'hover'});
+      expect(state.clickedTokens).toEqual({ '01': 'click' });
+    });
   });
 
   describe('this.deselectToken', function() {
     it('deselects a token', function() {
       state.selectToken('01', 'click');
       expect(state.isSelected('01')).toBeTruthy();
+      expect(state.isClicked('01')).toBeTruthy();
       state.deselectToken('01', 'click');
       expect(state.isSelected('01')).toBeFalsy();
+      expect(state.isClicked('01')).toBeFalsy();
     });
 
     it('selection type has to be the same to do a proper deselect', function() {
@@ -119,9 +130,49 @@ describe("state", function() {
       state.selectToken('03', 'ctrl-click');
       expect(state.isSelected('01')).toBeTruthy();
       expect(state.isSelected('03')).toBeTruthy();
+      expect(state.isClicked('01')).toBeTruthy();
+      expect(state.isClicked('03')).toBeTruthy();
       state.deselectAll();
       expect(state.isSelected('01')).toBeFalsy();
       expect(state.isSelected('03')).toBeFalsy();
+      expect(state.isClicked('01')).toBeFalsy();
+      expect(state.isClicked('03')).toBeFalsy();
+    });
+  });
+
+  describe('this.isSelected', function() {
+    it('returns true when a token is selected', function() {
+      state.selectToken('01', 'ctrl-click');
+      state.selectToken('02', 'hover');
+      expect(state.isSelected('01')).toBeTruthy();
+      expect(state.isSelected('02')).toBeTruthy();
+    });
+  });
+
+  describe('this.isClicked', function() {
+    it('returns true when a token was click-selected', function() {
+      state.selectToken('01', 'ctrl-click');
+      state.selectToken('02', 'hover');
+      expect(state.isClicked('01')).toBeTruthy();
+      expect(state.isClicked('02')).toBeFalsy();
+    });
+  });
+
+  describe('this.hasSelections', function() {
+    it('returns true when selections are present', function() {
+      expect(state.hasSelections()).toBeFalsy();
+      state.selectToken('02', 'hover');
+      expect(state.hasSelections()).toBeTruthy();
+    });
+  });
+
+  describe('this.hasClickSelections', function() {
+    it('returns true when click selections are present', function() {
+      expect(state.hasClickSelections()).toBeFalsy();
+      state.selectToken('02', 'hover');
+      expect(state.hasClickSelections()).toBeFalsy();
+      state.selectToken('02', 'click');
+      expect(state.hasClickSelections()).toBeTruthy();
     });
   });
 
@@ -308,52 +359,6 @@ describe("state", function() {
 
       expect(t1.status).toEqual({});
       expect(t4.status).toEqual({});
-    });
-  });
-
-  describe('this.registerListener', function() {
-    it('registers a listener, distinguished as external or internal', function() {
-      var extList = { external: true };
-      var intList = {};
-
-      state.registerListener(extList);
-      state.registerListener(intList);
-
-      expect(state.listeners).toContain(intList);
-      expect(state.externalListeners).toContain(extList);
-    });
-  });
-
-  describe('this.notifyListeners', function() {
-    it('notifies all listeners', function() {
-      var event = 'event';
-      var tester = [];
-      var listener = {
-        catchEvent: function(event) {
-          tester.push(event);
-        }
-      };
-
-      state.registerListener(listener);
-      state.notifyListeners(event);
-
-      expect(tester).toEqual(['event']);
-    });
-
-    it('external listeners need to implement catchArethusaEvent()', function() {
-      var event = 'event';
-      var tester = [];
-      var extListener = {
-        external: true,
-        catchArethusaEvent: function(event) {
-          tester.push(event);
-        }
-      };
-
-      state.registerListener(extListener);
-      state.notifyListeners(event);
-
-      expect(tester).toEqual(['event']);
     });
   });
 

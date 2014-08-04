@@ -1,0 +1,23 @@
+<div class="comments">
+  <div class="italic">
+    <span comment-targets="tokens"/>
+    <span class="right">
+      <span class="button nano radius success"
+        ng-click="inputOpen = !inputOpen">
+        <i class="fa fa-reply"></i>
+      </span>
+      <span class="button nano radius"
+        ng-click="select()">
+        <i class="fa fa-crosshairs"></i>
+      </span>
+    </span>
+  </div>
+  <div
+    class="fade-in"
+    ng-repeat="comment in comments.comments"
+    comment="comment"/>
+  <div class="text-center">
+    <div comment-input-form="inputOpen" target="comments.ids"/>
+    <span class="ornament-delimiter" style="margin-top: 0.5rem"/>
+  </div>
+</div>

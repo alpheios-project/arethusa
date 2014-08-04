@@ -18,8 +18,9 @@
       "search",
       "morph",
       "relation",
-      "depTree",
-      "history"
+      "history",
+      "comments",
+      "depTree"
     ],
     "chunkParam" : "chunk",
     "showKeys" : true
@@ -44,6 +45,14 @@
   "resources" : {
     "perseidsResource" : {
       "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
+      "params" : [
+        "doc"
+      ],
+      "auth": "perseidsAuth"
+    },
+
+    "perseidsComments" : {
+      "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/comments",
       "params" : [
         "doc"
       ],
@@ -101,6 +110,14 @@
     "history" : {
       "name" : "history",
       "template" : "templates/history.html"
+    },
+
+    "comments" : {
+      "retriever" : {
+        "CommentsRetriever" : {
+          "resource" : "perseidsComments"
+        }
+      }
     }
   },
 

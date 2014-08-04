@@ -1,5 +1,7 @@
-<div id="{{ idKey }}{{ token.id }}" class="f-dropdown content hide">
-  <div ng-if="active()" ng-repeat="plugin in plugins">
-    <plugin-context-menu name="plugin" class="menu-element"></plugin-context-menu>
+<div id="tcm{{ token.id }}" class="f-dropdown content hide">
+  <div ng-if="status.contextMenuOpen">
+    <div ng-repeat="plugin in plugins">
+      <plugin-context-menu name="plugin" class="menu-element"></plugin-context-menu>
+    </div>
   </div>
 </div>
