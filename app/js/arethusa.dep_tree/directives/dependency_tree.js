@@ -695,13 +695,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         });
 
         scope.translations = {};
-        translator('tree.changeDir',    scope.translations, 'changeDir');
-        translator('tree.focusRoot',    scope.translations, 'focusRoot');
-        translator('tree.focusSel',     scope.translations, 'focusSel');
-        translator('tree.centerTree',   scope.translations, 'centerTree');
-        translator('tree.perfectWidth', scope.translations, 'perfectWidth');
-        translator('tree.compact',      scope.translations, 'compact');
-        translator('tree.widen',        scope.translations, 'widen');
+        var translateValues = [
+          'changeDir', 'focusRoot', 'focusSel', 'centerTree',
+          'perfectWidth', 'compact', 'widen'
+        ];
+        angular.forEach(translateValues, function(val, i) {
+          translator('tree.' + val, scope.translations, val);
+        });
       },
     };
   }
