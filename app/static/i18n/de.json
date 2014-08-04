@@ -47,6 +47,7 @@
     "filterSelected" : "Filter Selektion",
     "successMessage" : "Kommentar erstellt!",
     "errorMessage"   : "Kommentieren fehlgeschlagen",
-    "selectFirst"    : "Tokenselektion erfordert"
+    "selectFirst"    : "Tokenselektion erfordert",
+    "count" : "{{ count }} von {{ total }} kommentiert"
   }
 }

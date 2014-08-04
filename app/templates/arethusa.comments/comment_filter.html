@@ -18,11 +18,14 @@
 <div class="small-6 columns">
   <label
     class="right clickable"
-    tooltip-html-unsafe="{{ 'UNUSED_TOOLTIP' | translate }}"
+    tooltip-html-unsafe="{{ tooltip.text }}"
     tooltip-popup-delay="700"
     tooltip-placement="left"
     ng-click="highlightCommented()"
     ng-dblclick="selectCommented()">
-    {{ count }} of {{ total }} commented
+    <span
+      translate="comments.count"
+      translate-value-count="{{ count }}"
+      translate-value-total="{{ total }}"/>
   </label>
 </div>
