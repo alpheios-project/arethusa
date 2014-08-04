@@ -8,16 +8,19 @@ angular.module('arethusa.core').directive('translateLanguage', [
       restrict: 'A',
       scope: {},
       link: function(scope, element, attrs) {
+        var langKey;
+
         function useKey(key) {
-          scope.langKey = key || $translate.use();
-          $translate.use(scope.langKey);
+          langKey = key || $translate.use();
+          $translate.use(langKey);
+          scope.flag = 'images/flags/' + langKey + '.png';
         }
 
         var langs = ['en', 'de'];
 
         function toggleLang() {
           var i;
-          i = langs.indexOf(scope.langKey) + 1;
+          i = langs.indexOf(langKey) + 1;
           i = i > langs.length - 1 ? 0 : i;
           useKey(langs[i]);
         }
