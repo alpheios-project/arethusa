@@ -22,7 +22,8 @@ describe('MainCtrl', function() {
       notifier: arethusaMocks.notifier(),
       saver: arethusaMocks.saver(),
       history: arethusaMocks.history(),
-      plugins: arethusaMocks.plugins()
+      plugins: arethusaMocks.plugins(),
+      translator: function() {}
     };
 
     var ctrl = $controller('MainCtrl', mainCtrlInits);

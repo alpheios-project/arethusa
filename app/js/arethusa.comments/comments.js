@@ -7,7 +7,9 @@ angular.module('arethusa.comments').service('comments', [
   'notifier',
   'plugins',
   'keyCapture',
-  function(state, configurator, navigator, notifier, plugins, keyCapture) {
+  'translator',
+  function(state, configurator, navigator, notifier,
+           plugins, keyCapture, translator) {
     var self = this;
     var retriever, persister;
     var idMap;
@@ -130,6 +132,11 @@ angular.module('arethusa.comments').service('comments', [
       this.comment = comment;
     }
 
+    var translations = {};
+    translator('comments.successMessage', translations, 'success');
+    translator('comments.errorMessage', translations, 'error');
+    translator('comments.selectFirst', translations, 'selectFirst');
+
     function saveSuccess(fn) {
       return function(commentContainer) {
         // Could be that this chunk had no comments before,
@@ -141,12 +148,12 @@ angular.module('arethusa.comments').service('comments', [
           retrieveComments();
         }
         fn();
-        notifier.success('Comment created!');
+        notifier.success(translations.success);
       };
     }
 
     function saveError() {
-      notifier.error('Failed to create comment');
+      notifier.error(translations.error);
     }
 
     this.createNewComment = function(ids, comment, successFn) {
@@ -167,7 +174,7 @@ angular.module('arethusa.comments').service('comments', [
         self.creator = true;
         plugins.setActive(self);
       } else {
-        notifier.info('Need to select some tokens first');
+        notifier.info(translations.selectFirst);
       }
     }
 

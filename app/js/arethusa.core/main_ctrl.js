@@ -8,10 +8,16 @@ angular.module('arethusa.core').controller('MainCtrl', [
   'saver',
   'history',
   'plugins',
+  'translator',
   function ($scope, configurator, state, documentStore, notifier,
-            saver, history, plugins) {
+            saver, history, plugins, translator) {
     // This is the entry point to the application.
-    notifier.info('Loading...');
+
+    var translations = {};
+    translator('loadInProgress', translations, 'loadInProgress');
+    translator('loadComplete', translations, 'loadComplete');
+
+    notifier.info(translations.loadInProgress);
 
     documentStore.reset();
     $scope.aU = arethusaUtil;
@@ -71,7 +77,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
       notifier.init(); // also clears the Loading message for now.
       saver.init();
       state.arethusaLoaded = true;
-      notifier.success('Load complete');
+      notifier.success(translations.loadComplete);
       UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
 
       // start listening for events

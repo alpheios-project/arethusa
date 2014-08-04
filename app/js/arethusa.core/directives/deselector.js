@@ -1,7 +1,8 @@
 'use strict';
 angular.module('arethusa.core').directive('deselector', [
   'state',
-  function (state) {
+  'translator',
+  function (state, translator) {
     return {
       restrict: 'AE',
       scope: {},
@@ -12,7 +13,9 @@ angular.module('arethusa.core').directive('deselector', [
         });
 
         var hint = arethusaUtil.formatKeyHint(state.activeKeys.deselect);
-        element.attr('title', 'Deselect all ' + hint);
+        translator('deselectAll', function(translation) {
+          element.attr('title', translation + ' ' + hint);
+        });
       },
       template: '<i class="fi-unlock"/>'
     };

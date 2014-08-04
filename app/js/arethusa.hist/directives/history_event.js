@@ -3,12 +3,8 @@
 angular.module('arethusa.hist').directive('historyEvent', [
   'idHandler',
   '$compile',
-  function(idHandler, $compile) {
-    var predicates = {
-      change: 'Changed',
-      add: 'Added',
-      remove: 'Removed'
-    };
+  'translator',
+  function(idHandler, $compile, translator) {
 
     return {
       restrict: 'A',
@@ -34,7 +30,11 @@ angular.module('arethusa.hist').directive('historyEvent', [
         scope.token = scope.event.token;
         scope.id    = scope.token.id;
         scope.type  = scope.event.type;
-        scope.predicate = predicates[scope.type];
+
+        translator('history.' + scope.type, function(translation) {
+          scope.predicate = translation;
+        });
+
 
         if (scope.type === 'change') {
           scope.blocked = false;

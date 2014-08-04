@@ -7,9 +7,19 @@ angular.module('arethusa.core').service('saver', [
   'state',
   '$rootScope',
   '$window',
-  function(configurator, notifier, keyCapture, state, $rootScope, $window) {
+  'translator',
+  function(configurator, notifier, keyCapture, state,
+           $rootScope, $window, translator) {
     var self = this;
     var persisters;
+
+    var translations = {};
+    translator('saver.success', translations, 'success');
+    translator('saver.error', translations, 'error');
+    translator('saver.inProgress', translations, 'inProgress');
+    translator('saver.nothingToSave', translations, 'nothingToSave');
+    translator('saver.confirmNote', translations, 'confirmNote');
+    translator('saver.confirmQuestion', translations, 'confirmQuestion');
 
     function getPersisters() {
       var persisterConf = configurator.configurationFor('main').persisters;
@@ -37,7 +47,7 @@ angular.module('arethusa.core').service('saver', [
     function success(res) {
       self.needsSave = false;
       setChangeWatch();
-      notifier.success('Document saved!');
+      notifier.success(translations.success);
     }
 
     function error(res) {
@@ -48,20 +58,20 @@ angular.module('arethusa.core').service('saver', [
       if (res.status == 406) {
         success();
       } else {
-        notifier.error('Failed to save! Try again?');
+        notifier.error(translations.error);
       }
     }
 
     this.save = function() {
       if (self.needsSave) {
-        notifier.info('Saving...');
+        notifier.info(translations.inProgress);
         // We only have one persister right now, later we'll want
         // to handle the success notification better.
         angular.forEach(persisters, function(persister, name) {
           persister.saveData(success, error);
         });
       } else {
-        notifier.info('Nothing to save yet!');
+        notifier.info(translations.nothingToSave);
       }
     };
 
@@ -87,20 +97,17 @@ angular.module('arethusa.core').service('saver', [
     // he's leaving when a save is needed.
 
     if (!state.debug) {
-      var confirmNote = "You have unsaved changes!";
-      var confirmQuestion = "Are you sure you want to leave?";
-
       // We need this when the user wants to reload, or move to another url
       // altogether.
 
       $window.onbeforeunload = function() {
-        if (self.needsSave) { return confirmNote; }
+        if (self.needsSave) { return translations.confirmNote; }
       };
 
       // We need this when a user is changing the url from within the application
       $rootScope.$on('$locationChangeStart', function(event) {
         if (self.needsSave) {
-          if (!$window.confirm(confirmNote + "\n" + confirmQuestion)) {
+          if (!$window.confirm(translations.confirmNote + "\n" + translations.confirmQuestion)) {
             event.preventDefault();
           }
         }

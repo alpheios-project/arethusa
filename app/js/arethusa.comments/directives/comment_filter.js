@@ -3,7 +3,8 @@
 angular.module('arethusa.comments').directive('commentFilter', [
   'comments',
   'state',
-  function(comments, state) {
+  'translator',
+  function(comments, state, translator) {
     return {
       restrict: 'A',
       scope: {},
@@ -47,6 +48,9 @@ angular.module('arethusa.comments').directive('commentFilter', [
           scope.ids = Object.keys(newVal);
           scope.count = scope.ids.length;
         });
+
+        scope.tooltip = {};
+        translator('uth.tooltip', scope.tooltip, 'text');
       },
       templateUrl: 'templates/arethusa.comments/comment_filter.html'
     };
