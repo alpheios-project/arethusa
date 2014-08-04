@@ -3,15 +3,15 @@
 angular.module('arethusa.comments').directive('commentCreator', [
   'comments',
   'state',
-  function(comments, state) {
+  function(comments, state, keyCapture, notifier, plugins) {
     return {
       restrict: 'A',
       scope: {},
       link: function(scope, element, attrs) {
         var ids;
 
+        scope.comments = comments;
         scope.state = state;
-
         scope.hasSelections = state.hasClickSelections;
 
         function currentTokens() {

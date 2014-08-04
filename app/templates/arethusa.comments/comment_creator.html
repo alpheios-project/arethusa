@@ -2,12 +2,12 @@
   <div delimiter/>
   <div>
     <span
-      ng-click="inputOpen = !inputOpen"
+      ng-click="comments.creator = !comments.creator"
       ng-disabled="!active" class="button radius micro">New Comment
     </span>
     <span class="italic">{{ currentTokenStrings }}</span>
   </div>
   <p>
-    <div comment-input-form="inputOpen" target="ids">
+    <div comment-input-form="comments.creator" target="ids">
   </p>
 </div>

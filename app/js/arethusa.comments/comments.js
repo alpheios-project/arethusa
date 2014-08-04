@@ -6,7 +6,8 @@ angular.module('arethusa.comments').service('comments', [
   'navigator',
   'notifier',
   'plugins',
-  function(state, configurator, navigator, notifier, plugins) {
+  'keyCapture',
+  function(state, configurator, navigator, notifier, plugins, keyCapture) {
     var self = this;
     var retriever, persister;
     var idMap;
@@ -160,6 +161,23 @@ angular.module('arethusa.comments').service('comments', [
       self.filter.fullText = '';
       plugins.setActive(self);
     };
+
+    function openCommentField() {
+      if (state.hasClickSelections()) {
+        self.creator = true;
+        plugins.setActive(self);
+      } else {
+        notifier.info('Need to select some tokens first');
+      }
+    }
+
+    keyCapture.initCaptures(function(kC) {
+      return {
+        comments: [
+          kC.create('create', openCommentField, 'ctrl-K')
+        ]
+      };
+    });
 
     this.init = function() {
       configure();
