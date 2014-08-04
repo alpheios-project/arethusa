@@ -11,7 +11,6 @@ angular.module('arethusa.comments').service('comments', [
     var retriever, persister;
     var idMap;
     var commentIndex;
-    var reverseIndex;
     var fullTextIndex;
 
     this.filter = {};
@@ -52,7 +51,7 @@ angular.module('arethusa.comments').service('comments', [
       fullTextIndex.add({ id: id, body: fullText(commentContainer) });
 
       angular.forEach(ids, function(tId) {
-        arethusaUtil.setProperty(reverseIndex, tId + '.' + id, true);
+        arethusaUtil.setProperty(self.reverseIndex, tId + '.' + id, true);
       });
     }
 
@@ -65,7 +64,7 @@ angular.module('arethusa.comments').service('comments', [
 
     function createIndices() {
       commentIndex = {};
-      reverseIndex = {};
+      self.reverseIndex = {};
       fullTextIndex = lunrIndex();
       angular.forEach(self.comments, addToIndex);
     }
@@ -79,7 +78,7 @@ angular.module('arethusa.comments').service('comments', [
     function selectionFilter() {
       var targets = {};
       angular.forEach(state.selectedTokens, function(token, id) {
-        angular.extend(targets, reverseIndex[id]);
+        angular.extend(targets, self.reverseIndex[id]);
       });
       return Object.keys(targets).sort();
     }
@@ -113,7 +112,7 @@ angular.module('arethusa.comments').service('comments', [
 
     this.commentCountFor = function(token) {
       var count = 0;
-      var commentIds = reverseIndex[token.id];
+      var commentIds = self.reverseIndex[token.id];
       if (commentIds) {
         var idArr = Object.keys(commentIds);
         angular.forEach(getFromIndex(idArr), function(commentObj) {
