@@ -7,8 +7,9 @@ angular.module('arethusa.core').service('state', [
   'keyCapture',
   '$location',
   'StateChange',
+  'idHandler',
   function (configurator, navigator, $rootScope, documentStore, keyCapture,
-            $location, StateChange) {
+            $location, StateChange, idHandler) {
     var self = this;
     var tokenRetrievers;
 
@@ -112,7 +113,7 @@ angular.module('arethusa.core').service('state', [
 
     // Delegators
     this.asString = function (id) {
-      return this.tokens[id].string;
+      return self.tokens[id].string;
     };
 
     this.getToken = function (id) {
@@ -271,6 +272,16 @@ angular.module('arethusa.core').service('state', [
     };
     this.selectPrevToken = function () {
       self.selectSurroundingToken('prev');
+    };
+
+    this.toTokenStrings = function(ids) {
+      var nonSequentials = idHandler.nonSequentialIds(ids);
+      var res = [];
+      angular.forEach(ids, function(id, i) {
+        res.push(self.asString(id));
+        if (nonSequentials[i]) res.push('...');
+      });
+      return res.join(' ');
     };
 
 

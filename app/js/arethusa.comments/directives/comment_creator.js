@@ -3,8 +3,7 @@
 angular.module('arethusa.comments').directive('commentCreator', [
   'comments',
   'state',
-  'idHandler',
-  function(comments, state, idHandler) {
+  function(comments, state) {
     return {
       restrict: 'A',
       scope: {},
@@ -16,20 +15,7 @@ angular.module('arethusa.comments').directive('commentCreator', [
         scope.hasSelections = state.hasClickSelections;
 
         function currentTokens() {
-          if (scope.active) {
-            var ids = scope.ids;
-            var nonSequentials = idHandler.nonSequentialIds(ids);
-            var res = ['on '];
-            angular.forEach(ids, function(id, i) {
-              res.push(state.getToken(id).string);
-              if (nonSequentials[i]) {
-                res.push('...');
-              }
-            });
-            return res.join(' ');
-          } else {
-            return '';
-          }
+          return scope.active ? 'on ' + state.toTokenStrings(scope.ids) : '';
         }
 
         scope.$watchCollection('state.clickedTokens', function(newVal, oldVal) {
