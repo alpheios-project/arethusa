@@ -35,13 +35,19 @@
       <label class="right">Lemma</label>
     </div>
     <div class="small-9 columns">
-      <input
-        foreign-keys
-        class="compact"
-        type="text"
-        required
-        ng-model="form.lemma">
-      </input>
+      <ng-form
+        id="lemma-form"
+        tooltip-placement="top"
+        tooltip="{{ lemmaHint }}">
+        <input
+          foreign-keys
+          class="compact error"
+          type="text"
+          required
+          ng-change="declareOk()"
+          ng-model="form.lemma">
+        </input>
+      </ng-form>
     </div>
   </div>
 

@@ -11,8 +11,10 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         token: '=morphToken',
         id: '=morphId'
       },
-      link: function (scope, element, attrs) {
+      link: function (scope, element, attrs, form) {
         var inArray = arethusaUtil.isIncluded;
+        var lemmaForm = element.find('#lemma-form');
+
 
         scope.m = morph;
         scope.form = scope.token.customForm;
@@ -83,8 +85,23 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           scope.visibleAttributes = getVisibleAttributes();
         }
 
+        function addLemmaHint() {
+          lemmaForm.find('input').addClass('warn');
+          scope.lemmaHint = "This lemma was added automatically.\nCheck it before you save!";
+        }
+
+        function removeLemmaHint() {
+          lemmaForm.find('input').removeClass('warn');
+          scope.lemmaHint = '';
+        }
+
+        scope.declareOk = function() {
+          removeLemmaHint();
+        };
+
         scope.reset = function() {
           scope.resetAlert();
+          addLemmaHint();
           morph.resetCustomForm(scope.token, scope.id);
         };
 
@@ -162,6 +179,8 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           // at a completely different place in the DOM.
           container.scrollTo(element.children(), 0, 500);
         });
+
+        addLemmaHint();
       },
       templateUrl: 'templates/morph_form_create.html'
     };
