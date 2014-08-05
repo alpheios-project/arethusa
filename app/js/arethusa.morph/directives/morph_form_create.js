@@ -4,7 +4,8 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
   'morph',
   'state',
   'notifier',
-  function(morph, state, notifier) {
+  'translator',
+  function(morph, state, notifier, translator) {
     return {
       restrict: 'E',
       scope: {
@@ -14,6 +15,10 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
       link: function (scope, element, attrs, form) {
         var inArray = arethusaUtil.isIncluded;
         var lemmaForm = element.find('#lemma-form');
+
+        scope.translations = {};
+        translator('morph.createSuccess', scope.translations, 'createSuccess');
+        translator('morph.createError',   scope.translations, 'createError');
 
 
         scope.m = morph;
@@ -87,7 +92,9 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
 
         function addLemmaHint() {
           lemmaForm.find('input').addClass('warn');
-          scope.lemmaHint = "This lemma was added automatically.\nCheck it before you save!";
+          translator('morph.lemmaHint', function(translation) {
+            scope.lemmaHint = translation;
+          });
         }
 
         function removeLemmaHint() {
@@ -107,11 +114,6 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
 
         scope.resetAlert = function() {
           scope.alert = false;
-        };
-
-        scope.formError = {
-          msg: 'Cannot save an incomplete form',
-          type: 'error'
         };
 
         scope.save = function(valid) {
@@ -143,7 +145,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           scope.forms.push(newForm);
           morph.setState(scope.id, newForm);
           propagateToEqualTokens(newForm);
-          notifier.success('Added form for ' + state.asString(scope.id));
+          notifier.success(scope.translations.createSuccess + ' ' + state.asString(scope.id));
         }
 
         function propagateToEqualTokens(form) {

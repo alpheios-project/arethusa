@@ -3,15 +3,15 @@
     <li>
       <span
         class="button micro radius"
-        ng-click="reset()">
-        Reset
+        ng-click="reset()"
+        translate="reset">
       </span>
     </li>
     <li>
       <span
         class="button micro radius"
-        ng-click="save(mFCForm.$valid)">
-        Save
+        ng-click="save(mFCForm.$valid)"
+        translate="save">
       </span>
     </li>
   </ul>
@@ -24,9 +24,9 @@
     <alert
       ng-if="alert"
       class="radius center fade-in"
-      type="formError.type"
+      type="error"
       close="resetAlert()">
-      {{ formError.msg }}
+      {{ translations.createError }}
     </alert>
   </div>
 

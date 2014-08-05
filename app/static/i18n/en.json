@@ -62,5 +62,11 @@
     "perfectWidth" : "Perfect Width",
     "compact" : "Baum verdichten",
     "widen" : "Baum ausdehnen"
+  },
+
+  "morph" : {
+    "lemmaHint" : "This lemma was added automatically!\nCheck it before you save!",
+    "createSuccess" : "Added form for",
+    "createError" : "Cannot save an incomplete form"
   }
 }
