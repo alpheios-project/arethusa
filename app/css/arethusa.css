@@ -246,6 +246,10 @@ input[type="text"].right-answer {
   border: 2px solid limegreen;
 }
 
+input[type="text"].warn {
+  border: 2px solid orange;
+}
+
 span.wrong-answer {
   color: red;
 }
@@ -704,6 +708,11 @@ li.keyboard-key:hover {
   -o-transform: rotate(45deg);
   color: rgb(112, 112, 112)
 }
+
+input.warn {
+  border-color: orange;
+}
+
 
 /***************************************************************************
  *                               Animations                                *

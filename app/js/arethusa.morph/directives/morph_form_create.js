@@ -4,15 +4,22 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
   'morph',
   'state',
   'notifier',
-  function(morph, state, notifier) {
+  'translator',
+  function(morph, state, notifier, translator) {
     return {
       restrict: 'E',
       scope: {
         token: '=morphToken',
         id: '=morphId'
       },
-      link: function (scope, element, attrs) {
+      link: function (scope, element, attrs, form) {
         var inArray = arethusaUtil.isIncluded;
+        var lemmaForm = element.find('#lemma-form');
+
+        scope.translations = {};
+        translator('morph.createSuccess', scope.translations, 'createSuccess');
+        translator('morph.createError',   scope.translations, 'createError');
+
 
         scope.m = morph;
         scope.form = scope.token.customForm;
@@ -83,18 +90,30 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           scope.visibleAttributes = getVisibleAttributes();
         }
 
+        function addLemmaHint() {
+          lemmaForm.find('input').addClass('warn');
+          translator('morph.lemmaHint', function(translation) {
+            scope.lemmaHint = translation;
+          });
+        }
+
+        function removeLemmaHint() {
+          lemmaForm.find('input').removeClass('warn');
+          scope.lemmaHint = '';
+        }
+
+        scope.declareOk = function() {
+          removeLemmaHint();
+        };
+
         scope.reset = function() {
           scope.resetAlert();
-          morph.resetCustomForm(scope.token);
+          addLemmaHint();
+          morph.resetCustomForm(scope.token, scope.id);
         };
 
         scope.resetAlert = function() {
           scope.alert = false;
-        };
-
-        scope.formError = {
-          msg: 'Cannot save an incomplete form',
-          type: 'error'
         };
 
         scope.save = function(valid) {
@@ -126,7 +145,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           scope.forms.push(newForm);
           morph.setState(scope.id, newForm);
           propagateToEqualTokens(newForm);
-          notifier.success('Added form for ' + state.asString(scope.id));
+          notifier.success(scope.translations.createSuccess + ' ' + state.asString(scope.id));
         }
 
         function propagateToEqualTokens(form) {
@@ -162,6 +181,8 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           // at a completely different place in the DOM.
           container.scrollTo(element.children(), 0, 500);
         });
+
+        addLemmaHint();
       },
       templateUrl: 'templates/morph_form_create.html'
     };

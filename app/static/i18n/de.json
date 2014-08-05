@@ -13,9 +13,10 @@
   "menu" : "Menü",
   "deselectAll" : "Alle deselektieren",
   "settings" : "Einstellungen",
+  "save" : "Speichern",
+  "reset" : "Rücksetzen",
 
   "saver" : {
-    "save" : "Speichern",
     "success" : "Dokument gespeichert!",
     "error" : "Speichern fehlgeschlagen! Versuch's nochmal?",
     "inProgress" : "Speichere...",
@@ -61,5 +62,11 @@
     "perfectWidth" : "Breite anpassen",
     "compact" : "Baum verdichten",
     "widen" : "Baum ausdehnen"
+  },
+
+  "morph" : {
+    "lemmaHint" : "Dieses Lemma wurde automatisch eingetragen!\nÜberprüfe es bevor du speicherst!",
+    "createSuccess" : "Form hinzugefügt für",
+    "createError" : "Kann unvollständige Form nicht speichern"
   }
 }
