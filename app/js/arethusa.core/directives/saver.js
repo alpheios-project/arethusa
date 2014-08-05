@@ -47,7 +47,7 @@ angular.module('arethusa.core').directive('saver', [
 
         var parent = element.parent();
         var hint = arethusaUtil.formatKeyHint(saver.activeKeys.save);
-        translator('saver.save', function(translation) {
+        translator('save', function(translation) {
           parent.attr('title', translation + " " + hint);
         });
       },

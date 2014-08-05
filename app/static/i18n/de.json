@@ -13,9 +13,10 @@
   "menu" : "Menü",
   "deselectAll" : "Alle deselektieren",
   "settings" : "Einstellungen",
+  "save" : "Speichern",
+  "reset" : "Rücksetzen",
 
   "saver" : {
-    "save" : "Speichern",
     "success" : "Dokument gespeichert!",
     "error" : "Speichern fehlgeschlagen! Versuch's nochmal?",
     "inProgress" : "Speichere...",

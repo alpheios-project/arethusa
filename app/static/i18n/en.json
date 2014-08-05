@@ -13,9 +13,10 @@
   "menu" : "Menu",
   "deselectAll" : "Deselect all",
   "settings" : "Settings",
+  "save" : "Save",
+  "reset" : "Reset",
 
   "saver" : {
-    "save" : "Save",
     "success" : "Document saved!",
     "error" : "Failed to save! Try again?",
     "inProgress" : "Saving...",
