@@ -155,9 +155,9 @@ angular.module('arethusa.morph').service('morph', [
       return postagArr.join('');
     };
 
-    this.emptyForm = function() {
+    this.emptyForm = function(string) {
       return {
-        lemma: '',
+        lemma: string,
         postag: self.emptyPostag,
         attributes: emptyAttributes()
       };
@@ -303,7 +303,7 @@ angular.module('arethusa.morph').service('morph', [
         unsetStyleWithoutAnalyses(val.forms, id);
       }
       val.analyzed = true;
-      self.resetCustomForm(val);
+      self.resetCustomForm(val, id);
     }
 
     self.preselectToggled = function() {
@@ -333,8 +333,9 @@ angular.module('arethusa.morph').service('morph', [
       angular.forEach(self.analyses, applyPreselection);
     }
 
-    self.resetCustomForm = function(val) {
-      val.customForm = self.emptyForm();
+    self.resetCustomForm = function(val, id) {
+      var string = state.asString(id);
+      val.customForm = self.emptyForm(string);
     };
 
     this.currentAnalyses = function () {

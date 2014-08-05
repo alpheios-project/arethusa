@@ -85,7 +85,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
 
         scope.reset = function() {
           scope.resetAlert();
-          morph.resetCustomForm(scope.token);
+          morph.resetCustomForm(scope.token, scope.id);
         };
 
         scope.resetAlert = function() {
