@@ -7,9 +7,11 @@ angular.module('arethusa.review').service('review', [
   'state',
   'morph',
   '$rootScope',
-  function (configurator, state, morph, $rootScope) {
+  'navigator',
+  function (configurator, state, morph, $rootScope, navigator) {
     var self = this;
     var retriever;
+    var doc;
 
     function configure() {
       configurator.getConfAndDelegate('review', self);
@@ -39,10 +41,20 @@ angular.module('arethusa.review').service('review', [
     function broadcast() {
       $rootScope.$broadcast('diffLoaded');
     }
-    retriever.getData(function (res) {
-      self.goldTokens = res[0].tokens;
+
+    function goToCurrentChunk() {
+      self.pos = navigator.status.currentPos;
+      self.goldTokens = doc[self.pos].tokens;
       addStyleInfo(self.goldTokens);
-    });
+    }
+
+    function loadDocument() {
+      retriever.getData(function (res) {
+        doc = res;
+        goToCurrentChunk();
+      });
+    }
+
 
     function extract(obj) {
       return arethusaUtil.inject({}, obj, function(memo, id, token) {
@@ -65,6 +77,7 @@ angular.module('arethusa.review').service('review', [
     };
     this.init = function () {
       configure();
+      loadDocument();
     };
   }
 ]);
