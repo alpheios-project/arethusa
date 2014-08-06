@@ -25,21 +25,25 @@ angular.module('arethusa.ne').service('ne', [
     function iter() {
       self.neInfo ={};
       angular.forEach(state.tokens, function(token, id){
-          neRetriever.getWord(token.string).then(function(res){
-            self.neInfo[id] = res.data;
+          neRetriever.getWord(token.string).then(function(res){     
+            if(token.string[0] === token.string[0].toUpperCase()){
+              console.log(token.string);
+              self.neInfo[id] = res.data;
+              console.log(self.neInfo[id]);
+            }
+            /*trying to make it only evaluate the selected token
+            var analyses = res.data;
+            return arethusaUtil.inject({}, state.selectedTokens, function (obj, id, val) {
+            var token = analyses[id];
+                if (token) {
+                obj[id] = token;
+                }
+            });*/
           });
       });
     }
-    /*trying to make it only evaluate the selected token
-    this.currentAnalyses = function () {
-      var analyses = self.analyses;
-      return arethusaUtil.inject({}, state.selectedTokens, function (obj, id, val) {
-        var token = analyses[id];
-        if (token) {
-          obj[id] = token;
-        }
-      });
-    };*/
+
+
 
     this.init = function() {
       configure();
