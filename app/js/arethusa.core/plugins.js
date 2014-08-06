@@ -85,7 +85,7 @@ angular.module('arethusa.core').service('plugins', [
     // should be out of the DOM anyway. If a plugin still needs this, it can
     // do so by setting its alwaysActiveproperty to true.
     this.setActive = function(plugin) {
-      active = plugin;
+      self.active = plugin;
     };
 
     this.isActive = function(plugin) {
@@ -93,10 +93,8 @@ angular.module('arethusa.core').service('plugins', [
     };
 
     this.isSelected = function(plugin) {
-      return plugin === active;
+      return plugin === self.active;
     };
-
-    var active;
 
     this.init = function() {
       angular.forEach(self.all, initPlugin);

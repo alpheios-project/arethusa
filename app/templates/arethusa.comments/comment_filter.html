@@ -1,0 +1,31 @@
+<div class="small-12 columns">
+  <label>
+    <span translate="comments.fullTextSearch"/>
+    <input
+      type="search"
+      style="margin: 0"
+      ng-model="filter.fullText"/>
+  </label>
+<div class="small-6 columns">
+  <label>
+    <span translate="comments.filterSelected"/>
+    <input
+      type="checkbox"
+      style="margin: 0"
+      ng-model="filter.selection"/>
+  </label>
+</div>
+<div class="small-6 columns">
+  <label
+    class="right clickable"
+    tooltip-html-unsafe="{{ tooltip.text }}"
+    tooltip-popup-delay="700"
+    tooltip-placement="left"
+    ng-click="highlightCommented()"
+    ng-dblclick="selectCommented()">
+    <span
+      translate="comments.count"
+      translate-value-count="{{ count }}"
+      translate-value-total="{{ total }}"/>
+  </label>
+</div>

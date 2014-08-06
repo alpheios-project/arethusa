@@ -1,6 +1,72 @@
 {
   "SEARCH_DOCUMENTS": "Suche Dokumente",
-  "LANGUAGE": "Sprache",
-  "UNUSED_COUNT": "{{ count }} von {{ total }} unbenutzt",
-  "help" : "Hilfe"
+  "loadInProgress" : "Lade...",
+  "loadComplete" : "Laden erfolgreich!",
+  "language": "Deutsch",
+  "help" : "Hilfe",
+  "on" : "zu",
+  "of" : "von",
+  "from" : "von",
+  "to" : "zu",
+  "contactUs" : "Schreib uns",
+  "messages"  : "Benachrichtigungen",
+  "menu" : "Menü",
+  "deselectAll" : "Alle deselektieren",
+  "settings" : "Einstellungen",
+  "save" : "Speichern",
+  "reset" : "Rücksetzen",
+
+  "saver" : {
+    "success" : "Dokument gespeichert!",
+    "error" : "Speichern fehlgeschlagen! Versuch's nochmal?",
+    "inProgress" : "Speichere...",
+    "nothingToSave" : "Noch nichts zu speichern!",
+    "confirmNote" : "Du hast ungespeicherte Änderungen!",
+    "confirmQuestion" : "Bist du sicher, dass du gehen willst?"
+  },
+
+  "sidepanel" : {
+    "fold" : "Panel verbergen",
+    "show" : "Panel anzeigen"
+  },
+
+  "history" : {
+    "undo" : "Rückgängig",
+    "redo" : "Wiederherstellen",
+    "noRecords" : "Keine Ereignisse aufgenommen.",
+    "add" : "Einfügen von",
+    "remove" : "Entfernen von",
+    "change" : "Änderung der"
+  },
+
+  "uth" : {
+    "count"   : "{{ count }} von {{ total }} unbenutzt",
+    "tooltip" : "Linksklick um hervorzuheben<br>Doppelklick um zu selektieren"
+  },
+
+  "comments" : {
+    "newComment" : "Neuer Kommentar",
+    "fullTextSearch" : "Volltext Suche",
+    "filterSelected" : "Filter Selektion",
+    "successMessage" : "Kommentar erstellt!",
+    "errorMessage"   : "Kommentieren fehlgeschlagen",
+    "selectFirst"    : "Tokenselektion erfordert",
+    "count" : "{{ count }} von {{ total }} kommentiert"
+  },
+
+  "tree" : {
+    "changeDir" : "Ändere Richtung",
+    "focusRoot" : "Fokusiere Root",
+    "focusSel"  : "Fokusiere Selektion",
+    "centerTree" : "Baum zentrieren",
+    "perfectWidth" : "Breite anpassen",
+    "compact" : "Baum verdichten",
+    "widen" : "Baum ausdehnen"
+  },
+
+  "morph" : {
+    "lemmaHint" : "Dieses Lemma wurde automatisch eingetragen!\nÜberprüfe es bevor du speicherst!",
+    "createSuccess" : "Form hinzugefügt für",
+    "createError" : "Kann unvollständige Form nicht speichern"
+  }
 }

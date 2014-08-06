@@ -15,6 +15,7 @@
     "foundation": "5.2.2",
     "d3": "3.4.6",
     "x2js": "",
-    "angulartics": "0.15.20"
+    "angulartics": "0.15.20",
+    "lunr.js": "~0.5.4"
   }
 }

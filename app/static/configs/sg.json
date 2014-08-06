@@ -19,12 +19,13 @@
     "plugins" : [
       "text",
       "morph",
-      "sg",
       "relation",
-      "depTree",
+      "sg",
       "search",
       "artificialToken",
-      "history"
+      "history",
+      "comments",
+      "depTree"
     ]
   },
 
@@ -41,6 +42,13 @@
       "params" : [
         "doc",
         "s"
+      ]
+    },
+
+    "fakePerseidsComments" : {
+      "route" : "http://74.70.97.104:8085/comments/:doc",
+      "params" : [
+        "doc"
       ]
     },
 
@@ -142,6 +150,14 @@
     "artificialToken" : {
       "name" : "aT",
       "template" : "templates/arethusa.artificial_token/artificial_token.html"
+    },
+
+    "comments" : {
+      "retriever" : {
+        "CommentsRetriever" : {
+          "resource" : "fakePerseidsComments"
+        }
+      }
     }
   },
 

@@ -1,0 +1,15 @@
+<div>
+  <div delimiter/>
+  <div>
+    <span
+      ng-click="comments.creator = !comments.creator"
+      ng-disabled="!active"
+      class="button radius micro"
+      translate="comments.newComment">
+    </span>
+    <span class="italic">{{ currentTokenStrings }}</span>
+  </div>
+  <p>
+    <div comment-input-form="comments.creator" target="ids">
+  </p>
+</div>

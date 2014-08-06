@@ -69,6 +69,12 @@ angular.module('arethusa.core').service('idHandler', [
       };
     }
 
+    this.sourceIdMap = function(tokens, identifier) {
+      return arethusaUtil.inject({}, tokens, function(memo, id, token) {
+        memo[token.idMap.sourceId(identifier)] = id;
+      });
+    };
+
     this.transformToSoureIds = function(tokens, docIdentifier, idCreator) {
       var transformation = new Transformation();
       return arethusaUtil.inject(new Transformation(), tokens, function(memo, id, token) {
@@ -127,5 +133,18 @@ angular.module('arethusa.core').service('idHandler', [
     function parseId(id) {
       return id.split('-');
     }
+
+    this.nonSequentialIds = function(ids) {
+      var nonSequential = {};
+      angular.forEach(ids, function(id, i) {
+        var next = ids[i + 1];
+        if (next) {
+          if (self.decrement(next) !== id) {
+            nonSequential[i] = true;
+          }
+        }
+      });
+      return nonSequential;
+    };
   }
 ]);

@@ -1,5 +1,7 @@
 angular.module('arethusa.core', [
   'ngResource',
   'ngCookies',
-  'duScroll'
+  'ngAnimate',
+  'duScroll',
+  'pascalprecht.translate',
 ]);

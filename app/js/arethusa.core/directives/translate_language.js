@@ -2,35 +2,39 @@
 
 angular.module('arethusa.core').directive('translateLanguage', [
   '$translate',
-  function($translate) {
+  'translator',
+  function($translate, translator) {
     return {
       restrict: 'A',
       scope: {},
       link: function(scope, element, attrs) {
-        //function useKey(key) {
-          //scope.langKey = key || $translate.use();
-          //$translate.use(scope.langKey);
-        //}
+        var langKey;
 
-        //var langs = ['en', 'de'];
+        function useKey(key) {
+          langKey = key || $translate.use();
+          $translate.use(langKey);
+          scope.flag = 'images/flags/' + langKey + '.png';
+        }
 
-        //function toggleLang() {
-          //var i;
-          //i = langs.indexOf(scope.langKey) + 1;
-          //i = i > langs.length - 1 ? 0 : i;
-          //useKey(langs[i]);
-        //}
+        var langs = ['en', 'de'];
 
-        // Check the comment in arethusa.js to learn why this is commented out,
-        // hardcoded to 'en' and hidden for now.
-        //
-        //element.bind('click', function() {
-          //scope.$apply(toggleLang);
-        //});
+        function toggleLang() {
+          var i;
+          i = langs.indexOf(langKey) + 1;
+          i = i > langs.length - 1 ? 0 : i;
+          useKey(langs[i]);
+        }
 
-        //useKey();
-        element.hide();
-        $translate.use('en');
+        element.bind('click', function() {
+          scope.$apply(toggleLang);
+        });
+
+        var parent = element.parent();
+        translator('language', function(translation) {
+          parent.attr('title', translation);
+        });
+
+        useKey();
       },
       templateUrl: 'templates/arethusa.core/translate_language.html'
     };

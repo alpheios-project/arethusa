@@ -246,6 +246,10 @@ input[type="text"].right-answer {
   border: 2px solid limegreen;
 }
 
+input[type="text"].warn {
+  border: 2px solid orange;
+}
+
 span.wrong-answer {
   color: red;
 }
@@ -273,7 +277,7 @@ dl.tabs {
   padding: 0.7rem;
 }
 
-.button.micro {
+.button.micro, button.micro {
   padding-top: 0.4rem;
   padding-right: 0.8rem;
   padding-bottom: 0.45rem;
@@ -282,12 +286,9 @@ dl.tabs {
   margin: 0;
 }
 
-button.micro {
-  padding-top: 0.4rem;
-  padding-right: 0.8rem;
-  padding-bottom: 0.45rem;
-  padding-left: 0.8rem;
-  font-size: 0.7rem;
+.button.nano, button.nano {
+  padding: .3rem .5rem .3rem .5rem;
+  font-size: .7rem;
   margin: 0;
 }
 
@@ -398,6 +399,10 @@ hr.small {
   margin: 0.5rem 0 0.3rem
 }
 
+hr.tiny {
+  margin: 0.5rem 25% 0.3rem 25%;
+}
+
 /*TEI Stuff for Smyth Grammar Reader*/
 
 div.citbibl {
@@ -412,18 +417,6 @@ div.citbibl {
 
 #sg-g-r .gloss {
   font-style: italic;
-}
-
-
-/*Animations*/
-
-.fade {
-  opacity: 0;
-  -webkit-transition: opacity .15s linear;
-          transition: opacity .15s linear;
-}
-.fade.in {
-  opacity: 1;
 }
 
 /*Topbar*/
@@ -583,6 +576,11 @@ ul.no-list {
   -webkit-animation: slow-fade 2.8s;
 }
 
+#keys-to-screen > .action.ng-leave {
+  animation: slow-fade 0s;
+  -webkit-animation: slow-fade 0s;
+}
+
 #keys-to-screen > .joiner {
   color: black;
   background-color: #f2f2f2;
@@ -682,4 +680,70 @@ li.keyboard-key:hover {
   background-color: #C3E3FF;
   border: 1px solid lightgray;
   box-shadow: none;
+}
+
+.comments {
+  padding: 0.9rem;
+}
+
+.comment {
+  padding: 0.5rem 0.2rem;
+}
+
+.comment-header {
+  border-bottom: 1px dotted lightgray;
+  margin-bottom: 0.4rem;
+}
+
+.comment-body {
+  font-size: 0.875rem;
+}
+
+.ornament-delimiter:after {
+  content: "\2767";
+  display: inline-block;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  color: rgb(112, 112, 112)
+}
+
+input.warn {
+  border-color: orange;
+}
+
+
+/***************************************************************************
+ *                               Animations                                *
+ ***************************************************************************/
+
+
+.fade-in.ng-enter,
+.fade.ng-enter,
+.fade.ng-leave {
+  -webkit-transition: .5s linear opacity;
+  -moz-transition: .5s linear opacity;
+  -o-transition: .5s linear opacity;
+  transition: .5s linear opacity;
+}
+
+.fade-in.ng-leave {
+  -webkit-transition: 0 linear opacity;
+  -moz-transition: 0 linear opacity;
+  -o-transition: 0 linear opacity;
+  transition: 0 linear opacity;
+}
+
+.fade.ng-leave.ng-leave-active,
+.fade.ng-enter,
+.fade-in.ng-enter {
+  opacity: 0;
+}
+
+.fade.ng-leave,
+.fade.ng-enter.ng-enter-active
+.fade-in.ng-leave,
+.fade-in.ng-enter.ng-enter-active {
+  opacity: 1;
 }

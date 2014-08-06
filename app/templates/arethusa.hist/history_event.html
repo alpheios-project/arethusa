@@ -1,11 +1,15 @@
 <div>
   {{ predicate }}
   <span ng-if="type === 'change'">
-    <strong>{{ property }}</strong> of
+    <strong>{{ property }}</strong>
+    <span translate="of"/>
   </span>
   <span id="token"/>
   <sup class="note"> {{ formatId(id) }} </sup>
   <span ng-if="type === 'change' && !blocked">
-    from {{ oldVal }} to {{ newVal }}
+    <span translate="from"/>
+    {{ oldVal }}
+    <span translate="to"/>
+    {{ newVal }}
   </span>
 </div>

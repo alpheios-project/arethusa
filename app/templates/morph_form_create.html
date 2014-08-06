@@ -3,15 +3,15 @@
     <li>
       <span
         class="button micro radius"
-        ng-click="reset()">
-        Reset
+        ng-click="reset()"
+        translate="reset">
       </span>
     </li>
     <li>
       <span
         class="button micro radius"
-        ng-click="save(mFCForm.$valid)">
-        Save
+        ng-click="save(mFCForm.$valid)"
+        translate="save">
       </span>
     </li>
   </ul>
@@ -23,10 +23,10 @@
   <div class="small-12 columns">
     <alert
       ng-if="alert"
-      class="radius center"
-      type="formError.type"
+      class="radius center fade-in"
+      type="error"
       close="resetAlert()">
-      {{ formError.msg }}
+      {{ translations.createError }}
     </alert>
   </div>
 
@@ -35,13 +35,19 @@
       <label class="right">Lemma</label>
     </div>
     <div class="small-9 columns">
-      <input
-        foreign-keys
-        class="compact"
-        type="text"
-        required
-        ng-model="form.lemma">
-      </input>
+      <ng-form
+        id="lemma-form"
+        tooltip-placement="top"
+        tooltip="{{ lemmaHint }}">
+        <input
+          foreign-keys
+          class="compact error"
+          type="text"
+          required
+          ng-change="declareOk()"
+          ng-model="form.lemma">
+        </input>
+      </ng-form>
     </div>
   </div>
 

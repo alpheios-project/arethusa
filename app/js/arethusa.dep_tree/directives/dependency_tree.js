@@ -49,7 +49,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
   '$window',
   'state',
   '$timeout',
-  function ($compile, languageSettings, keyCapture, idHandler, $window, state, $timeout) {
+  'translator',
+  function ($compile, languageSettings, keyCapture, idHandler,
+            $window, state, $timeout, translator) {
     return {
       restrict: 'A',
       scope: {
@@ -690,6 +692,15 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         scope.keyHints = arethusaUtil.inject({}, keys.tree, function(memo, name, key) {
           memo[name] = arethusaUtil.formatKeyHint(key);
+        });
+
+        scope.translations = {};
+        var translateValues = [
+          'changeDir', 'focusRoot', 'focusSel', 'centerTree',
+          'perfectWidth', 'compact', 'widen'
+        ];
+        angular.forEach(translateValues, function(val, i) {
+          translator('tree.' + val, scope.translations, val);
         });
       },
     };
