@@ -8,8 +8,19 @@
 	<input type="text" name="lookup" ng-model="text"></input> -->
 
 <div ng-show="annotTop">
-<ul>
-<li ng-repeat="(id,obj) in plugin.neInfo">{{obj[0].label}}, also called {{obj[0].altLabels}}<div form-selector class="columns large-2 small-2 right end"></div>
+<ul ng-repeat="(id,obj) in plugin.neInfo">
+<li ng-if="id ==='0012'" ng-repeat="o in obj"> {{o.label}}, also called {{o.altLabels}}
+
+	<button ng-click="moreInfo=true">More Info</button>
+	<ul ng-show="moreInfo">
+		<li>
+			{{o.comment}}
+		</li>
+		<li>
+			{{o.source}}
+		</li>
+	</ul>
+	<div form-selector class="columns large-2 small-2 right end"></div>
 </li>
 </ul>
 </div>
