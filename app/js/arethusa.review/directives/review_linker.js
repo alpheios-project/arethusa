@@ -9,7 +9,12 @@ angular.module('arethusa.review').directive('reviewLinker', [
       link: function(scope, element, attrs) {
         scope.review = review;
         scope.$watch('review.link', function(newVal, oldVal) {
-          scope.icon = newVal ? 'unlink' : 'link';
+          if (newVal) {
+            scope.icon = 'unlink';
+            review.goToCurrentChunk();
+          } else {
+            scope.icon = 'link';
+          }
         });
       },
       templateUrl: 'templates/arethusa.review/review_linker.html'

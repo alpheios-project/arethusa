@@ -20,7 +20,8 @@ angular.module('arethusa.review').service('review', [
     };
 
     function configure() {
-      configurator.getConfAndDelegate('review', self);
+      var props = ['link'];
+      configurator.getConfAndDelegate('review', self, props);
       self.comparators = [
         'morphology.lemma',
         'morphology.attributes',
@@ -47,16 +48,18 @@ angular.module('arethusa.review').service('review', [
       $rootScope.$broadcast('diffLoaded');
     }
 
-    function goToCurrentChunk() {
+    self.goToCurrentChunk = function() {
+      if (!doc) return; // in case this gets called before we're ready
+
       self.pos = navigator.status.currentPos;
       self.goldTokens = doc[self.pos].tokens;
       addStyleInfo(self.goldTokens);
-    }
+    };
 
     function loadDocument() {
       retriever.getData(function (res) {
         doc = res;
-        goToCurrentChunk();
+        self.goToCurrentChunk();
       });
     }
 
@@ -86,7 +89,7 @@ angular.module('arethusa.review').service('review', [
     this.init = function () {
       configure();
       if (self.link) {
-        goToCurrentChunk();
+        self.goToCurrentChunk();
       }
     };
   }
