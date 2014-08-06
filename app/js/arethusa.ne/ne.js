@@ -31,14 +31,6 @@ angular.module('arethusa.ne').service('ne', [
               self.neInfo[id] = res.data;
               console.log(self.neInfo[id]);
             }
-            /*trying to make it only evaluate the selected token
-            var analyses = res.data;
-            return arethusaUtil.inject({}, state.selectedTokens, function (obj, id, val) {
-            var token = analyses[id];
-                if (token) {
-                obj[id] = token;
-                }
-            });*/
           });
       });
     }
