@@ -126,7 +126,7 @@ describe("morph", function() {
   describe('this.emptyForm', function() {
     it('returns a new form object, with all properties in place but empty', function() {
       var res = {
-        lemma: '',
+        lemma: undefined,
         postag: '--',
         attributes: {
           pos: undefined,
@@ -135,6 +135,11 @@ describe("morph", function() {
       };
 
       expect(morph.emptyForm()).toEqual(res);
+    });
+
+    it("takes a string to prefill the lemma", function() {
+      var str = 'xxx';
+      expect(morph.emptyForm(str).lemma).toEqual(str);
     });
   });
 
