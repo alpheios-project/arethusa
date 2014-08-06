@@ -12,10 +12,15 @@ angular.module('arethusa.review').service('review', [
     var self = this;
     var retriever;
     var doc;
+    self.goldTokens = {};
+
+    self.defaultConf = {
+      "name" : "review",
+      "link" : true
+    };
 
     function configure() {
       configurator.getConfAndDelegate('review', self);
-      self.goldTokens = {};
       self.comparators = [
         'morphology.lemma',
         'morphology.attributes',
@@ -75,9 +80,14 @@ angular.module('arethusa.review').service('review', [
         broadcast();
       }
     };
+
+    loadDocument();
+
     this.init = function () {
       configure();
-      loadDocument();
+      if (self.link) {
+        goToCurrentChunk();
+      }
     };
   }
 ]);

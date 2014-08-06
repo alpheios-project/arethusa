@@ -1,11 +1,19 @@
-<div class="tree-canvas">
-  <div class="tree-settings">
-    <span class="button radius tiny right" ng-click="plugin.compare()">Compare</span>
-  <div>
-  <div
-    dependency-tree
-    tokens="plugin.goldTokens"
-    to-bottom
-    class="full-width">
+<div class="small-12 columns">
+  <span class="right">
+    <span review-linker/>
+  </span>
+</div>
+<div delimiter/>
+<div class="small-12 columns">
+  <div class="tree-canvas">
+    <div class="tree-settings">
+      <span class="button radius tiny right" ng-click="plugin.compare()">Compare</span>
+    <div>
+    <div
+      dependency-tree
+      tokens="plugin.goldTokens"
+      to-bottom
+      class="full-width">
+    </div>
   </div>
 </div>
