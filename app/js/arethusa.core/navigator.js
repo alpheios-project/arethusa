@@ -151,6 +151,7 @@ angular.module('arethusa.core').service('navigator', [
     }
 
     this.updateId = function () {
+      self.status.currentPos = self.currentPosition;
       self.status.currentId = currentId();
       updateNextAndPrev();
       updateCitation();

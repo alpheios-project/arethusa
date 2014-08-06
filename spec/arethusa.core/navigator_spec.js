@@ -108,6 +108,14 @@ describe("navigator", function() {
       expect(navigator.status.hasNext).toBeFalsy();
       expect(navigator.status.hasPrev).toBeTruthy();
     });
+
+    it('updates the status object with the current chunk position', function() {
+      navigator.addSentences(sentences);
+      navigator.updateId();
+      expect(navigator.status.currentPos).toEqual(0);
+      navigator.nextSentence();
+      expect(navigator.status.currentPos).toEqual(1);
+    });
   });
 
   describe('this.sentenceToString()', function() {
