@@ -85,6 +85,13 @@ angular.module('arethusa.core').service('navigator', [
       }
     };
 
+    this.goToByPosition = function(pos) {
+      if (self.sentences.length > pos) {
+        self.currentPosition = pos;
+        self.updateState();
+      }
+    };
+
     this.goToLast = function() {
       self.currentPosition = self.sentences.length - 1;
       self.updateState();

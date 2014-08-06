@@ -249,6 +249,14 @@ describe("navigator", function() {
     });
   });
 
+  describe('this.goToByPosition', function() {
+    it('goes to a sentence identified by its container position', function() {
+      navigator.addSentences(sentences);
+      navigator.goToByPosition(1);
+      expect(navigator.currentSentence()).toEqual(s3.tokens);
+    });
+  });
+
   describe('this.hasNext()', function() {
     it('determines if a next sentence is available', function() {
       navigator.addSentences(sentences);
