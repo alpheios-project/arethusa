@@ -9,7 +9,7 @@
 
 <div ng-show="annotTop">
 <ul ng-repeat="(id,obj) in plugin.neInfo">
-<li ng-if="id ==='0012'" ng-repeat="o in obj"> {{o.label}}, also called {{o.altLabels}}
+<li ng-if="state.selectedTokens.hasOwnProperty(id)" ng-repeat="o in obj"> {{o.label}}, also called {{o.altLabels}}
 
 	<button ng-click="moreInfo=true">More Info</button>
 	<ul ng-show="moreInfo">
@@ -23,6 +23,7 @@
 	<div form-selector class="columns large-2 small-2 right end"></div>
 </li>
 </ul>
+
 </div>
 
 <div ng-show="annotPers">
