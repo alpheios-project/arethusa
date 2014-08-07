@@ -50,8 +50,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
   'state',
   '$timeout',
   'translator',
+  'plugins',
   function ($compile, languageSettings, keyCapture, idHandler,
-            $window, state, $timeout, translator) {
+            $window, state, $timeout, translator, plugins) {
     return {
       restrict: 'A',
       scope: {
@@ -314,10 +315,15 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         //
         // They are solely called by watches.
         function createGraph(subtrees) {
+          clearOldGraph();
           g = new dagreD3.Digraph();
           createRootNode();
           createEdges();
           render();
+        }
+
+        function clearOldGraph() {
+          if (vis) vis.selectAll('*').remove();
         }
 
         function createRootNode() {
@@ -543,13 +549,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           createGraph();
           moveToStart();
           createHeadWatches();
+          if (isMainTree()) plugins.declareReady('depTree');
         });
 
         scope.$watch('styles', function (newVal, oldVal) {
           if (newVal !== oldVal) {
             render();
             if (newVal) {
-          if (isMainTree()) plugins.declareReady('depTree');
               applyCustomStyling();
             } else {
               resetEdgeStyling();
@@ -585,8 +591,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         });
 
+        function isMainTree() {
+          return scope.tokens === state.tokens;
+        }
+
         // only do this if we are the main tree!
-        if (scope.tokens === state.tokens) {
+        if (isMainTree()) {
           scope.$on('tokenAdded', function(event, token) {
             createGraph();
             createHeadWatch(token, token.id);
