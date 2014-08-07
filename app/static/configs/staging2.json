@@ -22,6 +22,7 @@
       "morph",
       "relation",
       "depTree",
+      "ne",
       "review",
       "history"
     ]
@@ -68,6 +69,10 @@
       "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
     },
 
+    "pleiadesSearch" : {
+      "route" : "http://pelagios.dme.ait.ac.at/api/search.json"
+    },
+
     "morphologyService" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
     },
@@ -97,6 +102,14 @@
       "template" : "templates/search.html",
       "regex" : true,
       "fileUrl" : "./static/configs/keyboard/greek_regex.json"
+    },
+
+    "ne" : {
+      "retriever" : {
+        "PleiadesNeRetriever" : {
+          "resource" : "pleiadesSearch"
+        }
+      }
     },
 
     "morph" : {

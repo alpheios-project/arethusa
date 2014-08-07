@@ -236,6 +236,7 @@ module.exports = function(grunt) {
       main: { files: pluginFiles('arethusa') },
       core: { files: pluginFiles('arethusa.core') },
       comments: { files: pluginFiles('arethusa.comments') },
+      ne: { files: pluginFiles('arethusa.ne') },
       hebrewMorph: { files: pluginFiles('arethusa.hebrew_morph') },
       artificialToken: { files: pluginFiles('arethusa.artificial_token') },
       contextMenu: { files: pluginFiles('arethusa.context_menu') },
@@ -295,6 +296,7 @@ module.exports = function(grunt) {
   grunt.registerTask('reloader', 'watch:server');
   grunt.registerTask('minify', [
     'uglify:comments',
+    'uglify:ne',
     'uglify:hebrewMorph',
     'cssmin:css',
     'uglify:main',
