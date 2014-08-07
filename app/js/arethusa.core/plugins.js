@@ -5,6 +5,8 @@ angular.module('arethusa.core').service('plugins', [
   '$injector',
   function(configurator, $injector) {
     var self = this;
+    var readyPlugins;
+    var initCallbacks;
 
     function retrievePlugin(name) {
       var pluginConf = configurator.configurationFor(name);
@@ -96,7 +98,39 @@ angular.module('arethusa.core').service('plugins', [
       return plugin === self.active;
     };
 
+    this.doAfter = function(pluginName, fn) {
+      initCallbacks.add('after', pluginName, fn);
+    };
+
+    this.declareReady = function(pluginOrName) {
+      var name = typeof pluginOrName === 'string' ? pluginOrName : pluginOrName.name;
+      readyPlugins[name] = true;
+      initCallbacks.resolve('after', name);
+    };
+
+    function InitCallbacks() {
+      var self = this;
+      var cl   = InitCallbacks;
+      this.after  = {};
+      this.before = {};
+
+      cl.prototype.resolve = function(timing, pluginName) {
+        var cbs = self[timing][pluginName] || [];
+        angular.forEach(cbs, function(cb, i) { cb(); });
+      };
+
+      cl.prototype.add = function(timing, pluginName, fn) {
+        var t = self[timing];
+        var cbs = t[pluginName];
+        if (!cbs) cbs = t[pluginName] = [];
+        cbs.push(fn);
+        if (readyPlugins[pluginName]) fn();
+      };
+    }
+
     this.init = function() {
+      readyPlugins = {};
+      initCallbacks = new InitCallbacks();
       angular.forEach(self.all, initPlugin);
       declareFirstActive();
     };
