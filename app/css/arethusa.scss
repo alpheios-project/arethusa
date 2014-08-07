@@ -204,11 +204,11 @@ svg {
 }
 
 .node rect {
-  stroke: #f2f2f2;
+  stroke: $panel-bg;
   stroke-width : 1.5px;
   /* The following color needs to be taken from a foundation variable */
   /* once we start to use scss. It's the panels background color */
-  fill: #f2f2f2;
+  fill: $panel-bg;
 }
 
 .selected text {
@@ -220,7 +220,7 @@ svg {
 }
 
 .edgeLabel rect {
-  fill: #f2f2f2;
+  fill: $panel-bg;
 }
 
 .tree-label {
@@ -582,7 +582,7 @@ ul.no-list {
 
 #keys-to-screen > .joiner {
   color: black;
-  background-color: #f2f2f2;
+  background-color: $panel-bg;
   box-shadow: none;
   padding: 0.1rem 0.1rem 0.1rem 0.2rem;
   border: none;
