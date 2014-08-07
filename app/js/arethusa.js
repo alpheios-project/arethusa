@@ -12,6 +12,7 @@ angular.module('arethusa', [
   'arethusa.hist',
   'arethusa.review',
   'arethusa.search',
+  'arethusa.ne',
   'arethusa.exercise',
   'arethusa.relation',
   'arethusa.sg',
