@@ -8,7 +8,8 @@ angular.module('arethusa.review').service('review', [
   'morph',
   '$rootScope',
   'navigator',
-  function (configurator, state, morph, $rootScope, navigator) {
+  'plugins',
+  function (configurator, state, morph, $rootScope, navigator, plugins) {
     var self = this;
     var retriever;
     var doc;
@@ -16,11 +17,12 @@ angular.module('arethusa.review').service('review', [
 
     self.defaultConf = {
       "name" : "review",
-      "link" : true
+      "link" : true,
+      "autoDiff": true
     };
 
     function configure() {
-      var props = ['link'];
+      var props = ['link', 'autoDiff'];
       configurator.getConfAndDelegate('review', self, props);
       self.comparators = [
         'morphology.lemma',
@@ -49,8 +51,6 @@ angular.module('arethusa.review').service('review', [
     }
 
     self.goToCurrentChunk = function() {
-      if (!doc) return; // in case this gets called before we're ready
-
       self.pos = navigator.status.currentPos;
       self.goldTokens = doc[self.pos].tokens;
       addStyleInfo(self.goldTokens);
@@ -59,7 +59,7 @@ angular.module('arethusa.review').service('review', [
     function loadDocument() {
       retriever.getData(function (res) {
         doc = res;
-        self.goToCurrentChunk();
+        postInit(true);
       });
     }
 
@@ -86,11 +86,19 @@ angular.module('arethusa.review').service('review', [
 
     loadDocument();
 
+    function postInit(initialLoad) {
+      if (self.link || initialLoad) self.goToCurrentChunk();
+
+      plugins.doAfter('depTree', function() {
+        if (self.autoDiff) self.compare();
+      });
+    }
+
     this.init = function () {
       configure();
-      if (self.link) {
-        self.goToCurrentChunk();
-      }
+
+      if (!doc) return; // in case this gets called before we're ready
+      postInit();
     };
   }
 ]);

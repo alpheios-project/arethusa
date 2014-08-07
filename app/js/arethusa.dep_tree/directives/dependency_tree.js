@@ -549,6 +549,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           if (newVal !== oldVal) {
             render();
             if (newVal) {
+          if (isMainTree()) plugins.declareReady('depTree');
               applyCustomStyling();
             } else {
               resetEdgeStyling();
