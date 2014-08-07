@@ -2,7 +2,7 @@
 
 var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
-var cssFiles = 'app/**/*.css';
+var cssFiles = 'app/**/*.scss';
 var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8081;
