@@ -440,21 +440,21 @@ div.citbibl {
 
 .accordion-selected {
   background-color: rgb(235, 255, 235) !important;
-  transition: background-color 300ms ease-in-out;
+  @include transition(background-color 300ms ease-in-out);
 }
 
 .accordion-selected:hover {
   background-color: rgb(199, 226, 199) !important;
-  transition: background-color 300ms ease-in-out;
+  @include transition(background-color 300ms ease-in-out);
 }
 
 .accordion dd > a:hover {
-  transition: background-color 300ms ease-in-out;
+  @include transition(background-color 300ms ease-in-out);
 }
 
 .accordion dd > a {
   padding: 0.7rem;
-  transition: background-color 300ms ease-in-out;
+  @include transition(background-color 300ms ease-in-out);
 }
 
 .rotate-on-hover:hover {
@@ -497,7 +497,7 @@ input.compact {
 .error {
   background-color: #D3414D;
   border-color: #D3414D;
-  transition: background-color 700ms ease-in-out;
+  @include transition(background-color 700ms ease-in-out);
 }
 
 .clickable {
@@ -518,13 +518,13 @@ input.compact {
 
 .flash-on-hover:hover {
   color: dimgrey;
-  transition: color 300ms ease-out;
+  @include transition(color 300ms ease-out);
 }
 
 .flash-on-hover {
   /*body color - use a variable for this later on*/
   color: #222;
-  transition: color 500ms ease-out;
+  @include transition(color 500ms ease-out);
 }
 
 .small-panel {
@@ -538,11 +538,11 @@ input.compact {
 
 .current-hist-event {
   background-color: #C8E5FF;
-  transition: background-color 700ms ease-in-out;
+  @include transition(background-color 700ms ease-in-out);
 }
 
 .hist-event {
-  transition: background-color 300ms ease-in-out;
+  @include transition(background-color 300ms ease-in-out);
 }
 
 ul.no-list {
@@ -620,8 +620,7 @@ li.keyboard-key {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   box-shadow: 3px 2px 10px #888888;
-  transition: background-color 0.2s ease-out;
-  -webkit-transition: background-color 0.2s ease-out;
+  @include transition(background-color 0.2s ease-out);
 }
 
 li.keyboard-key:hover {
@@ -701,10 +700,7 @@ li.keyboard-key:hover {
 .ornament-delimiter:after {
   content: "\2767";
   display: inline-block;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
+  @include transform(rotate(45deg));
   color: rgb(112, 112, 112)
 }
 
