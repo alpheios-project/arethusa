@@ -4,3 +4,5 @@ bower_components/*
 coverage
 dist/
 deployment/
+.sass-cache
+app/css/*.css*

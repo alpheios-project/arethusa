@@ -255,6 +255,16 @@ module.exports = function(grunt) {
       util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
       external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } }
     },
+    sass: {
+      dist: {
+        options: {
+          sourcemap: true
+        },
+        files: {
+          'app/css/arethusa.css': 'app/css/arethusa.scss'
+        }
+      }
+    },
     cssmin: {
       css: {
         src: ['app/css/arethusa.css', 'app/css/fonts/**/*.css'],
@@ -296,6 +306,7 @@ module.exports = function(grunt) {
   grunt.registerTask('minify', [
     'uglify:comments',
     'uglify:hebrewMorph',
+    'sass',
     'cssmin:css',
     'uglify:main',
     'uglify:util',

@@ -26,7 +26,8 @@
     "protractor": "~0.23.1",
     "connect-livereload": "0.4.0",
     "execSync": "latest",
-    "load-grunt-tasks": "^0.6.0"
+    "load-grunt-tasks": "^0.6.0",
+    "grunt-contrib-sass" : "0.7.3"
   },
   "scripts": {
     "test": "grunt karma:spec coveralls jshint && protractor protractor-config-travis.js"
