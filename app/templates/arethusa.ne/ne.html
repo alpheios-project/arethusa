@@ -11,13 +11,15 @@
 <ul ng-repeat="(id,obj) in plugin.neInfo">
 <li ng-if="state.selectedTokens.hasOwnProperty(id)" ng-repeat="o in obj"> {{o.label}}, also called {{o.altLabels}}
 
-	<button ng-click="moreInfo=true">More Info</button>
-	<ul ng-show="moreInfo">
-		<li>
+	<!--<button ng-click="moreInfo=true">More Info</button>-->
+	<!--<ul ng-show="moreInfo">-->
+	<ul>
+		<!--The comments don't often seem particularly helpful, or are they?
+			<li>
 			{{o.comment}}
-		</li>
+		</li>-->
 		<li>
-			{{o.source}}
+			<a class="iframe" href="{{o.uri}}">View in Pelagios</a>
 		</li>
 	</ul>
 	<div form-selector class="columns large-2 small-2 right end"></div>
@@ -39,5 +41,27 @@
 </li>
 </ul>
 </div>
+
+	<script>
+			$(document).ready(function(){
+				$(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+				$(".callbacks").colorbox({
+					onOpen:function(){ alert('onOpen: colorbox is about to open'); },
+					onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
+					onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
+					onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
+					onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
+				});
+
+				$('.non-retina').colorbox({rel:'group5', transition:'none'})
+				$('.retina').colorbox({rel:'group5', transition:'none', retinaImage:true, retinaUrl:true});
+				
+				//Example of preserving a JavaScript event for inline calls.
+				$("#click").click(function(){ 
+					$('#click').css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here.");
+					return false;
+				});
+			});
+		</script>
 
 
