@@ -2,7 +2,8 @@
 angular.module('arethusa.morph').service('morph', [
   'state',
   'configurator',
-  function (state, configurator) {
+  'plugins',
+  function (state, configurator, plugins) {
     var self = this;
     var morphRetrievers;
     var inventory;
@@ -544,6 +545,7 @@ angular.module('arethusa.morph').service('morph', [
       self.analyses = seedAnalyses();
       loadInitalAnalyses();
       createSearchIndex();
+      plugins.declareReady(self);
     };
   }
 ]);
