@@ -20,6 +20,11 @@ angular.module('arethusa.review').service('review', [
       "link" : true
     };
 
+    function DiffCounts() {
+      this.tokens = 0;
+      this.attrs  = 0;
+    }
+
     function configure() {
       configurator.getConfAndDelegate('review', self);
       configurator.getStickyConf('review', self, ['link', 'autoDiff']);
@@ -71,11 +76,21 @@ angular.module('arethusa.review').service('review', [
       });
     }
 
+    function countDiffs(diff) {
+      var dC = self.diffCounts = new DiffCounts();
+      angular.forEach(diff, function(d) {
+        dC.tokens++;
+        angular.forEach(d, function(attr) { dC.attrs++; });
+      });
+    }
+
     this.compare = function () {
       var diff = jsondiffpatch.diff(
         extract(state.tokens),
         extract(self.goldTokens)
       );
+
+      countDiffs(diff);
 
       if (diff) {
         angular.forEach(diff, function (diff, id) {
