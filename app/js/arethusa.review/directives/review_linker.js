@@ -25,7 +25,9 @@ angular.module('arethusa.review').directive('reviewLinker', [
         scope.$watch('review.link', function(newVal, oldVal) {
           if (newVal) {
             scope.icon = 'unlink';
-            review.goToCurrentChunk();
+            if (newVal !== oldVal) {
+              review.goToCurrentChunk();
+            }
           } else {
             scope.icon = 'link';
           }
