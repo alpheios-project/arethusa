@@ -19,6 +19,7 @@ function ArethusaMocks() {
   this.configurator = function(customizations) {
     return withCustomizations({
       getConfAndDelegate: mockFn,
+      getStickyConf: mockFn,
       provideResource: mockFnWithObject,
       configurationFor: mockFnWithObject,
       getRetrievers: mockFnWithObject
