@@ -31,6 +31,7 @@ angular.module('arethusa.review').service('review', [
       ];
       var retrievers = configurator.getRetrievers(self.conf.retrievers);
       retriever = retrievers.TreebankRetriever;
+      self.diffActive = false;
     }
 
     configure();
@@ -46,6 +47,7 @@ angular.module('arethusa.review').service('review', [
     }
 
     function broadcast() {
+      self.diffActive = true;
       $rootScope.$broadcast('diffLoaded');
     }
 
