@@ -77,10 +77,11 @@ describe("morph", function() {
 
   var morph;
   var state;
-  beforeEach(inject(function(_morph_, _state_) {
+  beforeEach(inject(function(_morph_, _state_, _plugins_) {
     state = _state_;
     state.tokens = createTokens();
     morph = _morph_;
+    _plugins_.start();
     morph.init();
   }));
 
