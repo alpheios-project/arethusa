@@ -713,32 +713,12 @@ input.warn {
  *                               Animations                                *
  ***************************************************************************/
 
+@import "animation_helpers";
 
-.fade-in.ng-enter,
-.fade.ng-enter,
-.fade.ng-leave {
-  -webkit-transition: .5s linear opacity;
-  -moz-transition: .5s linear opacity;
-  -o-transition: .5s linear opacity;
-  transition: .5s linear opacity;
+.fade-in {
+  @include toggler(500ms, 0);
 }
 
-.fade-in.ng-leave {
-  -webkit-transition: 0 linear opacity;
-  -moz-transition: 0 linear opacity;
-  -o-transition: 0 linear opacity;
-  transition: 0 linear opacity;
-}
-
-.fade.ng-leave.ng-leave-active,
-.fade.ng-enter,
-.fade-in.ng-enter {
-  opacity: 0;
-}
-
-.fade.ng-leave,
-.fade.ng-enter.ng-enter-active
-.fade-in.ng-leave,
-.fade-in.ng-enter.ng-enter-active {
-  opacity: 1;
+.fade {
+  @include toggler(500ms, 500ms);
 }
