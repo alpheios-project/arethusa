@@ -316,6 +316,26 @@ describe('configurator', function() {
       configurator.delegateConf(obj);
       expect(obj.mode).toEqual('customMode');
     }));
+
+    it('can honor sticky arguments through a third true arguemnt', function() {
+      configurator.configuration = conf1;
+      var obj = { conf: configurator.configurationFor('morph') };
+      obj.defaultConf = {
+        x: true,
+        y: true
+      };
+
+      configurator.delegateConf(obj, ['x', 'y']);
+      expect(obj.x).toBeTruthy();
+      expect(obj.y).toBeTruthy();
+
+      obj.x = false;
+      obj.y = false;
+
+      configurator.delegateConf(obj, ['x', 'y'], true);
+      expect(obj.x).toBeFalsy();
+      expect(obj.y).toBeFalsy();
+    });
   });
 
   describe('this.getConfAndDelegate', function() {
