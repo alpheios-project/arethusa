@@ -79,18 +79,6 @@ module.exports = function(grunt) {
         tasks: 'protractor:all'
       }
     },
-    concurrent: {
-      watches: {
-        tasks: [
-          'watch:serverSource',
-          'watch:serverHtml',
-          'watch:serverCss'
-        ],
-        options: {
-          logConcurrentOutput: true
-        }
-      }
-    },
     jshint: {
       options: {
         jshintrc: true,
