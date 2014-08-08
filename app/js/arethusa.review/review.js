@@ -21,8 +21,8 @@ angular.module('arethusa.review').service('review', [
     };
 
     function configure() {
-      var props = ['link'];
-      configurator.getConfAndDelegate('review', self, props);
+      configurator.getConfAndDelegate('review', self);
+      configurator.getStickyConf('review', self, ['link', 'autoDiff']);
       self.comparators = [
         'morphology.lemma',
         'morphology.attributes',
@@ -34,7 +34,6 @@ angular.module('arethusa.review').service('review', [
     }
 
     configure();
-    self.autoDiff = false;
 
     function addStyleInfo(tokens) {
       angular.forEach(tokens, function (token, id) {

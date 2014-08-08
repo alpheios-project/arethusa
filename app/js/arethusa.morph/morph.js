@@ -37,7 +37,8 @@ angular.module('arethusa.morph').service('morph', [
       name: "morph",
       mappings: {},
       gloss: false,
-      matchAll: true
+      matchAll: true,
+      preselect: false
     };
 
     function configure() {
@@ -47,11 +48,12 @@ angular.module('arethusa.morph').service('morph', [
         'mappings',
         'styledThrough',
         'noRetrieval',
-        'matchAll',
         'gloss'
       ];
 
       configurator.getConfAndDelegate('morph', self, props);
+      configurator.getStickyConf('morph', self, ['preselect', 'matchAll']);
+
       self.analyses = {};
       morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
       propagateMappings(morphRetrievers);
@@ -68,10 +70,6 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     configure();
-    // We need to do this outside - we don't want it reconfigured on every init
-    // if the user sets it by hand, that's what we stick to.
-    self.preselect = self.conf.preselect;
-
 
     var emptyAttribute = {
       long: '---',
