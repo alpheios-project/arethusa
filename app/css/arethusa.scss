@@ -1,4 +1,6 @@
 @import url(http://fonts.googleapis.com/earlyaccess/amiri.css);
+@import '../../bower_components/bourbon/dist/bourbon';
+@import 'foundation';
 
 html, body {
   height: 100%;
@@ -53,18 +55,18 @@ html, body {
  }
 
 .token {
-  transition: background-color 100ms linear;
-  transition: color 900ms ease-in-out;
+  @include transition(background-color 100ms linear);
+  @include transition(color 900ms ease-in-out);
 }
 
 .selected {
   background-color: #F6D918;
-  transition: background-color 100ms linear;
+  @include transition(background-color 100ms linear);
 }
 
 .hovered {
   background-color: #5BC8DC;
-  transition: background-color 200ms ease-in-out;
+  @include transition(background-color 200ms ease-in-out);
 }
 
 .underline {
@@ -202,11 +204,11 @@ svg {
 }
 
 .node rect {
-  stroke: # 333;
+  stroke: $panel-bg;
   stroke-width : 1.5px;
   /* The following color needs to be taken from a foundation variable */
   /* once we start to use scss. It's the panels background color */
-  fill: #f2f2f2;
+  fill: $panel-bg;
 }
 
 .selected text {
@@ -218,7 +220,7 @@ svg {
 }
 
 .edgeLabel rect {
-  fill: #f2f2f2;
+  fill: $panel-bg;
 }
 
 .tree-label {
@@ -438,52 +440,49 @@ div.citbibl {
 
 .accordion-selected {
   background-color: rgb(235, 255, 235) !important;
-  transition: background-color 300ms ease-in-out;
+  @include transition(background-color 300ms ease-in-out);
 }
 
 .accordion-selected:hover {
   background-color: rgb(199, 226, 199) !important;
-  transition: background-color 300ms ease-in-out;
+  @include transition(background-color 300ms ease-in-out);
 }
 
 .accordion dd > a:hover {
-  transition: background-color 300ms ease-in-out;
+  @include transition(background-color 300ms ease-in-out);
 }
 
 .accordion dd > a {
   padding: 0.7rem;
-  transition: background-color 300ms ease-in-out;
+  @include transition(background-color 300ms ease-in-out);
 }
 
 .rotate-on-hover:hover {
-  animation: rotate-forward 1s;
-  -webkit-animation: rotate-forward 1s;
+  @include animation(rotate-forward 1s);
 }
 
 .rotate-bw-on-hover:hover {
-  animation: rotate-backward 1s;
-  -webkit-animation: rotate-backward 1s;
+  @include animation(rotate-backward 1s);
 }
 
-@keyframes rotate-forward {
-    0% { transform: rotate(  0deg) }
-  100% { transform: rotate(360deg) }
+@include keyframes(rotate-forward) {
+  from {
+    @include transform(rotate(0deg));
+  }
+  to {
+    @include transform(rotate(360deg));
+  }
 }
 
-@-webkit-keyframes rotate-forward {
-    0% { -webkit-transform: rotate(  0deg) }
-  100% { -webkit-transform: rotate(360deg) }
+@include keyframes(rotate-backward) {
+  from {
+    @include transform(rotate(0deg));
+  }
+  to {
+    @include transform(rotate(-360deg));
+  }
 }
 
-@keyframes rotate-backward{
-    0% { transform: rotate(   0deg) }
-  100% { transform: rotate(-360deg) }
-}
-
-@-webkit-keyframes rotate-backward {
-    0% { -webkit-transform: rotate(   0deg) }
-  100% { -webkit-transform: rotate(-360deg) }
-}
 
 select.compact {
   height: 1.8rem;
@@ -498,7 +497,11 @@ input.compact {
 .error {
   background-color: #D3414D;
   border-color: #D3414D;
-  transition: background-color 700ms ease-in-out;
+  @include transition(background-color 700ms ease-in-out);
+}
+
+.settings-span-button {
+  @extend .clickable, .margined-hor-tiny, .flash-on-hover;
 }
 
 .clickable {
@@ -519,13 +522,13 @@ input.compact {
 
 .flash-on-hover:hover {
   color: dimgrey;
-  transition: color 300ms ease-out;
+  @include transition(color 300ms ease-out);
 }
 
 .flash-on-hover {
   /*body color - use a variable for this later on*/
   color: #222;
-  transition: color 500ms ease-out;
+  @include transition(color 500ms ease-out);
 }
 
 .small-panel {
@@ -539,11 +542,11 @@ input.compact {
 
 .current-hist-event {
   background-color: #C8E5FF;
-  transition: background-color 700ms ease-in-out;
+  @include transition(background-color 700ms ease-in-out);
 }
 
 .hist-event {
-  transition: background-color 300ms ease-in-out;
+  @include transition(background-color 300ms ease-in-out);
 }
 
 ul.no-list {
@@ -583,7 +586,7 @@ ul.no-list {
 
 #keys-to-screen > .joiner {
   color: black;
-  background-color: #f2f2f2;
+  background-color: $panel-bg;
   box-shadow: none;
   padding: 0.1rem 0.1rem 0.1rem 0.2rem;
   border: none;
@@ -602,12 +605,6 @@ ul.no-list {
   100% { opacity: 0 }
 }
 
-#keyboard {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
 li.keyboard-key {
   float: left;
   margin: 0 3px 3px 0;
@@ -621,8 +618,7 @@ li.keyboard-key {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   box-shadow: 3px 2px 10px #888888;
-  transition: background-color 0.2s ease-out;
-  -webkit-transition: background-color 0.2s ease-out;
+  @include transition(background-color 0.2s ease-out);
 }
 
 li.keyboard-key:hover {
@@ -630,56 +626,55 @@ li.keyboard-key:hover {
 }
 
 #keyboard {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   width: 514px;
-}
 
-#keyboard .last-key {
-  margin-right: 0;
-}
-#keyboard .first-key {
-  clear: left;
-}
-#keyboard .tab, #keyboard .delete {
-  width: 52px;
-}
-#keyboard .ctrl, #keyboard .alt {
-  width: 52px;
-}
-#keyboard .capslock {
-  width: 60px;
-}
-#keyboard .return {
-  width: 56px;
-}
-#keyboard .l-shift {
-  width: 70px;
-}
-#keyboard .shift {
-  width: 79px;
-}
+  .last-key {
+    margin-right: 0;
+  }
 
-#keyboard .space {
-  width: 262px;
-}
+  .tab, .delete, .ctrl, .alt {
+    width: 52px;
+  }
 
-#keyboard .inactive {
-  color: rgb(228, 228, 228);
-}
+  .capslock {
+    width: 60px;
+  }
+  .return {
+    width: 56px;
+  }
+  .l-shift {
+    width: 70px;
+  }
+  .shift {
+    width: 79px;
+  }
 
-#keyboard .shifted-1 {
-  padding-left: 0.1em;
-  font-size:0.7em;
-  vertical-align: super;
-}
+  .space {
+    width: 262px;
+  }
 
-#keyboard .shifter {
-  cursor: pointer;
-}
+  .inactive {
+    color: rgb(228, 228, 228);
+  }
 
-#keyboard .key-hit {
-  background-color: #C3E3FF;
-  border: 1px solid lightgray;
-  box-shadow: none;
+  .shifted-1 {
+    padding-left: 0.1em;
+    font-size:0.7em;
+    vertical-align: super;
+  }
+
+  .shifter {
+    cursor: pointer;
+  }
+
+  .key-hit {
+    background-color: #C3E3FF;
+    border: 1px solid lightgray;
+    box-shadow: none;
+  }
 }
 
 .comments {
@@ -702,10 +697,7 @@ li.keyboard-key:hover {
 .ornament-delimiter:after {
   content: "\2767";
   display: inline-block;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
+  @include transform(rotate(45deg));
   color: rgb(112, 112, 112)
 }
 
@@ -718,32 +710,12 @@ input.warn {
  *                               Animations                                *
  ***************************************************************************/
 
+@import "animation_helpers";
 
-.fade-in.ng-enter,
-.fade.ng-enter,
-.fade.ng-leave {
-  -webkit-transition: .5s linear opacity;
-  -moz-transition: .5s linear opacity;
-  -o-transition: .5s linear opacity;
-  transition: .5s linear opacity;
+.fade-in {
+  @include toggler(500ms, 0);
 }
 
-.fade-in.ng-leave {
-  -webkit-transition: 0 linear opacity;
-  -moz-transition: 0 linear opacity;
-  -o-transition: 0 linear opacity;
-  transition: 0 linear opacity;
-}
-
-.fade.ng-leave.ng-leave-active,
-.fade.ng-enter,
-.fade-in.ng-enter {
-  opacity: 0;
-}
-
-.fade.ng-leave,
-.fade.ng-enter.ng-enter-active
-.fade-in.ng-leave,
-.fade-in.ng-enter.ng-enter-active {
-  opacity: 1;
+.fade {
+  @include toggler(500ms, 500ms);
 }

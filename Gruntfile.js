@@ -2,7 +2,7 @@
 
 var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
-var cssFiles = 'app/**/*.css';
+var cssFiles = 'app/**/*.scss';
 var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8081;
@@ -49,46 +49,26 @@ module.exports = function(grunt) {
       },
       server: {
         files: [srcFiles, htmlFiles, cssFiles],
+        tasks: 'minify:all',
+        options: {
+          livereload: true
+        }
+      },
+      serverNoCss: {
+        files: [srcFiles, htmlFiles],
         tasks: 'minify',
         options: {
           livereload: true
         }
       },
-      serverSource: {
-        files: srcFiles,
-        tasks: 'minify',
-        options: {
-          livereload: getReloadPort()
-        }
-      },
-      serverHtml: {
-        files: htmlFiles,
-        options: {
-          livereload: getReloadPort()
-        }
-      },
       serverCss: {
         files: cssFiles,
-        options: {
-          livereload: getReloadPort()
-        }
+        tasks: 'minify:css',
       },
 
       e2e: {
         files: [srcFiles, specE2eFiles],
         tasks: 'protractor:all'
-      }
-    },
-    concurrent: {
-      watches: {
-        tasks: [
-          'watch:serverSource',
-          'watch:serverHtml',
-          'watch:serverCss'
-        ],
-        options: {
-          logConcurrentOutput: true
-        }
       }
     },
     jshint: {
@@ -255,6 +235,16 @@ module.exports = function(grunt) {
       util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
       external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } }
     },
+    sass: {
+      dist: {
+        options: {
+          sourcemap: true
+        },
+        files: {
+          'app/css/arethusa.css': 'app/css/arethusa.scss'
+        }
+      }
+    },
     cssmin: {
       css: {
         src: ['app/css/arethusa.css', 'app/css/fonts/**/*.css'],
@@ -293,10 +283,12 @@ module.exports = function(grunt) {
   // is listening only to one port :( Fix this at a later stage.
   //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
   grunt.registerTask('reloader', 'watch:server');
+  grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
+  grunt.registerTask('reloader:css', 'watch:serverCss');
+  grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
   grunt.registerTask('minify', [
     'uglify:comments',
     'uglify:hebrewMorph',
-    'cssmin:css',
     'uglify:main',
     'uglify:util',
     'uglify:artificialToken',
@@ -316,5 +308,6 @@ module.exports = function(grunt) {
     'ngtemplates',
     'uglify:templates'
   ]);
+  grunt.registerTask('minify:all', ['minify:css', 'minify']);
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };

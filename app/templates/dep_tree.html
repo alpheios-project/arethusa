@@ -1,13 +1,13 @@
 <div class="tree-canvas">
   <div class="tree-settings">
     <span
-      class="note clickable right margined-hor-tiny flash-on-hover"
+      class="note right span-settings-button"
       ng-show="plugin.diffPresent"
       ng-click="plugin.toggleDiff()">
       Toggle Diff
     </span>
     <span
-      class="note clickable right margined-hor-tiny flash-on-hover"
+      class="note right span-settings-button"
       style="margin-left: 10px"
       unused-token-highlighter
       uth-check-property="head.id">
@@ -19,7 +19,6 @@
     dependency-tree
     tokens="state.tokens"
     styles="plugin.diffStyles()"
-    to-bottom
-    >
+    to-bottom>
   </div>
 </div>
