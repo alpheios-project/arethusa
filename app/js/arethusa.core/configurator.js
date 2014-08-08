@@ -239,12 +239,16 @@ angular.module('arethusa.core').service('configurator', [
 
     // Delegates a set of standard properties to the given object to allow
     // a more direct access.
-    this.delegateConf = function (obj, otherKeys) {
-      var props = arethusaUtil.pushAll(standardProperties, otherKeys);
+    this.delegateConf = function (obj, otherKeys, sticky) {
+      var props = sticky ? otherKeys : arethusaUtil.pushAll(standardProperties, otherKeys);
       var defConf = obj.defaultConf || {};
+      var isDef = angular.isDefined;
       angular.forEach(props, function (property, i) {
+        if (sticky && isDef(obj[property])) return;
+
         var confProp = obj.conf[property];
-        var val = angular.isDefined(confProp) ? confProp : defConf[property];
+        var isDefined = angular.isDefined(confProp);
+        var val = isDef(confProp) ? confProp : defConf[property];
         obj[property] = val;
       });
       setGlobalDefaults(obj);
@@ -288,6 +292,12 @@ angular.module('arethusa.core').service('configurator', [
     this.getConfAndDelegate = function (name, obj, keys) {
       obj.conf = self.configurationFor(name);
       self.delegateConf(obj, keys);
+      return obj;
+    };
+
+    this.getStickyConf = function(name, obj, keys) {
+      obj.conf = self.configurationFor(name);
+      self.delegateConf(obj, keys, true);
       return obj;
     };
 
