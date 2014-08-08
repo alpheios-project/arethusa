@@ -226,11 +226,9 @@ describe('configurator', function() {
         'main',
         'template',
         'external',
-        'listener',
         'contextMenu',
         'contextMenuTemplate',
         'noView',
-        'advancedMode',
         'mode'
       ];
 
@@ -250,7 +248,6 @@ describe('configurator', function() {
         'main',
         'template',
         'external',
-        'listener',
         'contextMenu',
         'contextMenuTemplate',
         'noView',

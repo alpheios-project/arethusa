@@ -229,12 +229,10 @@ angular.module('arethusa.core').service('configurator', [
       'main',
       'template',
       'external',
-      'listener',
       'contextMenu',
       'contextMenuTemplate',
       'noView',
-      'mode',
-      'advancedMode'
+      'mode'
     ];
 
     // Delegates a set of standard properties to the given object to allow
