@@ -49,29 +49,21 @@ module.exports = function(grunt) {
       },
       server: {
         files: [srcFiles, htmlFiles, cssFiles],
+        tasks: 'minify:all',
+        options: {
+          livereload: true
+        }
+      },
+      serverNoCss: {
+        files: [srcFiles, htmlFiles],
         tasks: 'minify',
         options: {
           livereload: true
         }
       },
-      serverSource: {
-        files: srcFiles,
-        tasks: 'minify',
-        options: {
-          livereload: getReloadPort()
-        }
-      },
-      serverHtml: {
-        files: htmlFiles,
-        options: {
-          livereload: getReloadPort()
-        }
-      },
       serverCss: {
         files: cssFiles,
-        options: {
-          livereload: getReloadPort()
-        }
+        tasks: 'minify:css',
       },
 
       e2e: {
@@ -291,11 +283,12 @@ module.exports = function(grunt) {
   // is listening only to one port :( Fix this at a later stage.
   //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
   grunt.registerTask('reloader', 'watch:server');
+  grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
+  grunt.registerTask('reloader:css', 'watch:serverCss');
+  grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
   grunt.registerTask('minify', [
     'uglify:comments',
     'uglify:hebrewMorph',
-    'sass',
-    'cssmin:css',
     'uglify:main',
     'uglify:util',
     'uglify:artificialToken',
@@ -315,5 +308,6 @@ module.exports = function(grunt) {
     'ngtemplates',
     'uglify:templates'
   ]);
+  grunt.registerTask('minify:all', ['minify:css', 'minify']);
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
