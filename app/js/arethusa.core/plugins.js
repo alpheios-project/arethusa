@@ -54,6 +54,7 @@ angular.module('arethusa.core').service('plugins', [
       });
 
       partitionPlugins();
+      declareFirstActive();
       self.init();
     };
 
@@ -132,7 +133,6 @@ angular.module('arethusa.core').service('plugins', [
       readyPlugins = {};
       initCallbacks = new InitCallbacks();
       angular.forEach(self.all, initPlugin);
-      declareFirstActive();
     };
   }
 ]);
