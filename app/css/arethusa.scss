@@ -500,6 +500,10 @@ input.compact {
   @include transition(background-color 700ms ease-in-out);
 }
 
+.settings-span-button {
+  @extend .clickable, .margined-hor-tiny, .flash-on-hover;
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -601,12 +605,6 @@ ul.no-list {
   100% { opacity: 0 }
 }
 
-#keyboard {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
 li.keyboard-key {
   float: left;
   margin: 0 3px 3px 0;
@@ -628,56 +626,55 @@ li.keyboard-key:hover {
 }
 
 #keyboard {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   width: 514px;
-}
 
-#keyboard .last-key {
-  margin-right: 0;
-}
-#keyboard .first-key {
-  clear: left;
-}
-#keyboard .tab, #keyboard .delete {
-  width: 52px;
-}
-#keyboard .ctrl, #keyboard .alt {
-  width: 52px;
-}
-#keyboard .capslock {
-  width: 60px;
-}
-#keyboard .return {
-  width: 56px;
-}
-#keyboard .l-shift {
-  width: 70px;
-}
-#keyboard .shift {
-  width: 79px;
-}
+  .last-key {
+    margin-right: 0;
+  }
 
-#keyboard .space {
-  width: 262px;
-}
+  .tab, .delete, .ctrl, .alt {
+    width: 52px;
+  }
 
-#keyboard .inactive {
-  color: rgb(228, 228, 228);
-}
+  .capslock {
+    width: 60px;
+  }
+  .return {
+    width: 56px;
+  }
+  .l-shift {
+    width: 70px;
+  }
+  .shift {
+    width: 79px;
+  }
 
-#keyboard .shifted-1 {
-  padding-left: 0.1em;
-  font-size:0.7em;
-  vertical-align: super;
-}
+  .space {
+    width: 262px;
+  }
 
-#keyboard .shifter {
-  cursor: pointer;
-}
+  .inactive {
+    color: rgb(228, 228, 228);
+  }
 
-#keyboard .key-hit {
-  background-color: #C3E3FF;
-  border: 1px solid lightgray;
-  box-shadow: none;
+  .shifted-1 {
+    padding-left: 0.1em;
+    font-size:0.7em;
+    vertical-align: super;
+  }
+
+  .shifter {
+    cursor: pointer;
+  }
+
+  .key-hit {
+    background-color: #C3E3FF;
+    border: 1px solid lightgray;
+    box-shadow: none;
+  }
 }
 
 .comments {
