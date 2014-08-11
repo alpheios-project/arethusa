@@ -38,6 +38,15 @@
     "maxMessages" : 7
   },
 
+  "auths": {
+    "perseidsAuth" : {
+      "type": "CSRF",
+      "cookie": "csrftoken",
+      "header": "X-CSRF-Token",
+      "ping" : "http://sosol.perseids.org/sosol/dmm_api/ping"
+    }
+  },
+
   "resources" : {
     "perseidsResource" : {
       "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
