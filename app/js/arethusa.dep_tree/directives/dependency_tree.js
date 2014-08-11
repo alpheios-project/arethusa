@@ -60,7 +60,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         styles: '='
       },
       link: function (scope, element, attrs) {
-
         // General margin value so that trees don't touch the canvas border.
         var treeMargin = 15;
 
@@ -314,7 +313,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         // Functions to create, update and render the graph
         //
         // They are solely called by watches.
-        function createGraph(subtrees) {
+        function createGraph() {
           clearOldGraph();
           g = new dagreD3.Digraph();
           createRootNode();
@@ -615,6 +614,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
           headWatches = [];
         }
+
         function createHeadWatch(token, id) {
           var childScope = scope.$new();
           childScope.token = token.id;
