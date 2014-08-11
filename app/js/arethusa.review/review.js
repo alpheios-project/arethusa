@@ -76,28 +76,26 @@ angular.module('arethusa.review').service('review', [
       });
     }
 
-    function countDiffs(diff) {
+    function countDiffs() {
       var dC = self.diffCounts = new DiffCounts();
-      angular.forEach(diff, function(d) {
+      angular.forEach(self.diff, function(d) {
         dC.tokens++;
         angular.forEach(d, function(attr) { dC.attrs++; });
       });
     }
 
     this.compare = function () {
-      var diff = jsondiffpatch.diff(
+      self.diff = jsondiffpatch.diff(
         extract(state.tokens),
         extract(self.goldTokens)
       );
 
-      countDiffs(diff);
+      countDiffs();
 
-      if (diff) {
-        angular.forEach(diff, function (diff, id) {
-          state.setState(id, 'diff', diff);
-        });
-        broadcast();
-      }
+      angular.forEach(self.diff, function (diff, id) {
+        state.setState(id, 'diff', diff);
+      });
+      broadcast();
     };
 
     loadDocument();
