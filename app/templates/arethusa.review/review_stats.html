@@ -1,5 +1,10 @@
 <div
-  class="small-12 columns text center"
-  style="padding: 1px 0; background-color: {{ rgbCode }}">
+  ng-click="openStats = !openStats"
+  class="small-12 columns text center clickable"
+  style="padding: 0.2rem 0; background-color: {{ rgbCode }}">
   {{ tokens }} tokens and {{ attrs }} attributes with differences
+</div>
+<div ng-if="openStats" class="small-12 columns fade slide-right">
+  <div delimiter/>
+  <div review-diff-report/>
 </div>
