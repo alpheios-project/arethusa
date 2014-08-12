@@ -352,14 +352,18 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           drawEdge(token);
         }
 
-
-        function render() {
-          vis = svg.select('g');
-          renderer.layout(scope.layout).run(g, vis);
+        function customizeGraph() {
           // Customize the graph so that it holds our directives
           insertRootDirective();
           insertTokenDirectives();
           insertEdgeDirectives();
+        }
+
+
+        function render() {
+          vis = svg.select('g');
+          renderer.layout(scope.layout).run(g, vis);
+          customizeGraph();
 
           // Not very elegant, but we don't want marker-end arrowheads right now
           // We also place an token edge path (tep) id on these elements, so that
@@ -553,7 +557,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         scope.$watch('styles', function (newVal, oldVal) {
           if (newVal !== oldVal) {
-            render();
+            customizeGraph();
             if (newVal) {
               applyCustomStyling();
             } else {
