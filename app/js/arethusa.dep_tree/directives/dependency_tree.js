@@ -194,14 +194,17 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         //
         // Their return values will be inserted into
         // the tree and replace the placeholders.
+        var childScopes = [];
         function compiledEdgeLabel(token) {
           var childScope = scope.$new();
+          childScopes.push(childScope);
           childScope.obj = token.relation;
           return $compile(edgeLabelTemplate)(childScope)[0];
         }
 
         function compiledToken(token) {
           var childScope = scope.$new();
+          childScopes.push(childScope);
           childScope.token = token;
           // Ugly but working...
           // We replace the colorize value in our token template string.
@@ -352,8 +355,14 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           drawEdge(token);
         }
 
+        function clearChildScopes() {
+          angular.forEach(childScopes, function(cS) { cS.$destroy(); });
+          childScopes = [];
+        }
+
         function customizeGraph() {
           // Customize the graph so that it holds our directives
+          clearChildScopes();
           insertRootDirective();
           insertTokenDirectives();
           insertEdgeDirectives();
