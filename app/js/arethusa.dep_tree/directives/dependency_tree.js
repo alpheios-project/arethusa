@@ -630,6 +630,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         function createHeadWatch(token, id) {
           var childScope = scope.$new();
+          headWatches.push(childScope);
           childScope.token = token.id;
           childScope.head = token.head;
           childScope.$watch('head.id', function (newVal, oldVal) {
