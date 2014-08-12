@@ -15,8 +15,7 @@
  *       edge: { stroke: 'blue' },
  *       token: { color: 'white' }
  *     }
- *   }
- *
+ *   } *
  * This would draw the edge of the token 0001 one blue and the textual
  * representation of the token itself in white.
  *
@@ -348,14 +347,30 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         }
         function drawEdge(token) {
-          if (!nodePresent(token.id)) {
+          var id = token.id;
+
+          // This is a hack - we have some troubles here on
+          // tokenRemoved events which I don't really understand -
+          // can't think of a scenario where a token without an id
+          // comes in here. It's actually a token that has just a
+          // single property (head) - really have no clue.
+          //
+          // This prevents it, but the root cause for this needs to
+          // be investigated.
+          if (!angular.isDefined(id)) return;
+
+          var headId = token.head.id;
+
+          if (!nodePresent(id)) {
             createNode(token);
           }
-          if (!nodePresent(token.head.id)) {
-            createNode(scope.tokens[token.head.id]);
+
+          if (!nodePresent(headId)) {
+            createNode(scope.tokens[headId]);
           }
-          g.addEdge(token.id, token.id, token.head.id, { label: labelPlaceholder(token) });
+          g.addEdge(id, id, headId, { label: labelPlaceholder(token) });
         }
+
         function updateEdge(token) {
           if (edgePresent(token.id)) {
             g.delEdge(token.id);
@@ -669,21 +684,16 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         }
 
+        angular.element($window).on('resize', function() {
+          calculateSvgHotspots();
+          applyViewMode();
+        });
+
 
         // Keybindings for this directive
         function keyBindings(kC) {
           return {
             tree: [
-        angular.element($window).on('resize', function() {
-          calculateSvgHotspots();
-          applyViewMode();
-        });
-
-        angular.element($window).on('resize', function() {
-          calculateSvgHotspots();
-          applyViewMode();
-        });
-
               kC.create('directionChange', function() { scope.changeDir(); }, 'x'),
               kC.create('centerTree', function() { scope.centerGraph(); }, 's'),
               kC.create('focusRoot', function() { scope.focusRoot(); }),
@@ -692,19 +702,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             ]
           };
         }
-
-        state.on('tokenRemoved', function(event, token) {
-        angular.element($window).on('resize', function() {
-          calculateSvgHotspots();
-          applyViewMode();
-        });
-
-          var id = token.id;
-          if (scope.tokens[id] === token && nodePresent(id)) {
-            g.delNode(id);
-            render();
-          }
-        });
 
         // Initial tree layout
 
