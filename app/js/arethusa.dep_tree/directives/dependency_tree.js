@@ -242,38 +242,46 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           childScope.style = scope.styles[token.id].token;
         }
 
-        var styleResets = {};
+        var edgeStyleResets = {};
+        var labelStyleResets = {};
         function applyCustomStyling() {
           var edges = vis.selectAll('g.edgePath path');
           angular.forEach(scope.styles, function (style, id) {
             var labelStyle = style.label;
             var edgeStyle = style.edge;
             if (labelStyle) {
+              saveOldStyles(id, label(id), labelStyle, labelStyleResets);
               label(id).style(labelStyle);
             }
             if (edgeStyle) {
-              saveOldEdgeStyles(id, edgeStyle);
+              saveOldStyles(id, edge(id), edgeStyle, edgeStyleResets);
               edge(id).style(edgeStyle);
             }
           });
         }
 
-        function saveOldEdgeStyles(id, properties) {
+        function saveOldStyles(id, el, properties, resets) {
           if (properties) {
-            var e = edge(id);
             var style = {};
             angular.forEach(properties, function (_, property) {
-              style[property] = e.style(property);
+              style[property] = el.style(property);
             });
-            styleResets[id] = style;
+            resets[id] = style;
           }
         }
 
         function resetEdgeStyling() {
-          angular.forEach(styleResets, function (style, id) {
+          angular.forEach(edgeStyleResets, function (style, id) {
             edge(id).style(style);
           });
-          styleResets = {};  // clean up, to avoid constant resetting
+          edgeStyleResets = {};  // clean up, to avoid constant resetting
+        }
+
+        function resetLabelStyling() {
+          angular.forEach(labelStyleResets, function (style, id) {
+            label(id).style(style);
+          });
+          labelStyleResets = {};  // clean up, to avoid constant resetting
         }
 
         // Getter functions for nodes, labels, edges,  generators for
@@ -417,7 +425,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           angular.forEach(scope.tokens, function (token, id) {
             label(id).append(function () {
               this.textContent = '';
-              return compiledEdgeLabel(token);
+              var label = compiledEdgeLabel(token);
+              return label;
             });
           });
         }
@@ -575,6 +584,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
               applyCustomStyling();
             } else {
               resetEdgeStyling();
+              resetLabelStyling();
             }
           }
         });
