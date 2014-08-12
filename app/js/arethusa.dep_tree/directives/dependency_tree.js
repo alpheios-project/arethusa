@@ -355,8 +355,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           drawEdge(token);
         }
 
+        function destroy(childScope) {
+          childScope.$destroy();
+        }
+
         function clearChildScopes() {
-          angular.forEach(childScopes, function(cS) { cS.$destroy(); });
+          angular.forEach(childScopes, destroy);
           childScopes = [];
         }
 
@@ -622,9 +626,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         var headWatches = [];
         function destroyOldHeadWatches() {
-          angular.forEach(headWatches, function(childScope, i) {
-            childScope.$destroy();
-          });
+          angular.forEach(headWatches, destroy);
           headWatches = [];
         }
 
