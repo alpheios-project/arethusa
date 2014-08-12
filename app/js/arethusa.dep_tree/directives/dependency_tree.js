@@ -573,7 +573,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         scope.$watch('tokens', function (newVal, oldVal) {
           createGraph();
           moveToStart();
-          createHeadWatches();
           if (isMainTree()) plugins.declareReady('depTree');
         });
 
@@ -625,45 +624,25 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         if (isMainTree()) {
           scope.$on('tokenAdded', function(event, token) {
             createGraph();
-            createHeadWatch(token, token.id);
           });
-        }
 
-        angular.element($window).on('resize', function() {
-          calculateSvgHotspots();
-          applyViewMode();
-        });
-
-        var headWatches = [];
-        function destroyOldHeadWatches() {
-          angular.forEach(headWatches, destroy);
-          headWatches = [];
-        }
-
-        function createHeadWatch(token, id) {
-          var childScope = scope.$new();
-          headWatches.push(childScope);
-          childScope.token = token.id;
-          childScope.head = token.head;
-          childScope.$watch('head.id', function (newVal, oldVal) {
-            // We need to skip a digest, when a token has been removed,
-            // because we listen to the tokenRemoved event, where we delete
-            // a node - and deleting a node in dagre means also deleting all
-            // adjacent edges.
-            // We can't however keep this strange value for head.id around.
-            // A change fires this watch again - another digest cycle we need
-            // to skip. We do that by looking at the old Value.
-            if (newVal === 'tokenRemoved') {
-              childScope.head.id = '';
-              return;
+          state.on('tokenRemoved', function(event, token) {
+            var id = token.id;
+            if (scope.tokens[id] === token && nodePresent(id)) {
+              g.delNode(id);
+              render();
             }
-            if (oldVal === 'tokenRemoved') {
-              return;
-            }
+          });
 
+          // Listen for batch changes - when one, which we are interested
+          // in, is in progress, we wait for its end to re-render the tree
+          // only once and not several times for each head change.
+          var queuedChangesPresent;
+          state.watch('head.id', function(newVal, oldVal, event) {
             // Very important to do here, otherwise the tree will
             // be render a little often on startup...
             if (newVal !== oldVal) {
+              var token = event.token;
               // If a disconnection has been requested, we just
               // have to delete the edge and do nothing else
               if (newVal === "") {
@@ -671,15 +650,23 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
               } else {
                 updateEdge(token);
               }
+            }
+            if (state.batchChange) {
+              queuedChangesPresent = true;
+              return;
+            }
+
+            render();
+            $timeout(applyViewMode, transitionDuration);
+          });
+
+          state.on('batchChangeStop', function() {
+            if (queuedChangesPresent) {
               render();
               $timeout(applyViewMode, transitionDuration);
+              queuedChangesPresent = false;
             }
           });
-        }
-
-        function createHeadWatches() {
-          destroyOldHeadWatches();
-          angular.forEach(scope.tokens, createHeadWatch);
         }
 
 
@@ -687,6 +674,16 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         function keyBindings(kC) {
           return {
             tree: [
+        angular.element($window).on('resize', function() {
+          calculateSvgHotspots();
+          applyViewMode();
+        });
+
+        angular.element($window).on('resize', function() {
+          calculateSvgHotspots();
+          applyViewMode();
+        });
+
               kC.create('directionChange', function() { scope.changeDir(); }, 'x'),
               kC.create('centerTree', function() { scope.centerGraph(); }, 's'),
               kC.create('focusRoot', function() { scope.focusRoot(); }),
@@ -697,6 +694,11 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
 
         state.on('tokenRemoved', function(event, token) {
+        angular.element($window).on('resize', function() {
+          calculateSvgHotspots();
+          applyViewMode();
+        });
+
           var id = token.id;
           if (scope.tokens[id] === token && nodePresent(id)) {
             g.delNode(id);
