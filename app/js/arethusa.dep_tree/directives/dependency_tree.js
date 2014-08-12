@@ -51,8 +51,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
   '$timeout',
   'translator',
   'plugins',
+  'DagreRenderer',
   function ($compile, languageSettings, keyCapture, idHandler,
-            $window, state, $timeout, translator, plugins) {
+            $window, state, $timeout, translator, plugins, DagreRenderer) {
     return {
       restrict: 'A',
       scope: {
@@ -131,7 +132,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
 
         // dagre renderer
-        var renderer = new dagreD3.Renderer();
+        var renderer = new DagreRenderer();
 
         // Use transitions for all movements inside the graph
         renderer.transition(function(selection) {
@@ -355,7 +356,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         function render() {
           vis = svg.select('g');
-          renderer.layout(scope.layout).run(g, vis);
+          renderer.run(scope.layout, g, vis);
           // Customize the graph so that it holds our directives
           insertRootDirective();
           insertTokenDirectives();
