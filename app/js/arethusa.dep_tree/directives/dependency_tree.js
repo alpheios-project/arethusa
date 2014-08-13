@@ -145,6 +145,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         var rootTokenHtml = '<span root-token>' + rootText + '</span>';
         var tokenHtml = '\
           <span token="token"\
+            class="no-transition"\
             colorize="STYLE"\
             click="true"\
             hover="true"/>\
@@ -415,6 +416,16 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             return this.getElementsByTagName('foreignObject');
           }).each(function () {
             angular.element(this.children[0]).attr('style', 'float: center;');
+          });
+
+          // Reactivate Transitions - as we recompile the token directives during
+          // render, we deactivated the color transition temporarily to avoid
+          // color flickering.
+          // Has to be timeouted (which means running after the current $digest),
+          // as otherwise we wouldn't be able to find the freshly appended tokens
+          // through a selector.
+          $timeout(function() {
+            element.find('.token').removeClass('no-transition');
           });
         }
 

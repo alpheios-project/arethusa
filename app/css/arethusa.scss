@@ -59,6 +59,12 @@ html, body {
   @include transition(color 900ms ease-in-out);
 }
 
+.no-transition {
+  -webkit-transition-duration: 0 !important;
+  -moz-transition-duration: 0 !important;
+  transition-duration: 0 !important;
+}
+
 .selected {
   background-color: #F6D918;
   @include transition(background-color 100ms linear);
