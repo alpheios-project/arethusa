@@ -15,8 +15,7 @@
  *       edge: { stroke: 'blue' },
  *       token: { color: 'white' }
  *     }
- *   }
- *
+ *   } *
  * This would draw the edge of the token 0001 one blue and the textual
  * representation of the token itself in white.
  *
@@ -146,6 +145,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         var rootTokenHtml = '<span root-token>' + rootText + '</span>';
         var tokenHtml = '\
           <span token="token"\
+            class="no-transition"\
             colorize="STYLE"\
             click="true"\
             hover="true"/>\
@@ -194,14 +194,17 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         //
         // Their return values will be inserted into
         // the tree and replace the placeholders.
+        var childScopes = [];
         function compiledEdgeLabel(token) {
           var childScope = scope.$new();
+          childScopes.push(childScope);
           childScope.obj = token.relation;
           return $compile(edgeLabelTemplate)(childScope)[0];
         }
 
         function compiledToken(token) {
           var childScope = scope.$new();
+          childScopes.push(childScope);
           childScope.token = token;
           // Ugly but working...
           // We replace the colorize value in our token template string.
@@ -239,38 +242,46 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           childScope.style = scope.styles[token.id].token;
         }
 
-        var styleResets = {};
+        var edgeStyleResets = {};
+        var labelStyleResets = {};
         function applyCustomStyling() {
           var edges = vis.selectAll('g.edgePath path');
           angular.forEach(scope.styles, function (style, id) {
             var labelStyle = style.label;
             var edgeStyle = style.edge;
             if (labelStyle) {
+              saveOldStyles(id, label(id), labelStyle, labelStyleResets);
               label(id).style(labelStyle);
             }
             if (edgeStyle) {
-              saveOldEdgeStyles(id, edgeStyle);
+              saveOldStyles(id, edge(id), edgeStyle, edgeStyleResets);
               edge(id).style(edgeStyle);
             }
           });
         }
 
-        function saveOldEdgeStyles(id, properties) {
+        function saveOldStyles(id, el, properties, resets) {
           if (properties) {
-            var e = edge(id);
             var style = {};
             angular.forEach(properties, function (_, property) {
-              style[property] = e.style(property);
+              style[property] = el.style(property);
             });
-            styleResets[id] = style;
+            resets[id] = style;
           }
         }
 
         function resetEdgeStyling() {
-          angular.forEach(styleResets, function (style, id) {
+          angular.forEach(edgeStyleResets, function (style, id) {
             edge(id).style(style);
           });
-          styleResets = {};  // clean up, to avoid constant resetting
+          edgeStyleResets = {};  // clean up, to avoid constant resetting
+        }
+
+        function resetLabelStyling() {
+          angular.forEach(labelStyleResets, function (style, id) {
+            label(id).style(style);
+          });
+          labelStyleResets = {};  // clean up, to avoid constant resetting
         }
 
         // Getter functions for nodes, labels, edges,  generators for
@@ -337,14 +348,30 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         }
         function drawEdge(token) {
-          if (!nodePresent(token.id)) {
+          var id = token.id;
+
+          // This is a hack - we have some troubles here on
+          // tokenRemoved events which I don't really understand -
+          // can't think of a scenario where a token without an id
+          // comes in here. It's actually a token that has just a
+          // single property (head) - really have no clue.
+          //
+          // This prevents it, but the root cause for this needs to
+          // be investigated.
+          if (!angular.isDefined(id)) return;
+
+          var headId = token.head.id;
+
+          if (!nodePresent(id)) {
             createNode(token);
           }
-          if (!nodePresent(token.head.id)) {
-            createNode(scope.tokens[token.head.id]);
+
+          if (!nodePresent(headId)) {
+            createNode(scope.tokens[headId]);
           }
-          g.addEdge(token.id, token.id, token.head.id, { label: labelPlaceholder(token) });
+          g.addEdge(id, id, headId, { label: labelPlaceholder(token) });
         }
+
         function updateEdge(token) {
           if (edgePresent(token.id)) {
             g.delEdge(token.id);
@@ -352,14 +379,28 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           drawEdge(token);
         }
 
+        function destroy(childScope) {
+          childScope.$destroy();
+        }
+
+        function clearChildScopes() {
+          angular.forEach(childScopes, destroy);
+          childScopes = [];
+        }
+
+        function customizeGraph() {
+          // Customize the graph so that it holds our directives
+          clearChildScopes();
+          insertRootDirective();
+          insertTokenDirectives();
+          insertEdgeDirectives();
+        }
+
 
         function render() {
           vis = svg.select('g');
           renderer.layout(scope.layout).run(g, vis);
-          // Customize the graph so that it holds our directives
-          insertRootDirective();
-          insertTokenDirectives();
-          insertEdgeDirectives();
+          customizeGraph();
 
           // Not very elegant, but we don't want marker-end arrowheads right now
           // We also place an token edge path (tep) id on these elements, so that
@@ -375,6 +416,16 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             return this.getElementsByTagName('foreignObject');
           }).each(function () {
             angular.element(this.children[0]).attr('style', 'float: center;');
+          });
+
+          // Reactivate Transitions - as we recompile the token directives during
+          // render, we deactivated the color transition temporarily to avoid
+          // color flickering.
+          // Has to be timeouted (which means running after the current $digest),
+          // as otherwise we wouldn't be able to find the freshly appended tokens
+          // through a selector.
+          $timeout(function() {
+            element.find('.token').removeClass('no-transition');
           });
         }
 
@@ -400,7 +451,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           angular.forEach(scope.tokens, function (token, id) {
             label(id).append(function () {
               this.textContent = '';
-              return compiledEdgeLabel(token);
+              var label = compiledEdgeLabel(token);
+              return label;
             });
           });
         }
@@ -547,17 +599,17 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         scope.$watch('tokens', function (newVal, oldVal) {
           createGraph();
           moveToStart();
-          createHeadWatches();
           if (isMainTree()) plugins.declareReady('depTree');
         });
 
         scope.$watch('styles', function (newVal, oldVal) {
           if (newVal !== oldVal) {
-            render();
+            customizeGraph();
             if (newVal) {
               applyCustomStyling();
             } else {
               resetEdgeStyling();
+              resetLabelStyling();
             }
           }
         });
@@ -598,46 +650,25 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         if (isMainTree()) {
           scope.$on('tokenAdded', function(event, token) {
             createGraph();
-            createHeadWatch(token, token.id);
           });
-        }
 
-        angular.element($window).on('resize', function() {
-          calculateSvgHotspots();
-          applyViewMode();
-        });
-
-        var headWatches = [];
-        function destroyOldHeadWatches() {
-          angular.forEach(headWatches, function(childScope, i) {
-            childScope.$destroy();
+          state.on('tokenRemoved', function(event, token) {
+            var id = token.id;
+            if (scope.tokens[id] === token && nodePresent(id)) {
+              g.delNode(id);
+              render();
+            }
           });
-          headWatches = [];
-        }
 
-        function createHeadWatch(token, id) {
-          var childScope = scope.$new();
-          childScope.token = token.id;
-          childScope.head = token.head;
-          childScope.$watch('head.id', function (newVal, oldVal) {
-            // We need to skip a digest, when a token has been removed,
-            // because we listen to the tokenRemoved event, where we delete
-            // a node - and deleting a node in dagre means also deleting all
-            // adjacent edges.
-            // We can't however keep this strange value for head.id around.
-            // A change fires this watch again - another digest cycle we need
-            // to skip. We do that by looking at the old Value.
-            if (newVal === 'tokenRemoved') {
-              childScope.head.id = '';
-              return;
-            }
-            if (oldVal === 'tokenRemoved') {
-              return;
-            }
-
+          // Listen for batch changes - when one, which we are interested
+          // in, is in progress, we wait for its end to re-render the tree
+          // only once and not several times for each head change.
+          var queuedChangesPresent;
+          state.watch('head.id', function(newVal, oldVal, event) {
             // Very important to do here, otherwise the tree will
             // be render a little often on startup...
             if (newVal !== oldVal) {
+              var token = event.token;
               // If a disconnection has been requested, we just
               // have to delete the edge and do nothing else
               if (newVal === "") {
@@ -645,16 +676,29 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
               } else {
                 updateEdge(token);
               }
+            }
+            if (state.batchChange) {
+              queuedChangesPresent = true;
+              return;
+            }
+
+            render();
+            $timeout(applyViewMode, transitionDuration);
+          });
+
+          state.on('batchChangeStop', function() {
+            if (queuedChangesPresent) {
               render();
               $timeout(applyViewMode, transitionDuration);
+              queuedChangesPresent = false;
             }
           });
         }
 
-        function createHeadWatches() {
-          destroyOldHeadWatches();
-          angular.forEach(scope.tokens, createHeadWatch);
-        }
+        angular.element($window).on('resize', function() {
+          calculateSvgHotspots();
+          applyViewMode();
+        });
 
 
         // Keybindings for this directive
@@ -669,14 +713,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             ]
           };
         }
-
-        state.on('tokenRemoved', function(event, token) {
-          var id = token.id;
-          if (scope.tokens[id] === token && nodePresent(id)) {
-            g.delNode(id);
-            render();
-          }
-        });
 
         // Initial tree layout
 
