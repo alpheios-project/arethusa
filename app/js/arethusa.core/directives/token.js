@@ -142,6 +142,8 @@ angular.module('arethusa.core').directive('token', [
         if (scope.token.artificial) {
           element.addClass(scope.token.type);
         }
+
+        element.addClass('token');
       },
       templateUrl: 'templates/token.html'
     };
