@@ -96,6 +96,13 @@ describe('configurator', function() {
     $httpBackend = $injector.get('$httpBackend');
   }));
 
+  var configurator;
+
+  beforeEach(inject(function(_configurator_) {
+    configurator = _configurator_;
+  }));
+
+
   describe('this.defineConfiguration', function() {
     it('sets a configuration file', inject(function(configurator) {
       expect(configurator.configuration).toBeUndefined();
@@ -219,11 +226,9 @@ describe('configurator', function() {
         'main',
         'template',
         'external',
-        'listener',
         'contextMenu',
         'contextMenuTemplate',
         'noView',
-        'advancedMode',
         'mode'
       ];
 
@@ -243,7 +248,6 @@ describe('configurator', function() {
         'main',
         'template',
         'external',
-        'listener',
         'contextMenu',
         'contextMenuTemplate',
         'noView',
@@ -309,6 +313,26 @@ describe('configurator', function() {
       configurator.delegateConf(obj);
       expect(obj.mode).toEqual('customMode');
     }));
+
+    it('can honor sticky arguments through a third true arguemnt', function() {
+      configurator.configuration = conf1;
+      var obj = { conf: configurator.configurationFor('morph') };
+      obj.defaultConf = {
+        x: true,
+        y: true
+      };
+
+      configurator.delegateConf(obj, ['x', 'y']);
+      expect(obj.x).toBeTruthy();
+      expect(obj.y).toBeTruthy();
+
+      obj.x = false;
+      obj.y = false;
+
+      configurator.delegateConf(obj, ['x', 'y'], true);
+      expect(obj.x).toBeFalsy();
+      expect(obj.y).toBeFalsy();
+    });
   });
 
   describe('this.getConfAndDelegate', function() {
@@ -327,6 +351,30 @@ describe('configurator', function() {
       var res = configurator.getConfAndDelegate('morph', obj);
       expect(obj).toBe(res);
     }));
+  });
+
+  describe('this.getStickyConf', function() {
+    function setup() {
+      configurator.configuration = conf1;
+      var obj = {
+       defaultConf: { preselect: true }
+      };
+      configurator.getStickyConf('morph', obj, ['preselect']);
+      return obj;
+    }
+
+    it('acts just like getConfAndDelegate when the value is undefined', inject(function(configurator) {
+      var obj = setup();
+      expect(obj.preselect).toBeTruthy();
+    }));
+
+    it('will not override a manually set value on a second call', function() {
+      var obj = setup();
+      expect(obj.preselect).toBeTruthy();
+      obj.preselect = false;
+      configurator.getStickyConf('morph', obj, ['preselect']);
+      expect(obj.preselect).toBeFalsy();
+    });
   });
 
   describe('this.getService', function() {

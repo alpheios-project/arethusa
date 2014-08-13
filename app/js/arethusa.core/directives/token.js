@@ -28,7 +28,10 @@ angular.module('arethusa.core').directive('token', [
         highlight: '@'
       },
       link: function (scope, element, attrs) {
-        if (! scope.token) return;
+        if (!scope.token) return;
+        if (!angular.isObject(scope.token)) {
+          scope.token = state.getToken(scope.token);
+        }
 
         scope.state = state;
         var id = scope.token.id;

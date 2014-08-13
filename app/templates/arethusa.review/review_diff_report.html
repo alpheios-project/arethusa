@@ -1,0 +1,16 @@
+<div class="columns" ng-repeat="(id, diff) in rev.diff">
+  <div
+    token="id"
+    colorize="true"
+    click="true"
+    hover="true"
+    highlight="true">
+  </div>
+  <div>
+    <ul class="no-list">
+      <li ng-repeat="(cat, res) in diff">
+        {{ cat }} {{ res }}
+      </li>
+    </ul>
+  </div>
+</div>

@@ -9,6 +9,7 @@ angular.module('arethusa.relation').service('relation', [
 
     function configure() {
       configurator.getConfAndDelegate('relation', self);
+      configurator.getStickyConf('relation', self, ['advancedMode']);
       self.relationValues = self.conf.relations;
       self.relations = {};
     }

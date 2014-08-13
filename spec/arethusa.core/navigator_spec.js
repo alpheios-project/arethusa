@@ -108,6 +108,14 @@ describe("navigator", function() {
       expect(navigator.status.hasNext).toBeFalsy();
       expect(navigator.status.hasPrev).toBeTruthy();
     });
+
+    it('updates the status object with the current chunk position', function() {
+      navigator.addSentences(sentences);
+      navigator.updateId();
+      expect(navigator.status.currentPos).toEqual(0);
+      navigator.nextSentence();
+      expect(navigator.status.currentPos).toEqual(1);
+    });
   });
 
   describe('this.sentenceToString()', function() {
@@ -238,6 +246,14 @@ describe("navigator", function() {
     it('returns true when the call succeeds', function() {
       navigator.addSentences(sentences);
       expect(navigator.goTo('5')).toBeTruthy();
+    });
+  });
+
+  describe('this.goToByPosition', function() {
+    it('goes to a sentence identified by its container position', function() {
+      navigator.addSentences(sentences);
+      navigator.goToByPosition(1);
+      expect(navigator.currentSentence()).toEqual(s3.tokens);
     });
   });
 

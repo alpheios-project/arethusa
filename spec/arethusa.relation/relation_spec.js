@@ -18,7 +18,8 @@ describe("relation", function() {
         }
       };
       obj.conf = { relations: relations };
-    }
+    },
+    getStickyConf: function() {}
   };
 
   var createTokens = function() {

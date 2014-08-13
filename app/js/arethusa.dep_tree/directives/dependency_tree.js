@@ -50,8 +50,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
   'state',
   '$timeout',
   'translator',
+  'plugins',
   function ($compile, languageSettings, keyCapture, idHandler,
-            $window, state, $timeout, translator) {
+            $window, state, $timeout, translator, plugins) {
     return {
       restrict: 'A',
       scope: {
@@ -59,7 +60,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         styles: '='
       },
       link: function (scope, element, attrs) {
-
         // General margin value so that trees don't touch the canvas border.
         var treeMargin = 15;
 
@@ -313,11 +313,16 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         // Functions to create, update and render the graph
         //
         // They are solely called by watches.
-        function createGraph(subtrees) {
+        function createGraph() {
+          clearOldGraph();
           g = new dagreD3.Digraph();
           createRootNode();
           createEdges();
           render();
+        }
+
+        function clearOldGraph() {
+          if (vis) vis.selectAll('*').remove();
         }
 
         function createRootNode() {
@@ -543,6 +548,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           createGraph();
           moveToStart();
           createHeadWatches();
+          if (isMainTree()) plugins.declareReady('depTree');
         });
 
         scope.$watch('styles', function (newVal, oldVal) {
@@ -584,8 +590,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
         });
 
+        function isMainTree() {
+          return scope.tokens === state.tokens;
+        }
+
         // only do this if we are the main tree!
-        if (scope.tokens === state.tokens) {
+        if (isMainTree()) {
           scope.$on('tokenAdded', function(event, token) {
             createGraph();
             createHeadWatch(token, token.id);
@@ -604,6 +614,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           });
           headWatches = [];
         }
+
         function createHeadWatch(token, id) {
           var childScope = scope.$new();
           childScope.token = token.id;

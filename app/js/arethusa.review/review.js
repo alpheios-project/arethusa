@@ -1,19 +1,46 @@
 'use strict';
+
+/* global jsondiffpatch */
+
 angular.module('arethusa.review').service('review', [
   'configurator',
   'state',
   'morph',
   '$rootScope',
-  function (configurator, state, morph, $rootScope) {
+  'navigator',
+  'plugins',
+  function (configurator, state, morph, $rootScope, navigator, plugins) {
     var self = this;
     var retriever;
+    var doc;
+    self.goldTokens = {};
+
+    self.defaultConf = {
+      "name" : "review",
+      "link" : true
+    };
+
+    function DiffCounts() {
+      this.tokens = 0;
+      this.attrs  = 0;
+    }
+
     function configure() {
       configurator.getConfAndDelegate('review', self);
-      self.goldTokens = {};
+      configurator.getStickyConf('review', self, ['link', 'autoDiff']);
+      self.comparators = [
+        'morphology.lemma',
+        'morphology.attributes',
+        'head.id',
+        'relation.label'
+      ];
       var retrievers = configurator.getRetrievers(self.conf.retrievers);
       retriever = retrievers.TreebankRetriever;
+      self.diffActive = false;
     }
+
     configure();
+
     function addStyleInfo(tokens) {
       angular.forEach(tokens, function (token, id) {
         var form = token.morphology;
@@ -23,68 +50,69 @@ angular.module('arethusa.review').service('review', [
         }
       });
     }
+
     function broadcast() {
+      self.diffActive = true;
       $rootScope.$broadcast('diffLoaded');
     }
-    retriever.getData(function (res) {
-      self.goldTokens = res[0].tokens;
+
+    self.goToCurrentChunk = function() {
+      self.pos = navigator.status.currentPos;
+      self.goldTokens = doc[self.pos].tokens;
       addStyleInfo(self.goldTokens);
-    });
-    this.compare = function () {
-      // mockup object right now
-      var obj = {
-          '0002': {
-            relation: {
-              label: {
-                original: 'OBJ',
-                new: 'PNOM'
-              }
-            }
-          },
-          '0005': {
-            head: {
-              id: {
-                original: 7,
-                new: 6
-              }
-            }
-          },
-          '0011': {
-            head: {
-              id: {
-                original: 16,
-                new: 18
-              }
-            }
-          },
-          '0016': {
-            relation: {
-              label: {
-                original: 'OBJ',
-                new: 'SBJ'
-              }
-            },
-            lemma: {},
-            postag: {}
-          },
-          '0017': {
-            relation: {
-              label: {
-                original: 'SBJ',
-                new: 'ATR'
-              }
-            }
-          }
-        };
-      if (obj) {
-        angular.forEach(obj, function (diff, id) {
-          state.setState(id, 'diff', diff);
-        });
-        broadcast();
-      }
     };
+
+    function loadDocument() {
+      retriever.getData(function (res) {
+        doc = res;
+        postInit(true);
+      });
+    }
+
+
+    function extract(obj) {
+      return arethusaUtil.inject({}, obj, function(memo, id, token) {
+        memo[id] = arethusaUtil.copySelection(token, self.comparators);
+      });
+    }
+
+    function countDiffs() {
+      var dC = self.diffCounts = new DiffCounts();
+      angular.forEach(self.diff, function(d) {
+        dC.tokens++;
+        angular.forEach(d, function(attr) { dC.attrs++; });
+      });
+    }
+
+    this.compare = function () {
+      self.diff = jsondiffpatch.diff(
+        extract(state.tokens),
+        extract(self.goldTokens)
+      );
+
+      countDiffs();
+
+      angular.forEach(self.diff, function (diff, id) {
+        state.setState(id, 'diff', diff);
+      });
+      broadcast();
+    };
+
+    loadDocument();
+
+    function postInit(initialLoad) {
+      if (self.link || initialLoad) self.goToCurrentChunk();
+
+      plugins.doAfter('depTree', function() {
+        if (self.autoDiff) self.compare();
+      });
+    }
+
     this.init = function () {
       configure();
+
+      if (!doc) return; // in case this gets called before we're ready
+      postInit();
     };
   }
 ]);

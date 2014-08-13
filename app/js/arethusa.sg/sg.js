@@ -4,7 +4,8 @@ angular.module('arethusa.sg').service('sg', [
   'state',
   'configurator',
   '$cacheFactory',
-  function(state, configurator, $cacheFactory) {
+  'plugins',
+  function(state, configurator, $cacheFactory, plugins) {
     var self = this;
     var retriever;
     this.labelAs = "long";
@@ -223,10 +224,12 @@ angular.module('arethusa.sg').service('sg', [
     });
 
     this.init = function() {
-      configure();
-      self.grammar = createInternalState();
-      self.readerRequested = false;
-      propagateToState();
+      plugins.doAfter('morph', function() {
+        configure();
+        self.grammar = createInternalState();
+        self.readerRequested = false;
+        propagateToState();
+      });
     };
   }
 ]);

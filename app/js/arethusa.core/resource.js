@@ -96,6 +96,8 @@ angular.module('arethusa.core').factory('Resource', [
         return stopSpinning(self.resource.save(params,data));
       };
 
+      this.post = this.save;
+
       // This is not ideal - we have to re-create the complete resource, just
       // because we need one with a new resolvable promises, so that we can
       // abort it again.
