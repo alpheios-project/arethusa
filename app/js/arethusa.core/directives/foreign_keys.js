@@ -12,6 +12,7 @@ angular.module('arethusa.core').directive('foreignKeys',[
         foreignKeys: '='
       },
       link: function (scope, element, attrs) {
+        scope.enabled = true;
         scope.element = element;
 
         var parent = scope.$parent;
@@ -31,12 +32,23 @@ angular.module('arethusa.core').directive('foreignKeys',[
         // This will not detect changes right now
         function placeHolderText() {
           var language = activeLanguage();
-          return  language ? language + ' input enabled!' : '';
+          var status = scope.enabled ? 'enabled' : 'disabled';
+          return  language ? language + ' input ' + status + '!' : '';
         }
 
         function broadcast(event) {
           scope.$broadcast('convertingKey', event.keyCode);
         }
+
+        function appendCompiled(parent, elements) {
+          angular.forEach(elements, function(el, i) {
+            parent.append($compile(el)(scope));
+          });
+        }
+
+        scope.togglerClass = function() {
+          return scope.enabled ? 'success-message-dark' : 'error-message-dark';
+        };
 
         function appendHelp() {
           if (!activeLanguage()) return;
@@ -45,13 +57,21 @@ angular.module('arethusa.core').directive('foreignKeys',[
           var margin = element.css('margin');
 
           var trigger   = '<span ng-click="visible = !visible">⌨</span>';
+          var toggler   = '\
+            <span\
+              ng-click="enabled = !enabled"\
+              class="settings-span-button">\
+              <i\
+                ng-class="togglerClass()"\
+                class="fa fa-power-off"/>\
+            </span>\
+          ';
           var help      = '<div foreign-keys-help/>';
           var newMargin = '<div style="margin: ' + margin + '"/>';
 
 
           element.css('margin', 0);
-          parent.append($compile(trigger)(scope));
-          parent.append($compile(help)(scope));
+          appendCompiled(parent, [trigger, toggler, help]);
           parent.append(newMargin);
         }
 
@@ -93,7 +113,14 @@ angular.module('arethusa.core').directive('foreignKeys',[
           }
         };
 
-        element.on('keydown', scope.parseEvent);
+        scope.$watch('enabled', function(newVal, oldVal) {
+          if (newVal) {
+            element.bind('keydown', scope.parseEvent);
+          } else {
+            element.unbind('keydown', scope.parseEvent);
+          }
+          element.attr('placeholder', placeHolderText);
+        });
       }
     };
   }
