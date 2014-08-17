@@ -96,6 +96,14 @@
       "CO" : {
         "short" : "CO",
         "long" : "coordinated"
+      },
+      "AP" : {
+        "short" : "AP",
+        "long" : "appositioned"
+      },
+      "AP_CO" : {
+        "short" : "AP_CO",
+        "long" : "appositioned and coordinated"
       }
     }
   }
