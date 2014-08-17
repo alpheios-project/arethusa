@@ -101,7 +101,8 @@ angular.module('arethusa.core').service('state', [
         var launch = function() { self.replaceState(tokens, true); };
 
         if (documentStore.hasAdditionalConfs()) {
-          configurator.loadAdditionalConf(documentStore.confs).then(launch);
+          // launch when the promise is resolved OR rejected
+          configurator.loadAdditionalConf(documentStore.confs)['finally'](launch);
         } else {
           launch();
         }
