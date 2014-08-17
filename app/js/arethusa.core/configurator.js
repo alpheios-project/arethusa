@@ -150,9 +150,10 @@ angular.module('arethusa.core').service('configurator', [
     this.loadAdditionalConf = function(confs) {
       var proms = arethusaUtil.inject([], confs, function(memo, plugin, url) {
         // Use the notifier for error handling!
-        $http.get(url).then(function(res) {
+        var promise = $http.get(url).then(function(res) {
           angular.extend(self.configurationFor(plugin), res.data);
         });
+        memo.push(promise);
       });
       return $q.all(proms);
     };
