@@ -46,6 +46,10 @@ angular.module('arethusa.core').directive('foreignKeys',[
           });
         }
 
+        scope.togglerClass = function() {
+          return scope.enabled ? 'success-message-dark' : 'error-message-dark';
+        };
+
         function appendHelp() {
           if (!activeLanguage()) return;
 
@@ -57,7 +61,9 @@ angular.module('arethusa.core').directive('foreignKeys',[
             <span\
               ng-click="enabled = !enabled"\
               class="settings-span-button">\
-              <i class="fa fa-power-off"/>\
+              <i\
+                ng-class="togglerClass()"\
+                class="fa fa-power-off"/>\
             </span>\
           ';
           var help      = '<div foreign-keys-help/>';
