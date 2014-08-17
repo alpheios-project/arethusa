@@ -29,8 +29,10 @@ angular.module('arethusa.core').service('configurator', [
   'Auth',
   '$timeout',
   '$location',
+  '$q',
   'Loader',
-  function ($injector, $http, $rootScope, Resource, Auth, $timeout, $location, Loader) {
+  function ($injector, $http, $rootScope, Resource, Auth,
+            $timeout, $location, $q, Loader) {
     var self = this;
     var includeParam = 'fileUrl';
 
@@ -143,6 +145,16 @@ angular.module('arethusa.core').service('configurator', [
         includeExternalFiles(fti);
       }
       return conf;
+    };
+
+    this.loadAdditionalConf = function(confs) {
+      var proms = arethusaUtil.inject([], confs, function(memo, plugin, url) {
+        // Use the notifier for error handling!
+        $http.get(url).then(function(res) {
+          angular.extend(self.configurationFor(plugin), res.data);
+        });
+      });
+      return $q.all(proms);
     };
 
     // Returns an empty configuration files with all sections
