@@ -43,6 +43,9 @@ During development a watch task (`grunt reloader`) can optionally be
 started - it will live-reload the browser on every change of a js or
 html file and minify files properly.
 
+## Funders
+
+This project has received support from the [Andrew W. Mellon Foundation](http://www.mellon.org/) and the [Institute of Museum and Library Services](http://imls.gov/).
 
 ## Varia
 
