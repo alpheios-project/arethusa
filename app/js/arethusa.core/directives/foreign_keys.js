@@ -119,6 +119,7 @@ angular.module('arethusa.core').directive('foreignKeys',[
           } else {
             element.unbind('keydown', scope.parseEvent);
           }
+          element.attr('placeholder', placeHolderText);
         });
       }
     };
