@@ -1,0 +1,194 @@
+{
+  "main" : {
+    "template"  : "templates/main_with_sidepanel.html",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "globalDefaults" : {
+      "mode" : "viewer"
+    },
+    "plugins" : [
+      "text",
+      "review",
+      "comments",
+      "search",
+      "morph",
+      "relation",
+      "artificialToken",
+      "depTree"
+    ],
+    "chunkParam" : "chunk",
+    "showKeys" : true
+  },
+
+  "auths": {
+    "perseidsAuth" : {
+      "type": "CSRF",
+      "cookie": "csrftoken",
+      "header": "X-CSRF-Token",
+      "ping" : "http://sosol.perseids.org/sosol/dmm_api/ping"
+    }
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "notifier" : true,
+    "navigation" : true
+  },
+
+  "resources" : {
+    "perseidsResource" : {
+      "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
+      "params" : [
+        "doc"
+      ],
+      "auth": "perseidsAuth"
+    },
+
+    "perseidsComments" : {
+      "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/comments",
+      "params" : [
+        "doc"
+      ],
+      "auth": "perseidsAuth"
+    },
+
+    "lexInvFusekiEndpoint" : {
+      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
+    },
+
+    "morphologyServiceLat" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    },
+
+    "morphologyServiceGrc" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+    },
+
+    "sgGrammar" : {
+      "route" : "http://services.perseids.org/sg/:doc.html"
+    },
+
+    "citeMapper" : {
+      "route" : "http://services.perseids.org/cite_mapper/find_cite"
+    }
+  },
+
+  "plugins" : {
+    "text" : {
+      "name" : "text",
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
+
+    "depTree" : {
+      "name" : "depTree",
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
+      "template" : "templates/dep_tree.html"
+    },
+
+    "search" : {
+      "name" : "search",
+      "template" : "templates/search.html",
+      "regex" : true
+    },
+
+    "morph" : {
+      "name" : "morph",
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyServiceLat"
+        }
+      },
+      "template"  : "templates/morph3.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
+      "lexicalInventory" : {
+        "retriever" : {
+          "LexicalInventoryRetriever" : {
+            "resource" : "lexInvFusekiEndpoint"
+          }
+        }
+      },
+      "matchAll" : true,
+      "fileUrl" : "./static/configs/morph/lat_attributes.json"
+    },
+
+    "relation" : {
+      "name" : "relation",
+      "template" : "templates/relation.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
+      "fileUrl" : "./static/configs/relation/relations.json"
+    },
+
+    "history" : {
+      "name" : "history",
+      "template" : "templates/history.html"
+    },
+
+    "artificialToken" : {
+      "name" : "aT",
+      "template" : "templates/arethusa.artificial_token/artificial_token.html"
+    },
+
+    "comments" : {
+      "retriever" : {
+        "CommentsRetriever" : {
+          "resource" : "perseidsComments"
+        }
+      }
+    },
+
+    "review" : {
+      "name" : "review",
+      "autoDiff" : true,
+      "template" : "templates/arethusa.review/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "perseidsResource",
+          "docIdentifier" : "treebankReview",
+          "preselector" : "w"
+        }
+      }
+    },
+
+    "sg" : {
+      "name" : "SG",
+      "retriever" : {
+        "SgGrammarRetriever" : {
+          "resource" : "sgGrammar"
+        }
+      },
+      "template" : "templates/sg.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
+      "fileUrl" : "./static/configs/sg2/sg_labels.json"
+    }
+  },
+
+  "exitHandler" : {
+    "title" : "Perseids",
+    "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/return/edit",
+    "params" : [
+      "doc"
+    ]
+  },
+
+  "keyCapture" : {
+    "fileUrl" : "./static/configs/keyboard/key_map.json"
+  }
+}
+
