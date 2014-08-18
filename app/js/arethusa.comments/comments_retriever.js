@@ -5,7 +5,7 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
   'idHandler',
   'state',
   function(configurator, idHandler, state) {
-    var comments = {};
+    var comments = { document: [] };
     var alreadyLoaded;
 
     function splitIdAndComment(comment) {
@@ -30,14 +30,10 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       this.comments = [comment];
     }
 
-    function addDocumentLevelComment(comment) {
-      var allComm = comments.document;
-      if (!allComm) allComm = comments.document = [];
-      allComm.push(comment);
-    }
-
     function addComments(id, comment) {
-      if (!id) return addDocumentLevelComment(comment);
+      // We might be provided with document level comments, that come
+      // without token identifiers.
+      if (!id) return comments.document.push(comment);
 
       var sIdAndWIds = id.split('.');
 
