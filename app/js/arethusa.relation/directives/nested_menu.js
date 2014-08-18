@@ -3,9 +3,10 @@
 angular.module('arethusa.relation').directive('nestedMenu', [
   '$compile',
   '$timeout',
+  '$window',
   'saver',
   'navigator',
-  function($compile, $timeout, saver, navigator) {
+  function($compile, $timeout, $window, saver, navigator) {
     return {
       restrict: 'A',
       scope: {
@@ -28,6 +29,8 @@ angular.module('arethusa.relation').directive('nestedMenu', [
           </ul>\
         ';
 
+        var win = angular.element($window);
+
         scope.labelRepresentation = scope.label ? scope.label : '---';
 
         var nested = scope.labelObj.nested;
@@ -36,7 +39,18 @@ angular.module('arethusa.relation').directive('nestedMenu', [
           element.addClass('nested');
 
           element.bind('mouseenter', function() {
-            element.append($compile(html)(scope));
+            var menu = $compile(html)(scope);
+            var maxHeight = win.height();
+            var items = Object.keys(nested).length;
+            var menuHeight = items * element.height(); // height per element
+            var topPos = element.offset().top;
+            var bottom = topPos + menuHeight;
+            if (bottom > maxHeight) {
+              var space = maxHeight - topPos;
+              var shift = menuHeight - space;
+              menu.css('top', '-' + shift + 'px');
+            }
+            element.append(menu);
             element.unbind('mouseenter');
           });
         }
