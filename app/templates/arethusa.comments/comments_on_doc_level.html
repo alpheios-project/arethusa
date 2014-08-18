@@ -1,0 +1,12 @@
+<div ng-if="count()" class="comments">
+  <div ng-click="visible = !visible">
+    <span class="italic clickable">
+      <span translate="comments.docLevelComm"/>
+      <span>({{ count() }})</span>
+    </span>
+  </div>
+  <div delimiter/>
+  <div ng-if="visible" class="fade fast">
+    <div ng-repeat="comment in c.docLevelComments" comment="comment"/>
+  </div>
+</div>

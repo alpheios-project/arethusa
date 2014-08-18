@@ -5,16 +5,16 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
   'idHandler',
   'state',
   function(configurator, idHandler, state) {
-    var comments = {};
+    var comments = { document: [] };
     var alreadyLoaded;
 
     function splitIdAndComment(comment) {
       var i = lastIndexOfHeaderSection(comment);
       var header = comment.slice(0, i - 1);
-      var comm = comment.slice(i);
+      var comm   = comment.slice(i);
       var regexp = new RegExp('^##(.*?)##');
       var match = regexp.exec(header);
-      return [match[1], comm];
+      return match ? [match[1], comm] : [null, comment];
     }
 
     function lastIndexOfHeaderSection(comment) {
@@ -30,6 +30,10 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
     }
 
     function addComments(id, comment) {
+      // We might be provided with document level comments, that come
+      // without token identifiers.
+      if (!id) return comments.document.push(comment);
+
       var sIdAndWIds = id.split('.');
 
       var sId  = sIdAndWIds[0];
@@ -130,6 +134,10 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
         resource.save(comment).then(function(res) {
           success(parseComment(res.data));
         }, error);
+      };
+
+      this.docLevelComments = function() {
+        return comments.document;
       };
     };
   }
