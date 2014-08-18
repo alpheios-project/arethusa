@@ -95,13 +95,45 @@ html, body {
   max-width: 95vw;
 }
 
-// Overrides dropdown classes of foundation
+@mixin css-triangle($size, $top, $left, $color, $z) {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border: $size inset;
+    border-color: transparent transparent $color;
+    border-bottom-style: solid;
+    position: absolute;
+    top: $top;
+    left: $left;
+    z-index: $z;
+}
+
 .token-context-menu {
+  margin-top: 2px;
+  padding: .7rem;
+  position: absolute;
+  list-style: none;
+  margin-left: 0; 
+  height: auto;
+  max-height: none;
+  background: #fff;
+  border: solid 1px #ccc;
+  font-size: .875rem;
+  z-index: 99;
   box-shadow: 3px 2px 10px #888888;
   border-radius: 10px;
   max-width: none !important;
   width: auto !important;
   display: none;
+
+  &:before {
+    @include css-triangle(6px, -12px, 10px, #fff, 99);
+  }
+
+  &:after {
+    @include css-triangle(7px, -14px, 9px, #ccc, 98);
+  }
 }
 
 .menu-element {
