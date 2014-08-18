@@ -1,8 +1,8 @@
-<div class="comments">
+<div ng-if="count()" class="comments">
   <div ng-click="visible = !visible">
     <span class="italic clickable">
       <span translate="comments.docLevelComm"/>
-      <span>({{ c.docLevelComments.length }})</span>
+      <span>({{ count() }})</span>
     </span>
   </div>
   <div delimiter/>

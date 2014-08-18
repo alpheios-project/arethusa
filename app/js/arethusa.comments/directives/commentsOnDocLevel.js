@@ -8,6 +8,10 @@ angular.module('arethusa.comments').directive('commentsOnDocLevel', [
       scope: {},
       link: function(scope, element, attrs) {
         scope.c = comments;
+
+        scope.count = function() {
+          return comments.docLevelComments.length;
+        };
       },
       templateUrl: 'templates/arethusa.comments/comments_on_doc_level.html'
     };
