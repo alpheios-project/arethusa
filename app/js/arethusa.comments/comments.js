@@ -36,8 +36,10 @@ angular.module('arethusa.comments').service('comments', [
 
     function retrieveComments() {
       self.comments = [];
+      self.docLevelComments = [];
       retriever.getData(navigator.status.currentId, function(comments) {
         self.comments = comments;
+        self.docLevelComments = retriever.docLevelComments();
         createIndices();
       });
     }

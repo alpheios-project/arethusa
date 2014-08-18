@@ -136,6 +136,10 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
           success(parseComment(res.data));
         }, error);
       };
+
+      this.docLevelComments = function() {
+        return comments.document;
+      };
     };
   }
 ]);
