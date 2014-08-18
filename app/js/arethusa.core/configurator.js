@@ -147,12 +147,27 @@ angular.module('arethusa.core').service('configurator', [
       return conf;
     };
 
+    function parseConfUrl(url) {
+      if (url.match('^http:\/\/')) {
+        return url;
+      } else {
+        return 'http://services.perseids.org/arethusa-configs/' + url + '.json';
+      }
+    }
+
     this.loadAdditionalConf = function(confs) {
       var proms = arethusaUtil.inject([], confs, function(memo, plugin, url) {
+        var promise;
         // Use the notifier for error handling!
-        var promise = $http.get(url).then(function(res) {
-          angular.extend(self.configurationFor(plugin), res.data);
-        });
+        if (plugin == 'fullFile') {
+          promise = $http.get(parseConfUrl(url)).then(function(res) {
+            self.shallowMerge(self.configuration, res.data);
+          });
+        } else {
+          promise = $http.get(url).then(function(res) {
+            angular.extend(self.configurationFor(plugin), res.data);
+          });
+        }
         memo.push(promise);
       });
       return $q.all(proms);
