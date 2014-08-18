@@ -40,7 +40,7 @@ angular.module('arethusa.relation').directive('nestedMenu', [
 
           element.bind('mouseenter', function() {
             var menu = $compile(html)(scope);
-            var maxHeight = win.height();
+            var maxHeight = win.height() - 10;
             var items = Object.keys(nested).length;
             var menuHeight = items * element.height(); // height per element
             var topPos = element.offset().top;

@@ -31,10 +31,10 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', [
         if (element.hasClass('top-menu')) {
           var items = Object.keys(scope.all).length + 1; // an empty val
           var menuHeight = items * 18; // hard to access, we therefore hardcode...
-          var maxHeight = win.height();
+          var maxHeight = win.height() - 15;
           var topPos = element.parent().offset().top;
           var bottom = topPos + menuHeight;
-          if (bottom > maxHeight - 10) {
+          if (bottom > maxHeight) {
             element.css({ top: 'auto', bottom: '100%'});
           }
         }
