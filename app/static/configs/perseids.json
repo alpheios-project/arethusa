@@ -64,7 +64,11 @@
       "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
     },
 
-    "morphologyService" : {
+    "morphologyServiceLat" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    },
+
+    "morphologyServiceGrc" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
     },
 
@@ -167,5 +171,3 @@
     "fileUrl" : "./static/configs/keyboard/key_map.json"
   }
 }
-
-
