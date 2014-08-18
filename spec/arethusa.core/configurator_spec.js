@@ -195,6 +195,86 @@ describe('configurator', function() {
     }));
   });
 
+  describe('this.shallowMerge', function() {
+    it('shallow merges two configuration files', inject(function(configurator) {
+      var conf1 = {
+        main: {
+          debug: true,
+          showKeys: false,
+          plugins: ["text", "morph"]
+        },
+        plugins: {
+          text: {
+            main: false
+          },
+          morph: {
+            retrievers: {
+              morphRetriever: {
+                resource: 'x'
+              }
+            },
+            noRetrieval: false,
+            attributes: {
+              pos: 'posVal'
+            }
+          }
+        }
+      };
+
+      var conf2 = {
+        main: {
+          foldSidepanel: true,
+          showKeys: true,
+          plugins: ["text", "morph", "sg"]
+        },
+        plugins: {
+          text: {
+            main: true
+          },
+          morph: {
+            retrievers: {
+              morphRetriever: {
+                resource: 'y'
+              }
+            },
+            noRetrieval: true,
+            attributes: {
+              tmp: 'tmpVal'
+            }
+          }
+        }
+      };
+
+      var result = {
+        main: {
+          debug: true,
+          foldSidepanel: true,
+          showKeys: true,
+          plugins: ["text", "morph", "sg"]
+        },
+        plugins: {
+          text: {
+            main: true
+          },
+          morph: {
+            retrievers: {
+              morphRetriever: {
+                resource: 'y'
+              }
+            },
+            noRetrieval: true,
+            attributes: {
+              tmp: 'tmpVal'
+            }
+          }
+        }
+      };
+
+      configurator.shallowMerge(conf1, conf2);
+      expect(conf1).toEqual(result);
+    }));
+  });
+
   describe('this.configurationFor', function() {
     it('provides the configuration for a given plugin', inject(function(configurator) {
       // the configuration is usually provide from an external route
