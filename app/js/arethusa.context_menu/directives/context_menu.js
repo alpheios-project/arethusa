@@ -38,7 +38,8 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
 
         function open(event, menu, parent) {
           menu.addClass('menu-open');
-          menu.removeClass('hide');
+          menu.css('display', 'inline-block');
+          //menu.removeClass('hide');
 
           repositionContextMenu(menu, parent);
 
@@ -52,7 +53,8 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
 
         function close(menu) {
           menu.removeClass('menu-open');
-          menu.addClass('hide');
+          menu.css('display', 'none');
+          //menu.addClass('hide');
           // If a target object was specified, declare that we just closed
           // a contextMenu.
           if (scope.menuObj) {
