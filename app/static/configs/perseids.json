@@ -15,13 +15,16 @@
     },
     "plugins" : [
       "text",
-      "search",
       "morph",
       "relation",
-      "depTree",
-      "review",
-      "history"
-    ]
+      "artificialToken",
+      "search",
+      "history",
+      "comments",
+      "depTree"
+    ],
+    "chunkParam" : "chunk",
+    "showKeys" : true
   },
 
   "auths": {
@@ -36,6 +39,7 @@
   "navbar" : {
     "template" : "templates/navbar1.html",
     "search" : true,
+    "notifier" : true,
     "navigation" : true
   },
 
@@ -48,12 +52,12 @@
       "auth": "perseidsAuth"
     },
 
-    "fakeGold" : {
-      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
+    "perseidsComments" : {
+      "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/comments",
       "params" : [
-        "gold",
-        "s"
-      ]
+        "doc"
+      ],
+      "auth": "perseidsAuth"
     },
 
     "lexInvFusekiEndpoint" : {
@@ -61,7 +65,11 @@
     },
 
     "morphologyService" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+    },
+
+    "citeMapper" : {
+      "route" : "http://services.perseids.org/cite_mapper/find_cite"
     }
   },
 
@@ -104,7 +112,7 @@
         }
       },
       "matchAll" : true,
-      "fileUrl" : "./static/configs/morph/lat_attributes.json"
+      "fileUrl" : "./static/configs/morph/gr_attributes.json"
     },
 
     "relation" : {
@@ -115,27 +123,49 @@
       "fileUrl" : "./static/configs/relation/relations.json"
     },
 
-    "review" : {
-      "name" : "review",
-      "template" : "templates/arethusa.review/review.html",
-      "retrievers" : {
-        "TreebankRetriever" : {
-          "resource" : "fakeGold"
+    "history" : {
+      "name" : "history",
+      "template" : "templates/history.html"
+    },
+
+    "artificialToken" : {
+      "name" : "aT",
+      "template" : "templates/arethusa.artificial_token/artificial_token.html"
+    },
+
+    "comments" : {
+      "retriever" : {
+        "CommentsRetriever" : {
+          "resource" : "perseidsComments"
         }
       }
     },
 
-    "history" : {
-      "name" : "history",
-      "listener" : true,
-      "maxSize" : 5,
-      "template" : "templates/history.html"
-    },
-
-    "comment" : {
-      "name" : "comment",
-      "template" : "templates/comment2.html"
+    "review" : {
+      "name" : "review",
+      "autoDiff" : true,
+      "template" : "templates/arethusa.review/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "perseidsResource",
+          "docIdentifier" : "treebankReview",
+          "preselector" : "w"
+        }
+      }
     }
+  },
+
+  "exitHandler" : {
+    "title" : "Perseids",
+    "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/return/edit",
+    "params" : [
+      "doc"
+    ]
+  },
+
+  "keyCapture" : {
+    "fileUrl" : "./static/configs/keyboard/key_map.json"
   }
 }
+
 
