@@ -14,8 +14,7 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       var comm   = comment.slice(i);
       var regexp = new RegExp('^##(.*?)##');
       var match = regexp.exec(header);
-      var ids   = match ? match[1] : null;
-      return [ids, comm];
+      return match ? [match[1], comm] : [null, comment];
     }
 
     function lastIndexOfHeaderSection(comment) {
