@@ -51,7 +51,8 @@
     "successMessage" : "Kommentar erstellt!",
     "errorMessage"   : "Kommentieren fehlgeschlagen",
     "selectFirst"    : "Tokenselektion erfordert",
-    "count" : "{{ count }} von {{ total }} kommentiert"
+    "count" : "{{ count }} von {{ total }} kommentiert",
+    "docLevelComm" : "Kommentare auf Dokumentebene"
   },
 
   "tree" : {
