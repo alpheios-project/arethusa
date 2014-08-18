@@ -222,12 +222,7 @@ angular.module('arethusa.core').service('configurator', [
         var sectionB = b[section];
         if (!sectionB) return;
 
-        if (sectionA) {
-          angular.extend(sectionA, sectionB);
-        } else {
-          a[section] = sectionB;
-        }
-
+        mergeOrAdd(section, sectionA, sectionB, a);
       });
       var mainA = a.main;
       var mainB = b.main;
@@ -242,13 +237,17 @@ angular.module('arethusa.core').service('configurator', [
       if (!pluginsB) return;
 
       angular.forEach(pluginsB, function(conf, plugin) {
-        var origPlugin = pluginsA[plugin];
-        if (origPlugin) {
-          angular.extend(origPlugin, conf);
-        } else {
-          pluginsA[plugin] = conf;
-        }
+        var origConf = pluginsA[plugin];
+        mergeOrAdd(plugin, origConf, conf, a);
       });
+    }
+
+    function mergeOrAdd(key, a, b, target) {
+      if (a) {
+        angular.extend(a, b);
+      } else {
+        target[key] = b;
+      }
     }
 
     this.shallowMerge = function(a, b) {
