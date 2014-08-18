@@ -123,6 +123,10 @@ angular.module('arethusa').factory('TreebankRetriever', [
       });
       var format = json.treebank._format;
       if (format) {
+        // For backwards compatibility to older days
+        if (format == 'aldt') {
+          format = 'aldt2' + json.treebank['_xml:lang'];
+        }
         confs.fullFile = format;
       }
       return confs;
