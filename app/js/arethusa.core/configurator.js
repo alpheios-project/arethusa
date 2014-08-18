@@ -212,9 +212,16 @@ angular.module('arethusa.core').service('configurator', [
       return a;
     };
 
+    // this.shallowMerge(a, b)
+    //
+    // Merges two configuration files
+    //
+    // The markup of Arethusa config files needs special handling for merging.
+    // The main sections can plainly merged through angular.extend, while
+    // subSections can only be merged one level deeper.
+    //
     var mainSections = ['main', 'navbar', 'notifier'];
     var subSections = ['plugins'];
-    // Merges two configuration files
 
     function mergeMainSections(a, b) {
       angular.forEach(mainSections, function(section, i) {
