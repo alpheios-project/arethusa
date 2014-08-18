@@ -724,4 +724,8 @@ input.warn {
 
 .fade {
   @include toggler(500ms, 500ms);
+
+  &.fast {
+    @include transition-duration(250ms);
+  }
 }
