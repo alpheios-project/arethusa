@@ -11,10 +11,11 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
     function splitIdAndComment(comment) {
       var i = lastIndexOfHeaderSection(comment);
       var header = comment.slice(0, i - 1);
-      var comm = comment.slice(i);
+      var comm   = comment.slice(i);
       var regexp = new RegExp('^##(.*?)##');
       var match = regexp.exec(header);
-      return [match[1], comm];
+      var ids   = match ? match[1] : null;
+      return [ids, comm];
     }
 
     function lastIndexOfHeaderSection(comment) {
@@ -29,7 +30,15 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       this.comments = [comment];
     }
 
+    function addDocumentLevelComment(comment) {
+      var allComm = comments.document;
+      if (!allComm) allComm = comments.document = [];
+      allComm.push(comment);
+    }
+
     function addComments(id, comment) {
+      if (!id) return addDocumentLevelComment(comment);
+
       var sIdAndWIds = id.split('.');
 
       var sId  = sIdAndWIds[0];
