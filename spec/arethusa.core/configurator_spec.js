@@ -196,8 +196,10 @@ describe('configurator', function() {
   });
 
   describe('this.shallowMerge', function() {
-    it('shallow merges two configuration files', inject(function(configurator) {
-      var conf1 = {
+    var conf1, conf2, result;
+
+    beforeEach(function() {
+      conf1 = {
         main: {
           debug: true,
           showKeys: false,
@@ -221,7 +223,7 @@ describe('configurator', function() {
         }
       };
 
-      var conf2 = {
+      conf2 = {
         main: {
           foldSidepanel: true,
           showKeys: true,
@@ -245,7 +247,7 @@ describe('configurator', function() {
         }
       };
 
-      var result = {
+      result = {
         main: {
           debug: true,
           foldSidepanel: true,
@@ -270,9 +272,24 @@ describe('configurator', function() {
         }
       };
 
-      configurator.shallowMerge(conf1, conf2);
-      expect(conf1).toEqual(result);
-    }));
+    });
+
+    describe('shallow merges two configuration files', function() {
+      it('merges main sections', function() {
+        configurator.shallowMerge(conf1, conf2);
+        expect(conf1.main).toEqual(result.main);
+      });
+
+      it('merges each defined plugin', function() {
+        configurator.shallowMerge(conf1, conf2);
+        expect(conf1.plugins).toEqual(result.plugins);
+      });
+
+      it('merges the complete files', function() {
+        configurator.shallowMerge(conf1, conf2);
+        expect(conf1).toEqual(result);
+      });
+    });
   });
 
   describe('this.configurationFor', function() {
