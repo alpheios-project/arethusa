@@ -26,11 +26,13 @@ angular.module('arethusa.core').controller('MainCtrl', [
       $scope.debug = !$scope.debug;
     };
 
-    var conf = configurator.configurationFor('main');
+    function conf() {
+      return configurator.configurationFor('main');
+    }
 
     $scope.state = state;
     $scope.plugins = plugins;
-    $scope.template = conf.template;
+    $scope.template = conf().template;
 
     // The application has to fulfil a specific load order.
     // The MainCtrl starts his work only when the configurator has received
@@ -73,7 +75,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
     });
 
     $scope.init = function () {
-      plugins.start(conf.plugins);
+      plugins.start(conf().plugins);
       notifier.init(); // also clears the Loading message for now.
       saver.init();
       state.arethusaLoaded = true;
