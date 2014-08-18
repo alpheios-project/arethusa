@@ -106,7 +106,7 @@
       "name" : "morph",
       "retrievers" : {
         "BspMorphRetriever" : {
-          "resource" : "morphologyService"
+          "resource" : "morphologyServiceLat"
         }
       },
       "template"  : "templates/morph3.html",
