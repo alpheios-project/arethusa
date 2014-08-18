@@ -212,6 +212,38 @@ angular.module('arethusa.core').service('configurator', [
       return a;
     };
 
+    var sections = ['plugins'];
+    // Merges two configuration files
+
+    function mergeMainSection(a, b) {
+      var mainA = a.main;
+      var mainB = b.main;
+      if (!mainB) return;
+
+      angular.extend(mainA, mainB);
+    }
+
+    function mergeSubSections(a, b) {
+      var pluginsA = a.plugins;
+      var pluginsB = b.plugins;
+      if (!pluginsB) return;
+
+      angular.forEach(pluginsB, function(conf, plugin) {
+        var origPlugin = pluginsA[plugin];
+        if (origPlugin) {
+          angular.extend(origPlugin, conf);
+        } else {
+          pluginsA[plugin] = conf;
+        }
+      });
+    }
+
+    this.shallowMerge = function(a, b) {
+      mergeMainSection(a, b);
+      mergeSubSections(a, b);
+      return a;
+    };
+
     this.getService = function (serviceName) {
       return $injector.get(serviceName);
     };
