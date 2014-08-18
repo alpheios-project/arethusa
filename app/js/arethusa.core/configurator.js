@@ -212,10 +212,23 @@ angular.module('arethusa.core').service('configurator', [
       return a;
     };
 
-    var sections = ['plugins'];
+    var mainSections = ['main', 'navbar', 'notifier'];
+    var subSections = ['plugins'];
     // Merges two configuration files
 
-    function mergeMainSection(a, b) {
+    function mergeMainSections(a, b) {
+      angular.forEach(mainSections, function(section, i) {
+        var sectionA = a[section];
+        var sectionB = b[section];
+        if (!sectionB) return;
+
+        if (sectionA) {
+          angular.extend(sectionA, sectionB);
+        } else {
+          a[section] = sectionB;
+        }
+
+      });
       var mainA = a.main;
       var mainB = b.main;
       if (!mainB) return;
@@ -239,7 +252,7 @@ angular.module('arethusa.core').service('configurator', [
     }
 
     this.shallowMerge = function(a, b) {
-      mergeMainSection(a, b);
+      mergeMainSections(a, b);
       mergeSubSections(a, b);
       return a;
     };
