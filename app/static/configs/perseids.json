@@ -120,7 +120,7 @@
         }
       },
       "matchAll" : true,
-      "fileUrl" : "./static/configs/morph/gr_attributes.json"
+      "fileUrl" : "./static/configs/morph/lat_attributes.json"
     },
 
     "relation" : {
