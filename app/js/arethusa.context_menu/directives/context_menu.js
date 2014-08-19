@@ -117,8 +117,13 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
           });
         });
 
-        $document.bind('click', handleOtherClick);
-        $document.bind('contextmenu', handleOtherClick);
+        $document.on('click', handleOtherClick);
+        $document.on('contextmenu', handleOtherClick);
+
+        scope.$on('$destroy', function() {
+          $document.off('click', handleOtherClick);
+          $document.off('contextmenu', handleOtherClick);
+        });
 
         keyCapture.onKeyPressed('esc', function() {
           if (opened) {
