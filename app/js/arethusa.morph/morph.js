@@ -444,11 +444,24 @@ angular.module('arethusa.morph').service('morph', [
       state.change(id, 'morphology', form, undoFn(id), preExecFn(id, form));
     };
 
+    function unsetUndo(id) {
+      var current = selectedForm(id);
+      return function() {
+        self.setState(id, current);
+      };
+    }
+
+    function unsetPreExec(id) {
+      return function() {
+        deleteFromIndex(id);
+        deselectAll(id);
+        selectedForm(id).selected = false;
+        state.unsetStyle(id);
+      };
+    }
+
     this.unsetState = function (id) {
-      deleteFromIndex(id);
-      deselectAll(id);
-      state.unsetStyle(id);
-      state.unsetState(id, 'morphology');
+      state.change(id, 'morphology', null, unsetUndo(id), unsetPreExec(id));
     };
 
     this.rulesOf = function (attr) {
