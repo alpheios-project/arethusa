@@ -1,6 +1,16 @@
-<div>
-  <span>Head:</span>
-  <span class="success-message-dark">{{ right.string }}</span>
-  ↛
-  <span class="error-message-dark">{{ wrong.string }}</span>
+<div class="text">
+  <span class="review-el-cat">{{ cat }}</span>
+  <span
+    class="error-message-dark"
+    token="wrong"
+    click=true
+    hover=true>
+  </span>
+  <span margin="0 .3rem">↛</span>
+  <span
+    class="success-message-dark"
+    token="right"
+    click=true
+    hover=true>
+  </span>
 </div>

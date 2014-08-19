@@ -20,8 +20,8 @@ angular.module('arethusa.review').directive('reviewElement', [
             case 1:
               break;
             case 2:
-              scope.right = state.getToken(arr[0]);
-              scope.wrong = state.getToken(arr[1]);
+              scope.wrong = state.getToken(arr[0]);
+              scope.right = state.getToken(arr[1]);
               break;
             case 3:
               break;
@@ -29,11 +29,24 @@ angular.module('arethusa.review').directive('reviewElement', [
         }
 
         function initRelationDiff() {
+          var arr = scope.diff.label;
+          switch (arr.length) {
+            case 1:
+              break;
+            case 2:
+              scope.wrong = arr[0];
+              scope.right = arr[1];
+              break;
+            case 3:
+              break;
+          }
 
         }
 
         function initMorphDiff() {
-
+          scope.errors = [];
+          var lDiff = scope.diff.lemma;
+          if (lDiff) scope.errors.push(lDiff);
         }
 
         function init() {

@@ -17,7 +17,9 @@ angular.module('arethusa.review').service('review', [
 
     self.defaultConf = {
       "name" : "review",
-      "link" : true
+      "link" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate" : "templates/arethusa.review/context_menu.html"
     };
 
     function DiffCounts() {
