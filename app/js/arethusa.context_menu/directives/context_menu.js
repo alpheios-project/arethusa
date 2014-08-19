@@ -39,9 +39,10 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
         function open(event, menu, parent) {
           menu.addClass('menu-open');
           menu.css('display', 'inline-block');
-          //menu.removeClass('hide');
 
           repositionContextMenu(menu, parent);
+
+          menuElement.lastTarget = event.target;
 
           // If a target object was specified, declare that we just opened
           // a contextMenu.
@@ -54,7 +55,9 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
         function close(menu) {
           menu.removeClass('menu-open');
           menu.css('display', 'none');
-          //menu.addClass('hide');
+
+          menuElement.lastTarget = undefined;
+
           // If a target object was specified, declare that we just closed
           // a contextMenu.
           if (scope.menuObj) {
@@ -69,16 +72,19 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
           });
         }
 
+        function firefoxDoubleEvent(event) {
+          return event.target === menuElement.lastTarget && event.button === numericClickType();
+        }
+
         // need this to make sure we close the menu all the time
         function handleOtherClick(event) {
           // in expensive low level check first, as this gets called
           // quite a bit
           if (opened) {
             if (targetIsChildOfMenu(event.target)) return;
+            if (firefoxDoubleEvent(event)) return;
 
-            if (event.button !== scope.menuTrigger) {
-              closeAndApply();
-            }
+            closeAndApply();
           }
         }
 
@@ -87,6 +93,15 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
           var menu = menuElement.element;
           return t.parents('#' + menu.attr('id')).length;
         }
+
+        function numericClickType() {
+          var types = {
+            rightclick: 2,
+            click: 1
+          };
+          return types[scope.menuTrigger];
+        }
+
 
         var clickType = function() {
           if (scope.menuTrigger == 'rightclick') {
@@ -118,11 +133,9 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
         });
 
         $document.on('click', handleOtherClick);
-        $document.on('contextmenu', handleOtherClick);
 
         scope.$on('$destroy', function() {
           $document.off('click', handleOtherClick);
-          $document.off('contextmenu', handleOtherClick);
         });
 
         keyCapture.onKeyPressed('esc', function() {
