@@ -32,7 +32,7 @@ angular.module('arethusa.review').service('review', [
       configurator.getStickyConf('review', self, ['link', 'autoDiff']);
       self.comparators = [
         'morphology.lemma',
-        'morphology.attributes',
+        'morphology.postag',
         'head.id',
         'relation.label'
       ];
