@@ -17,7 +17,9 @@ angular.module('arethusa.review').service('review', [
 
     self.defaultConf = {
       "name" : "review",
-      "link" : true
+      "link" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate" : "templates/arethusa.review/context_menu.html"
     };
 
     function DiffCounts() {
@@ -30,7 +32,7 @@ angular.module('arethusa.review').service('review', [
       configurator.getStickyConf('review', self, ['link', 'autoDiff']);
       self.comparators = [
         'morphology.lemma',
-        'morphology.attributes',
+        'morphology.postag',
         'head.id',
         'relation.label'
       ];

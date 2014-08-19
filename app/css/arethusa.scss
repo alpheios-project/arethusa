@@ -745,6 +745,12 @@ input.warn {
   border-color: orange;
 }
 
+.review-el-cat {
+  @extend .note, .italic;
+  display: inline-block;
+  width: 5rem;
+}
+
 
 /***************************************************************************
  *                               Animations                                *

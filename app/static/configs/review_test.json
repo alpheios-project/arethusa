@@ -74,7 +74,7 @@
       "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
     },
 
-    "morphologyService" : {
+    "morphologyServiceLat" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
     },
 

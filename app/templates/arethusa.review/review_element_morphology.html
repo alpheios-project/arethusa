@@ -1,0 +1,20 @@
+<div class="text">
+  <span class="review-el-cat">{{ cat }}</span>
+  <span ng-switch="errors.length">
+    <span ng-switch-when="1">
+      <span class="error-message-dark">{{ errors[0][0] }}</span>
+      <span margin="0 .3rem">↛</span>
+      <span class="success-message-dark">{{ errors[0][1] }}</span>
+    </span>
+    <span ng-switch-when="2">
+      <span class="error-message-dark">{{ errors[0][0] }}</span>
+      <span margin="0 .3rem">↛</span>
+      <span class="success-message-dark">{{ errors[0][1] }}</span>
+      <br/>
+      <span class="review-el-cat"/>
+      <span class="error-message-dark">{{ errors[1][0] }}</span>
+      <span margin="0 .3rem">↛</span>
+      <span class="success-message-dark">{{ errors[1][1] }}</span>
+    </span>
+  </span>
+</div>
