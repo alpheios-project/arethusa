@@ -15,16 +15,37 @@ angular.module('arethusa').factory('TreebankPersister', [
       }
 
       function updateWord(word, stateWord, fullMap) {
+        // This whole function is horrificly ugly and could be refactored
+        // to use more function calls - but this is not done on purpose.
+        //
+        // We want saving to be as fast as possible and avoid more calls.
+        //
+        // The if/else dancing is used to determine whether we should write
+        // to the document or not.
+        //
+        // We write
+        // - when a value is set in the current state
+        // - when no value is set in the current state, but present in the
+        //   source document (i.e.: user has unannotated on purpose
+        //
+        // We don't write
+        // - when no value is present in state or document
+
         var head = stateWord.head;
-        if (head && head.id) {
+        if ((head && head.id)) {
           // If the token has a head and it's not inside the full map,
           // it's the root token.
           word._head = fullMap[head.id] || 0;
+        } else {
+          // react against 0 values in head
+          if (angular.isDefined(word._head)) word._head = '';
         }
 
         var relation = stateWord.relation;
         if (relation) {
           word._relation = relation.label;
+        } else {
+          if (word._relation) word._relation = '';
         }
 
         var morph = stateWord.morphology;
@@ -32,6 +53,10 @@ angular.module('arethusa').factory('TreebankPersister', [
           word._lemma = morph.lemma;
           word._postag = morph.postag;
           if (angular.isDefined(morph.gloss)) word._gloss = morph.gloss;
+        } else {
+          if (word._lemma || word._postag) {
+            word._lemma = word._postag = '';
+          }
         }
 
         var sg = stateWord.sg;
@@ -39,6 +64,8 @@ angular.module('arethusa').factory('TreebankPersister', [
           word._sg = arethusaUtil.map(sg.ancestors, function(el) {
             return el.short;
           }).join(' ');
+        } else {
+          if (word._sg) word._sg = '';
         }
 
         word._form = stateWord.string;
