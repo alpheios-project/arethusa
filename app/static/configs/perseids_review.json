@@ -13,14 +13,17 @@
         "docIdentifier" : "treebank"
       }
     },
+    "globalDefaults" : {
+      "mode" : "viewer"
+    },
     "plugins" : [
       "text",
+      "review",
+      "comments",
+      "search",
       "morph",
       "relation",
       "artificialToken",
-      "search",
-      "history",
-      "comments",
       "depTree"
     ],
     "chunkParam" : "chunk",
@@ -188,3 +191,4 @@
     "fileUrl" : "./static/configs/keyboard/key_map.json"
   }
 }
+

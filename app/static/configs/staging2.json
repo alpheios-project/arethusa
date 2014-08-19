@@ -64,16 +64,40 @@
       ]
     },
 
+    "fakePerseidsComments" : {
+      "route" : "http://74.70.97.104:8085/comments/:doc",
+      "params" : [
+        "doc"
+      ]
+    },
+
     "lexInvFusekiEndpoint" : {
       "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
     },
 
-    "morphologyService" : {
+    "morphologyServiceLat" : {
       "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    },
+
+    "morphologyServiceGrc" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
     },
 
     "citeMapper" : {
       "route" : "http://74.70.97.104:8086/find_cite"
+    },
+
+    "sg" : {
+      "name" : "SG",
+      "retriever" : {
+        "SgGrammarRetriever" : {
+          "resource" : "sgGrammar"
+        }
+      },
+      "template" : "templates/sg.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
+      "fileUrl" : "./static/configs/sg2/sg_labels.json"
     }
   },
 
@@ -102,7 +126,7 @@
     "morph" : {
       "retrievers" : {
         "BspMorphRetriever" : {
-          "resource" : "morphologyService"
+          "resource" : "morphologyServiceLat"
         }
       },
       "template"  : "templates/morph3.html",
@@ -148,9 +172,12 @@
       "template" : "templates/arethusa.artificial_token/artificial_token.html"
     },
 
-    "comment" : {
-      "name" : "comment",
-      "template" : "templates/comment2.html"
+    "comments" : {
+      "retriever" : {
+        "CommentsRetriever" : {
+          "resource" : "fakePerseidsComments"
+        }
+      }
     }
   },
 

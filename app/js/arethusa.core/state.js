@@ -98,7 +98,7 @@ angular.module('arethusa.core').service('state', [
         loaded = loaded && el.loaded;
       });
       if (loaded) {
-        var launch = function() { self.replaceState(tokens, true); };
+        var launch = function() { self.launched = true; self.replaceState(tokens, true); };
 
         if (documentStore.hasAdditionalConfs()) {
           // launch when the promise is resolved OR rejected
@@ -312,7 +312,7 @@ angular.module('arethusa.core').service('state', [
       // state tokens are replaced
       if (!keepSelections) self.deselectAll();
       self.tokens = tokens;
-      self.broadcast('stateLoaded');
+      if (self.launched) self.broadcast('stateLoaded');
     };
 
     this.setStyle = function (id, style) {

@@ -195,6 +195,103 @@ describe('configurator', function() {
     }));
   });
 
+  describe('this.shallowMerge', function() {
+    var conf1, conf2, result;
+
+    beforeEach(function() {
+      conf1 = {
+        main: {
+          debug: true,
+          showKeys: false,
+          plugins: ["text", "morph"]
+        },
+        plugins: {
+          text: {
+            main: false
+          },
+          morph: {
+            retrievers: {
+              morphRetriever: {
+                resource: 'x'
+              }
+            },
+            noRetrieval: false,
+            attributes: {
+              pos: 'posVal'
+            }
+          }
+        }
+      };
+
+      conf2 = {
+        main: {
+          foldSidepanel: true,
+          showKeys: true,
+          plugins: ["text", "morph", "sg"]
+        },
+        plugins: {
+          text: {
+            main: true
+          },
+          morph: {
+            retrievers: {
+              morphRetriever: {
+                resource: 'y'
+              }
+            },
+            noRetrieval: true,
+            attributes: {
+              tmp: 'tmpVal'
+            }
+          }
+        }
+      };
+
+      result = {
+        main: {
+          debug: true,
+          foldSidepanel: true,
+          showKeys: true,
+          plugins: ["text", "morph", "sg"]
+        },
+        plugins: {
+          text: {
+            main: true
+          },
+          morph: {
+            retrievers: {
+              morphRetriever: {
+                resource: 'y'
+              }
+            },
+            noRetrieval: true,
+            attributes: {
+              tmp: 'tmpVal'
+            }
+          }
+        }
+      };
+
+    });
+
+    describe('shallow merges two configuration files', function() {
+      it('merges main sections', function() {
+        configurator.shallowMerge(conf1, conf2);
+        expect(conf1.main).toEqual(result.main);
+      });
+
+      it('merges each defined plugin', function() {
+        configurator.shallowMerge(conf1, conf2);
+        expect(conf1.plugins).toEqual(result.plugins);
+      });
+
+      it('merges the complete files', function() {
+        configurator.shallowMerge(conf1, conf2);
+        expect(conf1).toEqual(result);
+      });
+    });
+  });
+
   describe('this.configurationFor', function() {
     it('provides the configuration for a given plugin', inject(function(configurator) {
       // the configuration is usually provide from an external route

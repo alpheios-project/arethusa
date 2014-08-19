@@ -118,9 +118,18 @@ angular.module('arethusa').factory('TreebankRetriever', [
     function findAdditionalConfInfo(json) {
       var linkInfo = json.treebank.link;
       var links =  linkInfo ? arethusaUtil.toAry(linkInfo) : [];
-      return arethusaUtil.inject({}, links, function(memo, link) {
+      var confs = arethusaUtil.inject({}, links, function(memo, link) {
         memo[link._title] = link._href;
       });
+      var format = json.treebank._format;
+      if (format) {
+        // For backwards compatibility to older days
+        if (format == 'aldt') {
+          format = 'aldt2' + json.treebank['_xml:lang'];
+        }
+        confs.fullFile = format;
+      }
+      return confs;
     }
 
     function parsePreselections(selector) {

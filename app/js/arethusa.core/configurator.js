@@ -147,12 +147,27 @@ angular.module('arethusa.core').service('configurator', [
       return conf;
     };
 
+    function parseConfUrl(url) {
+      if (url.match('^http:\/\/')) {
+        return url;
+      } else {
+        return 'http://services.perseids.org/arethusa-configs/' + url + '.json';
+      }
+    }
+
     this.loadAdditionalConf = function(confs) {
       var proms = arethusaUtil.inject([], confs, function(memo, plugin, url) {
+        var promise;
         // Use the notifier for error handling!
-        var promise = $http.get(url).then(function(res) {
-          angular.extend(self.configurationFor(plugin), res.data);
-        });
+        if (plugin == 'fullFile') {
+          promise = $http.get(parseConfUrl(url)).then(function(res) {
+            self.shallowMerge(self.configuration, res.data);
+          });
+        } else {
+          promise = $http.get(url).then(function(res) {
+            angular.extend(self.configurationFor(plugin), res.data);
+          });
+        }
         memo.push(promise);
       });
       return $q.all(proms);
@@ -209,6 +224,57 @@ angular.module('arethusa.core').service('configurator', [
           a[key] = value;
         }
       });
+      return a;
+    };
+
+    // this.shallowMerge(a, b)
+    //
+    // Merges two configuration files
+    //
+    // The markup of Arethusa config files needs special handling for merging.
+    // The main sections can plainly merged through angular.extend, while
+    // subSections can only be merged one level deeper.
+    //
+    var mainSections = ['main', 'navbar', 'notifier'];
+    var subSections = ['plugins'];
+
+    function mergeMainSections(a, b) {
+      angular.forEach(mainSections, function(section, i) {
+        var sectionA = a[section];
+        var sectionB = b[section];
+        if (!sectionB) return;
+
+        mergeOrAdd(section, sectionA, sectionB, a);
+      });
+      var mainA = a.main;
+      var mainB = b.main;
+      if (!mainB) return;
+
+      angular.extend(mainA, mainB);
+    }
+
+    function mergeSubSections(a, b) {
+      var pluginsA = a.plugins;
+      var pluginsB = b.plugins;
+      if (!pluginsB) return;
+
+      angular.forEach(pluginsB, function(conf, plugin) {
+        var origConf = pluginsA[plugin];
+        mergeOrAdd(plugin, origConf, conf, a);
+      });
+    }
+
+    function mergeOrAdd(key, a, b, target) {
+      if (a) {
+        angular.extend(a, b);
+      } else {
+        target[key] = b;
+      }
+    }
+
+    this.shallowMerge = function(a, b) {
+      mergeMainSections(a, b);
+      mergeSubSections(a, b);
       return a;
     };
 
