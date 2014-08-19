@@ -21,8 +21,10 @@ angular.module('arethusa').factory('TreebankPersister', [
           // it's the root token.
           word._head = fullMap[head.id] || 0;
         }
-        if (stateWord.relation) {
-          word._relation = stateWord.relation.label;
+
+        var relation = stateWord.relation;
+        if (relation) {
+          word._relation = relation.label;
         }
 
         var morph = stateWord.morphology;
@@ -31,11 +33,14 @@ angular.module('arethusa').factory('TreebankPersister', [
           word._postag = morph.postag;
           if (angular.isDefined(morph.gloss)) word._gloss = morph.gloss;
         }
-        if (stateWord.sg) {
-          word._sg = arethusaUtil.map(stateWord.sg.ancestors, function(el) {
+
+        var sg = stateWord.sg;
+        if (sg) {
+          word._sg = arethusaUtil.map(sg.ancestors, function(el) {
             return el.short;
           }).join(' ');
         }
+
         word._form = stateWord.string;
       }
 
