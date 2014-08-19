@@ -16,37 +16,22 @@ angular.module('arethusa.review').directive('reviewElement', [
       link: function(scope, element, attrs) {
         function initHeadDiff() {
           var arr = scope.diff.id;
-          switch (arr.length) {
-            case 1:
-              break;
-            case 2:
-              scope.wrong = state.getToken(arr[0]);
-              scope.right = state.getToken(arr[1]);
-              break;
-            case 3:
-              break;
-          }
+          scope.wrong = state.getToken(arr[0]);
+          scope.right = state.getToken(arr[1]);
         }
 
         function initRelationDiff() {
           var arr = scope.diff.label;
-          switch (arr.length) {
-            case 1:
-              break;
-            case 2:
-              scope.wrong = arr[0];
-              scope.right = arr[1];
-              break;
-            case 3:
-              break;
-          }
-
+          scope.wrong = arr[0];
+          scope.right = arr[1];
         }
 
         function initMorphDiff() {
           scope.errors = [];
           var lDiff = scope.diff.lemma;
           if (lDiff) scope.errors.push(lDiff);
+          var pDiff = scope.diff.postag;
+          if (pDiff) scope.errors.push(pDiff);
         }
 
         function init() {
