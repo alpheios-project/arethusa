@@ -524,10 +524,12 @@ angular.module('arethusa.morph').service('morph', [
       angular.forEach(attrs, function(value, key) {
         // the index might contain duplicate ids
         var ids = searchIndex[value];
-        var i = ids.indexOf(id);
-        while (i !== -1) {
-          ids.splice(i, 1);
-          i = ids.indexOf(id);
+        if (ids) {
+          var i = ids.indexOf(id);
+          while (i !== -1) {
+            ids.splice(i, 1);
+            i = ids.indexOf(id);
+          }
         }
       });
     }
