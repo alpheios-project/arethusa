@@ -156,9 +156,6 @@
           "if" : {
             "pos" : "verb",
             "mood" : "*"
-          },
-          "unless" : {
-            "mood" : "part"
           }
         }
       ],
