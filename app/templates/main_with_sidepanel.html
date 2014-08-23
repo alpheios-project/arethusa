@@ -7,7 +7,7 @@
     <div id="canvas" class="row panel full-height" full-height>
       <div id="main-body" to-bottom class="">
         <div ng-repeat="pl in plugins.main">
-          <plugin name="pl"/>
+          <plugin name="{{ pl.name }}"/>
         </div>
         <div keys-to-screen/>
       </div>
@@ -21,7 +21,7 @@
               select="plugins.setActive(pl)"
               heading="{{ pl.name }}"
               active="plugins.isSelected(pl)">
-              <plugin name="pl" ng-if="plugins.isActive(pl)"/>
+              <plugin name="{{ pl.name }}" ng-if="plugins.isActive(pl)"/>
             </tab>
           </tabset>
         </div>
