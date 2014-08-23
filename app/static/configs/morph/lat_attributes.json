@@ -96,7 +96,10 @@
         "irreg" : {
           "long" : "irregular",
           "short" : "irreg",
-          "postag" : "x"
+          "postag" : "x",
+          "style" : {
+            "color" : "gray"
+          }
         }
       }
     },
