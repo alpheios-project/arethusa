@@ -17,7 +17,8 @@ angular.module('arethusa.core').directive('helpTrigger', [
         });
 
         element.bind('click', toggle);
-      }
+      },
+      template: '<i class="fa fa-question"/>'
     };
   }
 ]);
