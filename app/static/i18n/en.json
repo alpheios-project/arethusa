@@ -69,5 +69,10 @@
     "lemmaHint" : "This lemma was added automatically!\nCheck it before you save!",
     "createSuccess" : "Added form for",
     "createError" : "Cannot save an incomplete form"
+  },
+
+  "globalSettings" : {
+    "title" : "Global Settings",
+    "alwaysDeselect" : "Deselect after every action"
   }
 }

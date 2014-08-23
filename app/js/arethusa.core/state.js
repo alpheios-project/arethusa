@@ -8,8 +8,9 @@ angular.module('arethusa.core').service('state', [
   '$location',
   'StateChange',
   'idHandler',
+  'globalSettings',
   function (configurator, navigator, $rootScope, documentStore, keyCapture,
-            $location, StateChange, idHandler) {
+            $location, StateChange, idHandler, globalSettings) {
     var self = this;
     var tokenRetrievers;
 
@@ -398,6 +399,7 @@ angular.module('arethusa.core').service('state', [
       // replicate this in state.watch(), as most of the time it's overkill.
       self.broadcast('tokenChange', event);
       notifiyWatchers(event);
+      if (globalSettings.alwaysDeselect) self.deselectAll();
       return event;
     };
 
