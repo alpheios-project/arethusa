@@ -69,5 +69,10 @@
     "lemmaHint" : "Dieses Lemma wurde automatisch eingetragen!\nÜberprüfe es bevor du speicherst!",
     "createSuccess" : "Form hinzugefügt für",
     "createError" : "Kann unvollständige Form nicht speichern"
+  },
+
+  "globalSettings" : {
+    "title" : "Globale Einstellungen",
+    "alwaysDeselect" : "Deselektiere nach jeder Aktion"
   }
 }
