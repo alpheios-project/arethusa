@@ -31,6 +31,10 @@ angular.module('arethusa.core').service('globalSettings', [
       self.settings[property] = new Conf(property, type);
     }
 
+    this.toggle = function() {
+      self.active = !self.active;
+    };
+
     configure();
   }
 ]);
