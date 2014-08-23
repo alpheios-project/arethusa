@@ -108,6 +108,11 @@
           "style" : {
             "color" : "lightcoral"
           }
+        },
+        "irreg" : {
+          "long" : "irregular",
+          "short" : "irreg",
+          "postag" : "x"
         }
       }
     },
