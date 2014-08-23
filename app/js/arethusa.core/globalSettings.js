@@ -19,6 +19,7 @@ angular.module('arethusa.core').service('globalSettings', [
 
     function Conf(property, type) {
       this.property = property;
+      this.label = "globalSettings." + property;
       this.type = type || 'checkbox';
     }
 
