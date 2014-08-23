@@ -2,14 +2,20 @@
   <br/>
   <p class="text" translate="globalSettings.title"/>
   <div class="small-12 columns scrollable text" style="height: 400px">
-    <!--<ul class="no-list" ng-repeat="(section, keys) in kC.activeKeys">-->
-      <!--<li>{{ section }}</li>-->
-      <!--<table class="small">-->
-        <!--<tr ng-repeat="(name, key) in keys">-->
-          <!--<td><strong>{{ key }}</strong></td><td>{{ name}}</td>-->
-        <!--</tr>-->
-      <!--</table>-->
-    <!--</ul>-->
+    <ul class="no-list" ng-repeat="(name, setting) in gS.settings">
+      <li ng-switch="setting.type">
+        <div ng-switch-when="select">
+        </div>
+        <div ng-switch-default>
+          <label>
+            <span translate="{{ setting.label }}"/>
+            <input
+              type="{{ setting.type }}"
+              ng-model="gS[setting.property]"/>
+          </label>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
 
