@@ -36,6 +36,17 @@ angular.module('arethusa.core').factory('StateChange', [
         if (angular.isFunction(preExecFn)) preExecFn();
 
         set(self.token, self.newVal);
+
+        // It might seem redundant to broadcast this event, when listeners
+        // could just use state.watch().
+        // But it's not: Depending the time of init, a listener might not
+        // have the chance to inject state - he has to listen through a
+        // $scope then. In addition, $on brings some additional info about
+        // the scope in use etc., which might be handy at times. We won't
+        // replicate this in state.watch(), as most of the time it's overkill.
+        state.broadcast('tokenChange', self);
+        state.notifiyWatchers(self);
+
         return self;
       };
     };

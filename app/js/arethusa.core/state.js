@@ -391,28 +391,18 @@ angular.module('arethusa.core').service('state', [
     this.change = function(tokenOrId, property, newVal, undoFn, preExecFn) {
       var event = self.lazyChange(tokenOrId, property, newVal, undoFn, preExecFn);
       event.exec();
-
-      // It might seem redundant to broadcast this event, when listeners
-      // could just use state.watch().
-      // But it's not: Depending the time of init, a listener might not
-      // have the chance to inject state - he has to listen through a
-      // $scope then. In addition, $on brings some additional info about
-      // the scope in use etc., which might be handy at times. We won't
-      // replicate this in state.watch(), as most of the time it's overkill.
-      self.broadcast('tokenChange', event);
-      notifiyWatchers(event);
       if (globalSettings.alwaysDeselect) self.deselectAll();
       return event;
     };
 
-    function notifiyWatchers(event) {
+    this.notifiyWatchers = function(event) {
       function execWatch(watch) { watch.exec(event.newVal, event.oldVal, event); }
 
       var watchers = changeWatchers[event.property] || [];
 
       angular.forEach(watchers, execWatch);
       angular.forEach(changeWatchers['*'], execWatch);
-    }
+    };
 
 
     var changeWatchers = { '*' : [] };
