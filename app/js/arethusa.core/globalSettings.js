@@ -57,6 +57,13 @@ angular.module('arethusa.core').service('globalSettings', [
       return self.colorizer === pluginName;
     };
 
+    this.applyColorizer = function() {
+      // Check if the colorizer is really present
+      if (self.colorizers[self.colorizer]) {
+        plugins.get(self.colorizer).applyStyling();
+      }
+    };
+
     configure();
   }
 ]);
