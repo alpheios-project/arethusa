@@ -163,7 +163,9 @@ angular.module('arethusa.core').service('state', [
 
     this.changeHead = function (tokenId, newHeadId) {
       if (self.headsFor(newHeadId).indexOf(tokenId) !== -1) {
-        self.tokens[newHeadId].head.id = self.tokens[tokenId].head.id;
+        var newToken = self.getToken(newHeadId);
+        var oldHead  = self.getToken(tokenId).head.id;
+        self.change(newToken, 'head.id', oldHead);
       }
       var token = self.getToken(tokenId);
       self.change(token, 'head.id', newHeadId);
