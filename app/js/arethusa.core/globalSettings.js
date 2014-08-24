@@ -2,9 +2,8 @@
 
 angular.module('arethusa.core').service('globalSettings', [
   'configurator',
-  '$injector',
   'plugins',
-  function(configurator, $injector, plugins) {
+  function(configurator,  plugins) {
     var self = this;
 
     // Need to do this lazy to avoid circular dependencies!
