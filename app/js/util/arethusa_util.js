@@ -22,6 +22,10 @@ var arethusaUtil = {
     },
 
     map: function (container, fn) {
+      if (typeof fn !== 'function') {
+        var obj = fn;
+        fn = function(el) { return obj[el]; };
+      }
       var result = [];
       container.forEach(function (e) {
         result.push(fn(e));

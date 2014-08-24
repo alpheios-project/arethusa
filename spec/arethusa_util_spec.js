@@ -56,6 +56,14 @@ describe("arethusaUtil", function() {
       var result = [1, 2, 3];
       expect(aU.map(coll, fn)).toEqual(result);
     });
+
+    describe('when second param is an object', function() {
+      it('tries to call every iterated element as getter', function() {
+        var obj = { a: 1, b: 2, c: 3};
+        var res = aU.map(['a', 'b'], obj);
+        expect(res).toEqual([1, 2]);
+      });
+    });
   });
 
   describe('inject', function() {
