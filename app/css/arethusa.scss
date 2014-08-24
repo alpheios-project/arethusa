@@ -163,12 +163,16 @@ ul.navigation {
 }
 
 ul.navigation li:hover > ul {
-  display: block;
+  visibility:visible;
+  opacity:1;
+  transition-delay:0s;
 }
 
 ul.navigation ul {
   margin: 0;
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition:visibility 0s linear 0.5s,opacity 0.5s linear;
   list-style: none;
   position: absolute;
   padding: 0.2rem;
@@ -187,12 +191,16 @@ ul.nested-dropdown {
 }
 
 ul.nested-dropdown:after ul.navigation:after {
-  content: ""; clear: both; display: block;
+  content: "";
+  clear: both;
+  /*display: block;*/
 }
 
 ul.nested-dropdown ul {
   margin: 0;
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition:visibility 0s linear 0.5s,opacity 0.5s linear;
   list-style: none;
   position: absolute;
   top: 100%;
@@ -234,7 +242,9 @@ ul.nested-dropdown li.nested {
 }
 
 ul.nested-dropdown li:hover > ul {
-  display: block;
+  visibility:visible;
+  opacity:1;
+  transition-delay:0s;
 }
 
 ul.nested-dropdown ul ul {
