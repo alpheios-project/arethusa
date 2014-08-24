@@ -3,10 +3,17 @@ angular.module('arethusa.morph').service('morph', [
   'state',
   'configurator',
   'plugins',
-  function (state, configurator, plugins) {
+  'globalSettings',
+  function (state, configurator, plugins, globalSettings) {
     var self = this;
     var morphRetrievers;
     var inventory;
+
+    // Shows a need to define the plugins name upfront - would
+    // also spare a first configure round when the service is injected
+    // for the first time.
+    // Part of a larger change though to be done a little later.
+    globalSettings.addColorizer('morph');
 
     this.canSearch = true;
 

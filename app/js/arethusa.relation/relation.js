@@ -2,10 +2,13 @@
 angular.module('arethusa.relation').service('relation', [
   'state',
   'configurator',
-  function (state, configurator) {
+  'globalSettings',
+  function (state, configurator, globalSettings) {
     var self = this;
 
     this.canSearch = true;
+
+    globalSettings.addColorizer('relation');
 
     function configure() {
       configurator.getConfAndDelegate('relation', self);
