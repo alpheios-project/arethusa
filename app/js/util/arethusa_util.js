@@ -42,6 +42,15 @@ var arethusaUtil = {
       return memo;
     },
 
+    flatten: function(arr) {
+      var res = [];
+      for (var i = 0; i < arr.length; i ++) {
+        var el = arr[i];
+        if (el || el === false) res.push(el);
+      }
+      return res;
+    },
+
     pushAll: function (target, pusher) {
       target.push.apply(target, pusher);
       return target;

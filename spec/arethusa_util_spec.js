@@ -258,6 +258,22 @@ describe("arethusaUtil", function() {
     });
   });
 
+  describe('flatten', function() {
+    it('flattens an array by removing all undefined or null values', function() {
+      var arr = [1, 2, undefined, 3, null];
+      var res = aU.flatten(arr);
+
+      expect(res).toEqual([1, 2, 3]);
+    });
+
+    it('does not flatten false when it is the boolean value', function() {
+      var arr = [true, true, false, true];
+      var res = aU.flatten(arr);
+
+      expect(res).toEqual(arr);
+    });
+  });
+
   describe('getProperty', function() {
     var obj = {
       a: {
