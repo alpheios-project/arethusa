@@ -165,13 +165,13 @@ ul.navigation {
 @mixin invisible-dropdown {
   visibility: hidden;
   opacity: 0;
-  transition:visibility 0s linear 0.5s,opacity 0.5s linear;
+  transition: visibility 0s linear 0.5s, opacity 0.1s linear;
 }
 
 @mixin visible-dropdown {
-  visibility:visible;
-  opacity:1;
-  transition-delay:0s;
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
 }
 
 ul.navigation li:hover > ul {
