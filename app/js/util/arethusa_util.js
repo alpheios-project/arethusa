@@ -218,3 +218,5 @@ var arethusaUtil = {
       return (part / total) * 100;
     }
   };
+
+  var aU = arethusaUtil;

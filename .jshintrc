@@ -9,6 +9,7 @@
     "d3" : false,
     "lunr" : true,
     "arethusaUtil" : true,
+    "aU": true,
     "arethusaMocks" : true,
     "arethusaLogger" : true,
     "UserVoice" : true,
