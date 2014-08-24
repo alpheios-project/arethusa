@@ -394,7 +394,7 @@ angular.module('arethusa.core').service('state', [
       return event.exec();
     };
 
-    this.notifiyWatchers = function(event) {
+    this.notifyWatchers = function(event) {
       function execWatch(watch) { watch.exec(event.newVal, event.oldVal, event); }
 
       var watchers = changeWatchers[event.property] || [];

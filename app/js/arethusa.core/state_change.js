@@ -45,7 +45,7 @@ angular.module('arethusa.core').factory('StateChange', [
         // the scope in use etc., which might be handy at times. We won't
         // replicate this in state.watch(), as most of the time it's overkill.
         state.broadcast('tokenChange', self);
-        state.notifiyWatchers(self);
+        state.notifyWatchers(self);
 
         return self;
       };
