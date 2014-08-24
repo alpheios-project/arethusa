@@ -193,7 +193,6 @@ ul.nested-dropdown {
 ul.nested-dropdown:after ul.navigation:after {
   content: "";
   clear: both;
-  /*display: block;*/
 }
 
 ul.nested-dropdown ul {
@@ -462,8 +461,8 @@ hr.tiny {
 /*TEI Stuff for Smyth Grammar Reader*/
 
 div.citbibl {
-   text-align: right;
-   font-size: smaller;
+  text-align: right;
+  font-size: smaller;
 }
 
 #sg-g-r h4,h5,h6,h7 {
@@ -648,14 +647,14 @@ ul.no-list {
 
 
 @keyframes slow-fade {
-    0% { opacity: 1 }
-   50% { opacity: 1 }
+  0% { opacity: 1 }
+  50% { opacity: 1 }
   100% { opacity: 0 }
 }
 
 @-webkit-keyframes slow-fade {
-    0% { opacity: 1 }
-   50% { opacity: 1 }
+  0% { opacity: 1 }
+  50% { opacity: 1 }
   100% { opacity: 0 }
 }
 
