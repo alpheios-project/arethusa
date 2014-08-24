@@ -389,6 +389,20 @@ angular.module('arethusa.morph').service('morph', [
       });
     };
 
+    this.colorMap = function() {
+      var map = {};
+      var attr = self.styledThrough;
+      if (attr) {
+        var values = self.attributes[attr].values;
+        var keys   = ['long', 'short', 'postag'];
+
+        return aU.inject({}, values, function(memo, k, v) {
+          var key = aU.flatten(aU.map(keys, v)).join(' - ');
+          memo[key] = v.style;
+        });
+      }
+    };
+
     this.styleOf = function (form) {
       var styler = self.styledThrough;
       var styleVal = form.attributes[styler];
