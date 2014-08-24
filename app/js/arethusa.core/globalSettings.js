@@ -6,13 +6,6 @@ angular.module('arethusa.core').service('globalSettings', [
   function(configurator,  plugins) {
     var self = this;
 
-    // Need to do this lazy to avoid circular dependencies!
-    var lazyState;
-    function state() {
-      if (!lazyState) lazyState = $injector.get('state');
-      return lazyState;
-    }
-
     var confKeys = [
       "alwaysDeselect",
       "colorizer"
@@ -54,6 +47,14 @@ angular.module('arethusa.core').service('globalSettings', [
 
     this.toggle = function() {
       self.active = !self.active;
+    };
+
+    this.addColorizer = function(pluginName) {
+      self.colorizers[pluginName] = true;
+    };
+
+    this.isColorizer = function(pluginName) {
+      return self.colorizer === pluginName;
     };
 
     configure();
