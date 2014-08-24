@@ -194,7 +194,8 @@ angular.module('arethusa.morph').service('morph', [
         analysis.selected = true;
         setGloss(id, analysis);
         val.forms.push(analysis);
-        state.addStyle(id, self.styleOf(analysis));
+
+        if (isColorizer()) state.addStyle(id, self.styleOf(analysis));
       }
     }
 
@@ -228,7 +229,7 @@ angular.module('arethusa.morph').service('morph', [
     // to chunk, as token might still have style from a former chunk.
     // When no analysis is present, this can be very misleading.
     function unsetStyleWithoutAnalyses(forms, id) {
-      if (forms.length === 0) {
+      if (forms.length === 0 && isColorizer()) {
         state.unsetStyle(id);
       }
     }
@@ -410,6 +411,17 @@ angular.module('arethusa.morph').service('morph', [
       }
     };
 
+    this.applyStyling = function() {
+      angular.forEach(state.tokens, function(token, id) {
+        var form = token.morphology;
+        if (form) {
+          state.addStyle(id, self.styleOf(form));
+        } else {
+          state.unsetStyle(id);
+        }
+      });
+    };
+
     this.styleOf = function (form) {
       var styler = self.styledThrough;
       var styleVal = form.attributes[styler];
@@ -442,7 +454,8 @@ angular.module('arethusa.morph').service('morph', [
         addToIndex(form, id);
         deselectAll(id);
         form.selected = true;
-        state.addStyle(id, self.styleOf(form));
+
+        if (isColorizer()) state.addStyle(id, self.styleOf(form));
       };
     }
 
@@ -459,6 +472,10 @@ angular.module('arethusa.morph').service('morph', [
         }
       }
     };
+
+    function isColorizer() {
+      return globalSettings.isColorizer('morph');
+    }
 
     this.setState = function (id, form) {
       setGloss(id, form);
@@ -477,7 +494,8 @@ angular.module('arethusa.morph').service('morph', [
         deleteFromIndex(id);
         deselectAll(id);
         selectedForm(id).selected = false;
-        state.unsetStyle(id);
+
+        if (isColorizer()) state.unsetStyle(id);
       };
     }
 
