@@ -162,17 +162,25 @@ ul.navigation {
   position: relative;
 }
 
-ul.navigation li:hover > ul {
+@mixin invisible-dropdown {
+  visibility: hidden;
+  opacity: 0;
+  transition:visibility 0s linear 0.5s,opacity 0.5s linear;
+}
+
+@mixin visible-dropdown {
   visibility:visible;
   opacity:1;
   transition-delay:0s;
 }
 
+ul.navigation li:hover > ul {
+  @include visible-dropdown;
+}
+
 ul.navigation ul {
+  @include invisible-dropdown;
   margin: 0;
-  visibility: hidden;
-  opacity: 0;
-  transition:visibility 0s linear 0.5s,opacity 0.5s linear;
   list-style: none;
   position: absolute;
   padding: 0.2rem;
@@ -196,10 +204,8 @@ ul.nested-dropdown:after ul.navigation:after {
 }
 
 ul.nested-dropdown ul {
+  @include invisible-dropdown;
   margin: 0;
-  visibility: hidden;
-  opacity: 0;
-  transition:visibility 0s linear 0.5s,opacity 0.5s linear;
   list-style: none;
   position: absolute;
   top: 100%;
@@ -241,9 +247,7 @@ ul.nested-dropdown li.nested {
 }
 
 ul.nested-dropdown li:hover > ul {
-  visibility:visible;
-  opacity:1;
-  transition-delay:0s;
+  @include visible-dropdown;
 }
 
 ul.nested-dropdown ul ul {
