@@ -3,11 +3,6 @@
 describe("navigator", function() {
   var navigator;
   var state;
-  var configurator = {
-    provideResource: function() {},
-    configurationFor : function() { return {}; },
-    getRetrievers: function() { return {}; }
-  };
 
   var s1 = {
     id: "1",
@@ -48,7 +43,7 @@ describe("navigator", function() {
   var sentences = [s1, s3, s5];
 
   beforeEach(module("arethusa.core", function($provide) {
-    $provide.value('configurator', configurator);
+    $provide.value('configurator', arethusaMocks.configurator());
   }));
 
   beforeEach(inject(function(_navigator_, _state_) {

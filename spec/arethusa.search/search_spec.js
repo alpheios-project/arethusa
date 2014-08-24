@@ -22,20 +22,8 @@ describe('search', function() {
     };
   };
 
-  var mockConfigurator = {
-    configurationFor: function(name) {
-      return {};
-    },
-
-    getRetrievers: function(name) {
-      return {};
-    },
-
-    provideResource: function() {}
-  };
-
   beforeEach(module('arethusa.core', function($provide) {
-    $provide.value('configurator', mockConfigurator);
+    $provide.value('configurator', arethusaMocks.configurator());
   }));
 
   beforeEach(module('arethusa.search'));

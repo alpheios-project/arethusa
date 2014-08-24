@@ -3,14 +3,9 @@
 describe("deselector", function() {
   var element;
   var state;
-  var configurator = {
-    provideResource: function() {},
-    configurationFor: function() { return {}; },
-    getRetrievers: function() { return {}; }
-  };
 
   beforeEach(module("arethusa.core", function($provide) {
-    $provide.value('configurator', configurator);
+    $provide.value('configurator', arethusaMocks.configurator());
   }));
 
   beforeEach(inject(function($compile, $rootScope, _state_) {

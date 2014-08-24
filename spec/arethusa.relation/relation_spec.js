@@ -1,27 +1,6 @@
 "use strict";
 
 describe("relation", function() {
-  var mockConfigurator = {
-    configurationFor: function(name) {
-      return {};
-    },
-    getRetrievers: function(name) {
-      return {};
-    },
-    provideResource: function() {},
-    getConfAndDelegate: function(name, obj) {
-      var relations = {
-        labels: {
-          PRED : { short: "PRED", long: "predicate" },
-          OBJ : { short: "OBJ", long: "object" },
-          COORD : { short: "COORD", long: "coordination" }
-        }
-      };
-      obj.conf = { relations: relations };
-    },
-    getStickyConf: function() {}
-  };
-
   var createTokens = function() {
     return {
       '01': {
@@ -55,8 +34,23 @@ describe("relation", function() {
     };
   };
 
+  var confCustomization = {
+    getConfAndDelegate: function(name, obj) {
+      var relations = {
+        labels: {
+          PRED : { short: "PRED", long: "predicate" },
+          OBJ : { short: "OBJ", long: "object" },
+          COORD : { short: "COORD", long: "coordination" }
+        }
+      };
+      obj.conf = { relations: relations };
+    }
+  };
+
+
+
   beforeEach(module("arethusa.core", function($provide) {
-    $provide.value('configurator', mockConfigurator);
+    $provide.value('configurator', arethusaMocks.configurator(confCustomization));
   }));
 
   beforeEach(module("arethusa.relation"));
