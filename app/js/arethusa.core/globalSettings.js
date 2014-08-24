@@ -2,8 +2,17 @@
 
 angular.module('arethusa.core').service('globalSettings', [
   'configurator',
-  function(configurator) {
+  '$injector',
+  'plugins',
+  function(configurator, $injector, plugins) {
     var self = this;
+
+    // Need to do this lazy to avoid circular dependencies!
+    var lazyState;
+    function state() {
+      if (!lazyState) lazyState = $injector.get('state');
+      return lazyState;
+    }
 
     var confKeys = [
       "alwaysDeselect",
