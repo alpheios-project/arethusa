@@ -22,9 +22,14 @@ var arethusaUtil = {
     },
 
     map: function (container, fn) {
-      if (typeof fn !== 'function') {
+      if (typeof fn === 'object') {
         var obj = fn;
         fn = function(el) { return obj[el]; };
+      }
+
+      if (typeof fn === 'string') {
+        var str = fn;
+        fn = function(el) { return el[str]; };
       }
       var result = [];
       container.forEach(function (e) {

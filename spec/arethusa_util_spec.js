@@ -64,6 +64,14 @@ describe("arethusaUtil", function() {
         expect(res).toEqual([1, 2]);
       });
     });
+
+    describe('when second param is a string', function() {
+      it('tries to use the string as getter on every element', function() {
+        var arr = [{ a: 1 }, { a: 2 }];
+        var res = aU.map(arr, 'a');
+        expect(res).toEqual([1, 2]);
+      });
+    });
   });
 
   describe('inject', function() {
