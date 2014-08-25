@@ -168,22 +168,33 @@ angular.module('arethusa.relation').service('relation', [
       });
     };
 
-    function undoFn(obj, val, oldAncestors) {
+    function undoFn(id, obj, val, oldAncestors) {
       oldAncestors = oldAncestors || angular.copy(obj.ancestors);
       return function() {
         splitLabel(obj, val);
         obj.ancestors = oldAncestors;
+        if (isColorizer()) { state.addStyle(id, self.styleOf(oldAncestors)); }
         state.change(obj.id, 'relation.label', val);
       };
     }
 
-    function preExecFn(obj, val) {
+    function preExecFn(id, obj, val) {
       var newAncestors = angular.copy(obj.ancestors);
       return function() {
         obj.ancestors = newAncestors;
         splitLabel(obj, val);
+        if (isColorizer()) state.addStyle(id, self.styleOf(newAncestors));
       };
     }
+
+    function isColorizer() {
+      return globalSettings.isColorizer('relation');
+    }
+
+    this.styleOf = function(ancestors) {
+      var chain = aU.map(ancestors, 'short').join('.');
+      return aU.getProperty(self.relationValues.labels, chain).style || {};
+    };
 
     this.changeState = function(relObj, oldAncestors) {
       var id = relObj.id;
@@ -192,8 +203,8 @@ angular.module('arethusa.relation').service('relation', [
 
       if (id) {
         state.change(id, 'relation.label', newVal,
-                    undoFn(relObj, oldVal, oldAncestors),
-                    preExecFn(relObj, newVal));
+                    undoFn(id, relObj, oldVal, oldAncestors),
+                    preExecFn(id, relObj, newVal));
       }
     };
 
@@ -253,6 +264,9 @@ angular.module('arethusa.relation').service('relation', [
     this.colorMap = function() {
       if (!colorMap) colorMap = createColorMap();
       return colorMap;
+    };
+
+    this.applyStyling = function() {
     };
 
     this.init = function () {
