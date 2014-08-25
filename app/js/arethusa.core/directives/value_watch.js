@@ -4,8 +4,9 @@ angular.module('arethusa.core').directive('valueWatch', function () {
     restrict: 'A',
     scope: {
       target: '=',
-      property: '@'
+      property: '@',
+      emptyVal: '@'
     },
-    template: '<span>{{ target[property] }}</span>'
+    template: '<span>{{ target[property] || emptyVal }}</span>'
   };
 });
