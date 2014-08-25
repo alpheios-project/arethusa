@@ -22,7 +22,7 @@ sudo npm install bower -g
 npm install
 bower install
 
-gem install sass
+gem install sass -v 3.3.14 # Attention: We are incompatible with 3.4!
 ```
 
 ## Prerequisites
