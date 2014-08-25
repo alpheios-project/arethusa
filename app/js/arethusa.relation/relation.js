@@ -269,7 +269,7 @@ angular.module('arethusa.relation').service('relation', [
     function setStyle(id) {
       var anc = aU.last(self.relations[id].relation.ancestors) || {};
       var style = anc.style || {};
-      state.setStyle(id, style);
+      state.addStyle(id, style);
     }
 
     this.applyStyling = function() {
