@@ -8,7 +8,7 @@
     </p>
     <ul class="no-list" ng-repeat="(name, map) in gS.colorMaps()">
       <li
-        ng-class="{ active-colorizer: name === gS.colorizer }">
+        ng-class="{ 'active-colorizer': name === gS.colorizer }">
         {{ name }}
       </li>
       <table class="small">
