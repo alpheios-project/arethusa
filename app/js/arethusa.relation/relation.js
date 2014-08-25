@@ -2,16 +2,20 @@
 angular.module('arethusa.relation').service('relation', [
   'state',
   'configurator',
-  function (state, configurator) {
+  'globalSettings',
+  function (state, configurator, globalSettings) {
     var self = this;
 
     this.canSearch = true;
+
+    globalSettings.addColorizer('relation');
 
     function configure() {
       configurator.getConfAndDelegate('relation', self);
       configurator.getStickyConf('relation', self, ['advancedMode']);
       self.relationValues = self.conf.relations;
       self.relations = {};
+      colorMap = undefined;
     }
 
     configure();
@@ -164,21 +168,27 @@ angular.module('arethusa.relation').service('relation', [
       });
     };
 
-    function undoFn(obj, val, oldAncestors) {
+    function undoFn(id, obj, val, oldAncestors) {
       oldAncestors = oldAncestors || angular.copy(obj.ancestors);
       return function() {
         splitLabel(obj, val);
         obj.ancestors = oldAncestors;
+        if (isColorizer()) setStyle(id, oldAncestors);
         state.change(obj.id, 'relation.label', val);
       };
     }
 
-    function preExecFn(obj, val) {
+    function preExecFn(id, obj, val) {
       var newAncestors = angular.copy(obj.ancestors);
       return function() {
         obj.ancestors = newAncestors;
         splitLabel(obj, val);
+        if (isColorizer()) setStyle(id, newAncestors);
       };
+    }
+
+    function isColorizer() {
+      return globalSettings.isColorizer('relation');
     }
 
     this.changeState = function(relObj, oldAncestors) {
@@ -188,8 +198,8 @@ angular.module('arethusa.relation').service('relation', [
 
       if (id) {
         state.change(id, 'relation.label', newVal,
-                    undoFn(relObj, oldVal, oldAncestors),
-                    preExecFn(relObj, newVal));
+                    undoFn(id, relObj, oldVal, oldAncestors),
+                    preExecFn(id, relObj, newVal));
       }
     };
 
@@ -222,11 +232,57 @@ angular.module('arethusa.relation').service('relation', [
       delete self.relations[token.id];
     });
 
+    function extractColor(obj, target, keys) {
+      angular.forEach(obj, function(rel, name) {
+        var style  = rel.style;
+        var nested = rel.nested;
+        if (style) {
+          var key = aU.flatten(aU.map(keys, rel)).join(' || ');
+          target[key] = style;
+        }
+
+        if (nested) {
+          extractColor(nested, target, keys);
+        }
+      });
+    }
+
+    function createColorMap() {
+      var keys = ['short', 'long'];
+      var map = { header: keys, colors: {} };
+
+      extractColor(self.relationValues.labels, map.colors, keys);
+      return map;
+    }
+
+    var colorMap;
+    this.colorMap = function() {
+      if (!colorMap) colorMap = createColorMap();
+      return colorMap;
+    };
+
+    function setStyle(id, ancestors) {
+      var anc = aU.last(ancestors || self.relations[id].relation.ancestors) || {};
+      var style = anc.style || {};
+      state.addStyle(id, style);
+    }
+
+    this.applyStyling = function() {
+      angular.forEach(state.tokens, function(token, id) {
+        if (token.relation.label) {
+          setStyle(id);
+        } else {
+          state.unsetStyle(id);
+        }
+      });
+    };
+
     this.init = function () {
       configure();
       self.relations = self.createInternalState();
       self.resetSearchedLabel();
       self.resetMultiChanger();
+      if (isColorizer()) self.applyStyling();
     };
   }
 ]);

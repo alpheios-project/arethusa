@@ -22,6 +22,15 @@ var arethusaUtil = {
     },
 
     map: function (container, fn) {
+      if (typeof fn === 'object') {
+        var obj = fn;
+        fn = function(el) { return obj[el]; };
+      }
+
+      if (typeof fn === 'string') {
+        var str = fn;
+        fn = function(el) { return el[str]; };
+      }
       var result = [];
       container.forEach(function (e) {
         result.push(fn(e));
@@ -40,6 +49,15 @@ var arethusaUtil = {
         }
       }
       return memo;
+    },
+
+    flatten: function(arr) {
+      var res = [];
+      for (var i = 0; i < arr.length; i ++) {
+        var el = arr[i];
+        if (el || el === false) res.push(el);
+      }
+      return res;
     },
 
     pushAll: function (target, pusher) {
@@ -118,7 +136,10 @@ var arethusaUtil = {
           }
         }
       }
+    },
 
+    last: function(arr) {
+      return arr[arr.length - 1];
     },
 
     replaceAt: function (str, i, replacement) {
@@ -205,3 +226,5 @@ var arethusaUtil = {
       return (part / total) * 100;
     }
   };
+
+  var aU = arethusaUtil;

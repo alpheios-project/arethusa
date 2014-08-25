@@ -73,6 +73,7 @@
 
   "globalSettings" : {
     "title" : "Globale Einstellungen",
-    "alwaysDeselect" : "Deselektiere nach jeder Aktion"
+    "alwaysDeselect" : "Deselektiere nach jeder Aktion",
+    "colorizer" : "Token einfärben nach"
   }
 }

@@ -462,6 +462,14 @@ hr.tiny {
   margin: 0.5rem 25% 0.3rem 25%;
 }
 
+.active-colorizer {
+  @extend .italic, .bold;
+
+  &:after {
+    content: ' (active)'
+  }
+}
+
 /*TEI Stuff for Smyth Grammar Reader*/
 
 div.citbibl {

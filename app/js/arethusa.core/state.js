@@ -330,6 +330,12 @@ angular.module('arethusa.core').service('state', [
       angular.extend(token.style, style);
     };
 
+    this.unapplyStylings = function() {
+      angular.forEach(self.tokens, function(token, id) {
+        self.unsetStyle(id);
+      });
+    };
+
     this.removeStyle = function(id, style) {
       var tokenStyle = self.getToken(id).style;
       if (! tokenStyle) return;

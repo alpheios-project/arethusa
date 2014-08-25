@@ -56,6 +56,22 @@ describe("arethusaUtil", function() {
       var result = [1, 2, 3];
       expect(aU.map(coll, fn)).toEqual(result);
     });
+
+    describe('when second param is an object', function() {
+      it('tries to call every iterated element as getter', function() {
+        var obj = { a: 1, b: 2, c: 3};
+        var res = aU.map(['a', 'b'], obj);
+        expect(res).toEqual([1, 2]);
+      });
+    });
+
+    describe('when second param is a string', function() {
+      it('tries to use the string as getter on every element', function() {
+        var arr = [{ a: 1 }, { a: 2 }];
+        var res = aU.map(arr, 'a');
+        expect(res).toEqual([1, 2]);
+      });
+    });
   });
 
   describe('inject', function() {
@@ -85,6 +101,13 @@ describe("arethusaUtil", function() {
       };
       var res = [1, 'a', 2, 'b'];
       expect(aU.inject([], coll, fn)).toEqual(res);
+    });
+  });
+
+  describe('last', function() {
+    it('returns the last item in an array', function() {
+      var arr = [1, 2, 3];
+      expect(aU.last(arr)).toEqual(3);
     });
   });
 
@@ -255,6 +278,22 @@ describe("arethusaUtil", function() {
       aU.empty(obj);
       expect(obj.fn).toBeDefined();
       expect(obj.a).toBeUndefined();
+    });
+  });
+
+  describe('flatten', function() {
+    it('flattens an array by removing all undefined or null values', function() {
+      var arr = [1, 2, undefined, 3, null];
+      var res = aU.flatten(arr);
+
+      expect(res).toEqual([1, 2, 3]);
+    });
+
+    it('does not flatten false when it is the boolean value', function() {
+      var arr = [true, true, false, true];
+      var res = aU.flatten(arr);
+
+      expect(res).toEqual(arr);
     });
   });
 

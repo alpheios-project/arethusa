@@ -5,6 +5,14 @@
     <ul class="no-list" ng-repeat="(name, setting) in gS.settings">
       <li ng-switch="setting.type">
         <div ng-switch-when="select">
+          <label>
+            <span translate="{{ setting.label }}"/>
+            <select
+              ng-model="gS[setting.property]"
+              ng-change="gS.applyColorizer()"
+              ng-options="k as k for (k, v) in setting.options">
+            </select>
+          </label>
         </div>
         <div ng-switch-default>
           <label>
@@ -18,4 +26,3 @@
     </ul>
   </div>
 </div>
-

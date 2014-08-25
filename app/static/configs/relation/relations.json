@@ -3,47 +3,80 @@
     "labels" : {
       "PRED" : {
         "short" : "PRED",
-        "long" : "predicate"
+        "long" : "predicate",
+        "style" : {
+          "color" : "rgb(223, 38, 38)"
+        }
       },
       "SBJ" : {
         "short" : "SBJ",
-        "long" : "subject"
+        "long" : "subject",
+        "style" : {
+          "color" : "rgb(92, 201, 83)"
+        }
       },
       "OBJ" : {
         "short" : "OBJ",
-        "long" : "object"
+        "long" : "object",
+        "style" : {
+          "color" : "rgb(11, 200, 216)"
+        }
       },
       "ATR" : {
         "short" : "ATR",
-        "long" : "attribute"
+        "long" : "attribute",
+        "style" : {
+          "color" : "blue"
+        }
       },
       "ADV" : {
         "short" : "ADV",
-        "long" : "adverbial"
+        "long" : "adverbial",
+        "style" : {
+          "color" : "darkorange"
+        }
       },
       "ATV" : {
         "short" : "ATV",
-        "long" : "complement"
+        "long" : "complement",
+        "style" : {
+          "color" : "rgb(131, 11, 16)"
+        }
       },
       "AtvV" : {
         "short" : "AtvV",
-        "long" : "complement"
+        "long" : "complement",
+        "style" : {
+          "color" : "rgb(131, 11, 16)"
+        }
       },
       "PNOM" : {
         "short" : "PNOM",
-        "long" : "predicate nominal"
+        "long" : "predicate nominal",
+        "style" : {
+          "color" : "rgb(87, 160, 119)"
+        }
       },
       "OCOMP" : {
         "short" : "OCOMP",
-        "long" : "object complement"
+        "long" : "object complement",
+        "style" : {
+          "color" : "rgb(92, 201, 83)"
+        }
       },
       "COORD" : {
         "short" : "COORD",
-        "long" : "coordinator"
+        "long" : "coordinator",
+        "style" : {
+          "color" : "rgb(154, 130, 206)"
+        }
       },
       "APOS" : {
         "short" : "APOS",
-        "long" : "apposing element"
+        "long" : "apposing element",
+        "style" : {
+          "color" : "rgb(7, 95, 39)"
+        }
       },
       "Aux" : {
         "short" : "Aux",
@@ -51,59 +84,95 @@
         "nested" : {
           "AuxP" : {
             "short" : "AuxP",
-            "long" : "preposition"
+            "long" : "preposition",
+            "style" : {
+              "color" : "green"
+            }
           },
           "AuxC" : {
             "short" : "AuxC",
-            "long" : "conjunction"
+            "long" : "conjunction",
+            "style" : {
+              "color" : "deeppink"
+            }
           },
           "AuxR" : {
             "short" : "AuxR",
-            "long" : "reflexive passive"
+            "long" : "reflexive passive",
+            "style" : {
+              "color" : "rgb(162, 70, 235)"
+            }
           },
           "AuxV" : {
             "short" : "AuxV",
-            "long" : "auxiliary verb"
+            "long" : "auxiliary verb",
+            "style" : {
+              "color" : "rgb(70, 96, 235)"
+            }
           },
           "AuxX" : {
             "short" : "AuxX",
-            "long" : "comma"
+            "long" : "comma",
+            "style" : {
+              "color" : "black"
+            }
           },
           "AuxG" : {
             "short" : "AuxG",
-            "long" : "bracketing punctuation"
+            "long" : "bracketing punctuation",
+            "style" : {
+              "color" : "black"
+            }
           },
           "AuxK" : {
             "short" : "AuxK",
-            "long" : "terminal punctuation"
+            "long" : "terminal punctuation",
+            "style" : {
+              "color" : "black"
+            }
           },
           "AuxY" : {
             "short" : "AuxY",
-            "long" : "sentence adverbial"
+            "long" : "sentence adverbial",
+            "style" : {
+              "color" : "rgb(139, 211, 31)"
+            }
           },
           "AuxZ" : {
             "short" : "AuxZ",
-            "long" : "emphasizing particle"
+            "long" : "emphasizing particle",
+            "style" : {
+              "color" : "rgb(216, 57, 159)"
+            }
           }
         }
       },
       "ExD" : {
         "short" : "ExD",
-        "long" : "ellipsis"
+        "long" : "ellipsis",
+        "style" : {
+          "color" : "rgb(17, 131, 67)"
+        }
       }
     },
     "suffixes" : {
       "CO" : {
         "short" : "CO",
-        "long" : "coordinated"
+        "long" : "coordinated",
+        "style" : {
+          "color" : "rgb(154, 130, 206)"
+        }
       },
       "AP" : {
         "short" : "AP",
-        "long" : "appositioned"
+        "long" : "apposing",
+        "style" : {
+          "color" : "rgb(154, 130, 206)"
+        }
       },
       "AP_CO" : {
         "short" : "AP_CO",
-        "long" : "appositioned and coordinated"
+        "long" : "apposing and coordinated"
       }
     }
   }
