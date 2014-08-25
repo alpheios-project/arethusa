@@ -85,12 +85,19 @@ angular.module('arethusa.core').service('saver', [
     });
     angular.extend(self.activeKeys, keys.saver);
 
-    var changeWatch;
+    var changeWatches = [];
     function setChangeWatch() {
-      changeWatch = state.watch('*', function() {
-        self.needsSave = true;
-        changeWatch();
-      });
+      changeWatches.push(state.watch('*', watchChange));
+    }
+
+    function watchChange() {
+      self.needsSave = true;
+      unsetChangeWatches();
+    }
+
+    function unsetChangeWatches() {
+      angular.forEach(changeWatches, function(watch, i) { watch(); });
+      changeWatches = [];
     }
 
     // Don't let the user leave without a prompt, when
