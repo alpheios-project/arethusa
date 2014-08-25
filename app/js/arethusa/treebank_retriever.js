@@ -22,9 +22,11 @@ angular.module('arethusa').factory('TreebankRetriever', [
           lemma: token._lemma,
           postag: token._postag
         },
-        relation: { label: token._relation || '' }
-
+        relation: {}
       };
+
+      var relation = token._relation;
+      obj.relation.label = (relation && relation !== 'nil') ? relation : '';
 
       var gloss = token._gloss;
       if (gloss) {
