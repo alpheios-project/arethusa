@@ -226,9 +226,32 @@ angular.module('arethusa.relation').service('relation', [
       delete self.relations[token.id];
     });
 
+    function extractColor(obj, target, keys) {
+      angular.forEach(obj, function(rel, name) {
+        var style  = rel.style;
+        var nested = rel.nested;
+        if (style) {
+          var key = aU.flatten(aU.map(keys, rel)).join(' || ');
+          target[key] = style;
+        }
+
+        if (nested) {
+          extractColor(nested, target, keys);
+        }
+      });
+    }
+
+    function createColorMap() {
+      var keys = ['short', 'long'];
+      var map = { header: keys, colors: {} };
+
+      extractColor(self.relationValues.labels, map.colors, keys);
+      return map;
+    }
+
     var colorMap;
     this.colorMap = function() {
-      if (!colorMap) colorMap = {};
+      if (!colorMap) colorMap = createColorMap();
       return colorMap;
     };
 
