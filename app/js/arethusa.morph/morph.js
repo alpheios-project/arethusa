@@ -4,7 +4,8 @@ angular.module('arethusa.morph').service('morph', [
   'configurator',
   'plugins',
   'globalSettings',
-  function (state, configurator, plugins, globalSettings) {
+  'keyCapture',
+  function (state, configurator, plugins, globalSettings, keyCapture) {
     var self = this;
     var morphRetrievers;
     var inventory;
@@ -597,6 +598,52 @@ angular.module('arethusa.morph').service('morph', [
       deleteFromIndex(id);
       delete self.analyses[id];
     });
+
+    function guardSelection(fn) {
+      if (plugins.isSelected(self)) {
+        var selectionCount = state.hasClickSelections();
+        if (selectionCount === 1) fn();
+      }
+    }
+
+    function selectSurroundingForm(dir) {
+      var id = Object.keys(state.clickedTokens)[0];
+      var forms = self.analyses[id].forms;
+      var currentIndex = forms.indexOf(selectedForm(id));
+
+      var index;
+      if (dir) {
+        index = (currentIndex === forms.length - 1) ? 0 : currentIndex + 1;
+      } else {
+        index = (currentIndex === 0) ? forms.length - 1 : currentIndex - 1;
+      }
+      self.setState(id, forms[index]);
+    }
+
+    function selectNext() {
+      guardSelection(function() {
+        selectSurroundingForm(true);
+      });
+    }
+
+    function selectPrev() {
+      guardSelection(function() {
+        selectSurroundingForm();
+      });
+    }
+
+    this.activeKeys = {};
+    var keys = keyCapture.initCaptures(function(kC) {
+      return {
+        morph: [
+          kC.create('selectNextForm', function() { kC.doRepeated(selectNext); }, '↓'),
+          kC.create('selectPrevForm', function() { kC.doRepeated(selectPrev); }, '↑')
+        ]
+      };
+    });
+
+    angular.extend(self.activeKeys, keys.selections);
+
 
     this.init = function () {
       abortOutstandingRequests();
