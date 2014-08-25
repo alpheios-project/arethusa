@@ -163,7 +163,9 @@ angular.module('arethusa.core').service('state', [
 
     this.changeHead = function (tokenId, newHeadId) {
       if (self.headsFor(newHeadId).indexOf(tokenId) !== -1) {
-        self.tokens[newHeadId].head.id = self.tokens[tokenId].head.id;
+        var newToken = self.getToken(newHeadId);
+        var oldHead  = self.getToken(tokenId).head.id;
+        self.change(newToken, 'head.id', oldHead);
       }
       var token = self.getToken(tokenId);
       self.change(token, 'head.id', newHeadId);
@@ -377,8 +379,10 @@ angular.module('arethusa.core').service('state', [
       var token = self.getToken(id);
       // broadcast before we actually delete, in case a plugin needs access
       // during the cleanup process
-      self.broadcast('tokenRemoved', token);
-      delete self.tokens[id];
+      self.doBatched(function() {
+        self.broadcast('tokenRemoved', token);
+        delete self.tokens[id];
+      });
       self.countTotalTokens();
     };
 
@@ -388,29 +392,18 @@ angular.module('arethusa.core').service('state', [
 
     this.change = function(tokenOrId, property, newVal, undoFn, preExecFn) {
       var event = self.lazyChange(tokenOrId, property, newVal, undoFn, preExecFn);
-      event.exec();
-
-      // It might seem redundant to broadcast this event, when listeners
-      // could just use state.watch().
-      // But it's not: Depending the time of init, a listener might not
-      // have the chance to inject state - he has to listen through a
-      // $scope then. In addition, $on brings some additional info about
-      // the scope in use etc., which might be handy at times. We won't
-      // replicate this in state.watch(), as most of the time it's overkill.
-      self.broadcast('tokenChange', event);
-      notifiyWatchers(event);
       if (globalSettings.alwaysDeselect) self.deselectAll();
-      return event;
+      return event.exec();
     };
 
-    function notifiyWatchers(event) {
+    this.notifyWatchers = function(event) {
       function execWatch(watch) { watch.exec(event.newVal, event.oldVal, event); }
 
       var watchers = changeWatchers[event.property] || [];
 
       angular.forEach(watchers, execWatch);
       angular.forEach(changeWatchers['*'], execWatch);
-    }
+    };
 
 
     var changeWatchers = { '*' : [] };

@@ -10,14 +10,19 @@ describe('StateChange', function() {
     this.a = { b: { c: 'c' } };
   }
 
+  var broadcasted, notified;
+
   var state = {
     change: function(t, p, n) { new StateChange(state, t, p, n).exec();  },
-    getToken: function(id) { if (id === '1') return token; }
+    getToken: function(id) { if (id === '1') return token; },
+    broadcast: function() { broadcasted = true; },
+    notifyWatchers: function() { notified = true; }
   };
 
   beforeEach(module("arethusa.core"));
 
   beforeEach(inject(function(_StateChange_) {
+    broadcasted = notified = false;
     StateChange = _StateChange_;
     token = new Token();
   }));
@@ -50,6 +55,24 @@ describe('StateChange', function() {
 
       change.exec();
       expect(preExecuted).toBeTruthy();
+    });
+
+    it('broadcasts through state', function() {
+      expect(broadcasted).toBeFalsy();
+
+      var change = new StateChange(state, '1', 'a.b', '2');
+      change.exec();
+
+      expect(broadcasted).toBeTruthy();
+    });
+
+    it('notifies watchers through state', function() {
+      expect(notified).toBeFalsy();
+
+      var change = new StateChange(state, '1', 'a.b', '2');
+      change.exec();
+
+      expect(notified).toBeTruthy();
     });
   });
 
