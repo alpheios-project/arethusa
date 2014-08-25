@@ -89,11 +89,18 @@ angular.module('arethusa.depTree').service('depTree', [
       if (!token.head) token.head = {};
     }
 
+    function hasHead(token) {
+      return token.head.id;
+    }
+
     state.on('tokenAdded', function(event, token) {
       addHead(token);
     });
 
     state.on('tokenRemoved', function(event, token) {
+      // We need to disconnect manually, so that this event
+      // can be properly undone.
+      if (hasHead(token)) self.disconnect(token);
       var id = token.id;
       angular.forEach(state.tokens, function(t, i) {
         if (t.head.id === id) {
