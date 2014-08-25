@@ -173,7 +173,7 @@ angular.module('arethusa.relation').service('relation', [
       return function() {
         splitLabel(obj, val);
         obj.ancestors = oldAncestors;
-        if (isColorizer()) { state.addStyle(id, self.styleOf(oldAncestors)); }
+        if (isColorizer()) setStyle(id, oldAncestors);
         state.change(obj.id, 'relation.label', val);
       };
     }
@@ -183,18 +183,13 @@ angular.module('arethusa.relation').service('relation', [
       return function() {
         obj.ancestors = newAncestors;
         splitLabel(obj, val);
-        if (isColorizer()) state.addStyle(id, self.styleOf(newAncestors));
+        if (isColorizer()) setStyle(id, newAncestors);
       };
     }
 
     function isColorizer() {
       return globalSettings.isColorizer('relation');
     }
-
-    this.styleOf = function(ancestors) {
-      var chain = aU.map(ancestors, 'short').join('.');
-      return aU.getProperty(self.relationValues.labels, chain).style || {};
-    };
 
     this.changeState = function(relObj, oldAncestors) {
       var id = relObj.id;
@@ -266,8 +261,8 @@ angular.module('arethusa.relation').service('relation', [
       return colorMap;
     };
 
-    function setStyle(id) {
-      var anc = aU.last(self.relations[id].relation.ancestors) || {};
+    function setStyle(id, ancestors) {
+      var anc = aU.last(ancestors || self.relations[id].relation.ancestors) || {};
       var style = anc.style || {};
       state.addStyle(id, style);
     }
@@ -287,7 +282,7 @@ angular.module('arethusa.relation').service('relation', [
       self.relations = self.createInternalState();
       self.resetSearchedLabel();
       self.resetMultiChanger();
-      if (globalSettings.isColorizer('relation')) self.applyStyling();
+      if (isColorizer()) self.applyStyling();
     };
   }
 ]);
