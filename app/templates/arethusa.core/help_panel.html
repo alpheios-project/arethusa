@@ -1,12 +1,34 @@
 <div>
   <br/>
-  <!--<div class="text">-->
-    <!--<p>Color Legend</p>-->
-    <!--<div ng-repeat="(name, style) in morph.colorMap()">-->
-      <!--<span ng-style="style">{{ name }}</span>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--<div delimiter/>-->
+  <div class="text">
+    <p
+      class="text underline clickable"
+      ng-click="legendsVisible = !legendsVisible">
+      Color Legends
+    </p>
+    <ul class="no-list" ng-repeat="(name, map) in gS.colorMaps()">
+      <li
+        ng-class="{ active-colorizer: name === gS.colorizer }">
+        {{ name }}
+      </li>
+      <table class="small">
+        <tr>
+          <th ng-repeat="header in map.header">
+            <strong>{{ header }}</strong>
+          </th>
+        </tr>
+        <tr ng-repeat="(k, col) in map.colors">
+          <td
+            ng-style="col"
+            ng-repeat="val in k.split(' || ') track by $index">
+            {{ val }}
+          </td>
+        </tr>
+      </table>
+    </ul>
+  </div>
+  <div delimiter/>
+
   <div class="text">
     <p
       class="text underline clickable"
