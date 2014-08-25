@@ -286,9 +286,9 @@
           "short" : "mid",
           "postag" : "m"
         },
-        "md" : {
+        "mp" : {
           "long" : "medio-passive",
-          "short" : "md",
+          "short" : "mp",
           "postag" : "e"
         },
         "dep" : {
