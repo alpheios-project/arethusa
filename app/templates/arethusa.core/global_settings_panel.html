@@ -2,28 +2,31 @@
   <br/>
   <p class="text" translate="globalSettings.title"/>
   <div class="small-12 columns scrollable text">
-    <ul
-      class="no-list"
-      ng-repeat="name in gS.settings | keys"
-      ng-init="setting = gS.settings[name]">
-      <li ng-switch="setting.type">
-        <div ng-switch-when="select">
-          <label>
-            <span translate="{{ setting.label }}"/>
-            <select
-              ng-model="gS[setting.property]"
-              ng-change="gS.applyColorizer()"
-              ng-options="k as k for (k, v) in setting.options">
-            </select>
-          </label>
-        </div>
-        <div ng-switch-default>
-          <label>
-            <span translate="{{ setting.label }}"/>
+    <ul class="no-list">
+      <li
+        ng-repeat="name in gS.settings | keys"
+        ng-init="setting = gS.settings[name]">
+        <div ng-switch="setting.type">
+          <div ng-switch-when="select">
+            <label>
+              <span translate="{{ setting.label }}"/>
+              <select
+                style="width: 10%"
+                class="compact"
+                ng-model="gS[setting.property]"
+                ng-change="gS.applyColorizer()"
+                ng-options="k as k for (k, v) in setting.options">
+              </select>
+            </label>
+          </div>
+          <div ng-switch-default>
             <input
               type="{{ setting.type }}"
               ng-model="gS[setting.property]"/>
-          </label>
+            <label>
+              <span translate="{{ setting.label }}"/>
+            </label>
+          </div>
         </div>
       </li>
     </ul>
