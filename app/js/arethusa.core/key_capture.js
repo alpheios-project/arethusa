@@ -18,6 +18,8 @@ angular.module('arethusa.core').service('keyCapture', [
       esc: 27,
       up: 38,
       down: 40,
+      '↑': 38,
+      '↓': 40,
       ":" : 186,
       "[" : 219,
       "'" : 222,
