@@ -8,8 +8,15 @@
   <!--</div>-->
   <!--<div delimiter/>-->
   <div class="text">
-    <p class="text">Keyboard Hotkeys</p>
-    <div class="small-12 columns scrollable" style="height: 400px">
+    <p
+      class="text underline clickable"
+      ng-click="keyHelpVisible = !keyHelpVisible">
+      Keyboard Hotkeys
+    </p>
+    <div
+      class="small-12 columns scrollable slide"
+      style="height: 400px"
+      ng-if="keyHelpVisible">
       <ul class="no-list" ng-repeat="(section, keys) in kC.activeKeys">
         <li>{{ section }}</li>
         <table class="small">
