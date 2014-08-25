@@ -39,6 +39,7 @@ angular.module('arethusa.core').service('globalSettings', [
 
     function defineSettings() {
       defineSetting('alwaysDeselect');
+      defineSetting('keyboardMappings');
       defineSetting('colorizer', 'select', self.colorizers);
     }
 

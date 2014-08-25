@@ -3,7 +3,8 @@ angular.module('arethusa.core').directive('foreignKeys',[
   'keyCapture',
   'languageSettings',
   '$compile',
-  function (keyCapture, languageSettings, $compile) {
+  'globalSettings',
+  function (keyCapture, languageSettings, $compile, globalSettings) {
     return {
       restrict: 'A',
       scope: {
@@ -12,7 +13,7 @@ angular.module('arethusa.core').directive('foreignKeys',[
         foreignKeys: '='
       },
       link: function (scope, element, attrs) {
-        scope.enabled = true;
+        scope.enabled = !globalSettings.keyboardMappings;
         scope.element = element;
 
         var parent = scope.$parent;
