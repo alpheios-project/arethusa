@@ -47,43 +47,24 @@ describe("morph", function() {
     obj.conf = {};
   }
 
-  var createTokens = function() {
-    return {
-      '01': {
-        id: '01',
-        string: 't1',
-        morphology: {
-          lemma: 'lemma1',
-          postag: 'n-'
-        }
-      },
-      '02': {
-        id: '02',
-        string: 't2',
-        morphology: {
-          lemma: 'lemma2',
-          postag: 'a1'
-        }
-      }
-    };
-  };
+  var morph, state;
 
-  beforeEach(module("arethusa.core", function($provide) {
-    var custom = { getConfAndDelegate: morphConf };
-    $provide.value('configurator', arethusaMocks.configurator(custom));
-  }));
+  beforeEach(function() {
+    module("arethusa.core", function($provide) {
+      var custom = { getConfAndDelegate: morphConf };
+      $provide.value('configurator', arethusaMocks.configurator(custom));
+    });
 
-  beforeEach(module("arethusa.morph"));
+    module("arethusa.morph");
 
-  var morph;
-  var state;
-  beforeEach(inject(function(_morph_, _state_, _plugins_) {
-    state = _state_;
-    state.tokens = createTokens();
-    morph = _morph_;
-    _plugins_.start();
-    morph.init();
-  }));
+    inject(function(_morph_, _state_, _plugins_) {
+      state = _state_;
+      state.tokens = arethusaMocks.tokens();
+      morph = _morph_;
+      _plugins_.start();
+      morph.init();
+    });
+  });
 
   describe('this.postagToAttributes', function() {
     it('expands a postag to full key value pairs', function() {

@@ -55,6 +55,47 @@ function ArethusaMocks() {
       withMenu: []
     });
   };
+
+  this.tokens = function() {
+    return {
+      '01': {
+        id: '01',
+        string: 'Arma',
+        relation: {
+          label: "OBJ_CO"
+        },
+        morphology: {
+          lemma: 'lemma1',
+          postag: 'n-'
+        }
+      },
+      '02': {
+        id: '02',
+        string: 'virum',
+        relation: {
+          label: "OBJ_CO"
+        },
+        morphology: {
+          lemma: 'lemma2',
+          postag: 'a1'
+        }
+      },
+      '03': {
+        id: '03',
+        string: '-que',
+        relation: {
+          label: "COORD"
+        }
+      },
+      '04': {
+        id: '04',
+        string: 'cano',
+        relation: {
+          label: "PRED"
+        }
+      }
+    };
+  };
 }
 
 var arethusaMocks = new ArethusaMocks();

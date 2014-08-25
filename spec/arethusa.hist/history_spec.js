@@ -1,23 +1,26 @@
 "use strict";
 
 describe('history', function() {
-  beforeEach(module("arethusa.core"));
-
-  beforeEach(module("arethusa.hist", function($provide) {
-    $provide.value('configurator', arethusaMocks.configurator());
-    $provide.value('keyCapture', arethusaMocks.keyCapture());
-  }));
-
   var history, state;
   var undone, redone;
-  beforeEach(inject(function(_history_, _state_) {
-    history = _history_;
-    state   = _state_;
-    state.silent = false; // true by default
-    history.init();
-    undone = 0;
-    redone = 0;
-  }));
+
+  beforeEach(function() {
+    module("arethusa.core");
+
+    module("arethusa.hist", function($provide) {
+      $provide.value('configurator', arethusaMocks.configurator());
+      $provide.value('keyCapture', arethusaMocks.keyCapture());
+    });
+
+    inject(function(_history_, _state_) {
+      history = _history_;
+      state   = _state_;
+      state.silent = false; // true by default
+      history.init();
+      undone = 0;
+      redone = 0;
+    });
+  });
 
   function MockEvent(type) {
     this.exec = function() { redone++; };
