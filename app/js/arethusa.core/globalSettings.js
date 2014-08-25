@@ -3,7 +3,8 @@
 angular.module('arethusa.core').service('globalSettings', [
   'configurator',
   'plugins',
-  function(configurator,  plugins) {
+  '$injector',
+  function(configurator,  plugins, $injector) {
     var self = this;
 
     var confKeys = [
@@ -21,7 +22,7 @@ angular.module('arethusa.core').service('globalSettings', [
       configurator.delegateConf(self, confKeys, true); // true makes them sticky
 
       self.settings = {};
-      self.colorizers = {};
+      self.colorizers = { disabled: true };
 
       defineSettings();
     }
@@ -57,10 +58,18 @@ angular.module('arethusa.core').service('globalSettings', [
       return self.colorizer === pluginName;
     };
 
+    function state() {
+      return $injector.get('state');
+    }
+
     this.applyColorizer = function() {
-      // Check if the colorizer is really present
-      if (self.colorizers[self.colorizer]) {
-        plugins.get(self.colorizer).applyStyling();
+      if (self.colorizer === 'disabled') {
+        state().unapplyStylings();
+      } else {
+        // Check if the colorizer is really present
+        if (self.colorizers[self.colorizer]) {
+          plugins.get(self.colorizer).applyStyling();
+        }
       }
     };
 
