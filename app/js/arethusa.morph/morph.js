@@ -401,7 +401,7 @@ angular.module('arethusa.morph').service('morph', [
 
 
     function createColorMap() {
-      var keys = ['long', 'short', 'postag'];
+      var keys = ['long', 'postag'];
       var map = { header: keys, colors: {} };
       var attr = self.styledThrough;
 
