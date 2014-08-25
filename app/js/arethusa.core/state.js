@@ -379,8 +379,10 @@ angular.module('arethusa.core').service('state', [
       var token = self.getToken(id);
       // broadcast before we actually delete, in case a plugin needs access
       // during the cleanup process
-      self.broadcast('tokenRemoved', token);
-      delete self.tokens[id];
+      self.doBatched(function() {
+        self.broadcast('tokenRemoved', token);
+        delete self.tokens[id];
+      });
       self.countTotalTokens();
     };
 
