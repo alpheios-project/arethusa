@@ -266,7 +266,20 @@ angular.module('arethusa.relation').service('relation', [
       return colorMap;
     };
 
+    function setStyle(id) {
+      var anc = aU.last(self.relations[id].relation.ancestors) || {};
+      var style = anc.style || {};
+      state.setStyle(id, style);
+    }
+
     this.applyStyling = function() {
+      angular.forEach(state.tokens, function(token, id) {
+        if (token.relation.label) {
+          setStyle(id);
+        } else {
+          state.unsetStyle(id);
+        }
+      });
     };
 
     this.init = function () {
