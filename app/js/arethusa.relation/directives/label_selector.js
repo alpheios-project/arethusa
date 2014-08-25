@@ -2,7 +2,8 @@
 
 angular.module('arethusa.relation').directive('labelSelector', [
   'relation',
-  function(relation) {
+  '$timeout',
+  function(relation, $timeout) {
     return {
       restrict: 'A',
       scope: {
@@ -18,7 +19,9 @@ angular.module('arethusa.relation').directive('labelSelector', [
         });
 
         scope.$on('nestedMenuSelection', function(event, obj) {
-          relation.changeState(obj);
+          $timeout(function() {
+            relation.changeState(obj);
+          });
         });
       },
       templateUrl: 'templates/arethusa.relation/label_selector.html'
