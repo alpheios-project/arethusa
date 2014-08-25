@@ -6,7 +6,12 @@ angular.module('arethusa.core').directive('plugin', [
       restrict: 'E',
       scope: true,
       link: function (scope, element, attrs) {
-        scope.name   = attrs.name;
+        var nameMap = {
+          'aT' : 'artificialToken',
+          'SG' : 'sg'
+        };
+
+        scope.name = nameMap[attrs.name] || attrs.name;
         scope.plugin = plugins.get(scope.name);
 
         scope.$on('pluginAdded', function(event, name, plugin) {
