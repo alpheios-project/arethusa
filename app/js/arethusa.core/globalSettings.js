@@ -75,7 +75,9 @@ angular.module('arethusa.core').service('globalSettings', [
 
     this.colorMaps = function() {
       return arethusaUtil.inject({}, self.colorizers, function(memo, name, _) {
-        memo[name] = plugins.get(name).colorMap();
+        if (name !== 'disabled') {
+          memo[name] = plugins.get(name).colorMap();
+        }
       });
     };
 
