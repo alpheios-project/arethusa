@@ -74,6 +74,7 @@
   "globalSettings" : {
     "title" : "Globale Einstellungen",
     "alwaysDeselect" : "Deselektiere nach jeder Aktion",
+    "keyboardMappings" : "Deaktiviere Tastaturmappings in Eingabefeldern",
     "colorizer" : "Token einfärben nach"
   }
 }
