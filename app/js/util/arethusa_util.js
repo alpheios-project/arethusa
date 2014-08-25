@@ -136,7 +136,10 @@ var arethusaUtil = {
           }
         }
       }
+    },
 
+    last: function(arr) {
+      return arr[arr.length - 1];
     },
 
     replaceAt: function (str, i, replacement) {

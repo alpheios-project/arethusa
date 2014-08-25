@@ -104,6 +104,13 @@ describe("arethusaUtil", function() {
     });
   });
 
+  describe('last', function() {
+    it('returns the last item in an array', function() {
+      var arr = [1, 2, 3];
+      expect(aU.last(arr)).toEqual(3);
+    });
+  });
+
   describe('pushAll', function() {
     it('flat-pushes all elements of an array into another', function() {
       var arr1 = [1, 2];
