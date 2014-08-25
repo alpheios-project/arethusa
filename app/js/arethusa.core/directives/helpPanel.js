@@ -13,9 +13,20 @@ angular.module('arethusa.core').directive('helpPanel', [
         scope.kC = keyCapture;
         scope.gS = globalSettings;
 
+        scope.visible = {};
+
+        scope.toggle = function(param) {
+          scope.visible[param] = !scope.visible[param];
+        };
+
         scope.$watch('help.active', function(newVal, oldVal) {
           scope.active = newVal;
-          if (newVal) element.slideDown(); else element.slideUp();
+          if (newVal) {
+            element.slideDown();
+          } else {
+            element.slideUp();
+            scope.visible = {};
+          }
         });
       },
       templateUrl: 'templates/arethusa.core/help_panel.html'

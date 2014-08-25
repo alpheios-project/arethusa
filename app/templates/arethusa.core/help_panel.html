@@ -3,13 +3,13 @@
   <div class="text">
     <p
       class="text underline clickable"
-      ng-click="legendsVisible = !legendsVisible">
+      ng-click="toggle('colors')">
       Color Legends
     </p>
     <div
       class="small-12 columns scrollable slider"
       style="height: 400px"
-      ng-if="legendsVisible">
+      ng-if="visible.colors">
       <ul class="no-list" ng-repeat="(name, map) in gS.colorMaps()">
         <li
           ng-class="{ 'active-colorizer': name === gS.colorizer }">
@@ -37,13 +37,13 @@
   <div class="text">
     <p
       class="text underline clickable"
-      ng-click="keyHelpVisible = !keyHelpVisible">
+      ng-click="toggle('keys')">
       Keyboard Hotkeys
     </p>
     <div
       class="small-12 columns scrollable slider"
       style="height: 400px"
-      ng-if="keyHelpVisible">
+      ng-if="visible.keys">
       <ul class="no-list" ng-repeat="(section, keys) in kC.activeKeys">
         <li>{{ section }}</li>
         <table class="small">
