@@ -11,35 +11,20 @@ describe("sg", function() {
     }
   };
 
-  var createTokens = function() {
-    return {
-      '01': {
-        id: '01',
-        string: 'Arma',
-      },
-      '02': {
-        id: '02',
-        string: 'virum',
-      },
-      '03': {
-        id: '03',
-        string: 'cano',
-      }
-    };
-  };
+  var sg, state;
 
-  beforeEach(module("arethusa.core", function($provide) {
-    $provide.value('configurator', arethusaMocks.configurator(confCustom));
-  }));
+  beforeEach(function() {
+    module("arethusa.core", function($provide) {
+      $provide.value('configurator', arethusaMocks.configurator(confCustom));
+    });
 
-  beforeEach(module("arethusa.sg"));
+    module("arethusa.sg");
 
-  var sg;
-  var state;
-  beforeEach(inject(function(_sg_, _state_) {
-    state = _state_;
-    state.tokens = createTokens();
-    sg = _sg_;
-    sg.init();
-  }));
+    inject(function(_sg_, _state_) {
+      state = _state_;
+      state.tokens = arethusaMocks.tokens();
+      sg = _sg_;
+      sg.init();
+    });
+  });
 });

@@ -14,20 +14,22 @@ describe("relation", function() {
     }
   };
 
-  beforeEach(module("arethusa.core", function($provide) {
-    $provide.value('configurator', arethusaMocks.configurator(confCustomization));
-  }));
+  var relation, state;
 
-  beforeEach(module("arethusa.relation"));
+  beforeEach(function() {
+    module("arethusa.core", function($provide) {
+      $provide.value('configurator', arethusaMocks.configurator(confCustomization));
+    });
 
-  var relation;
-  var state;
-  beforeEach(inject(function(_relation_, _state_) {
-    state = _state_;
-    state.tokens = arethusaMocks.tokens();
-    relation = _relation_;
-    relation.init();
-  }));
+    module("arethusa.relation");
+
+    inject(function(_relation_, _state_) {
+      state = _state_;
+      state.tokens = arethusaMocks.tokens();
+      relation = _relation_;
+      relation.init();
+    });
+  });
 
   describe('label handling', function() {
     describe('this.buildLabel', function() {

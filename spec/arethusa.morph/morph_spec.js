@@ -47,22 +47,24 @@ describe("morph", function() {
     obj.conf = {};
   }
 
-  beforeEach(module("arethusa.core", function($provide) {
-    var custom = { getConfAndDelegate: morphConf };
-    $provide.value('configurator', arethusaMocks.configurator(custom));
-  }));
+  var morph, state;
 
-  beforeEach(module("arethusa.morph"));
+  beforeEach(function() {
+    module("arethusa.core", function($provide) {
+      var custom = { getConfAndDelegate: morphConf };
+      $provide.value('configurator', arethusaMocks.configurator(custom));
+    });
 
-  var morph;
-  var state;
-  beforeEach(inject(function(_morph_, _state_, _plugins_) {
-    state = _state_;
-    state.tokens = arethusaMocks.tokens();
-    morph = _morph_;
-    _plugins_.start();
-    morph.init();
-  }));
+    module("arethusa.morph");
+
+    inject(function(_morph_, _state_, _plugins_) {
+      state = _state_;
+      state.tokens = arethusaMocks.tokens();
+      morph = _morph_;
+      _plugins_.start();
+      morph.init();
+    });
+  });
 
   describe('this.postagToAttributes', function() {
     it('expands a postag to full key value pairs', function() {

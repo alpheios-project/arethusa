@@ -1,41 +1,23 @@
 'use strict';
 
 describe('search', function() {
-  var createTokens = function() {
-    return {
-      '01' : {
-        id: '01',
-        string: 'Arma'
-      },
-      '02': {
-        id: '02',
-        string: 'virum'
-      },
-      '03': {
-        id: '03',
-        string: 'virum'
-      },
-      '04': {
-        id: '04',
-        string: 'cano'
-      }
-    };
-  };
+  var search, state;
 
-  beforeEach(module('arethusa.core', function($provide) {
-    $provide.value('configurator', arethusaMocks.configurator());
-  }));
+  beforeEach(function() {
+    module('arethusa.core', function($provide) {
+      $provide.value('configurator', arethusaMocks.configurator());
+    });
 
-  beforeEach(module('arethusa.search'));
+    module('arethusa.search');
 
-  var search;
-  var state;
-  beforeEach(inject(function(_search_, _state_) {
-    search = _search_;
-    state = _state_;
-    state.tokens = createTokens();
-    search.init();
-  }));
+    inject(function(_search_, _state_) {
+      search = _search_;
+      state = _state_;
+      state.tokens = arethusaMocks.tokens();
+      state.tokens['03'].string = 'virum';
+      search.init();
+    });
+  });
 
   describe('this.findByRegex', function() {
     describe('finds tokens by a regex and returns their id in an array', function() {
