@@ -15,6 +15,7 @@ angular.module('arethusa.relation').service('relation', [
       configurator.getStickyConf('relation', self, ['advancedMode']);
       self.relationValues = self.conf.relations;
       self.relations = {};
+      colorMap = undefined;
     }
 
     configure();
@@ -224,6 +225,12 @@ angular.module('arethusa.relation').service('relation', [
     state.on('tokenRemoved', function(event, token) {
       delete self.relations[token.id];
     });
+
+    var colorMap;
+    this.colorMap = function() {
+      if (!colorMap) colorMap = {};
+      return colorMap;
+    };
 
     this.init = function () {
       configure();
