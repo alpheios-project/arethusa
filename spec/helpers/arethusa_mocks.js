@@ -63,6 +63,10 @@ function ArethusaMocks() {
         string: 'Arma',
         relation: {
           label: "OBJ_CO"
+        },
+        morphology: {
+          lemma: 'lemma1',
+          postag: 'n-'
         }
       },
       '02': {
@@ -70,6 +74,10 @@ function ArethusaMocks() {
         string: 'virum',
         relation: {
           label: "OBJ_CO"
+        },
+        morphology: {
+          lemma: 'lemma2',
+          postag: 'a1'
         }
       },
       '03': {
