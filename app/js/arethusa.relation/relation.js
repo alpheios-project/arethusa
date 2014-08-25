@@ -287,6 +287,7 @@ angular.module('arethusa.relation').service('relation', [
       self.relations = self.createInternalState();
       self.resetSearchedLabel();
       self.resetMultiChanger();
+      if (globalSettings.isColorizer('relation')) self.applyStyling();
     };
   }
 ]);
