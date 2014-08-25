@@ -1,39 +1,6 @@
 "use strict";
 
 describe("relation", function() {
-  var createTokens = function() {
-    return {
-      '01': {
-        id: '01',
-        string: 'Arma',
-        relation: {
-          label: "OBJ_CO"
-        }
-      },
-      '02': {
-        id: '02',
-        string: 'virum',
-        relation: {
-          label: "OBJ_CO"
-        }
-      },
-      '03': {
-        id: '03',
-        string: '-que',
-        relation: {
-          label: "COORD"
-        }
-      },
-      '04': {
-        id: '04',
-        string: 'cano',
-        relation: {
-          label: "PRED"
-        }
-      }
-    };
-  };
-
   var confCustomization = {
     getConfAndDelegate: function(name, obj) {
       var relations = {
@@ -47,8 +14,6 @@ describe("relation", function() {
     }
   };
 
-
-
   beforeEach(module("arethusa.core", function($provide) {
     $provide.value('configurator', arethusaMocks.configurator(confCustomization));
   }));
@@ -59,7 +24,7 @@ describe("relation", function() {
   var state;
   beforeEach(inject(function(_relation_, _state_) {
     state = _state_;
-    state.tokens = createTokens();
+    state.tokens = arethusaMocks.tokens();
     relation = _relation_;
     relation.init();
   }));
