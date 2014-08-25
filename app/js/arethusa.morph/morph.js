@@ -74,6 +74,8 @@ angular.module('arethusa.morph').service('morph', [
       if (self.conf.lexicalInventory) {
         inventory = configurator.getRetriever(self.conf.lexicalInventory.retriever);
       }
+
+      colorMap = undefined;
     }
 
     configure();
@@ -397,18 +399,24 @@ angular.module('arethusa.morph').service('morph', [
       });
     };
 
-    this.colorMap = function() {
-      var map = {};
-      var attr = self.styledThrough;
-      if (attr) {
-        var values = self.attributes[attr].values;
-        var keys   = ['long', 'short', 'postag'];
 
-        return aU.inject({}, values, function(memo, k, v) {
-          var key = aU.flatten(aU.map(keys, v)).join(' - ');
-          memo[key] = v.style;
-        });
-      }
+    function createColorMap() {
+      var keys = ['long', 'short', 'postag'];
+      var map = { header: keys, colors: {} };
+      var attr = self.styledThrough;
+
+      var values = self.attributes[attr].values;
+
+      return aU.inject(map, values, function(memo, k, v) {
+        var key = aU.flatten(aU.map(keys, v)).join(' || ');
+        memo.colors[key] = v.style;
+      });
+    }
+
+    var colorMap;
+    this.colorMap = function() {
+      if (!colorMap)  colorMap = createColorMap();
+      return colorMap;
     };
 
     this.applyStyling = function() {
