@@ -19,8 +19,9 @@ angular.module('arethusa.relation').directive('labelSelector', [
         });
 
         scope.$on('nestedMenuSelection', function(event, obj) {
+          var oldAncestors = angular.copy(obj.ancestors);
           $timeout(function() {
-            relation.changeState(obj);
+            relation.changeState(obj, oldAncestors);
           });
         });
       },
