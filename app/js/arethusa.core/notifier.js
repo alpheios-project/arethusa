@@ -22,7 +22,7 @@ angular.module('arethusa.core').service('notifier', [
     }
 
     function generate(type) {
-      self[type] = function(title, message) {
+      self[type] = function(message, title) {
         self.addMessage(type, message, title);
       };
     }
@@ -34,7 +34,6 @@ angular.module('arethusa.core').service('notifier', [
       if (self.messages.length === self.maxMessages) {
         self.messages.pop();
       }
-      title = title || '';
 
       self.messages.unshift(new Message(type, message, title));
       toaster.pop(type, title, message);
