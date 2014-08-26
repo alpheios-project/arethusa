@@ -64,7 +64,7 @@ angular.module('arethusa.core').service('saver', [
 
     this.save = function() {
       if (self.needsSave) {
-        notifier.info(translations.inProgress);
+        notifier.wait(translations.inProgress);
         // We only have one persister right now, later we'll want
         // to handle the success notification better.
         angular.forEach(persisters, function(persister, name) {
