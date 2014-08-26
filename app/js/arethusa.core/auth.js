@@ -40,13 +40,15 @@ angular.module('arethusa.core').factory('Auth', [
         var success = function() {
           // Ping has restored our session cookie - we need to $timeout,
           // otherwise we don't see it updated!
+          // Angular is polling every 100ms for new cookies, we therefore
+          // have to wait a little.
           $timeout(function() {
             callback().then(function(res) {
               q.resolve(res);
             }, function(res) {
               q.reject(res);
             });
-          });
+          }, 150);
         };
 
         var error = function(data, status, headers) {
