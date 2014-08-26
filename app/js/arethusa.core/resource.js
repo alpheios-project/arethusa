@@ -91,9 +91,18 @@ angular.module('arethusa.core').factory('Resource', [
 
       this.save = function (data,mimetype) {
         spinner.spin();
+
         var params = collectedParams(self.params,{});
         self.mimetype = mimetype;
-        return stopSpinning(self.resource.save(params,data));
+
+        function saveFn() {
+          return stopSpinning(self.resource.save(params,data));
+
+        }
+
+        var q = $q.defer();
+        auth.withAuthentication(q, saveFn);
+        return q;
       };
 
       this.post = this.save;
