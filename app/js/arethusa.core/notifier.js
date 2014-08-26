@@ -15,10 +15,10 @@ angular.module('arethusa.core').service('notifier', [
     this.messages = [];
     this.current = {};
 
-    function Message(type, message, description) {
+    function Message(type, message, title) {
       this.type = type;
       this.message = message;
-      this.description = description;
+      this.title = title;
       this.time = new Date();
     }
 
@@ -28,21 +28,22 @@ angular.module('arethusa.core').service('notifier', [
     }
 
     function generate(type) {
-      self[type] = function(message, description) {
-        self.addMessage(type, message, description);
+      self[type] = function(title, message) {
+        self.addMessage(type, message, title);
       };
     }
 
     var types = ['success', 'info', 'wait', 'warning', 'error'];
     angular.forEach(types, generate);
 
-    this.addMessage = function(type, message, description) {
+    this.addMessage = function(type, message, title) {
       if (self.messages.length === self.maxMessages) {
         self.messages.pop();
       }
-      self.messages.unshift(new Message(type, message, description));
-      console.log(type);
-      toaster.pop(type, 'HEY', message);
+      title = title || '';
+
+      self.messages.unshift(new Message(type, message, title));
+      toaster.pop(type, title, message);
       lastMessage();
     };
 
