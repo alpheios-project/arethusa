@@ -4,4 +4,5 @@ angular.module('arethusa.core', [
   'ngAnimate',
   'duScroll',
   'pascalprecht.translate',
+  'toaster'
 ]);
