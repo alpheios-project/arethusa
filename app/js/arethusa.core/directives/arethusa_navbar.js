@@ -64,10 +64,6 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
           return conf.navigation;
         };
 
-        scope.showNotifier = function () {
-          return isVisible(820, conf.notifier);
-        };
-
         // Foundation's topbar doesn't seem to work properly - could be an issue
         // with angular. If we make it fixed, it overlaps our body and no padding
         // is added. We do it manually through this directive.
