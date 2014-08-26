@@ -58,14 +58,14 @@ angular.module('arethusa.core').factory('Auth', [
           q.resolve(res);
         };
 
-        var launch = function(callback) {
+        var launch = function() {
           callback().then(suc, err);
         };
 
         // If we had no authFailure before, avoid the indirection and
         // launch the callback right away.
         if (!authFailure) {
-          launch(callback);
+          launch();
         } else {
           // Check auth will ideally restore our session cookie - we need to
           // $timeout, otherwise we don't see it updated!
