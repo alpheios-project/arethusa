@@ -7,6 +7,7 @@ angular.module('arethusa.core').service('notifier', [
 
     function configure() {
       self.conf = configurator.configurationFor('notifier');
+      self.disable = self.conf.disable;
       self.duration = self.conf.duration || 10000;
       self.maxMessages = self.conf.maxMessages || 15;
     }
@@ -23,7 +24,9 @@ angular.module('arethusa.core').service('notifier', [
 
     function generate(type) {
       self[type] = function(message, title) {
-        self.addMessage(type, message, title);
+        if (!self.disable) {
+          self.addMessage(type, message, title);
+        }
       };
     }
 
