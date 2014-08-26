@@ -155,7 +155,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
            value-watch\
            target="obj"\
            property="label"\
-           empty-val="UNDEFINED"/>\
+           empty-val="NIL"/>\
         ';
 
         // Templates driven out to their own files
