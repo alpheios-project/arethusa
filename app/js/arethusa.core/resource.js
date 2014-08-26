@@ -42,12 +42,15 @@ angular.module('arethusa.core').factory('Resource', [
       return $q.defer();
     }
 
-    return function (conf,auth) {
+    return function (conf, auth) {
       var self = this;
       this.route = conf.route;
       this.params = conf.params || [];
       this.auth = auth;
-      auth.preflight();
+
+      // Check right away if the user is logged in and notify
+      // him when he isn't
+      auth.checkAuthentication();
 
       var aborter;
 
@@ -95,13 +98,32 @@ angular.module('arethusa.core').factory('Resource', [
         var params = collectedParams(self.params,{});
         self.mimetype = mimetype;
 
-        function saveFn() {
-          return stopSpinning(self.resource.save(params,data));
+        // Immediately resolve a promise, which is resolved upon a
+        // successful save.
+        //
+        // When the first save attempt failed, an attempt is made
+        // to restore the authentication information before the save
+        // is replayed.
+        // When it still fails the promise is rejected.
+        var q = $q.defer();
 
+        function doSave() {
+          return stopSpinning(self.resource.save(params,data));
         }
 
-        var q = $q.defer();
-        auth.withAuthentication(q, saveFn);
+        var saveSuc = function(res) { q.resolve(res); };
+
+        var saveErr = function(data, status, headers) {
+          if (status === 403) {
+            auth.withAuthentication(q, doSave);
+          } else {
+            spinner.stop();
+            q.reject({ data: data, status: status, headers: headers });
+          }
+        };
+
+        doSave().then(saveSuc, saveErr);
+
         return q.promise;
       };
 
