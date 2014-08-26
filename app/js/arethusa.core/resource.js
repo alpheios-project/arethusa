@@ -88,6 +88,7 @@ angular.module('arethusa.core').factory('Resource', [
         return promise;
       };
 
+      var authFailure;
       this.save = function (data,mimetype) {
         spinner.spin();
 
@@ -108,17 +109,21 @@ angular.module('arethusa.core').factory('Resource', [
           return self.resource.save(params, data).$promise;
         }
 
-        var saveSuc = function(res) { q.resolve(res); };
-
-        var saveErr = function(res) {
-          if (res.status === 403) {
-            auth.withAuthentication(q, doSave);
-          } else {
-            q.reject(res);
-          }
+        var saveSuc = function(res) {
+          authFailure = false;
+          q.resolve(res);
         };
 
-        doSave().then(saveSuc, saveErr);
+        var saveErr = function(res) {
+          if (res.status === 403) authFailure = true;
+          q.reject(res);
+        };
+
+        if (authFailure) {
+          doSave().then(saveSuc, saveErr);
+        } else {
+          auth.withAuthentication(q, doSave);
+        }
 
         promise['finally'](spinner.stop);
         return promise;
