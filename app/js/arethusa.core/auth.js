@@ -41,22 +41,19 @@ angular.module('arethusa.core').factory('Auth', [
       };
 
       this.withAuthentication = function(q, callback) {
-        var authErr = function(res) {
-          loginWarning();
-          q.reject(res);
-        };
+        var err = function(res) { q.reject(res); };
+        var suc = function(res) { q.resolve(res); };
 
-        var suc = function() {
+        var authErr = function(res) { loginWarning(); err(res); };
+        var authSuc = function() {
           // Ping has restored our session cookie - we need to $timeout,
           // otherwise we don't see it updated!
           // Angular is polling every 100ms for new cookies, we therefore
           // have to wait a little.
-          $timeout(function() {
-            callback().then(function(res) { q.resolve(res); }, authErr);
-          }, 150);
+          $timeout(function() { callback().then(suc, err); }, 150);
         };
 
-        pinger.checkAuth(suc, function(res) { q.reject(res); });
+        pinger.checkAuth(authSuc, authErr);
       };
 
       this.transformRequest = function(headers) {
