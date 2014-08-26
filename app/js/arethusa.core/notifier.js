@@ -41,7 +41,6 @@ angular.module('arethusa.core').service('notifier', [
 
     this.init = function() {
       configure();
-      self.messages = [];
     };
   }
 ]);
