@@ -80,16 +80,12 @@ angular.module('arethusa.core').factory('Resource', [
       }
       this.resource = createResource();
 
-      function stopSpinning(req) {
-        var promise = req.$promise;
-        promise['finally'](spinner.stop);
-        return promise;
-      }
-
       this.get = function (otherParams) {
         spinner.spin();
         var params = collectedParams(self.params, otherParams);
-        return stopSpinning(self.resource.get(params));
+        var promise = self.resource.get(params).$promise;
+        promise['finally'](spinner.stop);
+        return promise;
       };
 
       this.save = function (data,mimetype) {
