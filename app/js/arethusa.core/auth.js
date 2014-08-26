@@ -64,7 +64,7 @@ angular.module('arethusa.core').factory('Auth', [
 
       this.transformRequest = function(headers) {
         if (self.conf.type == 'CSRF') {
-            headers()[self.conf.header] = $cookies[self.conf.cookie];
+          headers()[self.conf.header] = $cookies[self.conf.cookie];
         }
       };
     };
