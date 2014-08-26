@@ -38,6 +38,10 @@ angular.module('arethusa.core').service('configurator', [
 
     var loader = new Loader();
 
+    function notifier() {
+      return $injector.get('notifier');
+    }
+
     function filesToInclude(obj) {
       return arethusaUtil.findNestedProperties(obj, includeParam)[includeParam];
     }
@@ -160,9 +164,16 @@ angular.module('arethusa.core').service('configurator', [
         var promise;
         // Use the notifier for error handling!
         if (plugin == 'fullFile') {
-          promise = $http.get(parseConfUrl(url)).then(function(res) {
+
+          var success = function(res) {
             self.shallowMerge(self.configuration, res.data);
-          });
+            notifier().info(url + ' configuration loaded!');
+          };
+
+          var error = function() {
+            notifier().warning('Failed to retrieve ' + url);
+          };
+          promise = $http.get(parseConfUrl(url)).then(success, error);
         } else {
           promise = $http.get(url).then(function(res) {
             angular.extend(self.configurationFor(plugin), res.data);

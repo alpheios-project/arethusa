@@ -101,6 +101,7 @@ module.exports = function(grunt) {
             './vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.js',
             './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
             './vendor/dagre-d3/dagre-d3.min.js',
+            './vendor/angularJS-toaster/toaster.min.js',
             // Some source files we'll need to include manually, otherwise
             // the load order is wrong
             'app/js/*.js',
@@ -231,6 +232,7 @@ module.exports = function(grunt) {
       text: { files: pluginFiles('arethusa.text') },
       dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
       uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
+      toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
       templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} },
       util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
       external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } }

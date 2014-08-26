@@ -5,7 +5,6 @@
  *   disable - Boolean
  *   search - Boolean
  *   navigation - Boolean
- *   notifier - Boolean
  *   template - String
  *
  * Example;
@@ -40,7 +39,7 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
         }
 
         function setLogo() {
-          var icon = scope.windowWidth > 1370 ? '' : 'icon-';
+          var icon = scope.windowWidth > 1250 ? '' : 'icon-';
           scope.logo = "images/arethusa-" + icon + "small.png";
         }
 
@@ -62,10 +61,6 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
 
         scope.showNavigation = function () {
           return conf.navigation;
-        };
-
-        scope.showNotifier = function () {
-          return isVisible(820, conf.notifier);
         };
 
         // Foundation's topbar doesn't seem to work properly - could be an issue

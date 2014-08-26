@@ -1,6 +1,8 @@
 @import url(http://fonts.googleapis.com/earlyaccess/amiri.css);
 @import '../../bower_components/bourbon/dist/bourbon';
 @import 'foundation';
+@import "animation_helpers";
+@import 'toaster';
 
 html, body {
   height: 100%;
@@ -780,8 +782,6 @@ input.warn {
 /***************************************************************************
  *                               Animations                                *
  ***************************************************************************/
-
-@import "animation_helpers";
 
 .fade-in {
   @include toggler(500ms, 0);

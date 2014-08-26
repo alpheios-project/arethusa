@@ -17,8 +17,6 @@ angular.module('arethusa.core').controller('MainCtrl', [
     translator('loadInProgress', translations, 'loadInProgress');
     translator('loadComplete', translations, 'loadComplete');
 
-    notifier.info(translations.loadInProgress);
-
     documentStore.reset();
     $scope.aU = arethusaUtil;
     $scope.debug = false;
@@ -58,6 +56,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
     // changed completely. Therefore, the confLoaded event sets arethusaLoaded to
     // false every time it's triggered.
     $scope.$on('confLoaded', function () {
+      notifier.wait(translations.loadInProgress);
       state.arethusaLoaded = false;
       state.init();
       history.init();
