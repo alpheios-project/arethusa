@@ -59,9 +59,6 @@ angular.module('arethusa.core').factory('Auth', [
         pinger.checkAuth(suc, function(res) { q.reject(res); });
       };
 
-      this.transformResponse = function(headers) {
-      };
-
       this.transformRequest = function(headers) {
         if (self.conf.type == 'CSRF') {
           headers()[self.conf.header] = $cookies[self.conf.cookie];
