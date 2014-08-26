@@ -3,7 +3,8 @@ angular.module('arethusa.core').factory('Auth', [
   '$resource',
   '$cookies',
   '$timeout',
-  function ($resource, $cookies, $timeout) {
+  '$injector',
+  function ($resource, $cookies, $timeout, $injector) {
 
     function Pinger(url) {
       if (url) {
@@ -18,45 +19,41 @@ angular.module('arethusa.core').factory('Auth', [
       }
     }
 
+    function noop() {}
+
+    function reject(q, d, s, h) {
+      q.reject({ data: d, status: s, headers: h});
+    }
     return function(conf) {
       var self = this;
       self.conf = conf;
 
       var pinger = new Pinger(conf.ping);
 
-      this.preflight = function() {
-        // if the authorization config for this resource has a
-        // ping method configured, use it to initialize the cookies
-        if (self.conf.ping) {
-          var ping = $resource(self.conf.ping, null, { });
-          // TODO should really have some error handling here
-          // because if the ping fails the subsequent get and post
-          // requests on the resource will
-          ping.get();
-        }
+      this.checkAuthentication = function() {
+        pinger.checkAuth(noop, noop);
       };
 
       this.withAuthentication = function(q, callback) {
-        var success = function() {
+        var authErr = function(d, s, h) {
+          reject(q, d, s, h);
+        };
+
+        var err = function(d, s, h) {
+          reject(q, d, s, h);
+        };
+
+        var suc = function() {
           // Ping has restored our session cookie - we need to $timeout,
           // otherwise we don't see it updated!
           // Angular is polling every 100ms for new cookies, we therefore
           // have to wait a little.
           $timeout(function() {
-            callback().then(function(res) {
-              q.resolve(res);
-            }, function(res) {
-              q.reject(res);
-            });
+            callback().then(function(res) { q.resolve(res); }, authErr);
           }, 150);
         };
 
-        var error = function(data, status, headers) {
-          // Ask to re-login here!
-          q.reject({ data: data, status: status, headers: headers });
-        };
-
-        pinger.checkAuth(success, error);
+        pinger.checkAuth(suc, err);
       };
 
       this.transformResponse = function(headers) {
