@@ -9,7 +9,7 @@ angular.module('arethusa.core').factory('Auth', [
       if (url) {
         var resource = $resource(url, null, {});
         this.checkAuth = function(success, error) {
-          resource.get().then(success, error);
+          resource.get(success, error);
         };
       } else {
         this.checkAuth = function(success, error) {
