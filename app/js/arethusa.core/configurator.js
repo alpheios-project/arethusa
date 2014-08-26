@@ -171,7 +171,7 @@ angular.module('arethusa.core').service('configurator', [
           };
 
           var error = function() {
-            notifier().error('Failed to retrieve ' + url);
+            notifier().warning('Failed to retrieve ' + url);
           };
           promise = $http.get(parseConfUrl(url)).then(success, error);
         } else {
