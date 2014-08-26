@@ -1,7 +1,8 @@
 'use strict';
 angular.module('arethusa.core').service('notifier', [
   'configurator',
-  function(configurator) {
+  'toaster',
+  function(configurator, toaster) {
     var self = this;
 
     function configure() {
@@ -30,7 +31,7 @@ angular.module('arethusa.core').service('notifier', [
       self.addMessage('success', message, description);
     };
     this.info = function(message, description) {
-      self.addMessage('info', message, description);
+      self.addMessage('wait', message, description);
     };
     this.error = function (message, description) {
       self.addMessage('error', message, description);
@@ -41,6 +42,8 @@ angular.module('arethusa.core').service('notifier', [
         self.messages.pop();
       }
       self.messages.unshift(new Message(type, message, description));
+      console.log(type);
+      toaster.pop(type, 'HEY', message);
       lastMessage();
     };
 
