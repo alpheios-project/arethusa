@@ -2,11 +2,27 @@
 angular.module('arethusa.core').factory('Auth', [
   '$resource',
   '$cookies',
-  function ($resource,$cookies) {
+  '$timeout',
+  function ($resource, $cookies, $timeout) {
+
+    function Pinger(url) {
+      if (url) {
+        var resource = $resource(url, null, {});
+        this.checkAuth = function(success, error) {
+          resource.get().then(success, error);
+        };
+      } else {
+        this.checkAuth = function(success, error) {
+          success();
+        };
+      }
+    }
 
     return function(conf) {
       var self = this;
       self.conf = conf;
+
+      var pinger = new Pinger(conf.ping);
 
       this.preflight = function() {
         // if the authorization config for this resource has a
@@ -18,6 +34,27 @@ angular.module('arethusa.core').factory('Auth', [
           // requests on the resource will
           ping.get();
         }
+      };
+
+      this.withAuthentication = function(q, callback) {
+        var success = function() {
+          // Ping has restored our session cookie - we need to $timeout,
+          // otherwise we don't see it updated!
+          $timeout(function() {
+            callback().then(function(res) {
+              q.resolve(res);
+            }, function(res) {
+              q.reject(res);
+            });
+          });
+        };
+
+        var error = function(data, status, headers) {
+          // Ask to re-login here!
+          q.resolve({ data: data, status: status, headers: headers });
+        };
+
+        pinger.checkAuth(success, error);
       };
 
       this.transformResponse = function(headers) {
