@@ -102,7 +102,7 @@ angular.module('arethusa.core').factory('Resource', [
 
         var q = $q.defer();
         auth.withAuthentication(q, saveFn);
-        return q;
+        return q.promise;
       };
 
       this.post = this.save;
