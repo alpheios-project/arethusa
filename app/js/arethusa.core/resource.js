@@ -106,25 +106,27 @@ angular.module('arethusa.core').factory('Resource', [
         // is replayed.
         // When it still fails the promise is rejected.
         var q = $q.defer();
+        var promise = q.promise;
 
         function doSave() {
-          return stopSpinning(self.resource.save(params,data));
+          self.resource.save(params, data);
         }
 
         var saveSuc = function(res) { q.resolve(res); };
 
-        var saveErr = function(data, status, headers) {
-          if (status === 403) {
+        var saveErr = function(res) {
+          if (res.status === 403) {
             auth.withAuthentication(q, doSave);
           } else {
             spinner.stop();
-            q.reject({ data: data, status: status, headers: headers });
+            q.reject(res);
           }
         };
 
         doSave().then(saveSuc, saveErr);
 
-        return q.promise;
+        promise['finally'](spinner.stop);
+        return promise;
       };
 
       this.post = this.save;
