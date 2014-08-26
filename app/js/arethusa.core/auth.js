@@ -26,34 +26,54 @@ angular.module('arethusa.core').factory('Auth', [
 
     function noop() {}
 
-    function loginWarning() {
-      notifier().warning("You aren't logged in!");
-    }
-
     return function(conf) {
       var self = this;
       self.conf = conf;
 
+      var authFailure;
+
+      function loginWarning() {
+        authFailure = true;
+        notifier().warning("You aren't logged in!");
+      }
+
+      function checkForAuthFailure(res) {
+        if (res.status === 403) loginWarning();
+      }
+
       var pinger = new Pinger(conf.ping);
 
       this.checkAuthentication = function() {
-        pinger.checkAuth(noop, loginWarning);
+        pinger.checkAuth(noop, checkForAuthFailure);
       };
 
       this.withAuthentication = function(q, callback) {
-        var err = function(res) { q.reject(res); };
-        var suc = function(res) { q.resolve(res); };
-
-        var authErr = function(res) { loginWarning(); err(res); };
-        var authSuc = function() {
-          // Ping has restored our session cookie - we need to $timeout,
-          // otherwise we don't see it updated!
-          // Angular is polling every 100ms for new cookies, we therefore
-          // have to wait a little.
-          $timeout(function() { callback().then(suc, err); }, 150);
+        var err = function(res) {
+          checkForAuthFailure(res);
+          q.reject(res);
         };
 
-        pinger.checkAuth(authSuc, authErr);
+        var suc = function(res) {
+          authFailure = false;
+          q.resolve(res);
+        };
+
+        var launch = function(callback) {
+          callback().then(suc, err);
+        };
+
+        // If we had no authFailure before, avoid the indirection and
+        // launch the callback right away.
+        if (!authFailure) {
+          launch(callback);
+        } else {
+          // Check auth will ideally restore our session cookie - we need to
+          // $timeout, otherwise we don't see it updated!
+          // Angular is polling every 100ms for new cookies, we therefore
+          // have to wait a little.
+          var authSuc = function() { $timeout(launch, 150); };
+          pinger.checkAuth(authSuc, err);
+        }
       };
 
       this.transformRequest = function(headers) {

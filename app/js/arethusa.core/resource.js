@@ -95,35 +95,12 @@ angular.module('arethusa.core').factory('Resource', [
         var params = collectedParams(self.params,{});
         self.mimetype = mimetype;
 
-        // Immediately resolve a promise, which is resolved upon a
-        // successful save.
-        //
-        // When the first save attempt failed, an attempt is made
-        // to restore the authentication information before the save
-        // is replayed.
-        // When it still fails the promise is rejected.
         var q = $q.defer();
         var promise = q.promise;
 
-        function doSave() {
+        auth.withAuthentication(q, function() {
           return self.resource.save(params, data).$promise;
-        }
-
-        var saveSuc = function(res) {
-          authFailure = false;
-          q.resolve(res);
-        };
-
-        var saveErr = function(res) {
-          if (res.status === 403) authFailure = true;
-          q.reject(res);
-        };
-
-        if (authFailure) {
-          doSave().then(saveSuc, saveErr);
-        } else {
-          auth.withAuthentication(q, doSave);
-        }
+        });
 
         promise['finally'](spinner.stop);
         return promise;
