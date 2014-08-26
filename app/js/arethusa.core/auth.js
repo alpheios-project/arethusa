@@ -51,7 +51,7 @@ angular.module('arethusa.core').factory('Auth', [
 
         var error = function(data, status, headers) {
           // Ask to re-login here!
-          q.resolve({ data: data, status: status, headers: headers });
+          q.reject({ data: data, status: status, headers: headers });
         };
 
         pinger.checkAuth(success, error);
