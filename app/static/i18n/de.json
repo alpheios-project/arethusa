@@ -16,6 +16,10 @@
   "save" : "Speichern",
   "reset" : "Rücksetzen",
 
+  "auth" : {
+    "notLoggedIn" : "Du bist nicht angemeldet!"
+  },
+
   "saver" : {
     "success" : "Dokument gespeichert!",
     "error" : "Speichern fehlgeschlagen! Versuch's nochmal?",

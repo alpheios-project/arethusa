@@ -4,7 +4,8 @@ angular.module('arethusa.core').factory('Auth', [
   '$cookies',
   '$timeout',
   '$injector',
-  function ($resource, $cookies, $timeout, $injector) {
+  'translator',
+  function ($resource, $cookies, $timeout, $injector, translator) {
     var lazyNotifier;
     function notifier() {
       if (!lazyNotifier) lazyNotifier = $injector.get('notifier');
@@ -26,6 +27,9 @@ angular.module('arethusa.core').factory('Auth', [
 
     function noop() {}
 
+    var translations = {};
+    translator('auth.notLoggedIn', translations, 'notLoggedIn');
+
     return function(conf) {
       var self = this;
       self.conf = conf;
@@ -34,7 +38,7 @@ angular.module('arethusa.core').factory('Auth', [
 
       function loginWarning() {
         authFailure = true;
-        notifier().warning("You aren't logged in!");
+        notifier().warning(translations.notLoggedIn);
       }
 
       function checkForAuthFailure(res) {
