@@ -13,18 +13,12 @@ angular.module('arethusa.core').service('notifier', [
 
     configure();
     this.messages = [];
-    this.current = {};
 
     function Message(type, message, title) {
       this.type = type;
       this.message = message;
       this.title = title;
       this.time = new Date();
-    }
-
-    function lastMessage() {
-      self.current = self.messages[0];
-      return self.current;
     }
 
     function generate(type) {
@@ -44,7 +38,6 @@ angular.module('arethusa.core').service('notifier', [
 
       self.messages.unshift(new Message(type, message, title));
       toaster.pop(type, title, message);
-      lastMessage();
     };
 
     this.init = function() {

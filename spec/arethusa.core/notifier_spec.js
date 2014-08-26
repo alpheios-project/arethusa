@@ -24,38 +24,25 @@ describe("notifier", function() {
       expect(notifier.messages.length).toEqual(1);
     });
 
-    it('updates this.current to the most recent message', function() {
-      var m1, m2;
-
-      notifier.addMessage('success', 'A message.');
-      m1 = notifier.current;
-      expect(m1).toEqual(notifier.messages[0]);
-
-      notifier.addMessage('error', 'Another message.');
-      m2 = notifier.current;
-      expect(m1).not.toEqual(notifier.messages[0]);
-      expect(m2).toEqual(notifier.messages[0]);
-    });
-
-    it('takes a type, a message and an optional description as args', function() {
+    it('takes a type, a message and an optional title as args', function() {
       var m1, m2;
       var type = 'success';
       var message = 'A message';
-      var description = 'A description';
+      var title = 'A title';
       notifier.addMessage(type, message);
-      m1 = notifier.current;
+      m1 = notifier.messages[0];
       expect(m1.type).toEqual(type);
       expect(m1.message).toEqual(message);
-      expect(m1.description).toBeUndefined();
+      expect(m1.title).toBeUndefined();
 
-      notifier.addMessage(type, message, description);
-      m2 = notifier.current;
-      expect(m2.description).toEqual(description);
+      notifier.addMessage(type, message, title);
+      m2 = notifier.messages[0];
+      expect(m2.title).toEqual(title);
     });
 
     it('messages have a timestamp', function() {
       notifier.addMessage('success', 'message');
-      expect(notifier.current.time).toBeDefined();
+      expect(notifier.messages[0].time).toBeDefined();
     });
 
     it('messages never exceed the limit of this.maxMessages', function() {
@@ -66,7 +53,7 @@ describe("notifier", function() {
       expect(notifier.messages.length).toEqual(2);
       notifier.addMessage('success', '3');
       expect(notifier.messages.length).toEqual(2);
-      expect(notifier.current.message).toEqual('3');
+      expect(notifier.messages[0].message).toEqual('3');
     });
   });
 
@@ -82,26 +69,27 @@ describe("notifier", function() {
     it('logs a success message', function() {
       var type = 'success';
       var message = 'A message.';
-      var description = 'A description.';
+      var title = 'A title.';
 
-      notifier.success(message, description);
-      expect(notifier.current.type).toEqual(type);
-      expect(notifier.current.message).toEqual(message);
-      expect(notifier.current.description).toEqual(description);
+      notifier.success(message, title);
+      var m = notifier.messages[0];
+      expect(m.type).toEqual(type);
+      expect(m.message).toEqual(message);
+      expect(m.title).toEqual(title);
     });
   });
 
   describe('this.info', function() {
     it('logs an info message', function() {
       notifier.info('info', 'A message.');
-      expect(notifier.current.type).toEqual('info');
+      expect(notifier.messages[0].type).toEqual('info');
     });
   });
 
   describe('this.error', function() {
     it('logs an error message', function() {
       notifier.error('error', 'A message.');
-      expect(notifier.current.type).toEqual('error');
+      expect(notifier.messages[0].type).toEqual('error');
     });
   });
 });
