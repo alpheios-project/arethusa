@@ -231,6 +231,7 @@ module.exports = function(grunt) {
       text: { files: pluginFiles('arethusa.text') },
       dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
       uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
+      toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
       templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} },
       util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
       external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } }
