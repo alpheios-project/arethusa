@@ -26,10 +26,6 @@ angular.module('arethusa.core').factory('Auth', [
 
     function noop() {}
 
-    function reject(q, d, s, h) {
-      q.reject({ data: d, status: s, headers: h});
-    }
-
     function loginWarning() {
       notifier().warning("You aren't logged in!");
     }
@@ -45,13 +41,9 @@ angular.module('arethusa.core').factory('Auth', [
       };
 
       this.withAuthentication = function(q, callback) {
-        var authErr = function(d, s, h) {
+        var authErr = function(res) {
           loginWarning();
-          reject(q, d, s, h);
-        };
-
-        var err = function(d, s, h) {
-          reject(q, d, s, h);
+          q.reject(res);
         };
 
         var suc = function() {
@@ -64,7 +56,7 @@ angular.module('arethusa.core').factory('Auth', [
           }, 150);
         };
 
-        pinger.checkAuth(suc, err);
+        pinger.checkAuth(suc, function(res) { q.reject(res); });
       };
 
       this.transformResponse = function(headers) {
