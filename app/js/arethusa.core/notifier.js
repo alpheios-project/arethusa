@@ -27,15 +27,14 @@ angular.module('arethusa.core').service('notifier', [
       return self.current;
     }
 
-    this.success = function (message, description) {
-      self.addMessage('success', message, description);
-    };
-    this.info = function(message, description) {
-      self.addMessage('wait', message, description);
-    };
-    this.error = function (message, description) {
-      self.addMessage('error', message, description);
-    };
+    function generate(type) {
+      self[type] = function(message, description) {
+        self.addMessage(type, message, description);
+      };
+    }
+
+    var types = ['success', 'info', 'wait', 'warning', 'error'];
+    angular.forEach(types, generate);
 
     this.addMessage = function(type, message, description) {
       if (self.messages.length === self.maxMessages) {
