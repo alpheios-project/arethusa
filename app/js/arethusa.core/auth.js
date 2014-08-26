@@ -5,6 +5,11 @@ angular.module('arethusa.core').factory('Auth', [
   '$timeout',
   '$injector',
   function ($resource, $cookies, $timeout, $injector) {
+    var lazyNotifier;
+    function notifier() {
+      if (!lazyNotifier) lazyNotifier = $injector.get('notifier');
+      return lazyNotifier;
+    }
 
     function Pinger(url) {
       if (url) {
@@ -24,6 +29,11 @@ angular.module('arethusa.core').factory('Auth', [
     function reject(q, d, s, h) {
       q.reject({ data: d, status: s, headers: h});
     }
+
+    function loginWarning() {
+      notifier().warning("You aren't logged in!");
+    }
+
     return function(conf) {
       var self = this;
       self.conf = conf;
@@ -31,11 +41,12 @@ angular.module('arethusa.core').factory('Auth', [
       var pinger = new Pinger(conf.ping);
 
       this.checkAuthentication = function() {
-        pinger.checkAuth(noop, noop);
+        pinger.checkAuth(noop, loginWarning);
       };
 
       this.withAuthentication = function(q, callback) {
         var authErr = function(d, s, h) {
+          loginWarning();
           reject(q, d, s, h);
         };
 
