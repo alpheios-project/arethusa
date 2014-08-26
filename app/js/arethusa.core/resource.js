@@ -109,7 +109,7 @@ angular.module('arethusa.core').factory('Resource', [
         var promise = q.promise;
 
         function doSave() {
-          self.resource.save(params, data);
+          return self.resource.save(params, data).$promise;
         }
 
         var saveSuc = function(res) { q.resolve(res); };
@@ -118,7 +118,6 @@ angular.module('arethusa.core').factory('Resource', [
           if (res.status === 403) {
             auth.withAuthentication(q, doSave);
           } else {
-            spinner.stop();
             q.reject(res);
           }
         };
