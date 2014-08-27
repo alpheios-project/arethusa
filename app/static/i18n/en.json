@@ -16,6 +16,10 @@
   "save" : "Save",
   "reset" : "Reset",
 
+  "auth" : {
+    "notLoggedIn" : "You aren't logged in!"
+  },
+
   "saver" : {
     "success" : "Document saved!",
     "error" : "Failed to save! Try again?",

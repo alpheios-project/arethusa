@@ -42,12 +42,15 @@ angular.module('arethusa.core').factory('Resource', [
       return $q.defer();
     }
 
-    return function (conf,auth) {
+    return function (conf, auth) {
       var self = this;
       this.route = conf.route;
       this.params = conf.params || [];
       this.auth = auth;
-      auth.preflight();
+
+      // Check right away if the user is logged in and notify
+      // him when he isn't
+      auth.checkAuthentication();
 
       var aborter;
 
@@ -77,23 +80,30 @@ angular.module('arethusa.core').factory('Resource', [
       }
       this.resource = createResource();
 
-      function stopSpinning(req) {
-        var promise = req.$promise;
-        promise['finally'](spinner.stop);
-        return promise;
-      }
-
       this.get = function (otherParams) {
         spinner.spin();
         var params = collectedParams(self.params, otherParams);
-        return stopSpinning(self.resource.get(params));
+        var promise = self.resource.get(params).$promise;
+        promise['finally'](spinner.stop);
+        return promise;
       };
 
+      var authFailure;
       this.save = function (data,mimetype) {
         spinner.spin();
+
         var params = collectedParams(self.params,{});
         self.mimetype = mimetype;
-        return stopSpinning(self.resource.save(params,data));
+
+        var q = $q.defer();
+        var promise = q.promise;
+
+        auth.withAuthentication(q, function() {
+          return self.resource.save(params, data).$promise;
+        });
+
+        promise['finally'](spinner.stop);
+        return promise;
       };
 
       this.post = this.save;
