@@ -7,6 +7,8 @@ var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8081;
 var reloadPort = 35279;
+var confPath = 'app/static/configs';
+
 
 function getReloadPort() {
   reloadPort++;
@@ -28,6 +30,23 @@ function pluginFiles(name) {
 
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
+
+  function confFiles() {
+    return grunt.file.expand(confPath + '/*.json');
+  }
+
+  function confMergeCommands() {
+    var file, target, cmd, cmds = [];
+    var files = confFiles();
+    for (var i = files.length - 1; i >= 0; i--){
+      file = files[i];
+      target = file.replace(confPath, 'dist/configs');
+      cmd = 'arethusa merge ' + file + ' -m > ' + target;
+      cmds.push(cmd);
+    }
+    return cmds;
+  }
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -64,6 +83,10 @@ module.exports = function(grunt) {
       serverCss: {
         files: cssFiles,
         tasks: 'minify:css',
+      },
+      conf: {
+        files: 'app/static/configs/**/*',
+        tasks: 'minify:conf'
       },
 
       e2e: {
@@ -274,6 +297,22 @@ module.exports = function(grunt) {
         src: "templates/**/*.html",
         dest: "app/templates/templates.js"
       }
+    },
+    shell: {
+      minifyConfs: {
+        command: confMergeCommands().join('&')
+      }
+    },
+    concurrent: {
+      minifyAll: {
+        tasks: ['minify:css', 'minify', 'minify:conf']
+      },
+      watches: {
+        tasks: ['reloader:no-css', 'reloader:conf', 'reloader:css'],
+        options: {
+          logConcurrentOutput: true
+        }
+      }
     }
   });
 
@@ -281,13 +320,12 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', ['minify:all', 'connect:devserver']);
-  // Ok, the concurrent watches don't work, because the grunt contrib server
-  // is listening only to one port :( Fix this at a later stage.
-  //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
-  grunt.registerTask('reloader', 'watch:server');
+  grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
+  grunt.registerTask('reloader:conf', 'watch:conf');
   grunt.registerTask('reloader:css', 'watch:serverCss');
   grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
+  grunt.registerTask('minify:conf', 'shell:minifyConfs');
   grunt.registerTask('minify', [
     'uglify:comments',
     'uglify:hebrewMorph',
@@ -310,6 +348,6 @@ module.exports = function(grunt) {
     'ngtemplates',
     'uglify:templates'
   ]);
-  grunt.registerTask('minify:all', ['minify:css', 'minify']);
+  grunt.registerTask('minify:all', 'concurrent:minifyAll');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
