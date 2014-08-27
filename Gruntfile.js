@@ -84,6 +84,10 @@ module.exports = function(grunt) {
         files: cssFiles,
         tasks: 'minify:css',
       },
+      conf: {
+        files: 'app/static/configs/**/*',
+        tasks: 'minify:conf'
+      },
 
       e2e: {
         files: [srcFiles, specE2eFiles],
@@ -302,6 +306,12 @@ module.exports = function(grunt) {
     concurrent: {
       minifyAll: {
         tasks: ['minify:css', 'minify', 'minify:conf']
+      },
+      watches: {
+        tasks: ['reloader:no-css', 'reloader:conf', 'reloader:css'],
+        options: {
+          logConcurrentOutput: true
+        }
       }
     }
   });
@@ -310,11 +320,9 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', ['minify:all', 'connect:devserver']);
-  // Ok, the concurrent watches don't work, because the grunt contrib server
-  // is listening only to one port :( Fix this at a later stage.
-  //grunt.registerTask('reloader', 'concurrent:watches'); // ok, it doesn't work...
-  grunt.registerTask('reloader', 'watch:server');
+  grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
+  grunt.registerTask('reloader:conf', 'watch:conf');
   grunt.registerTask('reloader:css', 'watch:serverCss');
   grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
   grunt.registerTask('minify:conf', 'shell:minifyConfs');
