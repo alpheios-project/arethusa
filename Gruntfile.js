@@ -298,6 +298,11 @@ module.exports = function(grunt) {
       minifyConfs: {
         command: confMergeCommands().join('&')
       }
+    },
+    concurrent: {
+      minifyAll: {
+        tasks: ['minify:css', 'minify', 'minify:conf']
+      }
     }
   });
 
@@ -335,6 +340,6 @@ module.exports = function(grunt) {
     'ngtemplates',
     'uglify:templates'
   ]);
-  grunt.registerTask('minify:all', ['minify:css', 'minify', 'minify:conf']);
+  grunt.registerTask('minify:all', 'concurrent:minifyAll');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
