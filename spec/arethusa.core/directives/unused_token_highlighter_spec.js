@@ -109,4 +109,17 @@ describe("unusedTokenHighlighter", function() {
       expect(highlightedStyle).not.toEqual(unhighlightedStyle);
     });
   });
+
+  describe('on dblclick', function() {
+    it('selects unused tokens', function() {
+      expect(state.clickedTokens).toEqual({});
+
+      state.change('01', 'head.id', '');
+
+      element.triggerHandler('dblclick');
+
+      expect(state.clickedTokens).not.toEqual({});
+      expect(state.isClicked('01')).toBeTruthy();
+    });
+  });
 });
