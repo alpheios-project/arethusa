@@ -7,6 +7,8 @@ var specFiles = 'spec/**/*.js';
 var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8081;
 var reloadPort = 35279;
+var confPath = 'app/static/configs';
+
 
 function getReloadPort() {
   reloadPort++;
@@ -28,6 +30,23 @@ function pluginFiles(name) {
 
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
+
+  function confFiles() {
+    return grunt.file.expand(confPath + '/*.json');
+  }
+
+  function confMergeCommands() {
+    var file, target, cmd, cmds = [];
+    var files = confFiles();
+    for (var i = files.length - 1; i >= 0; i--){
+      file = files[i];
+      target = file.replace(confPath, 'dist/configs');
+      cmd = 'arethusa merge ' + file + ' -m > ' + target;
+      cmds.push(cmd);
+    }
+    return cmds;
+  }
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jasmine: {
@@ -274,6 +293,11 @@ module.exports = function(grunt) {
         src: "templates/**/*.html",
         dest: "app/templates/templates.js"
       }
+    },
+    shell: {
+      minifyConfs: {
+        command: confMergeCommands().join('&')
+      }
     }
   });
 
@@ -288,6 +312,7 @@ module.exports = function(grunt) {
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
   grunt.registerTask('reloader:css', 'watch:serverCss');
   grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
+  grunt.registerTask('minify:conf', 'shell:minifyConfs');
   grunt.registerTask('minify', [
     'uglify:comments',
     'uglify:hebrewMorph',
@@ -310,6 +335,6 @@ module.exports = function(grunt) {
     'ngtemplates',
     'uglify:templates'
   ]);
-  grunt.registerTask('minify:all', ['minify:css', 'minify']);
+  grunt.registerTask('minify:all', ['minify:css', 'minify', 'minify:conf']);
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
