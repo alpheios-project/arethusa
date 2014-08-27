@@ -79,4 +79,34 @@ describe("unusedTokenHighlighter", function() {
       expect(scope.unusedCount).toEqual(0);
     });
   });
+
+  describe('on click', function() {
+    function t1Style() {
+      return angular.copy(state.getToken('01').style);
+    }
+
+    it('highlights unused tokens', function() {
+      expect(t1Style()).toBeUndefined();
+      state.change('01', 'head.id', '');
+
+      element.triggerHandler('click');
+
+      expect(t1Style()).toBeDefined();
+    });
+
+    it('unhighlights when clicked again', function() {
+      expect(t1Style()).toBeUndefined();
+      state.change('01', 'head.id', '');
+
+      element.triggerHandler('click');
+
+      var highlightedStyle = t1Style();
+      expect(highlightedStyle).toBeDefined();
+
+      element.triggerHandler('click');
+
+      var unhighlightedStyle = t1Style();
+      expect(highlightedStyle).not.toEqual(unhighlightedStyle);
+    });
+  });
 });
