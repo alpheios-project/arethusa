@@ -66,6 +66,9 @@ function ArethusaMocks() {
         relation: {
           label: "OBJ_CO"
         },
+        head: {
+          id: '03'
+        },
         morphology: {
           lemma: 'lemma1',
           postag: 'n-'
@@ -77,6 +80,9 @@ function ArethusaMocks() {
         relation: {
           label: "OBJ_CO"
         },
+        head: {
+          id: '03'
+        },
         morphology: {
           lemma: 'lemma2',
           postag: 'a1'
@@ -87,11 +93,17 @@ function ArethusaMocks() {
         string: '-que',
         relation: {
           label: "COORD"
+        },
+        head: {
+          id: '04'
         }
       },
       '04': {
         id: '04',
         string: 'cano',
+        head: {
+          id: '00'
+        },
         relation: {
           label: "PRED"
         }
