@@ -81,16 +81,16 @@ angular.module('arethusa.core').factory('Resource', [
       this.resource = createResource();
 
       this.get = function (otherParams) {
-        spinner.spin();
+        //spinner.spin();
         var params = collectedParams(self.params, otherParams);
         var promise = self.resource.get(params).$promise;
-        promise['finally'](spinner.stop);
+        //promise['finally'](spinner.stop);
         return promise;
       };
 
       var authFailure;
       this.save = function (data,mimetype) {
-        spinner.spin();
+        //spinner.spin();
 
         var params = collectedParams(self.params,{});
         self.mimetype = mimetype;
@@ -102,7 +102,7 @@ angular.module('arethusa.core').factory('Resource', [
           return self.resource.save(params, data).$promise;
         });
 
-        promise['finally'](spinner.stop);
+        //promise['finally'](spinner.stop);
         return promise;
       };
 
