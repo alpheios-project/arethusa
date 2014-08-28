@@ -64,6 +64,8 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
           scope.insertionPoint = newVal;
         });
 
+        scope.$watch('aT.insertBehind', setInsertDirText);
+
         setInsertDirText();
       },
       templateUrl: 'templates/arethusa.artificial_token/artificial_token_insertion_pointer.html'
