@@ -13,16 +13,13 @@ Be sure to check out our [wiki](https://github.com/latin-language-toolkit/llt-an
 
 ## Install
 
-Make sure [node.js](http://nodejs.org) is installed.
+Make sure [node.js](http://nodejs.org) and ruby is installed.
 
 ```
 sudo npm install grunt-cli -g
 sudo npm install bower -g
 
-npm install
-bower install
-
-gem install sass -v 3.3.14 # Attention: We are incompatible with 3.4!
+grunt install
 ```
 
 ## Prerequisites
