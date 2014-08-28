@@ -28,12 +28,7 @@
   },
 
   "auths": {
-    "perseidsAuth" : {
-      "type": "CSRF",
-      "cookie": "csrftoken",
-      "header": "X-CSRF-Token",
-      "ping" : "http://sosol.perseids.org/sosol/dmm_api/ping"
-    }
+    "fileUrl" : "./static/configs/auths/perseids.json"
   },
 
   "navbar" : {
