@@ -55,6 +55,14 @@
       "auth": "perseidsAuth"
     },
 
+    "perseidsReviewResource" : {
+      "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:gold",
+      "params" : [
+        "gold"
+      ],
+      "auth": "perseidsAuth"
+    },
+
     "perseidsComments" : {
       "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/comments",
       "params" : [
@@ -158,7 +166,7 @@
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
-          "resource" : "perseidsResource",
+          "resource" : "perseidsReviewResource",
           "docIdentifier" : "treebankReview",
           "preselector" : "w"
         }
