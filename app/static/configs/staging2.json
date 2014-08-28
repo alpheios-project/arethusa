@@ -40,65 +40,7 @@
   },
 
   "resources" : {
-    "fakePerseids" : {
-      "route" : "http://74.70.97.104:8085/xml_server/:doc",
-      "params" : [
-        "doc",
-        "s"
-      ]
-    },
-
-    "localPerseids" : {
-      "route" : "http://localhost:8085/xml_server/:doc",
-      "params" : [
-        "doc",
-        "s"
-      ]
-    },
-
-    "fakeGold" : {
-      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
-      "params" : [
-        "gold",
-        "s"
-      ]
-    },
-
-    "fakePerseidsComments" : {
-      "route" : "http://74.70.97.104:8085/comments/:doc",
-      "params" : [
-        "doc"
-      ]
-    },
-
-    "lexInvFusekiEndpoint" : {
-      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
-    },
-
-    "morphologyServiceLat" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
-    },
-
-    "morphologyServiceGrc" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
-    },
-
-    "citeMapper" : {
-      "route" : "http://74.70.97.104:8086/find_cite"
-    },
-
-    "sg" : {
-      "name" : "SG",
-      "retriever" : {
-        "SgGrammarRetriever" : {
-          "resource" : "sgGrammar"
-        }
-      },
-      "template" : "templates/sg.html",
-      "contextMenu" : true,
-      "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
-      "fileUrl" : "./static/configs/sg2/sg_labels.json"
-    }
+    "@include" : "resources/dev.json"
   },
 
   "plugins" : {
@@ -120,7 +62,7 @@
       "name" : "search",
       "template" : "templates/search.html",
       "regex" : true,
-      "fileUrl" : "./static/configs/keyboard/greek_regex.json"
+      "@include" : "keyboard/greek_regex.json"
     },
 
     "morph" : {
@@ -139,7 +81,7 @@
           }
         }
       },
-      "fileUrl" : "./static/configs/morph/lat_attributes.json"
+      "@include" : "morph/lat_attributes.json"
     },
 
     "relation" : {
@@ -148,7 +90,7 @@
       "advancedMode" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
-      "fileUrl" : "./static/configs/relation/relations.json"
+      "@include" : "relation/relations.json"
     },
 
     "review" : {
@@ -178,6 +120,19 @@
           "resource" : "fakePerseidsComments"
         }
       }
+    },
+
+    "sg" : {
+      "name" : "SG",
+      "retriever" : {
+        "SgGrammarRetriever" : {
+          "resource" : "sgGrammar"
+        }
+      },
+      "template" : "templates/sg.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
+      "@include" : "sg2/sg_labels.json"
     }
   },
 
@@ -188,6 +143,6 @@
   },
 
   "keyCapture" : {
-    "fileUrl" : "./static/configs/keyboard/key_map.json"
+    "@include" : "keyboard/key_map.json"
   }
 }

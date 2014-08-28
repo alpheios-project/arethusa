@@ -90,7 +90,7 @@
         }
       },
       "matchAll" : true,
-      "fileUrl" : "./static/configs/morph/gr_attributes.json"
+      "@include" : "morph/gr_attributes.json"
     },
 
     "relation" : {
@@ -98,7 +98,7 @@
       "template" : "templates/relation.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
-      "fileUrl" : "./static/configs/relation/relations.json"
+      "@include" : "relation/relations.json"
     }
   },
 

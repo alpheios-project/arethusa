@@ -1,0 +1,37 @@
+{
+  "perseidsResource" : {
+    "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
+    "params" : [
+      "doc"
+    ],
+    "auth": "perseidsAuth"
+  },
+
+  "perseidsComments" : {
+    "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/comments",
+    "params" : [
+      "doc"
+    ],
+    "auth": "perseidsAuth"
+  },
+
+  "lexInvFusekiEndpoint" : {
+    "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
+  },
+
+  "morphologyServiceLat" : {
+    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+  },
+
+  "morphologyServiceGrc" : {
+    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+  },
+
+  "sgGrammar" : {
+    "route" : "http://services.perseids.org/sg/:doc.html"
+  },
+
+  "citeMapper" : {
+    "route" : "http://services.perseids.org/cite_mapper/find_cite"
+  }
+}

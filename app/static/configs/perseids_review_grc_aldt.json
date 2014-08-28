@@ -96,7 +96,7 @@
       "name" : "search",
       "template" : "templates/search.html",
       "regex" : true,
-      "fileUrl" : "./static/configs/keyboard/greek_regex.json"
+      "@include" : "keyboard/greek_regex.json"
     },
 
     "morph" : {
@@ -116,7 +116,7 @@
           }
         }
       },
-      "fileUrl" : "./static/configs/morph/lat_attributes.json"
+      "@include" : "morph/lat_attributes.json"
     },
 
     "relation" : {
@@ -124,7 +124,7 @@
       "template" : "templates/relation.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
-      "fileUrl" : "./static/configs/relation/relations.json"
+      "@include" : "relation/relations.json"
     },
 
     "review" : {
@@ -163,7 +163,7 @@
   },
 
   "keyCapture" : {
-    "fileUrl" : "./static/configs/keyboard/key_map.json"
+    "@include" : "keyboard/key_map.json"
   }
 }
 

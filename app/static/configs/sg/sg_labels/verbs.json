@@ -6,7 +6,7 @@
       "dependency" : {
         "pers" : "*"
       },
-      "fileUrl" : "./static/configs/sg/sg_labels/finite_verbs.json"
+      "@include" : "sg/sg_labels/finite_verbs.json"
     },
     "INF" : {
       "short" : "INF",
@@ -14,7 +14,7 @@
       "dependency" : {
         "mood" : "inf"
       },
-      "fileUrl" : "./static/configs/sg/sg_labels/infinitives.json"
+      "@include" : "sg/sg_labels/infinitives.json"
     },
     "PART" : {
       "short" : "PART",
@@ -22,7 +22,7 @@
       "dependency" : {
         "mood" : "part"
       },
-      "fileUrl" : "./static/configs/sg/sg_labels/participles.json"
+      "@include" : "sg/sg_labels/participles.json"
     }
   }
 }

@@ -56,7 +56,7 @@
     "hebrewMorph" : {
       "name" : "morph",
       "template" : "templates/arethusa.hebrew_morph/hebrew_morph.html",
-      "fileUrl" : "./static/configs/morph/heb_attributes.json"
+      "@include" : "morph/heb_attributes.json"
     }
   },
   "keyCapture" : {
@@ -80,6 +80,6 @@
     "search" : {
       "focus" : "A"
     },
-    "fileUrl" : "./static/configs/keyboard/key_map.json"
+    "@include" : "keyboard/key_map.json"
   }
 }

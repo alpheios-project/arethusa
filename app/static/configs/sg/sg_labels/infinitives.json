@@ -12,25 +12,25 @@
               "short" : "NMN",
               "sections" : "2031",
               "long" : "in nominative",
-              "fileUrl" : "./static/configs/sg/sg_labels/nominative_cases.json"
+              "@include" : "sg/sg_labels/nominative_cases.json"
             },
             "GNT" : {
               "short" : "GNT",
               "sections" : "2031",
               "long" : "in genitive",
-              "fileUrl" : "./static/configs/sg/sg_labels/genetive_cases.json"
+              "@include" : "sg/sg_labels/genetive_cases.json"
             },
             "DTV" : {
               "short" : "DTV",
               "sections" : "2031",
               "long" : "in dative",
-              "fileUrl" : "./static/configs/sg/sg_labels/dative_cases.json"
+              "@include" : "sg/sg_labels/dative_cases.json"
             },
             "ACC" : {
               "short" : "ACC",
               "sections" : "2031",
               "long" : "in accusative",
-              "fileUrl" : "./static/configs/sg/sg_labels/accusative_cases.json"
+              "@include" : "sg/sg_labels/accusative_cases.json"
             }
           }
         },
