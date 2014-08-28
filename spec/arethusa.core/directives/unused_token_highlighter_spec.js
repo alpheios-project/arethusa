@@ -28,6 +28,13 @@ describe("unusedTokenHighlighter", function() {
     </span>\
   ';
 
+  var template4 = '\
+    <span\
+      unused-token-highlighter="true"\
+      uth-check-property="relation.label">\
+    </span>\
+  ';
+
 
   function init(template, fn) {
     inject(function($compile, $rootScope, _state_) {
@@ -50,6 +57,7 @@ describe("unusedTokenHighlighter", function() {
     return angular.copy(state.getToken('01').style);
   }
 
+  var defaultStyle = { "background-color": "rgb(255, 216, 216)" };
 
   beforeEach(function() {
     module("arethusa.core", function($provide) {
@@ -134,8 +142,6 @@ describe("unusedTokenHighlighter", function() {
       });
 
       it('the style used defaults to a light-red background color', function() {
-        var defaultStyle = { "background-color": "rgb(255, 216, 216)" };
-
         state.change('01', 'head.id', '');
 
         element.triggerHandler('click');
@@ -188,6 +194,21 @@ describe("unusedTokenHighlighter", function() {
       element.triggerHandler('click');
 
       expect(t1Style()).toEqual(customStyle);
+    });
+  });
+
+  describe("when the directive's main attribute is set to true", function() {
+    beforeEach(function() {
+      init(template4, function() {
+        state.change('01', 'relation.label', '');
+      });
+    });
+
+    it('highlights unused tokens by default', function() {
+      // in this scenario we have 1 unused token when the directive is launched
+      expect(scope.unusedCount).toEqual(1);
+
+      expect(t1Style()).toEqual(defaultStyle);
     });
   });
 });
