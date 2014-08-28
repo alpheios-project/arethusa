@@ -301,6 +301,14 @@ module.exports = function(grunt) {
     shell: {
       minifyConfs: {
         command: confMergeCommands().join('&')
+      },
+      install: {
+        command: [
+          'npm install',
+          'bower install',
+          'gem install sass -v 3.3.14',
+          'gem install arethusa-cli'
+        ].join('&')
       }
     },
     concurrent: {
@@ -349,5 +357,6 @@ module.exports = function(grunt) {
     'uglify:templates'
   ]);
   grunt.registerTask('minify:all', 'concurrent:minifyAll');
+  grunt.registerTask('install', 'shell:install');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
