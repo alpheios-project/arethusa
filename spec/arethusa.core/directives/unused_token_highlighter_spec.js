@@ -3,6 +3,12 @@
 // This file is a little heavier commented than usual to serve an
 // educational purpose on how to test Arethusa directives (and
 // more generally also all Angular directives) effectively.
+//
+// vim users accustomed to using UltiSnips might also want to take
+// at https://github.com/LFDM/dotfiles/blob/master/snippets/ultisnips/javascript.snippets
+//
+// The ajd (mnemomic: arethusa jasmine directive) snippet helps to
+// rapidly set up such a spec file.
 
 describe("unusedTokenHighlighter", function() {
   // We define a couple of variables accessible to every spec.
