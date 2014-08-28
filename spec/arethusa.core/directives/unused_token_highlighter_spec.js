@@ -14,7 +14,6 @@ describe("unusedTokenHighlighter", function() {
   // We define a couple of variables accessible to every spec.
   var element, state, scope, parentScope;
 
-
   // The template variables show different usage examples of the
   // unusedTokenHighlighter directive.
 
