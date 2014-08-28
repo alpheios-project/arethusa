@@ -41,7 +41,9 @@ function ArethusaMocks() {
       init: mockFn,
       success: mockFn,
       info: mockFn,
-      error: mockFn
+      error: mockFn,
+      wait: mockFn,
+      warning: mockFn
     }, customizations);
   };
 
