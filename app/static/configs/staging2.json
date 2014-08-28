@@ -40,56 +40,7 @@
   },
 
   "resources" : {
-    "fakePerseids" : {
-      "route" : "http://74.70.97.104:8085/xml_server/:doc",
-      "params" : [
-        "doc",
-        "s"
-      ]
-    },
-
-    "localPerseids" : {
-      "route" : "http://localhost:8085/xml_server/:doc",
-      "params" : [
-        "doc",
-        "s"
-      ]
-    },
-
-    "fakeGold" : {
-      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
-      "params" : [
-        "gold",
-        "s"
-      ]
-    },
-
-    "fakePerseidsComments" : {
-      "route" : "http://74.70.97.104:8085/comments/:doc",
-      "params" : [
-        "doc"
-      ]
-    },
-
-    "lexInvFusekiEndpoint" : {
-      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
-    },
-
-    "morphologyServiceLat" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
-    },
-
-    "morphologyServiceGrc" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
-    },
-
-    "citeMapper" : {
-      "route" : "http://74.70.97.104:8086/find_cite"
-    },
-
-    "sgGrammar" : {
-      "route" : "http://74.70.97.104:8085/smyth/:doc.html"
-    }
+    "fileUrl" : "./static/configs/resources/dev.json"
   },
 
   "plugins" : {
