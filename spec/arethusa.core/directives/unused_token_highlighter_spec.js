@@ -20,6 +20,15 @@ describe("unusedTokenHighlighter", function() {
     </span>\
   ';
 
+  var template3 = '\
+    <span\
+      unused-token-highlighter\
+      uth-check-property="relation.label"\
+      unused-token-style="customStyle">\
+    </span>\
+  ';
+
+
   function init(template, fn) {
     inject(function($compile, $rootScope, _state_) {
       state = _state_;
@@ -158,6 +167,27 @@ describe("unusedTokenHighlighter", function() {
 
       state.change('01', 'relation.label', '');
       expect(scope.unusedCount).toEqual(1);
+    });
+  });
+
+  describe('uth-token-style', function() {
+    var customStyle = { color: 'red' };
+
+    beforeEach(function() {
+      init(template3, function() {
+        parentScope.customStyle = customStyle;
+      });
+    });
+
+    it('allows to define the style used to highlight unused tokens', function() {
+      // At startup, the token is completely unstyled
+      expect(t1Style()).toBeUndefined();
+
+      state.change('01', 'relation.label', '');
+
+      element.triggerHandler('click');
+
+      expect(t1Style()).toEqual(customStyle);
     });
   });
 });
