@@ -153,11 +153,7 @@
   },
 
   "exitHandler" : {
-    "title" : "Perseids",
-    "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/return/edit",
-    "params" : [
-      "doc"
-    ]
+    "fileUrl" : "./static/configs/exit_handler/perseids.json"
   },
 
   "keyCapture" : {
