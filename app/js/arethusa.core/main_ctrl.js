@@ -24,24 +24,17 @@ angular.module('arethusa.core').controller('MainCtrl', [
       $scope.debug = !$scope.debug;
     };
 
-    function conf() {
-      return configurator.configurationFor('main');
-    }
+    var conf = configurator.configurationFor('main');
 
     $scope.state = state;
     $scope.plugins = plugins;
-    $scope.template = conf().template;
+    $scope.template = conf.template;
 
     // The application has to fulfil a specific load order.
     // The MainCtrl starts his work only when the configurator has received
     // its main configuration file (handled by the MAIN_ROUTE constant).
     //
-    // The configurator might need some time to bring in external additional
-    // files - asynchronously. We don't want the application to continue until
-    // all configuration files are loaded.
-    // We therefore wait for an event broadcast by the configurator to get a
-    // green light.
-    // Loading all state retrievers is another asynchronous step we want to see
+    // Loading all state retrievers is an asynchronous step we want to see
     // completed before going on.
     // State broadcasts another event when it is done, after that the MainCtrl
     // can finally start to initialize itself and all all participating plugins.
@@ -51,16 +44,18 @@ angular.module('arethusa.core').controller('MainCtrl', [
     // so that they can update their internal state after the main state tokens
     // have changed. There is no need to reinit the MainCtrl - the arethusaLoaded
     // variable takes care of this.
-    // However if we reload a configuration, MainCtrl needs to be re-initialized
-    // as well - the plugins participating in an editing session might have
-    // changed completely. Therefore, the confLoaded event sets arethusaLoaded to
-    // false every time it's triggered.
-    $scope.$on('confLoaded', function () {
-      notifier.wait(translations.loadInProgress);
-      state.arethusaLoaded = false;
-      state.init();
-      history.init();
-    });
+    //
+    //
+    // Note that this was much more complex (and clever) at an earlier stage, but was refactored
+    // in http://github.com/latin-language-toolkit/arethusa/pull/365
+    //
+    // In case we every need this added complexity again, check out this PR to find
+    // some advice.
+
+    notifier.wait(translations.loadInProgress);
+    state.arethusaLoaded = false;
+    state.init();
+    history.init();
 
     $scope.$on('stateLoaded', function () {
       state.postInit();
@@ -74,7 +69,7 @@ angular.module('arethusa.core').controller('MainCtrl', [
     });
 
     $scope.init = function () {
-      plugins.start(conf().plugins);
+      plugins.start(conf.plugins);
       notifier.init(); // also clears the Loading message for now.
       saver.init();
       state.arethusaLoaded = true;
