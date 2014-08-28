@@ -40,7 +40,7 @@
   },
 
   "resources" : {
-    "fileUrl" : "./static/configs/resources/dev.json"
+    "@include" : "resources/dev.json"
   },
 
   "plugins" : {
@@ -62,7 +62,7 @@
       "name" : "search",
       "template" : "templates/search.html",
       "regex" : true,
-      "fileUrl" : "./static/configs/keyboard/greek_regex.json"
+      "@include" : "keyboard/greek_regex.json"
     },
 
     "morph" : {
@@ -81,7 +81,7 @@
           }
         }
       },
-      "fileUrl" : "./static/configs/morph/lat_attributes.json"
+      "@include" : "morph/lat_attributes.json"
     },
 
     "relation" : {
@@ -90,7 +90,7 @@
       "advancedMode" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
-      "fileUrl" : "./static/configs/relation/relations.json"
+      "@include" : "relation/relations.json"
     },
 
     "review" : {
@@ -132,7 +132,7 @@
       "template" : "templates/sg.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
-      "fileUrl" : "./static/configs/sg2/sg_labels.json"
+      "@include" : "sg2/sg_labels.json"
     }
   },
 
@@ -143,6 +143,6 @@
   },
 
   "keyCapture" : {
-    "fileUrl" : "./static/configs/keyboard/key_map.json"
+    "@include" : "keyboard/key_map.json"
   }
 }

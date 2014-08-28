@@ -69,7 +69,7 @@
       "template"  : "templates/morph2.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
-      "fileUrl" : "./static/configs/morph/lat_attributes.json"
+      "@include" : "morph/lat_attributes.json"
     },
 
     "review" : {
@@ -85,7 +85,7 @@
     "relation" : {
       "name" : "relation",
       "template" : "templates/relation.html",
-      "fileUrl" : "./static/configs/relation/relations.json"
+      "@include" : "relation/relations.json"
     },
 
     "history" : {

@@ -5,7 +5,7 @@
       "long" : "substantive",
       "nestedDependency" : true,
       "sections" : "1021-1029",
-      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+      "@include" : "sg/sg_labels/cases.json"
     },
     "NORM" : {
       "short" : "NORM",
@@ -19,7 +19,7 @@
       "short" : "ATC",
       "long" : "attraction",
       "sections" : "2522-2528",
-      "fileUrl" : "./static/configs/sg/sg_labels/cases.json"
+      "@include" : "sg/sg_labels/cases.json"
     },
     "IDK" : {
       "short" : "IDK",

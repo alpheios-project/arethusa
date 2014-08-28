@@ -31,7 +31,7 @@
   },
 
   "auths": {
-    "fileUrl" : "./static/configs/auths/perseids.json"
+    "@include" : "auths/perseids.json"
   },
 
   "navbar" : {
@@ -49,7 +49,7 @@
       ],
       "auth": "perseidsAuth"
     },
-    "fileUrl" : "./static/configs/resources/perseids.json"
+    "@include" : "resources/perseids.json"
   },
 
   "plugins" : {
@@ -91,7 +91,7 @@
         }
       },
       "matchAll" : true,
-      "fileUrl" : "./static/configs/morph/lat_attributes.json"
+      "@include" : "morph/lat_attributes.json"
     },
 
     "relation" : {
@@ -99,7 +99,7 @@
       "template" : "templates/relation.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
-      "fileUrl" : "./static/configs/relation/relations.json"
+      "@include" : "relation/relations.json"
     },
 
     "history" : {
@@ -143,16 +143,16 @@
       "template" : "templates/sg.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
-      "fileUrl" : "./static/configs/sg2/sg_labels.json"
+      "@include" : "sg2/sg_labels.json"
     }
   },
 
   "exitHandler" : {
-    "fileUrl" : "./static/configs/exit_handler/perseids.json"
+    "@include" : "exit_handler/perseids.json"
   },
 
   "keyCapture" : {
-    "fileUrl" : "./static/configs/keyboard/key_map.json"
+    "@include" : "keyboard/key_map.json"
   }
 }
 

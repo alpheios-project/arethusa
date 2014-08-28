@@ -119,7 +119,7 @@
       "gloss" : true,
       "matchAll" : true,
       "preselect" : false,
-      "fileUrl" : "./static/configs/morph/gr_attributes2.json"
+      "@include" : "morph/gr_attributes2.json"
     },
 
     "sg" : {
@@ -132,7 +132,7 @@
       "template" : "templates/sg.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
-      "fileUrl" : "./static/configs/sg2/sg_labels.json"
+      "@include" : "sg2/sg_labels.json"
     },
 
     "relation" : {
@@ -140,7 +140,7 @@
       "template" : "templates/relation.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
-      "fileUrl" : "./static/configs/relation/relations.json"
+      "@include" : "relation/relations.json"
     },
 
     "artificialToken" : {
@@ -171,7 +171,7 @@
   },
 
   "keyCapture" : {
-    "fileUrl" : "./static/configs/keyboard/key_map.json"
+    "@include" : "keyboard/key_map.json"
   }
 }
 

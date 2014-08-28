@@ -7,7 +7,7 @@
       "dependency" : {
         "case" : "nom"
       },
-      "fileUrl" : "./static/configs/sg/sg_labels/nominative_cases.json"
+      "@include" : "sg/sg_labels/nominative_cases.json"
     },
     "GNT" : {
       "short" : "GNT",
@@ -16,7 +16,7 @@
       "dependency" : {
         "case" : "gen"
       },
-      "fileUrl" : "./static/configs/sg/sg_labels/genetive_cases.json"
+      "@include" : "sg/sg_labels/genetive_cases.json"
     },
     "DTV" : {
       "short" : "DTV",
@@ -25,7 +25,7 @@
       "dependency" : {
         "case" : "dat"
       },
-      "fileUrl" : "./static/configs/sg/sg_labels/dative_cases.json"
+      "@include" : "sg/sg_labels/dative_cases.json"
     },
     "ACC" : {
       "short" : "ACC",
@@ -34,7 +34,7 @@
       "dependency" : {
         "case" : "acc"
       },
-      "fileUrl" : "./static/configs/sg/sg_labels/accusative_cases.json"
+      "@include" : "sg/sg_labels/accusative_cases.json"
     },
     "VOK" : {
       "short" : "VOK",
