@@ -9,12 +9,12 @@ var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
 
-var arethusaPlugins = [
+var arethusaModules = [
   'arethusa.morph',
   'arethusa.artificial_token',
   'arethusa.core',
   'arethusa.comments',
-  'arethusa.hebrewMorph',
+  'arethusa.hebrew_morph',
   'arethusa.context_menu',
   'arethusa.conf_editor',
   'arethusa.review',
@@ -37,8 +37,8 @@ function arethusaTemplates() {
   };
 
   var module;
-  for (var i = arethusaPlugins.length - 1; i >= 0; i--){
-    module = arethusaPlugins[i];
+  for (var i = arethusaModules.length - 1; i >= 0; i--){
+    module = arethusaModules[i];
     obj[toJsScript(module)] = templateObj(module);
   }
   return obj;
