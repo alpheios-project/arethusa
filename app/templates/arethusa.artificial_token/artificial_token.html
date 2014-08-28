@@ -1,6 +1,18 @@
 <div class="small-12 columns">
   <span settings-trigger="right"/>
-  <span ng-show="settingsOn" artificial-token-toggle/>
+  <span ng-show="settingsOn">
+    <span artificial-token-toggle/>
+    <span>
+      <label class="right" style="margin-right: 15px">
+        Activate default insertion point
+        <input
+          type="checkbox"
+          style="margin: 0"
+          ng-model="plugin.defaultInsertionPoint"
+          ng-change="plugin.addDefaultInsertionPoint()"/>
+      </label>
+    </span>
+  </span>
 </div>
 
 <div class="small-12 columns text-center">

@@ -17,8 +17,19 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
 
     configure();
 
+    this.addDefaultInsertionPoint = function() {
+      if (!self.model.insertionPoint) {
+        var lastId = aU.last(Object.keys(state.tokens).sort());
+        var unextended = idHandler.stripExtension(lastId);
+        self.model.insertionPoint = state.getToken(unextended);
+        self.insertBehind = true;
+      }
+    };
+
+
     function resetModel() {
       self.model = new ArtificialToken();
+      if (self.defaultInsertionPoint) self.addDefaultInsertionPoint();
     }
 
     function ArtificialToken (string, type) {
