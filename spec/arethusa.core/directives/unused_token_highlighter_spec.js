@@ -1,10 +1,16 @@
 "use strict";
 
+// This file is a little heavier commented than usual to serve an
+// educational purpose on how to test Arethusa directives (and
+// more generally also all Angular directives) effectively.
+
 describe("unusedTokenHighlighter", function() {
-  var element;
-  var state;
-  var scope;
-  var parentScope;
+  // We define a couple of variables accessible to every spec.
+  var element, state, scope, parentScope;
+
+
+  // The template variables show different usage examples of the
+  // unusedTokenHighlighter directive.
 
   var template1 = '\
     <span\
@@ -35,7 +41,32 @@ describe("unusedTokenHighlighter", function() {
     </span>\
   ';
 
+  // As unusedTokenHighlighter is placed in the arethusa.core module,
+  // we need to define it beforeEach spec.
+  // Pretty much every aspect of Arethusa uses the configurator, which
+  // we $provide as a mock object.
+  //
+  // This mock object is available in the arethusaMocks spec helper.
+  beforeEach(function() {
+    module("arethusa.core", function($provide) {
+      $provide.value('configurator', arethusaMocks.configurator());
+    });
+  });
 
+  // The init function is meant to be called inside of particular
+  // describe functions and needs to be called beforeEach spec.
+  //
+  // It helps to setup a valid environment for the directive tested,
+  // by initializing Arethusa's state service properly.
+  //
+  // Its first argument defines the template which should be used to
+  // $compile the directive.
+  //
+  // The second argument is optional and allows to define a function,
+  // which allows to manipulate the environment BEFORE the directive
+  // is compiled.
+  //
+  // We will later see this in effect.
   function init(template, fn) {
     inject(function($compile, $rootScope, _state_) {
       state = _state_;
@@ -48,24 +79,33 @@ describe("unusedTokenHighlighter", function() {
       if (angular.isFunction(fn)) fn();
 
       $compile(element)(parentScope);
+
+      // As unusedTokenHighlighter uses an isolateScope, we provide
+      // just that.
+      // Directives that use a parent or child scope have to provide
+      // elemet.scope() here!
       scope = element.isolateScope();
       scope.$digest();
     });
   }
 
+  // As the unusedTokenHighlighter's main purpose is to manipulate
+  // the style of tokens, we define a function to quickly access
+  // such a token style.
+  // angular.copy is called so that we can really test against a
+  // snapshot at a particular time.
   function t1Style() {
     return angular.copy(state.getToken('01').style);
   }
 
   var defaultStyle = { "background-color": "rgb(255, 216, 216)" };
 
-  beforeEach(function() {
-    module("arethusa.core", function($provide) {
-      $provide.value('configurator', arethusaMocks.configurator());
-    });
-  });
-
   describe('general behaviour', function() {
+    // This is the first time we have to call our init function.
+    //
+    // beforeEach spec inside the describe functions, which tests
+    // the general behaviour of the directive, we use our directive
+    // with template1.
     beforeEach(function() { init(template1); });
 
     describe('keeps track of total tokens', function() {
@@ -179,6 +219,16 @@ describe("unusedTokenHighlighter", function() {
   describe('uth-token-style', function() {
     var customStyle = { color: 'red' };
 
+    // To test the uth-token-style property, we need to have access
+    // to a scope variable defined on the parent scope which wants
+    // to use this directive.
+    //
+    // The init function's second argument allows to such manipulations.
+    //
+    // template3 wants to see a customStyle scope variable on the parentScope.
+    // As the function provided by the second argument is called right
+    // before the compilation of our directive, we can use it to set this
+    // scope variable properly.
     beforeEach(function() {
       init(template3, function() {
         parentScope.customStyle = customStyle;
@@ -198,6 +248,11 @@ describe("unusedTokenHighlighter", function() {
   });
 
   describe("when the directive's main attribute is set to true", function() {
+    // This init function shows another use of the function in the second
+    // argument.
+    // The unusedTokenHighlighter directive injects Arethusa's state service.
+    // In this case we need state to be in a specific state, before we compile
+    // the directive
     beforeEach(function() {
       init(template4, function() {
         state.change('01', 'relation.label', '');
