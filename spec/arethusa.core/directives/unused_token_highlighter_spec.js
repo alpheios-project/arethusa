@@ -131,3 +131,13 @@ describe("unusedTokenHighlighter", function() {
     });
   });
 });
+
+      it('the style used defaults to a light-red background color', function() {
+        var defaultStyle = { "background-color": "rgb(255, 216, 216)" };
+
+        state.change('01', 'head.id', '');
+
+        element.triggerHandler('click');
+
+        expect(t1Style()).toEqual(defaultStyle);
+      });
