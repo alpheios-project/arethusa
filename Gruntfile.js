@@ -9,6 +9,64 @@ var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
 
+var arethusaPlugins = [
+  'arethusa.morph',
+  'arethusa.artificial_token',
+  'arethusa.core',
+  'arethusa.comments',
+  'arethusa.hebrewMorph',
+  'arethusa.context_menu',
+  'arethusa.conf_editor',
+  'arethusa.review',
+  'arethusa.search',
+  'arethusa.hist',
+  'arethusa.dep_tree',
+  'arethusa.relation',
+  'arethusa.exercise',
+  'arethusa.sg',
+  'arethusa.text'
+];
+
+function arethusaTemplates() {
+  var obj = {
+    arethusa: {
+      cwd: "app",
+      src: "templates/*.html",
+      dest: "app/templates/compiled/main.templates.js"
+    }
+  };
+
+  var module;
+  for (var i = arethusaPlugins.length - 1; i >= 0; i--){
+    module = arethusaPlugins[i];
+    obj[toJsScript(module)] = templateObj(module);
+  }
+  return obj;
+}
+
+function templateObj(module) {
+  return {
+    cwd: 'app',
+    src: 'templates/' + module + '/**/*.html',
+    dest: "app/templates/compiled/" + module + '.templates.js'
+  };
+}
+
+function capitalize(str) {
+  return str[0].toUpperCase() + str.slice(1);
+}
+
+function toJsScript(str) {
+  var parts = str.split('_');
+  var res = [], part;
+  for (var i = 0; i  < parts.length; i ++) {
+    part = parts[i];
+    if (i !== 0) part = capitalize(part);
+    res.push(part);
+  }
+  return res.join('');
+}
+
 
 function getReloadPort() {
   reloadPort++;
@@ -130,6 +188,7 @@ module.exports = function(grunt) {
             'app/js/*.js',
             'app/js/arethusa*/**/*.js',
             'app/js/util/**/*.js',
+            'dist/templates.min.js',
             specFiles
           ],
           frameworks: ['jasmine'],
@@ -256,7 +315,7 @@ module.exports = function(grunt) {
       dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
       uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
       toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
-      templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} },
+      templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
       util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
       external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } }
     },
@@ -291,13 +350,7 @@ module.exports = function(grunt) {
         'post-checkout': true
       }
     },
-    ngtemplates: {
-      arethusa: {
-        cwd: "app",
-        src: "templates/**/*.html",
-        dest: "app/templates/templates.js"
-      }
-    },
+    ngtemplates: arethusaTemplates(),
     shell: {
       minifyConfs: {
         command: confMergeCommands().join('&')
