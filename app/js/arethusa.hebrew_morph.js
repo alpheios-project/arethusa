@@ -1,2 +1,2 @@
 "use strict";
-angular.module('arethusa.hebrewMorph', ['arethusa.core']);
+angular.module('arethusa.hebrewMorph', []);

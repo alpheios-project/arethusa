@@ -1,2 +1,2 @@
 'use strict';
-angular.module('arethusa.history', ['arethusa.core']);
+angular.module('arethusa.history', []);

@@ -1,2 +1,2 @@
 "use strict";
-angular.module('arethusa.comments', ['arethusa.core']);
+angular.module('arethusa.comments', []);

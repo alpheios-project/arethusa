@@ -1,3 +1,3 @@
 "use strict";
 
-angular.module('arethusa.text', ['arethusa.core']);
+angular.module('arethusa.text', []);

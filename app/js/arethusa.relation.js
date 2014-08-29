@@ -1,2 +1,2 @@
 'use strict';
-angular.module('arethusa.relation', ['arethusa.core']);
+angular.module('arethusa.relation', []);
