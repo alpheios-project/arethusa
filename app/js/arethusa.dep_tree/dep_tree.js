@@ -24,6 +24,11 @@ angular.module('arethusa.depTree').service('depTree', [
   function (state, configurator) {
     var self = this;
 
+    this.externalDependencies = [
+      "../bower_components/d3/d3.min.js",
+      "../vendor/dagre-d3/dagre-d3.min.js"
+    ];
+
     function configure() {
       configurator.getConfAndDelegate('depTree', self);
       self.diffMode = false;
