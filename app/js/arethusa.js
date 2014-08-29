@@ -7,19 +7,7 @@ angular.module('arethusa', [
   'oc.lazyLoad',
   'arethusa.core',
   'arethusa.contextMenu',
-  'arethusa.confEditor',
-  'arethusa.morph',
-  'arethusa.depTree',
-  'arethusa.hist',
-  'arethusa.review',
-  'arethusa.search',
-  'arethusa.exercise',
-  'arethusa.relation',
-  'arethusa.sg',
-  'arethusa.text',
-  'arethusa.hebrewMorph',
-  'arethusa.artificialToken',
-  'arethusa.comments'
+  'arethusa.history'
 ]);
 
 angular.module('arethusa').config([
