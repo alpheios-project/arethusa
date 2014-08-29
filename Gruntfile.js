@@ -27,10 +27,25 @@ var arethusaModules = [
   'arethusa.text'
 ];
 
-function eachModule(fn) {
+function eachModule(fn, excludeCorePlugins) {
   for (var i = arethusaModules.length - 1; i >= 0; i--){
     fn(arethusaModules[i]);
   }
+}
+
+function arethusaMainUglify() {
+  var obj = pluginFiles('arethusa');
+  var minName = Object.keys(obj)[0];
+
+  var others = [
+    "app/js/util/**/*.js",
+    "dist/arethusa.core.min.js",
+    "dist/arethusa.context_menu.min.js",
+    "dist/arethusa.history.min.js"
+  ];
+
+  obj[minName] = others.concat(obj[minName]);
+  return obj;
 }
 
 function arethusaUglify() {
@@ -42,26 +57,22 @@ function arethusaUglify() {
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
     templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
-    util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
-    external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } },
-    main: { files: pluginFiles('arethusa') }
   };
 
   eachModule(function(module) {
     obj[toTaskScript(module)] = { files: pluginFiles(module) };
   });
 
+  obj.main = { files: arethusaMainUglify() };
   return obj;
 }
 
 function uglifyTasks() {
-  var res = [
-    'ngtemplates',
-    'uglify:main'
-  ];
+  var res = [ 'ngtemplates' ];
   eachModule(function(module) {
     res.push('uglify:' + toTaskScript(module));
   });
+  res.push('uglify:main');
   return res;
 }
 
