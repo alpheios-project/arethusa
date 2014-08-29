@@ -49,7 +49,7 @@ angular.module('arethusa.history').directive('historyEvent', [
 
         element.find('#token').append($compile(tokenTemplate)(scope));
       },
-      templateUrl: 'templates/arethusa.hist/history_event.html'
+      templateUrl: 'templates/arethusa.history/history_event.html'
     };
   }
 ]);

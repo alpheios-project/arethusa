@@ -15,7 +15,7 @@ angular.module('arethusa.history').directive('historyList', [
           scope.position = newVal;
         });
       },
-      templateUrl: 'templates/arethusa.hist/history_list.html'
+      templateUrl: 'templates/arethusa.history/history_list.html'
     };
   }
 ]);
