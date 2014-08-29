@@ -9,6 +9,102 @@ var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
 
+var arethusaModules = [
+  'arethusa.morph',
+  'arethusa.artificial_token',
+  'arethusa.core',
+  'arethusa.comments',
+  'arethusa.hebrew_morph',
+  'arethusa.context_menu',
+  'arethusa.conf_editor',
+  'arethusa.review',
+  'arethusa.search',
+  'arethusa.hist',
+  'arethusa.dep_tree',
+  'arethusa.relation',
+  'arethusa.exercise',
+  'arethusa.sg',
+  'arethusa.text'
+];
+
+function eachModule(fn) {
+  for (var i = arethusaModules.length - 1; i >= 0; i--){
+    fn(arethusaModules[i]);
+  }
+}
+
+function arethusaUglify() {
+  var obj = {
+    options: {
+      sourceMap: true
+    },
+    dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
+    uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
+    toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
+    templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
+    util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
+    external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } },
+    main: { files: pluginFiles('arethusa') }
+  };
+
+  eachModule(function(module) {
+    obj[toTaskScript(module)] = { files: pluginFiles(module) };
+  });
+
+  return obj;
+}
+
+function uglifyTasks() {
+  var res = [];
+  eachModule(function(module) {
+    res.push('uglify:' + toTaskScript(module));
+  });
+  return res;
+}
+
+function arethusaTemplates() {
+  var obj = {
+    arethusa: {
+      cwd: "app",
+      src: "templates/*.html",
+      dest: "app/templates/compiled/main.templates.js"
+    }
+  };
+
+  eachModule(function(module) {
+    obj[toJsScript(module)] = templateObj(module);
+  });
+
+  return obj;
+}
+
+function templateObj(module) {
+  return {
+    cwd: 'app',
+    src: 'templates/' + module + '/**/*.html',
+    dest: "app/templates/compiled/" + module + '.templates.js'
+  };
+}
+
+function capitalize(str) {
+  return str[0].toUpperCase() + str.slice(1);
+}
+
+function toJsScript(str) {
+  var parts = str.split('_');
+  var res = [], part;
+  for (var i = 0; i  < parts.length; i ++) {
+    part = parts[i];
+    if (i !== 0) part = capitalize(part);
+    res.push(part);
+  }
+  return res.join('');
+}
+
+function toTaskScript(str) {
+  return toJsScript(str.replace(/^arethusa\./, ''));
+}
+
 
 function getReloadPort() {
   reloadPort++;
@@ -130,6 +226,7 @@ module.exports = function(grunt) {
             'app/js/*.js',
             'app/js/arethusa*/**/*.js',
             'app/js/util/**/*.js',
+            'dist/templates.min.js',
             specFiles
           ],
           frameworks: ['jasmine'],
@@ -233,33 +330,7 @@ module.exports = function(grunt) {
         }
       }
     },
-    uglify: {
-      options: {
-        sourceMap: true
-      },
-      main: { files: pluginFiles('arethusa') },
-      core: { files: pluginFiles('arethusa.core') },
-      comments: { files: pluginFiles('arethusa.comments') },
-      hebrewMorph: { files: pluginFiles('arethusa.hebrew_morph') },
-      artificialToken: { files: pluginFiles('arethusa.artificial_token') },
-      contextMenu: { files: pluginFiles('arethusa.context_menu') },
-      confEditor: { files: pluginFiles('arethusa.conf_editor') },
-      morph: { files: pluginFiles('arethusa.morph') },
-      review: { files: pluginFiles('arethusa.review') },
-      search: { files: pluginFiles('arethusa.search') },
-      depTree: { files: pluginFiles('arethusa.dep_tree') },
-      hist: { files: pluginFiles('arethusa.hist') },
-      relation: { files: pluginFiles('arethusa.relation') },
-      exercise: { files: pluginFiles('arethusa.exercise') },
-      sg: { files: pluginFiles('arethusa.sg') },
-      text: { files: pluginFiles('arethusa.text') },
-      dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
-      uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
-      toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
-      templates: { files: { "dist/templates.min.js": "app/templates/templates.js"} },
-      util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
-      external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } }
-    },
+    uglify: arethusaUglify(),
     sass: {
       dist: {
         options: {
@@ -291,13 +362,7 @@ module.exports = function(grunt) {
         'post-checkout': true
       }
     },
-    ngtemplates: {
-      arethusa: {
-        cwd: "app",
-        src: "templates/**/*.html",
-        dest: "app/templates/templates.js"
-      }
-    },
+    ngtemplates: arethusaTemplates(),
     shell: {
       minifyConfs: {
         command: confMergeCommands().join('&')
@@ -334,28 +399,11 @@ module.exports = function(grunt) {
   grunt.registerTask('reloader:css', 'watch:serverCss');
   grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
   grunt.registerTask('minify:conf', 'shell:minifyConfs');
-  grunt.registerTask('minify', [
-    'uglify:comments',
-    'uglify:hebrewMorph',
+  grunt.registerTask('minify', uglifyTasks().concat([
     'uglify:main',
-    'uglify:util',
-    'uglify:artificialToken',
-    'uglify:core',
-    'uglify:morph',
-    'uglify:contextMenu',
-    'uglify:confEditor',
-    'uglify:review',
-    'uglify:search',
-    'uglify:depTree',
-    'uglify:hist',
-    'uglify:relation',
-    'uglify:exercise',
-    'uglify:sg',
-    'uglify:external',
-    'uglify:text',
     'ngtemplates',
     'uglify:templates'
-  ]);
+  ]));
   grunt.registerTask('minify:all', 'concurrent:minifyAll');
   grunt.registerTask('install', 'shell:install');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
