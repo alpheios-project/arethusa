@@ -14,13 +14,12 @@ angular.module('arethusa').config([
   '$routeProvider',
   '$translateProvider',
   'MAIN_ROUTE',
-  'CONF_ROUTE',
   function ($routeProvider, $translateProvider,
-            MAIN_ROUTE, CONF_ROUTE) {
+            MAIN_ROUTE) {
     $routeProvider.when('/', MAIN_ROUTE);
-    $routeProvider.when('/conf_editor', CONF_ROUTE);
+    //$routeProvider.when('/conf_editor', CONF_ROUTE);
     $routeProvider.when('/:conf', MAIN_ROUTE);
-    $routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
+    //$routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
 
     $translateProvider
       .useStaticFilesLoader({
