@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.hist').directive('historyEvent', [
+angular.module('arethusa.history').directive('historyEvent', [
   'idHandler',
   '$compile',
   'translator',

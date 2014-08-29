@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.hist').directive('historyBatch', function() {
+angular.module('arethusa.history').directive('historyBatch', function() {
   return {
     restrict: 'A',
     scope: {

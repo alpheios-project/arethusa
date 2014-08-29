@@ -1,5 +1,5 @@
 'use strict';
-angular.module('arethusa.hist').service('history', [
+angular.module('arethusa.history').service('history', [
   'configurator',
   'keyCapture',
   'state',

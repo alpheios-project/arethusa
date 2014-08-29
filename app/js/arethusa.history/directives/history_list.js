@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.hist').directive('historyList', [
+angular.module('arethusa.history').directive('historyList', [
   'history',
   '$compile',
   function(history, $compile) {
