@@ -4,7 +4,7 @@
   "dependencies": {},
   "devDependencies": {
     "grunt-cli": "0.1.13",
-    "grunt-angular-templates" : "0.5.6",
+    "grunt-angular-templates": "0.5.6",
     "grunt-contrib-jasmine": "0.6.3",
     "grunt-contrib-watch": "0.6.1",
     "grunt-contrib-jshint": "0.10.0",
@@ -27,8 +27,9 @@
     "connect-livereload": "0.4.0",
     "execSync": "latest",
     "load-grunt-tasks": "^0.6.0",
-    "grunt-contrib-sass" : "0.7.3",
-    "grunt-shell" : "0.7.0"
+    "grunt-contrib-sass": "0.7.3",
+    "grunt-shell": "0.7.0",
+    "grunt-contrib-concat": "~0.5.0"
   },
   "scripts": {
     "test": "grunt karma:spec coveralls jshint && protractor protractor-config-travis.js"
