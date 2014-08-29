@@ -60,6 +60,10 @@ angular.module('arethusa.core').service('plugins', [
       return $ocLazyLoad.load(request);
     }
 
+    function resolveWhenReady(names, loader) {
+      if (loadComplete(names)) loader.resolve();
+    }
+
     function loadComplete(pluginNames) {
       return Object.keys(self.loader).length === pluginNames.length;
     }
@@ -68,14 +72,31 @@ angular.module('arethusa.core').service('plugins', [
       var loader = $q.defer();
 
       angular.forEach(pluginNames, function(name, i) {
+        var externalDependencies;
         var load = loadPlugin(name);
+        var plugin;
         load.then(
-          function() { self.loader[name] = $injector.get(name); },
+          function() {
+            plugin = $injector.get(name);
+            var extDep = plugin.externalDependencies;
+            if (extDep) {
+              externalDependencies = $ocLazyLoad.load(extDep);
+            } else {
+              self.loader[name] = $injector.get(name);
+            }
+           },
           function() { self.loader[name] = false; }
         );
 
         load['finally'](function() {
-          if (loadComplete(pluginNames)) loader.resolve();
+          if (externalDependencies) {
+            externalDependencies['finally'](function() {
+              self.loader[name] = $injector.get(name);
+              resolveWhenReady(pluginNames, loader);
+            });
+          } else {
+            resolveWhenReady(pluginNames, loader);
+          }
         });
       });
 
