@@ -55,7 +55,10 @@ function arethusaUglify() {
 }
 
 function uglifyTasks() {
-  var res = [];
+  var res = [
+    'ngtemplates',
+    'uglify:main'
+  ];
   eachModule(function(module) {
     res.push('uglify:' + toTaskScript(module));
   });
@@ -67,7 +70,7 @@ function arethusaTemplates() {
     arethusa: {
       cwd: "app",
       src: "templates/*.html",
-      dest: "app/templates/compiled/main.templates.js"
+      dest: "app/templates/compiled/arethusa.templates.js"
     }
   };
 
@@ -119,8 +122,9 @@ function pluginFiles(name) {
   var minName = 'dist/' + name + '.min.js';
   var mainFile = 'app/js/' + name + '.js';
   var others = '<%= "app/js/' + name + '/**/*.js" %>';
+  var templates = '<%= "app/templates/compiled/' + name + '.templates.js" %>';
   var obj = {};
-  obj[minName] = [mainFile, others];
+  obj[minName] = [mainFile, others, templates];
   return obj;
 }
 
@@ -399,11 +403,7 @@ module.exports = function(grunt) {
   grunt.registerTask('reloader:css', 'watch:serverCss');
   grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
   grunt.registerTask('minify:conf', 'shell:minifyConfs');
-  grunt.registerTask('minify', uglifyTasks().concat([
-    'uglify:main',
-    'ngtemplates',
-    'uglify:templates'
-  ]));
+  grunt.registerTask('minify', uglifyTasks());
   grunt.registerTask('minify:all', 'concurrent:minifyAll');
   grunt.registerTask('install', 'shell:install');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
