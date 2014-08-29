@@ -68,7 +68,7 @@ function arethusaUglify() {
 }
 
 function uglifyTasks() {
-  var res = [ 'ngtemplates' ];
+  var res = [ 'concat:packages', 'ngtemplates' ];
   eachModule(function(module) {
     res.push('uglify:' + toTaskScript(module));
   });
@@ -401,6 +401,30 @@ module.exports = function(grunt) {
         options: {
           logConcurrentOutput: true
         }
+      }
+    },
+    concat: {
+      packages: {
+        src: [
+          "./bower_components/jquery/dist/jquery.min.js",
+          "./bower_components/angular/angular.min.js",
+          "./bower_components/angular-route/angular-route.min.js",
+          "./vendor/angular-resource/angular-resource.min.js",
+          "./bower_components/angular-cookies/angular-cookies.min.js",
+          "./bower_components/angular-animate/angular-animate.min.js",
+          "./bower_components/angular-scroll/angular-scroll.min.js",
+          "./bower_components/angular-translate/angular-translate.min.js",
+          "./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
+          "./bower_components/x2js/xml2json.min.js",
+          "./bower_components/angulartics/dist/angulartics.min.js",
+          "./bower_components/angulartics/dist/angulartics-ga.min.js",
+          "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
+          //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
+          "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
+          "./vendor/uservoice/uservoice.min.js",
+          "./vendor/angularJS-toaster/toaster.min.js",
+        ],
+        dest: 'dist/arethusa_packages.min.js'
       }
     }
   });
