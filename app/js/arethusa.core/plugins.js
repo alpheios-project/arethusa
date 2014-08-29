@@ -4,24 +4,12 @@ angular.module('arethusa.core').service('plugins', [
   'configurator',
   '$injector',
   '$rootScope',
-  function(configurator, $injector, $rootScope) {
+  '$ocLazyLoad',
+  '$q',
+  function(configurator, $injector, $rootScope, $ocLazyLoad, $q) {
     var self = this;
     var readyPlugins;
     var initCallbacks;
-
-    function retrievePlugin(name) {
-      var pluginConf = configurator.configurationFor(name);
-      if (pluginConf.external) {
-        // DEPRECATED: This API will change again.
-
-        // We copy because this object will be extended once the plugin
-        // is really initialized through the inclusion of its template
-        // by the plugin directive.
-        return angular.copy(pluginConf);
-      } else {
-        return $injector.get(name);
-      }
-    }
 
     function partitionPlugins() {
       self.main = [];
@@ -48,22 +36,83 @@ angular.module('arethusa.core').service('plugins', [
       }
     };
 
+    function toSnakeCase(str) {
+      return str.replace(/([A-Z])/g, '_$1').toLowerCase();
+    }
+
+    function LoadRequest(name, location) {
+      var self = this;
+      function getName(name, location) {
+        return location ? name : 'arethusa.' + name;
+      }
+
+      function getLocation(location) {
+        return (location || '../dist/' + toSnakeCase(self.name) + '.min.js');
+      }
+
+      this.name = getName(name, location);
+      this.files = [getLocation(location)];
+    }
+
+    function loadPlugin(name) {
+      var pluginConf = configurator.configurationFor(name);
+      var request = new LoadRequest(name, pluginConf.location);
+      return $ocLazyLoad.load(request);
+    }
+
+    function loadComplete(pluginNames) {
+      return Object.keys(self.loader).length === pluginNames.length;
+    }
+
+    function loadPlugins(pluginNames) {
+      var loader = $q.defer();
+
+      angular.forEach(pluginNames, function(name, i) {
+        var load = loadPlugin(name);
+        load.then(
+          function() { self.loader[name] = $injector.get(name); },
+          function() { self.loader[name] = false; }
+        );
+
+        load['finally'](function() {
+          if (loadComplete(pluginNames)) loader.resolve();
+        });
+      });
+
+      return loader.promise;
+    }
+
+    function sortPlugins(names) {
+      angular.forEach(names, function(name, i) {
+        var plugin = self.loader[name];
+        if (plugin) self.all[name] = plugin;
+      });
+    }
 
     this.start = function(pluginNames) {
-      self.all = arethusaUtil.inject({}, pluginNames, function(memo, name) {
-        memo[name] = retrievePlugin(name);
+      self.loader = {};
+      self.all = {};
+      var result = $q.defer();
+
+      loadPlugins(pluginNames).then(function() {
+        sortPlugins(pluginNames);
+        partitionPlugins();
+        declareFirstActive();
+        self.init();
+        notifyListeners();
+        self.loader = {};
+        result.resolve();
       });
 
-      partitionPlugins();
-      declareFirstActive();
-      notifyListeners();
-      self.init();
+      return result.promise;
     };
 
+    function notify(plugin, name) {
+      $rootScope.$broadcast('pluginAdded', name, plugin);
+    }
+
     function notifyListeners() {
-      angular.forEach(self.all, function(plugin, name) {
-        $rootScope.$broadcast('pluginAdded', name, plugin);
-      });
+      angular.forEach(self.all, notify);
     }
 
     function initPlugin(plugin) {
