@@ -6,7 +6,8 @@ angular.module('arethusa.core').service('plugins', [
   '$rootScope',
   '$ocLazyLoad',
   '$q',
-  function(configurator, $injector, $rootScope, $ocLazyLoad, $q) {
+  '$timeout',
+  function(configurator, $injector, $rootScope, $ocLazyLoad, $q, $timeout) {
     var self = this;
     var readyPlugins;
     var initCallbacks;
@@ -129,7 +130,9 @@ angular.module('arethusa.core').service('plugins', [
     };
 
     function notify(plugin, name) {
-      $rootScope.$broadcast('pluginAdded', name, plugin);
+      $timeout(function() {
+        $rootScope.$broadcast('pluginAdded', name, plugin);
+      });
     }
 
     function notifyListeners() {
