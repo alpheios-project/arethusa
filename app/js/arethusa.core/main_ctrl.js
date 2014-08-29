@@ -69,15 +69,16 @@ angular.module('arethusa.core').controller('MainCtrl', [
     });
 
     $scope.init = function () {
-      plugins.start(conf.plugins);
-      notifier.init(); // also clears the Loading message for now.
-      saver.init();
-      state.arethusaLoaded = true;
-      notifier.success(translations.loadComplete);
-      UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
+      plugins.start(conf.plugins).then(function() {
+        notifier.init(); // also clears the Loading message for now.
+        saver.init();
+        state.arethusaLoaded = true;
+        notifier.success(translations.loadComplete);
+        UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
 
-      // start listening for events
-      state.silent = false;
+        // start listening for events
+        state.silent = false;
+      });
     };
   }
 ]);
