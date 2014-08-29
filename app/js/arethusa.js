@@ -4,6 +4,7 @@ angular.module('arethusa', [
   'angulartics.google.analytics',
   'mm.foundation',
   'ngRoute',
+  'oc.lazyLoad',
   'arethusa.core',
   'arethusa.contextMenu',
   'arethusa.confEditor',
