@@ -9,8 +9,9 @@ angular.module('arethusa.core').controller('MainCtrl', [
   'history',
   'plugins',
   'translator',
+  '$timeout',
   function ($scope, configurator, state, documentStore, notifier,
-            saver, history, plugins, translator) {
+            saver, history, plugins, translator, $timeout) {
     // This is the entry point to the application.
 
     var translations = {};
@@ -52,10 +53,14 @@ angular.module('arethusa.core').controller('MainCtrl', [
     // In case we every need this added complexity again, check out this PR to find
     // some advice.
 
-    notifier.wait(translations.loadInProgress);
-    state.arethusaLoaded = false;
-    state.init();
-    history.init();
+    // The timeout helps to load the translation, otherwise we can't see a
+    // notification that the load is in progress.
+    $timeout(function() {
+      notifier.wait(translations.loadInProgress);
+      state.arethusaLoaded = false;
+      state.init();
+      history.init();
+    });
 
     $scope.$on('stateLoaded', function () {
       state.postInit();
