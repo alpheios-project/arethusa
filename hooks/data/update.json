@@ -1,7 +1,7 @@
 [
 {
   "file": "Gruntfile.json",
-  "command": "grunt githooks"
+  "command": "grunt githooks && grunt install"
 },
 {
   "file": "package.json",
