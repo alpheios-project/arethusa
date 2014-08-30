@@ -4,10 +4,10 @@ angular.module('arethusa.core').service('plugins', [
   'configurator',
   '$injector',
   '$rootScope',
-  '$ocLazyLoad',
   '$q',
   '$timeout',
-  function(configurator, $injector, $rootScope, $ocLazyLoad, $q, $timeout) {
+  'dependencyLoader',
+  function(configurator, $injector, $rootScope, $q, $timeout, dependencyLoader) {
     var self = this;
     var readyPlugins;
     var initCallbacks;
@@ -58,7 +58,7 @@ angular.module('arethusa.core').service('plugins', [
     function loadPlugin(name) {
       var pluginConf = configurator.configurationFor(name);
       var request = new LoadRequest(name, pluginConf.location);
-      return $ocLazyLoad.load(request);
+      return dependencyLoader.load(request);
     }
 
     function resolveWhenReady(names, loader) {
@@ -69,6 +69,33 @@ angular.module('arethusa.core').service('plugins', [
       return Object.keys(self.loader).length === pluginNames.length;
     }
 
+    function wrapInPromise(callback) {
+      var deferred = $q.defer();
+      callback()['finally'](deferred.resolve());
+      return deferred.promise;
+    }
+
+    function loadExtDep(extDep) {
+      if (angular.isArray(extDep)) {
+        return dependencyLoader.load(extDep);
+      } else {
+        var  sync = extDep.sync;
+        var async = extDep.async;
+        var promises = [];
+        if (sync) {
+          promises.push(wrapInPromise(function() {
+           return dependencyLoader.loadSync(sync);
+          }));
+        }
+        if (async) {
+          promises.push(wrapInPromise(function() {
+            return dependencyLoader.load(async);
+          }));
+        }
+        return $q.all(promises);
+      }
+    }
+
     function loadPlugins(pluginNames) {
       var loader = $q.defer();
 
@@ -77,16 +104,16 @@ angular.module('arethusa.core').service('plugins', [
         var load = loadPlugin(name);
         var plugin;
         load.then(
-          function() {
+          function success() {
             plugin = $injector.get(name);
             var extDep = plugin.externalDependencies;
             if (extDep) {
-              externalDependencies = $ocLazyLoad.load(extDep);
+              externalDependencies = loadExtDep(extDep);
             } else {
               self.loader[name] = $injector.get(name);
             }
            },
-          function() { self.loader[name] = false; }
+          function error() { self.loader[name] = false; }
         );
 
         load['finally'](function() {
@@ -121,7 +148,7 @@ angular.module('arethusa.core').service('plugins', [
         partitionPlugins();
         declareFirstActive();
         self.init();
-        notifyListeners();
+        //notifyListeners();
         self.loader = {};
         result.resolve();
       });
