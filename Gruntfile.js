@@ -27,7 +27,7 @@ var arethusaModules = [
   'arethusa.text'
 ];
 
-function eachModule(fn, excludeCorePlugins) {
+function eachModule(fn) {
   for (var i = arethusaModules.length - 1; i >= 0; i--){
     fn(arethusaModules[i]);
   }
