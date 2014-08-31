@@ -12,7 +12,6 @@ angular.module('arethusa.core').service('notifier', [
       self.maxMessages = self.conf.maxMessages || 15;
     }
 
-    configure();
     this.messages = [];
 
     function Message(type, message, title) {
