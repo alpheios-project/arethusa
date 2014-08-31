@@ -33,21 +33,6 @@ function eachModule(fn) {
   }
 }
 
-function arethusaMainUglify() {
-  var obj = pluginFiles('arethusa');
-  var minName = Object.keys(obj)[0];
-
-  var others = [
-    "app/js/util/**/*.js",
-    "dist/arethusa.core.min.js",
-    "dist/arethusa.context_menu.min.js",
-    "dist/arethusa.history.min.js"
-  ];
-
-  obj[minName] = others.concat(obj[minName]);
-  return obj;
-}
-
 function arethusaUglify() {
   var obj = {
     options: {
@@ -57,13 +42,12 @@ function arethusaUglify() {
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
     templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
+    main: { files: pluginFiles('arethusa', 'arethusa.main') }
   };
 
   eachModule(function(module) {
     obj[toTaskScript(module)] = { files: pluginFiles(module) };
   });
-
-  obj.main = { files: arethusaMainUglify() };
   return obj;
 }
 
@@ -73,6 +57,7 @@ function uglifyTasks() {
     res.push('newer:uglify:' + toTaskScript(module));
   });
   res.push('newer:uglify:main');
+  res.push('newer:concat:main');
   return res;
 }
 
@@ -127,8 +112,8 @@ function mountFolder(connect, dir) {
   return connect.static(require('path').resolve(dir));
 }
 
-function pluginFiles(name) {
-  var minName = 'dist/' + name + '.min.js';
+function pluginFiles(name, destName) {
+  var minName = 'dist/' + (destName || name) + '.min.js';
   var mainFile = 'app/js/' + name + '.js';
   var others = '<%= "app/js/' + name + '/**/*.js" %>';
   var templates = '<%= "app/templates/compiled/' + name + '.templates.js" %>';
@@ -430,6 +415,15 @@ module.exports = function(grunt) {
           "./vendor/angularJS-toaster/toaster.min.js",
         ],
         dest: 'dist/arethusa_packages.min.js'
+      },
+      main: {
+        src: [
+          "dist/arethusa.core.min.js",
+          "dist/arethusa.context_menu.min.js",
+          "dist/arethusa.history.min.js",
+          "dist/arethusa.main.min.js"
+        ],
+        dest: 'dist/arethusa.min.js'
       }
     }
   });
