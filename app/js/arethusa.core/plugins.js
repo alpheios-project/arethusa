@@ -7,10 +7,19 @@ angular.module('arethusa.core').service('plugins', [
   '$q',
   '$timeout',
   'dependencyLoader',
-  function(configurator, $injector, $rootScope, $q, $timeout, dependencyLoader) {
+  'notifier',
+  'translator',
+  function(configurator, $injector, $rootScope, $q, $timeout, dependencyLoader,
+          notifier, translator) {
     var self = this;
     var readyPlugins;
     var initCallbacks;
+
+    var translations = {};
+    translator('plugins.added', translations, 'added');
+    translator('plugins.failed1', translations, 'failed1');
+    translator('plugins.failed2', translations, 'failed2');
+    translator('plugins.alreadyLoaded', translations, 'alreadyLoaded');
 
     function partitionPlugins() {
       self.main = [];
@@ -238,6 +247,11 @@ angular.module('arethusa.core').service('plugins', [
     }
 
     this.addPlugin = function(name, conf) {
+      if (self.all[name]) {
+        notifier.warning(name + ' ' + translations.alreadyLoaded);
+        return;
+      }
+
       if (conf) configurator.addPluginConf(name, conf);
       var deferred = $q.defer();
       var promise  = deferred.promise;
@@ -259,10 +273,15 @@ angular.module('arethusa.core').service('plugins', [
         self.registerPlugin(plugin);
         plugin.init();
         notify(plugin, name);
+        notifier.success(name + ' ' + translations.added);
         deferred.resolve(plugin);
       };
 
-      var reject = aU.rejectFn();
+      var reject = function() {
+        var message = [translations.failed1, name, translations.failed2].join(' ');
+        notifier.error(message.trim() + "!");
+        deferred.reject();
+      };
 
       loader.then(loadSuccess, reject);
       return promise;

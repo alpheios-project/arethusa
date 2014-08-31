@@ -80,5 +80,13 @@
     "alwaysDeselect" : "Deselektiere nach jeder Aktion",
     "keyboardMappings" : "Deaktiviere Tastaturmappings in Eingabefeldern",
     "colorizer" : "Token einfärben nach"
+  },
+
+
+  "plugins" : {
+    "added" : "Plugin hinzugefügt!",
+    "failed1" : "Laden von",
+    "failed2" : "gescheitert",
+    "alreadyLoaded" : "ist bereits geladen!"
   }
 }

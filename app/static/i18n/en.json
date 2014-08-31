@@ -80,5 +80,12 @@
     "alwaysDeselect" : "Deselect after every action",
     "keyboardMappings" : "Disable keyboard mapping for input fields",
     "colorizer" : "Colorize tokens by"
+  },
+
+  "plugins" : {
+    "added" : "plugin added!",
+    "failed1" : "Failed to load",
+    "failed2" : "",
+    "alreadyLoaded" : "is already loaded!"
   }
 }
