@@ -235,7 +235,7 @@ var arethusaUtil = {
     },
 
     isArethusaMainApplication: function() {
-      var ngApp = document.querSelectory('html').attributes['ng-app'];
+      var ngApp = document.querySelector('html').attributes['ng-app'];
       return ngApp && ngApp.value == 'arethusa';
     }
   };
