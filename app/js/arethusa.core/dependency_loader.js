@@ -8,7 +8,7 @@ angular.module('arethusa.core').service('dependencyLoader', [
       return $ocLazyLoad.load(args);
     };
 
-    this.loadSync = function(args) {
+    this.loadInOrder = function(args) {
       var start = $q.defer();
       var promises = [start.promise];
       angular.forEach(args, function(el, i) {

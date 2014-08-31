@@ -79,17 +79,17 @@ angular.module('arethusa.core').service('plugins', [
       if (angular.isArray(extDep)) {
         return dependencyLoader.load(extDep);
       } else {
-        var  sync = extDep.sync;
-        var async = extDep.async;
+        var ordered = extDep.ordered;
+        var unordered = extDep.unordered;
         var promises = [];
-        if (sync) {
+        if (ordered) {
           promises.push(wrapInPromise(function() {
-            return dependencyLoader.loadSync(sync);
+            return dependencyLoader.loadInOrder(ordered);
           }));
         }
-        if (async) {
+        if (unordered) {
           promises.push(wrapInPromise(function() {
-            return dependencyLoader.load(async);
+            return dependencyLoader.load(unordered);
           }));
         }
         return $q.all(promises);

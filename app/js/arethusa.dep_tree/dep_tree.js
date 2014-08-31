@@ -25,7 +25,7 @@ angular.module('arethusa.depTree').service('depTree', [
     var self = this;
 
     this.externalDependencies = {
-      sync: [
+      ordered: [
         "../bower_components/d3/d3.min.js",
         "../vendor/dagre-d3/dagre-d3.min.js"
       ]
