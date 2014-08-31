@@ -75,15 +75,17 @@ angular.module('arethusa.core').service('saver', [
       }
     };
 
-    this.activeKeys = {};
-    var keys = keyCapture.initCaptures(function(kC) {
-      return {
-        saver: [
-          kC.create('save', function() { self.save(); }, 'ctrl-S')
-        ]
-      };
-    });
-    angular.extend(self.activeKeys, keys.saver);
+    function defineKeyCaptures() {
+      self.activeKeys = {};
+      var keys = keyCapture.initCaptures(function(kC) {
+        return {
+          saver: [
+            kC.create('save', function() { self.save(); }, 'ctrl-S')
+          ]
+        };
+      });
+      angular.extend(self.activeKeys, keys.saver);
+    }
 
     var changeWatch;
     function setChangeWatch() {
@@ -127,6 +129,7 @@ angular.module('arethusa.core').service('saver', [
     }
 
     this.init = function(newPersisters) {
+      defineKeyCaptures();
       reset();
       getPersisters();
       updateStatus();

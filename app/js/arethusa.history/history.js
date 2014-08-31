@@ -157,17 +157,20 @@ angular.module('arethusa.history').service('history', [
  *                                  Init                                   *
  ***************************************************************************/
 
-    var keys = keyCapture.initCaptures(function(kC) {
-      return {
-        history: [
-          kC.create('undo', self.undo, ':'),
-          kC.create('redo', self.redo, "'")
-        ]
-      };
-    });
-    this.activeKeys = angular.extend({}, keys.history);
+    function keyCaptures() {
+      var keys = keyCapture.initCaptures(function(kC) {
+        return {
+          history: [
+            kC.create('undo', self.undo, ':'),
+            kC.create('redo', self.redo, "'")
+          ]
+        };
+      });
+      self.activeKeys = angular.extend({}, keys.history);
+    }
 
     this.init = function() {
+      keyCaptures();
       configure();
       self.canRedo = false;
       self.canUndo = false;
