@@ -36,8 +36,6 @@ angular.module('arethusa.core').service('state', [
       navigator.init();
     }
 
-    configure();
-
     // We hold tokens locally during retrieval phase.
     // Once we are done, they will be exposed through
     // this.replaceState, which also triggers
