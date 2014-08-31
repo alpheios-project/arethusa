@@ -11,7 +11,7 @@ angular.module('arethusa.core').service('locator', [
     };
 
     this.watchUrl = function(bool) {
-      noUrlParams = bool;
+      noUrlParams = !bool;
     };
 
     this.set = function(paramOrParams, value) {
