@@ -35,7 +35,7 @@ angular.module('arethusa.core').service('configurator', [
 
     // The second param is optional.
     this.defineConfiguration = function (confFile, location) {
-      this.configuration = confFile;
+      this.configuration = angular.extend(new Template(), confFile);
       this.confFileLocation = location;
 
       // As this could be called from a resolve event through
@@ -79,16 +79,17 @@ angular.module('arethusa.core').service('configurator', [
       return $q.all(proms);
     };
 
+    function Template() {
+      this.main = {};
+      this.plugins = {};
+      this.resources = {};
+    }
+
     // Returns an empty configuration files with all sections
     // as empty object properties.
     // Useful for the configuration editor.
     this.getConfTemplate = function () {
-      return {
-        main: {},
-        navbar: {},
-        plugins: {},
-        resources: {}
-      };
+      return new Template();
     };
 
     // Merges two configuration objects.
