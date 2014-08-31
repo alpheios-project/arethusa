@@ -13,5 +13,13 @@ angular.module('arethusa.core').service('locator', [
     this.watchUrl = function(bool) {
       noUrlParams = bool;
     };
+
+    this.set = function(paramOrParams, value) {
+      if (value) {
+        manualParams[paramOrParams] = value;
+      } else {
+        angular.extend(manualParams, paramOrParams);
+      }
+    };
   }
 ]);
