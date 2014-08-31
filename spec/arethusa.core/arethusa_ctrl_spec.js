@@ -1,6 +1,6 @@
 "use strict";
 
-describe('MainCtrl', function() {
+describe('ArethusaCtrl', function() {
   beforeEach(module('arethusa'));
 
   it('sets scope values', inject(function($controller, $rootScope) {
@@ -26,7 +26,7 @@ describe('MainCtrl', function() {
       translator: function() {}
     };
 
-    var ctrl = $controller('MainCtrl', mainCtrlInits);
+    var ctrl = $controller('ArethusaCtrl', mainCtrlInits);
 
     expect(scope.state).toBe(state);
     expect(scope.template).toBe("template");

@@ -1,5 +1,5 @@
 'use strict';
-angular.module('arethusa.core').controller('MainCtrl', [
+angular.module('arethusa.core').controller('ArethusaCtrl', [
   '$scope',
   'configurator',
   'state',
@@ -35,18 +35,18 @@ angular.module('arethusa.core').controller('MainCtrl', [
       $scope.template = conf.template;
 
       // The application has to fulfil a specific load order.
-      // The MainCtrl starts his work only when the configurator has received
+      // The ArethusaCtrl starts his work only when the configurator has received
       // its main configuration file (handled by the MAIN_ROUTE constant).
       //
       // Loading all state retrievers is an asynchronous step we want to see
       // completed before going on.
-      // State broadcasts another event when it is done, after that the MainCtrl
+      // State broadcasts another event when it is done, after that the ArethusaCtrl
       // can finally start to initialize itself and all all participating plugins.
       //
       // Everytime the state is reloaded, we need to reinitialize plugins (if they
       // declare to do so by implementing an init() function- it's not a necessity),
       // so that they can update their internal state after the main state tokens
-      // have changed. There is no need to reinit the MainCtrl - the arethusaLoaded
+      // have changed. There is no need to reinit the ArethusaCtrl - the arethusaLoaded
       // variable takes care of this.
       //
       //
