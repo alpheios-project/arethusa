@@ -15,7 +15,9 @@ angular.module('arethusa.core').service('dependencyLoader', [
         var defer = $q.defer();
         promises.push(defer.promise);
         promises[i].then(function() {
-          $ocLazyLoad.load(el)['finally'](defer.resolve());
+          $ocLazyLoad.load(el)['finally'](function() {
+            defer.resolve();
+          });
         });
       });
       start.resolve();

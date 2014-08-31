@@ -71,7 +71,7 @@ angular.module('arethusa.core').service('plugins', [
 
     function wrapInPromise(callback) {
       var deferred = $q.defer();
-      callback()['finally'](deferred.resolve());
+      callback()['finally'](function() { deferred.resolve(); });
       return deferred.promise;
     }
 
