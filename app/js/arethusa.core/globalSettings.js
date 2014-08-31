@@ -82,6 +82,8 @@ angular.module('arethusa.core').service('globalSettings', [
       });
     };
 
-    configure();
+    this.init = function() {
+      configure();
+    };
   }
 ]);

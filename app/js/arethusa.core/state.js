@@ -34,6 +34,7 @@ angular.module('arethusa.core').service('state', [
       self.debug = self.conf.debug;
 
       navigator.init();
+      globalSettings.init();
     }
 
     // We hold tokens locally during retrieval phase.
