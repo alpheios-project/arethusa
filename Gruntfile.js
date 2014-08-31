@@ -79,8 +79,7 @@ function uglifyTasks() {
 function arethusaTemplates() {
   var obj = {
     arethusa: {
-      cwd: "app",
-      src: "templates/*.html",
+      src: "app/templates/*.html",
       dest: "app/templates/compiled/arethusa.templates.js"
     }
   };
@@ -94,8 +93,7 @@ function arethusaTemplates() {
 
 function templateObj(module) {
   return {
-    cwd: 'app',
-    src: 'templates/' + module + '/**/*.html',
+    src: 'app/templates/' + module + '/**/*.html',
     dest: "app/templates/compiled/" + module + '.templates.js'
   };
 }
