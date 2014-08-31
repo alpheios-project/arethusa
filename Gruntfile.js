@@ -16,7 +16,7 @@ var arethusaModules = [
   'arethusa.comments',
   'arethusa.hebrew_morph',
   'arethusa.context_menu',
-  'arethusa.conf_editor',
+  //'arethusa.conf_editor',
   'arethusa.review',
   'arethusa.search',
   'arethusa.history',
