@@ -148,7 +148,7 @@ angular.module('arethusa.core').service('plugins', [
         partitionPlugins();
         declareFirstActive();
         self.init();
-        //notifyListeners();
+        notifyListeners();
         self.loader = {};
         result.resolve();
       });
