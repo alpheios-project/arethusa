@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.hist').directive('historyBatch', function() {
+angular.module('arethusa.history').directive('historyBatch', function() {
   return {
     restrict: 'A',
     scope: {
@@ -9,6 +9,6 @@ angular.module('arethusa.hist').directive('historyBatch', function() {
     link: function(scope, element, attrs) {
       scope.events = scope.batch.events;
     },
-    templateUrl: 'templates/arethusa.hist/history_batch.html'
+    templateUrl: 'templates/arethusa.history/history_batch.html'
   };
 });

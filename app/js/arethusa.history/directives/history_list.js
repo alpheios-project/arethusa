@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.hist').directive('historyList', [
+angular.module('arethusa.history').directive('historyList', [
   'history',
   '$compile',
   function(history, $compile) {
@@ -15,7 +15,7 @@ angular.module('arethusa.hist').directive('historyList', [
           scope.position = newVal;
         });
       },
-      templateUrl: 'templates/arethusa.hist/history_list.html'
+      templateUrl: 'templates/arethusa.history/history_list.html'
     };
   }
 ]);

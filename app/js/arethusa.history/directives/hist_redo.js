@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.hist').directive('histUndo', [
+angular.module('arethusa.history').directive('histRedo', [
   'history',
   'translator',
   function(history, translator) {
@@ -18,20 +18,21 @@ angular.module('arethusa.hist').directive('histUndo', [
           }
         });
 
-        scope.$watch('history.canUndo', function(newVal, oldVal) {
+        scope.$watch('history.canRedo', function(newVal, oldVal) {
           if (newVal !== oldVal) element.toggleClass('disabled');
         });
 
         element.bind('click', function() {
-          scope.$apply(history.undo());
+          scope.$apply(history.redo());
         });
 
-        var hint = arethusaUtil.formatKeyHint(history.activeKeys.undo);
-        translator('history.undo', function(translation) {
+        var hint = arethusaUtil.formatKeyHint(history.activeKeys.redo);
+        translator('history.redo', function(translation) {
           element.attr('title', translation + ' ' + hint);
         });
       },
-      template: '<i class="fa fa-undo"/>'
+      template: '<i class="fa fa-repeat"/>'
     };
   }
 ]);
+

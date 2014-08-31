@@ -11,10 +11,15 @@ angular.module('arethusa.comments').service('comments', [
   function(state, configurator, navigator, notifier,
            plugins, keyCapture, translator) {
     var self = this;
+
     var retriever, persister;
     var idMap;
     var commentIndex;
     var fullTextIndex;
+
+    this.externalDependencies = [
+      "../bower_components/lunr.js/lunr.min.js"
+    ];
 
     this.filter = {};
     this.reverseIndex = {};

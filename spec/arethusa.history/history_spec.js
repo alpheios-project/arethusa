@@ -7,7 +7,7 @@ describe('history', function() {
   beforeEach(function() {
     module("arethusa.core");
 
-    module("arethusa.hist", function($provide) {
+    module("arethusa.history", function($provide) {
       $provide.value('configurator', arethusaMocks.configurator());
       $provide.value('keyCapture', arethusaMocks.keyCapture());
     });

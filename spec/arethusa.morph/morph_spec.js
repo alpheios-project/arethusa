@@ -53,15 +53,15 @@ describe("morph", function() {
     module("arethusa.core", function($provide) {
       var custom = { getConfAndDelegate: morphConf };
       $provide.value('configurator', arethusaMocks.configurator(custom));
+      $provide.value('plugins', arethusaMocks.plugins());
     });
 
     module("arethusa.morph");
 
-    inject(function(_morph_, _state_, _plugins_) {
+    inject(function(_morph_, _state_) {
       state = _state_;
       state.tokens = arethusaMocks.tokens();
       morph = _morph_;
-      _plugins_.start();
       morph.init();
     });
   });

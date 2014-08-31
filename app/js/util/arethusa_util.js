@@ -224,6 +224,10 @@ var arethusaUtil = {
 
     toPercent: function(total, part){
       return (part / total) * 100;
+    },
+
+    resolveFn: function(deferred) {
+      return function() { deferred.resolve(); };
     }
   };
 

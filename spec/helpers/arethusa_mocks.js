@@ -54,7 +54,8 @@ function ArethusaMocks() {
       all: {},
       main: [],
       sub: [],
-      withMenu: []
+      withMenu: [],
+      declareReady: mockFn
     });
   };
 

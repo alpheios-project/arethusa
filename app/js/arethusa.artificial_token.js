@@ -1,2 +1,2 @@
 "use strict";
-angular.module('arethusa.artificialToken', ['arethusa.core']);
+angular.module('arethusa.artificialToken', []);

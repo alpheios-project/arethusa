@@ -19,7 +19,7 @@ var arethusaModules = [
   'arethusa.conf_editor',
   'arethusa.review',
   'arethusa.search',
-  'arethusa.hist',
+  'arethusa.history',
   'arethusa.dep_tree',
   'arethusa.relation',
   'arethusa.exercise',
@@ -33,6 +33,21 @@ function eachModule(fn) {
   }
 }
 
+function arethusaMainUglify() {
+  var obj = pluginFiles('arethusa');
+  var minName = Object.keys(obj)[0];
+
+  var others = [
+    "app/js/util/**/*.js",
+    "dist/arethusa.core.min.js",
+    "dist/arethusa.context_menu.min.js",
+    "dist/arethusa.history.min.js"
+  ];
+
+  obj[minName] = others.concat(obj[minName]);
+  return obj;
+}
+
 function arethusaUglify() {
   var obj = {
     options: {
@@ -42,23 +57,22 @@ function arethusaUglify() {
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
     templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
-    util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
-    external: { files: { "dist/arethusa_external.min.js": "app/js/external/**/*.js" } },
-    main: { files: pluginFiles('arethusa') }
   };
 
   eachModule(function(module) {
     obj[toTaskScript(module)] = { files: pluginFiles(module) };
   });
 
+  obj.main = { files: arethusaMainUglify() };
   return obj;
 }
 
 function uglifyTasks() {
-  var res = [];
+  var res = [ 'concat:packages', 'ngtemplates' ];
   eachModule(function(module) {
     res.push('uglify:' + toTaskScript(module));
   });
+  res.push('uglify:main');
   return res;
 }
 
@@ -67,7 +81,7 @@ function arethusaTemplates() {
     arethusa: {
       cwd: "app",
       src: "templates/*.html",
-      dest: "app/templates/compiled/main.templates.js"
+      dest: "app/templates/compiled/arethusa.templates.js"
     }
   };
 
@@ -119,8 +133,9 @@ function pluginFiles(name) {
   var minName = 'dist/' + name + '.min.js';
   var mainFile = 'app/js/' + name + '.js';
   var others = '<%= "app/js/' + name + '/**/*.js" %>';
+  var templates = '<%= "app/templates/compiled/' + name + '.templates.js" %>';
   var obj = {};
-  obj[minName] = [mainFile, others];
+  obj[minName] = [mainFile, others, templates];
   return obj;
 }
 
@@ -217,6 +232,7 @@ module.exports = function(grunt) {
             './bower_components/jquery/dist/jquery.min.js',
             './bower_components/d3/d3.min.js',
             './bower_components/lunr.js/lunr.min.js',
+            './bower_components/oclazyload/dist/ocLazyLoad.min.js',
             './vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.js',
             './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
             './vendor/dagre-d3/dagre-d3.min.js',
@@ -386,6 +402,30 @@ module.exports = function(grunt) {
           logConcurrentOutput: true
         }
       }
+    },
+    concat: {
+      packages: {
+        src: [
+          "./bower_components/jquery/dist/jquery.min.js",
+          "./bower_components/angular/angular.min.js",
+          "./bower_components/angular-route/angular-route.min.js",
+          "./vendor/angular-resource/angular-resource.min.js",
+          "./bower_components/angular-cookies/angular-cookies.min.js",
+          "./bower_components/angular-animate/angular-animate.min.js",
+          "./bower_components/angular-scroll/angular-scroll.min.js",
+          "./bower_components/angular-translate/angular-translate.min.js",
+          "./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
+          "./bower_components/x2js/xml2json.min.js",
+          "./bower_components/angulartics/dist/angulartics.min.js",
+          "./bower_components/angulartics/dist/angulartics-ga.min.js",
+          "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
+          //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
+          "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
+          "./vendor/uservoice/uservoice.min.js",
+          "./vendor/angularJS-toaster/toaster.min.js",
+        ],
+        dest: 'dist/arethusa_packages.min.js'
+      }
     }
   });
 
@@ -399,11 +439,7 @@ module.exports = function(grunt) {
   grunt.registerTask('reloader:css', 'watch:serverCss');
   grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
   grunt.registerTask('minify:conf', 'shell:minifyConfs');
-  grunt.registerTask('minify', uglifyTasks().concat([
-    'uglify:main',
-    'ngtemplates',
-    'uglify:templates'
-  ]));
+  grunt.registerTask('minify', uglifyTasks());
   grunt.registerTask('minify:all', 'concurrent:minifyAll');
   grunt.registerTask('install', 'shell:install');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
