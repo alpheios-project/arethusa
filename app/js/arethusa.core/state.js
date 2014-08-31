@@ -35,6 +35,18 @@ angular.module('arethusa.core').service('state', [
 
       navigator.init();
       globalSettings.init();
+
+      self.activeKeys = {};
+      var keys = keyCapture.initCaptures(function(kC) {
+        return {
+          selections: [
+            kC.create('nextToken', function() { kC.doRepeated(self.selectNextToken); }, 'w'),
+            kC.create('prevToken', function() { kC.doRepeated(self.selectPrevToken); }, 'e'),
+            kC.create('deselect', function() { self.deselectAll(); }, 'esc' )
+          ]
+        };
+      });
+      angular.extend(self.activeKeys, keys.selections);
     }
 
     // We hold tokens locally during retrieval phase.
@@ -466,20 +478,6 @@ angular.module('arethusa.core').service('state', [
       self.addStatusObjects();
       self.countTotalTokens();
     };
-
-    this.activeKeys = {};
-
-    var keys = keyCapture.initCaptures(function(kC) {
-      return {
-        selections: [
-          kC.create('nextToken', function() { kC.doRepeated(self.selectNextToken); }, 'w'),
-          kC.create('prevToken', function() { kC.doRepeated(self.selectPrevToken); }, 'e'),
-          kC.create('deselect', function() { self.deselectAll(); }, 'esc' )
-        ]
-      };
-    });
-    angular.extend(self.activeKeys, keys.selections);
-
 
     this.init = function () {
       configure();
