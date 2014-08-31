@@ -360,4 +360,17 @@ describe("arethusaUtil", function() {
       expect(actual.x).not.toBe(obj.x);
     });
   });
+
+  describe('resolveFn', function() {
+    it('returns a function that calls resolve on a given object', function() {
+      var calls = 0;
+      var obj = {
+        resolve: function() { calls++; }
+      };
+      var fn = aU.resolveFn(obj);
+
+      fn();
+      expect(calls).toEqual(1);
+    });
+  });
 });
