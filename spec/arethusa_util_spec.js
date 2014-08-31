@@ -373,4 +373,17 @@ describe("arethusaUtil", function() {
       expect(calls).toEqual(1);
     });
   });
+
+  describe('reject', function() {
+    it('returns a function that calls reject on a given object', function() {
+      var calls = 0;
+      var obj = {
+        reject: function() { calls++; }
+      };
+      var fn = aU.rejectFn(obj);
+
+      fn();
+      expect(calls).toEqual(1);
+    });
+  });
 });

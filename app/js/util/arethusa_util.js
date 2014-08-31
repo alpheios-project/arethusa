@@ -228,6 +228,10 @@ var arethusaUtil = {
 
     resolveFn: function(deferred) {
       return function() { deferred.resolve(); };
+    },
+
+    rejectFn: function(deferred) {
+      return function() { deferred.reject(); };
     }
   };
 
