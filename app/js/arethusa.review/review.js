@@ -5,11 +5,10 @@
 angular.module('arethusa.review').service('review', [
   'configurator',
   'state',
-  'morph',
   '$rootScope',
   'navigator',
   'plugins',
-  function (configurator, state, morph, $rootScope, navigator, plugins) {
+  function (configurator, state, $rootScope, navigator, plugins) {
     var self = this;
     var retriever;
     var doc;
@@ -32,6 +31,12 @@ angular.module('arethusa.review').service('review', [
       this.attrs  = 0;
     }
 
+    var lazyMorph;
+    function morph() {
+      if (!lazyMorph) lazyMorph = plugins.get('morph');
+      return lazyMorph;
+    }
+
     function configure() {
       configurator.getConfAndDelegate('review', self);
       configurator.getStickyConf('review', self, ['link', 'autoDiff']);
@@ -52,8 +57,8 @@ angular.module('arethusa.review').service('review', [
       angular.forEach(tokens, function (token, id) {
         var form = token.morphology;
         if (form) {
-          morph.postagToAttributes(form);
-          token.style = morph.styleOf(form);
+          morph().postagToAttributes(form);
+          token.style = morph().styleOf(form);
         }
       });
     }
@@ -118,8 +123,11 @@ angular.module('arethusa.review').service('review', [
     this.init = function () {
       configure();
 
-      if (!doc) return; // in case this gets called before we're ready
-      postInit();
+      if (!doc) {
+        loadDocument();
+      } else {
+        postInit();
+      }
     };
   }
 ]);
