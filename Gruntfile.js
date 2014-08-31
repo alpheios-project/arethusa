@@ -68,11 +68,11 @@ function arethusaUglify() {
 }
 
 function uglifyTasks() {
-  var res = [ 'concat:packages', 'ngtemplates' ];
+  var res = [ 'newer:concat:packages', 'newer:ngtemplates' ];
   eachModule(function(module) {
-    res.push('uglify:' + toTaskScript(module));
+    res.push('newer:uglify:' + toTaskScript(module));
   });
-  res.push('uglify:main');
+  res.push('newer:uglify:main');
   return res;
 }
 
