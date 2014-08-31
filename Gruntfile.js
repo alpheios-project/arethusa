@@ -42,6 +42,7 @@ function arethusaUglify() {
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
     templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
+    util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
     main: { files: pluginFiles('arethusa', 'arethusa.main') }
   };
 
@@ -57,6 +58,7 @@ function uglifyTasks() {
     res.push('newer:uglify:' + toTaskScript(module));
   });
   res.push('newer:uglify:main');
+  res.push('newer:uglify:util');
   res.push('newer:concat:main');
   return res;
 }
