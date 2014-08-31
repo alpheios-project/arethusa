@@ -84,7 +84,7 @@ angular.module('arethusa.core').service('plugins', [
         var promises = [];
         if (sync) {
           promises.push(wrapInPromise(function() {
-           return dependencyLoader.loadSync(sync);
+            return dependencyLoader.loadSync(sync);
           }));
         }
         if (async) {
