@@ -393,6 +393,12 @@ module.exports = function(grunt) {
         options: {
           logConcurrentOutput: true
         }
+      },
+      server: {
+        tasks: ['concurrent:watches', 'server'],
+        options: {
+          logConcurrentOutput: true
+        }
       }
     },
     concat: {
@@ -420,6 +426,7 @@ module.exports = function(grunt) {
       },
       main: {
         src: [
+          "dist/arethusa_util.min.js",
           "dist/arethusa.core.min.js",
           "dist/arethusa.context_menu.min.js",
           "dist/arethusa.history.min.js",
@@ -434,6 +441,7 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', ['minify:all', 'connect:devserver']);
+  grunt.registerTask('reload-server', 'concurrent:server');
   grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
   grunt.registerTask('reloader:conf', 'watch:conf');
