@@ -237,6 +237,37 @@ angular.module('arethusa.core').service('plugins', [
       };
     }
 
+    this.addPlugin = function(name, conf) {
+      if (conf) configurator.addPluginConf(name, conf);
+      var deferred = $q.defer();
+      var promise  = deferred.promise;
+      var loader = loadPlugin(name);
+      var plugin, dependencies;
+
+      var loadSuccess = function() {
+        plugin = $injector.get(name);
+        var extDep = plugin.externalDependencies;
+        if (extDep) {
+          loadExtDep(extDep).then(resolve, reject);
+        } else {
+          resolve();
+        }
+      };
+
+      var resolve = function() {
+        self.all[name] = plugin;
+        self.registerPlugin(plugin);
+        plugin.init();
+        notify(plugin, name);
+        deferred.resolve(plugin);
+      };
+
+      var reject = aU.rejectFn();
+
+      loader.then(loadSuccess, reject);
+      return promise;
+    };
+
     this.get = function(name) {
       return (self.all || {})[name] || {};
     };
