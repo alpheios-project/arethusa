@@ -16,7 +16,7 @@ var arethusaModules = [
   'arethusa.comments',
   'arethusa.hebrew_morph',
   'arethusa.context_menu',
-  'arethusa.conf_editor',
+  //'arethusa.conf_editor',
   'arethusa.review',
   'arethusa.search',
   'arethusa.history',
@@ -33,21 +33,6 @@ function eachModule(fn) {
   }
 }
 
-function arethusaMainUglify() {
-  var obj = pluginFiles('arethusa');
-  var minName = Object.keys(obj)[0];
-
-  var others = [
-    "app/js/util/**/*.js",
-    "dist/arethusa.core.min.js",
-    "dist/arethusa.context_menu.min.js",
-    "dist/arethusa.history.min.js"
-  ];
-
-  obj[minName] = others.concat(obj[minName]);
-  return obj;
-}
-
 function arethusaUglify() {
   var obj = {
     options: {
@@ -57,30 +42,31 @@ function arethusaUglify() {
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
     templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
+    util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
+    main: { files: pluginFiles('arethusa', 'arethusa.main') }
   };
 
   eachModule(function(module) {
     obj[toTaskScript(module)] = { files: pluginFiles(module) };
   });
-
-  obj.main = { files: arethusaMainUglify() };
   return obj;
 }
 
 function uglifyTasks() {
-  var res = [ 'concat:packages', 'ngtemplates' ];
+  var res = [ 'newer:concat:packages', 'newer:ngtemplates' ];
   eachModule(function(module) {
-    res.push('uglify:' + toTaskScript(module));
+    res.push('newer:uglify:' + toTaskScript(module));
   });
-  res.push('uglify:main');
+  res.push('newer:uglify:main');
+  res.push('newer:uglify:util');
+  res.push('newer:concat:main');
   return res;
 }
 
 function arethusaTemplates() {
   var obj = {
     arethusa: {
-      cwd: "app",
-      src: "templates/*.html",
+      src: "app/templates/*.html",
       dest: "app/templates/compiled/arethusa.templates.js"
     }
   };
@@ -94,8 +80,7 @@ function arethusaTemplates() {
 
 function templateObj(module) {
   return {
-    cwd: 'app',
-    src: 'templates/' + module + '/**/*.html',
+    src: 'app/templates/' + module + '/**/*.html',
     dest: "app/templates/compiled/" + module + '.templates.js'
   };
 }
@@ -129,8 +114,8 @@ function mountFolder(connect, dir) {
   return connect.static(require('path').resolve(dir));
 }
 
-function pluginFiles(name) {
-  var minName = 'dist/' + name + '.min.js';
+function pluginFiles(name, destName) {
+  var minName = 'dist/' + (destName || name) + '.min.js';
   var mainFile = 'app/js/' + name + '.js';
   var others = '<%= "app/js/' + name + '/**/*.js" %>';
   var templates = '<%= "app/templates/compiled/' + name + '.templates.js" %>';
@@ -188,16 +173,23 @@ module.exports = function(grunt) {
         files: [srcFiles, htmlFiles],
         tasks: 'minify',
         options: {
-          livereload: true
+          livereload: true,
+          spawn: false
         }
       },
       serverCss: {
         files: cssFiles,
         tasks: 'minify:css',
+        options: {
+          spawn: false
+        }
       },
       conf: {
         files: 'app/static/configs/**/*',
-        tasks: 'minify:conf'
+        tasks: 'minify:conf',
+        options: {
+          spawn: false
+        }
       },
 
       e2e: {
@@ -401,6 +393,12 @@ module.exports = function(grunt) {
         options: {
           logConcurrentOutput: true
         }
+      },
+      server: {
+        tasks: ['concurrent:watches', 'server'],
+        options: {
+          logConcurrentOutput: true
+        }
       }
     },
     concat: {
@@ -425,6 +423,16 @@ module.exports = function(grunt) {
           "./vendor/angularJS-toaster/toaster.min.js",
         ],
         dest: 'dist/arethusa_packages.min.js'
+      },
+      main: {
+        src: [
+          "dist/arethusa_util.min.js",
+          "dist/arethusa.core.min.js",
+          "dist/arethusa.context_menu.min.js",
+          "dist/arethusa.history.min.js",
+          "dist/arethusa.main.min.js"
+        ],
+        dest: 'dist/arethusa.min.js'
       }
     }
   });
@@ -433,6 +441,7 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
   grunt.registerTask('server', ['minify:all', 'connect:devserver']);
+  grunt.registerTask('reload-server', 'concurrent:server');
   grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
   grunt.registerTask('reloader:conf', 'watch:conf');
