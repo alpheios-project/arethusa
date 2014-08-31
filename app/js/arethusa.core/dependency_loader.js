@@ -3,9 +3,27 @@
 angular.module('arethusa.core').service('dependencyLoader', [
   '$ocLazyLoad',
   '$q',
-  function($ocLazyLoad, $q) {
+  'basePath',
+  function($ocLazyLoad, $q, basePath) {
+    function expand(p) {
+      return basePath.path + '/' + p;
+    }
+    function expandPath(path) {
+      var res = [];
+      if (angular.isArray(path)) {
+        return aU.map(path, expand);
+      } else {
+        if (angular.isString(path)) {
+          return expand(path);
+        } else {
+          var files = aU.map(path.files, expand);
+          path.files = files;
+          return path;
+        }
+      }
+    }
     this.load = function(args) {
-      return $ocLazyLoad.load(args);
+      return $ocLazyLoad.load(expandPath(args));
     };
 
     this.loadInOrder = function(args) {
@@ -15,7 +33,7 @@ angular.module('arethusa.core').service('dependencyLoader', [
         var deferred = $q.defer();
         promises.push(deferred.promise);
         promises[i].then(function() {
-          $ocLazyLoad.load(el)['finally'](aU.resolveFn(deferred));
+          $ocLazyLoad.load(expandPath(el))['finally'](aU.resolveFn(deferred));
         });
       });
       start.resolve();

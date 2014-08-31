@@ -9,9 +9,8 @@ angular.module('arethusa.core').service('plugins', [
   'dependencyLoader',
   'notifier',
   'translator',
-  'basePath',
   function(configurator, $injector, $rootScope, $q, $timeout, dependencyLoader,
-          notifier, translator, basePath) {
+          notifier, translator) {
     var self = this;
     var readyPlugins;
     var initCallbacks;
@@ -58,7 +57,7 @@ angular.module('arethusa.core').service('plugins', [
       }
 
       function getLocation(location) {
-        return (location || basePath.path + '/' + toSnakeCase(self.name) + '.min.js');
+        return (location || 'dist/' + toSnakeCase(self.name) + '.min.js');
       }
 
       this.name = getName(name, location);

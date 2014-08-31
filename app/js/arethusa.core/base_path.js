@@ -3,7 +3,7 @@
 angular.module('arethusa.core').service('basePath', [
   function() {
     var self = this;
-    var defaultPath = '../dist';
+    var defaultPath = '..';
 
     this.path = defaultPath;
 
