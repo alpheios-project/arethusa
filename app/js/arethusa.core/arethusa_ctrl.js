@@ -62,6 +62,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
         notifier.wait(translations.loadInProgress);
         state.arethusaLoaded = false;
         state.init();
+        saver.init();
         history.init();
       });
 
@@ -79,7 +80,6 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
       $scope.init = function () {
         plugins.start(conf.plugins).then(function() {
           notifier.init(); // also clears the Loading message for now.
-          saver.init();
           state.arethusaLoaded = true;
           notifier.success(translations.loadComplete);
           UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
