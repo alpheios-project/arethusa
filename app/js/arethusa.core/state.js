@@ -32,6 +32,8 @@ angular.module('arethusa.core').service('state', [
 
       // Cheap way of defining a debug mode
       self.debug = self.conf.debug;
+
+      navigator.init();
     }
 
     configure();
