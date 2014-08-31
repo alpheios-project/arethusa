@@ -24,7 +24,7 @@ angular.module('arethusa').config([
 
     $translateProvider
       .useStaticFilesLoader({
-        prefix: 'static/i18n/',
+        prefix: '../dist/i18n/',
         suffix: '.json'
       })
 
