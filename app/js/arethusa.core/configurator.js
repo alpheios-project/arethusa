@@ -37,6 +37,13 @@ angular.module('arethusa.core').service('configurator', [
     this.defineConfiguration = function (confFile, location) {
       this.configuration = confFile;
       this.confFileLocation = location;
+
+      // As this could be called from a resolve event through
+      // $routeProvider, we $timeout to call, so that we are
+      // guaranteed to see it in the ArethusaCtrl
+      $timeout(function() {
+        $rootScope.$broadcast('confLoaded');
+      });
     };
 
     function parseConfUrl(url) {
