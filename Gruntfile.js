@@ -188,16 +188,23 @@ module.exports = function(grunt) {
         files: [srcFiles, htmlFiles],
         tasks: 'minify',
         options: {
-          livereload: true
+          livereload: true,
+          spawn: false
         }
       },
       serverCss: {
         files: cssFiles,
         tasks: 'minify:css',
+        options: {
+          spawn: false
+        }
       },
       conf: {
         files: 'app/static/configs/**/*',
-        tasks: 'minify:conf'
+        tasks: 'minify:conf',
+        options: {
+          spawn: false
+        }
       },
 
       e2e: {
