@@ -12,12 +12,10 @@ angular.module('arethusa.core').service('dependencyLoader', [
       var start = $q.defer();
       var promises = [start.promise];
       angular.forEach(args, function(el, i) {
-        var defer = $q.defer();
-        promises.push(defer.promise);
+        var deferred = $q.defer();
+        promises.push(deferred.promise);
         promises[i].then(function() {
-          $ocLazyLoad.load(el)['finally'](function() {
-            defer.resolve();
-          });
+          $ocLazyLoad.load(el)['finally'](aU.resolveFn(deferred));
         });
       });
       start.resolve();
