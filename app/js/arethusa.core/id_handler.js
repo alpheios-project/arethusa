@@ -106,6 +106,10 @@ angular.module('arethusa.core').service('idHandler', [
       return id + extender;
     };
 
+    this.stripExtension = function(id) {
+      return self.isExtendedId(id) ? id.slice(0, -1) : id;
+    };
+
     function incDec(id, increment) {
       var idParts = parseId(id);
       var wId = idParts.pop();

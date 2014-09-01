@@ -44,6 +44,16 @@ describe("idHandler", function() {
     });
   });
 
+  describe('this.stripExtension', function() {
+    it('stripts extender identifiers from an id', function() {
+      expect(idHandler.stripExtension('0003e')).toEqual('0003');
+    });
+
+    it('returns the id when there is nothing to strip', function() {
+      expect(idHandler.stripExtension('0003')).toEqual('0003');
+    });
+  });
+
   describe('this.nonSequentialIds', function() {
     it('takes an array of ids and returns indices of non sequential ids', function() {
       var ids = ['0001', '0002', '0004', '0006'];
