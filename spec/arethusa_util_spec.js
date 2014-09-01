@@ -386,4 +386,14 @@ describe("arethusaUtil", function() {
       expect(calls).toEqual(1);
     });
   });
+
+  describe('isUrl', function() {
+    it('detects if a given string is an URL', function() {
+      var url = "http://arethusa.latin-language-toolkit.org";
+      var noUrl = '../x.json';
+
+      expect(aU.isUrl(url)).toBeTruthy();
+      expect(aU.isUrl(noUrl)).toBeFalsy();
+    });
+  });
 });

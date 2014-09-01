@@ -237,6 +237,10 @@ var arethusaUtil = {
     isArethusaMainApplication: function() {
       var ngApp = document.querySelector('html').attributes['ng-app'];
       return ngApp && ngApp.value == 'arethusa';
+    },
+
+    isUrl: function(str) {
+      return str.match(/^http:\/\//);
     }
   };
 
