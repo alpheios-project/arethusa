@@ -13,9 +13,6 @@
         "docIdentifier" : "treebank"
       }
     },
-    "globalDefaults" : {
-      "mode" : "viewer"
-    },
     "plugins" : [
       "text",
       "morph",
