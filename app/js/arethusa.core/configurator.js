@@ -214,7 +214,7 @@ angular.module('arethusa.core').service('configurator', [
     };
 
     var standardProperties =  [
-      'name',
+      'displayName',
       'main',
       'template',
       'external',
@@ -238,6 +238,11 @@ angular.module('arethusa.core').service('configurator', [
         var val = isDef(confProp) ? confProp : defConf[property];
         obj[property] = val;
       });
+
+      if (!obj.displayName) {
+        obj.displayName = obj.name;
+      }
+
       setGlobalDefaults(obj);
     };
 

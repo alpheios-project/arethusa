@@ -319,7 +319,7 @@ describe('configurator', function() {
       configurator.configuration = conf1;
       var obj = {};
       var defaultKeys = [
-        'name',
+        'displayName',
         'main',
         'template',
         'external',
@@ -341,7 +341,6 @@ describe('configurator', function() {
       configurator.configuration = conf1;
       var obj = {};
       var results = [
-        'name',
         'main',
         'template',
         'external',
@@ -380,6 +379,15 @@ describe('configurator', function() {
       configurator.delegateConf(obj);
       expect(obj.mode).toEqual('editor');
     }));
+
+    it('sets the displayName to the value of name when not specified explicitly', function() {
+      configurator.configuration = conf1;
+      var obj = { name: 'morph' };
+      obj.conf = configurator.configurationFor('morph');
+      configurator.delegateConf(obj);
+      expect(obj.name).toEqual('morph');
+      expect(obj.displayName).toEqual(obj.name);
+    });
 
     it("defaults don't override when they shouldn't", inject(function(configurator) {
       configurator.configuration = conf1;
@@ -437,7 +445,6 @@ describe('configurator', function() {
       configurator.configuration = conf1;
       var obj = {};
       configurator.getConfAndDelegate('morph', obj, ['a']);
-      expect(obj.name).toEqual('morph');
       expect(obj.conf).toBeTruthy();
       expect(obj.hasOwnProperty('a')).toBeTruthy();
     }));
