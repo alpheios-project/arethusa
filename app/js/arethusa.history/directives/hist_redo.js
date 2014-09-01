@@ -36,7 +36,7 @@ angular.module('arethusa.history').directive('histRedo', [
           }
         });
 
-        translator('deselectAll', function(translation) {
+        translator('history.redo', function(translation) {
           trsl = translation;
           setTitle();
         });

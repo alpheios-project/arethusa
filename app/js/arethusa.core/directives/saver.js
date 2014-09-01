@@ -56,7 +56,7 @@ angular.module('arethusa.core').directive('saver', [
           }
         });
 
-        translator('deselectAll', function(translation) {
+        translator('save', function(translation) {
           trsl = translation;
           setTitle();
         });

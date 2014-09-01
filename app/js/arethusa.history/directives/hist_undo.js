@@ -37,7 +37,7 @@ angular.module('arethusa.history').directive('histUndo', [
           }
         });
 
-        translator('deselectAll', function(translation) {
+        translator('history.undo', function(translation) {
           trsl = translation;
           setTitle();
         });
