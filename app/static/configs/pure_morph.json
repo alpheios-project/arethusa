@@ -41,19 +41,16 @@
 
   "plugins" : {
     "text" : {
-      "name" : "text",
       "main" : true,
       "template"  : "templates/text2.html"
     },
 
     "search" : {
-      "name" : "search",
       "template" : "templates/search.html",
       "regex" : true
     },
 
     "morph" : {
-      "name" : "morph",
       "retrievers" : {
         "BspMorphRetriever" : {
           "resource" : "morphologyService"
@@ -73,14 +70,12 @@
     },
 
     "history" : {
-      "name" : "history",
       "listener" : true,
       "maxSize" : 5,
       "template" : "templates/history.html"
     },
 
     "comment" : {
-      "name" : "comment",
       "template" : "templates/comment2.html"
     }
   }

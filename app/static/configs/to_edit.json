@@ -48,19 +48,16 @@
 
   "plugins" : {
     "text" : {
-      "name" : "text",
       "main" : true,
       "template"  : "templates/text2.html"
     },
 
     "depTree" : {
-      "name" : "depTree",
       "main" : true,
       "template" : "templates/dep_tree.html"
     },
 
     "morph" : {
-      "name" : "morph",
       "retrievers" : {
         "BspMorphRetriever" : {
           "resource" : "morphologyService"
@@ -73,7 +70,6 @@
     },
 
     "review" : {
-      "name" : "review",
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
@@ -83,27 +79,23 @@
     },
 
     "relation" : {
-      "name" : "relation",
       "template" : "templates/relation.html",
       "@include" : "relation/relations.json"
     },
 
     "history" : {
-      "name" : "history",
       "listener" : true,
       "maxSize" : 5,
       "template" : "templates/history.html"
     },
 
     "external_history" : {
-      "name" : "external_history",
       "listener" : true,
       "external" : true,
       "template" : "templates/external_history.html"
     },
 
     "comment" : {
-      "name" : "comment",
       "template" : "templates/comment2.html"
     }
   }

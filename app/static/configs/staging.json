@@ -58,13 +58,11 @@
 
   "plugins" : {
     "text" : {
-      "name" : "text",
       "main" : true,
       "template"  : "templates/text2.html"
     },
 
     "depTree" : {
-      "name" : "depTree",
       "main" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
@@ -72,13 +70,11 @@
     },
 
     "search" : {
-      "name" : "search",
       "template" : "templates/search.html",
       "regex" : true
     },
 
     "morph" : {
-      "name" : "morph",
       "retrievers" : {
         "BspMorphRetriever" : {
           "resource" : "morphologyService"
@@ -99,7 +95,6 @@
     },
 
     "relation" : {
-      "name" : "relation",
       "template" : "templates/relation.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
@@ -107,7 +102,6 @@
     },
 
     "review" : {
-      "name" : "review",
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
@@ -117,14 +111,12 @@
     },
 
     "history" : {
-      "name" : "history",
       "listener" : true,
       "maxSize" : 5,
       "template" : "templates/history.html"
     },
 
     "comment" : {
-      "name" : "comment",
       "template" : "templates/comment2.html"
     }
   },

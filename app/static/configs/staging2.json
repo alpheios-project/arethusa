@@ -45,13 +45,11 @@
 
   "plugins" : {
     "text" : {
-      "name" : "text",
       "main" : true,
       "template"  : "templates/text2.html"
     },
 
     "depTree" : {
-      "name" : "depTree",
       "main" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
@@ -59,9 +57,7 @@
     },
 
     "search" : {
-      "name" : "search",
       "template" : "templates/search.html",
-      "regex" : true,
       "@include" : "keyboard/greek_regex.json"
     },
 
@@ -85,7 +81,6 @@
     },
 
     "relation" : {
-      "name" : "relation",
       "template" : "templates/relation.html",
       "advancedMode" : true,
       "contextMenu" : true,
@@ -94,7 +89,6 @@
     },
 
     "review" : {
-      "name" : "review",
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
@@ -104,13 +98,11 @@
     },
 
     "history" : {
-      "name" : "history",
       "maxSize" : 5,
       "template" : "templates/history.html"
     },
 
     "artificialToken" : {
-      "name" : "aT",
       "template" : "templates/arethusa.artificial_token/artificial_token.html"
     },
 
@@ -123,7 +115,6 @@
     },
 
     "sg" : {
-      "name" : "SG",
       "retriever" : {
         "SgGrammarRetriever" : {
           "resource" : "sgGrammar"

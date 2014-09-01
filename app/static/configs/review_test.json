@@ -85,13 +85,11 @@
 
   "plugins" : {
     "text" : {
-      "name" : "text",
       "main" : true,
       "template"  : "templates/text2.html"
     },
 
     "depTree" : {
-      "name" : "depTree",
       "main" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
@@ -99,7 +97,6 @@
     },
 
     "search" : {
-      "name" : "search",
       "template" : "templates/search.html",
       "regex" : true,
       "@include" : "keyboard/greek_regex.json"
@@ -126,7 +123,6 @@
     },
 
     "relation" : {
-      "name" : "relation",
       "template" : "templates/relation.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
@@ -134,9 +130,7 @@
     },
 
     "review" : {
-      "name" : "review",
       "autoDiff" : true,
-      "hideMode" : true,
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
@@ -146,7 +140,6 @@
     },
 
     "artificialToken" : {
-      "name" : "aT",
       "template" : "templates/arethusa.artificial_token/artificial_token.html"
     },
 
