@@ -136,6 +136,7 @@
     "review" : {
       "name" : "review",
       "autoDiff" : true,
+      "hideMode" : true,
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {

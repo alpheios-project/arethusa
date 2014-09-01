@@ -1,4 +1,4 @@
-<div class="small-12 columns">
+<div class="small-12 columns" ng-if="!plugin.hideMode">
   <span>
     <span class="settings-span-button right" review-linker/>
     <span>
@@ -11,11 +11,12 @@
 <div review-stats ng-if="plugin.diffActive"/>
 <div delimiter/>
 <div class="small-12 columns">
-  <div class="tree-canvas">
+  <div ng-class="{ 'tree-canvas': !plugin.hideMode }">
     <div class="tree-settings">
       <span class="button radius tiny right" ng-click="plugin.compare()">Compare</span>
     <div>
     <div
+      ng-if="!plugin.hideMode"
       dependency-tree
       tokens="plugin.goldTokens"
       to-bottom
