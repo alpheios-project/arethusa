@@ -38,7 +38,7 @@ angular.module('arethusa.review').service('review', [
     }
 
     function configure() {
-      configurator.getConfAndDelegate('review', self);
+      configurator.getConfAndDelegate('review', self, ['hideMode']);
       configurator.getStickyConf('review', self, ['link', 'autoDiff']);
       self.comparators = [
         'morphology.lemma',
@@ -46,6 +46,11 @@ angular.module('arethusa.review').service('review', [
         'head.id',
         'relation.label'
       ];
+      if (self.hideMode) {
+        self.contextMenu = false;
+        self.autoDiff = false;
+        self.link = true;
+      }
       var retrievers = configurator.getRetrievers(self.conf.retrievers);
       retriever = retrievers.TreebankRetriever;
       self.diffActive = false;

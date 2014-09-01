@@ -6,7 +6,7 @@
     hover="true"
     highlight="true">
   </div>
-  <div>
+  <div ng-if="!rev.hideMode">
     <ul class="no-list">
       <li ng-repeat="(cat, res) in diff">
         <div review-element="cat" diff="res"/>
