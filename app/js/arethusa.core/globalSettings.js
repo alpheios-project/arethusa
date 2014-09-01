@@ -7,6 +7,8 @@ angular.module('arethusa.core').service('globalSettings', [
   function(configurator,  plugins, $injector) {
     var self = this;
 
+    self.settings = {};
+
     var confKeys = [
       "alwaysDeselect",
       "colorizer"
@@ -21,7 +23,6 @@ angular.module('arethusa.core').service('globalSettings', [
       self.conf = configurator.configurationFor('main').globalSettings || {};
       configurator.delegateConf(self, confKeys, true); // true makes them sticky
 
-      self.settings = {};
       self.colorizers = { disabled: true };
 
       defineSettings();
