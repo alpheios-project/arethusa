@@ -778,6 +778,17 @@ input.warn {
   width: 5rem;
 }
 
+.gridster .gridster-item {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  color: #004756;
+  background: $panel-bg;
+  padding: 10px;
+  text-align: left;
+  overflow: auto;
+}
+
 
 /***************************************************************************
  *                               Animations                                *
