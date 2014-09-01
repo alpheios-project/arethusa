@@ -65,9 +65,19 @@ angular.module('arethusa.core').service('plugins', [
     }
 
     function loadPlugin(name) {
-      var pluginConf = configurator.configurationFor(name);
-      var request = new LoadRequest(name, pluginConf.location);
-      return dependencyLoader.load(request);
+      // The history plugin is special - as it's is always part of the
+      // application, just not always as visible plugin.
+      // We therefore don't need to retrieve it again - the Arethusa
+      // module already knows about it.
+      if (name === 'history') {
+        var deferred = $q.defer();
+        deferred.resolve();
+        return deferred.promise;
+      } else {
+        var pluginConf = configurator.configurationFor(name);
+        var request = new LoadRequest(name, pluginConf.location);
+        return dependencyLoader.load(request);
+      }
     }
 
     function resolveWhenReady(names, loader) {
