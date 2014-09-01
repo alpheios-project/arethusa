@@ -308,5 +308,9 @@ angular.module('arethusa.core').service('configurator', [
     this.provideAuth = function(name) {
       return new Auth(auths()[name] || {});
     };
+
+    this.addPluginConf = function(name, conf) {
+      self.configuration.plugins[name] = conf;
+    };
   }
 ]);

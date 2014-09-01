@@ -474,6 +474,25 @@ describe('configurator', function() {
     });
   });
 
+  describe('this.addPluginConf', function() {
+    var pluginName = 'added_plugin';
+    function confForAddedPlugin(configurator) {
+      return configurator.configuration.plugins[pluginName];
+    }
+    it('adds configuration for a plugin', function() {
+      configurator.configuration = conf1;
+
+      expect(confForAddedPlugin(configurator)).toBeUndefined();
+
+      var newConf = { x: true };
+
+      configurator.addPluginConf(pluginName, newConf);
+      var result = confForAddedPlugin(configurator);
+
+      expect(result).toBe(newConf);
+    });
+  });
+
   describe('this.getService', function() {
     it('retrieves an angular instance by name', inject(function(configurator) {
       expect(configurator.getService('x')).toEqual(mock1);
