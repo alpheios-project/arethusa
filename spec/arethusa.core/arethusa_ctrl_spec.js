@@ -3,7 +3,7 @@
 describe('ArethusaCtrl', function() {
   beforeEach(module('arethusa'));
 
-  it('sets scope values', inject(function($controller, $rootScope) {
+  it('sets scope values after conf has been loaded', inject(function($controller, $rootScope) {
     var scope = $rootScope.$new();
 
     var state = {
@@ -27,6 +27,11 @@ describe('ArethusaCtrl', function() {
     };
 
     var ctrl = $controller('ArethusaCtrl', mainCtrlInits);
+
+    expect(scope.state).toBeUndefined();
+    expect(scope.template).toBeUndefined();
+
+    $rootScope.$broadcast('confLoaded');
 
     expect(scope.state).toBe(state);
     expect(scope.template).toBe("template");
