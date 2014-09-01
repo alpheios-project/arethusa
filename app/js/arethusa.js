@@ -24,7 +24,7 @@ angular.module('arethusa').config([
 
     $translateProvider
       .useStaticFilesLoader({
-        prefix: '../dist/i18n/',
+        prefix: arethusa.basePath + '/dist/i18n/',
         suffix: '.json'
       })
 
@@ -39,6 +39,8 @@ angular.module('arethusa').config([
 
 function Arethusa() {
   var self = this;
+
+  self.basePath = '..';
 
   function Api(injector) {
     var api = this;
@@ -68,9 +70,15 @@ function Arethusa() {
     };
 
     this.state = injector.get('state');
+
+    this.setBasePath(self.basePath);
   }
 
-  this.start = function(id, conf, params,  basePath) {
+  this.setBasePath = function(path) {
+    self.basePath = path;
+  };
+
+  this.start = function(id, conf, params) {
     var res = {};
     id = id.match(/^#/) ? id : '#' + id;
     var target = angular.element(id);
@@ -81,7 +89,6 @@ function Arethusa() {
 
       api.watchUrl(false);
       api.setParams(params);
-      api.setBasePath(basePath);
       api.configure(conf);
 
       api.compile(target);
