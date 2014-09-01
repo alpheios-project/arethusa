@@ -6,7 +6,11 @@ angular.module('arethusa.core').service('dependencyLoader', [
   'basePath',
   function($ocLazyLoad, $q, basePath) {
     function expand(p) {
-      return basePath.path + '/' + p;
+      if (aU.isUrl(p)) {
+        return p;
+      } else {
+        return basePath.path + '/' + p;
+      }
     }
     function expandPath(path) {
       var res = [];
