@@ -389,6 +389,19 @@ describe('configurator', function() {
       expect(obj.displayName).toEqual(obj.name);
     });
 
+    it('allows to set displayName through configuration', function() {
+      configurator.configuration = conf1;
+      var obj = {
+        name: "morph",
+        conf: {
+          displayName: 'morphology'
+        }
+      };
+      configurator.delegateConf(obj);
+      expect(obj.displayName).toEqual('morphology');
+      expect(obj.name).toEqual('morph');
+    });
+
     it("defaults don't override when they shouldn't", inject(function(configurator) {
       configurator.configuration = conf1;
       var obj = {};
