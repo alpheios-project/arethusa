@@ -19,7 +19,8 @@
     "lunr.js": "~0.5.4",
     "bourbon": "~4.0.2",
     "jsondiffpatch": "~0.1.8",
-    "oclazyload": "LFDM/ocLazyLoad#master"
+    "oclazyload": "LFDM/ocLazyLoad#master",
+    "angular-gridster": "~0.9.16"
   },
   "resolutions" : {
     "angular" : "1.2.17"
