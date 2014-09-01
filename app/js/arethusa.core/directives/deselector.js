@@ -12,10 +12,24 @@ angular.module('arethusa.core').directive('deselector', [
           scope.$apply();
         });
 
-        var hint = arethusaUtil.formatKeyHint(state.activeKeys.deselect);
-        translator('deselectAll', function(translation) {
-          element.attr('title', translation + ' ' + hint);
+        var trsl, hint;
+
+        scope.$on('keysAdded', function(_, keys) {
+          var sel = keys.selections;
+          if (sel) {
+            hint = aU.formatKeyHint(sel.deselect);
+            setTitle();
+          }
         });
+
+        translator('deselectAll', function(translation) {
+          trsl = translation;
+          setTitle();
+        });
+
+        function setTitle() {
+          element.attr('title', trsl + ' ' + hint);
+        }
       },
       template: '<i class="fi-unlock"/>'
     };

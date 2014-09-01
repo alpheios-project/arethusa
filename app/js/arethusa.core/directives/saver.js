@@ -45,11 +45,25 @@ angular.module('arethusa.core').directive('saver', [
           if (saveWatch) saveWatch();
         }
 
-        var parent = element.parent();
-        var hint = arethusaUtil.formatKeyHint(saver.activeKeys.save);
-        translator('save', function(translation) {
-          parent.attr('title', translation + " " + hint);
+
+        var trsl, hint;
+
+        scope.$on('keysAdded', function(_, keys) {
+          var sel = keys.saver;
+          if (sel) {
+            hint = aU.formatKeyHint(sel.save);
+            setTitle();
+          }
         });
+
+        translator('deselectAll', function(translation) {
+          trsl = translation;
+          setTitle();
+        });
+
+        function setTitle() {
+          element.attr('title', trsl + ' ' + hint);
+        }
       },
       template: '<i class="fi-save"/>'
     };

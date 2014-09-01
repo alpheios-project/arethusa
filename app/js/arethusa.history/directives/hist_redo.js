@@ -26,10 +26,24 @@ angular.module('arethusa.history').directive('histRedo', [
           scope.$apply(history.redo());
         });
 
-        var hint = arethusaUtil.formatKeyHint(history.activeKeys.redo);
-        translator('history.redo', function(translation) {
-          element.attr('title', translation + ' ' + hint);
+        var trsl, hint;
+
+        scope.$on('keysAdded', function(_, keys) {
+          var sel = keys.history;
+          if (sel) {
+            hint = aU.formatKeyHint(sel.redo);
+            setTitle();
+          }
         });
+
+        translator('deselectAll', function(translation) {
+          trsl = translation;
+          setTitle();
+        });
+
+        function setTitle() {
+          element.attr('title', trsl + ' ' + hint);
+        }
       },
       template: '<i class="fa fa-repeat"/>'
     };
