@@ -6,12 +6,25 @@ angular.module('arethusa.search').service('search', [
   'plugins',
   function (state, configurator, keyCapture, plugins) {
     var self = this;
-    this.conf = configurator.configurationFor('search');
-    this.name = this.conf.name;
-    this.template = this.conf.template;
-    this.queryByRegex = this.conf.regex;
-    this.greekRegex = this.conf.greek;
-    this.focusStringSearch = false;
+    this.name = 'search';
+
+    this.defaultConf = {
+      queryByRegex: true
+    };
+
+    function configure() {
+      var props = [
+        'queryByRegex',
+        'greekRegex'
+      ];
+
+      configurator.getConfAndDelegate('search', self);
+      configurator.getStickyConf('search', self, props);
+
+      self.focusStringSearch = false;
+    }
+
+    configure();
 
     this.findByRegex = function(str) {
       // We might need to escape some chars here, we need to try
@@ -91,6 +104,7 @@ angular.module('arethusa.search').service('search', [
     }
 
     this.init = function () {
+      configure();
       self.searchPlugins = getSearchPlugins();
       self.strings = collectTokenStrings();
       self.tokenQuery = '';  // model used by the input form
