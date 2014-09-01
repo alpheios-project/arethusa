@@ -412,6 +412,8 @@ module.exports = function(grunt) {
       packages: {
         src: [
           "./bower_components/jquery/dist/jquery.min.js",
+          "./bower_components/jquery-ui/jquery-ui.min.js",
+          "./bower_components/javascript-detect-element-resize/jquery.resize.js",
           "./bower_components/angular/angular.min.js",
           "./bower_components/angular-route/angular-route.min.js",
           "./vendor/angular-resource/angular-resource.min.js",
@@ -424,8 +426,6 @@ module.exports = function(grunt) {
           "./bower_components/angulartics/dist/angulartics.min.js",
           "./bower_components/angulartics/dist/angulartics-ga.min.js",
           "./bower_components/angular-gridster/dist/angular-gridster.min.js",
-          "./bower_components/javascript-detect-element-resize/jquery.resize.js",
-          "./bower_components/jquery-ui/jquery-ui.min.js",
           "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
           //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
           "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
