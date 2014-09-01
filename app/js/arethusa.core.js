@@ -5,5 +5,6 @@ angular.module('arethusa.core', [
   'duScroll',
   'pascalprecht.translate',
   'toaster',
-  'oc.lazyLoad'
+  'oc.lazyLoad',
+  'gridster'
 ]);
