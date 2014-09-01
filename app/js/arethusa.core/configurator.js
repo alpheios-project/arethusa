@@ -281,14 +281,14 @@ angular.module('arethusa.core').service('configurator', [
       return getGlobalDefaults().mode;
     };
 
-    this.getConfAndDelegate = function (name, obj, keys) {
-      obj.conf = self.configurationFor(name);
+    this.getConfAndDelegate = function (obj, keys) {
+      obj.conf = self.configurationFor(obj.name);
       self.delegateConf(obj, keys);
       return obj;
     };
 
-    this.getStickyConf = function(name, obj, keys) {
-      obj.conf = self.configurationFor(name);
+    this.getStickyConf = function(obj, keys) {
+      obj.conf = self.configurationFor(obj.name);
       self.delegateConf(obj, keys, true);
       return obj;
     };

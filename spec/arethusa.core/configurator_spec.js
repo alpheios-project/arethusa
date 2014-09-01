@@ -456,16 +456,16 @@ describe('configurator', function() {
   describe('this.getConfAndDelegate', function() {
     it('convenience fn to get conf and delegate in one step', inject(function(configurator) {
       configurator.configuration = conf1;
-      var obj = {};
-      configurator.getConfAndDelegate('morph', obj, ['a']);
+      var obj = { name: 'morph' };
+      configurator.getConfAndDelegate(obj, ['a']);
       expect(obj.conf).toBeTruthy();
       expect(obj.hasOwnProperty('a')).toBeTruthy();
     }));
 
     it('returns the given object', inject(function(configurator) {
       configurator.configuration = conf1;
-      var obj = {};
-      var res = configurator.getConfAndDelegate('morph', obj);
+      var obj = { name: 'morph' };
+      var res = configurator.getConfAndDelegate(obj);
       expect(obj).toBe(res);
     }));
   });
@@ -474,9 +474,10 @@ describe('configurator', function() {
     function setup() {
       configurator.configuration = conf1;
       var obj = {
+       name: 'morph',
        defaultConf: { preselect: true }
       };
-      configurator.getStickyConf('morph', obj, ['preselect']);
+      configurator.getStickyConf(obj, ['preselect']);
       return obj;
     }
 
@@ -489,7 +490,7 @@ describe('configurator', function() {
       var obj = setup();
       expect(obj.preselect).toBeTruthy();
       obj.preselect = false;
-      configurator.getStickyConf('morph', obj, ['preselect']);
+      configurator.getStickyConf(obj, ['preselect']);
       expect(obj.preselect).toBeFalsy();
     });
   });
