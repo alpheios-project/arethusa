@@ -2,7 +2,7 @@
 
 describe("relation", function() {
   var confCustomization = {
-    getConfAndDelegate: function(name, obj) {
+    getConfAndDelegate: function(obj) {
       var relations = {
         labels: {
           PRED : { short: "PRED", long: "predicate" },

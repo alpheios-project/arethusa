@@ -32,7 +32,7 @@ angular.module('arethusa.comments').service('comments', [
     };
 
     function configure() {
-      configurator.getConfAndDelegate('comments', self);
+      configurator.getConfAndDelegate(self);
       retriever = configurator.getRetriever(self.conf.retriever);
       persister = retriever;
     }

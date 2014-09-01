@@ -18,8 +18,8 @@ angular.module('arethusa.search').service('search', [
         'greekRegex'
       ];
 
-      configurator.getConfAndDelegate('search', self);
-      configurator.getStickyConf('search', self, props);
+      configurator.getConfAndDelegate(self);
+      configurator.getStickyConf(self, props);
 
       self.focusStringSearch = false;
     }

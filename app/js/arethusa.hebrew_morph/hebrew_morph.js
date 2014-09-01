@@ -13,7 +13,7 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
         'parts',
         'attributes'
       ];
-      configurator.getConfAndDelegate('hebrewMorph', self, props);
+      configurator.getConfAndDelegate(self, props);
     }
 
     configure();

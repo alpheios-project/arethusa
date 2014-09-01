@@ -8,7 +8,7 @@ angular.module('arethusa.history').service('history', [
     this.name = "history";
 
     function configure() {
-      configurator.getConfAndDelegate('history', self);
+      configurator.getConfAndDelegate(self);
       self.maxSize = self.maxSize || 20;
     }
 

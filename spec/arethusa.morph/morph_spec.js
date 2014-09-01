@@ -1,7 +1,7 @@
 "use strict";
 
 describe("morph", function() {
-  function morphConf(name, obj) {
+  function morphConf(obj) {
     obj.attributes = {
       "pos" : {
         "long" : "Part of Speech",

@@ -60,8 +60,8 @@ angular.module('arethusa.morph').service('morph', [
         'gloss'
       ];
 
-      configurator.getConfAndDelegate('morph', self, props);
-      configurator.getStickyConf('morph', self, ['preselect', 'matchAll']);
+      configurator.getConfAndDelegate(self, props);
+      configurator.getStickyConf(self, ['preselect', 'matchAll']);
 
       self.analyses = {};
       morphRetrievers = configurator.getRetrievers(self.conf.retrievers);

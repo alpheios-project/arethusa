@@ -7,7 +7,7 @@ angular.module('arethusa.text').service('text', [
     this.name = "text";
 
     function configure() {
-      configurator.getConfAndDelegate('text', self);
+      configurator.getConfAndDelegate(self);
       self.hideArtificialTokens = false;
     }
 

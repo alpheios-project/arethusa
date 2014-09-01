@@ -20,7 +20,7 @@ angular.module('arethusa.sg').service('sg', [
     };
 
     function configure() {
-      configurator.getConfAndDelegate('sg', self, ['labels']);
+      configurator.getConfAndDelegate(self, ['labels']);
       retriever = configurator.getRetriever(self.conf.retriever);
     }
 

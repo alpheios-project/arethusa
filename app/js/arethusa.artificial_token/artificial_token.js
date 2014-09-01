@@ -17,7 +17,7 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
     };
 
     function configure() {
-      configurator.getConfAndDelegate('artificialToken', self, confKeys);
+      configurator.getConfAndDelegate(self, confKeys);
       self.createdTokens = {};
       self.count = 0;
       delete self.mode;

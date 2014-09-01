@@ -12,8 +12,8 @@ angular.module('arethusa.relation').service('relation', [
     globalSettings.addColorizer('relation');
 
     function configure() {
-      configurator.getConfAndDelegate('relation', self);
-      configurator.getStickyConf('relation', self, ['advancedMode']);
+      configurator.getConfAndDelegate(self);
+      configurator.getStickyConf(self, ['advancedMode']);
       self.relationValues = self.conf.relations;
       self.relations = {};
       colorMap = undefined;

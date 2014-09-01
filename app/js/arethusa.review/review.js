@@ -39,8 +39,8 @@ angular.module('arethusa.review').service('review', [
     }
 
     function configure() {
-      configurator.getConfAndDelegate('review', self, ['hideMode']);
-      configurator.getStickyConf('review', self, ['link', 'autoDiff']);
+      configurator.getConfAndDelegate(self, ['hideMode']);
+      configurator.getStickyConf(self, ['link', 'autoDiff']);
       self.comparators = [
         'morphology.lemma',
         'morphology.postag',

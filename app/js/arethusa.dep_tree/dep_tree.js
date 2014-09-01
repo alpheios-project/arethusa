@@ -33,7 +33,7 @@ angular.module('arethusa.depTree').service('depTree', [
     };
 
     function configure() {
-      configurator.getConfAndDelegate('depTree', self);
+      configurator.getConfAndDelegate(self);
       self.diffMode = false;
       self.diffPresent = false;
       self.diffInfo = {};
