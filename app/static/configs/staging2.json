@@ -24,7 +24,8 @@
       "relation",
       "depTree",
       "review",
-      "history"
+      "history",
+      "comments"
     ]
   },
 
