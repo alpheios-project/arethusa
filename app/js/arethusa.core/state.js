@@ -326,13 +326,13 @@ angular.module('arethusa.core').service('state', [
     // DEPRECATED
     this.setState = function (id, category, val) {
       arethusaLogger.log('state.setState is DEPRECATED. Use state.change() instead.');
-      var token = this.tokens[id];
+      var token = self.tokens[id];
       var oldVal = token[category];
       token[category] = val;
     };
 
     this.unsetState = function (id, category) {
-      var token = this.tokens[id];
+      var token = self.tokens[id];
       var oldVal = token[category];
       delete token[category];
     };
