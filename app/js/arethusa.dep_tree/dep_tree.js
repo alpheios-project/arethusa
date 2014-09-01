@@ -23,6 +23,7 @@ angular.module('arethusa.depTree').service('depTree', [
   'configurator',
   function (state, configurator) {
     var self = this;
+    this.name = "depTree";
 
     this.externalDependencies = {
       ordered: [

@@ -5,6 +5,7 @@ angular.module('arethusa.relation').service('relation', [
   'globalSettings',
   function (state, configurator, globalSettings) {
     var self = this;
+    this.name = "relation";
 
     this.canSearch = true;
 

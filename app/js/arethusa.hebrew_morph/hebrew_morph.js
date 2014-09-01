@@ -5,6 +5,7 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
   'configurator',
   function(state, configurator) {
     var self = this;
+    this.name = "hebrewMorph";
 
     function configure() {
       var props = [

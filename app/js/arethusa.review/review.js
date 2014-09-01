@@ -10,6 +10,8 @@ angular.module('arethusa.review').service('review', [
   'plugins',
   function (configurator, state, $rootScope, navigator, plugins) {
     var self = this;
+    this.name = "review";
+
     var retriever;
     var doc;
 
@@ -20,10 +22,9 @@ angular.module('arethusa.review').service('review', [
     self.goldTokens = {};
 
     self.defaultConf = {
-      "name" : "review",
-      "link" : true,
-      "contextMenu" : true,
-      "contextMenuTemplate" : "templates/arethusa.review/context_menu.html"
+      link : true,
+      contextMenu : true,
+      contextMenuTemplate : "templates/arethusa.review/context_menu.html"
     };
 
     function DiffCounts() {
