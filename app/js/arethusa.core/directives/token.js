@@ -16,8 +16,8 @@
 // responsibilites at the moment.
 angular.module('arethusa.core').directive('token', [
   'state',
-  'depTree',
-  function (state, depTree) {
+  'plugins',
+  function (state, plugins) {
     return {
       restrict: 'AE',
       scope: {
@@ -35,7 +35,7 @@ angular.module('arethusa.core').directive('token', [
 
         scope.state = state;
         var id = scope.token.id;
-        var changeHeads = depTree.mode === 'editor';
+        var changeHeads = plugins.get('depTree').mode === 'editor';
 
         function apply(fn) {
           scope.$apply(fn());
