@@ -2,7 +2,7 @@
   "main" : {
     "debug" : true,
     "showKeys" : true,
-    "template"  : "templates/main_with_sidepanel.html",
+    "template"  : "templates/main_grid.html",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "fakePerseids",
@@ -53,7 +53,7 @@
       "main" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
-      "template" : "templates/dep_tree.html"
+      "template" : "templates/dep_tree2.html"
     },
 
     "search" : {
