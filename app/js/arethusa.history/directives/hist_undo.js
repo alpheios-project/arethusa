@@ -20,9 +20,9 @@ angular.module('arethusa.history').directive('histUndo', [
 
         scope.$watch('history.canUndo', function(newVal, oldVal) {
           if (newVal) {
-            element.addClass('disabled');
-          } else {
             element.removeClass('disabled');
+          } else {
+            element.addClass('disabled');
           }
         });
 
