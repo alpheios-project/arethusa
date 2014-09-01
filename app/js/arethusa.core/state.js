@@ -327,6 +327,9 @@ angular.module('arethusa.core').service('state', [
     this.setState = function (id, category, val) {
       arethusaLogger.log('state.setState is DEPRECATED. Use state.change() instead.');
       var token = self.tokens[id];
+      // We're covering up for diffs - review is the only plugin still using
+      // this - of artificialTokens, where ids might not match.
+      if (!token) return;
       var oldVal = token[category];
       token[category] = val;
     };
