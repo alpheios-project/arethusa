@@ -14,7 +14,7 @@ angular.module('arethusa.review').service('review', [
     var doc;
 
     this.externalDependencies = [
-      "../bower_components/jsondiffpatch/build/bundle.min.js"
+      "bower_components/jsondiffpatch/build/bundle.min.js"
     ];
 
     self.goldTokens = {};

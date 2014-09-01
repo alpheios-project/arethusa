@@ -18,7 +18,7 @@ angular.module('arethusa.comments').service('comments', [
     var fullTextIndex;
 
     this.externalDependencies = [
-      "../bower_components/lunr.js/lunr.min.js"
+      "bower_components/lunr.js/lunr.min.js"
     ];
 
     this.filter = {};
