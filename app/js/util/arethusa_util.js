@@ -232,6 +232,11 @@ var arethusaUtil = {
 
     rejectFn: function(deferred) {
       return function() { deferred.reject(); };
+    },
+
+    isArethusaMainApplication: function() {
+      var ngApp = document.querySelector('html').attributes['ng-app'];
+      return ngApp && ngApp.value == 'arethusa';
     }
   };
 

@@ -7,18 +7,7 @@
         ng-repeat="name in gS.settings | keys"
         ng-init="setting = gS.settings[name]">
         <div ng-switch="setting.type">
-          <div ng-switch-when="select">
-            <label>
-              <span translate="{{ setting.label }}"/>
-              <select
-                style="width: 10%"
-                class="compact"
-                ng-model="gS[setting.property]"
-                ng-change="gS.applyColorizer()"
-                ng-options="k as k for (k, v) in setting.options">
-              </select>
-            </label>
-          </div>
+          <div ng-switch-when="select" colorizer-setting/>
           <div ng-switch-default>
             <input
               type="{{ setting.type }}"

@@ -7,8 +7,13 @@ angular.module('arethusa.core').directive('toBottom', [
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
-        var canvas = angular.element(document.getElementById('canvas'));
-        var win  = angular.element($window);
+        var canvas, win;
+        if (aU.isArethusaMainApplication()) {
+          canvas = angular.element(document.getElementById('canvas'));
+          win  = angular.element($window);
+        } else {
+          canvas = win = element.parents('[ng-controller="ArethusaCtrl"]');
+        }
         win.on('resize', setHeight);
         scope.$on('stateLoaded', setHeight);
 

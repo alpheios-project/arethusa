@@ -15,14 +15,16 @@ angular.module('arethusa').config([
   'MAIN_ROUTE',
   function ($routeProvider, $translateProvider,
             MAIN_ROUTE) {
-    $routeProvider.when('/', MAIN_ROUTE);
-    //$routeProvider.when('/conf_editor', CONF_ROUTE);
-    $routeProvider.when('/:conf', MAIN_ROUTE);
-    //$routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
+    if (aU.isArethusaMainApplication()) {
+      $routeProvider.when('/', MAIN_ROUTE);
+      //$routeProvider.when('/conf_editor', CONF_ROUTE);
+      $routeProvider.when('/:conf', MAIN_ROUTE);
+      //$routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
+    }
 
     $translateProvider
       .useStaticFilesLoader({
-        prefix: 'static/i18n/',
+        prefix: arethusa.basePath + '/dist/i18n/',
         suffix: '.json'
       })
 
@@ -34,3 +36,68 @@ angular.module('arethusa').config([
       .fallbackLanguage('en');
   },
 ]);
+
+function Arethusa() {
+  var self = this;
+
+  self.basePath = '..';
+
+  function Api(injector) {
+    var api = this;
+    var $compile = injector.get('$compile');
+
+    this.configurator = injector.get('configurator');
+
+    this.configure = function(conf) {
+      api.configurator.defineConfiguration(conf);
+    };
+
+    this.watchUrl = function(bool) {
+      injector.get('locator').watchUrl(bool);
+    };
+
+    this.setBasePath = function(path) {
+      injector.get('basePath').set(path);
+    };
+
+    this.setParams = function(a, b) {
+      injector.get('locator').set(a, b);
+    };
+
+    this.compile = function(element) {
+      var html = element[0].innerHTML;
+      element.html($compile(html)(element.scope()));
+    };
+
+    this.state = injector.get('state');
+
+    this.setBasePath(self.basePath);
+  }
+
+  this.setBasePath = function(path) {
+    self.basePath = path;
+  };
+
+  this.start = function(id, conf, params) {
+    var res = {};
+    id = id.match(/^#/) ? id : '#' + id;
+    var target = angular.element(id);
+    target.attr('ng-controller', 'ArethusaCtrl');
+    target.ready(function() {
+      var injector = angular.bootstrap(id, ['arethusa']);
+      var api = new Api(injector);
+
+      api.watchUrl(false);
+      api.setParams(params);
+      api.configure(conf);
+
+      api.compile(target);
+
+      angular.extend(res, api);
+    });
+
+    return res;
+  };
+}
+
+var arethusa =  new Arethusa();

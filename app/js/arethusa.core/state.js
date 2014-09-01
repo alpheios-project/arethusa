@@ -32,9 +32,22 @@ angular.module('arethusa.core').service('state', [
 
       // Cheap way of defining a debug mode
       self.debug = self.conf.debug;
-    }
 
-    configure();
+      navigator.init();
+      globalSettings.init();
+
+      self.activeKeys = {};
+      var keys = keyCapture.initCaptures(function(kC) {
+        return {
+          selections: [
+            kC.create('nextToken', function() { kC.doRepeated(self.selectNextToken); }, 'w'),
+            kC.create('prevToken', function() { kC.doRepeated(self.selectPrevToken); }, 'e'),
+            kC.create('deselect', function() { self.deselectAll(); }, 'esc' )
+          ]
+        };
+      });
+      angular.extend(self.activeKeys, keys.selections);
+    }
 
     // We hold tokens locally during retrieval phase.
     // Once we are done, they will be exposed through
@@ -60,10 +73,20 @@ angular.module('arethusa.core').service('state', [
       //});
     //};
 
+    function noRetrievers() {
+      return Object.keys(tokenRetrievers).length === 0;
+    }
+
     this.retrieveTokens = function () {
       //var container = {};
       navigator.reset();
       self.deselectAll();
+
+      if (noRetrievers()) {
+        self.checkLoadStatus();
+        return;
+      }
+
       angular.forEach(tokenRetrievers, function (retriever, name) {
         retriever.getData(function (data) {
           navigator.addSentences(data);
@@ -465,20 +488,6 @@ angular.module('arethusa.core').service('state', [
       self.addStatusObjects();
       self.countTotalTokens();
     };
-
-    this.activeKeys = {};
-
-    var keys = keyCapture.initCaptures(function(kC) {
-      return {
-        selections: [
-          kC.create('nextToken', function() { kC.doRepeated(self.selectNextToken); }, 'w'),
-          kC.create('prevToken', function() { kC.doRepeated(self.selectPrevToken); }, 'e'),
-          kC.create('deselect', function() { self.deselectAll(); }, 'esc' )
-        ]
-      };
-    });
-    angular.extend(self.activeKeys, keys.selections);
-
 
     this.init = function () {
       configure();

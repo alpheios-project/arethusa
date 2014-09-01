@@ -11,13 +11,13 @@
 //
 angular.module('arethusa.core').factory('Resource', [
   '$resource',
-  '$location',
   '$q',
+  'locator',
   'spinner',
-  function ($resource, $location, $q, spinner) {
+  function ($resource, $q, locator, spinner) {
     function paramsToObj(params) {
       return arethusaUtil.inject({}, params, function (obj, param, i) {
-        obj[param] = $location.search()[param];
+        obj[param] = locator.get(param);
       });
     }
 

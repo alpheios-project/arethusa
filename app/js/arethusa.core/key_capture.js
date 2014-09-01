@@ -315,6 +315,7 @@ angular.module('arethusa.core').service('keyCapture', [
         });
       });
       if (!angular.equals({}, keys)) {
+        $rootScope.$broadcast('keysAdded', keys);
         addToKeyLists(keys);
       }
       return keys;

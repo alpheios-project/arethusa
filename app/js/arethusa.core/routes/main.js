@@ -1,6 +1,6 @@
 'use strict';
 angular.module('arethusa.core').constant('MAIN_ROUTE', {
-  controller: 'MainCtrl',
+  controller: 'ArethusaCtrl',
   template: '<div ng-include="template"></div>',
   resolve: {
     loadConfiguration: ['$http', 'confUrl', 'configurator', function ($http, confUrl, configurator) {

@@ -7,12 +7,26 @@ angular.module('arethusa.core').service('navigator', [
   '$rootScope',
   function ($injector, configurator, $cacheFactory, keyCapture, $rootScope) {
     var self = this;
-    this.sentences = [];
-    this.sentencesById = {};
-    this.currentPosition = 0;
-    this.status = {};
+    var citeMapper;
 
-    var citeMapper = configurator.provideResource('citeMapper');
+    this.init = function() {
+      self.sentences = [];
+      self.sentencesById = {};
+      self.currentPosition = 0;
+      self.status = {};
+
+      citeMapper = configurator.provideResource('citeMapper');
+
+      keyCapture.initCaptures(function(kC) {
+        return {
+          navigation: [
+            kC.create('nextSentence', function() { kC.doRepeated(self.nextSentence); }, 'u'),
+            kC.create('prevSentence', function() { kC.doRepeated(self.prevSentence); }, 'i'),
+            kC.create('list', function() { self.switchView(); }, 'L')
+          ]
+        };
+      });
+    };
 
     this.state = function () {
       if (!self.lazyState) {
@@ -201,16 +215,6 @@ angular.module('arethusa.core').service('navigator', [
       self.hasList  = false;
       self.updateId();
     };
-
-    keyCapture.initCaptures(function(kC) {
-      return {
-        navigation: [
-          kC.create('nextSentence', function() { kC.doRepeated(self.nextSentence); }, 'u'),
-          kC.create('prevSentence', function() { kC.doRepeated(self.prevSentence); }, 'i'),
-          kC.create('list', function() { self.switchView(); }, 'L')
-        ]
-      };
-    });
 
     this.markChunkChanged = function() {
       currentSentenceObj().changed = true;
