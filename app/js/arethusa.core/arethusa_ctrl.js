@@ -82,7 +82,10 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
           notifier.init(); // also clears the Loading message for now.
           state.arethusaLoaded = true;
           notifier.success(translations.loadComplete);
-          UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
+
+          if (aU.isArethusaMainApplication()) {
+            UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
+          }
 
           // start listening for events
           state.silent = false;
