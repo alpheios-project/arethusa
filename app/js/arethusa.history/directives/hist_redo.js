@@ -19,7 +19,11 @@ angular.module('arethusa.history').directive('histRedo', [
         });
 
         scope.$watch('history.canRedo', function(newVal, oldVal) {
-          if (newVal !== oldVal) element.toggleClass('disabled');
+          if (newVal) {
+            element.addClass('disabled');
+          } else {
+            element.removeClass('disabled');
+          }
         });
 
         element.bind('click', function() {
