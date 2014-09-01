@@ -69,7 +69,8 @@ describe("NavigatorCtrl", function() {
   });
 
   describe('navStat', function() {
-    it('delegates to navigator.status', function() {
+    it('delegates to navigator.status and watches it', function() {
+      scope.$apply();
       expect(scope.navStat).toEqual('status');
     });
   });
