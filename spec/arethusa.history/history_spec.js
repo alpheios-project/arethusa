@@ -15,6 +15,7 @@ describe('history', function() {
     inject(function(_history_, _state_) {
       history = _history_;
       state   = _state_;
+      state.initServices();
       state.silent = false; // true by default
       history.init();
       undone = 0;

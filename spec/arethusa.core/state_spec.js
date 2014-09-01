@@ -43,6 +43,7 @@ describe("state", function() {
   beforeEach(inject(function(_state_, _$rootScope_) {
     $rootScope = _$rootScope_;
     state = _state_;
+    state.initServices();
     state.tokens = createTokens();
   }));
 

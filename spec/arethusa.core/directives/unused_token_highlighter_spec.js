@@ -75,6 +75,7 @@ describe("unusedTokenHighlighter", function() {
   function init(template, fn) {
     inject(function($compile, $rootScope, _state_) {
       state = _state_;
+      state.initServices();
       state.replaceState(arethusaMocks.tokens());
       state.postInit();
 

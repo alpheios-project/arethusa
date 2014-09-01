@@ -60,6 +60,7 @@ describe("morph", function() {
 
     inject(function(_morph_, _state_) {
       state = _state_;
+      state.initServices();
       state.tokens = arethusaMocks.tokens();
       morph = _morph_;
       morph.init();

@@ -33,8 +33,7 @@ angular.module('arethusa.core').service('state', [
       // Cheap way of defining a debug mode
       self.debug = self.conf.debug;
 
-      navigator.init();
-      globalSettings.init();
+      self.initServices();
 
       self.activeKeys = {};
       var keys = keyCapture.initCaptures(function(kC) {
@@ -48,6 +47,12 @@ angular.module('arethusa.core').service('state', [
       });
       angular.extend(self.activeKeys, keys.selections);
     }
+
+    // Exposed for easier testing
+    this.initServices = function() {
+      navigator.init();
+      globalSettings.init();
+    };
 
     // We hold tokens locally during retrieval phase.
     // Once we are done, they will be exposed through

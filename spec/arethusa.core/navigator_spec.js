@@ -49,6 +49,7 @@ describe("navigator", function() {
   beforeEach(inject(function(_navigator_, _state_) {
     navigator = _navigator_;
     state = _state_;
+    state.initServices();
     navigator.reset();
   }));
 

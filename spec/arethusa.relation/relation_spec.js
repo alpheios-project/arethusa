@@ -25,6 +25,7 @@ describe("relation", function() {
 
     inject(function(_relation_, _state_) {
       state = _state_;
+      state.initServices();
       state.tokens = arethusaMocks.tokens();
       relation = _relation_;
       relation.init();
