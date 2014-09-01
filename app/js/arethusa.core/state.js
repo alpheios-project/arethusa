@@ -73,10 +73,20 @@ angular.module('arethusa.core').service('state', [
       //});
     //};
 
+    function noRetrievers() {
+      return Object.keys(tokenRetrievers).length === 0;
+    }
+
     this.retrieveTokens = function () {
       //var container = {};
       navigator.reset();
       self.deselectAll();
+
+      if (noRetrievers()) {
+        self.checkLoadStatus();
+        return;
+      }
+
       angular.forEach(tokenRetrievers, function (retriever, name) {
         retriever.getData(function (data) {
           navigator.addSentences(data);
