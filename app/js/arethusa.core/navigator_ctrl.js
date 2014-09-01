@@ -18,6 +18,10 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
     $scope.goTo = function(id) {
       navigator.goTo(id);
     };
-    $scope.navStat = navigator.status;
+    $scope.nav = navigator;
+
+    $scope.$watch('nav.status', function(newVal, oldVal) {
+      $scope.navStat = newVal;
+    });
   }
 ]);
