@@ -20,13 +20,13 @@ angular.module('arethusa.core').service('arethusaGrid', [
       };
     }
 
-    console.log(this.options);
     this.items = [
-      new Item([8, 1], [0, 0], 'text'),
-      new Item([8, 7], [1, 0], 'depTree'),
-      new Item([4, 1], [0, 8], 'search'),
-      new Item([4, 4], [1, 8], 'morph'),
-      new Item([4, 2], [4, 8], 'relation')
+      new Item([14, 1], [0, 0], 'text'),
+      new Item([9, 8],  [2, 0], 'depTree'),
+      new Item([5, 8],  [1, 9], 'comments'),
+      new Item([6, 2],  [0, 14], 'search'),
+      new Item([6, 4],  [2, 14], 'morph'),
+      new Item([6, 3],  [6, 14], 'relation')
     ];
   }
 ]);
