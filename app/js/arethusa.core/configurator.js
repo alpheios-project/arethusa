@@ -214,7 +214,7 @@ angular.module('arethusa.core').service('configurator', [
     };
 
     var standardProperties =  [
-      'name',
+      'displayName',
       'main',
       'template',
       'external',
@@ -238,6 +238,11 @@ angular.module('arethusa.core').service('configurator', [
         var val = isDef(confProp) ? confProp : defConf[property];
         obj[property] = val;
       });
+
+      if (!obj.displayName) {
+        obj.displayName = obj.name;
+      }
+
       setGlobalDefaults(obj);
     };
 
@@ -276,14 +281,14 @@ angular.module('arethusa.core').service('configurator', [
       return getGlobalDefaults().mode;
     };
 
-    this.getConfAndDelegate = function (name, obj, keys) {
-      obj.conf = self.configurationFor(name);
+    this.getConfAndDelegate = function (obj, keys) {
+      obj.conf = self.configurationFor(obj.name);
       self.delegateConf(obj, keys);
       return obj;
     };
 
-    this.getStickyConf = function(name, obj, keys) {
-      obj.conf = self.configurationFor(name);
+    this.getStickyConf = function(obj, keys) {
+      obj.conf = self.configurationFor(obj.name);
       self.delegateConf(obj, keys, true);
       return obj;
     };

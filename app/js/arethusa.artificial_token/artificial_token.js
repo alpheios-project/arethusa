@@ -6,13 +6,18 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
   'idHandler',
   function(state, configurator, idHandler) {
     var self = this;
+    this.name = "artificialToken";
 
     var confKeys = [
       "defaultInsertionPoint"
     ];
 
+    this.defaultConf = {
+      displayName: "aT"
+    };
+
     function configure() {
-      configurator.getConfAndDelegate('artificialToken', self, confKeys);
+      configurator.getConfAndDelegate(self, confKeys);
       self.createdTokens = {};
       self.count = 0;
       delete self.mode;

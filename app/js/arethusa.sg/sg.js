@@ -7,14 +7,20 @@ angular.module('arethusa.sg').service('sg', [
   'plugins',
   function(state, configurator, $cacheFactory, plugins) {
     var self = this;
+    this.name = 'sg';
+
     var retriever;
     this.labelAs = "long";
     this.defineAncestors = true;
 
     var sgCache = $cacheFactory('sg', { number:  100 });
 
+    this.defaultConf = {
+      displayName: "SG"
+    };
+
     function configure() {
-      configurator.getConfAndDelegate('sg', self, ['labels']);
+      configurator.getConfAndDelegate(self, ['labels']);
       retriever = configurator.getRetriever(self.conf.retriever);
     }
 

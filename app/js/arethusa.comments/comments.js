@@ -11,6 +11,7 @@ angular.module('arethusa.comments').service('comments', [
   function(state, configurator, navigator, notifier,
            plugins, keyCapture, translator) {
     var self = this;
+    this.name = "comments";
 
     var retriever, persister;
     var idMap;
@@ -25,14 +26,13 @@ angular.module('arethusa.comments').service('comments', [
     this.reverseIndex = {};
 
     this.defaultConf = {
-      name: "comments",
       template: "templates/arethusa.comments/comments.html",
       contextMenu: true,
       contextMenuTemplate: "templates/arethusa.comments/context_menu.html"
     };
 
     function configure() {
-      configurator.getConfAndDelegate('comments', self);
+      configurator.getConfAndDelegate(self);
       retriever = configurator.getRetriever(self.conf.retriever);
       persister = retriever;
     }

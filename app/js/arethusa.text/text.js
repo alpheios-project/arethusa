@@ -4,9 +4,10 @@ angular.module('arethusa.text').service('text', [
   'configurator',
   function (state, configurator) {
     var self = this;
+    this.name = "text";
 
     function configure() {
-      configurator.getConfAndDelegate('text', self);
+      configurator.getConfAndDelegate(self);
       self.hideArtificialTokens = false;
     }
 

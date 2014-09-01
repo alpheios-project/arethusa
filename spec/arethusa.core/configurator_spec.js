@@ -319,7 +319,7 @@ describe('configurator', function() {
       configurator.configuration = conf1;
       var obj = {};
       var defaultKeys = [
-        'name',
+        'displayName',
         'main',
         'template',
         'external',
@@ -341,7 +341,6 @@ describe('configurator', function() {
       configurator.configuration = conf1;
       var obj = {};
       var results = [
-        'name',
         'main',
         'template',
         'external',
@@ -380,6 +379,28 @@ describe('configurator', function() {
       configurator.delegateConf(obj);
       expect(obj.mode).toEqual('editor');
     }));
+
+    it('sets the displayName to the value of name when not specified explicitly', function() {
+      configurator.configuration = conf1;
+      var obj = { name: 'morph' };
+      obj.conf = configurator.configurationFor('morph');
+      configurator.delegateConf(obj);
+      expect(obj.name).toEqual('morph');
+      expect(obj.displayName).toEqual(obj.name);
+    });
+
+    it('allows to set displayName through configuration', function() {
+      configurator.configuration = conf1;
+      var obj = {
+        name: "morph",
+        conf: {
+          displayName: 'morphology'
+        }
+      };
+      configurator.delegateConf(obj);
+      expect(obj.displayName).toEqual('morphology');
+      expect(obj.name).toEqual('morph');
+    });
 
     it("defaults don't override when they shouldn't", inject(function(configurator) {
       configurator.configuration = conf1;
@@ -435,17 +456,16 @@ describe('configurator', function() {
   describe('this.getConfAndDelegate', function() {
     it('convenience fn to get conf and delegate in one step', inject(function(configurator) {
       configurator.configuration = conf1;
-      var obj = {};
-      configurator.getConfAndDelegate('morph', obj, ['a']);
-      expect(obj.name).toEqual('morph');
+      var obj = { name: 'morph' };
+      configurator.getConfAndDelegate(obj, ['a']);
       expect(obj.conf).toBeTruthy();
       expect(obj.hasOwnProperty('a')).toBeTruthy();
     }));
 
     it('returns the given object', inject(function(configurator) {
       configurator.configuration = conf1;
-      var obj = {};
-      var res = configurator.getConfAndDelegate('morph', obj);
+      var obj = { name: 'morph' };
+      var res = configurator.getConfAndDelegate(obj);
       expect(obj).toBe(res);
     }));
   });
@@ -454,9 +474,10 @@ describe('configurator', function() {
     function setup() {
       configurator.configuration = conf1;
       var obj = {
+       name: 'morph',
        defaultConf: { preselect: true }
       };
-      configurator.getStickyConf('morph', obj, ['preselect']);
+      configurator.getStickyConf(obj, ['preselect']);
       return obj;
     }
 
@@ -469,7 +490,7 @@ describe('configurator', function() {
       var obj = setup();
       expect(obj.preselect).toBeTruthy();
       obj.preselect = false;
-      configurator.getStickyConf('morph', obj, ['preselect']);
+      configurator.getStickyConf(obj, ['preselect']);
       expect(obj.preselect).toBeFalsy();
     });
   });

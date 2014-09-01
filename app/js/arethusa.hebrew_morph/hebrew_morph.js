@@ -5,6 +5,7 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
   'configurator',
   function(state, configurator) {
     var self = this;
+    this.name = "hebrewMorph";
 
     function configure() {
       var props = [
@@ -12,7 +13,7 @@ angular.module('arethusa.hebrewMorph').service('hebrewMorph', [
         'parts',
         'attributes'
       ];
-      configurator.getConfAndDelegate('hebrewMorph', self, props);
+      configurator.getConfAndDelegate(self, props);
     }
 
     configure();

@@ -5,9 +5,10 @@ angular.module('arethusa.history').service('history', [
   'state',
   function (configurator, keyCapture, state) {
     var self = this;
+    this.name = "history";
 
     function configure() {
-      configurator.getConfAndDelegate('history', self);
+      configurator.getConfAndDelegate(self);
       self.maxSize = self.maxSize || 20;
     }
 

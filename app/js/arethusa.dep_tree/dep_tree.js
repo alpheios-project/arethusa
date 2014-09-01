@@ -23,6 +23,7 @@ angular.module('arethusa.depTree').service('depTree', [
   'configurator',
   function (state, configurator) {
     var self = this;
+    this.name = "depTree";
 
     this.externalDependencies = {
       ordered: [
@@ -32,7 +33,7 @@ angular.module('arethusa.depTree').service('depTree', [
     };
 
     function configure() {
-      configurator.getConfAndDelegate('depTree', self);
+      configurator.getConfAndDelegate(self);
       self.diffMode = false;
       self.diffPresent = false;
       self.diffInfo = {};

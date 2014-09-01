@@ -74,13 +74,11 @@
 
   "plugins" : {
     "text" : {
-      "name" : "text",
       "main" : true,
       "template"  : "templates/text2.html"
     },
 
     "depTree" : {
-      "name" : "depTree",
       "main" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
@@ -88,13 +86,11 @@
     },
 
     "search" : {
-      "name" : "search",
       "template" : "templates/search.html",
       "regex" : true
     },
 
     "morph" : {
-      "name" : "morph",
       "retrievers" : {
         "BspMorphRetriever" : {
           "resource" : "morphologyService"
@@ -115,7 +111,6 @@
     },
 
     "relation" : {
-      "name" : "relation",
       "template" : "templates/relation.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
@@ -123,12 +118,10 @@
     },
 
     "artificialToken" : {
-      "name" : "aT",
       "template" : "templates/arethusa.artificial_token/artificial_token.html"
     },
 
     "history" : {
-      "name" : "history",
       "template" : "templates/history.html"
     },
 

@@ -7,6 +7,8 @@ angular.module('arethusa.morph').service('morph', [
   'keyCapture',
   function (state, configurator, plugins, globalSettings, keyCapture) {
     var self = this;
+    this.name = 'morph';
+
     var morphRetrievers;
     var inventory;
 
@@ -42,7 +44,6 @@ angular.module('arethusa.morph').service('morph', [
 
 
     this.defaultConf = {
-      name: "morph",
       mappings: {},
       gloss: false,
       matchAll: true,
@@ -59,8 +60,8 @@ angular.module('arethusa.morph').service('morph', [
         'gloss'
       ];
 
-      configurator.getConfAndDelegate('morph', self, props);
-      configurator.getStickyConf('morph', self, ['preselect', 'matchAll']);
+      configurator.getConfAndDelegate(self, props);
+      configurator.getStickyConf(self, ['preselect', 'matchAll']);
 
       self.analyses = {};
       morphRetrievers = configurator.getRetrievers(self.conf.retrievers);

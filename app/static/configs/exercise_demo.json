@@ -33,16 +33,13 @@
 
   "plugins" : {
     "fillInTheBlank" : {
-      "name" : "fillInTheBlank",
       "main" : true,
       "template" : "templates/arethusa.exercise/fill_in_the_blank.html"
     },
     "instructor" : {
-      "name" : "instructor",
       "template" : "templates/arethusa.exercise/instructor.html"
     },
     "morph" : {
-      "name" : "morph",
       "retrievers" : {
         "BspMorphRetriever" : {
           "resource" : "morphologyService"

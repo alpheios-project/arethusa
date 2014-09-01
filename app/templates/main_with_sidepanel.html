@@ -19,7 +19,7 @@
             <tab
               ng-repeat="pl in plugins.sub"
               select="plugins.setActive(pl)"
-              heading="{{ pl.name }}"
+              heading="{{ pl.displayName }}"
               active="plugins.isSelected(pl)">
               <plugin name="{{ pl.name }}" ng-if="plugins.isActive(pl)"/>
             </tab>
