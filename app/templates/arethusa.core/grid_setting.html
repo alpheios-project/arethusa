@@ -1,0 +1,14 @@
+<p class="text">
+  <span>Grid</span>
+  <span translate="settings"></span>
+</p>
+<ul class="no-list">
+  <li ng-repeat="(key, value) in settings">
+    <input
+      type="checkbox"
+      ng-model="settings[key]"/>
+    <label>
+      <span translate="grid.{{ key }}"/>
+    </label>
+  </li>
+</ul>
