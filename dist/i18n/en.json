@@ -15,6 +15,7 @@
   "settings" : "Settings",
   "save" : "Save",
   "reset" : "Reset",
+  "layout" : "Layout",
 
   "auth" : {
     "notLoggedIn" : "You aren't logged in!"
