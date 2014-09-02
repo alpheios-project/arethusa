@@ -15,7 +15,6 @@
   "settings" : "Settings",
   "save" : "Save",
   "reset" : "Reset",
-  "layout" : "Layout",
 
   "auth" : {
     "notLoggedIn" : "You aren't logged in!"
@@ -80,7 +79,8 @@
     "title" : "Global Settings",
     "alwaysDeselect" : "Deselect after every annotation action",
     "keyboardMappings" : "Disable keyboard mapping for input fields",
-    "colorizer" : "Colorize tokens by"
+    "colorizer" : "Colorize tokens by",
+    "layout" : "Layout"
   },
 
   "plugins" : {

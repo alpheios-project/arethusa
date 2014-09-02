@@ -15,7 +15,6 @@
   "settings" : "Einstellungen",
   "save" : "Speichern",
   "reset" : "Rücksetzen",
-  "layout" : "Layout",
 
   "auth" : {
     "notLoggedIn" : "Du bist nicht angemeldet!"
@@ -80,7 +79,8 @@
     "title" : "Globale Einstellungen",
     "alwaysDeselect" : "Deselektiere nach jeder Annotations-Aktion",
     "keyboardMappings" : "Deaktiviere Tastaturmappings in Eingabefeldern",
-    "colorizer" : "Token einfärben nach"
+    "colorizer" : "Token einfärben nach",
+    "layout" : "Layout"
   },
 
 
