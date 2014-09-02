@@ -15,6 +15,7 @@
   "settings" : "Einstellungen",
   "save" : "Speichern",
   "reset" : "Rücksetzen",
+  "items" : "Elemente",
 
   "auth" : {
     "notLoggedIn" : "Du bist nicht angemeldet!"
