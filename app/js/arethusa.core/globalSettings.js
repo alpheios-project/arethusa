@@ -80,8 +80,15 @@ angular.module('arethusa.core').service('globalSettings', [
       });
     };
 
+    function confTemplate() {
+      return configurator.configurationFor('main').template;
+    }
+
+    this.layout = confTemplate();
+
     this.init = function() {
       configure();
     };
+
   }
 ]);

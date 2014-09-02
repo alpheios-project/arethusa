@@ -10,8 +10,9 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
   'plugins',
   'translator',
   '$timeout',
+  'globalSettings',
   function ($scope, configurator, state, documentStore, notifier,
-            saver, history, plugins, translator, $timeout) {
+            saver, history, plugins, translator, $timeout, globalSettings) {
     // This is the entry point to the application.
 
     var translations = {};
@@ -32,7 +33,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
 
       $scope.state = state;
       $scope.plugins = plugins;
-      $scope.template = conf.template;
+      $scope.template = globalSettings.layout;
 
       // The application has to fulfil a specific load order.
       // The ArethusaCtrl starts his work only when the configurator has received
