@@ -59,6 +59,13 @@ function ArethusaMocks() {
     });
   };
 
+  this.globalSettings = function(customizations) {
+    return withCustomizations({
+      // more to come
+      init: mockFn
+    });
+  };
+
   this.tokens = function() {
     return {
       '01': {
