@@ -54,7 +54,7 @@
       "main" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
-      "template" : "templates/dep_tree2.html"
+      "template" : "templates/dep_tree.html"
     },
 
     "search" : {
