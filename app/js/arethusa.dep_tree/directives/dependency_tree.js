@@ -596,12 +596,14 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Watches and Event listeners
 
-        // This watch is responsible for firing up the directive
-        scope.$watch('tokens', function (newVal, oldVal) {
+        function init() {
           createGraph();
           moveToStart();
           if (isMainTree()) plugins.declareReady('depTree');
-        });
+        }
+
+        // This watch is responsible for firing up the directive
+        scope.$watch('tokens', init);
 
         scope.$watch('styles', function (newVal, oldVal) {
           if (newVal !== oldVal) {
