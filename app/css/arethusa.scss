@@ -808,4 +808,12 @@ input.warn {
   &.fast {
     @include transition-duration(250ms);
   }
+
+  &.slow {
+    @include transition-duration(750ms);
+  }
+
+  &.very-slow {
+    @include transition-duration(1250ms);
+  }
 }
