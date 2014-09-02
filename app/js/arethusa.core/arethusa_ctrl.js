@@ -33,7 +33,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
 
       $scope.state = state;
       $scope.plugins = plugins;
-      $scope.template = globalSettings.layout;
+      $scope.gS = globalSettings;
 
       // The application has to fulfil a specific load order.
       // The ArethusaCtrl starts his work only when the configurator has received
