@@ -13,6 +13,7 @@ angular.module('arethusa.core').service('arethusaGrid', [
       rowHeight: 'match',
       resizable: {
         enabled: true,
+        handles: ['n', 'e', 's', 'w', 'ne', 'nw', 'se', 'sw'],
         stop: function() { win.trigger('resize'); }
       }
     });
