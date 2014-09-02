@@ -5,6 +5,6 @@
     class="compact"
     ng-model="gS[setting.property]"
     ng-change="gS.applyColorizer()"
-    ng-options="k as k for (k, v) in setting.options">
+    ng-options="k as k for (k, v) in gS.colorizers">
   </select>
 </label>
