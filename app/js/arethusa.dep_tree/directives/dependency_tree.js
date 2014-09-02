@@ -733,6 +733,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           // This watch is responsible for firing up the directive
           scope.$watch('tokens', init);
 
+          checkBorderStyle();
 
           // Append and prepend all templates
           element.append(tree);
@@ -743,6 +744,21 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           // Initialize some more starting values
           calculateSvgHotspots();
         }
+
+
+        // This is a dirty hack for backwards compatibility of
+        // commonly used layouts. We don't want the tree bordered
+        // all the time. Can go away once we move on to the Grid
+        // as main layout.
+        var canvas = element.parents('.tree-canvas');
+        function checkBorderStyle() {
+          if (isPartOfGrid()) {
+            canvas.addClass('no-border');
+          } else {
+            canvas.removeClass('no-border');
+          }
+        }
+
 
         function grid() { return element.parents('.gridster'); }
         function isPartOfGrid() { return grid().length; }
