@@ -35,7 +35,7 @@ angular.module('arethusa.core').service('arethusaGrid', [
       new Item([5, 8],  [1, 9], 'comments'),
       new Item([6, 2],  [0, 14], 'search'),
       new Item([6, 4],  [2, 14], 'morph'),
-      new Item([6, 3],  [6, 14], 'relation')
+      new Item([6, 3],  [7, 14], 'relation')
     ];
   }
 ]);
