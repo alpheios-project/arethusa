@@ -94,6 +94,10 @@ angular.module('arethusa.core').service('globalSettings', [
     // for this event.
     $rootScope.$on('confLoaded', setLayout);
 
+    this.broadcastLayoutChange = function() {
+      $rootScope.$broadcast('layoutChange', self.layouts[self.layout]);
+    };
+
     this.layouts = {
       'templates/main_with_sidepanel.html': 'Sidepanel',
       'templates/main_grid.html': 'Grid'
