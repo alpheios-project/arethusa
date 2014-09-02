@@ -153,6 +153,11 @@ tr.sentence-list td {
   cursor: pointer;
 }
 
+ul.in-columns {
+  @include columns(3);
+  @include column-gap(20px);
+}
+
 ul.sentence-list {
   list-style: none;
 }
@@ -792,7 +797,6 @@ input.warn {
 .gridster .gridster-preview-holder{
   background: rgb(219, 219, 219);
 }
-
 
 /***************************************************************************
  *                               Animations                                *
