@@ -4,6 +4,7 @@
   <div class="small-12 columns scrollable text">
     <ul class="no-list">
       <li
+        class="fade"
         ng-repeat="name in gS.settings | keys"
         ng-init="setting = gS.settings[name]">
         <div ng-switch="setting.type">
