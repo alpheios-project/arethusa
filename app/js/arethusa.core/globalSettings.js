@@ -95,8 +95,8 @@ angular.module('arethusa.core').service('globalSettings', [
     $rootScope.$on('confLoaded', setLayout);
 
     this.layouts = {
-      'Sidepanel' : 'templates/main_with_sidepanel.html',
-      'Grid' : 'templates/main_grid.html'
+      'templates/main_with_sidepanel.html': 'Sidepanel',
+      'templates/main_grid.html': 'Grid'
     };
 
     this.addLayout = function(name, url) {
