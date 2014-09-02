@@ -37,7 +37,6 @@ angular.module('arethusa.core').directive('toBottom', [
             if (svg[0]) {
               var elBottom = element[0].getBoundingClientRect().bottom;
               var svgTop = svg.offset().top;
-              console.log(elBottom, svgTop);
               svg.height(elBottom - svgTop);
             }
           });
