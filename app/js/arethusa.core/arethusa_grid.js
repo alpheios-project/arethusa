@@ -5,7 +5,8 @@ angular.module('arethusa.core').service('arethusaGrid', [
   '$window',
   'plugins',
   '$rootScope',
-  function(gridsterConfig, $window, plugins, $rootScope) {
+  'notifier',
+  function(gridsterConfig, $window, plugins, $rootScope, notifier) {
     var self = this;
 
     var win = angular.element($window);
@@ -55,6 +56,42 @@ angular.module('arethusa.core').service('arethusaGrid', [
       new Item('morph',    [6, 4],  [2, 14]),
       new Item('relation', [6, 3],  [7, 14])
     ];
+
+    this.addItem = function(name) {
+      self.items.push(new Item(name));
+      notifier.success(name + ' added to the grid!');
+    };
+
+    function findItem(name) {
+      var res;
+      for (var i = self.items.length - 1; i >= 0; i--){
+        var el = self.items[i];
+        if (el.plugin === name) {
+          res = el;
+          break;
+        }
+      }
+      return res;
+    }
+
+    this.removeItem = function(name) {
+      var i = self.items.indexOf(findItem(name));
+      self.items.splice(i, 1);
+      notifier.info(name + ' removed from grid!');
+    };
+
+    this.toggleItem = function(name) {
+      // Mind that these function is inverted due to its
+      // usage in an input checkbox.
+      // We already can read the updated value here and
+      // therefore need to invert our action.
+      if (self.itemList[name]) {
+        self.addItem(name);
+      } else {
+        self.removeItem(name);
+        //self.itemList[name] ;
+      }
+    };
 
     this.init = function() {
       self.itemList = arethusaUtil.inject({}, plugins.all, function(memo, name, pl) {
