@@ -6,7 +6,7 @@ angular.module('arethusa.core').directive('arethusaGrid', [
   function(arethusaGrid, plugins) {
     return {
       restrict: 'A',
-      scope: true,
+      scope: {},
       link: function(scope, element, attrs) {
         angular.element(document.body).css('overflow', 'auto');
         scope.grid = arethusaGrid;
