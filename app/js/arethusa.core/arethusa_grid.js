@@ -15,6 +15,11 @@ angular.module('arethusa.core').service('arethusaGrid', [
       floating: true,
     };
 
+    this.setDragging = function(val) { self.options.draggable.enabled = val; };
+    this.setResizing = function(val) { self.options.resizable.enabled = val; };
+    this.setPushing  = function(val) { self.options.pushing  = val; };
+    this.setFloating = function(val) { self.options.floating = val; };
+
     this.options = angular.extend(gridsterConfig, {
       columns: 20,
       rowHeight: 'match',
