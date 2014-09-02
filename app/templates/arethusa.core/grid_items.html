@@ -1,0 +1,19 @@
+<br/>
+<div>
+  <p class="text">
+    <span>Grid</span>
+    <span translate="items"></span>
+  </p>
+  <ul class="no-list in-columns">
+    <li ng-repeat="(name, status) in grid.itemList">
+      <input
+        style="margin-bottom: 0.3rem"
+        type="checkbox"
+        ng-change="grid.toggleItem(name)"
+        ng-model="grid.itemList[name]"/>
+      <label>
+        {{ name }}
+      </label>
+    </li>
+  </ul>
+</div>
