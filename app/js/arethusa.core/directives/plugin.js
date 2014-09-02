@@ -20,7 +20,7 @@ angular.module('arethusa.core').directive('plugin', [
           }
         });
       },
-      template: '<div id="{{ plugin.name }}" class="fade" ng-include="plugin.template"></div>'
+      template: '<div id="{{ plugin.name }}" class="fade very-slow" ng-include="plugin.template"></div>'
     };
   }
 ]);
