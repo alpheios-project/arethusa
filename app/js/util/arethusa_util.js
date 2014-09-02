@@ -241,6 +241,10 @@ var arethusaUtil = {
 
     isUrl: function(str) {
       return str.match(/^http:\/\//);
+    },
+
+    capitalize: function(str) {
+      return str[0].toUpperCase() + str.slice(1);
     }
   };
 
