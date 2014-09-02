@@ -25,6 +25,8 @@ angular.module('arethusa.core').service('arethusaGrid', [
     this.options = angular.extend(gridsterConfig, {
       columns: 20,
       rowHeight: 'match',
+      defaultSizeX: 6,
+      defaultSizeY: 4,
       resizable: {
         enabled: true,
         handles: ['n', 'e', 's', 'w', 'ne', 'nw', 'se', 'sw'],
