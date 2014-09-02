@@ -602,9 +602,6 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           if (isMainTree()) plugins.declareReady('depTree');
         }
 
-        // This watch is responsible for firing up the directive
-        scope.$watch('tokens', init);
-
         scope.$watch('styles', function (newVal, oldVal) {
           if (newVal !== oldVal) {
             customizeGraph();
@@ -732,14 +729,37 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           .rankSep(scope.rankSep);
 
 
-        // Append and prepend all templates
-        element.append(tree);
-        prependTemplate('focusTemplate');
-        prependTemplate('panelTemplate');
+        function start() {
+          // This watch is responsible for firing up the directive
+          scope.$watch('tokens', init);
 
 
-        // Initialize some more starting values
-        calculateSvgHotspots();
+          // Append and prepend all templates
+          element.append(tree);
+          prependTemplate('focusTemplate');
+          prependTemplate('panelTemplate');
+
+
+          // Initialize some more starting values
+          calculateSvgHotspots();
+        }
+
+        function grid() { return element.parents('.gridster'); }
+        function isPartOfGrid() { return grid().length; }
+        function gridReady() { return grid().hasClass('gridster-loaded'); }
+
+        // Special handling for an edge case:
+        // When we change the layout which uses this directive on the fly
+        // to a grid based one, we need to wait a little, so that the grid
+        // item which holds our tree has the correct size, otherwise our
+        // tree will render too little (where too little could also mean
+        // with a width of 0...)
+        if (isPartOfGrid() && !gridReady()) {
+          $timeout(start, 130);
+        } else {
+          start();
+        }
+
         var keys = keyCapture.initCaptures(keyBindings);
 
         scope.keyHints = arethusaUtil.inject({}, keys.tree, function(memo, name, key) {
