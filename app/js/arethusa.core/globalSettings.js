@@ -39,6 +39,7 @@ angular.module('arethusa.core').service('globalSettings', [
       self.defineSetting('alwaysDeselect');
       self.defineSetting('keyboardMappings');
       self.defineSetting('colorizer', 'custom', 'colorizer-setting');
+      self.defineSetting('layout', 'custom', 'layout-setting');
     }
 
     this.defineSetting = function(property, type, directive, label) {
@@ -85,6 +86,15 @@ angular.module('arethusa.core').service('globalSettings', [
     }
 
     this.layout = confTemplate();
+
+    this.layouts = {
+      'Sidepanel' : 'templates/main_with_sidepanel.html',
+      'Grid' : 'templates/main_grid.html'
+    };
+
+    this.addLayout = function(name, url) {
+      self.layout[name] = url;
+    };
 
     this.init = function() {
       configure();
