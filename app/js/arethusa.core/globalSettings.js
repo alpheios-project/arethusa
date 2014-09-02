@@ -36,14 +36,14 @@ angular.module('arethusa.core').service('globalSettings', [
     }
 
     function defineSettings() {
-      defineSetting('alwaysDeselect');
-      defineSetting('keyboardMappings');
-      defineSetting('colorizer', 'custom', 'colorizer-setting');
+      self.defineSetting('alwaysDeselect');
+      self.defineSetting('keyboardMappings');
+      self.defineSetting('colorizer', 'custom', 'colorizer-setting');
     }
 
-    function defineSetting(property, type, options) {
-      self.settings[property] = new Conf(property, type, options);
-    }
+    this.defineSetting = function(property, type, directive, label) {
+      self.settings[property] = new Conf(property, type, directive, label);
+    };
 
     this.toggle = function() {
       self.active = !self.active;
