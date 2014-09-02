@@ -16,10 +16,12 @@ angular.module('arethusa.core').directive('arethusaGrid', [
 
         function addSettings() {
           globalSettings.defineSetting('grid', 'custom', 'grid-setting');
+          globalSettings.defineSetting('gridItems', 'custom', 'grid-items');
         }
 
         function removeSettings() {
           globalSettings.removeSetting('grid');
+          globalSettings.removeSetting('gridItems');
         }
 
         // We need to timeout this, so that we can give globalSettings
