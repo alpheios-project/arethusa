@@ -28,20 +28,17 @@ angular.module('arethusa.core').service('globalSettings', [
       defineSettings();
     }
 
-    function Conf(property, type, options) {
+    function Conf(property, type, directive, label) {
       this.property = property;
-      this.label = "globalSettings." + property;
+      this.label = label || "globalSettings." + property;
       this.type = type || 'checkbox';
-
-      if (this.type === 'select') {
-        this.options = options;
-      }
+      this.directive = directive;
     }
 
     function defineSettings() {
       defineSetting('alwaysDeselect');
       defineSetting('keyboardMappings');
-      defineSetting('colorizer', 'select', self.colorizers);
+      defineSetting('colorizer', 'custom', 'colorizer-setting');
     }
 
     function defineSetting(property, type, options) {

@@ -7,7 +7,9 @@
         ng-repeat="name in gS.settings | keys"
         ng-init="setting = gS.settings[name]">
         <div ng-switch="setting.type">
-          <div ng-switch-when="select" colorizer-setting/>
+          <div
+            ng-switch-when="custom"
+            global-settings-custom="{{ setting.directive }}"/>
           <div ng-switch-default>
             <input
               type="{{ setting.type }}"
