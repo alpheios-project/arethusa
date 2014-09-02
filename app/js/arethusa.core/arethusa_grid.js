@@ -3,7 +3,9 @@
 angular.module('arethusa.core').service('arethusaGrid', [
   'gridsterConfig',
   '$window',
-  function(gridsterConfig, $window) {
+  'plugins',
+  '$rootScope',
+  function(gridsterConfig, $window, plugins, $rootScope) {
     var self = this;
 
     var win = angular.element($window);
@@ -49,5 +51,17 @@ angular.module('arethusa.core').service('arethusaGrid', [
       new Item([6, 4],  [2, 14], 'morph'),
       new Item([6, 3],  [7, 14], 'relation')
     ];
+
+    this.init = function() {
+      self.itemList = arethusaUtil.inject({}, plugins.all, function(memo, name, pl) {
+        memo[name] = false;
+      });
+
+      angular.forEach(self.items, function(el, i) {
+        self.itemList[el.plugin] = true;
+      });
+    };
+
+    $rootScope.$on('pluginsLoaded', self.init);
   }
 ]);
