@@ -1,0 +1,9 @@
+<label>
+  <span translate="{{ setting.label }}"/>
+  <select
+    style="width: 10%"
+    class="compact"
+    ng-model="gS[setting.property]"
+    ng-options="url as name for (name, url) in gS.layouts">
+  </select>
+</label>
