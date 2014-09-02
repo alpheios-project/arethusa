@@ -8,7 +8,7 @@ angular.module('arethusa.core').directive('arethusaGrid', [
   function(arethusaGrid, plugins, globalSettings, $timeout) {
     return {
       restrict: 'A',
-      scope: {},
+      scope: true, // inherit from ArethusaCtrl's scope
       link: function(scope, element, attrs) {
         angular.element(document.body).css('overflow', 'auto');
 
