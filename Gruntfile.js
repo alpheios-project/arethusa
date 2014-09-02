@@ -412,8 +412,6 @@ module.exports = function(grunt) {
       packages: {
         src: [
           "./bower_components/jquery/dist/jquery.min.js",
-          "./bower_components/jquery-ui/jquery-ui.min.js",
-          "./bower_components/javascript-detect-element-resize/jquery.resize.js",
           "./bower_components/angular/angular.min.js",
           "./bower_components/angular-route/angular-route.min.js",
           "./vendor/angular-resource/angular-resource.min.js",
