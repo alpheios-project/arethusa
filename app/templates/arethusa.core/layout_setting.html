@@ -1,9 +1,10 @@
 <label>
   <span translate="{{ setting.label }}"/>
   <select
-    style="width: 10%"
+    style="width: 8rem"
     class="compact"
     ng-model="gS[setting.property]"
+    ng-change="gS.broadcastLayoutChange()"
     ng-options="url as name for (name, url) in gS.layouts">
   </select>
 </label>
