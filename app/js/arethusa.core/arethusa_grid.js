@@ -8,6 +8,13 @@ angular.module('arethusa.core').service('arethusaGrid', [
 
     var win = angular.element($window);
 
+    this.settings = {
+      dragging: true,
+      resizing: true,
+      pushing:  true,
+      floating: true,
+    };
+
     this.options = angular.extend(gridsterConfig, {
       columns: 20,
       rowHeight: 'match',
