@@ -80,6 +80,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
 
       $scope.init = function () {
         plugins.start(conf.plugins).then(function() {
+          $scope.$emit('pluginsLoaded');
           notifier.init(); // also clears the Loading message for now.
           state.arethusaLoaded = true;
           notifier.success(translations.loadComplete);
