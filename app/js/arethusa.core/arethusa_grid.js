@@ -34,7 +34,9 @@ angular.module('arethusa.core').service('arethusaGrid', [
       }
     });
 
-    function Item(size, position, plugin, style) {
+    function Item(plugin, size, position, style) {
+      size = size || [];
+      position = position || [];
       return {
         sizeX: size[0],
         sizeY: size[1],
@@ -46,12 +48,12 @@ angular.module('arethusa.core').service('arethusaGrid', [
     }
 
     this.items = [
-      new Item([14, 1], [0, 0], 'text'),
-      new Item([9, 8],  [2, 0], 'depTree', { overflow: 'hidden'} ),
-      new Item([5, 8],  [1, 9], 'comments'),
-      new Item([6, 2],  [0, 14], 'search'),
-      new Item([6, 4],  [2, 14], 'morph'),
-      new Item([6, 3],  [7, 14], 'relation')
+      new Item('text',     [14, 1], [0, 0]),
+      new Item('depTree',  [9, 8],  [2, 0], { overflow: 'hidden'} ),
+      new Item('comments', [5, 8],  [1, 9]),
+      new Item('search',   [6, 2],  [0, 14]),
+      new Item('morph',    [6, 4],  [2, 14]),
+      new Item('relation', [6, 3],  [7, 14])
     ];
 
     this.init = function() {
