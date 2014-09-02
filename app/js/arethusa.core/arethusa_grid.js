@@ -2,12 +2,19 @@
 
 angular.module('arethusa.core').service('arethusaGrid', [
   'gridsterConfig',
-  function(gridsterConfig) {
+  '$window',
+  function(gridsterConfig, $window) {
     var self = this;
+
+    var win = angular.element($window);
 
     this.options = angular.extend(gridsterConfig, {
       columns: 20,
-      rowHeight: 'match'
+      rowHeight: 'match',
+      resizable: {
+        enabled: true,
+        stop: function() { win.trigger('resize'); }
+      }
     });
 
     function Item(size, position, plugin) {
