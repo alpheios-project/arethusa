@@ -46,6 +46,10 @@ angular.module('arethusa.core').service('globalSettings', [
       self.settings[property] = new Conf(property, type, directive, label);
     };
 
+    this.removeSetting = function(setting) {
+      delete self.settings[setting];
+    };
+
     this.toggle = function() {
       self.active = !self.active;
     };
