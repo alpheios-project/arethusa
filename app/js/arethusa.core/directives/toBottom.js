@@ -24,7 +24,8 @@ angular.module('arethusa.core').directive('toBottom', [
         } else {
           canvas = win = element.parents('[ng-controller="ArethusaCtrl"]');
         }
-        win.on('resize', setHeight);
+
+        angular.element($window).on('resize', setHeight);
         scope.$on('stateLoaded', setHeight);
 
         function setHeight() {
@@ -36,6 +37,7 @@ angular.module('arethusa.core').directive('toBottom', [
             if (svg[0]) {
               var elBottom = element[0].getBoundingClientRect().bottom;
               var svgTop = svg.offset().top;
+              console.log(elBottom, svgTop);
               svg.height(elBottom - svgTop);
             }
           });
