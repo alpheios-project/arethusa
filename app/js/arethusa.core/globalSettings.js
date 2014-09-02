@@ -4,7 +4,8 @@ angular.module('arethusa.core').service('globalSettings', [
   'configurator',
   'plugins',
   '$injector',
-  function(configurator,  plugins, $injector) {
+  '$rootScope',
+  function(configurator,  plugins, $injector, $rootScope) {
     var self = this;
 
     self.settings = {};
@@ -85,11 +86,13 @@ angular.module('arethusa.core').service('globalSettings', [
       });
     };
 
-    function confTemplate() {
-      return configurator.configurationFor('main').template;
+    function setLayout() {
+      self.layout = configurator.configurationFor('main').template;
     }
 
-    this.layout = confTemplate();
+    // When Arethusa is used as widget, it's imperative to wait
+    // for this event.
+    $rootScope.$on('confLoaded', setLayout);
 
     this.layouts = {
       'Sidepanel' : 'templates/main_with_sidepanel.html',
