@@ -5,7 +5,9 @@ angular.module('arethusa.core').service('globalSettings', [
   'plugins',
   '$injector',
   '$rootScope',
-  function(configurator,  plugins, $injector, $rootScope) {
+  'notifier',
+  '$timeout',
+  function(configurator,  plugins, $injector, $rootScope, notifier, $timeout) {
     var self = this;
 
     self.settings = {};
@@ -95,7 +97,13 @@ angular.module('arethusa.core').service('globalSettings', [
     $rootScope.$on('confLoaded', setLayout);
 
     this.broadcastLayoutChange = function() {
-      $rootScope.$broadcast('layoutChange', self.layouts[self.layout]);
+      var layoutName = self.layouts[self.layout];
+      if (layoutName === 'Grid') {
+        $timeout(function() {
+          notifier.warning('The grid layout is an experimental feature and WILL contain bugs!', 'WARNING');
+        }, 1200);
+      }
+      $rootScope.$broadcast('layoutChange', layoutName);
     };
 
     this.layouts = {
