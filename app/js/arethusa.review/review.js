@@ -114,8 +114,6 @@ angular.module('arethusa.review').service('review', [
       broadcast();
     };
 
-    loadDocument();
-
     function postInit(initialLoad) {
       if (self.link || initialLoad) self.goToCurrentChunk();
 
