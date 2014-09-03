@@ -51,10 +51,10 @@ angular.module('arethusa.core').service('arethusaGrid', [
     this.items = [
       new Item('text',     [14, 1], [0, 0]),
       new Item('depTree',  [9, 8],  [2, 0], { overflow: 'hidden'} ),
-      new Item('comments', [5, 8],  [1, 9]),
+      new Item('morph',    [5, 8],  [1, 9]),
       new Item('search',   [6, 2],  [0, 14]),
-      new Item('morph',    [6, 4],  [2, 14]),
-      new Item('relation', [6, 3],  [7, 14])
+      new Item('relation', [6, 4],  [2, 14]),
+      new Item('artificialToken', [6, 4],  [7, 14])
     ];
 
     this.addItem = function(name) {
