@@ -80,8 +80,6 @@ angular.module('arethusa.morph').service('morph', [
       colorMap = undefined;
     }
 
-    configure();
-
     var emptyAttribute = {
       long: '---',
       short: '---',

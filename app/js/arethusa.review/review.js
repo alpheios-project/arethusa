@@ -57,8 +57,6 @@ angular.module('arethusa.review').service('review', [
       self.diffActive = false;
     }
 
-    configure();
-
     function addStyleInfo(tokens) {
       angular.forEach(tokens, function (token, id) {
         var form = token.morphology;

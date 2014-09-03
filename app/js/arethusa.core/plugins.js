@@ -165,9 +165,9 @@ angular.module('arethusa.core').service('plugins', [
 
       loadPlugins(pluginNames).then(function() {
         sortPlugins(pluginNames);
+        self.init();
         partitionPlugins();
         declareFirstActive();
-        self.init();
         notifyListeners();
         self.loader = {};
         self.loaded = true;

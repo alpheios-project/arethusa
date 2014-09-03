@@ -24,8 +24,6 @@ angular.module('arethusa.sg').service('sg', [
       retriever = configurator.getRetriever(self.conf.retriever);
     }
 
-    configure();
-
     function SgTemplate() {
       var self = this;
 

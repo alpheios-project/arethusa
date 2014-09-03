@@ -39,8 +39,6 @@ angular.module('arethusa.depTree').service('depTree', [
       self.diffInfo = {};
     }
 
-    configure();
-
     this.toggleDiff = function () {
       self.diffMode = !self.diffMode;
     };
