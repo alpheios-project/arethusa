@@ -60,6 +60,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
       // The timeout helps to load the translation, otherwise we can't see a
       // notification that the load is in progress.
       $timeout(function() {
+        notifier.init();
         notifier.wait(translations.loadInProgress);
         state.arethusaLoaded = false;
         state.init();
@@ -80,7 +81,6 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
 
       $scope.init = function () {
         plugins.start(conf.plugins).then(function() {
-          notifier.init(); // also clears the Loading message for now.
           state.arethusaLoaded = true;
           notifier.success(translations.loadComplete);
 
