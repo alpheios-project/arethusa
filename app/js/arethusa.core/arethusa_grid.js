@@ -103,6 +103,9 @@ angular.module('arethusa.core').service('arethusaGrid', [
       });
     };
 
+    // Scenario 1: When the application starts
     $rootScope.$on('pluginsLoaded', self.init);
+    // Scenario 2: When a layout is changed on the fly
+    if (plugins.loaded) self.init();
   }
 ]);
