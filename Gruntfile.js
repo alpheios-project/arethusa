@@ -383,7 +383,7 @@ module.exports = function(grunt) {
           'bower install',
           'gem install sass -v 3.3.14',
           'gem install arethusa-cli'
-        ].join('&')
+        ].join('&&')
       }
     },
     concurrent: {
