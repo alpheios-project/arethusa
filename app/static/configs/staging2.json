@@ -57,8 +57,7 @@
     },
 
     "search" : {
-      "template" : "templates/search.html",
-      "@include" : "keyboard/greek_regex.json"
+      "template" : "templates/search.html"
     },
 
     "morph" : {

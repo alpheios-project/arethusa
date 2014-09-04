@@ -14,8 +14,7 @@ angular.module('arethusa.search').service('search', [
 
     function configure() {
       var props = [
-        'queryByRegex',
-        'greekRegex'
+        'queryByRegex'
       ];
 
       configurator.getConfAndDelegate(self);
@@ -25,6 +24,8 @@ angular.module('arethusa.search').service('search', [
     }
 
     configure();
+
+    this.greekRegex = keyCapture.conf('regex').greek;
 
     this.findByRegex = function(str) {
       // We might need to escape some chars here, we need to try

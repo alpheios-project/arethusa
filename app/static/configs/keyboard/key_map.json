@@ -1,4 +1,7 @@
 {
+  "regex" : {
+    "@include" : "keyboard/greek_regex.json"
+  },
   "keys" : {
     "he" : {
       "a" : "ש",
