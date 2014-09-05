@@ -43,8 +43,9 @@ grunt reload-server
 which will also watch any code changes you make and trigger a reload of
 your browser when needed.
 
+A good place to navigate your browser to would be one of the
+[examples](https://github.com/latin-language-toolkit/arethusa/wiki/Examples)
 
-A good place to navigate your browser to at the moment would be [http://localhost:8081/app/#/staging2?doc=1&s=2](http://localhost:8081/app/#/staging2?doc=1&s=2)
 
 
 During development a watch task (`grunt reloader`) can optionally be
