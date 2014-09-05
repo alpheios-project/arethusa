@@ -821,6 +821,7 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
 }
 
 .drag-handle {
+  cursor: move;
   position: relative;
   margin-top: -$gridster-padding;
   z-index: 100;
