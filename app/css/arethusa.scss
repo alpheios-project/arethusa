@@ -787,19 +787,39 @@ input.warn {
   width: 5rem;
 }
 
+$gridster-padding : 10px;
+
 .gridster .gridster-item {
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   color: #004756;
   background: $panel-bg;
-  padding: 10px;
+  padding: $gridster-padding;
   text-align: left;
   overflow: auto;
 }
 
 .gridster .gridster-preview-holder{
   background: rgb(219, 219, 219);
+}
+
+$gridster-resizer-size: 5px;
+
+.gridster-item-resizable-handler {
+  &.handle-n, &.handle-s, &.handle-ne, &.handle-nw, &.handle-sw, &.handle-se {
+    height: $gridster-resizer-size
+  }
+
+  &.handle-w, &.handle-e, &.handle-ne, &.handle-nw, &.handle-sw, &.handle-se {
+    width: $gridster-resizer-size
+  }
+}
+
+.drag-handle {
+  margin-top: -$gridster-padding;
+  z-index: 100;
+  background: black;
 }
 
 .panel {
