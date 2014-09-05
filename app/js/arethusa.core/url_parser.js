@@ -7,7 +7,11 @@ angular.module('arethusa.core').factory('urlParser', [
       var params = search.split('&');
       return arethusaUtil.inject({}, params, function(memo, param) {
         var parts = param.split('=');
-        memo[parts[0]] = parts[1];
+        var key = parts[0];
+        var val = parts[1];
+        var array = memo[key];
+        var newVal  = array ? arethusaUtil.toAry(array).concat([val]) : val;
+        memo[key] = newVal;
       });
     }
 
