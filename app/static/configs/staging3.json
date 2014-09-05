@@ -24,7 +24,8 @@
       "depTree",
       "artificialToken",
       "history"
-    ]
+    ],
+    "chunkParam" : "chunk"
   },
 
   "navbar" : {
