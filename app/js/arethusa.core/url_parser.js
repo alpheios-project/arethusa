@@ -22,6 +22,12 @@ angular.module('arethusa.core').factory('urlParser', [
 
       this.url = url;
       this.params = parseSearch(parser);
+
+      this.set = function(paramsOrKey, val) {
+        if (angular.isString(paramsOrKey) && val) {
+          this.params[paramsOrKey] = val;
+        }
+      };
     }
 
     return function(url) {

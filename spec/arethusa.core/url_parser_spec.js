@@ -11,12 +11,12 @@ describe("urlParser", function() {
 
   });
 
-  describe('takes an url and parses it', function() {
-    var url1 = "http://www.test.com?x=1";
-    var url2 = "http://www.test.com?x=1&y=2";
-    var url3 = "http://www.test.com?x=1&y=2&y=3";
-    var url4 = "http://www.test.com?x=1&y";
+  var url1 = "http://www.test.com?x=1";
+  var url2 = "http://www.test.com?x=1&y=2";
+  var url3 = "http://www.test.com?x=1&y=2&y=3";
+  var url4 = "http://www.test.com?x=1&y";
 
+  describe('takes an url and parses it', function() {
     it('returns an object with the url', function() {
       var res = urlParser(url1);
       expect(res.url).toEqual(url1);
@@ -50,6 +50,15 @@ describe("urlParser", function() {
 
         expect(obj.params).toEqual(res);
       });
+    });
+  });
+
+  describe('this.set()', function() {
+    it('takes two params - key and value - to update the params', function() {
+      var obj = urlParser(url1);
+      expect(obj.params.x).toEqual('1');
+      obj.set('x', '2');
+      expect(obj.params.x).toEqual('2');
     });
   });
 });
