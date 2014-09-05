@@ -32,6 +32,10 @@ angular.module('arethusa.core').service('arethusaGrid', [
         enabled: true,
         handles: ['n', 'e', 's', 'w', 'ne', 'nw', 'se', 'sw'],
         stop: function() { win.triggerHandler('resize'); }
+      },
+      draggable: {
+        enabled: true,
+        handle: 'arethusa-grid-handle'
       }
     });
 
