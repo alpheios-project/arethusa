@@ -60,5 +60,18 @@ describe("urlParser", function() {
       obj.set('x', '2');
       expect(obj.params.x).toEqual('2');
     });
+
+    it('also updates the url', function() {
+      var obj = urlParser(url1);
+      obj.set('x', '2');
+      var newUrl = "http://www.test.com?x=2";
+      expect(obj.url).toEqual(newUrl);
+    });
+
+    it('can also update with array params', function() {
+      var obj = urlParser(url1);
+      obj.set('x', ['1', '2']);
+      var newUrl = "http://www.test.com?x=1&x=2";
+    });
   });
 });

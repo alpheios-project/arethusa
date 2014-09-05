@@ -2,8 +2,8 @@
 
 angular.module('arethusa.core').factory('urlParser', [
   function() {
-    function parseSearch(parser) {
-      var search = parser.search.slice(1);
+    function parseSearch(hrefParser) {
+      var search = hrefParser.search.slice(1);
       var params = search.split('&');
       return arethusaUtil.inject({}, params, function(memo, param) {
         var parts = param.split('=');
@@ -13,6 +13,25 @@ angular.module('arethusa.core').factory('urlParser', [
         var newVal  = array ? arethusaUtil.toAry(array).concat([val]) : val;
         memo[key] = newVal;
       });
+    }
+
+    function toParam(k, v) {
+      return k + '=' + v;
+    }
+
+    function updateUrl(parser, href) {
+      var newUrl = parser.url.replace(href.search, '?');
+      var params = [];
+      angular.forEach(parser.params, function(value, key) {
+        if (angular.isArray(value)) {
+          angular.forEach(value, function(el) {
+            params.push(toParam(key, el));
+          });
+        } else {
+          params.push(toParam(key, value));
+        }
+      });
+      parser.url = newUrl + params.join('&');
     }
 
     function UrlParser(url) {
@@ -27,6 +46,8 @@ angular.module('arethusa.core').factory('urlParser', [
         if (angular.isString(paramsOrKey) && val) {
           this.params[paramsOrKey] = val;
         }
+
+        updateUrl(self, parser);
       };
     }
 
