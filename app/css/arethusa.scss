@@ -788,6 +788,7 @@ input.warn {
 }
 
 $gridster-padding : 10px;
+$gridster-resizer-size: #{$gridster-padding - 5px};
 
 .gridster .gridster-item {
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -804,8 +805,6 @@ $gridster-padding : 10px;
   background: rgb(219, 219, 219);
 }
 
-$gridster-resizer-size: 5px;
-
 .gridster-item-resizable-handler {
   &.handle-n, &.handle-s, &.handle-ne, &.handle-nw, &.handle-sw, &.handle-se {
     height: $gridster-resizer-size
@@ -816,13 +815,20 @@ $gridster-resizer-size: 5px;
   }
 }
 
+.drag-handle-trigger {
+  margin-top: -$gridster-padding;
+  height: #{$gridster-padding + 2px};
+}
+
 .drag-handle {
+  position: relative;
   margin-top: -$gridster-padding;
   z-index: 100;
   background: black;
 }
 
 .panel {
+  position: relative;
   -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
