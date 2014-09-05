@@ -15,6 +15,7 @@ describe("urlParser", function() {
     var url1 = "http://www.test.com?x=1";
     var url2 = "http://www.test.com?x=1&y=2";
     var url3 = "http://www.test.com?x=1&y=2&y=3";
+    var url4 = "http://www.test.com?x=1&y";
 
     it('returns an object with the url', function() {
       var res = urlParser(url1);
@@ -39,6 +40,13 @@ describe("urlParser", function() {
       it('with array like params', function() {
         var obj = urlParser(url3);
         var res = { x: '1', y: ['2', '3'] };
+
+        expect(obj.params).toEqual(res);
+      });
+
+      it('with true params', function() {
+        var obj = urlParser(url4);
+        var res = { x: '1', y: true };
 
         expect(obj.params).toEqual(res);
       });
