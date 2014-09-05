@@ -35,7 +35,7 @@ angular.module('arethusa.core').service('arethusaGrid', [
       },
       draggable: {
         enabled: true,
-        handle: 'arethusa-grid-handle'
+        handle: '.drag-handle'
       }
     });
 
