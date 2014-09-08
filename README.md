@@ -19,6 +19,7 @@ Make sure [node.js](http://nodejs.org) and ruby is installed.
 sudo npm install grunt-cli -g
 sudo npm install bower -g
 
+npm install
 grunt install
 ```
 
