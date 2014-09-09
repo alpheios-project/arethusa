@@ -20,5 +20,8 @@
     "bourbon": "~4.0.2",
     "jsondiffpatch": "~0.1.8",
     "oclazyload": "LFDM/ocLazyLoad#master"
+  },
+  "resolutions" : {
+    "angular" : "1.2.17"
   }
 }
