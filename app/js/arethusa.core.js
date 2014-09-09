@@ -7,4 +7,4 @@ angular.module('arethusa.core', [
   'toaster',
   'oc.lazyLoad',
   'gridster'
-]);
+]).value('BASE_PATH', '..');
