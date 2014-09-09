@@ -82,6 +82,7 @@ function Arethusa() {
   };
 
   this.setBasePath = function(path) {
+    self.basePath = path;
     angular.module('arethusa').value('BASE_PATH', path);
   };
 
