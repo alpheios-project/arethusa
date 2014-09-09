@@ -25,7 +25,8 @@
       "depTree",
       "review",
       "history",
-      "comments"
+      "comments",
+      "perseids.translations"
     ]
   },
 
@@ -45,6 +46,10 @@
   },
 
   "plugins" : {
+    "perseids.translations" : {
+      "location" : "http://localhost:8082/dist/perseids.translations.min.js"
+    },
+
     "text" : {
       "main" : true,
       "template"  : "templates/text2.html"
