@@ -3,13 +3,13 @@
 angular.module('arethusa.core').service('dependencyLoader', [
   '$ocLazyLoad',
   '$q',
-  'basePath',
-  function($ocLazyLoad, $q, basePath) {
+  'BASE_PATH',
+  function($ocLazyLoad, $q, BASE_PATH) {
     function expand(p) {
       if (aU.isUrl(p)) {
         return p;
       } else {
-        return basePath.path + '/' + p;
+        return BASE_PATH + '/' + p;
       }
     }
     function expandPath(path) {

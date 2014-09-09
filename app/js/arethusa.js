@@ -38,6 +38,7 @@ angular.module('arethusa').config([
 ]);
 
 angular.module('arethusa').value('CONF_PATH', '../dist/configs');
+angular.module('arethusa').value('BASE_PATH', '..');
 
 function Arethusa() {
   var self = this;
@@ -73,15 +74,15 @@ function Arethusa() {
 
     this.state = injector.get('state');
 
-    this.setBasePath(self.basePath);
+    //this.setBasePath(self.basePath);
   }
-
-  this.setBasePath = function(path) {
-    self.basePath = path;
-  };
 
   this.setConfPath = function(path) {
     angular.module('arethusa').value('CONF_PATH', path);
+  };
+
+  this.setBasePath = function(path) {
+    angular.module('arethusa').value('BASE_PATH', path);
   };
 
   this.start = function(id, conf, params) {
