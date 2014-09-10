@@ -343,7 +343,7 @@ a different document chunk.
 These three objects build the main event chain:
 - `navigator` broadcasts the move to a new chunk
 - `state` loads the new chunk and broadcasts when ready
-- `ArethusaCtrl` re-`init()`s the plugins.
+- `ArethusaCtrl` re-`init()`s the plugins
 
 When unit testing we have to (and want to) control this event flow
 manually. With this knowledge in the back of our head, we can start to
@@ -352,7 +352,122 @@ write our first (failing) unit test.
 
 ### Writing specs
 
+Let's add translations for two sentences which we can test against. We
+will want to have access to them in many places, so we define them
+inside the scope of the main `describe` function:
 
+```javascript
+"use strict";
+
+describe('translations', function() {
+  var translations;
+
+  var conf = {};
+
+  var s1 = "Gaul as a whole is divided into three parts.";
+  var s2 = "The Belgae inhabit one of these.";
+
+  // ...
+```
+
+Our `beforeEach` function already called `translations.init()` - when
+nothing else is explicitly declared, we can safely assume, that an
+annotation session will start at the first sentence of a document. After
+the first `init()` we should therefore hold a reference to "Gaul as a
+whole...".
+
+To run our spec suite let's open another terminal window, move to our
+new plugin repository and execute
+
+```
+$ grunt spec
+```
+
+You should now see something like
+
+```
+Running "watch:spec" (watch) task
+Waiting...
+```
+
+This is a very handy task: Everytime we make a change to one of our
+source or spec files, it will automatically run our test suite - we
+don't want to execute it manually and can completely focus on our code.
+
+In another terminal window we open up our
+`spec/perseids.translations/translations_spec.js` file again and add the
+following:
+
+
+```javascript
+describe('on startup', function() {
+  it('exposes the translation of the current (i.e. first) sentence', function() {
+    expect(translations.translation).toEqual(s1);
+  });
+});
+```
+
+Once you saved your changes, you will see our `watch` task executing -
+and we will have a first failing spec. `translations.translation` is of
+course `undefined` as we haven't written any code for this yet.
+
+The first thing we need to do is to actually obtain our translation data
+from somewhere. `Arethusa` provides tools for doing this: the so-called
+`Retrievers`.
+
+
+### Our first `Retriever`
+
+One of `Arethusa`'s key principles is to stay as backend-independent as
+possible, while still making use of as many external services as
+possible.
+
+This approach has two immediate benefits:
+- We don't couple our plugin code to the API of a specific backend - we
+  can therefore exchange backends without touching our plugin code.
+- If we need to write a service that doesn't exist yet, it's a good
+  practice to do it in a RESTful way - other people might be able to
+leverage such APIs to solve completely different problems.
+
+It therefore goes that a plugin service should never directly
+communicate with a backend. It should use `Retrievers` to do so. The
+plugin's responsibility is to define an interface which declares what
+kind of data a `Retriever` should provide - one (or in other cases
+several) `Retrievers` will then call external services, work with their
+response and transform it to something the plugin can easily work with.
+
+A plugin knows which `retrievers` to use by configuration. Let's add to
+the empty conf object at the top of our spec file.
+
+```javascript
+var conf = {
+  plugins: {
+    'perseids.translations' : {
+      "retriever" : {
+        "PerseidsTranslationRetriever" : {}
+      }
+    }
+  },
+};
+```
+
+All plugin configuration goes inside a `plugins` object. We specify the
+full name of our plugin and add a single retriever for it. The empty
+object for it would usually contain the configuration of this retriever
+instance - but as we are testing our plugin service here and **not** the
+retriever we are not interested in this right now.
+
+In a realistic scenario the configuration we just defined in this `conf` object is normally a JSON file - our repository already holds one such file in `app/static/configs/staging.json`. If you take a look at this file, you'll see that we just mimicked the structure of the JSON's plugin configuration.
+
+After we saved our changes, the `watch` task reveals that nothing has
+changed. We have written the configuration, but we still have to tell
+the `translations` service that we want to make use of it.
+
+Time to take a look at the service's code in
+`app/js/perseids.translations/translations.js`.
+
+
+### The main business logic of a plugin
 
 
 
