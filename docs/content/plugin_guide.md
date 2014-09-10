@@ -1215,4 +1215,26 @@ this.get = function(chunkId, callback) {
 where we use the `chunkId` param to select the correct sentence. The
 tests should be all green again.
 
+While we are basically done with the minimal functionality of both the
+plugin service and its first retriever, there is one glaring problem
+with the retriever we will immediately fix.
+
+As the retriever pulls in data that contains translations for a complete
+document already, it makes not much sense to make the request to the
+external API several times while we are still looking at the same document. Some sort of caching is therefore probably in order.
+
+Thinking about this also sheds some light on why `Arethusa` uses its
+retriever approach. It is entirely possible that at another point in
+time, we'll want to communicate with a different external API, that
+would not respond with complete translation documents, but with
+individual chunks/sentences, but this is not the concern of the
+`translations` plugin service.
+
+All `translations` wants is to get a translation for the current chunk -
+it does not care what the external API that provides this data looks
+like. If we were to leverage a sentence-based API, we would configure
+the `translations` plugin with a different retriever, that knows how to
+transform the incoming data in a way, that the `translations` service
+can easily understand.
+
 
