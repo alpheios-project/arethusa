@@ -660,4 +660,153 @@ see, why this is not really a good idea)
 If we save we can see that - our test is green!
 
 
+### Reacting to changes of the current chunk
+
+Let's add another spec. We want that when we move to a next sentence,
+that our plugin knows how to update its translation. We've mentioned
+before that moves between document chunks are handled by the
+`navigator`.
+
+```javascript
+describe('when a chunk is changed', function() {
+  it('updates the current translation properly', function() {
+    navigator.nextSentence();
+    expect(translations.translation).toEqual(s2);
+  });
+});
+```
+
+The `navigator` has a `nextSentence()` function - which does just what
+it should: It moves `Arethusa` to the next sentence.
+After we call `navigator.nextSentence()` we expect our plugin to provide
+the translation of our second test sentence.
+
+Our `watch` spec immediately tells us, that `navigator` is `undefined`,
+which is of course correct - we haven't defined it yet.
+
+
+```javascript
+"use strict";
+
+describe('translations', function() {
+  var translations, navigator;
+
+  // ...
+
+  beforeEach(function() {
+
+    // ...
+
+    inject(function(_translations_, _navigator_, configurator) {
+      translations = _translations_;
+      navigator = _navigator_;
+      configurator.defineConfiguration(conf);
+      translations.init();
+    });
+  });
+```
+
+Now that we successfully injected the `navigator` we can again see our
+error message change. The backtrace tells us that it still originates
+from our `navigator.nextSentence()` call. 
+
+Normally - when `Arethusa` is started inside your browser - the
+`ArethusaCtrl` and `state` will start a chain of events, that setup the
+`navigator`. As we're running our tests in isolation, we have to this
+manually again.
+
+
+```javascript
+var sentences = [
+  { id: '1' },
+  { id: '2' }
+];
+
+beforeEach(function() {
+
+  // ...
+
+  inject(function(_translations_, _navigator_, configurator) {
+    translations = _translations_;
+    navigator = _navigator_;
+    configurator.defineConfiguration(conf);
+
+    navigator.init();
+    navigator.addSentences(sentences);
+    navigator.updateId();
+    translations.init();
+  });
+});
+```
+
+`navigator` also has an `init()` function, that gets called once on
+application startup. It has an internal data store, where it holds
+references to a document's sentences. These sentences are objects that
+have an id - they usually have other properties as well (such as
+tokens), but they don't interest here. We add these sentences by passing
+an array of objects in `navigator.addSentences(sentences)` and call
+`navigator.updateId()` to finish the initialization of the `navigator`.
+
+Take care to do all this **after** you have called
+`configurator.defineConfiguration(conf)` - the `navigator`, as almost
+every part of `Arethusa` already communicates with the `configurator` to
+set itself up properly.
+
+The error message in our `watch` task should now uncover, that we have
+still one failing spec: We expected `"Gaul as a whole..."` (our `s1`) to equal
+`"The Belage inhabit..."` (our `s2`).
+
+If we get back to our service code in `translations.js`, we see that we
+have still hardcoded the chunkId to `'1'` - the error was therefore to
+be expected.
+
+
+```javascript
+"use strict";
+
+angular.module('perseids.translations').service('translations', [
+  'state',
+  'configurator',
+  'navigator',
+  function(state, configurator, navigator) {
+    
+    // ...
+
+    this.init = function() {
+      configure();
+      retriever.get(navigator.status.currentId, updateTranslation);
+    };
+  }
+]);
+```
+
+We inject the `navigator` into our service so that we are able to
+communicate with it. Our hardcoded reference `'1'` we replace with
+looking at the current chunkId through `navigator.status.currentId`. The
+`navigator` will update this `status` object everytime
+`navigator.updateId()` is called - something we just manually to fire up
+the `navigator`, but is usually done automatically - e.g. by a call of
+`navigator.nextSentence()`.
+
+Unfortunately this didn't fix our spec immediately. There is still one
+thing left to do - in fact, our business logic is already sound, but the
+`spec` we have written is not.
+
+```javascript
+describe('when a chunk is changed', function() {
+  it('updates the current translation properly', function() {
+    navigator.nextSentence();
+    translations.init();
+    expect(translations.translation).toEqual(s2);
+  });
+});
+```
+
+If we remember what we have said above about when `init()` calls of
+plugins are made, it's clear that inside of our spec suite we have to
+re-`init()` manually. Once we do this - we should see a nice green
+`SUCCESS` message in our `watch` task.
+
+
+
 
