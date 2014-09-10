@@ -1234,7 +1234,7 @@ All `translations` wants is to get a translation for the current chunk -
 it does not care what the external API that provides this data looks
 like. If we were to leverage a sentence-based API, we would configure
 the `translations` plugin with a different retriever, that knows how to
-transform the incoming data in a way, that the `translations` service
+transform the incoming data in a such way, that the `translations` service
 can easily understand.
 
 
