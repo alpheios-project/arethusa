@@ -857,9 +857,9 @@ angular.module('perseids.translations').factory('PerseidsTranslationsRetriever',
 
       this.get = function(callback) {
         resource.get().then(function(res) {
-          data = res.data;
+          var data = res.data;
           callback(data);
-        })
+        });
       };
     };
   }
