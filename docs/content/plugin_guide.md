@@ -164,3 +164,55 @@ build tasks will produce.
 The `spec` folder on the other hand is an important one and will also be
 the first place we will enter to start coding. But before we do that,
 let's take a step back and think about what our plugin should actually do.
+
+
+### What the `translations` plugin should do
+
+
+The goal is to add a simple plugin, which allows us to add
+translations to a sentence during a treebanking session.
+
+To achieve this we assume that we have access to a backend-server that
+stores translations on the document level and exposes them through a RESTful JSON API.
+
+```
+GET /translations/DOC_ID
+
+```
+
+Given a document with an identifier `caes1`, which contains the
+following two sentences
+```
+Gallia est omnis divisa in partes tres.
+Quarum unam incolunt Belgae.
+
+```
+a call to our API `GET /translations/caes1` will give us the JSON
+
+```
+{ 
+  "1" : "Gaul as a whole is divided into three parts.",
+  "2" : "The Belgae inhabit one of these."
+}
+
+```
+
+`Arethusa`'s treebanking interface displays documents one sentence at a
+time. We want to display the correct translation along the sentence's
+tree.
+
+Eventually we will also want to edit a translation and save it
+back to our server through
+
+```
+POST /translations/DOC_ID
+```
+
+Mind that this is a very simplified example. In the real world we would
+most likely deal with additional problems:
+- Translations will not be perfectly aligned on a sentence level
+- Our backend-server will not respond with such easy to parse JSON
+
+We will enhance our plugin in future guides to deal with these issues -
+for now let's keep it simple and focus on the `Arethusa` mechanics
+first.
