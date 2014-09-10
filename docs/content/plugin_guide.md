@@ -83,7 +83,7 @@ go into details here - the last 4 commands are really all we will need.
 To get a first glance at what `grunt` is doing for us, type
 
 ```
-grunt
+$ grunt
 ```
 
 The default `grunt` tasks executes our automated spec suite and runs the
@@ -216,3 +216,8 @@ most likely deal with additional problems:
 We will enhance our plugin in future guides to deal with these issues -
 for now let's keep it simple and focus on the `Arethusa` mechanics
 first.
+
+
+### Coding the plugin - test-driven
+
+#### ---
