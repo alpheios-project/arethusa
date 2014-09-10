@@ -1150,9 +1150,69 @@ this.get = function(chunkId, callback) {
 };
 ```
 
-The automatically generated code couldn't of course foresee, that we
+The automatically generated code couldn't foresee, that we
 wanted to add a second argument (the chunkId) to our `get()` function.
 If we add this, we should see all green tests again.
 
+The `get` function delegates the call to its `resource` and calls its
+`get` function. All functions of `Arethusa` `resource` objects return
+[promises](http://docs.angularjs.org/api/ng/service/$q). These
+`promises` have a `then` function which will execute once the
+asynchronous request is finished. A successful requests calls a callback
+function and passes a response object to it. This response object (what
+is simply called `res` in our retriever) holds headers and other status
+information about the request, but also the actual data. This data we
+use to pass to our own callback function.
+
+This first spec is very unspecific and only guarantees that we are
+getting something back from our API - but this something is not
+necessarily the right thing. Let's add another test.
+
+
+```javascript
+it('returns a selection of the document, specified by a chunkId', function() {
+  var doc;
+
+  backend.when('GET', backendUrl + 'caes1').respond(response);
+
+  retriever.get('1', function(res) {
+    doc = res;
+  });
+
+  backend.flush();
+
+  expect(doc).toEqual(s1);
+});
+```
+
+As we can see, this test is almost completely the same - it's usually
+really not good to have so much duplicate code anywhere. In this case it
+probably makes sense, as the two tests don't really test the same thing.
+- The first one establishes that the communication with the external
+  service is OK
+- The second one tests whether the `retriever` is preparing the data for
+  our plugin service correctly
+
+If we ever run into problems with our retriever, this differentiation
+might help us to determine at exactly which point in the code we are
+having issues.
+
+In the second test we want to know, the when we specify a chunkId of `'1'`, we really get back the translation of the first sentence.
+
+Checking this spec, we see that it fails - we get back all translations
+of the complete document.
+
+If we make this minor change inside the retriever's `get' function`
+
+```javascript
+this.get = function(chunkId, callback) {
+  resource.get().then(function(res) {
+    var data = res.data;
+    callback(data[chunkId]);
+  });
+};
+```
+where we use the `chunkId` param to select the correct sentence. The
+tests should be all green again.
 
 
