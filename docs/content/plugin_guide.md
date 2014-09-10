@@ -220,4 +220,142 @@ first.
 
 ### Coding the plugin - test-driven
 
-#### ---
+Now that we know what we want to we're ready to start.
+
+We will do this **test-driven**.
+
+Writing good tests is not easy - but the value they provide is
+absolutely worth the effort. They not only give us automated tests,
+which allow us to easily check in the future if our code is really still
+running - they will guide our design decision and make sure that we
+don't couple different participants of our business logic to tightly and
+keep all concerns separated. In addition, they will also clearly document the
+behaviour of our code.
+
+If we take a look at `spec/perseids.translations/translations_spec.js`
+we will see that the `init` command has already spared us from writing
+roughly 20 lines of boilerplate code.
+
+```javascript
+"use strict";
+
+describe('translations', function() {
+  var translations;
+
+  var conf = {};
+
+  beforeEach(function() {
+    module("arethusa.core");
+
+    module('perseids.translations');
+
+    inject(function(_translations_, configurator) {
+      translations = _translations_;
+      configurator.defineConfiguration(conf);
+      translations.init();
+    });
+  });
+
+  // Write your specs here!
+  it('succeeds to load the plugin', function() {
+    expect(translations).toBeDefined();
+  });
+});
+
+```
+
+The most important thing here is the call of `beforeEach`. This function
+will setup a clean test and functional environment before every unit
+test we are going to write.
+
+First it defines two modules:
+
+```javascript
+  module("arethusa.core");
+  module('perseids.translations');
+```
+
+`arethusa.core` is `Arethusa`'s main module were all the important
+services and factories are located. Every plugin will use at least some
+of the code inside this module - `translations` is no exception here.
+
+The `perseids.translations` module is, as we have mentioned before, the
+place where all code of the plugin we are currently developing lives and
+is therefore also mandatory to present inside the scope of this spec
+file.
+
+`inject` is a helper function provided by
+[angular-mock](http://docs.angularjs.org/api/ngMock), which is declared
+when using a testing framework like [jasmine](http://jasmine.github.io)
+- which is exactly what we use to write our specs.
+
+`Angular` relies heavily on [Dependency
+Injection](http://docs.angularjs.org/guide/di). As we want to use
+specific parts of the `Angular` and `Arethusa` code in our tests, we
+have to inject these items into the scope of every unit test function.
+
+`init` already injected our `translations` service and the
+`configurator`. (if the weird underscore syntax is confusing you, be
+sure to check out the documentation for [inject](http://docs.angularjs.org/api/ngMock/function/angular.mock.inject))
+
+The `configurator` is one of the most important services offered by
+`Arethusa`. It grants access to the configuration file that drive
+`Arethusa` and provides functions to organize your communication with
+them. You should never have to deal with configuration files directly -
+always do this through the `configurator`.
+
+As we can see, `init` has placed a call to
+`configurator.defineConfiguration(conf)`, where `conf` currently is just
+an empty object.
+
+This is a function you will also **never** have to call directly. When
+`Arethusa` runs in a browser, specific events will trigger such a call
+automatically. Only in our spec suite, we want to control the flow of
+the application by hand and have to deal with `Arethusa`'s low level
+functions.
+
+The same goes for the next call `translations.init()`. Plugins' init
+function are very important and will get called frequently. They setup a
+plugin and update the internal state of a plugin. When `Arethusa` moves
+between chunks of documents, the annotation targets change. Everytime
+this happens, the plugins react and update themselves.
+
+This might sound a little too abstract, a real example will make this more clear: 
+In treebanking the current annotation target will most likely be a
+single sentence. When `Arethusa` loads a sentence, it exposes this
+information to all plugins - they deal with the new information inside
+their `init()` function. Once a user moves to a next sentence, this
+workflow is repeated: `Arethusa` exposes the new annotation target
+again, calls all `init()` functions to give the plugins a chance to
+update.
+
+`Arethusa`'s event chain is responsible to trigger this behaviour. Three
+objects play an important role here: 
+- The `ArethusaCtrl`, which is the top-level controller inside the
+  browser and which will call the `init()` functions at the right time. 
+- `state` which holds all information concerning the current annotation
+  target. It also fires an event when this target changes - an event,
+which the `ArethusaCtrl` reacts to.
+- The `navigator` which is responsible for movement inside a document.
+  It communicates with state to let it know when a user wants to look at
+a different document chunk.
+
+These three objects build the main event chain:
+- `navigator` broadcasts the move to a new chunk
+- `state` loads the new chunk and broadcasts when ready
+- `ArethusaCtrl` re-`init()`s the plugins.
+
+When unit testing we have to (and want to) control this event flow
+manually. With this knowledge in the back of our head, we can start to
+write our first (failing) unit test.
+
+
+### Writing specs
+
+
+
+
+
+
+
+
