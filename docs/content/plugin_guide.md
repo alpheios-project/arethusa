@@ -1,3 +1,13 @@
+WARNING for early readers:
+
+This guide is documenting an approach of using Arethusa and the CLI tool
+in a development stage. The two branches that contain minor changes that
+enable this kind of workflow haven't made it into their respective
+master branches yet, but will do so soon. 
+
+-------------------------
+
+
 TODO intro
 
 We will cover the following topics:
