@@ -1083,3 +1083,76 @@ inject(function($httpBackend, configurator, locator) {
   locator.set('doc', 'caes1');
 });
 ```
+
+Enough of setting up for now - time to update the first spec that was
+set up for us.
+
+```
+var s1 = "Gaul as a whole is divided into three parts.";
+var s2 = "The Belgae inhabit one of these.";
+
+var response = {
+  '1' : s1,
+  '2' : s2
+};
+
+describe('get', function() {
+  it('retrieves data through a document id URL param', function() {
+    var doc;
+
+    backend.when('GET', backendUrl + 'caes1').respond(response);
+
+    retriever.get('1', function(res) {
+      doc = res;
+    });
+
+    backend.flush();
+
+    expect(doc).toBeDefined();
+  });
+});
+```
+
+First we prepare a response, where we define that our external services
+provides us with a JSON object, where the keys are sentence ids and the
+values are sentence strings.
+
+Inside our spec we say that the backend should respond with this mock-up
+response everytime when we call `GET` with the url
+`http://www.test.com/translations/caes1`.
+
+We then call our retriever's `get` function and pass it a chunkId and a
+callback function. This callback function doesn't really do a whole lot,
+all we are interested in is that it gives us back some data, which we
+store in a `doc` variable on which we can test our expectation. The
+first test just asks, if `doc` received any data after we made our `GET`
+request.
+
+Take note of the `backend.flush()` call. All requests to external APIs
+in `Arethusa` (and more generally in `Angular`) are asynchronous. We'll
+never want to wait for such calls unnecessarily - a user should be able
+to go on with his work while the application is dealing with HTTP work.
+
+The `flush()` function is needed to mock-up the resolution of such an
+HTTP call - in real life it would resolve at any point in the future, in
+our test suite we declare a specific moment when this should happen.
+
+If we save our changes, we set that our spec dramatically explodes. A
+TypeError - `'1'` is not a function. We have to update our retriever
+code now.
+
+```javascript
+this.get = function(chunkId, callback) {
+  resource.get().then(function(res) {
+    var data = res.data;
+    callback(data);
+  });
+};
+```
+
+The automatically generated code couldn't of course foresee, that we
+wanted to add a second argument (the chunkId) to our `get()` function.
+If we add this, we should see all green tests again.
+
+
+
