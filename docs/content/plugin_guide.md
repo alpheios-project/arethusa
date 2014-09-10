@@ -2,7 +2,7 @@ TODO intro
 
 We will cover the following topics:
 
-- Using the [arethusa-cli](https://github.com/latin-language-toolkit/arethusa-cli) to rapidly create our development environment
+- Using [arethusa-cli](https://github.com/latin-language-toolkit/arethusa-cli) to rapidly create our development environment
 - Writing a simple plugin that enhances Arethusa's treebanking environment through test-driven development
 
 Make sure you have the following components installed before we begin
