@@ -818,5 +818,268 @@ re-`init()` manually. Once we do this - we should see a nice green
 `SUCCESS` message in our `watch` task.
 
 
+### Coding the Retriever
+
+While we can now say the basic functionality of our `translations`
+service works, we still couldn't really use it as we haven't coded our
+retriever yet.
+
+We can again use `arethusa-cli` to avoid writing too much boilerplate
+code.
+
+```
+$ arethusa generate retriever perseids.translations perseids_translations_retriever
+```
+
+The `generate` command for retrievers takes two arguments:
+- The name of the retriever's module
+- and the name of the retriever itself
+
+Note that we use snakeCase to specify retrievers on the command line!
+The CLI tool will take care of formatting all names properly.
+
+Immediately after we do this, we'll see that our test suite has gone red
+again. The `generate` command not only set up the retriever for us, but
+also its spec file.
+
+Let's take a look at the retriever in
+`app/js/perseids.translations/perseids_translation_retriever.js` first
+
+```javascript
+"use strict";
+
+angular.module('perseids.translations').factory('PerseidsTranslationsRetriever', [
+  'configurator',
+  function(configurator) {
+    return function(conf) {
+      var self = this;
+      var resource = configurator.provideResource(conf.resource);
+
+      this.get = function(callback) {
+        resource.get().then(function(res) {
+          data = res.data;
+          callback(data);
+        })
+      };
+    };
+  }
+]);
+```
+
+Some pieces of this might already look a bit familiar. The retriever is
+a factory, that returns a constructor function, which takes a single
+argument - its configuration.
+
+We see here that the retriever communicates with the `configurator` to
+obtain a `resource`. `Arethusa` provides a wrapper around `Angular`s
+`$resource` service, which is itself a wrapper around the `$http`
+service, which is a wrapper around XMLHttpRequest and JSONP requests.
+Lots of wrapping...
+
+Such a `resource` further abstracts handling of external APIs and
+gives us access to clever URL pattern matching, as well as handling
+Authentication tasks. This goes a little bit beyond the scope of this
+guide, but to wrap this up a little we can say the following:
+
+- A plugin service handles the business logic and communicates with a
+  retriever
+- A retriever transforms external data from an external service and
+  communicates with a resource
+- A resource deals with making actual calls to external services and
+  handles authentication
+
+We can also see that the `configurator`'s `provideResource` function
+expects to get the `resource` property of the retriever configuration
+passed. We'll soon take a look at what kind of data this actually should
+be.
+
+The `get` function we expected to be present for our `translations`
+service is already setup - we'll have to customize it to our needs of
+course, which we will start to do so soon.
+
+The accompanying `spec` file  looks like this:
+
+```javascript
+"use strict";
+
+describe('PerseidsTranslationsRetriever', function() {
+  var retriever, backend;
+
+  var backendUrl = '';
+
+  var conf = {
+    resources: {
+      testResource: {
+        route: backendUrl
+      }
+    }
+  };
+
+  beforeEach(function() {
+    module('arethusa.core');
+    module('perseids.translations');
+
+    inject(function($httpBackend, configurator, locator) {
+      backend = $httpBackend;
+      configurator.defineConfiguration(conf);
+      retriever = configurator.getRetriever({
+        PerseidsTranslationsRetriever : {
+          resource: 'testResource' 
+        }
+      });
+      locator.watchUrl(false);
+      locator.set({});
+    });
+  });
+
+  describe('get', function() {
+    it('...', function() {
+      var response = {};
+
+      backend.when('GET', backendUrl).respond(response);
+
+      // Your GET code goes here!
+
+      backend.flush();
+
+      // Your first expectation goes here!
+    });
+  });
+});
+```
+
+Let's jump right into the `inject` function first. We'll see two new
+things here. The `$httpBackend` and the `locator`.
+
+`Angular`'s `$httpBackend` allows us to mock up calls to external
+servers. This is very useful, as we wouldn't want to make requests to a
+real server during testing. We store a reference to this service in a
+variable that's accessible from everywhere inside this file, called
+`backend`.
+
+The `locator` is an `Arethusa` service that is used to watch the URL of
+a current browser sessions. A `resource` can watch the URL to know which
+address it has to call and it does so by communicating with the
+`locator`.
+
+There are occasions where we can't (during tests) or don't want (when `Arethusa` is used as a [widget]()) to look at a URL - our `inject` function therefore declares `locator.watchUrl(false)`, which allows us to set wannabe URL params by hand. The `generate` command just filled in an empty object here for now - we'll customize this to our needs later.
+
+We also assign the retriever which we want to test here through
+`configurator.getRetriever`, which we pass the retrievers configuration.
+
+The object
+```
+{
+  PerseidsTranslationsRetriever : {
+    resource: 'testResource'
+  }
+}
+```
+is equivalent to what we defined earlier in the configuration of the
+`translations` plugin.
+
+```
+plugins: {
+  'perseids.translations' : {
+    "retriever" : {
+      "PerseidsTranslationRetriever" : {}
+    }
+  }
+```
+Only this time, we really add a configuration for the retriever. All
+retrievers need to define their resource - which can simply be the name
+of a `resource` instance.
+
+The configurator will know where read in the configuration for this
+`resource` then. We called `configurator.defineConfiguration` with the
+following configuration.
+
+```
+var conf = {
+  resources: {
+    testResource: {
+      route: backendUrl
+    }
+  }
+};
+```
+
+Just as plugins, `resource`s have their own section inside a
+configuration file. This is to leverage their reuse - different
+retrievers might still want to use a same `resource`.
+
+We see that our so called `testResource` right now has configured a
+route, which is obtained from the `backendUrl` variable.
+
+Back then, when we specified how our assumed external API looks like, we
+said that a `GET` route would look like this:
+
+```
+GET /translations/DOC_ID
+```
+
+Let's make our `resource` conform to this:
+
+```
+var backendUrl = 'http://www.test.com/translations/';
+
+var conf = {
+  resources: {
+    testResource: {
+      route: backendUrl + ':doc'
+    }
+  }
+};
+```
+Our mock-up backend URL is `http://www.test.com/translations`. The full route
+of our testResource is `www.test.com/translations/:doc`. The interesting
+part here is `:doc`. This allows us for example to pass an object with
+
+```
+{ doc: 'caes1' }
+```
+to the `resource`, which would then make a call to the expanded route
+`http://www.test.com/translations/caes1`.
+
+In our case we will not pass the `doc` param directly - we want it to be
+read from URL. If we remember our initial specifications once more, we
+said that we will be confronted with a treebank document that has a
+document id of `caes1` and we expect our `retriever` to get data from an
+external service that stores translations with the `caes1` identifier as
+well.
+
+The URL for this particular `Arethusa` session will therefore already
+contain a param like `doc=caes1`, which we can read inside of our
+resource as well.
+
+We do this by adding a `params` array to the `resource`'s configuration.
+All params specified there will be read from the URL.
+
+```
+var conf = {
+  resources: {
+    testResource: {
+      route: backendUrl + ':doc',
+      params: [
+        'doc'
+      ]
+    }
+  }
+};
+```
+
+When we discussed the `inject` function we said that we still have to
+customize `Arethusa`'s `locator` service, which is the wrapper around
+URL handling. As we don't really have an URL accessible in our spec
+suite, we mock up this parameter by hand.
 
 
+```
+inject(function($httpBackend, configurator, locator) {
+
+  // ...
+
+  locator.watchUrl(false);
+  locator.set('doc', 'caes1');
+});
+```
