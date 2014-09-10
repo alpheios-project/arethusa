@@ -469,8 +469,195 @@ Time to take a look at the service's code in
 
 ### The main business logic of a plugin
 
+```javascript
+"use strict";
+
+angular.module('perseids.translations').service('translations', [
+  'state',
+  'configurator',
+  function(state, configurator) {
+    var self = this;
+    this.name = 'perseids.translations';
+
+    this.defaultConf = {
+      template: 'templates/perseids.translations/translations.html'
+    };
+
+    function configure() {
+      configurator.getConfAndDelegate(self);
+    }
+
+    this.init = function() {
+      configure();
+    };
+  }
+]);
+```
+
+The CLI tool has already provided us with a skeleton for our plugin
+service.
+We see that it injected two of `Arethusa`'s main services already:
+`state` and `configurator`. Usually plugins will want to communicate
+with the `state` to know what a user is doing - we'll keep this for
+later, even if we don't need it during our next steps.
+
+The `configurator` on the other hand is of immediate use, as it grants us
+access to the plugins configuration - and will also help us to set up
+our retriever.
+
+We already hold a reference to `this` in a `self` variable, so that we
+never run into scoping issues of `this` when we don't want to.
+
+The plugin's name is important: It reads `perseids.translations`. This
+is the internal name `Arethusa` will use to reference this plugin. If
+you think back on the `conf` object we just defined in our `spec` file,
+this was also the name we used to store the plugin's configuration.
+
+It's usually a good practice to define a `defaultConf` object inside a
+plugin, so that others don't have to define each and every trivial
+configuration detail of a plugin. In this case the `init` command
+already inserted the path to the default HTML template. A configuration
+file can of course override this - but if it doesn't specify a template,
+the `defaultConf` will step and provide a fallback.
+
+Here we also find the `init()` function we have already talked about
+quite a bit in one of the sections above - as a reminder: This function
+will always get called, when `Arethusa`'s `state` changed - and so give
+the plugin a chance to update itself.
+
+The CLI tool has already placed a call to the private `configure`
+function there - a function, that calls
+`configurator.getConfAndDelegate(self)`.
+
+As we have properly defined the `name` of our plugin, the configurator
+will know how to setup our plugin correctly. It will also delegate
+important configuration properties directly to the service, so that we
+can easily access them inside our application code.
+
+It might seem redundant to re-configure the plugin on every `init()`
+call - but it is not. Documents are allowed to override details
+of `Arethusa`s  configuration. It is therefore possible that a move to a
+next document chunk (which will trigger a call of `init()`) re-defines a
+plugins configuration. This is not a very frequent case, but as it
+possible, we need to be careful and check if our configuration is always
+up-to-date.
+
+Let's fetch our retriever:
+
+```javascript
+function(state, configurator) {
+  var self = this;
+  this.name = 'perseids.translations';
+
+  var retriever;
+
+  // ...
+
+  function configure() {
+    configurator.getConfAndDelegate(self);
+    retriever = configurator.getRetriever(self.conf.retriever);
+  }
+
+  // ...
+```
+
+We just declared a private `retriever` variable, placed inside the
+plugin's scope, because we definetely want to have access to it from
+other functions.
+
+Inside the `configure()` function we assign a new retriever instance to
+this variable. We use the `configurator`'s `getRetriever` function to do
+this, as the `configurator` knows how to setup a retriever properly.
+
+We need to pass the retriever's configuration to this function.
+`self.conf` holds complete configuration of our plugin and was made
+available to us by the `configurator`'s `getConfAndDelegate` function.;w
+
+If we save our changes to `translations.js` we will see movement in our
+`watch` task: It stills fails - but more dramatically as before.
+
+As we have configured our plugin to us a retriever instance of
+`PerseidsTranslationsRetriever`, our `configurator` now wants to
+initialize such an object - which is impossible because it's nowhere
+defined.
+
+We've mentioned before that our current spec isn't interested in the
+internals of a retriever at all, we can therefore safely mock it up
+inside our `translations_spec.js` file.
+
+```javascript
+beforeEach(function() {
+  module("arethusa.core");
+
+  module('perseids.translations', function($provide) {
+    $provide.value("PerseidsTranslationRetriever", function() {});
+  });
+
+  // ...
+```
+`Angular` provides fantastic tools to mock-up complete instances or
+decorate them efficiently. In this case we use the `$provide` service to
+declare a `PerseidsTranslationRetriever` inside our
+`perseids.translations` module. `Arethusa`'s retrievers are factories
+that return constructor functions - the `configurator` deals with
+`new`'ing them correctly.
+
+Right now we just say that `PerseidsTranslationRetriever` is an empty
+function to get rid of the long error message we have just seen in our
+`watch` task.
+
+When we save, we can examine that we are back to our first error message - `translations.translation` is still `undefined`, but we're already an important step closer.
+
+Let's define how we want our retrievers to behave:
+
+```javascript
+module('perseids.translations', function($provide) {
+  $provide.value("PerseidsTranslationRetriever", function() {
+    this.get = function(chunkId, callback) {
+      callback(chunkId === "1" ? s1 : s2);
+    };
+  });
+});
+```
+
+We want the retriever respond to a `get` functions, which takes two
+arguments:
+- The id of the current chunk (in our scenario, a sentence)
+- and a callback function, which we pass the translation of the current
+  sentence.
+
+When the `chunkId` is `"1"`, we pass the first sentence, otherwise the
+second - this should suffice to produce a valid test.
+
+Remember that we have defined the variables `s1` and `s2` before:
+
+```javascript
+var s1 = "Gaul as a whole is divided into three parts.";
+var s2 = "The Belgae inhabit one of these.";
+```
+
+We can make use of this `get` function inside of our service now.
 
 
+```javascript
+function updateTranslation(translation) {
+  self.translation = translation;
+}
+
+this.init = function() {
+  configure();
+  retriever.get('1', updateTranslation);
+};
+```
+Inside of `init()` we call the retriever right after we have configured
+our plugin. We pass the `retriever`'s get function a `chunkId` (so far
+just `'1'`) and a callback function. Inside the callback function
+`updateTranslation`, which takes a single argument - the current
+translation itself - we assign `self.translation`. (it's important to
+use `self` and not `this` - if you try to use `this` you will quickly
+see, why this is not really a good idea)
+
+If we save we can see that - our test is green!
 
 
 
