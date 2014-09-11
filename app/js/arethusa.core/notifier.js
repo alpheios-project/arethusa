@@ -41,7 +41,7 @@ angular.module('arethusa.core').service('notifier', [
       toaster.pop(type, title, message);
     };
 
-    this.togglePanel = function() {
+    this.toggle = function() {
       self.panelActive = !self.panelActive;
     };
 

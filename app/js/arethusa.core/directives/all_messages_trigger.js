@@ -8,7 +8,7 @@ angular.module('arethusa.core').directive('allMessagesTrigger', [
       restrict: 'A',
       link: function(scope, element, attrs) {
         function toggle() {
-          scope.$apply(notifier.togglePanel());
+          scope.$apply(notifier.toggle());
         }
 
         var parent = element.parent();
