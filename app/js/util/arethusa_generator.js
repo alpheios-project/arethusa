@@ -16,7 +16,10 @@ function ArethusaGenerator() {
 
         return function link(scope, element, attrs) {
           function toggle() {
-            scope.$apply(service.toggle());
+            scope.$apply(function() {
+              element.toggleClass('on');
+              service.toggle();
+            });
           }
 
           trsl(trslKey, updateTitle);
