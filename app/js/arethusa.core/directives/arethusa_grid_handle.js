@@ -2,7 +2,8 @@
 
 angular.module('arethusa.core').directive('arethusaGridHandle', [
   '$timeout',
-  function($timeout) {
+  'plugins',
+  function($timeout, plugins) {
     return {
       restrict: 'E',
       scope: true,
@@ -26,6 +27,14 @@ angular.module('arethusa.core').directive('arethusaGridHandle', [
         trigger.bind('mouseenter', mouseEnter);
         trigger.bind('mouseleave', mouseLeave);
         handle.bind('mouseleave', dragLeave);
+
+        scope.plugin = function() {
+          return plugins.get(scope.item.plugin);
+        };
+
+        scope.$watch('visible', function(newVal, oldVal) {
+          if (!newVal) scope.settingsOn = false;
+        });
       },
       templateUrl: 'templates/arethusa.core/arethusa_grid_handle.html'
     };
