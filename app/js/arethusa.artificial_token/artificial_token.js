@@ -147,6 +147,11 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       removeArtificialToken(token.id);
     });
 
+    this.settings = [
+      { directive: 'artificial-token-toggle' },
+      { directive: 'artificial-token-default-ip' }
+    ];
+
 
     this.init = function() {
       configure();
