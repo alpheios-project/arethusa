@@ -823,9 +823,10 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
 .drag-handle {
   cursor: move;
   position: relative;
-  margin-top: -$gridster-padding;
+  margin: -$gridster-padding, -$gridster-padding, 0, -$gridster-padding;
+  padding: #{($gridster-padding * 2) / 3}, $gridster-padding;
   z-index: 100;
-  background: black;
+  background: #DADADA;
 }
 
 .panel {
