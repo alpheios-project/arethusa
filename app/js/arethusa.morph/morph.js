@@ -646,8 +646,8 @@ angular.module('arethusa.morph').service('morph', [
     angular.extend(self.activeKeys, keys.selections);
 
     this.settings = [
-      { label: 'Expand Selected', model: 'expandSelection' },
-      { label: 'Preselect', model: 'preselect', change: 'preselectToggled' },
+      aC.setting('Expand Selected', 'expandSelection'),
+      aC.setting('Preselect', 'preselect', 'preselectToggled')
     ];
 
     this.init = function () {
