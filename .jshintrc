@@ -10,6 +10,8 @@
     "lunr" : true,
     "arethusaUtil" : true,
     "aU": true,
+    "arethusaClasses": true,
+    "aC": true,
     "arethusaMocks" : true,
     "arethusaLogger" : true,
     "UserVoice" : true,
