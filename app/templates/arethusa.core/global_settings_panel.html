@@ -9,7 +9,7 @@
         <div ng-switch="setting.type">
           <div
             ng-switch-when="custom"
-            global-settings-custom="{{ setting.directive }}"/>
+            dynamic-directive="{{ setting.directive }}"/>
           <div ng-switch-default>
             <input
               type="{{ setting.type }}"
