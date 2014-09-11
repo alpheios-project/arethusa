@@ -1,13 +1,16 @@
 "use strict";
 
-angular.module('arethusa.comments').directive('comments', [
+// This directive is temporarily renamed to commentsX because of
+// https://github.com/latin-language-toolkit/arethusa/issues/384
+
+angular.module('arethusa.comments').directive('commentsX', [
   'comments',
   'state',
   function(comments, state) {
     return {
       restrict: 'A',
       scope: {
-        comments: "=",
+        comments: "=commentsX",
       },
       compile: function(tElement, tAttrs, transclude) {
         return {
