@@ -8,10 +8,8 @@ function ArethusaGenerator() {
     return {
       restrict: 'A',
       compile: function(element) {
-        var parent = element.parent();
-
         function updateTitle(translation) {
-          parent.attr('title', translation);
+          element.attr('title', translation);
         }
 
         return function link(scope, element, attrs) {
