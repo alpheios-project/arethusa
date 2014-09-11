@@ -28,9 +28,9 @@ angular.module('arethusa.core').directive('arethusaGridHandle', [
         trigger.bind('mouseleave', mouseLeave);
         handle.bind('mouseleave', dragLeave);
 
-        scope.plugin = function() {
-          return plugins.get(scope.item.plugin);
-        };
+        scope.$on('pluginsLoaded', function() {
+          scope.plugin = plugins.get(scope.item.plugin);
+        });
 
         scope.$watch('visible', function(newVal, oldVal) {
           if (!newVal) scope.settingsOn = false;
