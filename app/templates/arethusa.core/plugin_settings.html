@@ -3,14 +3,7 @@
   <span ng-show="settingsOn">
     <span ng-repeat="setting in plugin.settings">
       <span ng-if="setting.directive" dynamic-directive="{{ setting.directive }}"/>
-      <label ng-if="!setting.directive" class="margined-hor-tiny right">
-        {{ setting.label }}
-        <input
-          type="checkbox"
-          style="margin: 0"
-          ng-change="plugin[setting.change]()"
-          ng-model="plugin[setting.model]"/>
-      </label>
+      <span ng-if="!setting.directive" plugin-setting/>
     </span>
   </span>
 </div>
