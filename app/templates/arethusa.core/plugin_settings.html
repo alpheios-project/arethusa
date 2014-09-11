@@ -1,0 +1,13 @@
+<div class="small-12 columns">
+  <span settings-trigger="right"/>
+  <span ng-show="settingsOn">
+    <label ng-repeat="setting in plugin.settings" class="margined-hor-tiny right">
+      {{ setting.label }}
+      <input
+        type="checkbox"
+        style="margin: 0"
+        ng-change="plugin[setting.change]()"
+        ng-model="plugin[setting.model]"/>
+    </label>
+  </span>
+</div>
