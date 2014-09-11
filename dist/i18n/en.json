@@ -77,7 +77,7 @@
 
   "globalSettings" : {
     "title" : "Global Settings",
-    "alwaysDeselect" : "Deselect after every action",
+    "alwaysDeselect" : "Deselect after every annotation action",
     "keyboardMappings" : "Disable keyboard mapping for input fields",
     "colorizer" : "Colorize tokens by"
   },
