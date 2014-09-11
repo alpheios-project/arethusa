@@ -29,12 +29,12 @@ angular.module('arethusa.core').service('arethusaGrid', [
       defaultSizeX: 6,
       defaultSizeY: 4,
       resizable: {
-        enabled: true,
+        enabled: self.resizing,
         handles: ['n', 'e', 's', 'w', 'ne', 'nw', 'se', 'sw'],
         stop: function() { win.triggerHandler('resize'); }
       },
       draggable: {
-        enabled: true,
+        enabled: self.dragging,
         handle: '.drag-handle'
       }
     });
