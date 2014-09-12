@@ -63,7 +63,7 @@
     "morph" : {
       "retrievers" : {
         "BspMorphRetriever" : {
-          "resource" : "morphologyServiceLat"
+          "resource" : "morphologyServiceGrc"
         }
       },
       "template"  : "templates/morph3.html",
@@ -76,7 +76,7 @@
           }
         }
       },
-      "@include" : "morph/lat_attributes.json"
+      "@include" : "morph/gr_attributes2.json"
     },
 
     "relation" : {
