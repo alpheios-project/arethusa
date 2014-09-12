@@ -396,4 +396,12 @@ describe("arethusaUtil", function() {
       expect(aU.isUrl(noUrl)).toBeFalsy();
     });
   });
+
+  describe('capitalize', function() {
+    it('capitalizes a string', function() {
+      var str = 'test';
+      var res = 'Test';
+      expect(aU.capitalize(str)).toEqual(res);
+    });
+  });
 });

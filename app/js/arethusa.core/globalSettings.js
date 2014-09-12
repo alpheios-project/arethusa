@@ -4,7 +4,10 @@ angular.module('arethusa.core').service('globalSettings', [
   'configurator',
   'plugins',
   '$injector',
-  function(configurator,  plugins, $injector) {
+  '$rootScope',
+  'notifier',
+  '$timeout',
+  function(configurator,  plugins, $injector, $rootScope, notifier, $timeout) {
     var self = this;
 
     self.settings = {};
@@ -28,25 +31,27 @@ angular.module('arethusa.core').service('globalSettings', [
       defineSettings();
     }
 
-    function Conf(property, type, options) {
+    function Conf(property, type, directive, label) {
       this.property = property;
-      this.label = "globalSettings." + property;
+      this.label = label || "globalSettings." + property;
       this.type = type || 'checkbox';
-
-      if (this.type === 'select') {
-        this.options = options;
-      }
+      this.directive = directive;
     }
 
     function defineSettings() {
-      defineSetting('alwaysDeselect');
-      defineSetting('keyboardMappings');
-      defineSetting('colorizer', 'select', self.colorizers);
+      self.defineSetting('alwaysDeselect');
+      self.defineSetting('keyboardMappings');
+      self.defineSetting('colorizer', 'custom', 'colorizer-setting');
+      self.defineSetting('layout', 'custom', 'layout-setting');
     }
 
-    function defineSetting(property, type, options) {
-      self.settings[property] = new Conf(property, type, options);
-    }
+    this.defineSetting = function(property, type, directive, label) {
+      self.settings[property] = new Conf(property, type, directive, label);
+    };
+
+    this.removeSetting = function(setting) {
+      delete self.settings[setting];
+    };
 
     this.toggle = function() {
       self.active = !self.active;
@@ -83,8 +88,36 @@ angular.module('arethusa.core').service('globalSettings', [
       });
     };
 
+    function setLayout() {
+      self.layout = configurator.configurationFor('main').template;
+    }
+
+    // When Arethusa is used as widget, it's imperative to wait
+    // for this event.
+    $rootScope.$on('confLoaded', setLayout);
+
+    this.broadcastLayoutChange = function() {
+      var layoutName = self.layouts[self.layout];
+      if (layoutName === 'Grid') {
+        $timeout(function() {
+          notifier.warning('The grid layout is an experimental feature and WILL contain bugs!', 'WARNING');
+        }, 1200);
+      }
+      $rootScope.$broadcast('layoutChange', layoutName);
+    };
+
+    this.layouts = {
+      'templates/main_with_sidepanel.html': 'Sidepanel',
+      'templates/main_grid.html': 'Grid'
+    };
+
+    this.addLayout = function(name, url) {
+      self.layout[name] = url;
+    };
+
     this.init = function() {
       configure();
     };
+
   }
 ]);

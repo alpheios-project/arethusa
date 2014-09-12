@@ -1,0 +1,6 @@
+<div
+  id="{{ plugin.name }}"
+  class="fade very-slow">
+  <div ng-if="withSettings && plugin.settings" plugin-settings/>
+  <div ng-include="plugin.template"/>
+</div>

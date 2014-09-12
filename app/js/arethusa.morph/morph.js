@@ -645,6 +645,10 @@ angular.module('arethusa.morph').service('morph', [
 
     angular.extend(self.activeKeys, keys.selections);
 
+    this.settings = [
+      aC.setting('Expand Selected', 'expandSelection'),
+      aC.setting('Preselect', 'preselect', 'preselectToggled')
+    ];
 
     this.init = function () {
       abortOutstandingRequests();

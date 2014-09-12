@@ -1,0 +1,17 @@
+<div class="drag-handle-trigger">
+  <div class="drag-handle fade" ng-show="visible">
+    <div class="drag-handle">
+      <span>{{ item.plugin }}</span>
+      <span ng-show="plugin.settings" settings-trigger="right"/>
+      <div ng-if="settingsOn"
+        style="padding: .3rem 1rem; text-align: right"
+        class="fade">
+        <div
+          ng-repeat="setting in plugin.settings">
+          <div ng-if="setting.directive" dynamic-directive="{{ setting.directive }}"/>
+          <div ng-if="!setting.directive" plugin-setting/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

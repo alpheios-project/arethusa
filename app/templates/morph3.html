@@ -1,24 +1,3 @@
-<div class="small-12 columns">
-  <span settings-trigger="right"/>
-  <span ng-show="settingsOn">
-    <label class="margined-hor-tiny right">
-      Expand Selected
-      <input
-        type="checkbox"
-        style="margin: 0"
-        ng-model="expandSelection"/>
-    </label>
-    <label class="margined-hor-tiny right">
-      Preselect
-      <input
-        type="checkbox"
-        style="margin: 0"
-        ng-change="plugin.preselectToggled()"
-        ng-model="plugin.preselect"/>
-    </label>
-  </span>
-</div>
-
 <div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
   <div class="small-12 columns" lang-specific>
     <p token-with-id value="analysis.string" token-id="id"/>
@@ -34,7 +13,7 @@
     <accordion close-others="oneAtATime">
       <accordion-group
         ng-repeat="form in analysis.forms"
-        is-open="expandSelection && form.selected">
+        is-open="plugin.expandSelection && form.selected">
         <accordion-heading>
           <div class="row" accordion-highlighter>
             <div class="columns large-3 small-5 left text">

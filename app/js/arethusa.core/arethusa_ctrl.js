@@ -10,8 +10,9 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
   'plugins',
   'translator',
   '$timeout',
+  'globalSettings',
   function ($scope, configurator, state, documentStore, notifier,
-            saver, history, plugins, translator, $timeout) {
+            saver, history, plugins, translator, $timeout, globalSettings) {
     // This is the entry point to the application.
 
     var translations = {};
@@ -32,7 +33,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
 
       $scope.state = state;
       $scope.plugins = plugins;
-      $scope.template = conf.template;
+      $scope.gS = globalSettings;
 
       // The application has to fulfil a specific load order.
       // The ArethusaCtrl starts his work only when the configurator has received
@@ -59,6 +60,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
       // The timeout helps to load the translation, otherwise we can't see a
       // notification that the load is in progress.
       $timeout(function() {
+        notifier.init();
         notifier.wait(translations.loadInProgress);
         state.arethusaLoaded = false;
         state.init();
@@ -79,7 +81,6 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
 
       $scope.init = function () {
         plugins.start(conf.plugins).then(function() {
-          notifier.init(); // also clears the Loading message for now.
           state.arethusaLoaded = true;
           notifier.success(translations.loadComplete);
 

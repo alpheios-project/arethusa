@@ -1,0 +1,9 @@
+<div class="small-12 columns">
+  <span settings-trigger="right"/>
+  <span ng-show="settingsOn">
+    <span ng-repeat="setting in plugin.settings" class="right">
+      <span ng-if="setting.directive" dynamic-directive="{{ setting.directive }}"/>
+      <span ng-if="!setting.directive" plugin-setting/>
+    </span>
+  </span>
+</div>

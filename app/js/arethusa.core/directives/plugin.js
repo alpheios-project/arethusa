@@ -13,6 +13,7 @@ angular.module('arethusa.core').directive('plugin', [
 
         scope.name = nameMap[attrs.name] || attrs.name;
         scope.plugin = plugins.get(scope.name);
+        scope.withSettings = attrs.withSettings;
 
         scope.$on('pluginAdded', function(event, name, plugin) {
           if (name === scope.name) {
@@ -20,7 +21,7 @@ angular.module('arethusa.core').directive('plugin', [
           }
         });
       },
-      template: '<div id="{{ plugin.name }}" ng-include="plugin.template"></div>'
+      templateUrl: 'templates/arethusa.core/plugin.html'
     };
   }
 ]);

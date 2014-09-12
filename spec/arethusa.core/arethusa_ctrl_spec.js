@@ -11,6 +11,8 @@ describe('ArethusaCtrl', function() {
       allLoaded: false
     };
 
+    var globalSettings = arethusaMocks.globalSettings();
+
     var mainCtrlInits = {
       $scope: scope,
       configurator: arethusaMocks.configurator({
@@ -23,6 +25,7 @@ describe('ArethusaCtrl', function() {
       saver: arethusaMocks.saver(),
       history: arethusaMocks.history(),
       plugins: arethusaMocks.plugins(),
+      globalSettings: globalSettings,
       translator: function() {}
     };
 
@@ -34,6 +37,6 @@ describe('ArethusaCtrl', function() {
     $rootScope.$broadcast('confLoaded');
 
     expect(scope.state).toBe(state);
-    expect(scope.template).toBe("template");
+    expect(scope.gS).toEqual(globalSettings);
   }));
 });

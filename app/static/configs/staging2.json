@@ -2,7 +2,7 @@
   "main" : {
     "debug" : true,
     "showKeys" : true,
-    "template"  : "templates/main_with_sidepanel.html",
+    "template"  : "templates/main_grid.html",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "fakePerseids",
@@ -24,7 +24,8 @@
       "relation",
       "depTree",
       "review",
-      "history"
+      "history",
+      "comments"
     ]
   },
 

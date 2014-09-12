@@ -158,6 +158,7 @@ angular.module('arethusa.core').service('plugins', [
     }
 
     this.start = function(pluginNames) {
+      self.loaded = false;
       self.loader = {};
       self.all = {};
       var result = $q.defer();
@@ -169,6 +170,8 @@ angular.module('arethusa.core').service('plugins', [
         self.init();
         notifyListeners();
         self.loader = {};
+        self.loaded = true;
+        $rootScope.$broadcast('pluginsLoaded');
         result.resolve();
       });
 

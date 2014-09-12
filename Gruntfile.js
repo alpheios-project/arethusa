@@ -227,6 +227,8 @@ module.exports = function(grunt) {
             './bower_components/d3/d3.min.js',
             './bower_components/lunr.js/lunr.min.js',
             './bower_components/oclazyload/dist/ocLazyLoad.min.js',
+            './bower_components/angular-gridster/dist/angular-gridster.min.js',
+            './bower_components/javascript-detect-element-resize/jquery.resize.js',
             './vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.js',
             './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
             './vendor/dagre-d3/dagre-d3.min.js',
@@ -353,7 +355,11 @@ module.exports = function(grunt) {
     },
     cssmin: {
       css: {
-        src: ['app/css/arethusa.css', 'app/css/fonts/**/*.css'],
+        src: [
+          'bower_components/angular-gridster/dist/angular-gridster.min.css',
+          'app/css/arethusa.css',
+          'app/css/fonts/**/*.css'
+        ],
         dest: 'dist/arethusa.min.css'
       }
     },
@@ -417,6 +423,7 @@ module.exports = function(grunt) {
           "./bower_components/x2js/xml2json.min.js",
           "./bower_components/angulartics/dist/angulartics.min.js",
           "./bower_components/angulartics/dist/angulartics-ga.min.js",
+          "./bower_components/angular-gridster/dist/angular-gridster.min.js",
           "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
           //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
           "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",

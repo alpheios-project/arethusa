@@ -4,7 +4,7 @@
     style="width: 8rem"
     class="compact"
     ng-model="gS[setting.property]"
-    ng-change="gS.applyColorizer()"
-    ng-options="k as k for (k, v) in gS.colorizers">
+    ng-change="gS.broadcastLayoutChange(name)"
+    ng-options="url as name for (url, name) in gS.layouts">
   </select>
 </label>

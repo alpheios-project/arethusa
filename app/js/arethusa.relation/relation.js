@@ -278,6 +278,10 @@ angular.module('arethusa.relation').service('relation', [
       });
     };
 
+    this.settings = [
+      aC.setting('Advanced Mode', 'advancedMode')
+    ];
+
     this.init = function () {
       configure();
       self.relations = self.createInternalState();

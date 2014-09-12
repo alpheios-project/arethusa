@@ -49,7 +49,11 @@ html, body {
 }
 
 .tree-canvas {
-  border: 1px solid rgb(216, 216, 216)
+  border: 1px solid rgb(216, 216, 216);
+}
+
+.no-border {
+  border: 0 !important;
 }
 
 .tree-settings {
@@ -151,6 +155,11 @@ html, body {
 
 tr.sentence-list td {
   cursor: pointer;
+}
+
+ul.in-columns {
+  @include columns(3);
+  @include column-gap(20px);
 }
 
 ul.sentence-list {
@@ -778,6 +787,54 @@ input.warn {
   width: 5rem;
 }
 
+$gridster-padding : 10px;
+$gridster-resizer-size: #{$gridster-padding - 5px};
+
+.gridster .gridster-item {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  color: #004756;
+  background: $panel-bg;
+  padding: $gridster-padding;
+  text-align: left;
+  overflow: auto;
+}
+
+.gridster .gridster-preview-holder{
+  background: rgb(219, 219, 219);
+}
+
+.gridster-item-resizable-handler {
+  &.handle-n, &.handle-s, &.handle-ne, &.handle-nw, &.handle-sw, &.handle-se {
+    height: $gridster-resizer-size
+  }
+
+  &.handle-w, &.handle-e, &.handle-ne, &.handle-nw, &.handle-sw, &.handle-se {
+    width: $gridster-resizer-size
+  }
+}
+
+.drag-handle-trigger {
+  margin-top: -$gridster-padding;
+  height: #{$gridster-padding + 2px};
+}
+
+.drag-handle {
+  cursor: move;
+  position: relative;
+  margin: -$gridster-padding;
+  padding: #{($gridster-padding * 2) / 3}, $gridster-padding;
+  z-index: 100;
+  background: #DADADA;
+}
+
+.panel {
+  position: relative;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
 
 /***************************************************************************
  *                               Animations                                *
@@ -792,5 +849,13 @@ input.warn {
 
   &.fast {
     @include transition-duration(250ms);
+  }
+
+  &.slow {
+    @include transition-duration(750ms);
+  }
+
+  &.very-slow {
+    @include transition-duration(1250ms);
   }
 }

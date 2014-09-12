@@ -8,13 +8,24 @@ angular.module('arethusa.core').directive('toBottom', [
       restrict: 'A',
       link: function(scope, element, attrs) {
         var canvas, win;
+
+        function gridItem() {
+          return element.parents('.gridster-item');
+        }
+
         if (aU.isArethusaMainApplication()) {
-          canvas = angular.element(document.getElementById('canvas'));
-          win  = angular.element($window);
+          var grid = gridItem();
+          if (grid[0]) {
+            canvas = win = grid;
+          } else {
+            canvas = angular.element(document.getElementById('canvas'));
+            win  = angular.element($window);
+          }
         } else {
           canvas = win = element.parents('[ng-controller="ArethusaCtrl"]');
         }
-        win.on('resize', setHeight);
+
+        angular.element($window).on('resize', setHeight);
         scope.$on('stateLoaded', setHeight);
 
         function setHeight() {
