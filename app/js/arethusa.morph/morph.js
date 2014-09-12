@@ -190,8 +190,20 @@ angular.module('arethusa.morph').service('morph', [
       // We could always have no analysis sitting in the data we are
       // looking at - no data also means that the postag is an empty
       // string or an empty postag.
-      if (analysis && postagNotEmpty(analysis.postag)) {
-        self.postagToAttributes(analysis);
+      //
+      // The other case we might encounter here is an object that has
+      // only attributes defined, but no postag
+      if (analysis) {
+        var attrs = analysis.attributes;
+
+        if (postagNotEmpty(analysis.postag)) {
+          self.postagToAttributes(analysis);
+        } else if (attrs) {
+          analysis.postag = self.attributesToPostag(attrs);
+        } else {
+          return;
+        }
+
         analysis.origin = 'document';
         analysis.selected = true;
         setGloss(id, analysis);
