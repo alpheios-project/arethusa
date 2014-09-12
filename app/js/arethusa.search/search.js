@@ -21,11 +21,8 @@ angular.module('arethusa.search').service('search', [
       configurator.getStickyConf(self, props);
 
       self.focusStringSearch = false;
+      self.greekRegex = keyCapture.conf('regex').greek;
     }
-
-    configure();
-
-    this.greekRegex = keyCapture.conf('regex').greek;
 
     this.findByRegex = function(str) {
       // We might need to escape some chars here, we need to try

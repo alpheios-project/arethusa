@@ -13,7 +13,7 @@ angular.module('arethusa.core').directive('translateLanguage', [
         function useKey(key) {
           langKey = key || $translate.use() || 'en';
           $translate.use(langKey);
-          scope.flag = 'images/flags/' + langKey + '.png';
+          scope.lang = langKey;
         }
 
         var langs = ['en', 'de'];

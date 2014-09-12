@@ -37,8 +37,6 @@ angular.module('arethusa.comments').service('comments', [
       persister = retriever;
     }
 
-    configure();
-
     function retrieveComments() {
       self.comments = [];
       self.docLevelComments = [];

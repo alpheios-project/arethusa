@@ -24,8 +24,6 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       resetModel();
     }
 
-    configure();
-
     this.addDefaultInsertionPoint = function() {
       if (!self.model.insertionPoint) {
         var lastId = aU.last(Object.keys(state.tokens).sort());

@@ -115,6 +115,11 @@ angular.module('arethusa.core').service('plugins', [
       }
     }
 
+    function getFromInjector(name) {
+      var woNamespace = name.replace(/.*?\./, '');
+      return $injector.get(woNamespace);
+    }
+
     function loadPlugins(pluginNames) {
       var loader = $q.defer();
 
@@ -124,12 +129,12 @@ angular.module('arethusa.core').service('plugins', [
         var plugin;
         load.then(
           function success() {
-            plugin = $injector.get(name);
+            plugin = getFromInjector(name);
             var extDep = plugin.externalDependencies;
             if (extDep) {
               externalDependencies = loadExtDep(extDep);
             } else {
-              self.loader[name] = $injector.get(name);
+              self.loader[name] = getFromInjector(name);
             }
            },
           function error() { self.loader[name] = false; }
@@ -138,7 +143,7 @@ angular.module('arethusa.core').service('plugins', [
         load['finally'](function() {
           if (externalDependencies) {
             externalDependencies['finally'](function() {
-              self.loader[name] = $injector.get(name);
+              self.loader[name] = getFromInjector(name);
               resolveWhenReady(pluginNames, loader);
             });
           } else {
@@ -165,9 +170,9 @@ angular.module('arethusa.core').service('plugins', [
 
       loadPlugins(pluginNames).then(function() {
         sortPlugins(pluginNames);
+        self.init();
         partitionPlugins();
         declareFirstActive();
-        self.init();
         notifyListeners();
         self.loader = {};
         self.loaded = true;

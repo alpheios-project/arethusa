@@ -2,7 +2,7 @@
   <div delimiter/>
   <div>
     <span
-      ng-click="comments.creator = !comments.creator"
+      ng-click="comments.creator = (!comments.creator && active)"
       ng-disabled="!active"
       class="button radius micro"
       translate="comments.newComment">

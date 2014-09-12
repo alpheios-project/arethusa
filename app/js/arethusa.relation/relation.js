@@ -19,8 +19,6 @@ angular.module('arethusa.relation').service('relation', [
       colorMap = undefined;
     }
 
-    configure();
-
     // Currently selected labels
     this.currentLabels = function () {
       return arethusaUtil.inject({}, state.selectedTokens, function (memo, id, event) {

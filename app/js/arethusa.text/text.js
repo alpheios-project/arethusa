@@ -11,8 +11,6 @@ angular.module('arethusa.text').service('text', [
       self.hideArtificialTokens = false;
     }
 
-    configure();
-
     function addRealToken(container, id, token) {
       if (!token.artificial) {
         container[id] = token;
