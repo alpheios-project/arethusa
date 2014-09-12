@@ -8,10 +8,11 @@
 angular.module('arethusa').factory('TreebankRetriever', [
   'configurator',
   'documentStore',
+  'retrieverHelper',
   'idHandler',
   'locator',
-  function (configurator, documentStore, idHandler, locator) {
-    function xmlTokenToState(docIdentifier, token, sentenceId, artificials) {
+  function (configurator, documentStore, retrieverHelper, idHandler, locator) {
+    function xmlTokenToState(docId, token, sentenceId, artificials) {
       // One could formalize this to real rules that are configurable...
       //
       // Remember that attributes of the converted xml are prefixed with underscore
@@ -43,17 +44,18 @@ angular.module('arethusa').factory('TreebankRetriever', [
         obj.type = token._artificial;
       }
 
-      createId(obj, token, docIdentifier);
+      var intId = xmlTokenId(token);
+      retrieverHelper.generateId(obj, intId, token._id, docId);
       createHead(obj, token, artificials);
 
       return obj;
     }
 
-    function createId(stateToken, xmlToken, docIdentifier) {
+    function createId(stateToken, xmlToken, docId) {
       var idMap = new idHandler.Map();
       var internalId = xmlTokenId(xmlToken);
       var sourceId   = xmlToken._id;
-      idMap.add(docIdentifier, internalId, sourceId);
+      idMap.add(docId, internalId, sourceId);
       stateToken.id = internalId;
       stateToken.idMap = idMap;
     }
@@ -78,11 +80,11 @@ angular.module('arethusa').factory('TreebankRetriever', [
       }
     }
 
-    function xmlSentenceToState(docIdentifier, words, id, cite) {
+    function xmlSentenceToState(docId, words, id, cite) {
       var tokens = {};
       var artificials = arethusaUtil.inject({}, words, extractArtificial);
       angular.forEach(words, function (xmlToken, i) {
-        var token = xmlTokenToState(docIdentifier, xmlToken, id, artificials);
+        var token = xmlTokenToState(docId, xmlToken, id, artificials);
         tokens[token.id] = token;
       });
       return {
@@ -92,11 +94,11 @@ angular.module('arethusa').factory('TreebankRetriever', [
       };
     }
 
-    function parseDocument(json, docIdentifier) {
+    function parseDocument(json, docId) {
       var sentences = arethusaUtil.toAry(json.treebank.sentence);
       return arethusaUtil.inject([], sentences, function (memo, sentence, k) {
         var cite = extractCiteInfo(sentence);
-        memo.push(xmlSentenceToState(docIdentifier, sentence.word, sentence._id, cite));
+        memo.push(xmlSentenceToState(docId, sentence.word, sentence._id, cite));
       });
     }
 
@@ -145,7 +147,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
     return function (conf) {
       var self = this;
       var resource = configurator.provideResource(conf.resource);
-      var docIdentifier = conf.docIdentifier;
+      var docId = conf.docIdentifier;
 
       this.preselections = parsePreselections(conf.preselector);
 
@@ -155,8 +157,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
           var json = arethusaUtil.xml2json(res.data);
           var moreConf = findAdditionalConfInfo(json);
 
-          documentStore.addDocument(docIdentifier, new aC.doc(xml, json, moreConf));
-          callback(parseDocument(json, docIdentifier));
+          documentStore.addDocument(docId, new aC.doc(xml, json, moreConf));
+          callback(parseDocument(json, docId));
         });
       };
     };
