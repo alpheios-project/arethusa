@@ -94,9 +94,19 @@ angular.module('arethusa.morph').service('morph', [
       angular.forEach(self.attributes, addSpecialEmptyAttribute);
     }
 
+    function mappingFor(name) {
+      // this exists so that mapping instances can refer to each
+      // other through providing a string instead of an mappings
+      // object.
+      var mappings = self.mappings[name];
+      while (angular.isString(mappings)) {
+        mappings = self.mappings[name];
+      }
+      return mappings || {};
+    }
 
     function propagateMapping(retriever, name) {
-      retriever.mapping = self.mappings[name] || {};
+      retriever.mapping = mappingFor(name);
     }
 
     function propagateMappings(retrievers) {
