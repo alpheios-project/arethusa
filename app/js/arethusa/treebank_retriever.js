@@ -10,8 +10,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
   'documentStore',
   'retrieverHelper',
   'idHandler',
-  'locator',
-  function (configurator, documentStore, retrieverHelper, idHandler, locator) {
+  function (configurator, documentStore, retrieverHelper, idHandler) {
     function xmlTokenToState(docId, token, sentenceId, artificials) {
       // One could formalize this to real rules that are configurable...
       //
@@ -49,15 +48,6 @@ angular.module('arethusa').factory('TreebankRetriever', [
       createHead(obj, token, artificials);
 
       return obj;
-    }
-
-    function createId(stateToken, xmlToken, docId) {
-      var idMap = new idHandler.Map();
-      var internalId = xmlTokenId(xmlToken);
-      var sourceId   = xmlToken._id;
-      idMap.add(docId, internalId, sourceId);
-      stateToken.id = internalId;
-      stateToken.idMap = idMap;
     }
 
     function createHead(stateToken, xmlToken, artificials) {
@@ -136,20 +126,12 @@ angular.module('arethusa').factory('TreebankRetriever', [
       return confs;
     }
 
-    function parsePreselections(selector) {
-      // after #191 is merged, also allow range strings here
-      var preselections = arethusaUtil.toAry(locator.get(selector));
-      return arethusaUtil.map(preselections, function(id) {
-        return idHandler.getId(id);
-      });
-    }
-
     return function (conf) {
       var self = this;
       var resource = configurator.provideResource(conf.resource);
       var docId = conf.docIdentifier;
 
-      this.preselections = parsePreselections(conf.preselector);
+      this.preselections = retrieverHelper.getPreselections(conf);
 
       this.get = function (callback) {
         resource.get().then(function (res) {
