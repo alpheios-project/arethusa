@@ -30,6 +30,16 @@
     ]
   },
 
+  "phaidraTreebanks" : {
+    "route" : "http://localhost:8082/treebanks/phaidra/:doc",
+    "params" : [ "doc" ]
+  },
+
+  "phaidraTranslations" : {
+    "route" : "http://localhost:8082/translations/phaidra/:doc",
+    "params" : [ "doc" ]
+  },
+
   "lexInvFusekiEndpoint" : {
     "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
   },
