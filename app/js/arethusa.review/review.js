@@ -79,7 +79,7 @@ angular.module('arethusa.review').service('review', [
     };
 
     function loadDocument() {
-      retriever.getData(function (res) {
+      retriever.get(function (res) {
         doc = res;
         postInit(true);
       });

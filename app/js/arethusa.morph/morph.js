@@ -94,9 +94,19 @@ angular.module('arethusa.morph').service('morph', [
       angular.forEach(self.attributes, addSpecialEmptyAttribute);
     }
 
+    function mappingFor(name) {
+      // this exists so that mapping instances can refer to each
+      // other through providing a string instead of an mappings
+      // object.
+      var mappings = self.mappings[name];
+      while (angular.isString(mappings)) {
+        mappings = self.mappings[name];
+      }
+      return mappings || {};
+    }
 
     function propagateMapping(retriever, name) {
-      retriever.mapping = self.mappings[name] || {};
+      retriever.mapping = mappingFor(name);
     }
 
     function propagateMappings(retrievers) {
@@ -156,8 +166,8 @@ angular.module('arethusa.morph').service('morph', [
           var attrVals = self.attributeValues(el);
           var val = attrs[el];
           var valObj = arethusaUtil.findObj(attrVals, function (e) {
-              return e.short === val;
-            });
+            return e.short === val;
+          });
           return valObj ? valObj.postag : '-';
         });
       return postagArr.join('');
@@ -190,8 +200,20 @@ angular.module('arethusa.morph').service('morph', [
       // We could always have no analysis sitting in the data we are
       // looking at - no data also means that the postag is an empty
       // string or an empty postag.
-      if (analysis && postagNotEmpty(analysis.postag)) {
-        self.postagToAttributes(analysis);
+      //
+      // The other case we might encounter here is an object that has
+      // only attributes defined, but no postag
+      if (analysis) {
+        var attrs = analysis.attributes;
+
+        if (postagNotEmpty(analysis.postag)) {
+          self.postagToAttributes(analysis);
+        } else if (attrs) {
+          analysis.postag = self.attributesToPostag(attrs);
+        } else {
+          return;
+        }
+
         analysis.origin = 'document';
         analysis.selected = true;
         setGloss(id, analysis);

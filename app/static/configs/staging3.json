@@ -4,8 +4,8 @@
     "showKeys" : true,
     "template"  : "templates/main_grid.html",
     "retrievers" : {
-      "TreebankRetriever" : {
-        "resource" : "fakePerseids",
+      "PhaidraTreebankRetriever" : {
+        "resource" : "phaidraTreebanks",
         "docIdentifier" : "treebank",
         "preselector" : "w"
       }
@@ -23,7 +23,8 @@
       "relation",
       "depTree",
       "artificialToken",
-      "history"
+      "history",
+      "review"
     ],
     "chunkParam" : "chunk"
   },
@@ -63,7 +64,7 @@
     "morph" : {
       "retrievers" : {
         "BspMorphRetriever" : {
-          "resource" : "morphologyServiceLat"
+          "resource" : "morphologyServiceGrc"
         }
       },
       "template"  : "templates/morph3.html",
@@ -76,7 +77,7 @@
           }
         }
       },
-      "@include" : "morph/lat_attributes.json"
+      "@include" : "morph/gr_attributes2.json"
     },
 
     "relation" : {
@@ -91,7 +92,7 @@
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
-          "resource" : "fakeGold"
+          "resource" : "arethusaServerTreebank"
         }
       }
     },

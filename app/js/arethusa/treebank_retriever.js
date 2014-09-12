@@ -6,24 +6,23 @@
  *
  */
 angular.module('arethusa').factory('TreebankRetriever', [
-  'documentStore',
   'configurator',
-  '$location',
+  'documentStore',
+  'retrieverHelper',
   'idHandler',
-  function (documentStore, configurator, $location, idHandler) {
-    function xmlTokenToState(docIdentifier, token, sentenceId, artificials) {
+  function (configurator, documentStore, retrieverHelper, idHandler) {
+    function xmlTokenToState(docId, token, sentenceId, artificials) {
       // One could formalize this to real rules that are configurable...
       //
       // Remember that attributes of the converted xml are prefixed with underscore
-      var obj = {
-        sentenceId: sentenceId,
-        string: token._form,
-        morphology: {
-          lemma: token._lemma,
-          postag: token._postag
-        },
-        relation: {}
+      var obj = aC.token(token._form, sentenceId);
+
+      obj.morphology = {
+        lemma: token._lemma,
+        postag: token._postag
       };
+
+      obj.relation = {};
 
       var relation = token._relation;
       obj.relation.label = (relation && relation !== 'nil') ? relation : '';
@@ -43,19 +42,11 @@ angular.module('arethusa').factory('TreebankRetriever', [
         obj.type = token._artificial;
       }
 
-      createId(obj, token, docIdentifier);
+      var intId = xmlTokenId(token);
+      retrieverHelper.generateId(obj, intId, token._id, docId);
       createHead(obj, token, artificials);
 
       return obj;
-    }
-
-    function createId(stateToken, xmlToken, docIdentifier) {
-      var idMap = new idHandler.Map();
-      var internalId = xmlTokenId(xmlToken);
-      var sourceId   = xmlToken._id;
-      idMap.add(docIdentifier, internalId, sourceId);
-      stateToken.id = internalId;
-      stateToken.idMap = idMap;
     }
 
     function createHead(stateToken, xmlToken, artificials) {
@@ -78,25 +69,22 @@ angular.module('arethusa').factory('TreebankRetriever', [
       }
     }
 
-    function xmlSentenceToState(docIdentifier, words, id, cite) {
+    function xmlSentenceToState(docId, words, id, cite) {
       var tokens = {};
       var artificials = arethusaUtil.inject({}, words, extractArtificial);
       angular.forEach(words, function (xmlToken, i) {
-        var token = xmlTokenToState(docIdentifier, xmlToken, id, artificials);
+        var token = xmlTokenToState(docId, xmlToken, id, artificials);
         tokens[token.id] = token;
       });
-      return {
-        id: id,
-        tokens: tokens,
-        cite: cite
-      };
+
+      return aC.sentence(id, tokens, cite);
     }
 
-    function parseDocument(json, docIdentifier) {
+    function parseDocument(json, docId) {
       var sentences = arethusaUtil.toAry(json.treebank.sentence);
       return arethusaUtil.inject([], sentences, function (memo, sentence, k) {
         var cite = extractCiteInfo(sentence);
-        memo.push(xmlSentenceToState(docIdentifier, sentence.word, sentence._id, cite));
+        memo.push(xmlSentenceToState(docId, sentence.word, sentence._id, cite));
       });
     }
 
@@ -134,34 +122,21 @@ angular.module('arethusa').factory('TreebankRetriever', [
       return confs;
     }
 
-    function parsePreselections(selector) {
-      // after #191 is merged, also allow range strings here
-      var preselections = arethusaUtil.toAry($location.search()[selector]);
-      return arethusaUtil.map(preselections, function(id) {
-        return idHandler.getId(id);
-      });
-    }
-
-    function Doc(xml, json, conf) {
-      this.xml = xml;
-      this.json = json;
-      this.conf = conf;
-    }
-
     return function (conf) {
       var self = this;
       var resource = configurator.provideResource(conf.resource);
-      var docIdentifier = conf.docIdentifier;
+      var docId = conf.docIdentifier;
 
-      this.preselections = parsePreselections(conf.preselector);
-      this.getData = function (callback) {
+      this.preselections = retrieverHelper.getPreselections(conf);
+
+      this.get = function (callback) {
         resource.get().then(function (res) {
           var xml = res.data;
           var json = arethusaUtil.xml2json(res.data);
           var moreConf = findAdditionalConfInfo(json);
 
-          documentStore.addDocument(docIdentifier, new Doc(xml, json, moreConf));
-          callback(parseDocument(json, docIdentifier));
+          documentStore.addDocument(docId, new aC.doc(xml, json, moreConf));
+          callback(parseDocument(json, docId));
         });
       };
     };

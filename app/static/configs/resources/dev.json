@@ -30,6 +30,21 @@
     ]
   },
 
+  "arethusaServerTreebank" : {
+    "route" : "http://localhost:8082/examples/treebanks/:doc",
+    "params" : [ "doc" ]
+  },
+
+  "phaidraTreebanks" : {
+    "route" : "http://localhost:8082/examples/treebanks/phaidra/:doc",
+    "params" : [ "doc" ]
+  },
+
+  "phaidraTranslations" : {
+    "route" : "http://localhost:8082/examples/translations/phaidra/:doc",
+    "params" : [ "doc" ]
+  },
+
   "lexInvFusekiEndpoint" : {
     "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
   },
