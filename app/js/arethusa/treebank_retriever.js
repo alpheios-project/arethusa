@@ -6,11 +6,11 @@
  *
  */
 angular.module('arethusa').factory('TreebankRetriever', [
-  'documentStore',
   'configurator',
-  'locator',
+  'documentStore',
   'idHandler',
-  function (documentStore, configurator, locator, idHandler) {
+  'locator',
+  function (configurator, documentStore, idHandler, locator) {
     function xmlTokenToState(docIdentifier, token, sentenceId, artificials) {
       // One could formalize this to real rules that are configurable...
       //
