@@ -4,7 +4,8 @@ angular.module('arethusa.core').directive('helpPanel', [
   'help',
   'keyCapture',
   'globalSettings',
-  function(help, keyCapture, globalSettings) {
+  '$timeout',
+  function(help, keyCapture, globalSettings, $timeout) {
     return {
       restrict: 'A',
       scope: {},
@@ -21,12 +22,14 @@ angular.module('arethusa.core').directive('helpPanel', [
 
         scope.$watch('help.active', function(newVal, oldVal) {
           scope.active = newVal;
-          if (newVal) {
-            element.slideDown();
-          } else {
-            element.slideUp();
-            scope.visible = {};
-          }
+          $timeout(function() {
+            if (newVal) {
+              element.slideDown();
+            } else {
+              element.slideUp();
+              scope.visible = {};
+            }
+          });
         });
       },
       templateUrl: 'templates/arethusa.core/help_panel.html'

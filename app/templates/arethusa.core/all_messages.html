@@ -1,7 +1,9 @@
-<br/>
-<ul style="list-style-type: none">
-  <li ng-repeat="message in notifier.messages">
-    <span>{{ message.time | date: "HH:mm:ss" }}</span>
-    <span class="{{ message.type }}-message-dark">{{ message.message }}</span>
-  </li>
-</ul>
+<div ng-if="active" class="fade">
+  <br/>
+  <ul style="list-style-type: none">
+    <li ng-repeat="message in notifier.messages">
+      <span>{{ message.time | date: "HH:mm:ss" }}</span>
+      <span class="{{ message.type }}-message-dark">{{ message.message }}</span>
+    </li>
+  </ul>
+</div>

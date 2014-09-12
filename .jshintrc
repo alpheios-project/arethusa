@@ -12,6 +12,8 @@
     "aU": true,
     "arethusaClasses": true,
     "aC": true,
+    "arethusaGenerator": true,
+    "aG": true,
     "arethusaMocks" : true,
     "arethusaLogger" : true,
     "UserVoice" : true,

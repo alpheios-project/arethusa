@@ -400,6 +400,14 @@ a:hover, a:focus {
   background: #73CDDE;
 }
 
+a.button.on {
+  background: #014653 !important;
+}
+
+a.button.on:hover {
+  background: #006375 !important;
+}
+
 .button.alert {
   background-color: #E49A0D;
 }

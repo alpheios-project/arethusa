@@ -3,7 +3,8 @@
 angular.module('arethusa.core').directive('globalSettingsPanel', [
   'globalSettings',
   'keyCapture',
-  function(globalSettings, keyCapture) {
+  '$timeout',
+  function(globalSettings, keyCapture, $timeout) {
     return {
       restrict: 'A',
       scope: {},
@@ -13,7 +14,12 @@ angular.module('arethusa.core').directive('globalSettingsPanel', [
 
         scope.$watch('gS.active', function(newVal, oldVal) {
           scope.active = newVal;
-          if (newVal) element.slideDown(); else element.slideUp();
+          // Timeout to give the animation some breathing room.
+          // In the first digest we activate the panel through ngIf,
+          // in the following we make the element visible.
+          $timeout(function() {
+            if (newVal) element.slideDown(); else element.slideUp();
+          });
         });
       },
       templateUrl: 'templates/arethusa.core/global_settings_panel.html'
