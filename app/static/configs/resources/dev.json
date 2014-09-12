@@ -31,12 +31,12 @@
   },
 
   "phaidraTreebanks" : {
-    "route" : "http://localhost:8082/treebanks/phaidra/:doc",
+    "route" : "http://localhost:8082/examples/treebanks/phaidra/:doc",
     "params" : [ "doc" ]
   },
 
   "phaidraTranslations" : {
-    "route" : "http://localhost:8082/translations/phaidra/:doc",
+    "route" : "http://localhost:8082/examples/translations/phaidra/:doc",
     "params" : [ "doc" ]
   },
 
