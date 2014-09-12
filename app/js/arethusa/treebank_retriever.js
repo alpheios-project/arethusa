@@ -142,12 +142,6 @@ angular.module('arethusa').factory('TreebankRetriever', [
       });
     }
 
-    function Doc(xml, json, conf) {
-      this.xml = xml;
-      this.json = json;
-      this.conf = conf;
-    }
-
     return function (conf) {
       var self = this;
       var resource = configurator.provideResource(conf.resource);
@@ -161,7 +155,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
           var json = arethusaUtil.xml2json(res.data);
           var moreConf = findAdditionalConfInfo(json);
 
-          documentStore.addDocument(docIdentifier, new Doc(xml, json, moreConf));
+          documentStore.addDocument(docIdentifier, new aC.doc(xml, json, moreConf));
           callback(parseDocument(json, docIdentifier));
         });
       };
