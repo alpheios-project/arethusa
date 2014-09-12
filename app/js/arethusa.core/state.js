@@ -93,7 +93,7 @@ angular.module('arethusa.core').service('state', [
       }
 
       angular.forEach(tokenRetrievers, function (retriever, name) {
-        retriever.getData(function (data) {
+        retriever.get(function (data) {
           navigator.addSentences(data);
           moveToSentence();
           // Check comment for saveTokens

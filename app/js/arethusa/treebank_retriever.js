@@ -154,7 +154,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
       var docIdentifier = conf.docIdentifier;
 
       this.preselections = parsePreselections(conf.preselector);
-      this.getData = function (callback) {
+
+      this.get = function (callback) {
         resource.get().then(function (res) {
           var xml = res.data;
           var json = arethusaUtil.xml2json(res.data);
