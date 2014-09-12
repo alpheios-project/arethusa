@@ -8,9 +8,9 @@
 angular.module('arethusa').factory('TreebankRetriever', [
   'documentStore',
   'configurator',
-  '$location',
+  'locator',
   'idHandler',
-  function (documentStore, configurator, $location, idHandler) {
+  function (documentStore, configurator, locator, idHandler) {
     function xmlTokenToState(docIdentifier, token, sentenceId, artificials) {
       // One could formalize this to real rules that are configurable...
       //
@@ -136,7 +136,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
 
     function parsePreselections(selector) {
       // after #191 is merged, also allow range strings here
-      var preselections = arethusaUtil.toAry($location.search()[selector]);
+      var preselections = arethusaUtil.toAry(locator.get(selector));
       return arethusaUtil.map(preselections, function(id) {
         return idHandler.getId(id);
       });
