@@ -23,7 +23,8 @@
       "relation",
       "depTree",
       "artificialToken",
-      "history"
+      "history",
+      "review"
     ],
     "chunkParam" : "chunk"
   },
@@ -91,7 +92,7 @@
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
-          "resource" : "fakeGold"
+          "resource" : "arethusaServerTreebank"
         }
       }
     },
