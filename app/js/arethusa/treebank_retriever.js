@@ -15,15 +15,14 @@ angular.module('arethusa').factory('TreebankRetriever', [
       // One could formalize this to real rules that are configurable...
       //
       // Remember that attributes of the converted xml are prefixed with underscore
-      var obj = {
-        sentenceId: sentenceId,
-        string: token._form,
-        morphology: {
-          lemma: token._lemma,
-          postag: token._postag
-        },
-        relation: {}
+      var obj = aC.token(token._form, sentenceId);
+
+      obj.morphology = {
+        lemma: token._lemma,
+        postag: token._postag
       };
+
+      obj.relation = {};
 
       var relation = token._relation;
       obj.relation.label = (relation && relation !== 'nil') ? relation : '';

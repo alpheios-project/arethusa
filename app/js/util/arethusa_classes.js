@@ -30,6 +30,14 @@ function ArethusaClasses() {
   }
 
   this.sentence = function(i, t, c) { return new Sentence(i, t, c); };
+
+  // A simple token container
+  function Token(string, sId) {
+    this.string = string;
+    this.sentenceId = sId;
+  }
+
+  this.token = function (s, sId) { return new Token(s, sId); };
 }
 
 var arethusaClasses = new ArethusaClasses();
