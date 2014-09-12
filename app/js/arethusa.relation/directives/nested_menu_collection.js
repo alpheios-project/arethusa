@@ -30,12 +30,17 @@ angular.module('arethusa.relation').directive('nestedMenuCollection', [
 
         if (element.hasClass('top-menu')) {
           var items = Object.keys(scope.all || {}).length + 1; // an empty val
-          var menuHeight = items * 18; // hard to access, we therefore hardcode...
-          var maxHeight = win.height() - 15;
-          var topPos = element.parent().offset().top;
-          var bottom = topPos + menuHeight;
-          if (bottom > maxHeight) {
-            element.css({ top: 'auto', bottom: '100%'});
+          // Don't try to be clever when the list is really long. Chances are
+          // that repositioning would cause the menu to go beyond the upper
+          // border of the viewport, which is even worse.
+          if (items < 20) {
+            var menuHeight = items * 18; // hard to access, we therefore hardcode...
+            var maxHeight = win.height() - 15;
+            var topPos = element.parent().offset().top;
+            var bottom = topPos + menuHeight;
+            if (bottom > maxHeight) {
+              element.css({ top: 'auto', bottom: '100%'});
+            }
           }
         }
       },
