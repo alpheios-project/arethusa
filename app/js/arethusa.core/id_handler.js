@@ -4,8 +4,10 @@ angular.module('arethusa.core').service('idHandler', [
   function() {
     var self = this;
 
-    this.getId = function(id) {
-      return arethusaUtil.formatNumber(id, 4);
+    this.getId = function(id, sId) {
+      var s = sId ? arethusaUtil.formatNumber(sId, 4) : '';
+      var w = arethusaUtil.formatNumber(id, 4);
+      return s ? s + '-' + w : w;
     };
 
     this.formatId = function(id, format) {
