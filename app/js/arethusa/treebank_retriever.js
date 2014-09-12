@@ -77,11 +77,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
         var token = xmlTokenToState(docId, xmlToken, id, artificials);
         tokens[token.id] = token;
       });
-      return {
-        id: id,
-        tokens: tokens,
-        cite: cite
-      };
+
+      return aC.sentence(id, tokens, cite);
     }
 
     function parseDocument(json, docId) {

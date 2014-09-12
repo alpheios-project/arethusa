@@ -21,6 +21,15 @@ function ArethusaClasses() {
   }
 
   this.doc = function(x, j, c) { return new Doc(x, j, c); };
+
+  // Used by retrievers to define sentences
+  function Sentence(id, tokens, cite) {
+    this.id = id;
+    this.tokens = tokens;
+    this.cite = cite;
+  }
+
+  this.sentence = function(i, t, c) { return new Sentence(i, t, c); };
 }
 
 var arethusaClasses = new ArethusaClasses();
