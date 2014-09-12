@@ -20,10 +20,10 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
         var word = words[i];
         var token = aC.token(word.value, sId);
         var intId = idHandler.getId(word.tbwid);
-        retrieverHelper.generateId(token, intId, word.tbwid, docId);
+        retrieverHelper.generateId(token, intId, word.CTS, docId);
 
         var head = word.head;
-        if (head) {
+        if (angular.isDefined(head)) {
           token.head = { id: idHandler.getId(head) };
         }
 
@@ -32,10 +32,40 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
           token.relation = { label: relation };
         }
 
+        token.morphology = {
+          lemma: word.lemma,
+          attributes: parseMorph(word)
+        };
+
         tokens[token.id] = token;
       }
 
       return [new aC.sentence(sId, tokens, doc.CTS)];
+    }
+
+    // This is a little ugly (and slow), as the morphology is just thrown
+    // into the object.
+    var morphKeys = {
+      'pos': null,
+      'person': 'pers',
+      'number': 'num',
+      'tense': null,
+      'mood': null,
+      'voice': null,
+      'gender': 'gend',
+      'case': null,
+      'degree': null
+    };
+
+    function parseMorph(word) {
+      var attrs = {}, key, attrKey, val;
+      for (key in morphKeys) {
+        attrKey = morphKeys[key] || key;
+        val = word[key];
+        if (val) attrs[attrKey] = val;
+      }
+
+      return attrs;
     }
 
     function inferLanguage(doc) {
