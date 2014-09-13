@@ -4,10 +4,10 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
   'navigator',
   function ($scope, navigator) {
     $scope.next = function () {
-      navigator.nextSentence();
+      navigator.nextChunk();
     };
     $scope.prev = function () {
-      navigator.prevSentence();
+      navigator.prevChunk();
     };
     $scope.goToFirst = function() {
       navigator.goToFirst();

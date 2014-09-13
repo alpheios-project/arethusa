@@ -96,11 +96,11 @@ describe("navigator", function() {
       expect(navigator.status.hasNext).toBeTruthy();
       expect(navigator.status.hasPrev).toBeFalsy();
 
-      navigator.nextSentence(); // calls updateId on its own
+      navigator.nextChunk(); // calls updateId on its own
       expect(navigator.status.hasNext).toBeTruthy();
       expect(navigator.status.hasPrev).toBeTruthy();
 
-      navigator.nextSentence();
+      navigator.nextChunk();
       expect(navigator.status.hasNext).toBeFalsy();
       expect(navigator.status.hasPrev).toBeTruthy();
     });
@@ -109,7 +109,7 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
       navigator.updateId();
       expect(navigator.status.currentPos).toEqual(0);
-      navigator.nextSentence();
+      navigator.nextChunk();
       expect(navigator.status.currentPos).toEqual(1);
     });
   });
@@ -139,18 +139,18 @@ describe("navigator", function() {
     });
   });
 
-  describe('this.nextSentence()', function() {
+  describe('this.nextChunk()', function() {
     it('moves to the next sentence - mind how ids can be non-sequential!', function() {
       navigator.addSentences(sentences);
       expect(navigator.currentSentence()).toBe(s1.tokens);
 
-      navigator.nextSentence();
+      navigator.nextChunk();
       expect(navigator.currentSentence()).toBe(s3.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
-      navigator.nextSentence();
+      navigator.nextChunk();
       expect(state.tokens).toBe(navigator.currentSentence());
     });
 
@@ -158,33 +158,33 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
       expect(navigator.currentSentence()).toBe(s5.tokens);
-      navigator.nextSentence();
+      navigator.nextChunk();
       expect(navigator.currentSentence()).toBe(s5.tokens);
     });
   });
 
-  describe('this.prevSentence()', function() {
+  describe('this.prevChunk()', function() {
     it('moves to the previous sentence - ids can be non-sequential', function() {
       navigator.addSentences(sentences);
-      navigator.nextSentence();
-      navigator.nextSentence();
+      navigator.nextChunk();
+      navigator.nextChunk();
       expect(navigator.currentSentence()).toBe(s5.tokens);
 
-      navigator.prevSentence();
+      navigator.prevChunk();
       expect(navigator.currentSentence()).toBe(s3.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
-      navigator.nextSentence();
-      navigator.prevSentence();
+      navigator.nextChunk();
+      navigator.prevChunk();
       expect(state.tokens).toBe(navigator.currentSentence());
     });
 
     it('does nothing when there is no previous sentence', function() {
       navigator.addSentences(sentences);
       expect(navigator.currentSentence()).toBe(s1.tokens);
-      navigator.prevSentence();
+      navigator.prevChunk();
       expect(navigator.currentSentence()).toBe(s1.tokens);
     });
   });

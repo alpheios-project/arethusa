@@ -26,8 +26,8 @@ angular.module('arethusa.core').service('navigator', [
       keyCapture.initCaptures(function(kC) {
         return {
           navigation: [
-            kC.create('nextSentence', function() { kC.doRepeated(self.nextSentence); }, 'u'),
-            kC.create('prevSentence', function() { kC.doRepeated(self.prevSentence); }, 'i'),
+            kC.create('nextChunk', function() { kC.doRepeated(self.nextChunk); }, 'u'),
+            kC.create('prevChunk', function() { kC.doRepeated(self.prevChunk); }, 'i'),
             kC.create('list', function() { self.switchView(); }, 'L')
           ]
         };
@@ -65,10 +65,10 @@ angular.module('arethusa.core').service('navigator', [
       return currentSentenceObj().tokens;
     };
 
-    this.nextSentence = function () {
+    this.nextChunk = function () {
       if (self.hasNext()) movePosition(1);
     };
-    this.prevSentence = function () {
+    this.prevChunk = function () {
       if (self.hasPrev()) movePosition(-1);
     };
 
