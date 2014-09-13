@@ -273,6 +273,15 @@ describe("navigator", function() {
       navigator.goTo('5');
       expect(navigator.hasNext()).toBeFalsy();
     });
+
+    describe('with a larger chunk size', function() {
+      it('determines if something next is available', function() {
+        navigator.addSentences(sentences);
+        navigator.changeChunkSize(3);
+
+        expect(navigator.hasNext()).toBeFalsy();
+      });
+    });
   });
 
   describe('navigator.hasPrev()', function() {
