@@ -670,7 +670,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         });
 
         function isMainTree() {
-          return scope.current === state.tokens;
+          return scope.tokens === state.tokens;
         }
 
         // only do this if we are the main tree!
@@ -694,6 +694,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           // only once and not several times for each head change.
           var queuedChangesPresent;
           state.watch('head.id', function(newVal, oldVal, event) {
+            console.log(newVal, oldVal);
             // Very important to do here, otherwise the tree will
             // be render a little often on startup...
             if (newVal !== oldVal) {
