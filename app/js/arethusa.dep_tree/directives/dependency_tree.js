@@ -325,13 +325,33 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         // Functions to create, update and render the graph
         //
         // They are solely called by watches.
-        function createGraph() {
+
+        function createGraph(noRegroup) {
           clearOldGraph();
-          scope.current = scope.tokens;
+          if (!noRegroup) groupTokens();
+          scope.current = scope.groupedTokens[scope.currentFocus];
           g = new dagreD3.Digraph();
           createRootNode();
           createEdges();
           render();
+        }
+
+        function groupTokens() {
+          var sId, group;
+          scope.groupedTokens = [];
+          for (var id in scope.tokens) {
+            var token = scope.tokens[id];
+            var tSId = token.sentenceId;
+            if (tSId !== sId ) {
+              group = {};
+              scope.groupedTokens.push(group);
+              group[id] = token;
+              sId = tSId;
+            } else {
+              group[id] = token;
+            }
+          }
+          scope.groupSize = scope.groupedTokens.length;
         }
 
         function clearOldGraph() {
@@ -603,8 +623,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Watches and Event listeners
 
-        function init() {
-          createGraph();
+        function init(noRegroup) {
+          createGraph(noRegroup);
           moveToStart();
           if (isMainTree()) plugins.declareReady('depTree');
         }
@@ -738,7 +758,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         function start() {
           // This watch is responsible for firing up the directive
-          scope.$watch('tokens', init);
+          scope.currentFocus = 0;
+
+          scope.$watch('tokens', function() { init(); } );
+
+          scope.$watch('currentFocus', function(newVal, oldVal) {
+            if (newVal !== oldVal) init(true);
+          });
 
           checkBorderStyle();
 
@@ -746,6 +772,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           element.append(tree);
           prependTemplate('focusTemplate');
           prependTemplate('panelTemplate');
+          element.prepend($compile('<div dep-tree-navigator/>')(scope));
 
 
           // Initialize some more starting values
