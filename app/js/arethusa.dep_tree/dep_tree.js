@@ -175,11 +175,11 @@ angular.module('arethusa.depTree').service('depTree', [
           notifier.error('Cannot change heads across sentences');
           return;
         }
-        angular.forEach(headsToChange, function(otherToken, i) {
-          if (!state.batchChange) state.batchChangeStart();
-          changeHead(otherToken, token);
+        state.doBatched(function() {
+          angular.forEach(headsToChange, function(otherToken, i) {
+            changeHead(otherToken, token);
+          });
         });
-        if (state.batchChange) state.batchChangeStop();
       } else {
         globalSettings.defaultClickAction(id);
       }
