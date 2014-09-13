@@ -19,12 +19,12 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
       for (var i=0; i < words.length; i++) {
         var word = words[i];
         var token = aC.token(word.value, sId);
-        var intId = idHandler.getId(word.tbwid);
+        var intId = idHandler.getId(word.tbwid, sId);
         retrieverHelper.generateId(token, intId, word.CTS, docId);
 
         var head = word.head;
         if (angular.isDefined(head)) {
-          token.head = { id: idHandler.getId(head) };
+          token.head = { id: idHandler.getId(head, sId) };
         }
 
         var relation = word.relation;
