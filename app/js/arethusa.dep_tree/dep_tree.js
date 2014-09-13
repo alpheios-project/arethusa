@@ -21,7 +21,9 @@
 angular.module('arethusa.depTree').service('depTree', [
   'state',
   'configurator',
-  function (state, configurator) {
+  'globalSettings',
+  'notifier',
+  function (state, configurator, globalSettings, notifier) {
     var self = this;
     this.name = "depTree";
 
@@ -123,6 +125,15 @@ angular.module('arethusa.depTree').service('depTree', [
     this.toRoot = function(token) {
       state.change(token, 'head.id', '0000');
     };
+
+    function changeHeadAction() {
+
+    }
+
+    var clickActionName= 'change head';
+
+    globalSettings.addClickAction(clickActionName, changeHeadAction);
+    globalSettings.setClickAction(clickActionName);
 
     this.init = function () {
       configure();
