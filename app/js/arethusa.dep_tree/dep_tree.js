@@ -205,11 +205,14 @@ angular.module('arethusa.depTree').service('depTree', [
     var clickActionName = 'change head';
 
     globalSettings.addClickAction(clickActionName, changeHeadAction, preHeadChange());
-    globalSettings.setClickAction(clickActionName);
 
     this.init = function () {
       configure();
       addMissingHeadsToState();
+
+      if (self.mode === 'editor') {
+        globalSettings.setClickAction(clickActionName);
+      }
     };
   }
 ]);
