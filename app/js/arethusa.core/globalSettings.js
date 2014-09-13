@@ -12,6 +12,7 @@ angular.module('arethusa.core').service('globalSettings', [
 
     self.settings = {};
     self.colorizers = { disabled: true };
+    self.clickAction = 'disabled';
 
 
     var confKeys = [
@@ -39,6 +40,7 @@ angular.module('arethusa.core').service('globalSettings', [
     }
 
     function defineSettings() {
+      self.defineSetting('clickAction', 'custom', 'global-click-action');
       self.defineSetting('alwaysDeselect');
       self.defineSetting('keyboardMappings');
       self.defineSetting('colorizer', 'custom', 'colorizer-setting');
@@ -55,6 +57,25 @@ angular.module('arethusa.core').service('globalSettings', [
 
     this.toggle = function() {
       self.active = !self.active;
+    };
+
+    this.clickActions = {
+      'disabled' : angular.noop
+    };
+
+    this.clickFn = self.clickActions[self.clickAction];
+
+    this.addClickAction = function(name, fn) {
+      self.clickActions[name] = fn;
+    };
+
+    this.removeClickAction = function(name) {
+      delete self.clickActions[name];
+      if (self.clickAction === name) self.setClickAction('disabled');
+    };
+
+    this.setClickAction = function(name) {
+      self.clickAction = name;
     };
 
     this.addColorizer = function(pluginName) {
