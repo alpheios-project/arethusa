@@ -69,10 +69,10 @@ describe("navigator", function() {
     });
   });
 
-  describe('this.currentSentence()', function() {
+  describe('this.currentChunk()', function() {
     it('returns the tokens of the current sentence', function() {
       navigator.addSentences(sentences);
-      expect(navigator.currentSentence()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toBe(s1.tokens);
     });
   });
 
@@ -142,24 +142,24 @@ describe("navigator", function() {
   describe('this.nextChunk()', function() {
     it('moves to the next sentence - mind how ids can be non-sequential!', function() {
       navigator.addSentences(sentences);
-      expect(navigator.currentSentence()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toBe(s1.tokens);
 
       navigator.nextChunk();
-      expect(navigator.currentSentence()).toBe(s3.tokens);
+      expect(navigator.currentChunk()).toBe(s3.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.nextChunk();
-      expect(state.tokens).toBe(navigator.currentSentence());
+      expect(state.tokens).toBe(navigator.currentChunk());
     });
 
     it('does nothing when there is no next sentence', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toBe(s5.tokens);
       navigator.nextChunk();
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toBe(s5.tokens);
     });
   });
 
@@ -168,24 +168,24 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
       navigator.nextChunk();
       navigator.nextChunk();
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toBe(s5.tokens);
 
       navigator.prevChunk();
-      expect(navigator.currentSentence()).toBe(s3.tokens);
+      expect(navigator.currentChunk()).toBe(s3.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.nextChunk();
       navigator.prevChunk();
-      expect(state.tokens).toBe(navigator.currentSentence());
+      expect(state.tokens).toBe(navigator.currentChunk());
     });
 
     it('does nothing when there is no previous sentence', function() {
       navigator.addSentences(sentences);
-      expect(navigator.currentSentence()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toBe(s1.tokens);
       navigator.prevChunk();
-      expect(navigator.currentSentence()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toBe(s1.tokens);
     });
   });
 
@@ -194,13 +194,13 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
 
       navigator.goToLast();
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toBe(s5.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
-      expect(state.tokens).toBe(navigator.currentSentence());
+      expect(state.tokens).toBe(navigator.currentChunk());
     });
   });
 
@@ -208,17 +208,17 @@ describe("navigator", function() {
     it('goes. to the first element in the sentence array', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toBe(s5.tokens);
 
       navigator.goToFirst();
-      expect(navigator.currentSentence()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toBe(s1.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
       navigator.goToFirst();
-      expect(state.tokens).toBe(navigator.currentSentence());
+      expect(state.tokens).toBe(navigator.currentChunk());
     });
   });
 
@@ -227,16 +227,16 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
 
       navigator.goTo('3');
-      expect(navigator.currentSentence()).toBe(s3.tokens);
+      expect(navigator.currentChunk()).toBe(s3.tokens);
 
       navigator.goTo('5');
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toBe(s5.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.goTo('5');
-      expect(state.tokens).toBe(navigator.currentSentence());
+      expect(state.tokens).toBe(navigator.currentChunk());
     });
 
     it('returns true when the call succeeds', function() {
@@ -249,7 +249,7 @@ describe("navigator", function() {
     it('goes to a sentence identified by its container position', function() {
       navigator.addSentences(sentences);
       navigator.goToByPosition(1);
-      expect(navigator.currentSentence()).toEqual(s3.tokens);
+      expect(navigator.currentChunk()).toEqual(s3.tokens);
     });
   });
 

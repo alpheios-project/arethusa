@@ -97,9 +97,8 @@ angular.module('arethusa.core').service('state', [
           navigator.addSentences(data);
           moveToSentence();
           // Check comment for saveTokens
-          //saveTokens(container, navigator.currentSentence());
-          tokens = angular.extend(navigator.currentSentence(), navigator.sentences[navigator.currentPosition + 1].tokens);
-          //tokens = navigator.currentSentence();
+          //saveTokens(container, navigator.currentChunk());
+          tokens = navigator.currentChunk();
 
           declarePreselections(retriever.preselections);
           declareLoaded(retriever);

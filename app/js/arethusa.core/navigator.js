@@ -61,7 +61,7 @@ angular.module('arethusa.core').service('navigator', [
     var currentSentenceObj = function () {
       return self.sentences[self.currentPosition] || {};
     };
-    this.currentSentence = function () {
+    this.currentChunk = function () {
       return currentSentenceObj().tokens;
     };
 
@@ -171,7 +171,7 @@ angular.module('arethusa.core').service('navigator', [
 
     this.updateState = function() {
       self.updateId();
-      self.state().replaceState(self.currentSentence());
+      self.state().replaceState(self.currentChunk());
     };
 
     function movePosition(steps) {
