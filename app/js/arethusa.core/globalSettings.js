@@ -80,6 +80,12 @@ angular.module('arethusa.core').service('globalSettings', [
     this.setClickAction = function(name) {
       self.clickAction = name;
       var actions = self.clickActions[self.clickAction];
+      if (!silent) {
+        $rootScope.$broadcast('clickActionChange');
+      }
+      if (!silent) {
+        $rootScope.$broadcast('clickActionChange');
+      }
       self.clickFn = actions[0];
       self.preClickFn = actions[1];
     };
