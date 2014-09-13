@@ -42,7 +42,7 @@ angular.module('arethusa.core').service('navigator', [
 
     this.changeChunkSize = function(size) {
       self.chunkSize = size;
-      self.updateId();
+      self.updateState();
     };
 
 
