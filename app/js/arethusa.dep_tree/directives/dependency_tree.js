@@ -50,8 +50,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
   '$timeout',
   'translator',
   'plugins',
+  'navigator',
   function ($compile, languageSettings, keyCapture, idHandler,
-            $window, state, $timeout, translator, plugins) {
+            $window, state, $timeout, translator, plugins, navigator) {
     return {
       restrict: 'A',
       scope: {
@@ -337,20 +338,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         }
 
         function groupTokens() {
-          var sId, group;
-          scope.groupedTokens = [];
-          for (var id in scope.tokens) {
-            var token = scope.tokens[id];
-            var tSId = token.sentenceId;
-            if (tSId !== sId ) {
-              group = {};
-              scope.groupedTokens.push(group);
-              group[id] = token;
-              sId = tSId;
-            } else {
-              group[id] = token;
-            }
-          }
+          scope.groupedTokens = aU.map(navigator.currentSentences, 'tokens');
           scope.groupSize = scope.groupedTokens.length;
         }
 
