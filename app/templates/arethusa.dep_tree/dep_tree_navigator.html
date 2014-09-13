@@ -1,0 +1,10 @@
+<div class="left" to-bottom style="width: 5px; position: fixed; margin-top: 5rem">
+  <ul>
+    <li
+      ng-repeat="trigger in focusTriggers"
+      class="tree-focus-trigger clickable"
+      ng-class="{ 'tree-focus-sel': trigger === currentFocus }"
+      ng-click="setCurrentFocus(trigger)">
+    </li>
+  <ul>
+<div/>
