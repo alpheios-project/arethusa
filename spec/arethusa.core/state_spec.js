@@ -84,13 +84,6 @@ describe("state", function() {
       expect(state.clickedTokens).toEqual({'03' : 'click'});
     });
 
-    it('deselects all tokens after head change', function() {
-      state.selectToken('01', 'click');
-      state.selectToken('03', 'click', true);
-
-      expect(state.selectedTokens).toEqual({});
-    });
-
     it('selects multiple tokens with ctrl', function() {
       state.selectToken('01', 'ctrl-click');
       state.selectToken('03', 'ctrl-click');
@@ -363,6 +356,9 @@ describe("state", function() {
     });
   });
 
+  // THIS COMPLETE BEHAVIOUR HAS BEEN MOVED TO DEP_TREE
+  // Test it there.
+
   /* Default tree:
    *     04:cano
    *        |
@@ -378,7 +374,7 @@ describe("state", function() {
      *     |
      *  02:virum
      */
-    it('parents a leaf node to the root', function() {
+    xit('parents a leaf node to the root', function() {
       state.selectToken('01', 'click');
 
       state.selectToken('04', 'click', true);
@@ -395,7 +391,7 @@ describe("state", function() {
      *        |
      *     01:Arma
      */
-    it('parents a leaf node to another leaf node', function() {
+    xit('parents a leaf node to another leaf node', function() {
       state.selectToken('01', 'click');
 
       state.selectToken('02', 'click', true);
@@ -412,7 +408,7 @@ describe("state", function() {
      *        |
      *    02:virum
      */
-    it('parents an inner node to a leaf node', function() {
+    xit('parents an inner node to a leaf node', function() {
       state.selectToken('03', 'click');
 
       state.selectToken('01', 'click', true);
@@ -428,7 +424,7 @@ describe("state", function() {
        *      /     |     \
        * 01:Arma 02:virum 03:-que
        */
-      it('parents two leaf nodes to an inner node', function() {
+      xit('parents two leaf nodes to an inner node', function() {
         state.selectToken('01', 'click');
         state.selectToken('02', 'ctrl-click');
 
@@ -449,7 +445,7 @@ describe("state", function() {
        *        |
        *     01:Arma
        */
-      it('ignores node in multiselection if it becomes head', function() {
+      xit('ignores node in multiselection if it becomes head', function() {
         state.selectToken('01', 'click');
         state.selectToken('02', 'ctrl-click');
 
@@ -459,7 +455,7 @@ describe("state", function() {
         expect(state.getToken('02').head.id).toBe('03');
       });
 
-      it('does not change a head when not explicitly requested through a third param boolean to selectToken', function() {
+      xit('does not change a head when not explicitly requested through a third param boolean to selectToken', function() {
         var headOfOne = state.getToken('01').head.id;
 
         expect(headOfOne).toBe('03');
@@ -471,16 +467,6 @@ describe("state", function() {
         expect(headOfOne).toBe('03');
         expect(state.isSelected('02')).toBeTruthy();
       });
-    });
-  });
-
-  describe('this.headsFor', function() {
-    it('returns an empty array for the root', function() {
-      expect(state.headsFor('00')).toEqual([]);
-    });
-
-    it('returns an array of head ids', function() {
-      expect(state.headsFor('01')).toEqual(['03', '04', '00']);
     });
   });
 
