@@ -322,15 +322,25 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return (token.head || {}).id;
         }
 
+        function stillSameTree(a, b) {
+          if (a && b) {
+            return angular.equals(Object.keys(a), Object.keys(b));
+          }
+        }
+
 
         // Functions to create, update and render the graph
         //
         // They are solely called by watches.
 
         function createGraph(noRegroup) {
-          clearOldGraph();
           if (!noRegroup) groupTokens();
+          var oldTree = scope.current;
           scope.current = scope.groupedTokens[scope.currentFocus];
+
+          if (stillSameTree(scope.current, oldTree)) return;
+
+          clearOldGraph();
           g = new dagreD3.Digraph();
           createRootNode();
           createEdges();
