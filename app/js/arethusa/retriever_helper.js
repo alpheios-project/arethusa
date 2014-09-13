@@ -14,6 +14,7 @@ angular.module('arethusa').service('retrieverHelper', [
       stateToken.idMap = idMap;
     };
 
+    // Currently disfunct - needs sentence id to work again
     this.getPreselections = function(conf) {
       var preselections = aU.toAry(locator.get(conf.preselector));
       return arethusaUtil.map(preselections, function(id) {

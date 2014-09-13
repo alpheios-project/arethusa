@@ -42,7 +42,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
         obj.type = token._artificial;
       }
 
-      var intId = xmlTokenId(token);
+      var intId = xmlTokenId(token, sentenceId);
       retrieverHelper.generateId(obj, intId, token._id, docId);
       createHead(obj, token, artificials);
 
@@ -54,13 +54,13 @@ angular.module('arethusa').factory('TreebankRetriever', [
       if (angular.isDefined(head)) {
         var newHead = {};
         var artHead = artificials[head];
-        newHead.id = artHead ? artHead : idHandler.getId(head);
+        newHead.id = artHead ? artHead : idHandler.getId(head, stateToken.sentenceId);
         stateToken.head = newHead;
       }
     }
 
-    function xmlTokenId(token) {
-      return token._artificial ? token._insertion_id : idHandler.getId(token._id);
+    function xmlTokenId(token, sId) {
+      return token._artificial ? token._insertion_id : idHandler.getId(token._id, sId);
     }
 
     function extractArtificial(memo, token, i) {
