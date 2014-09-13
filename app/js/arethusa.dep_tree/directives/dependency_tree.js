@@ -673,17 +673,23 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return scope.tokens === state.tokens;
         }
 
+        function inActiveTree(id) {
+          return scope.current[id];
+        }
+
         // only do this if we are the main tree!
         if (isMainTree()) {
           state.on('tokenAdded', function(event, token) {
-            createNode(token);
-            customizeGraph();
-            render();
+            if (inActiveTree(token.id)) {
+              createNode(token);
+              customizeGraph();
+              render();
+            }
           });
 
           state.on('tokenRemoved', function(event, token) {
             var id = token.id;
-            if (scope.current[id] === token && nodePresent(id)) {
+            if (inActiveTree(id) && nodePresent(id)) {
               g.delNode(id);
               render();
             }
@@ -694,25 +700,27 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           // only once and not several times for each head change.
           var queuedChangesPresent;
           state.watch('head.id', function(newVal, oldVal, event) {
-            // Very important to do here, otherwise the tree will
-            // be render a little often on startup...
-            if (newVal !== oldVal) {
-              var token = event.token;
-              // If a disconnection has been requested, we just
-              // have to delete the edge and do nothing else
-              if (newVal === "") {
-                g.delEdge(token.id);
-              } else {
-                updateEdge(token);
+            var token = event.token;
+            if (inActiveTree(token.id)) {
+              // Very important to do here, otherwise the tree will
+              // be render a little often on startup...
+              if (newVal !== oldVal) {
+                // If a disconnection has been requested, we just
+                // have to delete the edge and do nothing else
+                if (newVal === "") {
+                  g.delEdge(token.id);
+                } else {
+                  updateEdge(token);
+                }
               }
-            }
-            if (state.batchChange) {
-              queuedChangesPresent = true;
-              return;
-            }
+              if (state.batchChange) {
+                queuedChangesPresent = true;
+                return;
+              }
 
-            render();
-            $timeout(applyViewMode, transitionDuration);
+              render();
+              $timeout(applyViewMode, transitionDuration);
+            }
           });
 
           state.on('batchChangeStop', function() {
