@@ -76,12 +76,15 @@ angular.module('arethusa.core').service('globalSettings', [
     };
 
     this.setClickAction = function(name, silent) {
-      self.clickAction = name;
-      var actions = self.clickActions[self.clickAction];
-      self.clickFn = actions[0];
-      self.preClickFn = actions[1];
-      if (!silent) {
-        $rootScope.$broadcast('clickActionChange');
+      // When nothing changed, we don't need to do anything
+      if (self.clickAction !== name) {
+        self.clickAction = name;
+        var actions = self.clickActions[self.clickAction];
+        self.clickFn = actions[0];
+        self.preClickFn = actions[1];
+        if (!silent) {
+          $rootScope.$broadcast('clickActionChange');
+        }
       }
     };
 
