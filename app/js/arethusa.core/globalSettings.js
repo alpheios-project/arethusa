@@ -63,9 +63,7 @@ angular.module('arethusa.core').service('globalSettings', [
       state().toggleSelection(id, 'click');
     };
 
-    this.clickActions = {
-      'disabled' : self.defaultClickAction
-    };
+    this.clickActions = {};
 
 
     this.addClickAction = function(name, fn, preFn) {
@@ -77,17 +75,14 @@ angular.module('arethusa.core').service('globalSettings', [
       if (self.clickAction === name) self.setClickAction('disabled');
     };
 
-    this.setClickAction = function(name) {
+    this.setClickAction = function(name, silent) {
       self.clickAction = name;
       var actions = self.clickActions[self.clickAction];
-      if (!silent) {
-        $rootScope.$broadcast('clickActionChange');
-      }
-      if (!silent) {
-        $rootScope.$broadcast('clickActionChange');
-      }
       self.clickFn = actions[0];
       self.preClickFn = actions[1];
+      if (!silent) {
+        $rootScope.$broadcast('clickActionChange');
+      }
     };
 
     this.addColorizer = function(pluginName) {
@@ -152,7 +147,8 @@ angular.module('arethusa.core').service('globalSettings', [
 
     this.init = function() {
       configure();
-      self.setClickAction('disabled');
+      self.addClickAction('disabled', self.defaultClickAction);
+      self.setClickAction('disabled', true);
     };
 
   }
