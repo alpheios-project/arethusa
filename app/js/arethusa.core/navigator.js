@@ -14,7 +14,7 @@ angular.module('arethusa.core').service('navigator', [
     this.init = function() {
       self.chunkModes = ['sentence'];
       self.chunkMode = 'sentence';
-      self.chunkSize = 2;
+      self.chunkSize = 1;
 
       self.sentences = [];
       self.sentencesById = {};
@@ -208,7 +208,7 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     function movePosition(steps) {
-      self.currentPosition += steps;
+      self.currentPosition += (steps * self.chunkSize);
       self.updateState();
     }
 

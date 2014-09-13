@@ -172,6 +172,16 @@ describe("navigator", function() {
       navigator.nextChunk();
       expect(navigator.currentChunk()).toEqual(s5.tokens);
     });
+
+    describe('with larger chunk sizes', function() {
+      it('moves in chunk sizes', function() {
+        navigator.addSentences(sentences.concat(sentences));
+        navigator.changeChunkSize(2);
+        expect(navigator.status.currentPos).toEqual(0);
+        navigator.nextChunk();
+        expect(navigator.status.currentPos).toEqual(2);
+      });
+    });
   });
 
   describe('this.prevChunk()', function() {
@@ -197,6 +207,19 @@ describe("navigator", function() {
       expect(navigator.currentChunk()).toEqual(s1.tokens);
       navigator.prevChunk();
       expect(navigator.currentChunk()).toEqual(s1.tokens);
+    });
+
+    describe('with larger chunk sizes', function() {
+      it('moves in chunk sizes', function() {
+        navigator.addSentences(sentences.concat(sentences));
+        navigator.changeChunkSize(2);
+        expect(navigator.status.currentPos).toEqual(0);
+        navigator.nextChunk();
+        navigator.nextChunk();
+        expect(navigator.status.currentPos).toEqual(4);
+        navigator.prevChunk();
+        expect(navigator.status.currentPos).toEqual(2);
+      });
     });
   });
 
