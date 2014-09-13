@@ -7,12 +7,12 @@ angular.module('arethusa.core').service('globalSettings', [
   '$rootScope',
   'notifier',
   '$timeout',
+  '$injector',
   function(configurator,  plugins, $injector, $rootScope, notifier, $timeout) {
     var self = this;
 
     self.settings = {};
     self.colorizers = { disabled: true };
-    self.clickAction = 'disabled';
 
 
     var confKeys = [
@@ -59,11 +59,14 @@ angular.module('arethusa.core').service('globalSettings', [
       self.active = !self.active;
     };
 
+    function stateDefaultAction(id) {
+      state().toggleSelection(id, 'click');
+    }
+
     this.clickActions = {
-      'disabled' : angular.noop
+      'disabled' : stateDefaultAction
     };
 
-    this.clickFn = self.clickActions[self.clickAction];
 
     this.addClickAction = function(name, fn) {
       self.clickActions[name] = fn;
@@ -76,6 +79,7 @@ angular.module('arethusa.core').service('globalSettings', [
 
     this.setClickAction = function(name) {
       self.clickAction = name;
+      self.clickFn = self.clickActions[self.clickAction];
     };
 
     this.addColorizer = function(pluginName) {
@@ -86,8 +90,10 @@ angular.module('arethusa.core').service('globalSettings', [
       return self.colorizer === pluginName;
     };
 
+    var lazyState;
     function state() {
-      return $injector.get('state');
+      if (!lazyState) lazyState = $injector.get('state');
+      return lazyState;
     }
 
     this.applyColorizer = function() {
@@ -138,6 +144,7 @@ angular.module('arethusa.core').service('globalSettings', [
 
     this.init = function() {
       configure();
+      self.setClickAction('disabled');
     };
 
   }
