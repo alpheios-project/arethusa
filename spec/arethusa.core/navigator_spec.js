@@ -7,10 +7,10 @@ describe("navigator", function() {
   var s1 = {
     id: "1",
     tokens: {
-      '01': {
+      '01-01': {
         string: 'x',
       },
-      '02': {
+      '01-02': {
         string: 'y'
       }
     }
@@ -19,10 +19,10 @@ describe("navigator", function() {
   var s3 = {
     id: "3",
     tokens: {
-      '01': {
+      '03-01': {
         string: 'g',
       },
-      '02': {
+      '03-02': {
         string: 'h'
       }
     }
@@ -31,10 +31,10 @@ describe("navigator", function() {
   var s5 = {
     id: "5",
     tokens: {
-      '01': {
+      '05-01': {
         string: 'a',
       },
-      '02': {
+      '05-02': {
         string: 'b'
       }
     }
@@ -49,7 +49,7 @@ describe("navigator", function() {
   beforeEach(inject(function(_navigator_, _state_) {
     navigator = _navigator_;
     state = _state_;
-    state.initServices();
+    state.initServices(); // executes navigator init
     navigator.reset();
   }));
 
@@ -72,7 +72,18 @@ describe("navigator", function() {
   describe('this.currentChunk()', function() {
     it('returns the tokens of the current sentence', function() {
       navigator.addSentences(sentences);
-      expect(navigator.currentChunk()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toEqual(s1.tokens);
+    });
+
+    describe('with a larger chunk size', function() {
+      it('returns more than one sentence', function() {
+        var res = angular.extend({}, s1.tokens, s3.tokens);
+        navigator.addSentences(sentences);
+
+        navigator.changeChunkSize(2);
+
+        expect(navigator.currentChunk()).toEqual(res);
+      });
     });
   });
 
@@ -85,9 +96,9 @@ describe("navigator", function() {
   describe('this.updateId()', function() {
     it('updates the internal status obj with the id of the current sentence', function() {
       navigator.addSentences(sentences);
-      expect(navigator.status.currentId).toBeUndefined();
+      expect(navigator.status.currentIds).toEqual([]);
       navigator.updateId();
-      expect(navigator.status.currentId).toEqual('1');
+      expect(navigator.status.currentIds).toEqual(['1']);
     });
 
     it('determines if a next and/or previous sentence is available', function() {
@@ -128,7 +139,7 @@ describe("navigator", function() {
     it('flashes all internal state of the navigator', function() {
       navigator.addSentences(sentences);
       navigator.updateId();
-      expect(navigator.status.currentId).toEqual('1');
+      expect(navigator.status.currentIds).toEqual(['1']);
       expect(navigator.sentences.length).toEqual(3);
       expect(navigator.sentencesById).not.toEqual({});
 
@@ -142,10 +153,10 @@ describe("navigator", function() {
   describe('this.nextChunk()', function() {
     it('moves to the next sentence - mind how ids can be non-sequential!', function() {
       navigator.addSentences(sentences);
-      expect(navigator.currentChunk()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toEqual(s1.tokens);
 
       navigator.nextChunk();
-      expect(navigator.currentChunk()).toBe(s3.tokens);
+      expect(navigator.currentChunk()).toEqual(s3.tokens);
     });
 
     it('updates the state object', function() {
@@ -157,9 +168,9 @@ describe("navigator", function() {
     it('does nothing when there is no next sentence', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
-      expect(navigator.currentChunk()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
       navigator.nextChunk();
-      expect(navigator.currentChunk()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
     });
   });
 
@@ -168,24 +179,24 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
       navigator.nextChunk();
       navigator.nextChunk();
-      expect(navigator.currentChunk()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
 
       navigator.prevChunk();
-      expect(navigator.currentChunk()).toBe(s3.tokens);
+      expect(navigator.currentChunk()).toEqual(s3.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.nextChunk();
       navigator.prevChunk();
-      expect(state.tokens).toBe(navigator.currentChunk());
+      expect(state.tokens).toEqual(navigator.currentChunk());
     });
 
     it('does nothing when there is no previous sentence', function() {
       navigator.addSentences(sentences);
-      expect(navigator.currentChunk()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toEqual(s1.tokens);
       navigator.prevChunk();
-      expect(navigator.currentChunk()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toEqual(s1.tokens);
     });
   });
 
@@ -194,13 +205,13 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
 
       navigator.goToLast();
-      expect(navigator.currentChunk()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
-      expect(state.tokens).toBe(navigator.currentChunk());
+      expect(state.tokens).toEqual(navigator.currentChunk());
     });
   });
 
@@ -208,17 +219,17 @@ describe("navigator", function() {
     it('goes. to the first element in the sentence array', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
-      expect(navigator.currentChunk()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
 
       navigator.goToFirst();
-      expect(navigator.currentChunk()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toEqual(s1.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
       navigator.goToFirst();
-      expect(state.tokens).toBe(navigator.currentChunk());
+      expect(state.tokens).toEqual(navigator.currentChunk());
     });
   });
 
@@ -227,16 +238,16 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
 
       navigator.goTo('3');
-      expect(navigator.currentChunk()).toBe(s3.tokens);
+      expect(navigator.currentChunk()).toEqual(s3.tokens);
 
       navigator.goTo('5');
-      expect(navigator.currentChunk()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.goTo('5');
-      expect(state.tokens).toBe(navigator.currentChunk());
+      expect(state.tokens).toEqual(navigator.currentChunk());
     });
 
     it('returns true when the call succeeds', function() {
