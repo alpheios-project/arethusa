@@ -88,7 +88,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Values for the synthetic root node on top of the dependency tree
         var rootText = "[ROOT]";
-        var rootId = idHandler.getId('0');
+        var rootId;
 
         // This function will be used to store special function that can move
         // and resize the tree, such as a perfectWidth mode. If this function
@@ -327,6 +327,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         // They are solely called by watches.
         function createGraph() {
           clearOldGraph();
+          scope.current = scope.tokens;
           g = new dagreD3.Digraph();
           createRootNode();
           createEdges();
@@ -337,14 +338,20 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           if (vis) vis.selectAll('*').remove();
         }
 
+        function inferSId() {
+          for (var first in scope.current) break;
+          return scope.current[first].sentenceId;
+        }
+
         function createRootNode() {
+          rootId = idHandler.getId('0', inferSId());
           g.addNode(rootId, { label: rootPlaceholder() });
         }
         function createNode(token) {
           g.addNode(token.id, { label: tokenPlaceholder(token) });
         }
         function createEdges() {
-          angular.forEach(scope.tokens, function (token, index) {
+          angular.forEach(scope.current, function (token, index) {
             if (hasHead(token)) drawEdge(token);
           });
         }
@@ -368,7 +375,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           }
 
           if (!nodePresent(headId)) {
-            createNode(scope.tokens[headId]);
+            createNode(scope.current[headId]);
           }
           g.addEdge(id, id, headId, { label: labelPlaceholder(token) });
         }
@@ -444,12 +451,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             // of our compiled token directive.
             // The placholder has an id in the format of tphXXXX where XXXX is the id.
             this.textContent = '';
-            return compiledToken(scope.tokens[this.id.slice(3)]);
+            return compiledToken(scope.current[this.id.slice(3)]);
           });
         }
 
         function insertEdgeDirectives() {
-          angular.forEach(scope.tokens, function (token, id) {
+          angular.forEach(scope.current, function (token, id) {
             label(id).append(function () {
               this.textContent = '';
               var label = compiledEdgeLabel(token);
@@ -643,7 +650,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         });
 
         function isMainTree() {
-          return scope.tokens === state.tokens;
+          return scope.current === state.tokens;
         }
 
         // only do this if we are the main tree!
@@ -656,7 +663,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
           state.on('tokenRemoved', function(event, token) {
             var id = token.id;
-            if (scope.tokens[id] === token && nodePresent(id)) {
+            if (scope.current[id] === token && nodePresent(id)) {
               g.delNode(id);
               render();
             }
