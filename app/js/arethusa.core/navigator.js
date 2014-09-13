@@ -37,7 +37,7 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     this.applyChunkMode = function() {
-
+      // tbd - we only support sentences so far
     };
 
     this.changeChunkSize = function(size) {
