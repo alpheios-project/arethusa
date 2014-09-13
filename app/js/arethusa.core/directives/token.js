@@ -76,11 +76,7 @@ angular.module('arethusa.core').directive('token', [
           }
         };
 
-        // It's imperative to bind any preClickFn which might hover here -
-        // otherwise it will fail to register
-        if (scope.click) {
-          bindClick();
-          element.addClass('clickable');
+        function bindPreClick() {
           var preClick = globalSettings.preClickFn;
           if (preClick) {
             angular.forEach(preClick, function(fn, eventName) {
@@ -92,7 +88,30 @@ angular.module('arethusa.core').directive('token', [
             });
           }
         }
-        if (scope.hover) bindHover();
+
+        function addBindings() {
+          // It's imperative to bind any preClickFn which might hover here -
+          // otherwise it will fail to register
+          if (scope.click) {
+            bindClick();
+            element.addClass('clickable');
+            bindPreClick();
+          }
+          if (scope.hover) bindHover();
+        }
+
+        function unbind() {
+          element.removeClass('clickable');
+          element.unbind();
+        }
+
+        function updateBindings() {
+          unbind();
+          addBindings();
+        }
+
+        scope.$on('clickActionChange', updateBindings);
+
 
         function cleanStyle() {
           angular.forEach(scope.token.style, function (val, style) {
@@ -133,6 +152,8 @@ angular.module('arethusa.core').directive('token', [
         }
 
         element.addClass('token');
+
+        addBindings();
       },
       templateUrl: 'templates/token.html'
     };
