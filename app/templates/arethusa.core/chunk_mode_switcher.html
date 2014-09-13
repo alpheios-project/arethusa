@@ -1,0 +1,18 @@
+<div>
+  <label>
+    <span translate="{{ label }}"/>
+    <select
+      style="width: 8rem"
+      class="compact"
+      ng-model="navi.chunkMode"
+      ng-change="navi.applyChunkMode()"
+      ng-options="mode as mode for mode in navi.chunkModes">
+    </select>
+
+    <input
+      style="width: 2rem; display: inline-block"
+      class="compact"
+      type="text" ng-model="navi.chunkSize"/>
+  </label>
+</div>
+

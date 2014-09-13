@@ -5,11 +5,17 @@ angular.module('arethusa.core').service('navigator', [
   '$cacheFactory',
   'keyCapture',
   '$rootScope',
-  function ($injector, configurator, $cacheFactory, keyCapture, $rootScope) {
+  'globalSettings',
+  function ($injector, configurator, $cacheFactory,
+            keyCapture, $rootScope, globalSettings) {
     var self = this;
     var citeMapper;
 
     this.init = function() {
+      self.chunkModes = ['sentence'];
+      self.chunkMode = 'sentence';
+      self.chunkSize = 1;
+
       self.sentences = [];
       self.sentencesById = {};
       self.currentPosition = 0;
@@ -26,7 +32,14 @@ angular.module('arethusa.core').service('navigator', [
           ]
         };
       });
+
+      navigator.chunkMode = 'sentence';
     };
+
+    this.applyChunkMode = function() {
+
+    };
+
 
     this.state = function () {
       if (!self.lazyState) {

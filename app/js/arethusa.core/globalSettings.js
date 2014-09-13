@@ -40,6 +40,7 @@ angular.module('arethusa.core').service('globalSettings', [
     }
 
     function defineSettings() {
+      self.defineSetting('chunkMode', 'custom', 'chunk-mode-switcher');
       self.defineSetting('clickAction', 'custom', 'global-click-action');
       self.defineSetting('alwaysDeselect');
       self.defineSetting('keyboardMappings');
