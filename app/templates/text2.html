@@ -7,8 +7,6 @@
       hover="true"
       highlight="true">
     </span>
-    <span ng-if="token.terminator">
-      <br/><br/>
-    </span>
+    <br ng-if="token.terminator && !$last"/>
   </span>
 </p>

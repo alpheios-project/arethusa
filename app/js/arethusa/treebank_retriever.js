@@ -42,6 +42,10 @@ angular.module('arethusa').factory('TreebankRetriever', [
         obj.type = token._artificial;
       }
 
+      if (aU.isTerminatingPunctuation(obj.string)) {
+        obj.terminator = true;
+      }
+
       var intId = xmlTokenId(token, sentenceId);
       retrieverHelper.generateId(obj, intId, token._id, docId);
       createHead(obj, token, artificials);
