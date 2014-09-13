@@ -66,27 +66,6 @@ angular.module('arethusa.core').directive('token', [
           });
         }
 
-        // Dependent on the concept of head changes - will be moved
-        // elsewhere later.
-        function bindHeadChangeHover() {
-          element.bind('mouseenter', function (event) {
-            apply(function() {
-              if (awaitingHeadChange(event)) {
-                element.addClass('copy-cursor');
-              }
-            });
-          });
-          element.bind('mouseleave', function () {
-            apply(function () {
-              element.removeClass('copy-cursor');
-            });
-          });
-        }
-
-        function awaitingHeadChange(event) {
-          return !state.isSelected(id) && state.hasSelections() && !event.ctrlKey;
-        }
-
         scope.selectionClass = function () {
           if (state.isSelected(id)) {
             if (state.selectionType(id) == 'hover') {
@@ -97,14 +76,15 @@ angular.module('arethusa.core').directive('token', [
           }
         };
 
-        // It's imperative to bind headChangeHover before Hover -
-        // otherwise the headChangeHover bindings fails.
+        // It's imperative to bind any preClickFn which might hover here -
+        // otherwise it will fail to register
         if (scope.click) {
           bindClick();
           element.addClass('clickable');
-          //if (changeHeads) {
-            //bindHeadChangeHover();
-          //}
+          var preClick = globalSettings.preClickFn;
+          if (preClick) {
+            globalSettings.preClickFn(id, scope, element);
+          }
         }
         if (scope.hover) bindHover();
 
