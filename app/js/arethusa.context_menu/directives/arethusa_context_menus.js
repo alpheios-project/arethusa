@@ -15,7 +15,7 @@ angular.module('arethusa.contextMenu').directive('arethusaContextMenus', [
       },
       template: '\
         <arethusa-context-menu\
-          ng-repeat="(id, token) in tokens track by fullId(token)"\
+          ng-repeat="(id, token) in tokens track by id"\
           plugins="plugins"\
           token-obj="token">\
         </arethusa-context-menu>\
