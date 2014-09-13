@@ -675,7 +675,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // only do this if we are the main tree!
         if (isMainTree()) {
-          scope.$on('tokenAdded', function(event, token) {
+          state.on('tokenAdded', function(event, token) {
             createNode(token);
             customizeGraph();
             render();
