@@ -59,7 +59,24 @@ html, body {
 
 .tree-settings {
   margin: 0.3rem;
- }
+}
+
+.tree-focus-trigger {
+  border-radius: 2px;
+  height: 3rem;
+  margin-top: .2rem;
+  background-color: darken($panel-bg, 8%);
+  @include transition(background-color 200ms ease-in);
+
+  &:hover {
+    background-color: darken($panel-bg, 30%)
+  }
+
+  &.tree-focus-sel {
+    background-color: darken($panel-bg, 15%)
+  }
+}
+
 
 .token {
   @include transition(background-color 100ms linear);
