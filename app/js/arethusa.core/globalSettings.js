@@ -59,12 +59,12 @@ angular.module('arethusa.core').service('globalSettings', [
       self.active = !self.active;
     };
 
-    function stateDefaultAction(id) {
+    this.defaultClickAction = function(id) {
       state().toggleSelection(id, 'click');
-    }
+    };
 
     this.clickActions = {
-      'disabled' : stateDefaultAction
+      'disabled' : self.defaultClickAction
     };
 
 
