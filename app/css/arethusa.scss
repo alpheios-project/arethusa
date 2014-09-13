@@ -75,7 +75,7 @@ html, body {
   background-color: darken($panel-bg, 8%);
   @include transition(background-color 200ms ease-in);
 
-  &:hover {
+  &:hover, &.tree-focus-sel:hover {
     background-color: darken($panel-bg, 30%)
   }
 
