@@ -69,7 +69,6 @@ angular.module('arethusa.core').service('globalSettings', [
 
 
     this.addClickAction = function(name, fn, preFn) {
-      preFn = preFn || angular.noop();
       self.clickActions[name] = [fn, preFn];
     };
 

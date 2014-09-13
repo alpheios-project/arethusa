@@ -189,24 +189,22 @@ angular.module('arethusa.depTree').service('depTree', [
       return !state.isSelected(id) && state.hasClickSelections() && !event.ctrlKey;
     }
 
-    function preHeadChange(id, scope, element) {
-      element.bind('mouseenter', function (event) {
-        scope.$apply(function() {
+    function preHeadChange() {
+      return {
+        'mouseenter' : function(id, element, event) {
           if (awaitingHeadChange(id, event)) {
             element.addClass('copy-cursor');
           }
-        });
-      });
-      element.bind('mouseleave', function () {
-        scope.$apply(function () {
+        },
+        'mouseleave' : function(id, element, event) {
           element.removeClass('copy-cursor');
-        });
-      });
+        }
+      };
     }
 
     var clickActionName = 'change head';
 
-    globalSettings.addClickAction(clickActionName, changeHeadAction, preHeadChange);
+    globalSettings.addClickAction(clickActionName, changeHeadAction, preHeadChange());
     globalSettings.setClickAction(clickActionName);
 
     this.init = function () {

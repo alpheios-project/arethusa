@@ -83,7 +83,13 @@ angular.module('arethusa.core').directive('token', [
           element.addClass('clickable');
           var preClick = globalSettings.preClickFn;
           if (preClick) {
-            globalSettings.preClickFn(id, scope, element);
+            angular.forEach(preClick, function(fn, eventName) {
+              element.bind(eventName, function(event) {
+                apply(function() {
+                  fn(id, element, event);
+                });
+              });
+            });
           }
         }
         if (scope.hover) bindHover();
