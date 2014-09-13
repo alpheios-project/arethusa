@@ -16,8 +16,8 @@
 // responsibilites at the moment.
 angular.module('arethusa.core').directive('token', [
   'state',
-  'plugins',
-  function (state, plugins) {
+  'globalSettings',
+  function (state, globalSettings) {
     return {
       restrict: 'AE',
       scope: {
@@ -35,7 +35,6 @@ angular.module('arethusa.core').directive('token', [
 
         scope.state = state;
         var id = scope.token.id;
-        var changeHeads = plugins.get('depTree').mode === 'editor';
 
         function apply(fn) {
           scope.$apply(fn());
@@ -45,7 +44,11 @@ angular.module('arethusa.core').directive('token', [
           element.bind('click', function (event) {
             apply(function() {
               var clickType = event.ctrlKey ? 'ctrl-click' : 'click';
-              state.toggleSelection(id, clickType, changeHeads);
+              if (clickType === 'click' && state.hasClickSelections()) {
+                globalSettings.clickFn(id);
+              } else {
+                state.toggleSelection(id, clickType);
+              }
             });
           });
         }
@@ -99,9 +102,9 @@ angular.module('arethusa.core').directive('token', [
         if (scope.click) {
           bindClick();
           element.addClass('clickable');
-          if (changeHeads) {
-            bindHeadChangeHover();
-          }
+          //if (changeHeads) {
+            //bindHeadChangeHover();
+          //}
         }
         if (scope.hover) bindHover();
 
