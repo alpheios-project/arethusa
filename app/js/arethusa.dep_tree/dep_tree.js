@@ -126,11 +126,66 @@ angular.module('arethusa.depTree').service('depTree', [
       state.change(token, 'head.id', '0000');
     };
 
-    function changeHeadAction() {
-
+    function getHeadsToChange(token) {
+      var sId = token.sentenceId;
+      var id  = token.id;
+      var notAllowed;
+      var res = [];
+      for (var otherId in state.clickedTokens) {
+        var otherToken = state.getToken(otherId);
+        if (otherToken.sentenceId !== sId) {
+          notAllowed = true;
+          break;
+        }
+        if (id !== otherId) {
+          res.push(otherToken);
+        }
+      }
+      return notAllowed ? 'err': (res.length ? res : false);
     }
 
-    var clickActionName= 'change head';
+    function changeHead(tokenToChange, targetToken) {
+      if (isDescendant(targetToken, tokenToChange)) {
+        state.change(targetToken, 'head.id', tokenToChange.head.id);
+      }
+      state.change(tokenToChange, 'head.id', targetToken.id);
+    }
+
+    function isDescendant(targetToken, token) {
+      var current = targetToken;
+      var currHead = aU.getProperty(current, 'head.id');
+      var tokenId = token.id;
+      var desc = false;
+      while ((!desc) && current && currHead) {
+        if (tokenId === currHead) {
+          desc = true;
+        } else {
+          current = state.getToken(currHead);
+          currHead = current ? aU.getProperty(current, 'head.id') : false;
+        }
+      }
+      return desc;
+    }
+
+    function changeHeadAction(id) {
+      var token = state.getToken(id);
+      var headsToChange = getHeadsToChange(token);
+      if (headsToChange) {
+        if (headsToChange === 'err') {
+          notifier.error('Cannot change heads across sentences');
+          return;
+        }
+        angular.forEach(headsToChange, function(otherToken, i) {
+          if (!state.batchChange) state.batchChangeStart();
+          changeHead(otherToken, token);
+        });
+        if (state.batchChange) state.batchChangeStop();
+      } else {
+        globalSettings.defaultClickAction(id);
+      }
+    }
+
+    var clickActionName = 'change head';
 
     globalSettings.addClickAction(clickActionName, changeHeadAction);
     globalSettings.setClickAction(clickActionName);
