@@ -68,8 +68,9 @@ angular.module('arethusa.core').service('globalSettings', [
     };
 
 
-    this.addClickAction = function(name, fn) {
-      self.clickActions[name] = fn;
+    this.addClickAction = function(name, fn, preFn) {
+      preFn = preFn || angular.noop();
+      self.clickActions[name] = [fn, preFn];
     };
 
     this.removeClickAction = function(name) {
@@ -79,7 +80,9 @@ angular.module('arethusa.core').service('globalSettings', [
 
     this.setClickAction = function(name) {
       self.clickAction = name;
-      self.clickFn = self.clickActions[self.clickAction];
+      var actions = self.clickActions[self.clickAction];
+      self.clickFn = actions[0];
+      self.preClickFn = actions[1];
     };
 
     this.addColorizer = function(pluginName) {
