@@ -14,7 +14,7 @@ angular.module('arethusa.core').service('navigator', [
     this.init = function() {
       self.chunkModes = ['sentence'];
       self.chunkMode = 'sentence';
-      self.chunkSize = 1;
+      self.chunkSize = 2;
 
       self.sentences = [];
       self.sentencesById = {};
@@ -157,12 +157,14 @@ angular.module('arethusa.core').service('navigator', [
 
     function updateCitation() {
       resetCitation();
-      //self.getCitation(currentSentenceObj(), storeCitation);
+      self.getCitation(currentSentenceObjs(), storeCitation);
     }
 
     var citationCache = $cacheFactory('citation', { number: 100 });
-    this.getCitation = function(sentence, callback) {
+    this.getCitation = function(sentences, callback) {
       if (!citeMapper) return;
+      var sentence = sentences[0];
+      if (!sentence) return;
 
       var citation;
       var cite = sentence.cite;
@@ -216,11 +218,11 @@ angular.module('arethusa.core').service('navigator', [
     }
 
     this.updateId = function () {
-      self.status.currentPos = self.currentPosition;
-      self.status.currentIds = currentIds();
       updateNextAndPrev();
       updateCitation();
       updateChunks();
+      self.status.currentPos = self.currentPosition;
+      self.status.currentIds = currentIds();
     };
 
     this.sentenceToString = function(sentence) {
