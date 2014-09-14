@@ -10,6 +10,7 @@ var reloadPort = 35279;
 var confPath = 'app/static/configs';
 
 var arethusaModules = [
+  "arethusa.similes",
   "arethusa.tei",
   'arethusa.morph',
   'arethusa.artificial_token',
