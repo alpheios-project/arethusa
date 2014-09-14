@@ -17,7 +17,7 @@
       }
     },
     "plugins" : [
-      "text",
+      "tei",
       "artificialToken",
       "search",
       "morph",
@@ -60,6 +60,15 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
       "template" : "templates/dep_tree.html"
+    },
+
+    "tei" : {
+      "main" : true,
+      "retriever" : {
+        "TeiRetriever" : {
+          "resource" : "fakeTei"
+        }
+      }
     },
 
     "search" : {
