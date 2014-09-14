@@ -7,6 +7,13 @@
     ]
   },
 
+  "fakeTei" : {
+    "route" : "http://74.70.97.104:8085/xml_server/:tei",
+    "params" : [
+      "tei"
+    ]
+  },
+
   "localPerseids" : {
     "route" : "http://localhost:8085/xml_server/:doc",
     "params" : [
