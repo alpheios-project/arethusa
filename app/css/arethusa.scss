@@ -887,3 +887,5 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
     @include transition-duration(1250ms);
   }
 }
+
+@import 'arethusa.tei';
