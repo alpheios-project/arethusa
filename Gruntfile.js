@@ -15,6 +15,7 @@ var devMode = process.env.DEV;
 
 var arethusaModules = [
   "arethusa.constituents",
+  "arethusa.tei",
   'arethusa.morph',
   'arethusa.artificial_token',
   'arethusa.core',
