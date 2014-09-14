@@ -24,7 +24,7 @@ angular.module('arethusa.core').service('arethusaGrid', [
     this.setFloating = function(val) { self.options.floating = val; };
 
     this.options = angular.extend(gridsterConfig, {
-      columns: 20,
+      columns: 40,
       rowHeight: 'match',
       defaultSizeX: 6,
       defaultSizeY: 4,
@@ -53,12 +53,12 @@ angular.module('arethusa.core').service('arethusaGrid', [
     }
 
     this.items = [
-      new Item('text',     [14, 1], [0, 0]),
-      new Item('depTree',  [9, 8],  [2, 0], { overflow: 'hidden'} ),
-      new Item('morph',    [5, 8],  [1, 9]),
-      new Item('search',   [6, 2],  [0, 14]),
-      new Item('relation', [6, 3],  [2, 14]),
-      new Item('artificialToken', [6, 4],  [7, 14])
+      new Item('tei',     [28, 2], [0, 0]),
+      new Item('depTree',  [18, 16],  [4, 0], { overflow: 'hidden'} ),
+      new Item('morph',    [10, 16],  [2, 18]),
+      new Item('search',   [12, 4],  [0, 28]),
+      new Item('relation', [12, 6],  [4, 28]),
+      new Item('artificialToken', [12, 8],  [14, 28])
     ];
 
     this.addItem = function(name) {
