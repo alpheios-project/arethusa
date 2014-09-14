@@ -53,11 +53,12 @@ angular.module('arethusa.core').service('arethusaGrid', [
     }
 
     this.items = [
-      new Item('tei',     [28, 2], [0, 0]),
-      new Item('depTree',  [18, 16],  [4, 0], { overflow: 'hidden'} ),
+      new Item('tei',     [10, 20], [0, 0]),
+      new Item('similes', [18, 10], [10, 0]),
+      //new Item('depTree',  [18, 16],  [4, 0], { overflow: 'hidden'} ),
       new Item('morph',    [10, 16],  [2, 18]),
       new Item('search',   [12, 4],  [0, 28]),
-      new Item('relation', [12, 6],  [4, 28]),
+      //new Item('relation', [12, 6],  [4, 28]),
       new Item('artificialToken', [12, 8],  [14, 28])
     ];
 
