@@ -1,0 +1,38 @@
+{
+  "relations" : {
+    "labels" : {
+      "PRED" : {
+        "short" : "PRED",
+        "long" : "Nature",
+        "style" : {
+          "color" : "rgb(223, 38, 38)"
+        },
+        "nested" : {
+          "AuxP" : {
+            "short" : "AuxP",
+            "long" : "Plants",
+            "style" : {
+              "color" : "green"
+            }
+          }
+        }
+      },
+      "SBJ" : {
+        "short" : "SBJ",
+        "long" : "Human World",
+        "style" : {
+          "color" : "rgb(92, 201, 83)"
+        },
+        "nested": {
+          "AuxP" : {
+            "short" : "AuxP",
+            "long" : "Myth and Religion",
+            "style" : {
+              "color" : "green"
+            }
+          }
+        }
+      }
+    }
+  }
+}

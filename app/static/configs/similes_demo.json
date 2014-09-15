@@ -20,7 +20,6 @@
       "tei",
       "artificialToken",
       "search",
-      "morph",
       "relation",
       "history",
       "comments",
@@ -45,7 +44,7 @@
 
   "plugins" : {
     "similes" : {
-      "@include" : "relation/relations.json"
+      "@include" : "relation/similes.json"
     },
 
     "perseids.translations" : {
