@@ -44,7 +44,7 @@ describe("state", function() {
     $rootScope = _$rootScope_;
     state = _state_;
     state.initServices();
-    state.tokens = createTokens();
+    state.tokens = arethusaMocks.tokens();
   }));
 
   describe("this.countTotalTokens", function() {
@@ -325,7 +325,7 @@ describe("state", function() {
       var morph = { postag: '-------' };
       var t1 = state.getToken('01');
 
-      expect(t1.morphology).toBeUndefined();
+      expect(t1.morphology).not.toBe(morph);
       state.setState('01', 'morphology', morph);
       expect(t1.morphology).toBe(morph);
     });
