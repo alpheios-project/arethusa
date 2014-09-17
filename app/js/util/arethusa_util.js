@@ -257,9 +257,23 @@ var arethusaUtil = {
         }
       }
       return res;
+    },
+
+    unique: function(arr, fn) {
+      var unique = [];
+      for (var i = 0; i  < arr.length; i ++) {
+        var el = arr[i];
+        for (var oI = arr.length - 1; oI >= i; oI--){
+          var otherEl = arr[oI];
+          if (fn(el, otherEl)) {
+            break;
+          } else {
+            unique.push(el);
+          }
+        }
+      }
+      return unique;
     }
-
-
   };
 
   var aU = arethusaUtil;

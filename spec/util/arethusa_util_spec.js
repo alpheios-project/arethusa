@@ -417,4 +417,17 @@ describe("arethusaUtil", function() {
       expect(res).toBe(obj1);
     });
   });
+
+  describe('unique', function() {
+    it('returns unique element of an array - takes a function to determine that', function() {
+      var obj1 = { x: 1 };
+      var obj2 = { x: 1 };
+      var obj3 = { x: 2 };
+      var arr = [obj1, obj2, obj3];
+
+      var res = aU.unique(arr, function(a, b) {
+        return a.x === b.x;
+      });
+    });
+  });
 });
