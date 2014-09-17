@@ -404,4 +404,17 @@ describe("arethusaUtil", function() {
       expect(aU.capitalize(str)).toEqual(res);
     });
   });
+
+  describe('find', function() {
+    it('finds the first el in an array, where the function matches', function() {
+      var obj1 = { x: 1 };
+      var obj2 = { x: 1 };
+      var arr  = [obj1, obj2];
+
+      var res = aU.find(arr, function(el) {
+        return el.x === 1;
+      });
+      expect(res).toBe(obj1);
+    });
+  });
 });

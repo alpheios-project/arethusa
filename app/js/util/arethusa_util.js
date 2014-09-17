@@ -245,7 +245,21 @@ var arethusaUtil = {
 
     capitalize: function(str) {
       return str[0].toUpperCase() + str.slice(1);
+    },
+
+    find: function(arr, fn) {
+      var res;
+      for (var i=0; i < arr.length; i++) {
+        var el = arr[i];
+        if (fn(el)) {
+          res = el;
+          break;
+        }
+      }
+      return res;
     }
+
+
   };
 
   var aU = arethusaUtil;
