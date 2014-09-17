@@ -5,7 +5,8 @@ angular.module('arethusa.sg').service('sg', [
   'configurator',
   '$cacheFactory',
   'plugins',
-  function(state, configurator, $cacheFactory, plugins) {
+  'notifier',
+  function(state, configurator, $cacheFactory, plugins, notifier) {
     var self = this;
     this.name = 'sg';
 
@@ -94,6 +95,12 @@ angular.module('arethusa.sg').service('sg', [
           // It can appear in menus that show a morph preselection -
           // I guess... Check a word with a dative proper e.g.
           var expandedAncestor = menu[ancestor] || menu.nested;
+          if (!expandedAncestor) {
+            notifier.error("Failed to parse SG annotation");
+            notifier.warning("You might be using an incompatible version of the SG tagset");
+            menu = undefined;
+            return;
+          }
           grammar.ancestors.push(expandedAncestor);
           menu = expandedAncestor.nested;
         }
