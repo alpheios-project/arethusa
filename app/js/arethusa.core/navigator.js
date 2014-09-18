@@ -12,9 +12,12 @@ angular.module('arethusa.core').service('navigator', [
     var citeMapper;
 
     this.init = function() {
+      self.conf = configurator.configurationFor('navigator');
+
+
       self.chunkModes = ['sentence'];
-      self.chunkMode = 'sentence';
-      self.chunkSize = 1;
+      self.chunkMode = self.conf.chunkMode || 'sentence';
+      self.chunkSize = self.conf.chunkSize || 1;
 
       self.sentences = [];
       self.sentencesById = {};

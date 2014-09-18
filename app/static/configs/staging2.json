@@ -41,6 +41,10 @@
     "maxMessages" : 7
   },
 
+  "navigator" : {
+    "chunkSize" : 1
+  },
+
   "resources" : {
     "@include" : "resources/dev.json"
   },
