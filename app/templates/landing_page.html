@@ -4,23 +4,23 @@
 
 <div class="panel row large-12 columns">
   <a href="https://github.com/latin-language-toolkit/arethusa"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-  <h3>Arethusa</h3>
   <p>TODO description</p>
 
-  <h3>Use cases or configurations</h3>
-  <p>Through its modular nature Arethusa can be configured for different use cases:<p>
-  TODO
+  <div>
+    <h3>Use cases</h3>
+    <p>Through its modular nature Arethusa can be configured to solve different use cases.<p>
 
-
-  <div class="large-12 columns">
-    <div ng-repeat="(useCase, examples) in useCases">
-      <h3 class="italic">{{ useCase }}</h4>
-      <div ng-repeat="example in examples">
-        <div
-          class="large-4 columns panel clickable"
-          ng-click="goTo(example.url)">
-          <h4>{{ example.name }}</h4>
-          <p>{{ example.caption }}</p>
+    <div class="large-12 columns">
+      <div ng-repeat="useCase in useCases">
+        <h3 class="italic">{{ useCase.name }}</h4>
+        <div ng-repeat="example in useCase.examples">
+          <div
+            class="large-4 columns panel clickable"
+            ng-click="goTo(example.url)">
+            <h4>{{ example.name }}</h4>
+            <img ng-src="{{ example.img }}"/>
+            <p>{{ example.caption }}</p>
+          </div>
         </div>
       </div>
     </div>
