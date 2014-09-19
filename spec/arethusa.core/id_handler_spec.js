@@ -26,6 +26,10 @@ describe("idHandler", function() {
     it('increments ids that are extendend with letters', function() {
       expect(idHandler.increment('0004e')).toEqual('0004f');
     });
+
+    it('works correctly with %s-%w ids', function() {
+      expect(idHandler.increment('0001-0004')).toEqual('0001-0005');
+    });
   });
 
   describe('this.isExtendedId()', function() {
@@ -35,6 +39,10 @@ describe("idHandler", function() {
 
     it('returns false when id is not extended', function() {
       expect(idHandler.isExtendedId('0004')).toBeFalsy();
+    });
+
+    it('works correctly with %s-%w ids', function() {
+      expect(idHandler.decrement('0001-0005')).toEqual('0001-0004');
     });
   });
 

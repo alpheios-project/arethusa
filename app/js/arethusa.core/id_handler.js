@@ -115,6 +115,7 @@ angular.module('arethusa.core').service('idHandler', [
     function incDec(id, increment) {
       var idParts = parseId(id);
       var wId = idParts.pop();
+      var sId = idParts.pop();
       var wParts = wIdParts(wId);
 
       var newId  = wParts[1];
@@ -124,7 +125,7 @@ angular.module('arethusa.core').service('idHandler', [
       } else {
         if (increment) newId++; else newId--;
       }
-      return self.getId(newId) + letter;
+      return self.getId(newId, sId) + letter;
     }
 
 
