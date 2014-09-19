@@ -3,10 +3,14 @@
 <div class="canvas-border"></div>
 
 <div class="panel row large-12 columns">
-  <a href="https://github.com/latin-language-toolkit/arethusa"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-  <p>TODO description</p>
+  <div class="section">
+    <a href="https://github.com/latin-language-toolkit/arethusa"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <p>TODO description</p>
+  </div>
 
-  <div>
+  <div delimiter/>
+
+  <div class=section>
     <h3>Use cases</h3>
     <p>Through its modular nature Arethusa can be configured to solve different use cases.<p>
 
@@ -26,7 +30,9 @@
     </div>
   </div>
 
-  <div>
+  <div delimiter/>
+
+  <div class="section">
     <h3>Getting started</h3>
     <iframe width="640" height="360" src="//www.youtube.com/embed/FbRRoVnVuDs" frameborder="0" allowfullscreen></iframe>
     <iframe width="640" height="360" src="//www.youtube.com/embed/hp-bhasd96g" frameborder="0" allowfullscreen></iframe>
@@ -35,7 +41,9 @@
     </p>
   </div>
 
-  <div>
+  <div delimiter/>
+
+  <div class="section">
     <h3>Development</h3>
     <p>
     Arethusa is built on the <a href="https://angularjs.org/angular.js">AngularJS</a> javascript web application framework 
@@ -47,15 +55,34 @@
     </p>
   </div>
 
-  <div>
+  <div delimiter/>
+
+  <div style="section">
     <h3>Partners</h3>
+    <div class="large-12 columns">
+      <div class="img-container" style="display: inline-block">
+        <a href="{{ partners[0].href }}">
+          <img class="center" align="middle" ng-src="{{ partners[0].img }}"/>
+        </a>
+      </div>
+      <div class="img-container" style="display: inline-block; vertical-align: 3rem">
+        <a href="{{ partners[1].href }}">
+          <img class="center" ng-src="{{ partners[1].img }}"/>
+        </a>
+        <div style="padding: 3rem 0"/>
+        <a href="{{ partners[2].href }}" target="_blank">
+          <img class="center" style="display: block" ng-src="{{ partners[2].img }}"/>
+        </a>
+      </div>
+    </div>
     <p>
   </div>
 
+  <div delimiter/>
 
   <div>
-  <h3>Funders</h3>
-  <p>This project has received support from the <a href="http://www.mellon.org/">Andrew W. Mellon Foundation</a> and the <a href="http://imls.gov/">Institute of Museum and Library Services</a>.</p>
+    <h3>Funders</h3>
+    <p>This project has received support from the <a href="http://www.mellon.org/">Andrew W. Mellon Foundation</a> and the <a href="http://imls.gov/">Institute of Museum and Library Services</a>.</p>
   </div>
 </div>
 
