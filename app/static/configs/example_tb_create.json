@@ -122,8 +122,7 @@
 
   "exitHandler" : {
     "title" : "somewhere",
-    "route" : "http://www.:x.com",
-    "params" : ["x", "q"]
+    "route" : "http://sosol.perseids.org/tools/arethusa"
   },
 
   "keyCapture" : {
