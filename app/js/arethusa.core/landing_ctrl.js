@@ -3,13 +3,15 @@
 angular.module('arethusa.core').controller('LandingCtrl', [
   '$scope',
   '$window',
-  function ($scope, $window) {
+  'translator',
+  function ($scope, $window, translator) {
     $scope.template = 'templates/landing_page.html';
 
     var imgPath = '../dist/examples/images/';
 
 
     function Example(name, caption, img, url) {
+      translator(name, this, 'name');
       this.name = name;
       this.caption = caption;
       this.img = imgPath + img;
@@ -29,9 +31,9 @@ angular.module('arethusa.core').controller('LandingCtrl', [
 
     $scope.useCases = [
       new UseCase('Treebanking', [
-        new Example('Dependency Trees', '', 'create1.png', 'example_tb_create?doc=athenaeus12'),
-        new Example('Review', '', 'tb_review.png', 'example_tb_review?doc=11&gold=1'),
-        new Example('Try it yourself!', '', 'create2.png', 'example_tb_create?doc=clean')
+        new Example('depTrees', '', 'create1.png', 'example_tb_create?doc=athenaeus12'),
+        new Example('review', '', 'tb_review.png', 'example_tb_review?doc=11&gold=1'),
+        new Example('landing.tryYourself', '', 'create2.png', 'example_tb_create?doc=clean')
       ]),
       //new UseCase('Reading Environmnent', [])
     ];
