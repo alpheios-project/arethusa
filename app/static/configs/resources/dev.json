@@ -68,5 +68,9 @@
   "demoXml" : {
     "route" : "../dist/examples/:doc.xml",
     "params" : [ "doc" ]
+  },
+  "demoReviewXml" : {
+    "route" : "../dist/examples/:gold.xml",
+    "params" : [ "gold" ]
   }
 }
