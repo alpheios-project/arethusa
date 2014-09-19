@@ -12,6 +12,13 @@ angular.module('arethusa.core').constant('LANDING', {
   resolve: {
     scrollBody: function() {
       angular.element(document.body).css('overflow', 'auto');
-    }
+    },
+    conf: ['configurator', function(configurator) {
+      configurator.defineConfiguration({
+        navbar: {
+          template: 'templates/navbar_landing.html'
+        }
+      });
+    }]
   }
 });
