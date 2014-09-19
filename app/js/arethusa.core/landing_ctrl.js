@@ -39,7 +39,8 @@ angular.module('arethusa.core').controller('LandingCtrl', [
     $scope.partners = [
       new Partner('DH Leipzig', 'dh_logo.png', 'http://www.dh.uni-leipzig.de'),
       new Partner('Perseids', 'perseids_logo.png', 'http://sites.tufts.edu/perseids'),
-      new Partner('Alpheios', 'alpheios_logo.png', 'http://www.alpheios.net')
+      new Partner('Alpheios', 'alpheios_logo.png', 'http://www.alpheios.net'),
+      new Partner('Perseus', 'perseus_logo.jpg', 'http://www.perseus.tufts.edu')
     ];
 
     $scope.goTo = function(url) {
