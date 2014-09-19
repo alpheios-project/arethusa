@@ -13,10 +13,11 @@ angular.module('arethusa').config([
   '$routeProvider',
   '$translateProvider',
   'MAIN_ROUTE',
+  'LANDING',
   function ($routeProvider, $translateProvider,
-            MAIN_ROUTE) {
+            MAIN_ROUTE, LANDING) {
     if (aU.isArethusaMainApplication()) {
-      $routeProvider.when('/', MAIN_ROUTE);
+      $routeProvider.when('/', LANDING);
       //$routeProvider.when('/conf_editor', CONF_ROUTE);
       $routeProvider.when('/:conf', MAIN_ROUTE);
       //$routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
