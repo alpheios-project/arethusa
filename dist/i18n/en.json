@@ -17,6 +17,11 @@
   "reset" : "Reset",
   "items" : "Items",
 
+  "landing" : {
+    "description" : "A backend-independent client-side annotation framework",
+    "useCases" : "Use Cases"
+  },
+
   "auth" : {
     "notLoggedIn" : "You aren't logged in!"
   },
