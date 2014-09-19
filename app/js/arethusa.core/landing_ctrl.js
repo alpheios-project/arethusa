@@ -13,7 +13,7 @@ angular.module('arethusa.core').controller('LandingCtrl', [
       this.name = name;
       this.caption = caption;
       this.img = imgPath + img;
-      this.url = '/app/#/' + url;
+      this.url = '#/' + url;
     }
 
     function UseCase(name, examples) {
