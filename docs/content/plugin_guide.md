@@ -124,7 +124,7 @@ The `css` directory uncovers that we are using
 [scss](http://sass-lang.com/guide) extension to streamline the work with
 our stylesheets. You don't have to bother about compiling such files to
 proper `css` - `grunt` will take care of this for us. We also use the
-Mixin library [Bourbon](bourbon.io) to help us with vendor-prefixes and
+Mixin library [Bourbon](http://bourbon.io) to help us with vendor-prefixes and
 other fun parts of `css`.
 
 The `index.html` file will be our go-to place when we finally start up a
