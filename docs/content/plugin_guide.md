@@ -141,25 +141,25 @@ The subdirectory `perseids.translations` holds the main business logic
 of our plugin - we will play around (and add to) `translations.js` soon.
 
 `static/configs` provides an example configuration file. Such
-configuration files are one of the most important aspects in `Arethusa`.
+configuration files are one of the most important aspects of `Arethusa`.
 They allow us to define the internals of an `Arethusa` application:
 Plugins we'd like to participate and their behaviour, the HTML templates
 we want to use, URLs to external services and much more.
 
-Conf files are plain JSON files, which a slightly enhanced syntax to
+Conf files are plain JSON files, with a slightly enhanced syntax to
 facilitate reuse. `Arethusa` uses the `arethusa-cli` tool to parse these
 files and compile them to valid JSON. This is of course another
 automated process which we will encounter a little later.
 
 All our HTML goes into the `templates` directory. A standard text
 template for our `translations` plugin can already be found there. As we
-will do our coding test-driven, we can pass over templating for now -
+will do our coding in a test-driven way, we can pass over templating for now -
 but will of course revisit this important chapter at a later stage.
 
 The other directories in the `app` folder we can safely ignore:
 `bower_components` and `node_modules` were automatically created during
 our installation through our `init` command and hold all third-party
-code we are dependent on, the `dist` folder is a placeholder and will be
+code on which we are dependent, the `dist` folder is a placeholder and will be
 the destination of all automatically generated files that our `grunt`
 build tasks will produce.
 
@@ -175,7 +175,7 @@ The goal is to add a simple plugin, which allows us to add
 translations to a sentence during a treebanking session.
 
 To achieve this we assume that we have access to a backend-server that
-stores translations on the document level and exposes them through a RESTful JSON API.
+stores translations at the document level and exposes them through a RESTful JSON API.
 
 ```
 GET /translations/DOC_ID
@@ -200,14 +200,14 @@ a call to our API `GET /translations/caes1` will give us the JSON
 ```
 
 `Arethusa`'s treebanking interface displays documents one sentence at a
-time. We want to display the correct translation along the sentence's
+time. We want to display the correct translation along with the sentence's
 tree.
 
 Eventually we will also want to edit a translation and save it
 back to our server through
 
 ```
-POST /translations/DOC_ID
+POST /translations/DOC_ID 
 ```
 
 Mind that this is a very simplified example. In the real world we would
@@ -224,13 +224,13 @@ first.
 
 Now that we know what we want to we're ready to start.
 
-We will do this **test-driven**.
+We will do this in a **test-driven** manner.
 
 Writing good tests is not easy - but the value they provide is
 absolutely worth the effort. They not only give us automated tests,
 which allow us to easily check in the future if our code is really still
-running - they will guide our design decision and make sure that we
-don't couple different participants of our business logic to tightly and
+running - they will guide our design decisions and make sure that we
+don't couple different participants of our business logic too tightly and
 keep all concerns separated. In addition, they will also clearly document the
 behaviour of our code.
 
@@ -277,7 +277,7 @@ First it defines two modules:
   module('perseids.translations');
 ```
 
-`arethusa.core` is `Arethusa`'s main module were all the important
+`arethusa.core` is `Arethusa`'s main module where all the important
 services and factories are located. Every plugin will use at least some
 of the code inside this module - `translations` is no exception here.
 
@@ -301,7 +301,7 @@ have to inject these items into the scope of every unit test function.
 sure to check out the documentation for [inject](http://docs.angularjs.org/api/ngMock/function/angular.mock.inject))
 
 The `configurator` is one of the most important services offered by
-`Arethusa`. It grants access to the configuration file that drive
+`Arethusa`. It grants access to the configuration files that drive
 `Arethusa` and provides functions to organize your communication with
 them. You should never have to deal with configuration files directly -
 always do this through the `configurator`.
@@ -317,9 +317,9 @@ the application by hand and have to deal with `Arethusa`'s low level
 functions.
 
 The same goes for the next call `translations.init()`. Plugins' init
-function are very important and will get called frequently. They setup a
+functions are very important and will get called frequently. They setup a
 plugin and update the internal state of a plugin. When `Arethusa` moves
-between chunks of documents, the annotation targets change. Everytime
+between chunks of documents, the annotation targets change. Every time
 this happens, the plugins react and update themselves.
 
 This might sound a little too abstract, a real example will make this more clear: 
@@ -331,15 +331,15 @@ workflow is repeated: `Arethusa` exposes the new annotation target
 again, calls all `init()` functions to give the plugins a chance to
 update.
 
-`Arethusa`'s event chain is responsible to trigger this behaviour. Three
+`Arethusa`'s event chain is responsible for triggering this behaviour. Three
 objects play an important role here: 
 - The `ArethusaCtrl`, which is the top-level controller inside the
   browser and which will call the `init()` functions at the right time. 
 - `state` which holds all information concerning the current annotation
-  target. It also fires an event when this target changes - an event,
+  target. It also fires an event when this target changes - an event
 which the `ArethusaCtrl` reacts to.
 - The `navigator` which is responsible for movement inside a document.
-  It communicates with state to let it know when a user wants to look at
+  It communicates with `state` to let it know when a user wants to look at
 a different document chunk.
 
 These three objects build the main event chain:
