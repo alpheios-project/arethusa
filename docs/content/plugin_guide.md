@@ -660,17 +660,17 @@ Inside of `init()` we call the retriever right after we have configured
 our plugin. We pass the `retriever`'s get function a `chunkId` (so far
 just `'1'`) and a callback function. Inside the callback function
 `updateTranslation`, which takes a single argument - the current
-translation itself - we assign `self.translation`. (it's important to
+translation itself - we assign `self.translation`. (It's important to
 use `self` and not `this` - if you try to use `this` you will quickly
-see, why this is not really a good idea)
+see why this is not really a good idea).
 
 If we save we can see that - our test is green!
 
 
 ### Reacting to changes of the current chunk
 
-Let's add another spec. We want that when we move to a next sentence,
-that our plugin knows how to update its translation. We've mentioned
+Let's add another spec. We want when we move to the next sentence
+for our plugin to know how to update its translation. We've mentioned
 before that moves between document chunks are handled by the
 `navigator`.
 
@@ -718,8 +718,8 @@ error message change. The backtrace tells us that it still originates
 from our `navigator.nextSentence()` call. 
 
 Normally - when `Arethusa` is started inside your browser - the
-`ArethusaCtrl` and `state` will start a chain of events, that setup the
-`navigator`. As we're running our tests in isolation, we have to this
+`ArethusaCtrl` and `state` will start a chain of events that setup the
+`navigator`. As we're running our tests in isolation, we have to do this
 manually again.
 
 
@@ -750,13 +750,13 @@ beforeEach(function() {
 application startup. It has an internal data store, where it holds
 references to a document's sentences. These sentences are objects that
 have an id - they usually have other properties as well (such as
-tokens), but they don't interest here. We add these sentences by passing
+tokens), but they don't interest us here. We add these sentences by passing
 an array of objects in `navigator.addSentences(sentences)` and call
 `navigator.updateId()` to finish the initialization of the `navigator`.
 
 Take care to do all this **after** you have called
-`configurator.defineConfiguration(conf)` - the `navigator`, as almost
-every part of `Arethusa` already communicates with the `configurator` to
+`configurator.defineConfiguration(conf)` - the `navigator`, as with almost
+every core part of `Arethusa`, already communicates with the `configurator` to
 set itself up properly.
 
 The error message in our `watch` task should now uncover, that we have
@@ -790,9 +790,9 @@ angular.module('perseids.translations').service('translations', [
 We inject the `navigator` into our service so that we are able to
 communicate with it. Our hardcoded reference `'1'` we replace with
 looking at the current chunkId through `navigator.status.currentId`. The
-`navigator` will update this `status` object everytime
-`navigator.updateId()` is called - something we just manually to fire up
-the `navigator`, but is usually done automatically - e.g. by a call of
+`navigator` will update this `status` object every time
+`navigator.updateId()` is called - something we just manually do to fire up
+ the `navigator`, but which is usually done automatically - e.g. by a call of
 `navigator.nextSentence()`.
 
 Unfortunately this didn't fix our spec immediately. There is still one
