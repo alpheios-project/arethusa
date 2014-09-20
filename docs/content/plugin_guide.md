@@ -521,7 +521,7 @@ configuration detail of a plugin. This is a naming convention used by
 `Arethusa`'s `configurator`. It will look for a property with this 
 name on the plugin object during the initialization process for a plugin,
 as initiated by the `configurator.getConfAndDelegate` method call issued 
-from the plugin's `init` method. The `defaultConf` method in our
+from the plugin's `configure` method. The `defaultConf` method in our
 `perseids.translations` boilerplate code defines the path to the default 
 HTML template. A configuration file can of course override this - but if 
 it doesn't specify a template, the `defaultConf` will step and provide a 
