@@ -823,7 +823,7 @@ service works, we still couldn't really use it as we haven't coded our
 retriever yet.
 
 We can again use `arethusa-cli` to avoid writing too much boilerplate
-code.
+code. From the root of our perseids.translations directory:
 
 ```
 $ arethusa generate retriever perseids.translations perseids_translations_retriever
@@ -956,14 +956,14 @@ variable that's accessible from everywhere inside this file, called
 `backend`.
 
 The `locator` is an `Arethusa` service that is used to watch the URL of
-a current browser sessions. A `resource` can watch the URL to know which
+a current browser session. A `resource` can watch the URL to know which
 address it has to call and it does so by communicating with the
 `locator`.
 
 There are occasions where we can't (during tests) or don't want (when `Arethusa` is used as a [widget]()) to look at a URL - our `inject` function therefore declares `locator.watchUrl(false)`, which allows us to set wannabe URL params by hand. The `generate` command just filled in an empty object here for now - we'll customize this to our needs later.
 
 We also assign the retriever which we want to test here through
-`configurator.getRetriever`, which we pass the retrievers configuration.
+`configurator.getRetriever`, which we pass the retriever's configuration.
 
 The object
 ```
@@ -988,7 +988,7 @@ Only this time, we really add a configuration for the retriever. All
 retrievers need to define their resource - which can simply be the name
 of a `resource` instance.
 
-The configurator will know where read in the configuration for this
+The configurator will know where to read in the configuration for this
 `resource` then. We called `configurator.defineConfiguration` with the
 following configuration.
 
@@ -1004,12 +1004,12 @@ var conf = {
 
 Just as plugins, `resource`s have their own section inside a
 configuration file. This is to leverage their reuse - different
-retrievers might still want to use a same `resource`.
+retrievers might still want to use the same `resource`.
 
 We see that our so called `testResource` right now has configured a
 route, which is obtained from the `backendUrl` variable.
 
-Back then, when we specified how our assumed external API looks like, we
+Back then, when we specified what our assumed external API looks like, we
 said that a `GET` route would look like this:
 
 ```
@@ -1156,7 +1156,7 @@ The `get` function delegates the call to its `resource` and calls its
 `get` function. All functions of `Arethusa` `resource` objects return
 [promises](http://docs.angularjs.org/api/ng/service/$q). These
 `promises` have a `then` function which will execute once the
-asynchronous request is finished. A successful requests calls a callback
+asynchronous request is finished. A successful request calls a callback
 function and passes a response object to it. This response object (what
 is simply called `res` in our retriever) holds headers and other status
 information about the request, but also the actual data. This data we
@@ -1195,7 +1195,8 @@ If we ever run into problems with our retriever, this differentiation
 might help us to determine at exactly which point in the code we are
 having issues.
 
-In the second test we want to know, the when we specify a chunkId of `'1'`, we really get back the translation of the first sentence.
+In the second test we want to know, that when we specify a chunkId of `'1'`, 
+we really get back the translation of the first sentence.
 
 Checking this spec, we see that it fails - we get back all translations
 of the complete document.
@@ -1219,7 +1220,8 @@ with the retriever we will immediately fix.
 
 As the retriever pulls in data that contains translations for a complete
 document already, it makes not much sense to make the request to the
-external API several times while we are still looking at the same document. Some sort of caching is therefore probably in order.
+external API several times while we are still looking at the same document. 
+Some sort of caching is therefore probably in order.
 
 Thinking about this also sheds some light on why `Arethusa` uses its
 retriever approach. It is entirely possible that at another point in
