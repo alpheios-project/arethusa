@@ -55,6 +55,7 @@ describe("unusedTokenHighlighter", function() {
   beforeEach(function() {
     module("arethusa.core", function($provide) {
       $provide.value('configurator', arethusaMocks.configurator());
+      $provide.value('navigator', arethusaMocks.navigator());
     });
   });
 
