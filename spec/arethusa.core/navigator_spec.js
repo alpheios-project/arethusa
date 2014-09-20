@@ -9,9 +9,13 @@ describe("navigator", function() {
     tokens: {
       '01-01': {
         string: 'x',
+        sentenceId: '1',
+        id: '01-01'
       },
       '01-02': {
-        string: 'y'
+        string: 'y',
+        sentenceId: '1',
+        id: '01-02'
       }
     }
   };
@@ -21,9 +25,13 @@ describe("navigator", function() {
     tokens: {
       '03-01': {
         string: 'g',
+        sentenceId: '3',
+        id: '03-01'
       },
       '03-02': {
-        string: 'h'
+        string: 'h',
+        sentenceId: '3',
+        id: '03-02'
       }
     }
   };
@@ -33,9 +41,13 @@ describe("navigator", function() {
     tokens: {
       '05-01': {
         string: 'a',
+        sentenceId: '5',
+        id: '05-01'
       },
       '05-02': {
-        string: 'b'
+        string: 'b',
+        sentenceId: '5',
+        id: '05-02'
       }
     }
   };
@@ -316,6 +328,23 @@ describe("navigator", function() {
       navigator.goTo('3');
       expect(navigator.hasPrev()).toBeTruthy();
     });
+  });
+
+  describe('navigator.addToken()', function() {
+    it('adds tokens to the sentence stores', function() {
+      navigator.addSentences(sentences);
+      var token = { id: '01-03', sentenceId: '1'};
+      var firstSentence = navigator.sentencesById['1'].tokens;
+
+      expect(firstSentence['01-03']).toBeUndefined();
+
+      navigator.addToken(token);
+      expect(firstSentence['01-03']).toBeDefined();
+    });
+  });
+
+  describe('navigator.removeToken()', function() {
+
   });
 
   describe('this.switchView()', function() {
