@@ -517,10 +517,15 @@ this was also the name we used to store the plugin's configuration.
 
 It's usually a good practice to define a `defaultConf` object inside a
 plugin, so that others don't have to define each and every trivial
-configuration detail of a plugin. In this case the `init` command
-already inserted the path to the default HTML template. A configuration
-file can of course override this - but if it doesn't specify a template,
-the `defaultConf` will step and provide a fallback.
+configuration detail of a plugin. This is a naming convention used by
+`Arethusa`'s `configurator`. It will look for a property with this 
+name on the plugin object during the initialization process for a plugin,
+as initiated by the `configurator.getConfAndDelegate` method call issued 
+from the plugin's `init` method. The `defaultConf` method in our
+`perseids.translations` boilerplate code defines the path to the default 
+HTML template. A configuration file can of course override this - but if 
+it doesn't specify a template, the `defaultConf` will step and provide a 
+fallback.
 
 Here we also find the `init()` function we have already talked about
 quite a bit in one of the sections above - as a reminder: This function
