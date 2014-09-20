@@ -133,6 +133,7 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       }
       newId = findNextNewId(newId);
       self.model.id = newId;
+      self.model.sentenceId = self.model.insertionPoint.sentenceId;
       state.addToken(self.model, newId);
       resetModel();
     };
