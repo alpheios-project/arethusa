@@ -344,6 +344,16 @@ describe("navigator", function() {
   });
 
   describe('navigator.removeToken()', function() {
+    it('removes a token from the sentence stores', function() {
+      navigator.addSentences(sentences);
+      var firstSentence = navigator.sentencesById['1'].tokens;
+      var token = { id: '01-03', sentenceId: '1'};
+      navigator.addToken(token);
+      expect(firstSentence['01-03']).toBeDefined();
+
+      navigator.removeToken(token);
+      expect(firstSentence['01-03']).toBeUndefined();
+    });
 
   });
 
