@@ -381,6 +381,7 @@ angular.module('arethusa.core').service('state', [
         delete self.tokens[id];
       });
       navigator.removeToken(token);
+      self.deselectAll();
       self.countTotalTokens();
     };
 
