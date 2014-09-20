@@ -266,6 +266,18 @@ angular.module('arethusa.core').service('navigator', [
       self.updateId();
     };
 
+    this.addToken = function(token) {
+      var sId = token.sentenceId;
+      var id  = token.id;
+      self.sentencesById[sId].tokens[id] = token;
+    };
+
+    this.removeToken = function(token) {
+      var sId = token.sentenceId;
+      var id  = token.id;
+      delete self.sentencesById[sId].tokens[id];
+    };
+
     this.markChunkChanged = function() {
       var currSents = currentSentenceObjs();
       for (var i = currSents.length - 1; i >= 0; i--){
