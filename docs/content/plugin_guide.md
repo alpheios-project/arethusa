@@ -569,7 +569,7 @@ function(state, configurator) {
 ```
 
 We just declared a private `retriever` variable, placed inside the
-plugin's scope, because we definetely want to have access to it from
+plugin's scope, because we definitely want to have access to it from
 other functions.
 
 Inside the `configure()` function we assign a new retriever instance to
@@ -578,15 +578,15 @@ this, as the `configurator` knows how to setup a retriever properly.
 
 We need to pass the retriever's configuration to this function.
 `self.conf` holds complete configuration of our plugin and was made
-available to us by the `configurator`'s `getConfAndDelegate` function.;w
+available to us by the `configurator`'s `getConfAndDelegate` function.
 
 If we save our changes to `translations.js` we will see movement in our
-`watch` task: It stills fails - but more dramatically as before.
+`watch` task: It stills fails - but more dramatically than before.
 
-As we have configured our plugin to us a retriever instance of
+As we have configured our plugin to use a retriever instance of
 `PerseidsTranslationsRetriever`, our `configurator` now wants to
-initialize such an object - which is impossible because it's nowhere
-defined.
+initialize such an object - which is impossible because it's not
+defined anywhere.
 
 We've mentioned before that our current spec isn't interested in the
 internals of a retriever at all, we can therefore safely mock it up
@@ -627,11 +627,11 @@ module('perseids.translations', function($provide) {
 });
 ```
 
-We want the retriever respond to a `get` functions, which takes two
+We want the retriever respond to a `get` function, which takes two
 arguments:
 - The id of the current chunk (in our scenario, a sentence)
-- and a callback function, which we pass the translation of the current
-  sentence.
+- and a callback function, to which we pass the translation of the current
+  chunk.
 
 When the `chunkId` is `"1"`, we pass the first sentence, otherwise the
 second - this should suffice to produce a valid test.
