@@ -658,7 +658,8 @@ this.init = function() {
 ```
 Inside of `init()` we call the retriever right after we have configured
 our plugin. We pass the `retriever`'s get function a `chunkId` (so far
-just `'1'`) and a callback function. Inside the callback function
+just `'1'` - this hardcoded reference will be dealt with later) and a 
+callback function. Inside the callback function
 `updateTranslation`, which takes a single argument - the current
 translation itself - we assign `self.translation`. (It's important to
 use `self` and not `this` - if you try to use `this` you will quickly
@@ -810,7 +811,7 @@ describe('when a chunk is changed', function() {
 ```
 
 If we remember what we have said above about when `init()` calls of
-plugins are made, it's clear that inside of our spec suite we have to
+plugins are made by `ArethusaCtrl`, it's clear that inside of our spec suite we have to
 re-`init()` manually. Once we do this - we should see a nice green
 `SUCCESS` message in our `watch` task.
 
