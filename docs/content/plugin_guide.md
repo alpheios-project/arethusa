@@ -443,8 +443,8 @@ the empty conf object at the top of our spec file.
 
 ```javascript
 var conf = {
-  plugins: {
-    'perseids.translations' : {
+  "plugins": {
+    "perseids.translations" : {
       "retriever" : {
         "PerseidsTranslationRetriever" : {}
       }
