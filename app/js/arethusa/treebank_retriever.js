@@ -72,7 +72,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
     // must have.
     function padWithSentenceId(token, sId) {
       var iId = token._insertion_id;
-      if (iId.match(/-/)) {
+      if (!iId.match(/-/)) {
         token._insertion_id = idHandler.padIdWithSId(iId, sId);
       }
     }
