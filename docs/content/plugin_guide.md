@@ -135,7 +135,7 @@ Most of our code will go into the `js` directory. The
 contains the definition of our `Angular` module, which we will us to
 place our code in. It's very important to do this to guarantee that
 Arethusa can figure out where it can obtain our plugin code dynamically
-on runtime.
+at runtime.
 
 The subdirectory `perseids.translations` holds the main business logic
 of our plugin - we will play around (and add to) `translations.js` soon.
