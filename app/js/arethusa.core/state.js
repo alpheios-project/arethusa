@@ -367,6 +367,7 @@ angular.module('arethusa.core').service('state', [
     this.addToken = function(token, id) {
       self.tokens[id] = token;
       addStatus(token);
+      navigator.addToken(token);
       self.countTotalTokens();
       self.broadcast('tokenAdded', token);
     };
@@ -379,6 +380,7 @@ angular.module('arethusa.core').service('state', [
         self.broadcast('tokenRemoved', token);
         delete self.tokens[id];
       });
+      navigator.removeToken(token);
       self.countTotalTokens();
     };
 
