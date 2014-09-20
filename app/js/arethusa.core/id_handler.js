@@ -10,6 +10,14 @@ angular.module('arethusa.core').service('idHandler', [
       return s ? s + '-' + w : w;
     };
 
+    // Backwards compatibility function for TreebankRetriever -
+    // can be removed at a later stage. Check the function
+    // padWithSentenceId there.
+    this.padIdWithSId = function(id, sId) {
+      var s = aU.formatNumber(sId, 4);
+      return s + '-' + id;
+    };
+
     this.formatId = function(id, format) {
       if (!id) return;
 

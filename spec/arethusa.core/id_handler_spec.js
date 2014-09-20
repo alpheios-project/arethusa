@@ -68,4 +68,12 @@ describe("idHandler", function() {
       expect(idHandler.nonSequentialIds(ids)).toEqual({ 1: true, 2: true });
     });
   });
+
+  describe('this.padIdWithSId', function() {
+    it('adds a sentence id identification to an id', function() {
+      var id  = '0004e';
+      var sId = '1';
+      expect(idHandler.padIdWithSId(id, sId)).toEqual('0001-0004e');
+    });
+  });
 });
