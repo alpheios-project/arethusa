@@ -16,6 +16,23 @@
   "save" : "Speichern",
   "reset" : "Rücksetzen",
   "items" : "Elemente",
+  "useCases" : "Anwendung",
+  "gettingStarted" : "Erste Schritte",
+  "development" : "Entwicklung",
+  "depTrees" : "Dependenz-Bäume",
+  "review" : "Überprüfen",
+  "Treebanking" : "'Treebanking'",
+
+  "landing" : {
+    "description" : "Ein Backend-unabhängiges client-side Annotations-Framework",
+    "modularNature" : "Aufgrund seiner Modularität kann Arethusa unterschiedlich konfiguriert werden, um verschiedenen Anwendungen gerecht zu werden.",
+    "moreScreencasts" : "Weitere Screencasts",
+    "devDescription" : "Arethusa wurde mit <a href=\"https://angularjs.org/angular.js\">AngularJS</a>, einem Javascript Web Application Framework, entwickelt und ermöglicht mit seiner Back-end unabhängigen Plugin-Infrastruktur leichten Zugang zu Texten, Annotationen und linguistischen Services von zahlreicher und unterschiedlicher Herkunft. Die einfache Erweiterung ist das Leitmotiv der Entwicklung - Arethusa stellt Tools zur Verfügung, die das Grundgerüst für neue Plugins automatisch erstellen (<a href=\"https://github.com/latin-language-toolkit/arethusa-cli\">Arethusa::CLI</a>) und bietet Hilfestellungen an: Anleitungen zur Weiterentwicklung sind derzeit in Arbeit, wobei wir hoffen, dass andere WissenschaftlerInnen sich die Plattform zu Nutze machen können, um verschiedene Annotationstypen, Sprachen, Back-ends und weitere 'workflow engines' zu unterstützen.",
+    "partners" : "Partner",
+    "funders" : "Förderung",
+    "fundersDescription" : "Dieses Projekt erhielt Unterstützung von der <a href=\"http://www.mellon.org/\">Andrew W. Mellon Foundation</a>, dem <a href=\"http://imls.gov/\">Institute of Museum and Library Services</a> und dem <a href=\"http://ec.europa.eu/esf/home.jsp\">European Social Fund</a>",
+    "tryYourself" : "Ausprobieren!"
+  },
 
   "auth" : {
     "notLoggedIn" : "Du bist nicht angemeldet!"
