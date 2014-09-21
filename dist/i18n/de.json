@@ -81,7 +81,8 @@
     "alwaysDeselect" : "Deselektiere nach jeder Annotations-Aktion",
     "keyboardMappings" : "Deaktiviere Tastaturmappings in Eingabefeldern",
     "colorizer" : "Token einfärben nach",
-    "layout" : "Layout"
+    "layout" : "Layout",
+    "clickAction" : "Klickverhalten"
   },
 
 

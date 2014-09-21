@@ -3,7 +3,8 @@
 angular.module('arethusa.core').directive('chunkModeSwitcher', [
   'navigator',
   'notifier',
-  function(navigator, notifier) {
+  'translator',
+  function(navigator, notifier, translator) {
     return {
       restrict: 'A',
       scope: {},
@@ -11,13 +12,16 @@ angular.module('arethusa.core').directive('chunkModeSwitcher', [
         scope.navi = navigator;
         scope.size = navigator.chunkSize;
 
+        var tr = {};
+        translator('navigator.chunkSizeError', tr, 'chunkSizeError');
+
         scope.tryToSetChunkSize = function() {
           var size = scope.size;
           if (navigator.chunkSize === size) {
             return;
           }
           if (size < 1 || size > 5) {
-            notifier.error('Only chunk sizes between 1 and 5 are currently supported');
+            notifier.error(tr.chunkSizeError);
             scope.size = navigator.chunkSize;
           } else {
             navigator.changeChunkSize(scope.size);

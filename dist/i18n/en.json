@@ -21,6 +21,10 @@
     "notLoggedIn" : "You aren't logged in!"
   },
 
+  "navigator" : {
+    "chunkSizeError" : "Only chunk sizes between 1 and 5 are currently supported"
+  },
+
   "saver" : {
     "success" : "Document saved!",
     "error" : "Failed to save! Try again?",
@@ -81,7 +85,8 @@
     "alwaysDeselect" : "Deselect after every annotation action",
     "keyboardMappings" : "Disable keyboard mapping for input fields",
     "colorizer" : "Colorize tokens by",
-    "layout" : "Layout"
+    "layout" : "Layout",
+    "clickAction" : "Click behaviour"
   },
 
   "plugins" : {
