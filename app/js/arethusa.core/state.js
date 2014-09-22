@@ -107,14 +107,16 @@ angular.module('arethusa.core').service('state', [
       //tokens = container;
     };
 
-    function moveToSentence() {
+    function getChunkParam() {
       var param = self.conf.chunkParam;
-      if (param) {
-        var id = locator.get(param);
-        if (id) {
-          if (navigator.goTo(id)) {
-            return;
-          }
+      if (param) return locator.get(param);
+    }
+
+    function moveToSentence() {
+      var id = getChunkParam();
+      if (id) {
+        if (navigator.goTo(id)) {
+          return;
         }
       }
       // If goTo failed, we just update the id with the starting value 0
@@ -139,7 +141,13 @@ angular.module('arethusa.core').service('state', [
     };
 
     function declarePreselections(ids) {
-      selectMultipleTokens(ids);
+      var chunkId = getChunkParam();
+      if (chunkId) {
+        var paddedIds = arethusaUtil.map(ids, function(id) {
+          return idHandler.padIdWithSId(id, chunkId);
+        });
+        selectMultipleTokens(paddedIds);
+      }
     }
 
     var declareLoaded = function (retriever) {
