@@ -10,7 +10,7 @@ angular.module('arethusa.artificialToken').directive('artificialTokenList', [
       link: function(scope, element, attrs) {
         scope.aT = artificialToken;
         scope.formatId = function(id) {
-          return idHandler.formatId(id, '%w');
+          return idHandler.formatId(id, '%s-%w');
         };
       },
       templateUrl: 'templates/arethusa.artificial_token/artificial_token_list.html'
