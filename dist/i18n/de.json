@@ -96,5 +96,9 @@
     "failed1" : "Laden von",
     "failed2" : "gescheitert",
     "alreadyLoaded" : "ist bereits geladen!"
+  },
+
+  "depTree" : {
+    "errorAcrossSentences" : "Heads können nicht über Satzgrenzen hinweg verändert werden"
   }
 }

@@ -95,5 +95,9 @@
     "failed1" : "Failed to load",
     "failed2" : "",
     "alreadyLoaded" : "is already loaded!"
+  },
+
+  "depTree" : {
+    "errorAcrossSentences" : "Cannot change heads across sentences"
   }
 }

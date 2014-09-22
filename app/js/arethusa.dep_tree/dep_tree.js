@@ -23,7 +23,8 @@ angular.module('arethusa.depTree').service('depTree', [
   'configurator',
   'globalSettings',
   'notifier',
-  function (state, configurator, globalSettings, notifier) {
+  'translator',
+  function (state, configurator, globalSettings, notifier, translator) {
     var self = this;
     this.name = "depTree";
 
@@ -167,12 +168,15 @@ angular.module('arethusa.depTree').service('depTree', [
       return desc;
     }
 
+    var translations = {};
+    translator('depTree.errorAcrossSentences', translations, 'errorAcrossSentences');
+
     this.changeHead = function(idOrToken) {
       var token = angular.isString(idOrToken) ? state.getToken(idOrToken) : idOrToken;
       var headsToChange = getHeadsToChange(token);
       if (headsToChange) {
         if (headsToChange === 'err') {
-          notifier.error('Cannot change heads across sentences');
+          notifier.error(translations.errorAcrossSentences);
           return;
         }
         state.doBatched(function() {
