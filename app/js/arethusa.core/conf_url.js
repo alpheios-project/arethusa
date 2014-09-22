@@ -4,6 +4,7 @@ angular.module('arethusa.core').factory('confUrl', [
   'CONF_PATH',
   '$route',
   function (CONF_PATH, $route) {
+    // The default route is deprectated and can be refactored away
     return function (useDefault) {
       var params = $route.current.params;
       var confPath = CONF_PATH + '/';

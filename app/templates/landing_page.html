@@ -1,0 +1,91 @@
+<arethusa-navbar></arethusa-navbar>
+
+<div class="canvas-border"></div>
+
+<div class="panel row large-12 columns">
+  <div class="section">
+    <a href="https://github.com/latin-language-toolkit/arethusa"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"/></a>
+    <p class="italic"><span translate="landing.description"/></p>
+
+    <div style="margin: auto">
+      <img src="../dist/examples/images/grid.png" style="height: 650px; display: block; margin: auto"/>
+    </div>
+  </div>
+
+  <div class="large-12 columns" style="padding: 1rem 0"/>
+
+  <div class=section>
+    <h3><span translate="useCases"/></h3>
+    <p><span translate="landing.modularNature"/></p>
+
+    <div class="large-12 columns">
+      <div ng-repeat="useCase in useCases">
+        <h3 class="italic">{{ useCase.name }}</h4>
+        <div ng-repeat="example in useCase.examples">
+          <div
+            class="large-4 columns panel clickable"
+            ng-click="goTo(example.url)">
+            <h4>{{ example.name }}</h4>
+            <img ng-src="{{ example.img }}"/>
+            <p>{{ example.caption }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="large-12 columns" style="padding: 1rem 0"/>
+
+  <div class="section">
+    <h3><span translate="gettingStarted"/></h3>
+    <iframe width="640" height="360" src="//www.youtube.com/embed/FbRRoVnVuDs" frameborder="0" allowfullscreen></iframe>
+    <iframe width="640" height="360" src="//www.youtube.com/embed/hp-bhasd96g" frameborder="0" allowfullscreen></iframe>
+    <p>
+    <a href="http://sites.tufts.edu/perseids/instructions/screencasts/"><span translate="landing.moreScreencasts"/></a>
+    </p>
+  </div>
+
+  <div class="large-12 columns" style="padding: 1rem 0"/>
+
+  <div class="section">
+    <h3><span translate="gettingStarted"/></h3>
+    <p><span translate="landing.devDescription"/></p>
+  </div>
+
+  <div class="large-12 columns" style="padding: 1rem 0"/>
+
+  <div style="section">
+    <h3><span translate="landing.partners"/></h3>
+    <div class="large-12 columns">
+      <div class="img-container" style="display: inline-block">
+        <a href="{{ partners[0].href }}">
+          <img class="center" style="height: 200px" ng-src="{{ partners[0].img }}"/>
+        </a>
+      </div>
+      <div class="img-container" style="display: inline-block">
+        <a href="{{ partners[1].href }}">
+          <img class="center" style="height: 150px" ng-src="{{ partners[1].img }}"/>
+        </a>
+      </div>
+      <div class="img-container" style="display: inline-block">
+        <a href="{{ partners[2].href }}" target="_blank">
+          <img class="center" style="height: 70px; margin: 2rem" ng-src="{{ partners[2].img }}"/>
+        </a>
+      </div>
+      <div class="img-container" style="display: inline-block">
+        <a href="{{ partners[3].href }}" target="_blank">
+          <img class="center" style="height: 200px" ng-src="{{ partners[3].img }}"/>
+        </a>
+      </div>
+    </div>
+    <p>
+  </div>
+
+  <div class="large-12 columns" style="padding: 1rem 0"/>
+
+  <div>
+    <h3><span translate="landing.funders"/></h3>
+    <p><span translate="landing.fundersDescription"/></p>
+  </div>
+</div>
+

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<treebank xml:lang="lat" format="aldt" version="1.5">
+   <annotator>
+      <short>LFDM</short>
+      <name>Gernot Höflechner</name>
+      <address>1986gh@gmail.com</address>
+      <uri>http://data.perseus.org/sosol/users/LFDM</uri>
+  </annotator>
+   <sentence id="1" document_id="" subdoc="" span="">
+      <word id="1" form="Cum" lemma="" postag="" relation="" head=""/>
+      <word id="2" form="esset" lemma="" postag="" relation="" head=""/>
+      <word id="3" form="Caesar" lemma="" postag="" relation="" head=""/>
+      <word id="4" form="in" lemma="" postag="" relation="" head=""/>
+      <word id="5" form="citeriore" lemma="" postag="" relation="" head=""/>
+      <word id="6" form="Gallia" lemma="" postag="" relation="" head=""/>
+      <word id="7" form="in" lemma="" postag="" relation="" head=""/>
+      <word id="8" form="hibernis" lemma="" postag="" relation="" head=""/>
+      <word id="9" form="," lemma="punc1" postag="u--------" relation="AuxX" head=""/>
+      <word id="10" form="ita" lemma="" postag="" relation="" head=""/>
+      <word id="11" form="uti" lemma="" postag="" relation="" head=""/>
+      <word id="12" form="supra" lemma="" postag="" relation="" head=""/>
+      <word id="13" form="demonstravimus" lemma="" postag="" relation="" head=""/>
+      <word id="14" form="," lemma="punc1" postag="u--------" relation="AuxX" head=""/>
+      <word id="15" form="crebri" lemma="" postag="" relation="" head=""/>
+      <word id="16" form="ad" lemma="" postag="" relation="" head=""/>
+      <word id="17" form="eum" lemma="" postag="" relation="" head=""/>
+      <word id="18" form="rumores" lemma="" postag="" relation="" head=""/>
+      <word id="19" form="adferebantur" lemma="" postag="" relation="" head=""/>
+      <word id="20" form="que" lemma="" postag="" relation="" head=""/>
+      <word id="21" form="litteris" lemma="" postag="" relation="" head=""/>
+      <word id="22" form="item" lemma="" postag="" relation="" head=""/>
+      <word id="23" form="Labieni" lemma="" postag="" relation="" head=""/>
+      <word id="24" form="certior" lemma="" postag="" relation="" head=""/>
+      <word id="25" form="fiebat" lemma="" postag="" relation="" head=""/>
+      <word id="26" form="omnes" lemma="" postag="" relation="" head=""/>
+      <word id="27" form="Belgas" lemma="" postag="" relation="" head=""/>
+      <word id="28" form="," lemma="punc1" postag="u--------" relation="AuxX" head=""/>
+      <word id="29" form="quam" lemma="" postag="" relation="" head=""/>
+      <word id="30" form="tertiam" lemma="" postag="" relation="" head=""/>
+      <word id="31" form="esse" lemma="" postag="" relation="" head=""/>
+      <word id="32" form="Galliae" lemma="" postag="" relation="" head=""/>
+      <word id="33" form="partem" lemma="" postag="" relation="" head=""/>
+      <word id="34" form="dixeramus" lemma="" postag="" relation="" head=""/>
+      <word id="35" form="," lemma="punc1" postag="u--------" relation="AuxX" head=""/>
+      <word id="36" form="contra" lemma="" postag="" relation="" head=""/>
+      <word id="37" form="populum" lemma="" postag="" relation="" head=""/>
+      <word id="38" form="Romanum" lemma="" postag="" relation="" head=""/>
+      <word id="39" form="coniurare" lemma="" postag="" relation="" head=""/>
+      <word id="40" form="que" lemma="" postag="" relation="" head=""/>
+      <word id="41" form="obsides" lemma="" postag="" relation="" head=""/>
+      <word id="42" form="inter" lemma="" postag="" relation="" head=""/>
+      <word id="43" form="se" lemma="" postag="" relation="" head=""/>
+      <word id="44" form="dare" lemma="" postag="" relation="" head=""/>
+      <word id="45" form="Coniurandi" lemma="" postag="" relation="" head=""/>
+      <word id="46" form="has" lemma="" postag="" relation="" head=""/>
+      <word id="47" form="esse" lemma="" postag="" relation="" head=""/>
+      <word id="48" form="causas" lemma="" postag="" relation="" head=""/>
+      <word id="49" form="primum" lemma="" postag="" relation="" head=""/>
+      <word id="50" form="quod" lemma="" postag="" relation="" head=""/>
+      <word id="51" form="vererentur" lemma="" postag="" relation="" head=""/>
+      <word id="52" form="ne" lemma="" postag="" relation="" head=""/>
+      <word id="53" form="," lemma="punc1" postag="u--------" relation="AuxX" head=""/>
+      <word id="54" form="omni" lemma="" postag="" relation="" head=""/>
+      <word id="55" form="pacata" lemma="" postag="" relation="" head=""/>
+      <word id="56" form="Gallia" lemma="" postag="" relation="" head=""/>
+      <word id="57" form="," lemma="punc1" postag="u--------" relation="AuxX" head=""/>
+      <word id="58" form="ad" lemma="" postag="" relation="" head=""/>
+      <word id="59" form="eos" lemma="" postag="" relation="" head=""/>
+      <word id="60" form="exercitus" lemma="" postag="" relation="" head=""/>
+      <word id="61" form="noster" lemma="" postag="" relation="" head=""/>
+      <word id="62" form="adduceretur" lemma="" postag="" relation="" head=""/>
+      <word id="63" form="." lemma="punc1" postag="u--------" relation="AuxK" head="0"/>
+   </sentence>
+</treebank>
