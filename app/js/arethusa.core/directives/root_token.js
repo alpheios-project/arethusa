@@ -10,18 +10,15 @@ angular.module('arethusa.core').directive('rootToken', [
   function(state, globalSettings, depTree) {
     return {
       restrict: 'A',
-      scope: {},
+      scope: {
+        id: '@rootId',
+        sId: '@'
+      },
       link: function(scope, element, attrs) {
         var actionName = 'change head';
 
         function apply(fn) {
           scope.$apply(fn());
-        }
-
-        var lazyRootId;
-        function rootId() {
-          if (!lazyRootId) lazyRootId = element.parent().attr('id').slice(3);
-          return lazyRootId;
         }
 
         function hoverActions() {
@@ -30,14 +27,19 @@ angular.module('arethusa.core').directive('rootToken', [
 
         function doHoverAction(type, event) {
           if (globalSettings.clickAction === actionName) {
-            hoverActions()[type](rootId(), element, event);
+            hoverActions()[type](scope.id, element, event);
           }
+        }
+
+        function MockToken() {
+          this.id = scope.id;
+          this.sentenceId = scope.sId;
         }
 
         element.bind('click', function() {
           if (globalSettings.clickAction === actionName) {
             apply(function() {
-              depTree.changeHead(rootId());
+              depTree.changeHead(new MockToken());
             });
           }
         });
