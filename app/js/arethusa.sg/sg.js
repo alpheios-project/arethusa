@@ -96,7 +96,7 @@ angular.module('arethusa.sg').service('sg', [
           // I guess... Check a word with a dative proper e.g.
           var expandedAncestor = menu[ancestor] || menu.nested;
           if (!expandedAncestor) {
-            notifier.error("Failed to parse SG annotation");
+            notifier.error("Failed to parse SG annotation (" + ancestors + ")");
             notifier.warning("You might be using an incompatible version of the SG tagset");
             menu = undefined;
             return;
