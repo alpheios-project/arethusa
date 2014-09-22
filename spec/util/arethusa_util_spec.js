@@ -235,6 +235,7 @@ describe("arethusaUtil", function() {
     it('detects sentence terminating punctuation characters', function() {
       expect(aU.isTerminatingPunctuation('.')).toBeTruthy();
       expect(aU.isTerminatingPunctuation(';')).toBeTruthy();
+      expect(aU.isTerminatingPunctuation('C.')).toBeFalsy();
     });
   });
 

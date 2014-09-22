@@ -147,7 +147,7 @@ var arethusaUtil = {
     },
 
     isTerminatingPunctuation: function (str) {
-      return str.match(/[\.;:]/);
+      return str.match(/^[\.;:]$/);
     },
 
     /* global X2JS */
