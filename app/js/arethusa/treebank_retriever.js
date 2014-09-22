@@ -55,7 +55,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
 
     function createHead(stateToken, xmlToken, artificials) {
       var head = xmlToken._head;
-      if (angular.isDefined(head)) {
+      if (angular.isDefined(head) && head !== "") {
         var newHead = {};
         var artHead = artificials[head];
         newHead.id = artHead ? artHead : idHandler.getId(head, stateToken.sentenceId);
