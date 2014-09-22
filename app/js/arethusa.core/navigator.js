@@ -211,7 +211,10 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     function movePosition(steps) {
-      self.currentPosition += (steps * self.chunkSize);
+      var newPos = self.currentPosition + (steps * self.chunkSize);
+      if (newPos < 0) newPos = 0;
+
+      self.currentPosition = newPos;
       self.updateState();
     }
 

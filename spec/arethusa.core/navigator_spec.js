@@ -232,6 +232,15 @@ describe("navigator", function() {
         navigator.prevChunk();
         expect(navigator.status.currentPos).toEqual(2);
       });
+
+      it('cannot move beyond boundaries', function() {
+        navigator.addSentences(sentences);
+        navigator.nextChunk();
+        navigator.changeChunkSize(2);
+        expect(navigator.status.currentPos).toEqual(1);
+        navigator.prevChunk();
+        expect(navigator.status.currentPos).toEqual(0);
+      });
     });
   });
 
