@@ -21,6 +21,10 @@
     "notLoggedIn" : "Du bist nicht angemeldet!"
   },
 
+  "navigator" : {
+    "chunkSizeError" : "Es werden nur Teilungsgrößen zwischen 1 und 5 unterstützt"
+  },
+
   "saver" : {
     "success" : "Dokument gespeichert!",
     "error" : "Speichern fehlgeschlagen! Versuch's nochmal?",
@@ -81,7 +85,9 @@
     "alwaysDeselect" : "Deselektiere nach jeder Annotations-Aktion",
     "keyboardMappings" : "Deaktiviere Tastaturmappings in Eingabefeldern",
     "colorizer" : "Token einfärben nach",
-    "layout" : "Layout"
+    "layout" : "Layout",
+    "clickAction" : "Klickverhalten",
+    "chunkMode" : "Teilungsmodus"
   },
 
 
@@ -90,5 +96,9 @@
     "failed1" : "Laden von",
     "failed2" : "gescheitert",
     "alreadyLoaded" : "ist bereits geladen!"
+  },
+
+  "depTree" : {
+    "errorAcrossSentences" : "Heads können nicht über Satzgrenzen hinweg verändert werden"
   }
 }

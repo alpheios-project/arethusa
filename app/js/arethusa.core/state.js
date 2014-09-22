@@ -5,12 +5,12 @@ angular.module('arethusa.core').service('state', [
   '$rootScope',
   'documentStore',
   'keyCapture',
-  '$location',
+  'locator',
   'StateChange',
   'idHandler',
   'globalSettings',
   function (configurator, navigator, $rootScope, documentStore, keyCapture,
-            $location, StateChange, idHandler, globalSettings) {
+            locator, StateChange, idHandler, globalSettings) {
     var self = this;
     var tokenRetrievers;
 
@@ -97,8 +97,8 @@ angular.module('arethusa.core').service('state', [
           navigator.addSentences(data);
           moveToSentence();
           // Check comment for saveTokens
-          //saveTokens(container, navigator.currentSentence());
-          tokens = navigator.currentSentence();
+          //saveTokens(container, navigator.currentChunk());
+          tokens = navigator.currentChunk();
 
           declarePreselections(retriever.preselections);
           declareLoaded(retriever);
@@ -107,14 +107,16 @@ angular.module('arethusa.core').service('state', [
       //tokens = container;
     };
 
-    function moveToSentence() {
+    function getChunkParam() {
       var param = self.conf.chunkParam;
-      if (param) {
-        var id = $location.search()[param];
-        if (id) {
-          if (navigator.goTo(id)) {
-            return;
-          }
+      if (param) return locator.get(param);
+    }
+
+    function moveToSentence() {
+      var id = getChunkParam();
+      if (id) {
+        if (navigator.goTo(id)) {
+          return;
         }
       }
       // If goTo failed, we just update the id with the starting value 0
@@ -139,7 +141,13 @@ angular.module('arethusa.core').service('state', [
     };
 
     function declarePreselections(ids) {
-      selectMultipleTokens(ids);
+      var chunkId = getChunkParam();
+      if (chunkId) {
+        var paddedIds = arethusaUtil.map(ids, function(id) {
+          return idHandler.padIdWithSId(id, chunkId);
+        });
+        selectMultipleTokens(paddedIds);
+      }
     }
 
     var declareLoaded = function (retriever) {
@@ -189,52 +197,11 @@ angular.module('arethusa.core').service('state', [
     }
 
 
-    this.changeHead = function (tokenId, newHeadId) {
-      if (self.headsFor(newHeadId).indexOf(tokenId) !== -1) {
-        var newToken = self.getToken(newHeadId);
-        var oldHead  = self.getToken(tokenId).head.id;
-        self.change(newToken, 'head.id', oldHead);
-      }
-      var token = self.getToken(tokenId);
-      self.change(token, 'head.id', newHeadId);
-    };
-
-    this.handleChangeHead = function (newHeadId, type) {
-      var preventSelection = false;
-      angular.forEach(self.selectedTokens, function (type, index) {
-        if (self.headCanBeChanged(index, newHeadId, type)) {
-          if (!self.batchChange) self.batchChangeStart();
-          self.changeHead(index, newHeadId);
-          preventSelection = preventSelection || true;
-        }
-      });
-      if (self.batchChange) self.batchChangeStop();
-      return preventSelection;
-    };
-
-    this.headCanBeChanged = function(id, newId, type) {
-      return id !== newId && (type === 'click' || type === 'ctrl-click');
-    };
-
-    this.headsFor = function (id) {
-      var currentToken = self.tokens[id];
-      var heads = [];
-      while (currentToken && currentToken.head.id) {
-        var headId = currentToken.head.id;
-        heads.push(headId);
-        currentToken = self.tokens[headId];
-      }
-      return heads;
-    };
-
     // type should be either 'click', 'ctrl-click' or 'hover'
     this.selectToken = function (id, type, changeHead) {
-      var preventSelection = false;
-      if (type === 'click') {
-        preventSelection = changeHead ? self.handleChangeHead(id, type) : false;
-        self.deselectAll();
-      }
-      if (!preventSelection && self.isSelectable(self.selectionType(id), type)) {
+      if (type === 'click') self.deselectAll();
+
+      if (self.isSelectable(self.selectionType(id), type)) {
         self.selectedTokens[id] = type;
         if (type !== 'hover') {
           self.clickedTokens[id] = type;
@@ -263,13 +230,13 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
-    this.toggleSelection = function (id, type, changeHead) {
+    this.toggleSelection = function (id, type) {
       // only deselect when the selectionType is the same.
       // a hovered selection can still be selected by click.
       if (this.isSelected(id) && this.selectionType(id) == type) {
         this.deselectToken(id, type);
       } else {
-        this.selectToken(id, type, changeHead);
+        this.selectToken(id, type);
       }
     };
 
@@ -408,6 +375,7 @@ angular.module('arethusa.core').service('state', [
     this.addToken = function(token, id) {
       self.tokens[id] = token;
       addStatus(token);
+      navigator.addToken(token);
       self.countTotalTokens();
       self.broadcast('tokenAdded', token);
     };
@@ -420,6 +388,8 @@ angular.module('arethusa.core').service('state', [
         self.broadcast('tokenRemoved', token);
         delete self.tokens[id];
       });
+      navigator.removeToken(token);
+      self.deselectAll();
       self.countTotalTokens();
     };
 

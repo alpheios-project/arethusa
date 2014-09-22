@@ -1,0 +1,10 @@
+<label>
+  <span translate="{{ setting.label }}"/>
+  <select
+    style="width: 8rem"
+    class="compact"
+    ng-model="gS[setting.property]"
+    ng-change="gS.setClickAction(gS[setting.property])"
+    ng-options="k as k for (k, v) in gS.clickActions">
+  </select>
+</label>

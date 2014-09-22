@@ -7,6 +7,7 @@ angular.module('arethusa.core').service('globalSettings', [
   '$rootScope',
   'notifier',
   '$timeout',
+  '$injector',
   function(configurator,  plugins, $injector, $rootScope, notifier, $timeout) {
     var self = this;
 
@@ -39,6 +40,8 @@ angular.module('arethusa.core').service('globalSettings', [
     }
 
     function defineSettings() {
+      self.defineSetting('chunkMode', 'custom', 'chunk-mode-switcher');
+      self.defineSetting('clickAction', 'custom', 'global-click-action');
       self.defineSetting('alwaysDeselect');
       self.defineSetting('keyboardMappings');
       self.defineSetting('colorizer', 'custom', 'colorizer-setting');
@@ -57,6 +60,35 @@ angular.module('arethusa.core').service('globalSettings', [
       self.active = !self.active;
     };
 
+    this.defaultClickAction = function(id) {
+      state().toggleSelection(id, 'click');
+    };
+
+    this.clickActions = {};
+
+
+    this.addClickAction = function(name, fn, preFn) {
+      self.clickActions[name] = [fn, preFn];
+    };
+
+    this.removeClickAction = function(name) {
+      delete self.clickActions[name];
+      if (self.clickAction === name) self.setClickAction('disabled');
+    };
+
+    this.setClickAction = function(name, silent) {
+      // When nothing changed, we don't need to do anything
+      if (self.clickAction !== name) {
+        self.clickAction = name;
+        var actions = self.clickActions[self.clickAction];
+        self.clickFn = actions[0];
+        self.preClickFn = actions[1];
+        if (!silent) {
+          $rootScope.$broadcast('clickActionChange');
+        }
+      }
+    };
+
     this.addColorizer = function(pluginName) {
       self.colorizers[pluginName] = true;
     };
@@ -65,8 +97,10 @@ angular.module('arethusa.core').service('globalSettings', [
       return self.colorizer === pluginName;
     };
 
+    var lazyState;
     function state() {
-      return $injector.get('state');
+      if (!lazyState) lazyState = $injector.get('state');
+      return lazyState;
     }
 
     this.applyColorizer = function() {
@@ -117,6 +151,8 @@ angular.module('arethusa.core').service('globalSettings', [
 
     this.init = function() {
       configure();
+      self.addClickAction('disabled', self.defaultClickAction);
+      self.setClickAction('disabled', true);
     };
 
   }

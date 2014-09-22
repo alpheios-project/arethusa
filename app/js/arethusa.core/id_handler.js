@@ -4,8 +4,18 @@ angular.module('arethusa.core').service('idHandler', [
   function() {
     var self = this;
 
-    this.getId = function(id) {
-      return arethusaUtil.formatNumber(id, 4);
+    this.getId = function(id, sId) {
+      var s = sId ? arethusaUtil.formatNumber(sId, 4) : '';
+      var w = arethusaUtil.formatNumber(id, 4);
+      return s ? s + '-' + w : w;
+    };
+
+    // Backwards compatibility function for TreebankRetriever -
+    // can be removed at a later stage. Check the function
+    // padWithSentenceId there.
+    this.padIdWithSId = function(id, sId) {
+      var s = aU.formatNumber(sId, 4);
+      return s + '-' + id;
     };
 
     this.formatId = function(id, format) {
@@ -113,6 +123,7 @@ angular.module('arethusa.core').service('idHandler', [
     function incDec(id, increment) {
       var idParts = parseId(id);
       var wId = idParts.pop();
+      var sId = idParts.pop();
       var wParts = wIdParts(wId);
 
       var newId  = wParts[1];
@@ -122,7 +133,7 @@ angular.module('arethusa.core').service('idHandler', [
       } else {
         if (increment) newId++; else newId--;
       }
-      return self.getId(newId) + letter;
+      return self.getId(newId, sId) + letter;
     }
 
 

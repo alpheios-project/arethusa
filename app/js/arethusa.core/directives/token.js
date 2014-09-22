@@ -16,8 +16,8 @@
 // responsibilites at the moment.
 angular.module('arethusa.core').directive('token', [
   'state',
-  'plugins',
-  function (state, plugins) {
+  'globalSettings',
+  function (state, globalSettings) {
     return {
       restrict: 'AE',
       scope: {
@@ -35,7 +35,6 @@ angular.module('arethusa.core').directive('token', [
 
         scope.state = state;
         var id = scope.token.id;
-        var changeHeads = plugins.get('depTree').mode === 'editor';
 
         function apply(fn) {
           scope.$apply(fn());
@@ -45,7 +44,11 @@ angular.module('arethusa.core').directive('token', [
           element.bind('click', function (event) {
             apply(function() {
               var clickType = event.ctrlKey ? 'ctrl-click' : 'click';
-              state.toggleSelection(id, clickType, changeHeads);
+              if (clickType === 'click' && state.hasClickSelections()) {
+                globalSettings.clickFn(id);
+              } else {
+                state.toggleSelection(id, clickType);
+              }
             });
           });
         }
@@ -63,27 +66,6 @@ angular.module('arethusa.core').directive('token', [
           });
         }
 
-        // Dependent on the concept of head changes - will be moved
-        // elsewhere later.
-        function bindHeadChangeHover() {
-          element.bind('mouseenter', function (event) {
-            apply(function() {
-              if (awaitingHeadChange(event)) {
-                element.addClass('copy-cursor');
-              }
-            });
-          });
-          element.bind('mouseleave', function () {
-            apply(function () {
-              element.removeClass('copy-cursor');
-            });
-          });
-        }
-
-        function awaitingHeadChange(event) {
-          return !state.isSelected(id) && state.hasSelections() && !event.ctrlKey;
-        }
-
         scope.selectionClass = function () {
           if (state.isSelected(id)) {
             if (state.selectionType(id) == 'hover') {
@@ -94,16 +76,42 @@ angular.module('arethusa.core').directive('token', [
           }
         };
 
-        // It's imperative to bind headChangeHover before Hover -
-        // otherwise the headChangeHover bindings fails.
-        if (scope.click) {
-          bindClick();
-          element.addClass('clickable');
-          if (changeHeads) {
-            bindHeadChangeHover();
+        function bindPreClick() {
+          var preClick = globalSettings.preClickFn;
+          if (preClick) {
+            angular.forEach(preClick, function(fn, eventName) {
+              element.bind(eventName, function(event) {
+                apply(function() {
+                  fn(id, element, event);
+                });
+              });
+            });
           }
         }
-        if (scope.hover) bindHover();
+
+        function addBindings() {
+          // It's imperative to bind any preClickFn which might hover here -
+          // otherwise it will fail to register
+          if (scope.click) {
+            bindClick();
+            element.addClass('clickable');
+            bindPreClick();
+          }
+          if (scope.hover) bindHover();
+        }
+
+        function unbind() {
+          element.removeClass('clickable');
+          element.unbind();
+        }
+
+        function updateBindings() {
+          unbind();
+          addBindings();
+        }
+
+        scope.$on('clickActionChange', updateBindings);
+
 
         function cleanStyle() {
           angular.forEach(scope.token.style, function (val, style) {
@@ -144,6 +152,8 @@ angular.module('arethusa.core').directive('token', [
         }
 
         element.addClass('token');
+
+        addBindings();
       },
       templateUrl: 'templates/token.html'
     };

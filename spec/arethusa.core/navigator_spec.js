@@ -7,11 +7,15 @@ describe("navigator", function() {
   var s1 = {
     id: "1",
     tokens: {
-      '01': {
+      '01-01': {
         string: 'x',
+        sentenceId: '1',
+        id: '01-01'
       },
-      '02': {
-        string: 'y'
+      '01-02': {
+        string: 'y',
+        sentenceId: '1',
+        id: '01-02'
       }
     }
   };
@@ -19,11 +23,15 @@ describe("navigator", function() {
   var s3 = {
     id: "3",
     tokens: {
-      '01': {
+      '03-01': {
         string: 'g',
+        sentenceId: '3',
+        id: '03-01'
       },
-      '02': {
-        string: 'h'
+      '03-02': {
+        string: 'h',
+        sentenceId: '3',
+        id: '03-02'
       }
     }
   };
@@ -31,11 +39,15 @@ describe("navigator", function() {
   var s5 = {
     id: "5",
     tokens: {
-      '01': {
+      '05-01': {
         string: 'a',
+        sentenceId: '5',
+        id: '05-01'
       },
-      '02': {
-        string: 'b'
+      '05-02': {
+        string: 'b',
+        sentenceId: '5',
+        id: '05-02'
       }
     }
   };
@@ -49,7 +61,7 @@ describe("navigator", function() {
   beforeEach(inject(function(_navigator_, _state_) {
     navigator = _navigator_;
     state = _state_;
-    state.initServices();
+    state.initServices(); // executes navigator init
     navigator.reset();
   }));
 
@@ -69,10 +81,21 @@ describe("navigator", function() {
     });
   });
 
-  describe('this.currentSentence()', function() {
+  describe('this.currentChunk()', function() {
     it('returns the tokens of the current sentence', function() {
       navigator.addSentences(sentences);
-      expect(navigator.currentSentence()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toEqual(s1.tokens);
+    });
+
+    describe('with a larger chunk size', function() {
+      it('returns more than one sentence', function() {
+        var res = angular.extend({}, s1.tokens, s3.tokens);
+        navigator.addSentences(sentences);
+
+        navigator.changeChunkSize(2);
+
+        expect(navigator.currentChunk()).toEqual(res);
+      });
     });
   });
 
@@ -85,9 +108,9 @@ describe("navigator", function() {
   describe('this.updateId()', function() {
     it('updates the internal status obj with the id of the current sentence', function() {
       navigator.addSentences(sentences);
-      expect(navigator.status.currentId).toBeUndefined();
+      expect(navigator.status.currentIds).toEqual([]);
       navigator.updateId();
-      expect(navigator.status.currentId).toEqual('1');
+      expect(navigator.status.currentIds).toEqual(['1']);
     });
 
     it('determines if a next and/or previous sentence is available', function() {
@@ -96,11 +119,11 @@ describe("navigator", function() {
       expect(navigator.status.hasNext).toBeTruthy();
       expect(navigator.status.hasPrev).toBeFalsy();
 
-      navigator.nextSentence(); // calls updateId on its own
+      navigator.nextChunk(); // calls updateId on its own
       expect(navigator.status.hasNext).toBeTruthy();
       expect(navigator.status.hasPrev).toBeTruthy();
 
-      navigator.nextSentence();
+      navigator.nextChunk();
       expect(navigator.status.hasNext).toBeFalsy();
       expect(navigator.status.hasPrev).toBeTruthy();
     });
@@ -109,7 +132,7 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
       navigator.updateId();
       expect(navigator.status.currentPos).toEqual(0);
-      navigator.nextSentence();
+      navigator.nextChunk();
       expect(navigator.status.currentPos).toEqual(1);
     });
   });
@@ -128,7 +151,7 @@ describe("navigator", function() {
     it('flashes all internal state of the navigator', function() {
       navigator.addSentences(sentences);
       navigator.updateId();
-      expect(navigator.status.currentId).toEqual('1');
+      expect(navigator.status.currentIds).toEqual(['1']);
       expect(navigator.sentences.length).toEqual(3);
       expect(navigator.sentencesById).not.toEqual({});
 
@@ -139,53 +162,85 @@ describe("navigator", function() {
     });
   });
 
-  describe('this.nextSentence()', function() {
+  describe('this.nextChunk()', function() {
     it('moves to the next sentence - mind how ids can be non-sequential!', function() {
       navigator.addSentences(sentences);
-      expect(navigator.currentSentence()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toEqual(s1.tokens);
 
-      navigator.nextSentence();
-      expect(navigator.currentSentence()).toBe(s3.tokens);
+      navigator.nextChunk();
+      expect(navigator.currentChunk()).toEqual(s3.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
-      navigator.nextSentence();
-      expect(state.tokens).toBe(navigator.currentSentence());
+      navigator.nextChunk();
+      expect(state.tokens).toBe(navigator.currentChunk());
     });
 
     it('does nothing when there is no next sentence', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
-      expect(navigator.currentSentence()).toBe(s5.tokens);
-      navigator.nextSentence();
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
+      navigator.nextChunk();
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
+    });
+
+    describe('with larger chunk sizes', function() {
+      it('moves in chunk sizes', function() {
+        navigator.addSentences(sentences.concat(sentences));
+        navigator.changeChunkSize(2);
+        expect(navigator.status.currentPos).toEqual(0);
+        navigator.nextChunk();
+        expect(navigator.status.currentPos).toEqual(2);
+      });
     });
   });
 
-  describe('this.prevSentence()', function() {
+  describe('this.prevChunk()', function() {
     it('moves to the previous sentence - ids can be non-sequential', function() {
       navigator.addSentences(sentences);
-      navigator.nextSentence();
-      navigator.nextSentence();
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      navigator.nextChunk();
+      navigator.nextChunk();
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
 
-      navigator.prevSentence();
-      expect(navigator.currentSentence()).toBe(s3.tokens);
+      navigator.prevChunk();
+      expect(navigator.currentChunk()).toEqual(s3.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
-      navigator.nextSentence();
-      navigator.prevSentence();
-      expect(state.tokens).toBe(navigator.currentSentence());
+      navigator.nextChunk();
+      navigator.prevChunk();
+      expect(state.tokens).toEqual(navigator.currentChunk());
     });
 
     it('does nothing when there is no previous sentence', function() {
       navigator.addSentences(sentences);
-      expect(navigator.currentSentence()).toBe(s1.tokens);
-      navigator.prevSentence();
-      expect(navigator.currentSentence()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toEqual(s1.tokens);
+      navigator.prevChunk();
+      expect(navigator.currentChunk()).toEqual(s1.tokens);
+    });
+
+    describe('with larger chunk sizes', function() {
+      it('moves in chunk sizes', function() {
+        navigator.addSentences(sentences.concat(sentences));
+        navigator.changeChunkSize(2);
+        expect(navigator.status.currentPos).toEqual(0);
+        navigator.nextChunk();
+        navigator.nextChunk();
+        expect(navigator.status.currentPos).toEqual(4);
+        navigator.prevChunk();
+        expect(navigator.status.currentPos).toEqual(2);
+      });
+
+      it('cannot move beyond boundaries', function() {
+        navigator.addSentences(sentences);
+        navigator.nextChunk();
+        navigator.changeChunkSize(2);
+        expect(navigator.status.currentPos).toEqual(1);
+        navigator.prevChunk();
+        expect(navigator.status.currentPos).toEqual(0);
+      });
     });
   });
 
@@ -194,13 +249,13 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
 
       navigator.goToLast();
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
-      expect(state.tokens).toBe(navigator.currentSentence());
+      expect(state.tokens).toEqual(navigator.currentChunk());
     });
   });
 
@@ -208,17 +263,17 @@ describe("navigator", function() {
     it('goes. to the first element in the sentence array', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
 
       navigator.goToFirst();
-      expect(navigator.currentSentence()).toBe(s1.tokens);
+      expect(navigator.currentChunk()).toEqual(s1.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.goToLast();
       navigator.goToFirst();
-      expect(state.tokens).toBe(navigator.currentSentence());
+      expect(state.tokens).toEqual(navigator.currentChunk());
     });
   });
 
@@ -227,16 +282,16 @@ describe("navigator", function() {
       navigator.addSentences(sentences);
 
       navigator.goTo('3');
-      expect(navigator.currentSentence()).toBe(s3.tokens);
+      expect(navigator.currentChunk()).toEqual(s3.tokens);
 
       navigator.goTo('5');
-      expect(navigator.currentSentence()).toBe(s5.tokens);
+      expect(navigator.currentChunk()).toEqual(s5.tokens);
     });
 
     it('updates the state object', function() {
       navigator.addSentences(sentences);
       navigator.goTo('5');
-      expect(state.tokens).toBe(navigator.currentSentence());
+      expect(state.tokens).toEqual(navigator.currentChunk());
     });
 
     it('returns true when the call succeeds', function() {
@@ -249,7 +304,7 @@ describe("navigator", function() {
     it('goes to a sentence identified by its container position', function() {
       navigator.addSentences(sentences);
       navigator.goToByPosition(1);
-      expect(navigator.currentSentence()).toEqual(s3.tokens);
+      expect(navigator.currentChunk()).toEqual(s3.tokens);
     });
   });
 
@@ -262,6 +317,15 @@ describe("navigator", function() {
       navigator.goTo('5');
       expect(navigator.hasNext()).toBeFalsy();
     });
+
+    describe('with a larger chunk size', function() {
+      it('determines if something next is available', function() {
+        navigator.addSentences(sentences);
+        navigator.changeChunkSize(3);
+
+        expect(navigator.hasNext()).toBeFalsy();
+      });
+    });
   });
 
   describe('navigator.hasPrev()', function() {
@@ -273,6 +337,33 @@ describe("navigator", function() {
       navigator.goTo('3');
       expect(navigator.hasPrev()).toBeTruthy();
     });
+  });
+
+  describe('navigator.addToken()', function() {
+    it('adds tokens to the sentence stores', function() {
+      navigator.addSentences(sentences);
+      var token = { id: '01-03', sentenceId: '1'};
+      var firstSentence = navigator.sentencesById['1'].tokens;
+
+      expect(firstSentence['01-03']).toBeUndefined();
+
+      navigator.addToken(token);
+      expect(firstSentence['01-03']).toBeDefined();
+    });
+  });
+
+  describe('navigator.removeToken()', function() {
+    it('removes a token from the sentence stores', function() {
+      navigator.addSentences(sentences);
+      var firstSentence = navigator.sentencesById['1'].tokens;
+      var token = { id: '01-03', sentenceId: '1'};
+      navigator.addToken(token);
+      expect(firstSentence['01-03']).toBeDefined();
+
+      navigator.removeToken(token);
+      expect(firstSentence['01-03']).toBeUndefined();
+    });
+
   });
 
   describe('this.switchView()', function() {

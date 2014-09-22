@@ -9,7 +9,7 @@ angular.module('arethusa.core').directive('dynamicDirective', [
         directive: '@dynamicDirective'
       },
       link: function(scope, element, attrs) {
-        var tag = element[0].tagName.lowerCase;
+        var tag = element[0].tagName.toLowerCase();
         var tmpl = '<' + tag + ' ' + scope.directive + '></' + tag + '>';
         element.append($compile(tmpl)(scope.$parent));
       }

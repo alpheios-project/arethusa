@@ -21,7 +21,10 @@
 angular.module('arethusa.depTree').service('depTree', [
   'state',
   'configurator',
-  function (state, configurator) {
+  'globalSettings',
+  'notifier',
+  'translator',
+  function (state, configurator, globalSettings, notifier, translator) {
     var self = this;
     this.name = "depTree";
 
@@ -124,9 +127,104 @@ angular.module('arethusa.depTree').service('depTree', [
       state.change(token, 'head.id', '0000');
     };
 
+    function getHeadsToChange(token) {
+      var sId = token.sentenceId;
+      var id  = token.id;
+      var notAllowed;
+      var res = [];
+      for (var otherId in state.clickedTokens) {
+        var otherToken = state.getToken(otherId);
+        if (otherToken.sentenceId !== sId) {
+          notAllowed = true;
+          break;
+        }
+        if (id !== otherId) {
+          res.push(otherToken);
+        }
+      }
+      return notAllowed ? 'err': (res.length ? res : false);
+    }
+
+    function changeHead(tokenToChange, targetToken) {
+      if (isDescendant(targetToken, tokenToChange)) {
+        state.change(targetToken, 'head.id', tokenToChange.head.id);
+      }
+      state.change(tokenToChange, 'head.id', targetToken.id);
+    }
+
+    function isDescendant(targetToken, token) {
+      var current = targetToken;
+      var currHead = aU.getProperty(current, 'head.id');
+      var tokenId = token.id;
+      var desc = false;
+      while ((!desc) && current && currHead) {
+        if (tokenId === currHead) {
+          desc = true;
+        } else {
+          current = state.getToken(currHead);
+          currHead = current ? aU.getProperty(current, 'head.id') : false;
+        }
+      }
+      return desc;
+    }
+
+    var translations = {};
+    translator('depTree.errorAcrossSentences', translations, 'errorAcrossSentences');
+
+    this.changeHead = function(idOrToken) {
+      var token = angular.isString(idOrToken) ? state.getToken(idOrToken) : idOrToken;
+      var headsToChange = getHeadsToChange(token);
+      if (headsToChange) {
+        if (headsToChange === 'err') {
+          notifier.error(translations.errorAcrossSentences);
+          return;
+        }
+        state.doBatched(function() {
+          angular.forEach(headsToChange, function(otherToken, i) {
+            changeHead(otherToken, token);
+          });
+        });
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    function changeHeadAction(id) {
+      var headHasChanged = self.changeHead(id);
+      if (!headHasChanged) {
+        globalSettings.defaultClickAction(id);
+      }
+    }
+
+    function awaitingHeadChange(id, event) {
+      return !state.isSelected(id) && state.hasClickSelections() && !event.ctrlKey;
+    }
+
+    function preHeadChange() {
+      return {
+        'mouseenter' : function(id, element, event) {
+          if (awaitingHeadChange(id, event)) {
+            element.addClass('copy-cursor');
+          }
+        },
+        'mouseleave' : function(id, element, event) {
+          element.removeClass('copy-cursor');
+        }
+      };
+    }
+
+    var clickActionName = 'change head';
+
+    globalSettings.addClickAction(clickActionName, changeHeadAction, preHeadChange());
+
     this.init = function () {
       configure();
       addMissingHeadsToState();
+
+      if (self.mode === 'editor') {
+        globalSettings.setClickAction(clickActionName);
+      }
     };
   }
 ]);

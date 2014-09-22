@@ -5,28 +5,49 @@ angular.module('arethusa.core').service('navigator', [
   '$cacheFactory',
   'keyCapture',
   '$rootScope',
-  function ($injector, configurator, $cacheFactory, keyCapture, $rootScope) {
+  'globalSettings',
+  function ($injector, configurator, $cacheFactory,
+            keyCapture, $rootScope, globalSettings) {
     var self = this;
     var citeMapper;
 
     this.init = function() {
+      self.conf = configurator.configurationFor('navigator');
+
+
+      self.chunkModes = ['sentence'];
+      self.chunkMode = self.conf.chunkMode || 'sentence';
+      self.chunkSize = self.conf.chunkSize || 1;
+
       self.sentences = [];
       self.sentencesById = {};
-      self.currentPosition = 0;
       self.status = {};
+      updatePosition(0);
 
       citeMapper = configurator.provideResource('citeMapper');
 
       keyCapture.initCaptures(function(kC) {
         return {
           navigation: [
-            kC.create('nextSentence', function() { kC.doRepeated(self.nextSentence); }, 'u'),
-            kC.create('prevSentence', function() { kC.doRepeated(self.prevSentence); }, 'i'),
+            kC.create('nextChunk', function() { kC.doRepeated(self.nextChunk); }, 'u'),
+            kC.create('prevChunk', function() { kC.doRepeated(self.prevChunk); }, 'i'),
             kC.create('list', function() { self.switchView(); }, 'L')
           ]
         };
       });
+
+      navigator.chunkMode = 'sentence';
     };
+
+    this.applyChunkMode = function() {
+      // tbd - we only support sentences so far
+    };
+
+    this.changeChunkSize = function(size) {
+      self.chunkSize = size;
+      self.updateState();
+    };
+
 
     this.state = function () {
       if (!self.lazyState) {
@@ -40,36 +61,62 @@ angular.module('arethusa.core').service('navigator', [
       angular.forEach(sentences, function(sentence, i) {
         self.sentencesById[sentence.id] = sentence;
       });
+      updateChunks();
     };
 
-    var currentId = function () {
-      return currentSentenceObj().id;
-    };
-    var currentSentenceObj = function () {
-      return self.sentences[self.currentPosition] || {};
-    };
-    this.currentSentence = function () {
-      return currentSentenceObj().tokens;
+    var currentIds = function () {
+      return arethusaUtil.map(currentSentenceObjs(), 'id');
     };
 
-    this.nextSentence = function () {
+    var currentSentenceObjs = function () {
+      var pos = self.currentPosition;
+
+      if (!self.currentSentences) {
+        self.currentSentences = self.sentences.slice(pos, pos + self.chunkSize) || [];
+      }
+      return self.currentSentences;
+    };
+
+    var currentChunk;
+    this.currentChunk = function () {
+      if (!currentChunk) {
+        currentChunk = {};
+        var currSentences = currentSentenceObjs();
+        for (var i=0; i < currSentences.length; i++) {
+          angular.extend(currentChunk, currSentences[i].tokens);
+        }
+      }
+      return currentChunk;
+    };
+
+    this.nextChunk = function () {
       if (self.hasNext()) movePosition(1);
     };
-    this.prevSentence = function () {
+    this.prevChunk = function () {
       if (self.hasPrev()) movePosition(-1);
     };
 
     this.hasNext = function() {
-      return self.currentPosition < self.sentences.length - 1;
+      return self.currentPosition + self.chunkSize < self.sentences.length;
     };
     this.hasPrev = function() {
       return self.currentPosition > 0;
     };
 
     this.goToFirst = function() {
-      self.currentPosition = 0;
+      updatePosition(0);
       self.updateState();
     };
+
+    function updatePosition(pos) {
+      self.currentPosition = pos;
+    }
+
+    function updateChunks() {
+      self.currentSentences = undefined;
+      currentChunk = undefined;
+      self.currentChunk();
+    }
 
     function findSentence(id) {
       var res;
@@ -86,7 +133,7 @@ angular.module('arethusa.core').service('navigator', [
       var s = findSentence(id);
       if (s) {
         var i = self.sentences.indexOf(s);
-        self.currentPosition = i;
+        updatePosition(i);
         self.updateState();
         return true;
       } else {
@@ -101,24 +148,26 @@ angular.module('arethusa.core').service('navigator', [
 
     this.goToByPosition = function(pos) {
       if (self.sentences.length > pos) {
-        self.currentPosition = pos;
+        updatePosition(pos);
         self.updateState();
       }
     };
 
     this.goToLast = function() {
-      self.currentPosition = self.sentences.length - 1;
+      updatePosition(self.sentences.length - self.chunkSize);
       self.updateState();
     };
 
     function updateCitation() {
       resetCitation();
-      self.getCitation(currentSentenceObj(), storeCitation);
+      self.getCitation(currentSentenceObjs(), storeCitation);
     }
 
     var citationCache = $cacheFactory('citation', { number: 100 });
-    this.getCitation = function(sentence, callback) {
+    this.getCitation = function(sentences, callback) {
       if (!citeMapper) return;
+      var sentence = sentences[0];
+      if (!sentence) return;
 
       var citation;
       var cite = sentence.cite;
@@ -158,11 +207,14 @@ angular.module('arethusa.core').service('navigator', [
 
     this.updateState = function() {
       self.updateId();
-      self.state().replaceState(self.currentSentence());
+      self.state().replaceState(self.currentChunk());
     };
 
     function movePosition(steps) {
-      self.currentPosition += steps;
+      var newPos = self.currentPosition + (steps * self.chunkSize);
+      if (newPos < 0) newPos = 0;
+
+      self.currentPosition = newPos;
       self.updateState();
     }
 
@@ -172,10 +224,11 @@ angular.module('arethusa.core').service('navigator', [
     }
 
     this.updateId = function () {
-      self.status.currentPos = self.currentPosition;
-      self.status.currentId = currentId();
       updateNextAndPrev();
       updateCitation();
+      updateChunks();
+      self.status.currentPos = self.currentPosition;
+      self.status.currentIds = currentIds();
     };
 
     this.sentenceToString = function(sentence) {
@@ -208,7 +261,7 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     this.reset = function () {
-      self.currentPosition = 0;
+      updatePosition(0);
       self.sentences = [];
       self.sentencesById = {};
       self.listMode = false;
@@ -216,8 +269,23 @@ angular.module('arethusa.core').service('navigator', [
       self.updateId();
     };
 
+    this.addToken = function(token) {
+      var sId = token.sentenceId;
+      var id  = token.id;
+      self.sentencesById[sId].tokens[id] = token;
+    };
+
+    this.removeToken = function(token) {
+      var sId = token.sentenceId;
+      var id  = token.id;
+      delete self.sentencesById[sId].tokens[id];
+    };
+
     this.markChunkChanged = function() {
-      currentSentenceObj().changed = true;
+      var currSents = currentSentenceObjs();
+      for (var i = currSents.length - 1; i >= 0; i--){
+        currSents[i].changed = true;
+      }
     };
 
     // Probably could deregister/reregister that watch, but it doesn't hurt...

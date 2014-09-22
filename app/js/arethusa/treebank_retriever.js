@@ -42,7 +42,11 @@ angular.module('arethusa').factory('TreebankRetriever', [
         obj.type = token._artificial;
       }
 
-      var intId = xmlTokenId(token);
+      if (aU.isTerminatingPunctuation(obj.string)) {
+        obj.terminator = true;
+      }
+
+      var intId = xmlTokenId(token, sentenceId);
       retrieverHelper.generateId(obj, intId, token._id, docId);
       createHead(obj, token, artificials);
 
@@ -54,24 +58,37 @@ angular.module('arethusa').factory('TreebankRetriever', [
       if (angular.isDefined(head)) {
         var newHead = {};
         var artHead = artificials[head];
-        newHead.id = artHead ? artHead : idHandler.getId(head);
+        newHead.id = artHead ? artHead : idHandler.getId(head, stateToken.sentenceId);
         stateToken.head = newHead;
       }
     }
 
-    function xmlTokenId(token) {
-      return token._artificial ? token._insertion_id : idHandler.getId(token._id);
+    function xmlTokenId(token, sId) {
+      return token._artificial ? token._insertion_id : idHandler.getId(token._id, sId);
     }
 
-    function extractArtificial(memo, token, i) {
+    // This is for backwards compatibility - we still might encounter documents, which
+    // stored the insertion id without the sentence id. This is a little hacky but a
+    // must have.
+    function padWithSentenceId(token, sId) {
+      var iId = token._insertion_id;
+      if (!iId.match(/-/)) {
+        token._insertion_id = idHandler.padIdWithSId(iId, sId);
+      }
+    }
+
+    function extractArtificial(memo, token, i, sId) {
       if (token._artificial) {
+        padWithSentenceId(token, sId);
         memo[token._id] = token._insertion_id;
       }
     }
 
     function xmlSentenceToState(docId, words, id, cite) {
       var tokens = {};
-      var artificials = arethusaUtil.inject({}, words, extractArtificial);
+      var artificials = arethusaUtil.inject({}, words, function(memo, token, i) {
+        extractArtificial(memo, token, i, id);
+      });
       angular.forEach(words, function (xmlToken, i) {
         var token = xmlTokenToState(docId, xmlToken, id, artificials);
         tokens[token.id] = token;

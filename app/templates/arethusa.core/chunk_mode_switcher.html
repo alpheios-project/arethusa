@@ -1,0 +1,20 @@
+<div>
+  <label>
+    <span translate="globalSettings.chunkMode"/>
+    <select
+      style="width: 8rem"
+      class="compact"
+      ng-model="navi.chunkMode"
+      ng-change="navi.applyChunkMode()"
+      ng-options="mode as mode for mode in navi.chunkModes">
+    </select>
+
+    <form ng-submit="tryToSetChunkSize()" style="display: inline-block">
+      <input
+        style="width: 2rem"
+        class="compact"
+        type="text" ng-model="size"/>
+    </form>
+  </label>
+</div>
+

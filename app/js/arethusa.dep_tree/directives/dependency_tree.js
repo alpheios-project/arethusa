@@ -50,8 +50,9 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
   '$timeout',
   'translator',
   'plugins',
+  'navigator',
   function ($compile, languageSettings, keyCapture, idHandler,
-            $window, state, $timeout, translator, plugins) {
+            $window, state, $timeout, translator, plugins, navigator) {
     return {
       restrict: 'A',
       scope: {
@@ -88,7 +89,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Values for the synthetic root node on top of the dependency tree
         var rootText = "[ROOT]";
-        var rootId = idHandler.getId('0');
+        var rootId;
 
         // This function will be used to store special function that can move
         // and resize the tree, such as a perfectWidth mode. If this function
@@ -142,7 +143,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
 
         // Templates to be compiled in the course of this directive
-        var rootTokenHtml = '<span root-token>' + rootText + '</span>';
+        function rootTokenHtml() {
+          return '<span root-token root-id="' + rootId + '" s-id="' + inferSId() + '">' +
+            rootText +
+          '</span>';
+        }
+
         var tokenHtml = '\
           <span token="token"\
             class="no-transition"\
@@ -321,11 +327,24 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return (token.head || {}).id;
         }
 
+        function stillSameTree(a, b) {
+          if (a && b) {
+            return angular.equals(Object.keys(a), Object.keys(b));
+          }
+        }
+
 
         // Functions to create, update and render the graph
         //
         // They are solely called by watches.
-        function createGraph() {
+
+        function createGraph(noRegroup) {
+          if (!noRegroup) groupTokens();
+          var oldTree = scope.current;
+          scope.current = scope.groupedTokens[scope.currentFocus];
+
+          if (stillSameTree(scope.current, oldTree)) return;
+
           clearOldGraph();
           g = new dagreD3.Digraph();
           createRootNode();
@@ -333,18 +352,29 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           render();
         }
 
+        function groupTokens() {
+          scope.groupedTokens = aU.map(navigator.currentSentences, 'tokens');
+          scope.groupSize = scope.groupedTokens.length;
+        }
+
         function clearOldGraph() {
           if (vis) vis.selectAll('*').remove();
         }
 
+        function inferSId() {
+          for (var first in scope.current) break;
+          return scope.current[first].sentenceId;
+        }
+
         function createRootNode() {
+          rootId = idHandler.getId('0', inferSId());
           g.addNode(rootId, { label: rootPlaceholder() });
         }
         function createNode(token) {
           g.addNode(token.id, { label: tokenPlaceholder(token) });
         }
         function createEdges() {
-          angular.forEach(scope.tokens, function (token, index) {
+          angular.forEach(scope.current, function (token, index) {
             if (hasHead(token)) drawEdge(token);
           });
         }
@@ -368,7 +398,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           }
 
           if (!nodePresent(headId)) {
-            createNode(scope.tokens[headId]);
+            createNode(scope.current[headId]);
           }
           g.addEdge(id, id, headId, { label: labelPlaceholder(token) });
         }
@@ -433,7 +463,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         function insertRootDirective() {
           node(rootId).append(function() {
             this.textContent = '';
-            return $compile(rootTokenHtml)(scope)[0];
+            return $compile(rootTokenHtml())(scope)[0];
           });
         }
 
@@ -444,12 +474,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
             // of our compiled token directive.
             // The placholder has an id in the format of tphXXXX where XXXX is the id.
             this.textContent = '';
-            return compiledToken(scope.tokens[this.id.slice(3)]);
+            return compiledToken(scope.current[this.id.slice(3)]);
           });
         }
 
         function insertEdgeDirectives() {
-          angular.forEach(scope.tokens, function (token, id) {
+          angular.forEach(scope.current, function (token, id) {
             label(id).append(function () {
               this.textContent = '';
               var label = compiledEdgeLabel(token);
@@ -596,8 +626,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Watches and Event listeners
 
-        function init() {
-          createGraph();
+        function init(noRegroup) {
+          createGraph(noRegroup);
           moveToStart();
           if (isMainTree()) plugins.declareReady('depTree');
         }
@@ -646,17 +676,23 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           return scope.tokens === state.tokens;
         }
 
+        function inActiveTree(id) {
+          return scope.current[id];
+        }
+
         // only do this if we are the main tree!
         if (isMainTree()) {
-          scope.$on('tokenAdded', function(event, token) {
-            createNode(token);
-            customizeGraph();
-            render();
+          state.on('tokenAdded', function(event, token) {
+            if (inActiveTree(token.id)) {
+              createNode(token);
+              customizeGraph();
+              render();
+            }
           });
 
           state.on('tokenRemoved', function(event, token) {
             var id = token.id;
-            if (scope.tokens[id] === token && nodePresent(id)) {
+            if (inActiveTree(id) && nodePresent(id)) {
               g.delNode(id);
               render();
             }
@@ -667,25 +703,27 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           // only once and not several times for each head change.
           var queuedChangesPresent;
           state.watch('head.id', function(newVal, oldVal, event) {
-            // Very important to do here, otherwise the tree will
-            // be render a little often on startup...
-            if (newVal !== oldVal) {
-              var token = event.token;
-              // If a disconnection has been requested, we just
-              // have to delete the edge and do nothing else
-              if (newVal === "") {
-                g.delEdge(token.id);
-              } else {
-                updateEdge(token);
+            var token = event.token;
+            if (inActiveTree(token.id)) {
+              // Very important to do here, otherwise the tree will
+              // be render a little often on startup...
+              if (newVal !== oldVal) {
+                // If a disconnection has been requested, we just
+                // have to delete the edge and do nothing else
+                if (newVal === "") {
+                  g.delEdge(token.id);
+                } else {
+                  updateEdge(token);
+                }
               }
-            }
-            if (state.batchChange) {
-              queuedChangesPresent = true;
-              return;
-            }
+              if (state.batchChange) {
+                queuedChangesPresent = true;
+                return;
+              }
 
-            render();
-            $timeout(applyViewMode, transitionDuration);
+              render();
+              $timeout(applyViewMode, transitionDuration);
+            }
           });
 
           state.on('batchChangeStop', function() {
@@ -731,7 +769,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         function start() {
           // This watch is responsible for firing up the directive
-          scope.$watch('tokens', init);
+          scope.currentFocus = 0;
+
+          scope.$watch('tokens', function() { init(); } );
+
+          scope.$watch('currentFocus', function(newVal, oldVal) {
+            if (newVal !== oldVal) init(true);
+          });
 
           checkBorderStyle();
 
@@ -739,6 +783,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           element.append(tree);
           prependTemplate('focusTemplate');
           prependTemplate('panelTemplate');
+          element.prepend($compile('<div dep-tree-navigator/>')(scope));
 
 
           // Initialize some more starting values

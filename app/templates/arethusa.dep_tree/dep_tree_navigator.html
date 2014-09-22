@@ -1,0 +1,8 @@
+<div class="left tree-focus-trigger-controls" to-bottom>
+  <div
+    ng-repeat="trigger in focusTriggers"
+    class="tree-focus-trigger clickable"
+    ng-class="{ 'tree-focus-sel': trigger === currentFocus }"
+    ng-click="setCurrentFocus(trigger)">
+  </div>
+<div/>

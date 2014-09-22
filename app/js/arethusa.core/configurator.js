@@ -8,9 +8,11 @@
  *
  *
  *
- * As of now a valid conf file contains four sections
+ * As of now a valid conf file can contain these sections
  *   main
  *   navbar
+ *   notifier
+ *   navigator
  *   plugins
  *   resources
  *

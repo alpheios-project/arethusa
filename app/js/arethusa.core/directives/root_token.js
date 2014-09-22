@@ -1,40 +1,59 @@
 "use strict";
 
+// The root token is only relevant in a dependency tree context -
+// it's therefore completely valid to hardcode a few things here and
+// not react to dynamic click handle changes.
 angular.module('arethusa.core').directive('rootToken', [
   'state',
+  'globalSettings',
   'depTree',
-  function(state, depTree) {
+  function(state, globalSettings, depTree) {
     return {
       restrict: 'A',
-      scope: {},
+      scope: {
+        id: '@rootId',
+        sId: '@'
+      },
       link: function(scope, element, attrs) {
+        var actionName = 'change head';
+
         function apply(fn) {
           scope.$apply(fn());
         }
 
-        var changeHeads = depTree.mode === 'editor';
+        function hoverActions() {
+          return globalSettings.clickActions[actionName][1];
+        }
+
+        function doHoverAction(type, event) {
+          if (globalSettings.clickAction === actionName) {
+            hoverActions()[type](scope.id, element, event);
+          }
+        }
+
+        function MockToken() {
+          this.id = scope.id;
+          this.sentenceId = scope.sId;
+        }
 
         element.bind('click', function() {
-          apply(function() {
-            if (changeHeads) {
-              state.handleChangeHead('0000', 'click');
-              state.deselectAll();
-            }
-          });
+          if (globalSettings.clickAction === actionName) {
+            apply(function() {
+              depTree.changeHead(new MockToken());
+            });
+          }
         });
 
-        element.bind('mouseenter', function () {
+        element.bind('mouseenter', function (event) {
           apply(function() {
             element.addClass('hovered');
-            if (changeHeads && state.hasSelections()) {
-              element.addClass('copy-cursor');
-            }
+            doHoverAction('mouseenter', event);
           });
         });
-        element.bind('mouseleave', function () {
+        element.bind('mouseleave', function (event) {
           apply(function() {
             element.removeClass('hovered');
-            element.removeClass('copy-cursor');
+            doHoverAction('mouseleave', event);
           });
         });
       }

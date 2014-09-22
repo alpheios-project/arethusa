@@ -5,11 +5,11 @@ describe("NavigatorCtrl", function() {
   var scope;
   var results;
   var mockNavigator = {
-    nextSentence: function() {
-      results.nextSentence = true;
+    nextChunk: function() {
+      results.nextChunk = true;
     },
-    prevSentence: function() {
-      results.prevSentence = true;
+    prevChunk: function() {
+      results.prevChunk = true;
     },
     goToFirst: function() {
       results.goToFirst = true;
@@ -34,16 +34,16 @@ describe("NavigatorCtrl", function() {
   }));
 
   describe('next()', function() {
-    it('delegates to navigator.nextSentence()', function() {
+    it('delegates to navigator.nextChunk()', function() {
       scope.next();
-      expect(results.nextSentence).toBeTruthy();
+      expect(results.nextChunk).toBeTruthy();
     });
   });
 
   describe('prev()', function() {
-    it('delegates to navigator.prevSentence()', function() {
+    it('delegates to navigator.prevChunk()', function() {
       scope.prev();
-      expect(results.prevSentence).toBeTruthy();
+      expect(results.prevChunk).toBeTruthy();
     });
   });
 

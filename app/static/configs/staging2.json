@@ -3,6 +3,7 @@
     "debug" : true,
     "showKeys" : true,
     "template"  : "templates/main_grid.html",
+    "chunkParam" : "chunk",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "fakePerseids",
@@ -25,8 +26,7 @@
       "depTree",
       "review",
       "history",
-      "comments",
-      "perseids.translations"
+      "comments"
     ]
   },
 
@@ -39,6 +39,10 @@
   "notifier" : {
     "duration" : "5000",
     "maxMessages" : 7
+  },
+
+  "navigator" : {
+    "chunkSize" : 1
   },
 
   "resources" : {

@@ -47,6 +47,15 @@ function ArethusaMocks() {
     }, customizations);
   };
 
+  this.navigator = function(customizations) {
+    return withCustomizations({
+      init: mockFn,
+      reset: mockFn,
+      addToken: mockFn,
+      removeToken: mockFn
+    });
+  };
+
   this.plugins = function(customizations) {
     return withCustomizations({
       startUp: mockFn,
