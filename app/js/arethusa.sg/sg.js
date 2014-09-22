@@ -86,8 +86,9 @@ angular.module('arethusa.sg').service('sg', [
       });
     }
 
-    function sgParseError(ancs, anc) {
-      return "Failed to parse SG annotation (" + ancs + " at " + anc + ")";
+    function sgParseError(str, ancs, anc) {
+      var ancsString = ancs.join(' ');
+      return "Failed to parse SG annotation (in " + ancsString+ " at " + anc + " for " + str + ")";
     }
 
     var sgIncompatibilityWarning = "You might be using an incompatible version of the SG tagset";
@@ -102,7 +103,7 @@ angular.module('arethusa.sg').service('sg', [
           // I guess... Check a word with a dative proper e.g.
           var expandedAncestor = menu[ancestor] || menu.nested;
           if (!expandedAncestor) {
-            notifier.error(sgParseError(ancestors, ancestor));
+            notifier.error(sgParseError(grammar.string, ancestors, ancestor));
             notifier.warning(sgIncompatibilityWarning);
             menu = undefined;
             return;
