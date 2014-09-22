@@ -338,12 +338,17 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         //
         // They are solely called by watches.
 
+        // REVIEW plugin is not able to use this well right now - need to refactor
         function createGraph(noRegroup) {
-          if (!noRegroup) groupTokens();
-          var oldTree = scope.current;
-          scope.current = scope.groupedTokens[scope.currentFocus];
+          if (isMainTree()) {
+            if (!noRegroup) groupTokens();
+            var oldTree = scope.current;
+            scope.current = scope.groupedTokens[scope.currentFocus];
 
-          if (stillSameTree(scope.current, oldTree)) return;
+            if (stillSameTree(scope.current, oldTree)) return;
+          } else {
+            scope.current = scope.tokens;
+          }
 
           clearOldGraph();
           g = new dagreD3.Digraph();
