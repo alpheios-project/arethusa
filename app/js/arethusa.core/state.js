@@ -5,12 +5,12 @@ angular.module('arethusa.core').service('state', [
   '$rootScope',
   'documentStore',
   'keyCapture',
-  '$location',
+  'locator',
   'StateChange',
   'idHandler',
   'globalSettings',
   function (configurator, navigator, $rootScope, documentStore, keyCapture,
-            $location, StateChange, idHandler, globalSettings) {
+            locator, StateChange, idHandler, globalSettings) {
     var self = this;
     var tokenRetrievers;
 
@@ -110,7 +110,7 @@ angular.module('arethusa.core').service('state', [
     function moveToSentence() {
       var param = self.conf.chunkParam;
       if (param) {
-        var id = $location.search()[param];
+        var id = locator.get(param);
         if (id) {
           if (navigator.goTo(id)) {
             return;
