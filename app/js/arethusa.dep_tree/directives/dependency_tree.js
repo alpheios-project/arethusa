@@ -143,7 +143,12 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
 
         // Templates to be compiled in the course of this directive
-        var rootTokenHtml = '<span root-token>' + rootText + '</span>';
+        function rootTokenHtml() {
+          return '<span root-token root-id="' + rootId + '" s-id="' + inferSId() + '">' +
+            rootText +
+          '</span>';
+        }
+
         var tokenHtml = '\
           <span token="token"\
             class="no-transition"\
@@ -458,7 +463,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         function insertRootDirective() {
           node(rootId).append(function() {
             this.textContent = '';
-            return $compile(rootTokenHtml)(scope)[0];
+            return $compile(rootTokenHtml())(scope)[0];
           });
         }
 
