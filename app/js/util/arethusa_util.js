@@ -264,7 +264,7 @@ var arethusaUtil = {
       for (var i = 0; i  < arr.length; i ++) {
         var el = arr[i];
         var isUnique = true;
-        for (var oI = arr.length - 1; oI >= i + i; oI--){
+        for (var oI = arr.length - 1; oI >= i + 1; oI--){
           var otherEl = arr[oI];
           if (fn(el, otherEl)) {
             isUnique = false;

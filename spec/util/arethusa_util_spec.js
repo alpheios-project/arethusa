@@ -421,15 +421,15 @@ describe("arethusaUtil", function() {
   describe('unique', function() {
     it('returns unique element of an array - takes a function to determine that', function() {
       var obj1 = { x: 1 };
-      var obj2 = { x: 1 };
-      var obj3 = { x: 2 };
-      var arr = [obj1, obj2, obj3];
+      var obj2 = { x: 2 };
+      var obj3 = { x: 3 };
+      var arr = [obj1, obj2, obj3, obj2, obj2, obj3];
 
       var res = aU.unique(arr, function(a, b) {
         return a.x === b.x;
       });
 
-      expect([ { x: 1 }, { x: 2 } ]).toEqual(res);
+      expect([ { x: 1 }, { x: 2 }, { x: 3 } ]).toEqual(res);
     });
   });
 });
