@@ -167,8 +167,8 @@ angular.module('arethusa.depTree').service('depTree', [
       return desc;
     }
 
-    function changeHeadAction(id) {
-      var token = state.getToken(id);
+    this.changeHead = function(idOrToken) {
+      var token = angular.isString(idOrToken) ? state.getToken(idOrToken) : idOrToken;
       var headsToChange = getHeadsToChange(token);
       if (headsToChange) {
         if (headsToChange === 'err') {
@@ -180,7 +180,15 @@ angular.module('arethusa.depTree').service('depTree', [
             changeHead(otherToken, token);
           });
         });
+        return true;
       } else {
+        return false;
+      }
+    };
+
+    function changeHeadAction(id) {
+      var headHasChanged = self.changeHead(id);
+      if (!headHasChanged) {
         globalSettings.defaultClickAction(id);
       }
     }
