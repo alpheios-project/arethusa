@@ -82,7 +82,8 @@
     "keyboardMappings" : "Deaktiviere Tastaturmappings in Eingabefeldern",
     "colorizer" : "Token einfärben nach",
     "layout" : "Layout",
-    "clickAction" : "Klickverhalten"
+    "clickAction" : "Klickverhalten",
+    "chunkMode" : "Teilungsmodus"
   },
 
 

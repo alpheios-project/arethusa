@@ -86,7 +86,8 @@
     "keyboardMappings" : "Disable keyboard mapping for input fields",
     "colorizer" : "Colorize tokens by",
     "layout" : "Layout",
-    "clickAction" : "Click behaviour"
+    "clickAction" : "Click behaviour",
+    "chunkMode" : "Chunk Mode"
   },
 
   "plugins" : {
