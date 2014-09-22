@@ -404,4 +404,32 @@ describe("arethusaUtil", function() {
       expect(aU.capitalize(str)).toEqual(res);
     });
   });
+
+  describe('find', function() {
+    it('finds the first el in an array, where the function matches', function() {
+      var obj1 = { x: 1 };
+      var obj2 = { x: 1 };
+      var arr  = [obj1, obj2];
+
+      var res = aU.find(arr, function(el) {
+        return el.x === 1;
+      });
+      expect(res).toBe(obj1);
+    });
+  });
+
+  describe('unique', function() {
+    it('returns unique element of an array - takes a function to determine that', function() {
+      var obj1 = { x: 1 };
+      var obj2 = { x: 2 };
+      var obj3 = { x: 3 };
+      var arr = [obj1, obj2, obj3, obj2, obj2, obj3];
+
+      var res = aU.unique(arr, function(a, b) {
+        return a.x === b.x;
+      });
+
+      expect([ { x: 1 }, { x: 2 }, { x: 3 } ]).toEqual(res);
+    });
+  });
 });

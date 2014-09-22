@@ -258,6 +258,16 @@ angular.module('arethusa.morph').service('morph', [
       }
     }
 
+    // The BspMorphRetriever at times returns quite a lot of duplicate
+    // forms - especially identical forms classified as coming from a
+    // different dialect. We don't need this information right now, so
+    // we can ignore such forms
+    function makeUnique(forms) {
+      return aU.unique(forms, function(a, b) {
+        return a.lemma === b.lemma && a.postag === b.postag;
+      });
+    }
+
     this.getExternalAnalyses = function (analysisObj, id) {
       angular.forEach(morphRetrievers, function (retriever, name) {
         retriever.getData(analysisObj.string, function (res) {
@@ -271,7 +281,8 @@ angular.module('arethusa.morph').service('morph', [
           });
           var forms = analysisObj.forms;
           mergeDuplicateForms(forms[0], res);
-          arethusaUtil.pushAll(forms, res);
+          var newForms = makeUnique(res);
+          arethusaUtil.pushAll(forms, newForms);
 
           if (self.preselect) {
             preselectForm(forms[0], id);

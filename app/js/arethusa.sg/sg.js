@@ -5,7 +5,8 @@ angular.module('arethusa.sg').service('sg', [
   'configurator',
   '$cacheFactory',
   'plugins',
-  function(state, configurator, $cacheFactory, plugins) {
+  'notifier',
+  function(state, configurator, $cacheFactory, plugins, notifier) {
     var self = this;
     this.name = 'sg';
 
@@ -85,6 +86,13 @@ angular.module('arethusa.sg').service('sg', [
       });
     }
 
+    function sgParseError(str, ancs, anc) {
+      var ancsString = ancs.join(' ');
+      return "Failed to parse SG annotation (in " + ancsString+ " at " + anc + " for " + str + ")";
+    }
+
+    var sgIncompatibilityWarning = "You might be using an incompatible version of the SG tagset";
+
     function addAncestorsFromState(sg, grammar) {
       var ancestors = sg.ancestors;
       var menu = grammar.menu;
@@ -94,6 +102,12 @@ angular.module('arethusa.sg').service('sg', [
           // It can appear in menus that show a morph preselection -
           // I guess... Check a word with a dative proper e.g.
           var expandedAncestor = menu[ancestor] || menu.nested;
+          if (!expandedAncestor) {
+            notifier.error(sgParseError(grammar.string, ancestors, ancestor));
+            notifier.warning(sgIncompatibilityWarning);
+            menu = undefined;
+            return;
+          }
           grammar.ancestors.push(expandedAncestor);
           menu = expandedAncestor.nested;
         }

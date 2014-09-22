@@ -245,6 +245,35 @@ var arethusaUtil = {
 
     capitalize: function(str) {
       return str[0].toUpperCase() + str.slice(1);
+    },
+
+    find: function(arr, fn) {
+      var res;
+      for (var i=0; i < arr.length; i++) {
+        var el = arr[i];
+        if (fn(el)) {
+          res = el;
+          break;
+        }
+      }
+      return res;
+    },
+
+    unique: function(arr, fn) {
+      var unique = [];
+      for (var i = 0; i  < arr.length; i ++) {
+        var el = arr[i];
+        var isUnique = true;
+        for (var oI = arr.length - 1; oI >= i + 1; oI--){
+          var otherEl = arr[oI];
+          if (fn(el, otherEl)) {
+            isUnique = false;
+            break;
+          }
+        }
+        if (isUnique) unique.push(el);
+      }
+      return unique;
     }
   };
 
