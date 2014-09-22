@@ -428,6 +428,8 @@ describe("arethusaUtil", function() {
       var res = aU.unique(arr, function(a, b) {
         return a.x === b.x;
       });
+
+      expect([ { x: 1 }, { x: 2 } ]).toEqual(res);
     });
   });
 });

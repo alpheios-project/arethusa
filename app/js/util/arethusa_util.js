@@ -263,14 +263,15 @@ var arethusaUtil = {
       var unique = [];
       for (var i = 0; i  < arr.length; i ++) {
         var el = arr[i];
-        for (var oI = arr.length - 1; oI >= i; oI--){
+        var isUnique = true;
+        for (var oI = arr.length - 1; oI >= i + i; oI--){
           var otherEl = arr[oI];
           if (fn(el, otherEl)) {
+            isUnique = false;
             break;
-          } else {
-            unique.push(el);
           }
         }
+        if (isUnique) unique.push(el);
       }
       return unique;
     }
