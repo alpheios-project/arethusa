@@ -454,6 +454,13 @@ module.exports = function(grunt) {
           livereload: reloadPort
         }
       },
+      doc: {
+        options: {
+          keepalive: true,
+          port: 9002,
+          base: 'docs'
+        }
+      }
     },
     sauce_connect: {
       your_target: {
