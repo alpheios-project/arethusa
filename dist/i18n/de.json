@@ -21,7 +21,7 @@
   "development" : "Entwicklung",
   "depTrees" : "Dependenz-Bäume",
   "review" : "Überprüfen",
-  "Treebanking" : "'Treebanking'",
+  "Treebanking" : "Treebanking",
 
   "landing" : {
     "description" : "Ein Backend-unabhängiges client-side Annotations-Framework",
