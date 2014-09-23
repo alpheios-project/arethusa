@@ -154,7 +154,6 @@ angular.module('arethusa.comments').service('comments', [
           retrieveComments();
         }
         fn();
-        console.log(self.comments);
         notifier.success(translations.success);
       };
     }
