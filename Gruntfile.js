@@ -554,6 +554,13 @@ module.exports = function(grunt) {
         gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
         globalReplace: false
       }
+    },
+    ngdocs: {
+      options: {
+        scripts: ['angular.js'],
+        html5Mode: false
+      },
+      all: [srcFiles]
     }
   });
 

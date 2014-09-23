@@ -37,7 +37,8 @@
     "load-grunt-tasks": "^0.6.0",
     "protractor": "~0.23.1",
     "shelljs": "^0.3.0",
-    "grunt-bump": "0.0.16"
+    "grunt-bump": "0.0.16",
+    "grunt-ngdocs": "0.2.4"
   },
   "scripts": {
     "test": "grunt karma:spec coveralls jshint && protractor protractor-config-travis.js"
