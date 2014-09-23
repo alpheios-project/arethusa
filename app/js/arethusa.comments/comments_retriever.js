@@ -38,7 +38,7 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
 
       var sId  = sIdAndWIds[0];
       var wIds = arethusaUtil.map(sIdAndWIds[1].split(','), function(id) {
-        return idHandler.getId(id);
+        return idHandler.getId(id, sId);
       });
 
       var arr = arethusaUtil.getProperty(comments, sId);

@@ -37,10 +37,11 @@ angular.module('arethusa.comments').service('comments', [
       persister = retriever;
     }
 
+    // Currently only supports single sentences!
     function retrieveComments() {
       self.comments = [];
       self.docLevelComments = [];
-      retriever.getData(navigator.status.currentId, function(comments) {
+      retriever.getData(navigator.status.currentIds[0], function(comments) {
         self.comments = comments;
         self.docLevelComments = retriever.docLevelComments();
         createIndices();
@@ -153,6 +154,7 @@ angular.module('arethusa.comments').service('comments', [
           retrieveComments();
         }
         fn();
+        console.log(self.comments);
         notifier.success(translations.success);
       };
     }
@@ -161,8 +163,9 @@ angular.module('arethusa.comments').service('comments', [
       notifier.error(translations.error);
     }
 
+    // Bad system - not compatible with multi sentences
     this.createNewComment = function(ids, comment, successFn) {
-      var newComment = new Comment(ids, navigator.status.currentId, comment);
+      var newComment = new Comment(ids, navigator.status.currentIds[0], comment);
       persister.saveData(newComment, saveSuccess(successFn), saveError);
     };
 
