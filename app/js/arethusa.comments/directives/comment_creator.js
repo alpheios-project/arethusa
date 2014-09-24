@@ -3,19 +3,25 @@
 angular.module('arethusa.comments').directive('commentCreator', [
   'comments',
   'state',
-  function(comments, state, keyCapture, notifier, plugins) {
+  'translator',
+  function(comments, state, translator) {
     return {
       restrict: 'A',
       scope: {},
       link: function(scope, element, attrs) {
-        var ids;
+        var ids, onTrsl;
 
         scope.comments = comments;
         scope.state = state;
         scope.hasSelections = state.hasClickSelections;
 
+        translator('on', function(translation) {
+          onTrsl = translation;
+          scope.currentTokenStrings = currentTokens();
+        });
+
         function currentTokens() {
-          return scope.active ? 'on ' + state.toTokenStrings(scope.ids) : '';
+          return scope.active ? onTrsl + ' ' + state.toTokenStrings(scope.ids) : '';
         }
 
         scope.$watchCollection('state.clickedTokens', function(newVal, oldVal) {
