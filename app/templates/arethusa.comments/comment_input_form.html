@@ -1,7 +1,11 @@
 <form ng-if="active">
   <!-- ngIf opens a new scope - we therefore need a -->
   <!-- parent reference in our model -->
-  <textarea focus-me="active" rows="3" ng-model="$parent.comment"/>
+  <textarea
+    focus-me="active"
+    rows="3"
+    placeholder="{{ markdownPlaceholder}}"
+    ng-model="$parent.comment"/>
   <span
     ng-disabled="!comment"
     ng-click="submit()"

@@ -4,6 +4,6 @@
     <span class="right note">{{ comment.updated_at | date: 'short' }}</span>
   </div>
   <div class="comment-body">
-    {{ comment.comment }}
+    <md ng-model="comment.comment"/>
   </div>
 </div>
