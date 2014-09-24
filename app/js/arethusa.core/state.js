@@ -399,7 +399,7 @@ angular.module('arethusa.core').service('state', [
 
     this.change = function(tokenOrId, property, newVal, undoFn, preExecFn) {
       var event = self.lazyChange(tokenOrId, property, newVal, undoFn, preExecFn);
-      if (globalSettings.alwaysDeselect) self.deselectAll();
+      if (globalSettings.shouldDeselect(property)) self.deselectAll();
       return event.exec();
     };
 

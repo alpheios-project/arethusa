@@ -217,6 +217,7 @@ angular.module('arethusa.depTree').service('depTree', [
     var clickActionName = 'change head';
 
     globalSettings.addClickAction(clickActionName, changeHeadAction, preHeadChange());
+    globalSettings.deselectAfterAction('head.id');
 
     this.init = function () {
       configure();
