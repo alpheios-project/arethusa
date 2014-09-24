@@ -23,5 +23,41 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
     $scope.$watch('nav.status', function(newVal, oldVal) {
       $scope.navStat = newVal;
     });
+
+    // Converts an array of ids to something more readable, e.g.
+    // [ 1, 2, 3, 4, 6, 8, 9] becomes 1-4, 6, 8-9
+    function formatIds(ids) {
+      var res =   [];
+      var range = [];
+      res.push(range);
+
+      if (ids) {
+        angular.forEach(ids, function(id, i) {
+          var last = aU.last(range);
+          if (!last || parseInt(last) + 1 === parseInt(id)) {
+            range.push(id);
+          } else {
+            range = [id];
+            res.push(range);
+          }
+        });
+      }
+
+      return arethusaUtil.map(res, function(range) {
+        if (range.length > 1) {
+          var first = range[0];
+          var last  = range[1];
+          return first + '-' + last;
+        } else {
+          return range[0];
+        }
+      }).join(', ');
+    }
+
+    $scope.$watchCollection('navStat.currentIds', function(newVal, oldVal) {
+      if (newVal) {
+        $scope.ids = formatIds(newVal);
+      }
+    });
   }
 ]);
