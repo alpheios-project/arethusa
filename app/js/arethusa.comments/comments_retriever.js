@@ -105,23 +105,29 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       comment.comment = fakeId + strings + comment.comment;
     }
 
+    function fetchComments(ids) {
+      return arethusaUtil.inject([], ids, function(memo, id) {
+        aU.pushAll(memo, comments[id]);
+      });
+    }
+
     return function(conf) {
       var self = this;
       var resource = configurator.provideResource(conf.resource);
 
-      this.getData = function(chunkId, callback) {
+      this.get = function(chunkIds, callback) {
         if (alreadyLoaded) {
-          callback(comments[chunkId]);
+          callback(fetchComments(chunkIds));
         } else {
           resource.get().then(function(res) {
             parseComments(res.data);
-            callback(comments[chunkId]);
+            callback(fetchComments(chunkIds));
           });
           alreadyLoaded = true;
         }
       };
 
-      this.saveData = function(comment, success, error) {
+      this.save = function(comment, success, error) {
         addFakeIdsAndStrings(comment);
         resource.save(comment).then(function(res) {
           success(parseComment(res.data));
