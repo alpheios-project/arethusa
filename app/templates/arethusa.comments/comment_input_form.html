@@ -6,10 +6,21 @@
     rows="3"
     placeholder="{{ markdownPlaceholder}}"
     ng-model="$parent.comment"/>
+  <div ng-if="preview" class="fade-in">
+    <div class="center italic">Preview</div>
+    <md ng-if="preview" ng-model="$parent.comment"/>
+  </div>
   <span
     ng-disabled="!comment"
     ng-click="submit()"
     class="button micro radius"
     translate="submit">
+  </span>
+
+  <span
+    ng-disabled="!comment"
+    ng-click="preview = !preview"
+    class="button micro radius">
+    Preview
   </span>
 </form>
