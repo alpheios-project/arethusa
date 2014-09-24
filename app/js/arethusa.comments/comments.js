@@ -132,9 +132,10 @@ angular.module('arethusa.comments').service('comments', [
       return count;
     };
 
-    function Comment(ids, sentenceId, comment, type) {
+    function Comment(ids, comment, type) {
       this.ids = ids;
-      this.sentenceId = sentenceId;
+      // VERY problematic when comments span across sentences!
+      this.sentenceId = state.getToken(ids[0]).sentenceId;
       this.comment = comment;
     }
 
@@ -164,7 +165,7 @@ angular.module('arethusa.comments').service('comments', [
 
     // Bad system - not compatible with multi sentences
     this.createNewComment = function(ids, comment, successFn) {
-      var newComment = new Comment(ids, navigator.status.currentIds[0], comment);
+      var newComment = new Comment(ids, comment);
       persister.save(newComment, saveSuccess(successFn), saveError);
     };
 
