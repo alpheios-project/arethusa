@@ -130,6 +130,13 @@
     "chunkMode" : "Chunk Mode"
   },
 
+  "grid" : {
+    "dragging" : "Dragging",
+    "pushing" : "Pushing",
+    "resizing" : "Resizing",
+    "floating" : "Floating"
+  },
+
   "plugins" : {
     "added" : {
       "start" : "",
