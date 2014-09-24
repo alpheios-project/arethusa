@@ -225,10 +225,10 @@ angular.module('arethusa.core').service('navigator', [
 
     this.updateId = function () {
       updateNextAndPrev();
-      updateCitation();
       updateChunks();
       self.status.currentPos = self.currentPosition;
       self.status.currentIds = currentIds();
+      updateCitation();
     };
 
     this.sentenceToString = function(sentence) {
