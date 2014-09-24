@@ -27,6 +27,13 @@ var arethusaModules = [
   'arethusa.text'
 ];
 
+var additionalDependencies = {
+  'arethusa.comments' : [
+    "./bower_components/marked/lib/marked.js",
+    "./bower_components/angular-md/dist/angular-md.min.js",
+  ]
+};
+
 function eachModule(fn) {
   for (var i = arethusaModules.length - 1; i >= 0; i--){
     fn(arethusaModules[i]);
@@ -122,7 +129,12 @@ function pluginFiles(name, destName) {
   var others = '<%= "app/js/' + name + '/**/*.js" %>';
   var templates = '<%= "app/templates/compiled/' + name + '.templates.js" %>';
   var obj = {};
-  obj[minName] = [mainFile, others, templates];
+  var targets = [mainFile, others, templates];
+  var dependencies = additionalDependencies[name];
+  if (dependencies) {
+    targets = dependencies.concat(targets);
+  }
+  obj[minName] = targets;
   return obj;
 }
 
@@ -428,7 +440,7 @@ module.exports = function(grunt) {
           //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
           "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
           "./vendor/uservoice/uservoice.min.js",
-          "./vendor/angularJS-toaster/toaster.min.js",
+          "./vendor/angularJS-toaster/toaster.min.js"
         ],
         dest: 'dist/arethusa_packages.min.js'
       },
