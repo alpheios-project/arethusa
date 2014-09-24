@@ -12,6 +12,7 @@ angular.module('arethusa.comments').directive('commentInputForm', [
       },
       link: function(scope, element, attrs) {
         scope.submit = function() {
+          scope.preview = false;
           comments.createNewComment(scope.target, scope.comment, function() {
             scope.comment = '';
           });
