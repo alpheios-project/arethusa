@@ -150,6 +150,7 @@ angular.module('arethusa.comments').service('comments', [
         // so we need to get the just newly created object
         // from the retriever and build up all our indices.
         if (self.comments) {
+          self.comments.unshift(commentContainer);
           addToIndex(commentContainer);
         } else {
           retrieveComments();
