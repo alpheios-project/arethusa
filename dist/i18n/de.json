@@ -107,6 +107,12 @@
     "chunkMode" : "Teilungsmodus"
   },
 
+  "grid" : {
+    "dragging" : "Ziehen",
+    "pushing" : "Schieben",
+    "resizing" : "Größe ändern",
+    "floating" : "Anpassen"
+  },
 
   "plugins" : {
     "added" : "Plugin hinzugefügt!",
