@@ -41,7 +41,7 @@ angular.module('arethusa.comments').service('comments', [
     function retrieveComments() {
       self.comments = [];
       self.docLevelComments = [];
-      retriever.getData(navigator.status.currentIds[0], function(comments) {
+      retriever.get(navigator.status.currentIds, function(comments) {
         self.comments = comments;
         self.docLevelComments = retriever.docLevelComments();
         createIndices();
@@ -165,7 +165,7 @@ angular.module('arethusa.comments').service('comments', [
     // Bad system - not compatible with multi sentences
     this.createNewComment = function(ids, comment, successFn) {
       var newComment = new Comment(ids, navigator.status.currentIds[0], comment);
-      persister.saveData(newComment, saveSuccess(successFn), saveError);
+      persister.save(newComment, saveSuccess(successFn), saveError);
     };
 
     this.goToComments = function(tId) {
