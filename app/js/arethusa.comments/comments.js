@@ -134,8 +134,6 @@ angular.module('arethusa.comments').service('comments', [
 
     function Comment(ids, comment, type) {
       this.ids = ids;
-      // VERY problematic when comments span across sentences!
-      this.sentenceId = state.getToken(ids[0]).sentenceId;
       this.comment = comment;
     }
 
