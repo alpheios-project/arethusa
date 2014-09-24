@@ -60,6 +60,20 @@ angular.module('arethusa.core').service('globalSettings', [
       self.active = !self.active;
     };
 
+    var deselectors = {};
+
+    this.deselectAfterAction = function(action) {
+      deselectors[action] = true;
+    };
+
+    this.noDeselectAfterAction = function(action) {
+      deselectors[action] = false;
+    };
+
+    this.shouldDeselect = function(action) {
+      return self.alwaysDeselect || deselectors[action];
+    };
+
     this.defaultClickAction = function(id) {
       state().toggleSelection(id, 'click');
     };
