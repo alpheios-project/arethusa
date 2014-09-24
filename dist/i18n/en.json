@@ -22,6 +22,7 @@
   "depTrees" : "Dependency Trees",
   "review" : "Review",
   "Treebanking" : "Treebanking",
+  "markdownEnabled" : "Markdown input enabled!",
 
   "landing" : {
     "description" : "A backend-independent client-side annotation framework",

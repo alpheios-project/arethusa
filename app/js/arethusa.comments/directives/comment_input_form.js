@@ -2,7 +2,8 @@
 
 angular.module('arethusa.comments').directive('commentInputForm', [
   'comments',
-  function(comments) {
+  'translator',
+  function(comments, translator) {
     return {
       restrict: 'A',
       scope: {
@@ -15,6 +16,12 @@ angular.module('arethusa.comments').directive('commentInputForm', [
             scope.comment = '';
           });
         };
+
+        function markdownPlaceholder(translation) {
+          scope.markdownPlaceholder = translation;
+        }
+
+        translator('markdownEnabled', markdownPlaceholder);
       },
       templateUrl: 'templates/arethusa.comments/comment_input_form.html'
     };
