@@ -125,7 +125,10 @@
       "start" : "Laden von",
       "end" : "gescheitert"
     },
-    "alreadyLoaded" : "ist bereits geladen!"
+    "alreadyLoaded" : {
+      "start" : "",
+      "end" : "ist bereits geladen!"
+    }
   },
 
   "depTree" : {

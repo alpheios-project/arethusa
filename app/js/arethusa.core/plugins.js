@@ -19,7 +19,8 @@ angular.module('arethusa.core').service('plugins', [
     translator('plugins.added', translations, 'added');
     translator('plugins.failed.start', translations, 'failedStart');
     translator('plugins.failed.end', translations, 'failedEnd');
-    translator('plugins.alreadyLoaded', translations, 'alreadyLoaded');
+    translator('plugins.alreadyLoaded.start', translations, 'alreadyLoadedStart');
+    translator('plugins.alreadyLoaded.end', translations, 'alreadyLoadedEnd');
 
     function partitionPlugins() {
       self.main = [];
@@ -266,7 +267,7 @@ angular.module('arethusa.core').service('plugins', [
 
     this.addPlugin = function(name, conf) {
       if (self.all[name]) {
-        notifier.warning(name + ' ' + translations.alreadyLoaded);
+        notifier.warning([translations.alreadyLoadedStart, name, translations.alreadyLoadedEnd].join(' '));
         return;
       }
 

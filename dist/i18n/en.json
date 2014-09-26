@@ -125,7 +125,10 @@
       "start" : "Failed to load",
       "end" : ""
     },
-    "alreadyLoaded" : "is already loaded!"
+    "alreadyLoaded" : {
+      "start" : "",
+      "end" : "is already loaded!"
+    }
   },
 
   "depTree" : {
