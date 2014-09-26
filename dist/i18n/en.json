@@ -58,12 +58,23 @@
   },
 
   "history" : {
+    "test" : "<span id=\"token\"/>Blah",
     "undo" : "Undo",
     "redo" : "Redo",
     "noRecords" : "No history events recorded.",
-    "add" : "Added",
-    "remove" : "Removed",
-    "change" : "Changed"
+    "add" : {
+      "start" : "Added",
+      "end" : ""
+    },
+    "remove" : {
+      "start" : "Removed",
+      "end" : ""
+    },
+    "change" : {
+      "start" : "Changed <strong>{{ property }}</strong> of",
+      "end" : ""
+    },
+    "fromTo" : "from {{ from }} to {{ to }}"
   },
 
   "uth" : {

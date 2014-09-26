@@ -3,8 +3,7 @@
 angular.module('arethusa.history').directive('historyEvent', [
   'idHandler',
   '$compile',
-  'translator',
-  function(idHandler, $compile, translator) {
+  function(idHandler, $compile) {
 
     return {
       restrict: 'A',
@@ -30,11 +29,10 @@ angular.module('arethusa.history').directive('historyEvent', [
         scope.token = scope.event.token;
         scope.id    = scope.token.id;
         scope.type  = scope.event.type;
-
-        translator('history.' + scope.type, function(translation) {
-          scope.predicate = translation;
-        });
-
+        scope.trslKey = {
+          start: 'history.' + scope.type + '.start',
+          end:   'history.' + scope.type + '.end'
+        };
 
         if (scope.type === 'change') {
           scope.blocked = false;

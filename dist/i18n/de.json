@@ -61,9 +61,19 @@
     "undo" : "Rückgängig",
     "redo" : "Wiederherstellen",
     "noRecords" : "Keine Ereignisse aufgenommen.",
-    "add" : "Einfügen von",
-    "remove" : "Entfernen von",
-    "change" : "Änderung der"
+    "add" : {
+      "start" : "Einfügen von",
+      "end" : ""
+    },
+    "remove" : {
+      "start" : "Entfernen von",
+      "end" : ""
+    },
+    "change" : {
+      "start" : "Änderung der <strong>{{ property }}</strong> von",
+      "end" : ""
+    },
+    "fromTo" : "von {{ from }} zu {{ to }}"
   },
 
   "uth" : {
