@@ -102,7 +102,10 @@
     "title" : "Global Settings",
     "alwaysDeselect" : "Deselect after every annotation action",
     "keyboardMappings" : "Disable keyboard mapping for input fields",
-    "colorizer" : "Colorize tokens by",
+    "colorizer" : {
+      "start" : "Colorize tokens by",
+      "end" : ""
+    },
     "layout" : "Layout",
     "clickAction" : "Click behaviour",
     "chunkMode" : "Chunk Mode"

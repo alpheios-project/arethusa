@@ -34,6 +34,8 @@ angular.module('arethusa.core').service('globalSettings', [
 
     function Conf(property, type, directive, label) {
       this.property = property;
+      // TODO
+      // We'd want to deal with composed strings here as well!
       this.label = label || "globalSettings." + property;
       this.type = type || 'checkbox';
       this.directive = directive;
