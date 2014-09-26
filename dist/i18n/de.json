@@ -4,10 +4,6 @@
   "loadComplete" : "Laden erfolgreich!",
   "language": "Deutsch",
   "help" : "Hilfe",
-  "on" : "zu",
-  "of" : "von",
-  "from" : "von",
-  "to" : "zu",
   "contactUs" : "Schreib uns",
   "messages"  : "Benachrichtigungen",
   "menu" : "Menü",
@@ -89,7 +85,8 @@
     "errorMessage"   : "Kommentieren fehlgeschlagen",
     "selectFirst"    : "Tokenselektion erfordert",
     "count" : "{{ count }} von {{ total }} kommentiert",
-    "docLevelComm" : "Kommentare auf Dokumentebene"
+    "docLevelComm" : "Kommentare auf Dokumentebene",
+    "on" : "zu"
   },
 
   "tree" : {
