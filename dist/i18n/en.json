@@ -110,8 +110,10 @@
 
   "plugins" : {
     "added" : "plugin added!",
-    "failed1" : "Failed to load",
-    "failed2" : "",
+    "failed" : {
+      "start" : "Failed to load",
+      "end" : ""
+    },
     "alreadyLoaded" : "is already loaded!"
   },
 

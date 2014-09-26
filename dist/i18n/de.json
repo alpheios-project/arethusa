@@ -111,8 +111,10 @@
 
   "plugins" : {
     "added" : "Plugin hinzugefügt!",
-    "failed1" : "Laden von",
-    "failed2" : "gescheitert",
+    "failed" : {
+      "start" : "Laden von",
+      "end" : "gescheitert"
+    },
     "alreadyLoaded" : "ist bereits geladen!"
   },
 

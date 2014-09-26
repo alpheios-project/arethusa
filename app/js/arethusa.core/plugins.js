@@ -17,8 +17,8 @@ angular.module('arethusa.core').service('plugins', [
 
     var translations = {};
     translator('plugins.added', translations, 'added');
-    translator('plugins.failed1', translations, 'failed1');
-    translator('plugins.failed2', translations, 'failed2');
+    translator('plugins.failed.start', translations, 'failedStart');
+    translator('plugins.failed.end', translations, 'failedEnd');
     translator('plugins.alreadyLoaded', translations, 'alreadyLoaded');
 
     function partitionPlugins() {
@@ -296,7 +296,7 @@ angular.module('arethusa.core').service('plugins', [
       };
 
       var reject = function() {
-        var message = [translations.failed1, name, translations.failed2].join(' ');
+        var message = [translations.failedStart, name, translations.failedEnd].join(' ');
         notifier.error(message.trim() + "!");
         deferred.reject();
       };
