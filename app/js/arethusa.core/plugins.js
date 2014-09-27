@@ -16,7 +16,8 @@ angular.module('arethusa.core').service('plugins', [
     var initCallbacks;
 
     var translations = {};
-    translator('plugins.added', translations, 'added');
+    translator('plugins.added.start', translations, 'addedStart');
+    translator('plugins.added.end',   translations, 'addedEnd');
     translator('plugins.failed.start', translations, 'failedStart');
     translator('plugins.failed.end', translations, 'failedEnd');
     translator('plugins.alreadyLoaded.start', translations, 'alreadyLoadedStart');
@@ -292,7 +293,7 @@ angular.module('arethusa.core').service('plugins', [
         self.registerPlugin(plugin);
         plugin.init();
         notify(plugin, name);
-        notifier.success(name + ' ' + translations.added);
+        notifier.success([translations.addedStart, name, translations.addedEnd].join(' '));
         deferred.resolve(plugin);
       };
 
