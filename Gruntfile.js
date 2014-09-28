@@ -564,7 +564,9 @@ module.exports = function(grunt) {
     },
     ngdocs: {
       options: {
-        scripts: ['angular.js'],
+        scripts: [
+          './dist/arethusa_packages.min.js',
+          './dist/arethusa.min.js'],
         html5Mode: false
       },
       all: [srcFiles]
