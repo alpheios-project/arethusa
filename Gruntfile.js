@@ -350,10 +350,13 @@ module.exports = function(grunt) {
           spawn: false
         }
       },
-
       e2e: {
         files: [srcFiles, specE2eFiles],
         tasks: 'protractor:all'
+      },
+      doc: {
+        files: [srcFiles],
+        tasks: 'ngdocs'
       }
     },
     jshint: {
