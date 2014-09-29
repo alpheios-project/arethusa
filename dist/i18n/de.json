@@ -107,11 +107,14 @@
       "end" : "hinzugefügt "
     },
     "createError" : "Kann unvollständige Form nicht speichern",
-    "createNewForm" : "Neue Form erstellen"
+    "createNewForm" : "Neue Form erstellen",
+    "searchByForm" : "nach Form",
+    "matchAll" : "alle"
   },
 
   "relation" : {
-    "changeAll" : "Alle verändern"
+    "changeAll" : "Alle verändern",
+    "searchByLabel" : "nach Label"
   },
 
   "globalSettings" : {
@@ -142,5 +145,10 @@
 
   "depTree" : {
     "errorAcrossSentences" : "Heads können nicht über Satzgrenzen hinweg verändert werden"
+  },
+
+  "search" : {
+    "foundTokens" : "Gefundene Tokens",
+    "searchByToken" : "nach Token"
   }
 }

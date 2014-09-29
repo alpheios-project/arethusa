@@ -107,11 +107,14 @@
       "end" : ""
     },
     "createError" : "Cannot save an incomplete form",
-    "createNewForm" : "Create new form"
+    "createNewForm" : "Create new form",
+    "searchByForm" : "by form",
+    "matchAll" : "all"
   },
 
   "relation" : {
-    "changeAll" : "Change all"
+    "changeAll" : "Change all",
+    "searchByLabel" : "by label"
   },
 
   "globalSettings" : {
@@ -141,5 +144,10 @@
 
   "depTree" : {
     "errorAcrossSentences" : "Cannot change heads across sentences"
+  },
+
+  "search" : {
+    "foundTokens" : "Found tokens",
+    "searchByToken" : "by Token"
   }
 }
