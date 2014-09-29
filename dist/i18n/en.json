@@ -19,6 +19,7 @@
   "review" : "Review",
   "Treebanking" : "Treebanking",
   "markdownEnabled" : "Markdown input enabled!",
+  "apply" : "Apply",
 
   "landing" : {
     "description" : "A backend-independent client-side annotation framework",
@@ -107,6 +108,10 @@
     },
     "createError" : "Cannot save an incomplete form",
     "createNewForm" : "Create new form"
+  },
+
+  "relation" : {
+    "changeAll" : "Change all"
   },
 
   "globalSettings" : {

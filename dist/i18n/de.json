@@ -19,6 +19,7 @@
   "review" : "Überprüfen",
   "Treebanking" : "Treebanking",
   "markdownEnabled" : "Markdown-Eingabe aktiviert!",
+  "apply" : "Anwenden",
 
   "landing" : {
     "description" : "Ein Backend-unabhängiges client-side Annotations-Framework",
@@ -107,6 +108,10 @@
     },
     "createError" : "Kann unvollständige Form nicht speichern",
     "createNewForm" : "Neue Form erstellen"
+  },
+
+  "relation" : {
+    "changeAll" : "Alle verändern"
   },
 
   "globalSettings" : {
