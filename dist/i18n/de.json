@@ -105,7 +105,8 @@
       "start" : "Form für",
       "end" : "hinzugefügt "
     },
-    "createError" : "Kann unvollständige Form nicht speichern"
+    "createError" : "Kann unvollständige Form nicht speichern",
+    "createNewForm" : "Neue Form erstellen"
   },
 
   "globalSettings" : {

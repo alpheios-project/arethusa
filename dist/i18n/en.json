@@ -105,7 +105,8 @@
       "start" : "Added form for",
       "end" : ""
     },
-    "createError" : "Cannot save an incomplete form"
+    "createError" : "Cannot save an incomplete form",
+    "createNewForm" : "Create new form"
   },
 
   "globalSettings" : {
