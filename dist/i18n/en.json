@@ -54,7 +54,6 @@
   },
 
   "history" : {
-    "test" : "<span id=\"token\"/>Blah",
     "undo" : "Undo",
     "redo" : "Redo",
     "noRecords" : "No history events recorded.",
