@@ -101,7 +101,10 @@
 
   "morph" : {
     "lemmaHint" : "Dieses Lemma wurde automatisch eingetragen!\nÜberprüfe es bevor du speicherst!",
-    "createSuccess" : "Form hinzugefügt für",
+    "createSuccess" : {
+      "start" : "Form für",
+      "end" : "hinzugefügt "
+    },
     "createError" : "Kann unvollständige Form nicht speichern"
   },
 

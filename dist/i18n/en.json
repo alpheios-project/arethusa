@@ -101,7 +101,10 @@
 
   "morph" : {
     "lemmaHint" : "This lemma was added automatically!\nCheck it before you save!",
-    "createSuccess" : "Added form for",
+    "createSuccess" : {
+      "start" : "Added form for",
+      "end" : ""
+    },
     "createError" : "Cannot save an incomplete form"
   },
 
