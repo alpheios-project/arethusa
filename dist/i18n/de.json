@@ -112,10 +112,7 @@
     "title" : "Globale Einstellungen",
     "alwaysDeselect" : "Deselektiere nach jeder Annotations-Aktion",
     "keyboardMappings" : "Deaktiviere Tastaturmappings in Eingabefeldern",
-    "colorizer" : {
-      "start" : "Token einfärben nach",
-      "end" : ""
-    },
+    "colorizer" : "Token einfärben nach",
     "layout" : "Layout",
     "clickAction" : "Klickverhalten",
     "chunkMode" : "Teilungsmodus"
