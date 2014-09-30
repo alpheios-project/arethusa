@@ -169,5 +169,10 @@
     },
     "insertBehindHint" : "insert behind token (click to toggle)",
     "insertInFrontHint" : "insert in front of token (click to toggle)"
+  },
+
+  "helpPanel" : {
+    "keyboardShortcuts" : "Keyboard Shortcuts",
+    "colorLegends" : "Color Legends"
   }
 }

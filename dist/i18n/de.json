@@ -170,5 +170,10 @@
     },
     "insertBehindHint" : "hinter Token einfügen (Klick zum Umschalten)",
     "insertInFrontHint" : "vor Token einfügen (Klick zum Umschalten)"
+  },
+
+  "helpPanel" : {
+    "keyboardShortcuts" : "Tastaturkürzel",
+    "colorLegends" : "Farblegenden"
   }
 }
