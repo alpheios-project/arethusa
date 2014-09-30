@@ -12,15 +12,22 @@ angular.module('arethusa', [
 angular.module('arethusa').config([
   '$routeProvider',
   '$translateProvider',
+  'LOCALES',
   'MAIN_ROUTE',
   'LANDING',
   function ($routeProvider, $translateProvider,
-            MAIN_ROUTE, LANDING) {
+            LOCALES, MAIN_ROUTE, LANDING) {
     if (aU.isArethusaMainApplication()) {
       $routeProvider.when('/', LANDING);
       //$routeProvider.when('/conf_editor', CONF_ROUTE);
       $routeProvider.when('/:conf', MAIN_ROUTE);
       //$routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
+    }
+
+    var localesMap = {};
+    for (var i = LOCALES.length - 1; i >= 0; i--){
+      var locale = LOCALES[i];
+      localesMap[locale + '_*'] = locale;
     }
 
     $translateProvider
@@ -29,11 +36,7 @@ angular.module('arethusa').config([
         suffix: '.json'
       })
 
-      .registerAvailableLanguageKeys(['en', 'de', 'fr'], {
-        'en_*' : 'en',
-        'de_*' : 'de',
-        'fr_*' : 'fr'
-      })
+      .registerAvailableLanguageKeys(LOCALES, localesMap)
       .determinePreferredLanguage()
       .fallbackLanguage('en');
   },
