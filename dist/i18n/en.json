@@ -1,13 +1,9 @@
 {
-  "SEARCH_DOCUMENTS": "Search for documents",
+  "search_documents": "Search for documents",
   "loadInProgress" : "Loading...",
   "loadComplete" : "Load complete!",
   "language": "English",
   "help" : "Help",
-  "on" : "on",
-  "of" : "of",
-  "from" : "from",
-  "to" : "to",
   "contactUs" : "Contact us",
   "messages"  : "Messages",
   "menu" : "Menu",
@@ -61,9 +57,19 @@
     "undo" : "Undo",
     "redo" : "Redo",
     "noRecords" : "No history events recorded.",
-    "add" : "Added",
-    "remove" : "Removed",
-    "change" : "Changed"
+    "add" : {
+      "start" : "Added",
+      "end" : ""
+    },
+    "remove" : {
+      "start" : "Removed",
+      "end" : ""
+    },
+    "change" : {
+      "start" : "Changed <strong>{{ property }}</strong> of",
+      "end" : ""
+    },
+    "fromTo" : "from {{ from }} to {{ to }}"
   },
 
   "uth" : {
@@ -79,7 +85,8 @@
     "errorMessage"   : "Failed to create comment",
     "selectFirst"    : "Need to select some tokens first",
     "count" : "{{ count }} of {{ total }} commented",
-    "docLevelComm" : "Document level comments"
+    "docLevelComm" : "Document level comments",
+    "on" : "on"
   },
 
   "tree" : {
@@ -88,13 +95,16 @@
     "focusSel"  : "Focus Selection",
     "centerTree" : "Center Tree",
     "perfectWidth" : "Perfect Width",
-    "compact" : "Baum verdichten",
-    "widen" : "Baum ausdehnen"
+    "compact" : "Compact tree",
+    "widen" : "Widen tree"
   },
 
   "morph" : {
     "lemmaHint" : "This lemma was added automatically!\nCheck it before you save!",
-    "createSuccess" : "Added form for",
+    "createSuccess" : {
+      "start" : "Added form for",
+      "end" : ""
+    },
     "createError" : "Cannot save an incomplete form"
   },
 
@@ -109,10 +119,18 @@
   },
 
   "plugins" : {
-    "added" : "plugin added!",
-    "failed1" : "Failed to load",
-    "failed2" : "",
-    "alreadyLoaded" : "is already loaded!"
+    "added" : {
+      "start" : "",
+      "end" : "plugin added"
+    },
+    "failed" : {
+      "start" : "Failed to load",
+      "end" : ""
+    },
+    "alreadyLoaded" : {
+      "start" : "",
+      "end" : "is already loaded!"
+    }
   },
 
   "depTree" : {

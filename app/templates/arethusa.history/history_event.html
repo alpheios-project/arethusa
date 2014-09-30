@@ -1,15 +1,19 @@
 <div>
-  {{ predicate }}
-  <span ng-if="type === 'change'">
-    <strong>{{ property }}</strong>
-    <span translate="of"/>
+  <span
+    translate="{{ trslKey.start }}"
+    translate-value-property="{{ property }}">
   </span>
   <span id="token"/>
   <sup class="note"> {{ formatId(id) }} </sup>
+  <span
+    translate="{{ trslKey.end }}"
+    translate-value-property="{{ property }}">
+  </span>
   <span ng-if="type === 'change' && !blocked">
-    <span translate="from"/>
-    {{ oldVal }}
-    <span translate="to"/>
-    {{ newVal }}
+    <span
+      translate="history.fromTo"
+      translate-value-from="{{ oldVal }}"
+      translate-value-to="{{ newVal }}">
+    </span>
   </span>
 </div>

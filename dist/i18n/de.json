@@ -1,13 +1,9 @@
 {
-  "SEARCH_DOCUMENTS": "Suche Dokumente",
+  "search_documents": "Suche Dokumente",
   "loadInProgress" : "Lade...",
   "loadComplete" : "Laden erfolgreich!",
   "language": "Deutsch",
   "help" : "Hilfe",
-  "on" : "zu",
-  "of" : "von",
-  "from" : "von",
-  "to" : "zu",
   "contactUs" : "Schreib uns",
   "messages"  : "Benachrichtigungen",
   "menu" : "Menü",
@@ -61,9 +57,19 @@
     "undo" : "Rückgängig",
     "redo" : "Wiederherstellen",
     "noRecords" : "Keine Ereignisse aufgenommen.",
-    "add" : "Einfügen von",
-    "remove" : "Entfernen von",
-    "change" : "Änderung der"
+    "add" : {
+      "start" : "Einfügen von",
+      "end" : ""
+    },
+    "remove" : {
+      "start" : "Entfernen von",
+      "end" : ""
+    },
+    "change" : {
+      "start" : "Änderung der <strong>{{ property }}</strong> von",
+      "end" : ""
+    },
+    "fromTo" : "von {{ from }} zu {{ to }}"
   },
 
   "uth" : {
@@ -79,7 +85,8 @@
     "errorMessage"   : "Kommentieren fehlgeschlagen",
     "selectFirst"    : "Tokenselektion erfordert",
     "count" : "{{ count }} von {{ total }} kommentiert",
-    "docLevelComm" : "Kommentare auf Dokumentebene"
+    "docLevelComm" : "Kommentare auf Dokumentebene",
+    "on" : "zu"
   },
 
   "tree" : {
@@ -94,7 +101,10 @@
 
   "morph" : {
     "lemmaHint" : "Dieses Lemma wurde automatisch eingetragen!\nÜberprüfe es bevor du speicherst!",
-    "createSuccess" : "Form hinzugefügt für",
+    "createSuccess" : {
+      "start" : "Form für",
+      "end" : "hinzugefügt "
+    },
     "createError" : "Kann unvollständige Form nicht speichern"
   },
 
@@ -110,10 +120,18 @@
 
 
   "plugins" : {
-    "added" : "Plugin hinzugefügt!",
-    "failed1" : "Laden von",
-    "failed2" : "gescheitert",
-    "alreadyLoaded" : "ist bereits geladen!"
+    "added" : {
+      "start" : "",
+      "end" : "Plugin hinzugefügt!"
+    },
+    "failed" : {
+      "start" : "Laden von",
+      "end" : "gescheitert"
+    },
+    "alreadyLoaded" : {
+      "start" : "",
+      "end" : "ist bereits geladen!"
+    }
   },
 
   "depTree" : {

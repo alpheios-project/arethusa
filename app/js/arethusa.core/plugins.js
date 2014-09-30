@@ -16,10 +16,9 @@ angular.module('arethusa.core').service('plugins', [
     var initCallbacks;
 
     var translations = {};
-    translator('plugins.added', translations, 'added');
-    translator('plugins.failed1', translations, 'failed1');
-    translator('plugins.failed2', translations, 'failed2');
-    translator('plugins.alreadyLoaded', translations, 'alreadyLoaded');
+    translator('plugins.added', translations, 'added', true);
+    translator('plugins.failed', translations, 'failed', true);
+    translator('plugins.alreadyLoaded', translations, 'alreadyLoaded', true);
 
     function partitionPlugins() {
       self.main = [];
@@ -266,7 +265,8 @@ angular.module('arethusa.core').service('plugins', [
 
     this.addPlugin = function(name, conf) {
       if (self.all[name]) {
-        notifier.warning(name + ' ' + translations.alreadyLoaded);
+        var trsl = translations.alreadyLoaded;
+        notifier.warning([trsl.start, name, trsl.end].join(' '));
         return;
       }
 
@@ -291,12 +291,14 @@ angular.module('arethusa.core').service('plugins', [
         self.registerPlugin(plugin);
         plugin.init();
         notify(plugin, name);
-        notifier.success(name + ' ' + translations.added);
+        var trsl = translations.added;
+        notifier.success([trsl.start, name, trsl.end].join(' '));
         deferred.resolve(plugin);
       };
 
       var reject = function() {
-        var message = [translations.failed1, name, translations.failed2].join(' ');
+        var trsl = translations.failed;
+        var message = [trsl.start, name, trsl.end].join(' ');
         notifier.error(message.trim() + "!");
         deferred.reject();
       };
