@@ -20,6 +20,9 @@
   "Treebanking" : "Treebanking",
   "markdownEnabled" : "Markdown-Eingabe aktiviert!",
   "apply" : "Anwenden",
+  "create": "Erstellen",
+  "list" : "Liste",
+  "delete" : "Löschen",
 
   "landing" : {
     "description" : "Ein Backend-unabhängiges client-side Annotations-Framework",
@@ -150,5 +153,22 @@
   "search" : {
     "foundTokens" : "Gefundene Tokens",
     "searchByToken" : "nach Token"
+  },
+
+  "aT" : {
+    "addToken" : "Token hinzufügen",
+    "visualRepresentation" : "Visuelle Repräsentation des neuen Tokens (optional)",
+    "noArtTokensPresent" : "Keine artifizielle Tokens vorhanden",
+    "insertionPoint" : "Einfügungspunkt",
+    "insertBehind" : {
+      "start" : "hinter",
+      "end" : ""
+    },
+    "insertInFront" : {
+      "start" : "vor",
+      "end" : ""
+    },
+    "insertBehindHint" : "hinter Token einfügen (Klick zum Umschalten)",
+    "insertInFrontHint" : "vor Token einfügen (Klick zum Umschalten)"
   }
 }

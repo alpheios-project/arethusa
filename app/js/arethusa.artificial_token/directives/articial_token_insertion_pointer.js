@@ -3,7 +3,8 @@
 angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPointer', [
   'artificialToken',
   'state',
-  function(artificialToken, state) {
+  'translator',
+  function(artificialToken, state, translator) {
     return {
       restrict: 'A',
       scope: {},
@@ -14,8 +15,22 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
 
         scope.aT = artificialToken;
 
+        var trsl = {};
+        function updateAndTrigger(key) {
+          return function(translation) {
+            trsl[key] = translation;
+            setInsertDirText();
+          };
+        }
+        translator('aT.insertBehind',     updateAndTrigger('behind'), null, true);
+        translator('aT.insertInFront',    updateAndTrigger('inFront'), null, true);
+        translator('aT.insertBehindHint', updateAndTrigger('behindHint'));
+        translator('aT.insertInFrontHint',    updateAndTrigger('inFrontHint'));
+
         function setInsertDirText() {
-          scope.insertDirText = scope.aT.insertBehind ? 'behind' : 'in front of';
+          var dir = scope.aT.insertBehind ? 'behind' : 'inFront';
+          scope.insertDirText = trsl[dir];
+          scope.insertDirHint = trsl[dir + 'Hint'];
           scope.arrow = scope.aT.insertBehind ? 'right' : 'left';
         }
 

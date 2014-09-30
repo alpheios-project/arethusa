@@ -20,6 +20,9 @@
   "Treebanking" : "Treebanking",
   "markdownEnabled" : "Markdown input enabled!",
   "apply" : "Apply",
+  "create": "Create",
+  "list" : "List",
+  "delete" : "Delete",
 
   "landing" : {
     "description" : "A backend-independent client-side annotation framework",
@@ -148,6 +151,23 @@
 
   "search" : {
     "foundTokens" : "Found tokens",
-    "searchByToken" : "by Token"
+    "searchByToken" : "by token"
+  },
+
+  "aT" : {
+    "addToken" : "Add token",
+    "visualRepresentation" : "Visual representation of new token (optional)",
+    "noArtTokensPresent" : "No artificial tokens present",
+    "insertionPoint" : "Insertion Point",
+    "insertBehind" : {
+      "start" : "behind",
+      "end" : ""
+    },
+    "insertInFront" : {
+      "start" : "in front of",
+      "end" : ""
+    },
+    "insertBehindHint" : "insert behind token (click to toggle)",
+    "insertInFrontHint" : "insert in front of token (click to toggle)"
   }
 }
