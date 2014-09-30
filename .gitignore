@@ -2,7 +2,8 @@ node_modules/*
 bower_components/*
 *.swp
 coverage
-dist/
+dist/*
+!dist/i18n
 deployment/
 .sass-cache
 app/css/*.css*
