@@ -16,7 +16,7 @@ angular.module('arethusa.core').directive('translateLanguage', [
           scope.lang = langKey;
         }
 
-        var langs = ['en', 'de'];
+        var langs = ['en', 'de', 'fr'];
 
         function toggleLang() {
           var i;
