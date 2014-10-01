@@ -3,7 +3,8 @@
 angular.module('arethusa.core').directive('translateLanguage', [
   '$translate',
   'translator',
-  function($translate, translator) {
+  'LOCALES',
+  function($translate, translator, LOCALES) {
     return {
       restrict: 'A',
       scope: {},
@@ -16,13 +17,11 @@ angular.module('arethusa.core').directive('translateLanguage', [
           scope.lang = langKey;
         }
 
-        var langs = ['en', 'de', 'fr'];
-
         function toggleLang() {
           var i;
-          i = langs.indexOf(langKey) + 1;
-          i = i > langs.length - 1 ? 0 : i;
-          useKey(langs[i]);
+          i = LOCALES.indexOf(langKey) + 1;
+          i = i > LOCALES.length - 1 ? 0 : i;
+          useKey(LOCALES[i]);
         }
 
         element.bind('click', function() {
