@@ -1,14 +1,16 @@
 <div class="small-12 columns">
-  <label>Insertion point
+  <label>
+    <span translate="aT.insertionPoint"/>
     <div class="small-panel row text-left">
       <span ng-if="!insertionPoint">-</span>
       <span ng-if=" insertionPoint">
-        <span>{{ insertDirText }}</span>
+        <span>{{ insertDirText.start }}</span>
         <span
           token-with-id
           value="insertionPoint.string"
           token-id="insertionPoint.id">
         </span>
+        <span>{{ insertDirText.end }}</span>
       </span>
       <span class="right">
         <span
@@ -18,7 +20,7 @@
         </span>
         <span class="button micro radius"
           ng-click="toggleDir()"
-          title="{{ insertDirText }} token (click to toggle)">
+          title="{{ insertDirHint }}">
           <i class="fa fa-arrow-{{ arrow }}"></i>
         </span>
       </span>

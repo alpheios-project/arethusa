@@ -19,6 +19,10 @@
   "review" : "Review",
   "Treebanking" : "Treebanking",
   "markdownEnabled" : "Markdown input enabled!",
+  "apply" : "Apply",
+  "create": "Create",
+  "list" : "List",
+  "delete" : "Delete",
 
   "landing" : {
     "description" : "A backend-independent client-side annotation framework",
@@ -105,7 +109,15 @@
       "start" : "Added form for",
       "end" : ""
     },
-    "createError" : "Cannot save an incomplete form"
+    "createError" : "Cannot save an incomplete form",
+    "createNewForm" : "Create new form",
+    "searchByForm" : "by form",
+    "matchAll" : "all"
+  },
+
+  "relation" : {
+    "changeAll" : "Change all",
+    "searchByLabel" : "by label"
   },
 
   "globalSettings" : {
@@ -116,6 +128,13 @@
     "layout" : "Layout",
     "clickAction" : "Click behaviour",
     "chunkMode" : "Chunk Mode"
+  },
+
+  "grid" : {
+    "dragging" : "Dragging",
+    "pushing" : "Pushing",
+    "resizing" : "Resizing",
+    "floating" : "Floating"
   },
 
   "plugins" : {
@@ -135,5 +154,32 @@
 
   "depTree" : {
     "errorAcrossSentences" : "Cannot change heads across sentences"
+  },
+
+  "search" : {
+    "foundTokens" : "Found tokens",
+    "searchByToken" : "by token"
+  },
+
+  "aT" : {
+    "addToken" : "Add token",
+    "visualRepresentation" : "Visual representation of new token (optional)",
+    "noArtTokensPresent" : "No artificial tokens present",
+    "insertionPoint" : "Insertion Point",
+    "insertBehind" : {
+      "start" : "behind",
+      "end" : ""
+    },
+    "insertInFront" : {
+      "start" : "in front of",
+      "end" : ""
+    },
+    "insertBehindHint" : "insert behind token (click to toggle)",
+    "insertInFrontHint" : "insert in front of token (click to toggle)"
+  },
+
+  "helpPanel" : {
+    "keyboardShortcuts" : "Keyboard Shortcuts",
+    "colorLegends" : "Color Legends"
   }
 }

@@ -19,6 +19,10 @@
   "review" : "Überprüfen",
   "Treebanking" : "Treebanking",
   "markdownEnabled" : "Markdown-Eingabe aktiviert!",
+  "apply" : "Anwenden",
+  "create": "Erstellen",
+  "list" : "Liste",
+  "delete" : "Löschen",
 
   "landing" : {
     "description" : "Ein Backend-unabhängiges client-side Annotations-Framework",
@@ -105,7 +109,15 @@
       "start" : "Form für",
       "end" : "hinzugefügt "
     },
-    "createError" : "Kann unvollständige Form nicht speichern"
+    "createError" : "Kann unvollständige Form nicht speichern",
+    "createNewForm" : "Neue Form erstellen",
+    "searchByForm" : "nach Form",
+    "matchAll" : "alle"
+  },
+
+  "relation" : {
+    "changeAll" : "Alle verändern",
+    "searchByLabel" : "nach Label"
   },
 
   "globalSettings" : {
@@ -118,6 +130,12 @@
     "chunkMode" : "Teilungsmodus"
   },
 
+  "grid" : {
+    "dragging" : "Ziehen",
+    "pushing" : "Schieben",
+    "resizing" : "Größe ändern",
+    "floating" : "Anpassen"
+  },
 
   "plugins" : {
     "added" : {
@@ -136,5 +154,32 @@
 
   "depTree" : {
     "errorAcrossSentences" : "Heads können nicht über Satzgrenzen hinweg verändert werden"
+  },
+
+  "search" : {
+    "foundTokens" : "Gefundene Tokens",
+    "searchByToken" : "nach Token"
+  },
+
+  "aT" : {
+    "addToken" : "Token hinzufügen",
+    "visualRepresentation" : "Visuelle Repräsentation des neuen Tokens (optional)",
+    "noArtTokensPresent" : "Keine artifizielle Tokens vorhanden",
+    "insertionPoint" : "Einfügungspunkt",
+    "insertBehind" : {
+      "start" : "hinter",
+      "end" : ""
+    },
+    "insertInFront" : {
+      "start" : "vor",
+      "end" : ""
+    },
+    "insertBehindHint" : "hinter Token einfügen (Klick zum Umschalten)",
+    "insertInFrontHint" : "vor Token einfügen (Klick zum Umschalten)"
+  },
+
+  "helpPanel" : {
+    "keyboardShortcuts" : "Tastaturkürzel",
+    "colorLegends" : "Farblegenden"
   }
 }

@@ -2,18 +2,18 @@
   <span
     class="button tiny radius"
     ng-click="plugin.toggleMode('create')">
-    Create
+    <span translate="create"/>
   </span>
   <span
     class="button tiny radius"
     ng-click="plugin.toggleMode('list')">
-    List
+    <span translate="list"/>
   </span>
   <div delimiter/>
   <div ng-if="plugin.mode === 'create'">
     <form name="cAT">
       <label>
-        Visual representation of new token (optional)
+        <span translate="aT.visualRepresentation"/>
         <input
           type="text"
           foreign-keys
@@ -34,7 +34,7 @@
       class="tiny radius"
       ng-disabled="!plugin.modelValid()"
       ng-click="plugin.propagateToState()">
-      Add token
+      <span translate="aT.addToken"/>
     </button>
   </div>
   <div

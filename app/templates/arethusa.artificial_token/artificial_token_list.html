@@ -2,7 +2,7 @@
   ng-if="aT.count === 0"
   class="text"
   style="margin-left: 0.75rem">
-  No artificial tokens present
+  <span translate="aT.noArtTokensPresent"/>
 </p>
 
 <div class="panel" ng-repeat="(id, token) in aT.createdTokens">
@@ -24,7 +24,7 @@
       <span
         ng-click="aT.removeToken(id)"
         class="button tiny radius">
-        Delete
+        <span translate="delete"/>
       </span>
     </span>
   </div>

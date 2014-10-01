@@ -1,5 +1,7 @@
 <div>
-  <label class="note">Change all</label>
+  <label class="note">
+    <span translate="relation.changeAll"/>
+  </label>
   <span
     label-selector
     obj="r.multiChanger">
@@ -8,6 +10,6 @@
     class="micro radius"
     ng-disabled="! isPossible()"
     ng-click="apply()">
-    Apply
+    <span translate="apply"/>
   </button>
 </div>
