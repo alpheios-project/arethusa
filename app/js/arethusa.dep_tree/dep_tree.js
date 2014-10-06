@@ -47,6 +47,14 @@ angular.module('arethusa.depTree').service('depTree', [
       self.diffMode = !self.diffMode;
     };
 
+    this.deselectAll = function() {
+      state.deselectAll();
+    };
+
+    this.hasNoSelectedTokens = function() {
+      return !state.hasClickSelections();
+    };
+
     // We have three things we can colorize as wrong in the tree
     //   Label
     //   Head
