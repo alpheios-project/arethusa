@@ -13,7 +13,7 @@ Be sure to check out our [wiki](https://github.com/latin-language-toolkit/llt-an
 
 ## Install
 
-Make sure [node.js](http://nodejs.org) and ruby is installed.
+Make sure [node.js](http://nodejs.org) and [ruby](http://www.ruby-lang.org) is installed.
 
 ```
 sudo npm install grunt-cli -g
@@ -22,10 +22,6 @@ sudo npm install bower -g
 npm install
 grunt install
 ```
-
-## Prerequisites
-
-- Chrome >= 32
 
 ## Usage
 
@@ -44,8 +40,9 @@ grunt reload-server
 which will also watch any code changes you make and trigger a reload of
 your browser when needed.
 
-A good place to navigate your browser to would be one of the
-[examples](https://github.com/latin-language-toolkit/arethusa/wiki/Examples)
+A good place to navigate your browser to would be one of the Arethusa's
+[landing page](http:/localhost:8081/app/#/), which you can also visit
+on of the servers that has Arethusa deployed ([Arethusa at Perseids](http://sosol.perseids.org/tools/arethusa/app/#/)).
 
 
 
