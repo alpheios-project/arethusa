@@ -892,3 +892,20 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
     @include transition-duration(1250ms);
   }
 }
+
+.slide-right {
+  @include slider(250ms, translateX(60px), translateX(0));
+}
+
+.slide-left {
+  @include slider(250ms, translateX(-60px), translateX(0));
+}
+
+.slide-top {
+  @include slider(250ms, translateY(-60px), translateY(0));
+}
+
+.slide-bottom {
+  @include slider(250ms, translateY(60px), translateY(0));
+}
+

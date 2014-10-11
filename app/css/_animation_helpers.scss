@@ -53,52 +53,51 @@
   }
 }
 
-// Refactor to allow more flexibility as with toggler
-.slide-right {
+@mixin slider($duration, $in, $out) {
   @include easing-timing-function();
+
   &.ng-enter {
-    @include transform(translateX(60px)); 
-    @include transition-duration(250ms);
+    @include transform($in); 
+    @include transition-duration($duration);
     opacity: 0;
   }
 
   &.ng-enter-active {
-    @include transform(translateX(0));
+    @include transform($out);
     opacity: 1; 
   }
 
   &.ng-leave {
-    @include transform(translateX(0));
-    @include transition-duration(250ms);
+    @include transform($out);
+    @include transition-duration($duration);
     opacity: 1;
   }
 
   &.ng-leave-active {
-    @include transform(translateX(60px)); 
+    @include transform($in);
     opacity: 0; 
   }
 
   // Hide
   &.ng-hide-add {
-    @include transform(translateX(0));
-    @include transition-duration(250ms);
+    @include transform($out);
+    @include transition-duration($duration);
     opacity:1;    
   } 
   &.ng-hide-add.ng-hide-add-active {
-    @include transform(translateX(60px)); 
+    @include transform($in);
     opacity:0;
   }
 
   // Show
   &.ng-hide-remove {
-    @include transform(translateX(60px)); 
-    @include transition-duration(250ms);
+    @include transform($in); 
+    @include transition-duration($duration);
     display:block!important;
     opacity:0;
   }
   &.ng-hide-remove.ng-hide-remove-active {
-    @include transform(translateX(0));
+    @include transform($out);
     opacity:1;
   }
 }
-
