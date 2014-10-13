@@ -160,7 +160,7 @@ function uglifyTasks() {
     'newer:concat',
   ];
 
-  var task = devMode ? 'copy:' : 'newer:uglify:';
+  var task = devMode ? 'copy' : 'newer:uglify';
   eachModule(function(module) {
     res.push([task, toTaskScript(module)].join(':'));
   });
