@@ -129,10 +129,10 @@ function arethusaConcat() {
 
   concatPlugins(obj);
 
-  obj.packages = { src: sourceFiles, dest: 'dist/arethusa_packages.concat.js' };
+  obj.packages = { src: sourceFiles, dest: toConcatPath('arethusa_packages') };
   obj.main = pluginFiles('arethusa', 'arethusa.main', true);
-  obj.util = { src: "app/js/util/**/*.js", dest: "dist/arethusa_util.concat.js" };
-  obj.app = { src: mainFiles, dest: 'dist/arethusa.concat.js' };
+  obj.util = { src: "app/js/util/**/*.js", dest: toConcatPath('arethusa_util') };
+  obj.app = { src: mainFiles, dest: toConcatPath('arethusa') };
 
   return obj;
 }
