@@ -145,6 +145,7 @@ function arethusaCopy() {
   var obj = {};
   obj.main  = toCopyObject('arethusa');
   obj.util  = toCopyObject('arethusa_util');
+  obj.packages = toCopyObject('arethusa_packages');
 
   eachModule(function(module) {
     obj[toTaskScript(module)] = toCopyObject(module);
@@ -166,6 +167,10 @@ function uglifyTasks() {
 
   res.push(task + ':main');
   res.push(task + ':util');
+
+  // Packages are a minified concat version already, if
+  // minification is requested - so we can just copy it.
+  res.push('newer:copy:packages');
 
   return res;
 }
