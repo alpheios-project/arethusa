@@ -116,18 +116,14 @@ function arethusaMainFiles() {
   }
 }
 
-function concatPlugins(target) {
-  eachModule(function(module) {
-    target[toTaskScript(module)] = pluginFiles(module, null, true);
-  });
-}
-
 function arethusaConcat() {
   var obj = {};
   var sourceFiles = arethusaSourceFiles();
   var mainFiles = arethusaMainFiles();
 
-  concatPlugins(obj);
+  eachModule(function(module) {
+    obj[toTaskScript(module)] = pluginFiles(module, null, true);
+  });
 
   obj.packages = { src: sourceFiles, dest: toConcatPath('arethusa_packages') };
   obj.main = pluginFiles('arethusa', 'arethusa.main', true);
