@@ -9,6 +9,8 @@ var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
 
+var devMode = process.env.DEV;
+
 var arethusaModules = [
   'arethusa.morph',
   'arethusa.artificial_token',
@@ -56,6 +58,78 @@ function arethusaUglify() {
   eachModule(function(module) {
     obj[toTaskScript(module)] = { files: pluginFiles(module) };
   });
+  return obj;
+}
+
+function arethusaSourceFiles() {
+  var sources = [
+    "./bower_components/jquery/dist/jquery.min.js",
+    "./bower_components/angular/angular.min.js",
+    "./bower_components/angular-route/angular-route.min.js",
+    "./vendor/angular-resource/angular-resource.min.js",
+    "./bower_components/angular-cookies/angular-cookies.min.js",
+    "./bower_components/angular-animate/angular-animate.min.js",
+    "./bower_components/angular-scroll/angular-scroll.min.js",
+    "./bower_components/angular-translate/angular-translate.min.js",
+    "./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
+    "./bower_components/x2js/xml2json.min.js",
+    "./bower_components/angulartics/dist/angulartics.min.js",
+    "./bower_components/angulartics/dist/angulartics-ga.min.js",
+    "./bower_components/angular-gridster/dist/angular-gridster.min.js",
+    "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
+    //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
+    "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
+    "./vendor/uservoice/uservoice.min.js",
+    "./vendor/angularJS-toaster/toaster.min.js"
+  ];
+
+  if (devMode) {
+    var res = [];
+    for (var i=0; i < sources.length; i++) {
+      res.push(sources[i].replace(/min.js$/, 'js'));
+    }
+    return res;
+  } else {
+    return sources;
+  }
+}
+
+function arethusaMainFiles() {
+  var files = [
+    "dist/arethusa_util.min.js",
+    "dist/arethusa.core.min.js",
+    "dist/arethusa.context_menu.min.js",
+    "dist/arethusa.history.min.js",
+    "dist/arethusa.main.min.js"
+  ];
+
+  if (devMode) {
+    var res = [];
+    for (var i=0; i < files.length; i++) {
+      res.push(files[i].replace(/min.js$/, 'concat.js'));
+    }
+    return res;
+  } else {
+    return files;
+  }
+}
+
+
+function arethusaConcat() {
+  var obj = {};
+  var sourceFiles = arethusaSourceFiles();
+  var mainFiles = arethusaMainFiles();
+
+  obj.packages = {
+    src: sourceFiles,
+    dest: 'dist/arethusa_packages.min.js'
+  };
+
+  obj.main = {
+    src: mainFiles,
+    dest: 'dist/arethusa.min.js'
+  };
+
   return obj;
 }
 
@@ -420,41 +494,7 @@ module.exports = function(grunt) {
         }
       }
     },
-    concat: {
-      packages: {
-        src: [
-          "./bower_components/jquery/dist/jquery.min.js",
-          "./bower_components/angular/angular.min.js",
-          "./bower_components/angular-route/angular-route.min.js",
-          "./vendor/angular-resource/angular-resource.min.js",
-          "./bower_components/angular-cookies/angular-cookies.min.js",
-          "./bower_components/angular-animate/angular-animate.min.js",
-          "./bower_components/angular-scroll/angular-scroll.min.js",
-          "./bower_components/angular-translate/angular-translate.min.js",
-          "./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
-          "./bower_components/x2js/xml2json.min.js",
-          "./bower_components/angulartics/dist/angulartics.min.js",
-          "./bower_components/angulartics/dist/angulartics-ga.min.js",
-          "./bower_components/angular-gridster/dist/angular-gridster.min.js",
-          "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
-          //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
-          "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
-          "./vendor/uservoice/uservoice.min.js",
-          "./vendor/angularJS-toaster/toaster.min.js"
-        ],
-        dest: 'dist/arethusa_packages.min.js'
-      },
-      main: {
-        src: [
-          "dist/arethusa_util.min.js",
-          "dist/arethusa.core.min.js",
-          "dist/arethusa.context_menu.min.js",
-          "dist/arethusa.history.min.js",
-          "dist/arethusa.main.min.js"
-        ],
-        dest: 'dist/arethusa.min.js'
-      }
-    }
+    concat: arethusaConcat()
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
