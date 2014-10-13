@@ -137,17 +137,35 @@ function arethusaConcat() {
   return obj;
 }
 
+function toCopyObject(name) {
+  return { src: toConcatPath(name), dest: toMinPath(name) };
+}
+
+function arethusaCopy() {
+  var obj = {};
+  obj.main  = toCopyObject('arethusa');
+  obj.util  = toCopyObject('arethusa_util');
+
+  eachModule(function(module) {
+    obj[toTaskScript(module)] = toCopyObject(module);
+  });
+
+  return obj;
+}
+
 function uglifyTasks() {
   var res = [
     'newer:ngtemplates',
     'newer:concat',
-    'newer:uglify:main',
-    'newer:uglify:util'
   ];
 
+  var task = devMode ? 'copy:' : 'newer:uglify:';
   eachModule(function(module) {
-    res.push('newer:uglify:' + toTaskScript(module));
+    res.push([task, toTaskScript(module)].join(':'));
   });
+
+  res.push(task + ':main');
+  res.push(task + ':util');
 
   return res;
 }
@@ -519,22 +537,28 @@ module.exports = function(grunt) {
         }
       }
     },
-    concat: arethusaConcat()
+    concat: arethusaConcat(),
+    copy: arethusaCopy(),
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
+
+  // These two server tasks are usually everything you need!
   grunt.registerTask('server', ['minify:all', 'connect:devserver']);
-  grunt.registerTask('reload-server', 'concurrent:server');
+  grunt.registerTask('reload-server', ['concurrent:server']);
+
   grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
   grunt.registerTask('reloader:conf', 'watch:conf');
   grunt.registerTask('reloader:css', 'watch:serverCss');
+
   grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
   grunt.registerTask('minify:conf', 'shell:minifyConfs');
   grunt.registerTask('minify', uglifyTasks());
   grunt.registerTask('minify:all', 'concurrent:minifyAll');
+
   grunt.registerTask('install', 'shell:install');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
