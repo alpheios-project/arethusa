@@ -539,6 +539,7 @@ module.exports = function(grunt) {
     },
     concat: arethusaConcat(),
     copy: arethusaCopy(),
+    clean: ['dist/*.js', 'dist/*.map']
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
@@ -546,8 +547,8 @@ module.exports = function(grunt) {
   grunt.registerTask('e2e', 'protractor:all');
 
   // These two server tasks are usually everything you need!
-  grunt.registerTask('server', ['minify:all', 'connect:devserver']);
-  grunt.registerTask('reload-server', ['concurrent:server']);
+  grunt.registerTask('server', ['clean', 'minify:all', 'connect:devserver']);
+  grunt.registerTask('reload-server', ['clean', 'concurrent:server']);
 
   grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
