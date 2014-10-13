@@ -51,12 +51,17 @@ function arethusaUglify() {
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
     templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
-    util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
-    main: { files: pluginFiles('arethusa', 'arethusa.main') }
+    util: { files: { "dist/arethusa_util.min.js": "dist/arethusa_util.concat.js" } },
+    main: { files: { "dist/arethusa.min.js": "dist/arethusa.concat.js"} }
   };
 
   eachModule(function(module) {
-    obj[toTaskScript(module)] = { files: pluginFiles(module) };
+    var distName = 'dist/' + module;
+    var concatName = distName + '.concat.js';
+    var minName    = distName + '.min.js';
+    var target = {};
+    target[minName] = concatName;
+    obj[toTaskScript(module)] = { files: target };
   });
   return obj;
 }
@@ -114,27 +119,30 @@ function arethusaMainFiles() {
   }
 }
 
+function concatPlugins(target) {
+  eachModule(function(module) {
+    target[toTaskScript(module)] = pluginFiles(module, null, true);
+  });
+}
+
 
 function arethusaConcat() {
   var obj = {};
   var sourceFiles = arethusaSourceFiles();
   var mainFiles = arethusaMainFiles();
 
-  obj.packages = {
-    src: sourceFiles,
-    dest: 'dist/arethusa_packages.min.js'
-  };
+  concatPlugins(obj);
 
-  obj.main = {
-    src: mainFiles,
-    dest: 'dist/arethusa.min.js'
-  };
+  obj.packages = { src: sourceFiles, dest: 'dist/arethusa_packages.concat.js' };
+  obj.main = pluginFiles('arethusa', 'arethusa.main', true);
+  obj.util = { src: "app/js/util/**/*.js", dest: "dist/arethusa_util.concat.js" };
+  obj.app = { src: mainFiles, dest: 'dist/arethusa.concat.js' };
 
   return obj;
 }
 
 function uglifyTasks() {
-  var res = [ 'newer:concat:packages', 'newer:ngtemplates' ];
+  var res = [ 'newer:ngtemplates', 'newer:concat' ];
   eachModule(function(module) {
     res.push('newer:uglify:' + toTaskScript(module));
   });
@@ -197,19 +205,28 @@ function mountFolder(connect, dir) {
   return connect.static(require('path').resolve(dir));
 }
 
-function pluginFiles(name, destName) {
-  var minName = 'dist/' + (destName || name) + '.min.js';
+function pluginFiles(name, destName, concat) {
+  var extension = concat ? '.concat.js' : '.min.js';
+  var distName = 'dist/' + (destName || name) + extension;
   var mainFile = 'app/js/' + name + '.js';
   var others = '<%= "app/js/' + name + '/**/*.js" %>';
   var templates = '<%= "app/templates/compiled/' + name + '.templates.js" %>';
-  var obj = {};
   var targets = [mainFile, others, templates];
   var dependencies = additionalDependencies[name];
   if (dependencies) {
     targets = dependencies.concat(targets);
   }
-  obj[minName] = targets;
-  return obj;
+
+  if (concat) {
+    return {
+      src: targets,
+      dest: distName
+    };
+  } else {
+    var obj = {};
+    obj[distName] = targets;
+    return obj;
+  }
 }
 
 module.exports = function(grunt) {
@@ -412,7 +429,7 @@ module.exports = function(grunt) {
           livereload: true,
           middleware: function(connect) {
             return [
-              require('connect-livereload')(),
+              require('connect-livereload'),
               mountFolder(connect, './')
             ];
           }
