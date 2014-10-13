@@ -31,7 +31,8 @@
     "grunt-shell": "0.7.0",
     "grunt-contrib-concat": "~0.5.0",
     "grunt-newer": "LFDM/grunt-newer",
-    "grunt-contrib-copy": "^0.6.0"
+    "grunt-contrib-copy": "^0.6.0",
+    "grunt-contrib-clean": "^0.6.0"
   },
   "scripts": {
     "test": "grunt karma:spec coveralls jshint && protractor protractor-config-travis.js"
