@@ -56,11 +56,8 @@ function arethusaUglify() {
   };
 
   eachModule(function(module) {
-    var distName = 'dist/' + module;
-    var concatName = distName + '.concat.js';
-    var minName    = distName + '.min.js';
     var target = {};
-    target[minName] = concatName;
+    target[toMinPath(module)] = toConcatPath(module);
     obj[toTaskScript(module)] = { files: target };
   });
   return obj;
@@ -125,7 +122,6 @@ function concatPlugins(target) {
   });
 }
 
-
 function arethusaConcat() {
   var obj = {};
   var sourceFiles = arethusaSourceFiles();
@@ -142,13 +138,17 @@ function arethusaConcat() {
 }
 
 function uglifyTasks() {
-  var res = [ 'newer:ngtemplates', 'newer:concat' ];
+  var res = [
+    'newer:ngtemplates',
+    'newer:concat',
+    'newer:uglify:main',
+    'newer:uglify:util'
+  ];
+
   eachModule(function(module) {
     res.push('newer:uglify:' + toTaskScript(module));
   });
-  res.push('newer:uglify:main');
-  res.push('newer:uglify:util');
-  res.push('newer:concat:main');
+
   return res;
 }
 
@@ -195,6 +195,14 @@ function toTaskScript(str) {
   return toJsScript(str.replace(/^arethusa\./, ''));
 }
 
+function toConcatPath(module) {
+  return 'dist/' + module + '.concat.js';
+}
+
+function toMinPath(module) {
+  return 'dist/' + module + '.min.js';
+}
+
 
 function getReloadPort() {
   reloadPort++;
@@ -206,8 +214,8 @@ function mountFolder(connect, dir) {
 }
 
 function pluginFiles(name, destName, concat) {
-  var extension = concat ? '.concat.js' : '.min.js';
-  var distName = 'dist/' + (destName || name) + extension;
+  var pathFn = concat ? toConcatPath : toMinPath;
+  var distName = pathFn(destName || name);
   var mainFile = 'app/js/' + name + '.js';
   var others = '<%= "app/js/' + name + '/**/*.js" %>';
   var templates = '<%= "app/templates/compiled/' + name + '.templates.js" %>';
