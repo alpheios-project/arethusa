@@ -446,7 +446,14 @@ module.exports = function(grunt) {
       }
     },
     connect: {
-      devserver: {
+      server: {
+        options: {
+          port: devServerPort,
+          debug: true,
+          keepalive: true
+        }
+      },
+      devServer: {
         options: {
           port: devServerPort,
           debug: true,
@@ -530,7 +537,7 @@ module.exports = function(grunt) {
         }
       },
       server: {
-        tasks: ['concurrent:watches', 'server'],
+        tasks: ['concurrent:watches', 'minify:all', 'connect:devServer'],
         options: {
           logConcurrentOutput: true
         }
@@ -546,7 +553,7 @@ module.exports = function(grunt) {
   grunt.registerTask('e2e', 'protractor:all');
 
   // These two server tasks are usually everything you need!
-  grunt.registerTask('server', ['clean', 'minify:all', 'connect:devserver']);
+  grunt.registerTask('server', ['clean', 'minify:all', 'connect:server']);
   grunt.registerTask('reload-server', ['clean', 'concurrent:server']);
 
   grunt.registerTask('reloader', 'concurrent:watches');
