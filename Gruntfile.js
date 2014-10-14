@@ -100,7 +100,6 @@ function arethusaUglify() {
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
     templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
-    util: { files: { "dist/arethusa_util.min.js": "dist/arethusa_util.concat.js" } },
     app: { files: { "dist/arethusa.min.js": "dist/arethusa.concat.js"} }
   };
 
@@ -136,7 +135,6 @@ function toCopyObject(name) {
 function arethusaCopy() {
   var obj = {};
   obj.app   = toCopyObject('arethusa');
-  obj.util  = toCopyObject('arethusa_util');
   obj.packages = toCopyObject('arethusa_packages');
 
   eachModule(function(module) {
@@ -157,9 +155,7 @@ function uglifyTasks() {
     res.push([task, toTaskScript(module)].join(':'));
   });
 
-  res.push(task + ':util');
   res.push(task + ':app');
-
   res.push('newer:copy:packages');
 
   return res;
