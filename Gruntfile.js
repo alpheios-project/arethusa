@@ -226,10 +226,6 @@ function getReloadPort() {
   return reloadPort;
 }
 
-function mountFolder(connect, dir) {
-  return connect.static(require('path').resolve(dir));
-}
-
 function pluginFiles(name, destName, concat) {
   var pathFn = concat ? toConcatPath : toMinPath;
   var distName = pathFn(destName || name);
@@ -458,13 +454,7 @@ module.exports = function(grunt) {
           port: devServerPort,
           debug: true,
           keepalive: true,
-          livereload: true,
-          middleware: function(connect) {
-            return [
-              require('connect-livereload'),
-              mountFolder(connect, './')
-            ];
-          }
+          livereload: true
         }
       },
     },
