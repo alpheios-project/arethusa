@@ -156,13 +156,15 @@ function uglifyTasks() {
     'newer:concat',
   ];
 
+  // We don't need newer for copy - the overhead of asking
+  // if it should run is more than just doing it.
   var task = devMode ? 'copy' : 'newer:uglify';
   eachModule(function(module) {
     res.push([task, toTaskScript(module)].join(':'));
   });
 
   res.push(task + ':app');
-  res.push('newer:copy:packages');
+  res.push('copy:packages');
 
   return res;
 }
