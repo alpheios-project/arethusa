@@ -21,8 +21,7 @@
     "jsondiffpatch": "~0.1.8",
     "oclazyload": "LFDM/ocLazyLoad#master",
     "angular-gridster": "SekibOmazic/so-dashboard#master",
-    "angular-md": "~1.0.0",
-    "marked": "~0.3.2"
+    "angular-md": "~1.0.0"
   },
   "resolutions": {
     "angular": "1.2.17",
