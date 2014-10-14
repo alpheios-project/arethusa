@@ -54,25 +54,31 @@ function arethusaSourceFiles() {
     "./bower_components/angular-translate/angular-translate.min.js",
     "./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
     "./bower_components/x2js/xml2json.min.js",
-    "./bower_components/angulartics/dist/angulartics.min.js",
-    "./bower_components/angulartics/dist/angulartics-ga.min.js",
-    "./bower_components/angular-gridster/dist/angular-gridster.min.js",
     "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
     //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
-    "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js"
   ];
 
+  // Of some components there are no non-minified version available
+  var alwaysMinifified = [
+    "./bower_components/angulartics/dist/angulartics.min.js",
+    "./bower_components/angulartics/dist/angulartics-ga.min.js",
+    "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
+    "./bower_components/angular-gridster/dist/angular-gridster.min.js",
+  ];
+
+  var result;
   if (devMode) {
-    var res = [];
+    result = [];
     for (var i=0; i < sources.length; i++) {
-      res.push(sources[i].replace(/min.js$/, 'js'));
+      result.push(sources[i].replace(/min.js$/, 'js'));
     }
-    return res;
   } else {
-    return sources;
+    result = sources;
   }
+
+  return result.concat(alwaysMinifified);
 }
 
 function arethusaMainFiles() {
