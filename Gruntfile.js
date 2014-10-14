@@ -449,13 +449,13 @@ module.exports = function(grunt) {
           port: devServerPort,
           debug: true,
           keepalive: true,
-          livereload: false,
-          //middleware: function(connect) {
-            //return [
-              //require('connect-livereload'),
-              //mountFolder(connect, './')
-            //];
-          //}
+          livereload: true,
+          middleware: function(connect) {
+            return [
+              require('connect-livereload'),
+              mountFolder(connect, './')
+            ];
+          }
         }
       },
     },
