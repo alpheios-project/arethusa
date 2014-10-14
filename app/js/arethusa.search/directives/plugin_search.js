@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa.search').directive('pluginSearch', function(injectables) {
+angular.module('arethusa.search').directive('pluginSearch', function() {
   return {
     restrict: 'AE',
     scope: true,
