@@ -42,27 +42,6 @@ function eachModule(fn) {
   }
 }
 
-function arethusaUglify() {
-  var obj = {
-    options: {
-      sourceMap: true
-    },
-    dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
-    uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
-    toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
-    templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
-    util: { files: { "dist/arethusa_util.min.js": "dist/arethusa_util.concat.js" } },
-    main: { files: { "dist/arethusa.min.js": "dist/arethusa.concat.js"} }
-  };
-
-  eachModule(function(module) {
-    var target = {};
-    target[toMinPath(module)] = toConcatPath(module);
-    obj[toTaskScript(module)] = { files: target };
-  });
-  return obj;
-}
-
 function arethusaSourceFiles() {
   var sources = [
     "./bower_components/jquery/dist/jquery.min.js",
@@ -98,22 +77,39 @@ function arethusaSourceFiles() {
 
 function arethusaMainFiles() {
   var files = [
-    "dist/arethusa_util.min.js",
-    "dist/arethusa.core.min.js",
-    "dist/arethusa.context_menu.min.js",
-    "dist/arethusa.history.min.js",
-    "dist/arethusa.main.min.js"
+    "arethusa_util",
+    "arethusa.core",
+    "arethusa.context_menu",
+    "arethusa.history",
+    "arethusa.main"
   ];
 
-  if (devMode) {
-    var res = [];
-    for (var i=0; i < files.length; i++) {
-      res.push(files[i].replace(/min.js$/, 'concat.js'));
-    }
-    return res;
-  } else {
-    return files;
+  var res = [];
+  for (var i=0; i < files.length; i++) {
+    res.push(toConcatPath(files[i]));
   }
+  return res;
+}
+
+function arethusaUglify() {
+  var obj = {
+    options: {
+      sourceMap: true
+    },
+    dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
+    uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
+    toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
+    templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
+    util: { files: { "dist/arethusa_util.min.js": "dist/arethusa_util.concat.js" } },
+    app: { files: { "dist/arethusa.min.js": "dist/arethusa.concat.js"} }
+  };
+
+  eachModule(function(module) {
+    var target = {};
+    target[toMinPath(module)] = toConcatPath(module);
+    obj[toTaskScript(module)] = { files: target };
+  });
+  return obj;
 }
 
 function arethusaConcat() {
@@ -139,7 +135,7 @@ function toCopyObject(name) {
 
 function arethusaCopy() {
   var obj = {};
-  obj.main  = toCopyObject('arethusa');
+  obj.app   = toCopyObject('arethusa');
   obj.util  = toCopyObject('arethusa_util');
   obj.packages = toCopyObject('arethusa_packages');
 
@@ -161,11 +157,9 @@ function uglifyTasks() {
     res.push([task, toTaskScript(module)].join(':'));
   });
 
-  res.push(task + ':main');
   res.push(task + ':util');
+  res.push(task + ':app');
 
-  // Packages are a minified concat version already, if
-  // minification is requested - so we can just copy it.
   res.push('newer:copy:packages');
 
   return res;
@@ -453,13 +447,13 @@ module.exports = function(grunt) {
           port: devServerPort,
           debug: true,
           keepalive: true,
-          livereload: true,
-          middleware: function(connect) {
-            return [
-              require('connect-livereload'),
-              mountFolder(connect, './')
-            ];
-          }
+          livereload: false,
+          //middleware: function(connect) {
+            //return [
+              //require('connect-livereload'),
+              //mountFolder(connect, './')
+            //];
+          //}
         }
       },
     },
