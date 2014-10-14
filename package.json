@@ -25,7 +25,6 @@
     "bower": "1.3.8",
     "protractor": "~0.23.1",
     "connect-livereload": "0.4.0",
-    "execSync": "latest",
     "load-grunt-tasks": "^0.6.0",
     "grunt-contrib-sass": "0.7.3",
     "grunt-shell": "0.7.0",
