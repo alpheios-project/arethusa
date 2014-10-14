@@ -9,6 +9,8 @@ var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
 
+var devMode = process.env.DEV;
+
 var arethusaModules = [
   'arethusa.morph',
   'arethusa.artificial_token',
@@ -40,6 +42,61 @@ function eachModule(fn) {
   }
 }
 
+function arethusaSourceFiles() {
+  var sources = [
+    "./bower_components/jquery/dist/jquery.min.js",
+    "./bower_components/angular/angular.min.js",
+    "./bower_components/angular-route/angular-route.min.js",
+    "./vendor/angular-resource/angular-resource.min.js",
+    "./bower_components/angular-cookies/angular-cookies.min.js",
+    "./bower_components/angular-animate/angular-animate.min.js",
+    "./bower_components/angular-scroll/angular-scroll.min.js",
+    "./bower_components/angular-translate/angular-translate.min.js",
+    "./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
+    "./bower_components/x2js/xml2json.min.js",
+    "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
+    //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
+    "./vendor/uservoice/uservoice.min.js",
+    "./vendor/angularJS-toaster/toaster.min.js"
+  ];
+
+  // Of some components there are no non-minified version available
+  var alwaysMinifified = [
+    "./bower_components/angulartics/dist/angulartics.min.js",
+    "./bower_components/angulartics/dist/angulartics-ga.min.js",
+    "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
+    "./bower_components/angular-gridster/dist/angular-gridster.min.js",
+  ];
+
+  var result;
+  if (devMode) {
+    result = [];
+    for (var i=0; i < sources.length; i++) {
+      result.push(sources[i].replace(/min.js$/, 'js'));
+    }
+  } else {
+    result = sources;
+  }
+
+  return result.concat(alwaysMinifified);
+}
+
+function arethusaMainFiles() {
+  var files = [
+    "arethusa_util",
+    "arethusa.core",
+    "arethusa.context_menu",
+    "arethusa.history",
+    "arethusa.main"
+  ];
+
+  var res = [];
+  for (var i=0; i < files.length; i++) {
+    res.push(toConcatPath(files[i]));
+  }
+  return res;
+}
+
 function arethusaUglify() {
   var obj = {
     options: {
@@ -49,24 +106,66 @@ function arethusaUglify() {
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
     templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
-    util: { files: { "dist/arethusa_util.min.js": "app/js/util/**/*.js" } },
-    main: { files: pluginFiles('arethusa', 'arethusa.main') }
+    app: { files: { "dist/arethusa.min.js": "dist/arethusa.concat.js"} }
   };
 
   eachModule(function(module) {
-    obj[toTaskScript(module)] = { files: pluginFiles(module) };
+    var target = {};
+    target[toMinPath(module)] = toConcatPath(module);
+    obj[toTaskScript(module)] = { files: target };
   });
   return obj;
 }
 
-function uglifyTasks() {
-  var res = [ 'newer:concat:packages', 'newer:ngtemplates' ];
+function arethusaConcat() {
+  var obj = {};
+  var sourceFiles = arethusaSourceFiles();
+  var mainFiles = arethusaMainFiles();
+
   eachModule(function(module) {
-    res.push('newer:uglify:' + toTaskScript(module));
+    obj[toTaskScript(module)] = pluginFiles(module, null, true);
   });
-  res.push('newer:uglify:main');
-  res.push('newer:uglify:util');
-  res.push('newer:concat:main');
+
+  obj.packages = { src: sourceFiles, dest: toConcatPath('arethusa_packages') };
+  obj.main = pluginFiles('arethusa', 'arethusa.main', true);
+  obj.util = { src: "app/js/util/**/*.js", dest: toConcatPath('arethusa_util') };
+  obj.app = { src: mainFiles, dest: toConcatPath('arethusa') };
+
+  return obj;
+}
+
+function toCopyObject(name) {
+  return { src: toConcatPath(name), dest: toMinPath(name) };
+}
+
+function arethusaCopy() {
+  var obj = {};
+  obj.app   = toCopyObject('arethusa');
+  obj.packages = toCopyObject('arethusa_packages');
+
+  eachModule(function(module) {
+    obj[toTaskScript(module)] = toCopyObject(module);
+  });
+
+  return obj;
+}
+
+function uglifyTasks() {
+  var res = [
+    'newer:ngtemplates',
+    'newer:concat',
+  ];
+
+  // We don't need newer for copy - the overhead of asking
+  // if it should run is more than just doing it.
+  var task = devMode ? 'copy' : 'newer:uglify';
+  eachModule(function(module) {
+    res.push([task, toTaskScript(module)].join(':'));
+  });
+
+  res.push(task + ':app');
+  res.push('copy:packages');
+
   return res;
 }
 
@@ -113,6 +212,14 @@ function toTaskScript(str) {
   return toJsScript(str.replace(/^arethusa\./, ''));
 }
 
+function toConcatPath(module) {
+  return 'dist/' + module + '.concat.js';
+}
+
+function toMinPath(module) {
+  return 'dist/' + module + '.min.js';
+}
+
 
 function getReloadPort() {
   reloadPort++;
@@ -123,19 +230,28 @@ function mountFolder(connect, dir) {
   return connect.static(require('path').resolve(dir));
 }
 
-function pluginFiles(name, destName) {
-  var minName = 'dist/' + (destName || name) + '.min.js';
+function pluginFiles(name, destName, concat) {
+  var pathFn = concat ? toConcatPath : toMinPath;
+  var distName = pathFn(destName || name);
   var mainFile = 'app/js/' + name + '.js';
   var others = '<%= "app/js/' + name + '/**/*.js" %>';
   var templates = '<%= "app/templates/compiled/' + name + '.templates.js" %>';
-  var obj = {};
   var targets = [mainFile, others, templates];
   var dependencies = additionalDependencies[name];
   if (dependencies) {
     targets = dependencies.concat(targets);
   }
-  obj[minName] = targets;
-  return obj;
+
+  if (concat) {
+    return {
+      src: targets,
+      dest: distName
+    };
+  } else {
+    var obj = {};
+    obj[distName] = targets;
+    return obj;
+  }
 }
 
 module.exports = function(grunt) {
@@ -338,7 +454,7 @@ module.exports = function(grunt) {
           livereload: true,
           middleware: function(connect) {
             return [
-              require('connect-livereload')(),
+              require('connect-livereload'),
               mountFolder(connect, './')
             ];
           }
@@ -420,56 +536,29 @@ module.exports = function(grunt) {
         }
       }
     },
-    concat: {
-      packages: {
-        src: [
-          "./bower_components/jquery/dist/jquery.min.js",
-          "./bower_components/angular/angular.min.js",
-          "./bower_components/angular-route/angular-route.min.js",
-          "./vendor/angular-resource/angular-resource.min.js",
-          "./bower_components/angular-cookies/angular-cookies.min.js",
-          "./bower_components/angular-animate/angular-animate.min.js",
-          "./bower_components/angular-scroll/angular-scroll.min.js",
-          "./bower_components/angular-translate/angular-translate.min.js",
-          "./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
-          "./bower_components/x2js/xml2json.min.js",
-          "./bower_components/angulartics/dist/angulartics.min.js",
-          "./bower_components/angulartics/dist/angulartics-ga.min.js",
-          "./bower_components/angular-gridster/dist/angular-gridster.min.js",
-          "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
-          //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
-          "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
-          "./vendor/uservoice/uservoice.min.js",
-          "./vendor/angularJS-toaster/toaster.min.js"
-        ],
-        dest: 'dist/arethusa_packages.min.js'
-      },
-      main: {
-        src: [
-          "dist/arethusa_util.min.js",
-          "dist/arethusa.core.min.js",
-          "dist/arethusa.context_menu.min.js",
-          "dist/arethusa.history.min.js",
-          "dist/arethusa.main.min.js"
-        ],
-        dest: 'dist/arethusa.min.js'
-      }
-    }
+    concat: arethusaConcat(),
+    copy: arethusaCopy(),
+    clean: ['dist/*.js', 'dist/*.map']
   });
 
   grunt.registerTask('default', ['karma:spec', 'jshint']);
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
-  grunt.registerTask('server', ['minify:all', 'connect:devserver']);
-  grunt.registerTask('reload-server', 'concurrent:server');
+
+  // These two server tasks are usually everything you need!
+  grunt.registerTask('server', ['clean', 'minify:all', 'connect:devserver']);
+  grunt.registerTask('reload-server', ['clean', 'concurrent:server']);
+
   grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
   grunt.registerTask('reloader:conf', 'watch:conf');
   grunt.registerTask('reloader:css', 'watch:serverCss');
+
   grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
   grunt.registerTask('minify:conf', 'shell:minifyConfs');
   grunt.registerTask('minify', uglifyTasks());
   grunt.registerTask('minify:all', 'concurrent:minifyAll');
+
   grunt.registerTask('install', 'shell:install');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
