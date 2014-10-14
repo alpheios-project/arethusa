@@ -544,7 +544,7 @@ module.exports = function(grunt) {
 
   // These two server tasks are usually everything you need!
   grunt.registerTask('server', ['clean', 'minify:all', 'connect:server']);
-  grunt.registerTask('reload-server', ['clean', 'concurrent:server']);
+  grunt.registerTask('reloading-server', ['clean', 'concurrent:server']);
 
   grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');

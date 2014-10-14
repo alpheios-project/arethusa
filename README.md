@@ -34,7 +34,7 @@ grunt server
 or
 
 ```
-grunt reload-server
+grunt reloading-server
 ```
 
 which will also watch any code changes you make and trigger a reload of
