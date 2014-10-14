@@ -51,7 +51,6 @@
     "angular-highlightjs": "~0.3.2",
     "angular-local-storage": "~0.1.5",
     "lodash": "~2.4.1",
-    "marked": "~0.3.2",
     "angular-ui-utils": "~0.1.1"
   },
   "resolutions": {
