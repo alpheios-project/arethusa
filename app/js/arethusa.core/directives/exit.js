@@ -2,7 +2,8 @@
 
 angular.module('arethusa.core').directive('exit', [
   'exitHandler',
-  function(exitHandler) {
+  'translator',
+  function(exitHandler, translator) {
     return {
       restrict: 'A',
       scope: {},
@@ -21,10 +22,14 @@ angular.module('arethusa.core').directive('exit', [
 
             exitHandler.leave("_self");
           });
-          element.attr("title", "Exit to " + exitHandler.title);
+
+          translator('exitHandler.exitTo', function(trsl) {
+            element.attr('title', [trsl.start, exitHandler.title, trsl.end].join(' '));
+          }, null, true);
         } else {
           element.hide(); // or even remove?
         }
+
 
       },
       template: '<i class="fa fa-sign-out"></i>'
