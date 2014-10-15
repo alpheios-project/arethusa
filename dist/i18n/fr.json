@@ -1,0 +1,167 @@
+{
+  "search_documents": "Rechercher des documents",
+  "loadInProgress": "Chargement...",
+  "loadComplete": "Fin du chargement!",
+  "language": "Français",
+  "help": "Aide",
+  "contactUs": "Contact",
+  "messages": "Messages",
+  "menu": "Menu",
+  "deselectAll": "Annuler les sélections",
+  "settings": "Paramètres",
+  "save": "Enregistrer",
+  "reset": "Réinitialiser",
+  "items": "Items",
+  "useCases": "Use Cases",
+  "gettingStarted": "Commencer",
+  "development": "Développement",
+  "depTrees": "Dependency Trees",
+  "review": "Comparer",
+  "Treebanking": "Treebanking",
+  "markdownEnabled": "Mise en page Markdown activée!",
+  "apply": "Appliquer",
+  "create": "Créer",
+  "list": "Liste",
+  "delete": "Supprimer",
+  "morph": {
+    "lemmaHint": "Ce lemme a été ajouté automatiquement\nVérifier le avant de sauvegarder.!",
+    "createError": "Impossible de créer une forme incomplète",
+    "createNewForm": "Créer une nouvelle forme",
+    "searchByForm": "par forme",
+    "matchAll": "Tout",
+    "createSuccess": {
+      "start": "Forme ajoutée pour",
+      "end": ""
+    }
+  },
+  "plugins": {
+    "added": {
+      "start": "Plugin",
+      "end": "ajouté"
+    },
+    "failed": {
+      "start": "Impossible de charger",
+      "end": ""
+    },
+    "alreadyLoaded": {
+      "start": "",
+      "end": "est déjà chargé!"
+    }
+  },
+  "search": {
+    "foundTokens": "Found tokens",
+    "searchByToken": "by token"
+  },
+  "landing": {
+    "description": "Un framework client d'annotation indépendent de tout backend",
+    "modularNature": "Du fait de sa nature modulaire, Arethusa peut être configuré pour répondre à différentes situations.",
+    "moreScreencasts": "Plus de vidéo exemple",
+    "devDescription": "Arethusa est construit à partir du framework javascript <a href=\"https://angularjs.org/angular.js\">AngularJS</a> pour applications web et prodigue une infrastructure indépendante de tout back-end lié à la mise à disposition de textes, de services d'annotations ou d'outils linguistiques. L'extensibilité est une caractéristique primaire de notre développement - Arethusa inclut des outils pour la génération automatique de structures de modules (<a href=\"https://github.com/latin-language-toolkit/arethusa-cli\">Arethusa::CLI</a>) et des <a href=\"http://github.com/latin-language-toolkit/arethusa/blob/docs/docs/content/plugin_guide.md\">guides de développement détaillé</a> sont en cours de rédaction, avec l'espoir que d'autres seront capables de réutiliser et de construire sur cette plateforme des nouvelles fonctionnalités pour d'autres annotations, langues, back-end et workflow.",
+    "partners": "Partenaires",
+    "funders": "Financements",
+    "fundersDescription": "Ce projet a été soutenu par la <a href=\"http://www.mellon.org/\">Fondation Andrew W. Mellon</a>, l'<a href=\"http://imls.gov/\">Institute of Museum and Library Services</a> et l'<a href=\"http://ec.europa.eu/esf/home.jsp\">European Social Fund</a>",
+    "tryYourself": "Essayer !"
+  },
+  "auth": {
+    "notLoggedIn": "Vous n'êtes pas connectés!"
+  },
+  "saver": {
+    "success": "Document sauvegardé!",
+    "error": "Echec de la sauvegarde. Réessayer?",
+    "inProgress": "Sauvegarde...",
+    "nothingToSave": "Rien à sauvegarde pour le moment!",
+    "confirmNote": "Vous avez des modifications non sauvegardées!",
+    "confirmQuestion": "Êtes-vous sûr de vouloir quitter ??"
+  },
+  "uth": {
+    "count": "{{ count }} sur {{ total }} d'inutilisé(s)",
+    "tooltip": "Cliquer pour surgligner\nDouble-cliquer pour sélectionner"
+  },
+  "comments": {
+    "newComment": "Nouveau commentaire",
+    "fullTextSearch": "Recherche plein texte",
+    "filterSelected": "Filtre sélectionné",
+    "successMessage": "Commentaire créé!",
+    "errorMessage": "Echec lors de la sauvegarde du commentaire",
+    "selectFirst": "Need to select some tokens first",
+    "count": "{{ count }} sur {{ total }} de commenté(s)",
+    "docLevelComm": "Commentaires pour le document entier",
+    "on": "on"
+  },
+  "tree": {
+    "changeDir": "Changer la direction",
+    "focusRoot": "Centrer sur la racine",
+    "focusSel": "Sélectionner la racine",
+    "centerTree": "Centrer l'arbre",
+    "perfectWidth": "Ajuster la largeur",
+    "compact": "Taille minimale",
+    "widen": "Taille maximale"
+  },
+  "relation": {
+    "changeAll": "Changer tout",
+    "searchByLabel": "par label"
+  },
+  "globalSettings": {
+    "title": "Paramètres globaux",
+    "alwaysDeselect": "Déselectionner après une annotation",
+    "keyboardMappings": "Désactiver les raccourcis claviers pendant une saisie",
+    "colorizer": "Coloriser les tokens par",
+    "layout": "Mise en page",
+    "clickAction": "Comportement du clic",
+    "chunkMode": "Chunk Mode"
+  },
+  "grid": {
+    "dragging": "Glisser",
+    "pushing": "Pousser",
+    "resizing": "Redimensionner",
+    "floating": "Floating"
+  },
+  "history": {
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "noRecords": "Aucun événement dans l'historique.",
+    "fromTo": "De {{ from }} à {{ to }}",
+    "add": {
+      "start": "",
+      "end": "ajouté"
+    },
+    "remove": {
+      "start": "supprimé",
+      "end": ""
+    },
+    "change": {
+      "start": "Changement de <strong>{{ property }}</strong> pour ",
+      "end": ""
+    }
+  },
+  "aT": {
+    "addToken": "Add token",
+    "visualRepresentation": "Visual representation of new token (optional)",
+    "noArtTokensPresent": "No artificial tokens present",
+    "insertionPoint": "Point d'insertion",
+    "insertBehindHint": "insert behind token (click to toggle)",
+    "insertInFrontHint": "insert in front of token (click to toggle)",
+    "insertBehind": {
+      "start": "derrière",
+      "end": ""
+    },
+    "insertInFront": {
+      "start": "devant",
+      "end": ""
+    }
+  },
+  "sidepanel": {
+    "fold": "Fold Panel",
+    "show": "Show Panel"
+  },
+  "depTree": {
+    "errorAcrossSentences": "Cannot change heads across sentences"
+  },
+  "helpPanel": {
+    "keyboardShortcuts": "Raccourcis claviers",
+    "colorLegends": "Légende couleurs"
+  },
+  "navigator": {
+    "chunkSizeError": "Only chunk sizes between 1 and 5 are currently supported"
+  }
+}
