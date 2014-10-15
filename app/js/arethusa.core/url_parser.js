@@ -1,5 +1,8 @@
 "use strict";
 
+// Currently not in use - but will be soon when we resume work on the
+// Permalink feature.
+
 angular.module('arethusa.core').factory('urlParser', [
   function() {
     function parseSearch(hrefParser) {
