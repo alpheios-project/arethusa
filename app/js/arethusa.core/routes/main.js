@@ -11,11 +11,16 @@ angular.module('arethusa.core').constant('MAIN_ROUTE', {
     </div>\
   ',
   resolve: {
-    loadConfiguration: ['$http', 'confUrl', 'configurator', function ($http, confUrl, configurator) {
-      var url = confUrl(true);
-      return $http.get(url).then(function (res) {
-        configurator.defineConfiguration(res.data, url);
-      });
+    loadConfiguration: [
+      '$http',
+      'confUrl',
+      'configurator',
+      function ($http, confUrl, configurator) {
+        var url = confUrl(true);
+        return $http.get(url).then(function (res) {
+          configurator.defineConfiguration(res.data, url);
+        }
+      );
     }]
   }
 });
