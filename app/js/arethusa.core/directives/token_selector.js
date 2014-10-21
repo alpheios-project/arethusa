@@ -9,25 +9,26 @@ angular.module('arethusa.core').directive('tokenSelector', [
         tokens: "=tokenSelector"
       },
       link: function(scope, element, attrs) {
+        scope.hasNoTokensSelected = true;
+        scope.hasSomeTokensSelected = false;
+        scope.hasAllTokensSelected = false;
+
+        scope.countOfSelectedTokens = function() {
+          return state.hasClickSelections();
+        };
+
+        scope.$watch('countOfSelectedTokens()', function(newValue, oldValue) {
+            scope.hasNoTokensSelected = newValue === 0;
+            scope.hasSomeTokensSelected = newValue > 0 && newValue !== state.totalTokens;
+            scope.hasAllTokensSelected = newValue === state.totalTokens;
+        });
+
         scope.changeSelection = function() {
-          if (scope.hasNoSelectedTokens()) {
+          if (scope.hasNoTokensSelected) {
             state.multiSelect(Object.keys(scope.tokens));
           } else {
             state.deselectAll();
           }
-        };
-
-        scope.hasNoSelectedTokens = function() {
-          return !state.hasClickSelections();
-        };
-
-        scope.hasSomeTokensSelected = function() {
-          var selected = state.hasClickSelections();
-          return selected > 0 && selected !== state.totalTokens;
-        };
-
-        scope.hasAllTokensSelected = function() {
-          return state.hasClickSelections() === state.totalTokens;
         };
       },
       templateUrl: 'templates/arethusa.core/token_selector.html'
