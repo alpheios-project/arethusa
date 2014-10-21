@@ -21,13 +21,13 @@ angular.module('arethusa.core').directive('tokenSelector', [
           return !state.hasClickSelections();
         };
 
-        scope.hasSomeSelectedTokens = function() {
+        scope.hasSomeTokensSelected = function() {
           var selected = state.hasClickSelections();
-          return selected > 0 && selected != state.totalTokens;
+          return selected > 0 && selected !== state.totalTokens;
         };
 
-        scope.hasAllSelectedTokens = function() {
-          return state.hasClickSelections() == state.totalTokens;
+        scope.hasAllTokensSelected = function() {
+          return state.hasClickSelections() === state.totalTokens;
         };
       },
       templateUrl: 'templates/arethusa.core/token_selector.html'
