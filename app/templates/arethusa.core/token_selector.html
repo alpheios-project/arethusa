@@ -6,8 +6,6 @@
   tooltip-popup-delay="700"
   tooltip-placement="left"
   ng-click="changeSelection()"
-  ng-checked="hasAllTokensSelected()"
+  ng-checked="hasAllTokensSelected() || hasSomeTokensSelected()"
   ui-indeterminate="hasSomeTokensSelected()">
 </input>
-<div>All: {{hasAllTokensSelected()}}</div>
-<div>Some: {{hasSomeTokensSelected()}}</div>
