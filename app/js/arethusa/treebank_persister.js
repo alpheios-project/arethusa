@@ -73,7 +73,15 @@ angular.module('arethusa').factory('TreebankPersister', [
 
       function ArtificialNode(id, insertionId, type) {
         this._id = id;
-        this._insertion_id = insertionId;
+
+        // We have to strip the sentence id for now, as the insertionId
+        // won't make it through Perseids validation process.
+        // It won't affect the import, as we're catching such cases there
+        // for backwards compatibility anyway.
+        //
+        // Mind that this is a temporal solution and tightly couples this
+        // process to the current id formatting.
+        this._insertion_id = insertionId.split('-')[1];
         this._artificial = type || 'elliptic';
       }
 
