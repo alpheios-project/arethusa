@@ -4,7 +4,7 @@
 @import "animation_helpers";
 @import 'toaster';
 @import 'images';
-@import '../../vendor/highlight/styles/ascetic';
+@import '../../vendor/highlight/styles/tomorrow';
 
 html, body {
   height: 100%;
@@ -876,6 +876,10 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
   height: 90% !important;
   left: 45% !important;
   top: 5% !important;
+}
+
+code {
+  font-weight: 400;
 }
 
 /***************************************************************************
