@@ -164,6 +164,8 @@ var arethusaUtil = {
     // Taken from https://gist.github.com/sente/1083506
     formatXml: function (xml) {
       var formatted = '';
+      var lastNode = '';
+      var appendedToLastNode;
       var reg = /(>)(<)(\/*)/g;
       xml = xml.toString().replace(reg, '$1\r\n$2$3');
       var pad = 0;
@@ -188,7 +190,22 @@ var arethusaUtil = {
           padding += '  ';
         }
 
-        formatted += padding + node + '\r\n';
+        appendedToLastNode = false;
+        var closingTag = node.match(/<\/(\w*)>/, '$1');
+        if (closingTag) {
+          var tag = closingTag[1];
+          var regexp = new RegExp('<' + tag);
+          if (lastNode.match(regexp)) {
+            formatted = formatted.substring(0, formatted.length - 3) + '/>\r\n';
+            appendedToLastNode = true;
+          }
+        }
+
+        if (!appendedToLastNode) {
+          formatted += padding + node + '\r\n';
+        }
+
+        lastNode = node;
         pad += indent;
       }
       return formatted;
