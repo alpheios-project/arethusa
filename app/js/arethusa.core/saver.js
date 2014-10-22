@@ -44,6 +44,8 @@ angular.module('arethusa.core').service('saver', [
       self.canSave = false;
     }
 
+    // We only have one persister right now, later we'll want
+    // to handle the success notification better.
     function success(res) {
       self.needsSave = false;
       setChangeWatch();
@@ -62,14 +64,15 @@ angular.module('arethusa.core').service('saver', [
       }
     }
 
+    function callSave(persister, name) {
+      persister.saveData(success, error);
+    }
+
     this.save = function() {
+
       if (self.needsSave) {
         notifier.wait(translations.inProgress);
-        // We only have one persister right now, later we'll want
-        // to handle the success notification better.
-        angular.forEach(persisters, function(persister, name) {
-          persister.saveData(success, error);
-        });
+        angular.forEach(persisters, callSave);
       } else {
         notifier.info(translations.nothingToSave);
       }
