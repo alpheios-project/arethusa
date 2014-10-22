@@ -57,7 +57,8 @@ function arethusaSourceFiles() {
     "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
     //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
     "./vendor/uservoice/uservoice.min.js",
-    "./vendor/angularJS-toaster/toaster.min.js"
+    "./vendor/angularJS-toaster/toaster.min.js",
+    "./vendor/highlight/highlight.pack.js"
   ];
 
   // Of some components there are no non-minified version available
