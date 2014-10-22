@@ -23,10 +23,21 @@ angular.module('arethusa.core').service('saver', [
 
     function getPersisters() {
       var persisterConf = configurator.configurationFor('main').persisters;
-      persisters = configurator.getPersisters(persisterConf);
+      return configurator.getPersisters(persisterConf);
     }
 
-    function hasPersisters(args) {
+    function getOutputters() {
+      return aU.inject({}, persisters, function(memo, name, persister) {
+        if (angular.isFunction(persister.output)) memo[name] = persister;
+      });
+    }
+
+    function getPersistersAndOutputters() {
+      persisters = getPersisters();
+      self.outputters = getOutputters();
+    }
+
+    function hasPersisters() {
       return !angular.equals({}, persisters);
     }
 
@@ -134,7 +145,7 @@ angular.module('arethusa.core').service('saver', [
     this.init = function(newPersisters) {
       defineKeyCaptures();
       reset();
-      getPersisters();
+      getPersistersAndOutputters();
       updateStatus();
       setChangeWatch();
     };
