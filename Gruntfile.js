@@ -58,7 +58,8 @@ function arethusaSourceFiles() {
     //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js",
-    "./vendor/highlight/highlight.pack.js"
+    "./vendor/highlight/highlight.pack.js",
+    "./vendor/angular-highlightjs/angular-highlightjs.min.js"
   ];
 
   // Of some components there are no non-minified version available
