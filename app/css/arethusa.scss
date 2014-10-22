@@ -4,6 +4,7 @@
 @import "animation_helpers";
 @import 'toaster';
 @import 'images';
+@import '../../vendor/highlight/styles/ascetic';
 
 html, body {
   height: 100%;
@@ -873,6 +874,8 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
   overflow: auto;
   width: 90% !important;
   height: 90% !important;
+  left: 45% !important;
+  top: 5% !important;
 }
 
 /***************************************************************************
