@@ -151,14 +151,15 @@ angular.module('arethusa').factory('TreebankPersister', [
         return documentStore.store[identifier];
       }
 
-      this.output = function() {
+      this.output = function(noFormat) {
         updateDocument();
         updateXml();
-        return doc().xml;
+        var xml = doc().xml;
+        return noFormat ? xml : aU.formatXml(xml);
       };
 
       this.saveData = function(callback, errCallback) {
-        resource.save(self.output(),'text/xml').then(callback, errCallback);
+        resource.save(self.output(true),'text/xml').then(callback, errCallback);
       };
 
       this.identifier = identifier;
