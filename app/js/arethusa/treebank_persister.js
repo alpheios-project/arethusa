@@ -7,6 +7,7 @@ angular.module('arethusa').factory('TreebankPersister', [
   'idHandler',
   function (documentStore, configurator, navigator, idHandler) {
     return function(conf) {
+      var self = this;
       var resource = configurator.provideResource(conf.resource);
       var identifier = conf.docIdentifier;
 
@@ -150,11 +151,17 @@ angular.module('arethusa').factory('TreebankPersister', [
         return documentStore.store[identifier];
       }
 
-      this.saveData = function(callback, errCallback) {
+      this.output = function() {
         updateDocument();
         updateXml();
-        resource.save(doc().xml,'text/xml').then(callback, errCallback);
+        return doc().xml;
       };
+
+      this.saveData = function(callback, errCallback) {
+        resource.save(self.output(),'text/xml').then(callback, errCallback);
+      };
+
+      this.identifier = identifier;
     };
   }
 ]);
