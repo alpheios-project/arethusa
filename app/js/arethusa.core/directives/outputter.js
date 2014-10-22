@@ -10,7 +10,8 @@ angular.module('arethusa.core').directive('outputter', [
         element.bind('click', function() {
           $modal.open({
             controller: 'OutputterCtrl',
-            templateUrl: 'templates/arethusa.core/outputter.html'
+            templateUrl: 'templates/arethusa.core/outputter.html',
+            windowClass: 'full-modal'
           });
         });
       },
