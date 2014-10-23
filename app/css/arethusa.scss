@@ -942,3 +942,19 @@ code {
   @include slider(250ms, translateY(60px), translateY(0));
 }
 
+/*Animations for angular-foundation*/
+
+.reveal-modal, .reveal-modal-bg {
+  &.fade {
+    @include transition(opacity .3s ease-out);
+    opacity: 0;
+  }
+
+  &.in {
+    opacity: 1;
+  }
+}
+
+.reveal-modal-bg.in {
+  opacity: .5;
+}
