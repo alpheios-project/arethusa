@@ -23,10 +23,21 @@ angular.module('arethusa.core').service('saver', [
 
     function getPersisters() {
       var persisterConf = configurator.configurationFor('main').persisters;
-      persisters = configurator.getPersisters(persisterConf);
+      return configurator.getPersisters(persisterConf);
     }
 
-    function hasPersisters(args) {
+    function getOutputters() {
+      return aU.inject({}, persisters, function(memo, name, persister) {
+        if (angular.isFunction(persister.output)) memo[name] = persister;
+      });
+    }
+
+    function getPersistersAndOutputters() {
+      persisters = getPersisters();
+      self.outputters = getOutputters();
+    }
+
+    function hasPersisters() {
       return !angular.equals({}, persisters);
     }
 
@@ -44,6 +55,8 @@ angular.module('arethusa.core').service('saver', [
       self.canSave = false;
     }
 
+    // We only have one persister right now, later we'll want
+    // to handle the success notification better.
     function success(res) {
       self.needsSave = false;
       setChangeWatch();
@@ -62,14 +75,15 @@ angular.module('arethusa.core').service('saver', [
       }
     }
 
+    function callSave(persister, name) {
+      persister.saveData(success, error);
+    }
+
     this.save = function() {
+
       if (self.needsSave) {
         notifier.wait(translations.inProgress);
-        // We only have one persister right now, later we'll want
-        // to handle the success notification better.
-        angular.forEach(persisters, function(persister, name) {
-          persister.saveData(success, error);
-        });
+        angular.forEach(persisters, callSave);
       } else {
         notifier.info(translations.nothingToSave);
       }
@@ -131,7 +145,7 @@ angular.module('arethusa.core').service('saver', [
     this.init = function(newPersisters) {
       defineKeyCaptures();
       reset();
-      getPersisters();
+      getPersistersAndOutputters();
       updateStatus();
       setChangeWatch();
     };

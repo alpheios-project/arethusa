@@ -57,7 +57,9 @@ function arethusaSourceFiles() {
     "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
     //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
     "./vendor/uservoice/uservoice.min.js",
-    "./vendor/angularJS-toaster/toaster.min.js"
+    "./vendor/angularJS-toaster/toaster.min.js",
+    "./vendor/highlight/highlight.pack.js",
+    "./vendor/angular-highlightjs/angular-highlightjs.min.js"
   ];
 
   // Of some components there are no non-minified version available
@@ -357,6 +359,8 @@ module.exports = function(grunt) {
             './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
             './vendor/dagre-d3/dagre-d3.min.js',
             './vendor/angularJS-toaster/toaster.min.js',
+            "./vendor/highlight/highlight.pack.js",
+            "./vendor/angular-highlightjs/angular-highlightjs.min.js",
             // Some source files we'll need to include manually, otherwise
             // the load order is wrong
             'app/js/*.js',

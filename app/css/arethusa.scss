@@ -4,6 +4,7 @@
 @import "animation_helpers";
 @import 'toaster';
 @import 'images';
+@import '../../vendor/highlight/styles/tomorrow';
 
 html, body {
   height: 100%;
@@ -429,11 +430,11 @@ a:hover, a:focus {
   background: #73CDDE;
 }
 
-a.button.on {
+a.button.on, .button.on {
   background: #014653 !important;
 }
 
-a.button.on:hover {
+a.button.on:hover, .button.on {
   background: #006375 !important;
 }
 
@@ -869,6 +870,38 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+.full-modal {
+  overflow: auto;
+  width: 90% !important;
+  height: 90% !important;
+  left: 45% !important;
+  top: 5% !important;
+}
+
+code {
+  font-weight: 400;
+}
+
+.outputter {
+  .item {
+    border: solid 1px $panel-bg;
+    border-radius: 5px;
+    padding: .5rem;
+    line-height: 2rem;
+  }
+
+  .buttons {
+    float: right;
+    display: table-cell;
+  }
+
+  .preview {
+    line-height: 1rem;
+    font-size: .8rem;
+  }
+}
+
+
 /***************************************************************************
  *                               Animations                                *
  ***************************************************************************/
@@ -909,3 +942,19 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
   @include slider(250ms, translateY(60px), translateY(0));
 }
 
+/*Animations for angular-foundation*/
+
+.reveal-modal, .reveal-modal-bg {
+  &.fade {
+    @include transition(opacity .3s ease-out);
+    opacity: 0;
+  }
+
+  &.in {
+    opacity: 1;
+  }
+}
+
+.reveal-modal-bg.in {
+  opacity: .5;
+}

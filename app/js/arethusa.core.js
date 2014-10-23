@@ -6,5 +6,6 @@ angular.module('arethusa.core', [
   'pascalprecht.translate',
   'toaster',
   'oc.lazyLoad',
-  'gridster'
+  'gridster',
+  'hljs'
 ]).value('BASE_PATH', '..');

@@ -161,6 +161,56 @@ var arethusaUtil = {
       return arethusaUtil.xmlParser.json2xml_str(json);
     },
 
+    // Taken from https://gist.github.com/sente/1083506
+    formatXml: function (xml) {
+      var formatted = '';
+      var lastNode = '';
+      var appendedToLastNode;
+      var reg = /(>)(<)(\/*)/g;
+      xml = xml.toString().replace(reg, '$1\r\n$2$3');
+      var pad = 0;
+      var nodes = xml.split('\r\n');
+      for(var n in nodes) {
+        var node = nodes[n];
+        var indent = 0;
+        if (node.match(/.+<\/\w[^>]*>$/)) {
+          indent = 0;
+        } else if (node.match(/^<\/\w/)) {
+          if (pad !== 0) {
+            pad -= 1;
+          }
+        } else if (node.match(/^<\w[^>]*[^\/]>.*$/)) {
+          indent = 1;
+        } else {
+          indent = 0;
+        }
+
+        var padding = '';
+        for (var i = 0; i < pad; i++) {
+          padding += '  ';
+        }
+
+        appendedToLastNode = false;
+        var closingTag = node.match(/<\/(\w*)>/, '$1');
+        if (closingTag) {
+          var tag = closingTag[1];
+          var regexp = new RegExp('<' + tag);
+          if (lastNode.match(regexp)) {
+            formatted = formatted.substring(0, formatted.length - 3) + '/>\r\n';
+            appendedToLastNode = true;
+          }
+        }
+
+        if (!appendedToLastNode) {
+          formatted += padding + node + '\r\n';
+        }
+
+        lastNode = node;
+        pad += indent;
+      }
+      return formatted;
+    },
+
     getProperty: function(obj, getter) {
       var props = getter.split('.');
       for (var i = 0; i  < props.length; i ++) {

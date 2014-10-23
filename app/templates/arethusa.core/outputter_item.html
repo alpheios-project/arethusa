@@ -1,0 +1,19 @@
+<div>
+  <span class="italic">{{ obj.identifier }}</span>
+  <span class="buttons">
+    <span
+      class="button radius micro"
+      ng-class="{ on: preview }"
+      ng-click="togglePreview()"
+      translate="preview">
+    </span>
+    <span
+      class="button radius micro"
+      ng-click="download()"
+      translate="download">
+    </span>
+  </span>
+</div>
+<div delimiter/>
+<div ng-if="preview" hljs class="preview fade" source="data()"/>
+
