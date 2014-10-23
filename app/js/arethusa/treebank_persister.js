@@ -159,10 +159,12 @@ angular.module('arethusa').factory('TreebankPersister', [
       };
 
       this.saveData = function(callback, errCallback) {
-        resource.save(self.output(true),'text/xml').then(callback, errCallback);
+        resource.save(self.output(true), self.mimeType).then(callback, errCallback);
       };
 
       this.identifier = identifier;
+      this.mimeType = 'text/xml';
+      this.fileType = 'xml';
     };
   }
 ]);
