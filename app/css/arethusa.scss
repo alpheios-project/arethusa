@@ -430,11 +430,11 @@ a:hover, a:focus {
   background: #73CDDE;
 }
 
-a.button.on {
+a.button.on, .button.on {
   background: #014653 !important;
 }
 
-a.button.on:hover {
+a.button.on:hover, .button.on {
   background: #006375 !important;
 }
 
@@ -881,6 +881,26 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
 code {
   font-weight: 400;
 }
+
+.outputter {
+  .item {
+    border: solid 1px $panel-bg;
+    border-radius: 5px;
+    padding: .5rem;
+    line-height: 2rem;
+  }
+
+  .buttons {
+    float: right;
+    display: table-cell;
+  }
+
+  .preview {
+    line-height: 1rem;
+    font-size: .8rem;
+  }
+}
+
 
 /***************************************************************************
  *                               Animations                                *
