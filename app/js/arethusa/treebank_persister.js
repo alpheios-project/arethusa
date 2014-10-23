@@ -52,7 +52,7 @@ angular.module('arethusa').factory('TreebankPersister', [
         var morph = stateWord.morphology;
         if (morph) {
           if (angular.isDefined(morph.lemma))  word._lemma = morph.lemma;
-          if (angular.isDefined(morph.postag)) word._postag= morph.lemma;
+          if (angular.isDefined(morph.postag)) word._postag= morph.postag;
           if (angular.isDefined(morph.gloss))  word._gloss = morph.gloss;
         } else {
           if (word._lemma || word._postag) {
