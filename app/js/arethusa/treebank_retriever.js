@@ -64,30 +64,30 @@ angular.module('arethusa').factory('TreebankRetriever', [
     }
 
     function xmlTokenId(token, sId) {
-      return token._artificial ? token._insertion_id : idHandler.getId(token._id, sId);
+      if (token._artificial) {
+        return padWithSentenceId(token._insertion_id, sId);
+      } else {
+        return idHandler.getId(token._id, sId);
+      }
     }
 
     // This is for backwards compatibility - we still might encounter documents, which
     // stored the insertion id without the sentence id. This is a little hacky but a
     // must have.
-    function padWithSentenceId(token, sId) {
-      var iId = token._insertion_id;
-      if (!iId.match(/-/)) {
-        token._insertion_id = idHandler.padIdWithSId(iId, sId);
-      }
+    function padWithSentenceId(id, sId) {
+      return (id.match(/-/)) ? id : idHandler.padIdWithSId(id, sId);
     }
 
-    function extractArtificial(memo, token, i, sId) {
+    function extractArtificial(memo, token, sId) {
       if (token._artificial) {
-        padWithSentenceId(token, sId);
-        memo[token._id] = token._insertion_id;
+        memo[token._id] = padWithSentenceId(token._insertion_id, sId);
       }
     }
 
     function xmlSentenceToState(docId, words, id, cite) {
       var tokens = {};
       var artificials = arethusaUtil.inject({}, words, function(memo, token, i) {
-        extractArtificial(memo, token, i, id);
+        extractArtificial(memo, token, id);
       });
       angular.forEach(words, function (xmlToken, i) {
         var token = xmlTokenToState(docId, xmlToken, id, artificials);
