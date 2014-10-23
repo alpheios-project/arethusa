@@ -1,185 +1,181 @@
 {
+  "preview": "Preview",
+  "download": "Download",
+  "submit": "Submit",
   "search_documents": "Search for documents",
-  "loadInProgress" : "Loading...",
-  "loadComplete" : "Load complete!",
+  "loadInProgress": "Loading...",
+  "loadComplete": "Load complete!",
   "language": "English",
-  "help" : "Help",
-  "contactUs" : "Contact us",
-  "messages"  : "Messages",
-  "menu" : "Menu",
-  "deselectAll" : "Deselect all",
-  "settings" : "Settings",
-  "save" : "Save",
-  "reset" : "Reset",
-  "items" : "Items",
-  "useCases" : "Use Cases",
-  "gettingStarted" : "Getting Started",
-  "development" : "Development",
-  "depTrees" : "Dependency Trees",
-  "review" : "Review",
-  "Treebanking" : "Treebanking",
-  "markdownEnabled" : "Markdown input enabled!",
-  "apply" : "Apply",
+  "help": "Help",
+  "contactUs": "Contact us",
+  "messages": "Messages",
+  "menu": "Menu",
+  "deselectAll": "Deselect all",
+  "settings": "Settings",
+  "save": "Save",
+  "reset": "Reset",
+  "items": "Items",
+  "useCases": "Use Cases",
+  "gettingStarted": "Getting Started",
+  "development": "Development",
+  "depTrees": "Dependency Trees",
+  "review": "Review",
+  "Treebanking": "Treebanking",
+  "markdownEnabled": "Markdown input enabled!",
+  "apply": "Apply",
   "create": "Create",
-  "list" : "List",
-  "delete" : "Delete",
-
-  "landing" : {
-    "description" : "A backend-independent client-side annotation framework",
-    "modularNature" : "Through its modular nature Arethusa can be configured to solve different use cases.",
-    "moreScreencasts" : "More Screencasts",
-    "devDescription" : "Arethusa is built on the <a href=\"https://angularjs.org/angular.js\">AngularJS</a> javascript web application framework and provides a back-end independent plugin infrastructure for accessing texts, annotations and linguistic services from a variety of sources. Extensibility is a guiding design goal - Arethusa includes tools for automatic generation of new plugin skeletons (<a href=\"https://github.com/latin-language-toolkit/arethusa-cli\">Arethusa::CLI</a>) and detailed <a href=\"http://github.com/latin-language-toolkit/arethusa/blob/docs/docs/content/plugin_guide.md\">development guides</a> are currently in progress, with the hopes that others will be able to reuse and build upon the platform to add support for other annotation types, languages and back-end repositories and workflow engines.",
-    "partners" : "Partners",
-    "funders" : "Funders",
-    "fundersDescription" : "This project has received support from the <a href=\"http://www.mellon.org/\">Andrew W. Mellon Foundation</a>, the <a href=\"http://imls.gov/\">Institute of Museum and Library Services</a> and the <a href=\"http://ec.europa.eu/esf/home.jsp\">European Social Fund</a>",
-    "tryYourself" : "Try it yourself!"
-  },
-
-  "auth" : {
-    "notLoggedIn" : "You aren't logged in!"
-  },
-
-  "navigator" : {
-    "chunkSizeError" : "Only chunk sizes between 1 and 5 are currently supported"
-  },
-
-  "saver" : {
-    "success" : "Document saved!",
-    "error" : "Failed to save! Try again?",
-    "inProgress" : "Saving...",
-    "nothingToSave" : "Nothing to save yet!",
-    "confirmNote" : "You have unsaved changes!",
-    "confirmQuestion" : "Are you sure you want to leave?"
-  },
-
-  "sidepanel" : {
-    "fold" : "Fold Panel",
-    "show" : "Show Panel"
-  },
-
-  "history" : {
-    "undo" : "Undo",
-    "redo" : "Redo",
-    "noRecords" : "No history events recorded.",
-    "add" : {
-      "start" : "Added",
-      "end" : ""
-    },
-    "remove" : {
-      "start" : "Removed",
-      "end" : ""
-    },
-    "change" : {
-      "start" : "Changed <strong>{{ property }}</strong> of",
-      "end" : ""
-    },
-    "fromTo" : "from {{ from }} to {{ to }}"
-  },
-
-  "uth" : {
-    "count"   : "{{ count }} of {{ total }} unused",
-    "tooltip" : "Click to toggle highlighting<br>Double-click to select"
-  },
-
-  "comments" : {
-    "newComment" : "New Comment",
-    "fullTextSearch" : "Full Text Search",
-    "filterSelected" : "Filter selected",
-    "successMessage" : "Comment created!",
-    "errorMessage"   : "Failed to create comment",
-    "selectFirst"    : "Need to select some tokens first",
-    "count" : "{{ count }} of {{ total }} commented",
-    "docLevelComm" : "Document level comments",
-    "on" : "on"
-  },
-
-  "tree" : {
-    "changeDir" : "Change Direction",
-    "focusRoot" : "Focus Root",
-    "focusSel"  : "Focus Selection",
-    "centerTree" : "Center Tree",
-    "perfectWidth" : "Perfect Width",
-    "compact" : "Compact tree",
-    "widen" : "Widen tree"
-  },
-
-  "morph" : {
-    "lemmaHint" : "This lemma was added automatically!\nCheck it before you save!",
-    "createSuccess" : {
-      "start" : "Added form for",
-      "end" : ""
-    },
-    "createError" : "Cannot save an incomplete form",
-    "createNewForm" : "Create new form",
-    "searchByForm" : "by form",
-    "matchAll" : "all"
-  },
-
-  "relation" : {
-    "changeAll" : "Change all",
-    "searchByLabel" : "by label"
-  },
-
-  "globalSettings" : {
-    "title" : "Global Settings",
-    "alwaysDeselect" : "Deselect after every annotation action",
-    "keyboardMappings" : "Disable keyboard mapping for input fields",
-    "colorizer" : "Colorize tokens by",
-    "layout" : "Layout",
-    "clickAction" : "Click behaviour",
-    "chunkMode" : "Chunk Mode"
-  },
-
-  "grid" : {
-    "dragging" : "Dragging",
-    "pushing" : "Pushing",
-    "resizing" : "Resizing",
-    "floating" : "Floating"
-  },
-
-  "plugins" : {
-    "added" : {
-      "start" : "",
-      "end" : "plugin added"
-    },
-    "failed" : {
-      "start" : "Failed to load",
-      "end" : ""
-    },
-    "alreadyLoaded" : {
-      "start" : "",
-      "end" : "is already loaded!"
+  "list": "List",
+  "delete": "Delete",
+  "morph": {
+    "lemmaHint": "This lemma was added automatically!\nCheck it before you save!",
+    "createError": "Cannot save an incomplete form",
+    "createNewForm": "Create new form",
+    "searchByForm": "by form",
+    "matchAll": "all",
+    "createSuccess": {
+      "start": "Added form for",
+      "end": ""
     }
   },
-
-  "depTree" : {
-    "errorAcrossSentences" : "Cannot change heads across sentences"
-  },
-
-  "search" : {
-    "foundTokens" : "Found tokens",
-    "searchByToken" : "by token"
-  },
-
-  "aT" : {
-    "addToken" : "Add token",
-    "visualRepresentation" : "Visual representation of new token (optional)",
-    "noArtTokensPresent" : "No artificial tokens present",
-    "insertionPoint" : "Insertion Point",
-    "insertBehind" : {
-      "start" : "behind",
-      "end" : ""
+  "plugins": {
+    "added": {
+      "start": "",
+      "end": "plugin added"
     },
-    "insertInFront" : {
-      "start" : "in front of",
-      "end" : ""
+    "failed": {
+      "start": "Failed to load",
+      "end": ""
     },
-    "insertBehindHint" : "insert behind token (click to toggle)",
-    "insertInFrontHint" : "insert in front of token (click to toggle)"
+    "alreadyLoaded": {
+      "start": "",
+      "end": "is already loaded!"
+    }
   },
-
-  "helpPanel" : {
-    "keyboardShortcuts" : "Keyboard Shortcuts",
-    "colorLegends" : "Color Legends"
+  "search": {
+    "foundTokens": "Found tokens",
+    "searchByToken": "by token"
+  },
+  "saver": {
+    "previewAndDownload": "Preview and Download",
+    "success": "Document saved!",
+    "error": "Failed to save! Try again?",
+    "inProgress": "Saving...",
+    "nothingToSave": "Nothing to save yet!",
+    "confirmNote": "You have unsaved changes!",
+    "confirmQuestion": "Are you sure you want to leave?"
+  },
+  "landing": {
+    "description": "A backend-independent client-side annotation framework",
+    "modularNature": "Through its modular nature Arethusa can be configured to solve different use cases.",
+    "moreScreencasts": "More Screencasts",
+    "devDescription": "Arethusa is built on the <a href=\"https://angularjs.org/angular.js\">AngularJS</a> javascript web application framework and provides a back-end independent plugin infrastructure for accessing texts, annotations and linguistic services from a variety of sources. Extensibility is a guiding design goal - Arethusa includes tools for automatic generation of new plugin skeletons (<a href=\"https://github.com/latin-language-toolkit/arethusa-cli\">Arethusa::CLI</a>) and detailed <a href=\"http://github.com/latin-language-toolkit/arethusa/blob/docs/docs/content/plugin_guide.md\">development guides</a> are currently in progress, with the hopes that others will be able to reuse and build upon the platform to add support for other annotation types, languages and back-end repositories and workflow engines.",
+    "partners": "Partners",
+    "funders": "Funders",
+    "fundersDescription": "This project has received support from the <a href=\"http://www.mellon.org/\">Andrew W. Mellon Foundation</a>, the <a href=\"http://imls.gov/\">Institute of Museum and Library Services</a> and the <a href=\"http://ec.europa.eu/esf/home.jsp\">European Social Fund</a>",
+    "tryYourself": "Try it yourself!"
+  },
+  "auth": {
+    "notLoggedIn": "You aren't logged in!"
+  },
+  "uth": {
+    "count": "{{ count }} of {{ total }} unused",
+    "tooltip": "Click to toggle highlighting<br>Double-click to select"
+  },
+  "tree": {
+    "changeDir": "Change Direction",
+    "focusRoot": "Focus Root",
+    "focusSel": "Focus Selection",
+    "centerTree": "Center Tree",
+    "perfectWidth": "Perfect Width",
+    "compact": "Compact tree",
+    "widen": "Widen tree"
+  },
+  "globalSettings": {
+    "title": "Global Settings",
+    "alwaysDeselect": "Deselect after every annotation action",
+    "keyboardMappings": "Disable keyboard mapping for input fields",
+    "colorizer": "Colorize tokens by",
+    "layout": "Layout",
+    "clickAction": "Click behaviour",
+    "chunkMode": "Chunk Mode"
+  },
+  "grid": {
+    "dragging": "Dragging",
+    "pushing": "Pushing",
+    "resizing": "Resizing",
+    "floating": "Floating"
+  },
+  "history": {
+    "undo": "Undo",
+    "redo": "Redo",
+    "noRecords": "No history events recorded.",
+    "fromTo": "from {{ from }} to {{ to }}",
+    "add": {
+      "start": "Added",
+      "end": ""
+    },
+    "remove": {
+      "start": "Removed",
+      "end": ""
+    },
+    "change": {
+      "start": "Changed <strong>{{ property }}</strong> of",
+      "end": ""
+    }
+  },
+  "aT": {
+    "addToken": "Add token",
+    "visualRepresentation": "Visual representation of new token (optional)",
+    "noArtTokensPresent": "No artificial tokens present",
+    "insertionPoint": "Insertion Point",
+    "insertBehindHint": "insert behind token (click to toggle)",
+    "insertInFrontHint": "insert in front of token (click to toggle)",
+    "insertBehind": {
+      "start": "behind",
+      "end": ""
+    },
+    "insertInFront": {
+      "start": "in front of",
+      "end": ""
+    }
+  },
+  "sidepanel": {
+    "fold": "Fold Panel",
+    "show": "Show Panel"
+  },
+  "depTree": {
+    "errorAcrossSentences": "Cannot change heads across sentences"
+  },
+  "helpPanel": {
+    "keyboardShortcuts": "Keyboard Shortcuts",
+    "colorLegends": "Color Legends"
+  },
+  "navigator": {
+    "goToFirst": "go to first chunk",
+    "goToLast": "go to last chunk",
+    "goToPrev": "go to previous chunk",
+    "goToNext": "go to next chunk",
+    "chunkSizeError": "Only chunk sizes between 1 and 5 are currently supported"
+  },
+  "exitHandler": {
+    "exitTo": {
+      "start": "Exit to",
+      "end": ""
+    }
+  },
+  "relation": {
+    "changeAll": "Change all",
+    "searchByLabel": "by label"
+  },
+  "comments": {
+    "newComment": "New Comment",
+    "fullTextSearch": "Full Text Search",
+    "filterSelected": "Filter selected",
+    "successMessage": "Comment created!",
+    "errorMessage": "Failed to create comment",
+    "selectFirst": "Need to select some tokens first",
+    "count": "{{ count }} of {{ total }} commented",
+    "docLevelComm": "Document level comments",
+    "on": "on"
   }
 }

@@ -3,7 +3,8 @@
 angular.module('arethusa.core').directive('outputter', [
   '$modal',
   'saver',
-  function($modal, saver) {
+  'translator',
+  function($modal, saver, translator) {
     return {
       restrict: 'A',
       scope: {},
@@ -15,6 +16,10 @@ angular.module('arethusa.core').directive('outputter', [
             windowClass: 'full-modal',
             scope: scope
           });
+        });
+
+        translator('saver.previewAndDownload', function(trsl) {
+          element.attr('title', trsl)
         });
       },
       template: '<i class="fa fa-download"/>'
