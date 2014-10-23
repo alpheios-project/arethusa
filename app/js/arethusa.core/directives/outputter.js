@@ -2,16 +2,18 @@
 
 angular.module('arethusa.core').directive('outputter', [
   '$modal',
-  function($modal) {
+  'saver',
+  function($modal, saver) {
     return {
       restrict: 'A',
       scope: {},
       link: function(scope, element, attrs) {
+        scope.saver = saver;
         element.bind('click', function() {
           $modal.open({
-            controller: 'OutputterCtrl',
             templateUrl: 'templates/arethusa.core/outputter.html',
-            windowClass: 'full-modal'
+            windowClass: 'full-modal',
+            scope: scope
           });
         });
       },
@@ -20,10 +22,15 @@ angular.module('arethusa.core').directive('outputter', [
   }
 ]);
 
-angular.module('arethusa.core').controller('OutputterCtrl', [
-  '$scope',
-  'saver',
-  function($scope, saver) {
-    $scope.saver = saver;
+angular.module('arethusa.core').directive('outputterItem', [
+  function() {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+        element.addClass('item');
+        scope.togglePreview = function() { scope.preview = !scope.preview; };
+      },
+      templateUrl: 'templates/arethusa.core/outputter_item.html',
+    };
   }
 ]);
