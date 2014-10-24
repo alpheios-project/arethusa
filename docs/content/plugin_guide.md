@@ -132,7 +132,7 @@ server and want to see work in the browser.
 
 Most of our code will go into the `js` directory. The
 `perseids.translations.js` file we usually won't have to touch: It just
-contains the definition of our `Angular` module, which we will us to
+contains the definition of our `Angular` module, which we will use to
 place our code in. It's very important to do this to guarantee that
 Arethusa can figure out where it can obtain our plugin code dynamically
 at runtime.
@@ -288,8 +288,7 @@ file.
 
 `inject` is a helper function provided by
 [angular-mock](http://docs.angularjs.org/api/ngMock), which is declared
-when using a testing framework like [jasmine](http://jasmine.github.io)
-- which is exactly what we use to write our specs.
+when using a testing framework like [jasmine](http://jasmine.github.io) - which is exactly what we use to write our specs.
 
 `Angular` relies heavily on [Dependency
 Injection](http://docs.angularjs.org/guide/di). As we want to use
