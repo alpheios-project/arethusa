@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('arethusa.core').directive('tokenSelector', [
-  'state',
-  function(state) {
+  'state', '_',
+  function(state, _) {
     return {
       restrict: 'A',
       scope: {
@@ -18,18 +18,39 @@ angular.module('arethusa.core').directive('tokenSelector', [
         };
 
         scope.$watch('countOfSelectedTokens()', function(newValue, oldValue) {
-            scope.hasNoTokensSelected = newValue === 0;
-            scope.hasSomeTokensSelected = newValue > 0 && newValue !== state.totalTokens;
-            scope.hasAllTokensSelected = newValue === state.totalTokens;
+          scope.hasNoTokensSelected = newValue === 0;
+          scope.hasSomeTokensSelected = newValue > 0 && newValue !== state.totalTokens;
+          scope.hasAllTokensSelected = newValue === state.totalTokens;
         });
+
+        scope.selectAll = function() {
+          state.multiSelect(Object.keys(scope.tokens));
+        };
+
+        scope.selectUnused = function() {
+          var unused = scope.tokensWithoutHead();
+          state.multiSelect(_.map(unused, function(token) { return token.id; }));
+        };
 
         scope.changeSelection = function() {
           if (scope.hasNoTokensSelected) {
-            state.multiSelect(Object.keys(scope.tokens));
+            scope.selectAll();
           } else {
             state.deselectAll();
           }
         };
+
+        scope.tokensWithoutHead = function() {
+          return _.filter(scope.tokens, function(token) {
+            return !token.head.id;
+          });
+        };
+
+        scope.selectors = [
+            {id: 0, label: function() { return "All"; }, action: scope.selectAll},
+            {id: 1, label: function() { return "None"; }, action: state.deselectAll},
+            {id: 2, label: function() { return scope.tokensWithoutHead().length + " unused"; }, action: scope.selectUnused}
+        ];
       },
       templateUrl: 'templates/arethusa.core/token_selector.html'
     };

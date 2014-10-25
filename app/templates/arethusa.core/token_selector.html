@@ -8,3 +8,8 @@
   ng-checked="hasAllTokensSelected || hasSomeTokensSelected"
   ui-indeterminate="hasSomeTokensSelected">
 </input>
+<select
+  ng-model="selector"
+  ng-change="selector.action()"
+  ng-options="s as s.label() for s in selectors">
+</select>
