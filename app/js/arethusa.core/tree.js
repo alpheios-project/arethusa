@@ -128,8 +128,8 @@ angular.module('arethusa.core').factory('Tree', [
       }
 
       function prependTemplate(template) {
-        var el = '<span ng-include="' + template + '"/>';
-        element.prepend($compile(el)(scope));
+        var el = '<span class="right" ng-include="' + template + '"/>';
+        angular.element(element[0].previousElementSibling).append($compile(el)(scope));
       }
 
       scope.focusTemplate = templatePath('focus_controls');
