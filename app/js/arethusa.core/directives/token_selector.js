@@ -21,7 +21,17 @@ angular.module('arethusa.core').directive('tokenSelector', [
           scope.hasNoTokensSelected = newValue === 0;
           scope.hasSomeTokensSelected = newValue > 0 && newValue !== state.totalTokens;
           scope.hasAllTokensSelected = newValue === state.totalTokens;
+
+          scope.updateSelect();
         });
+
+        scope.updateSelect = function() {
+          if (scope.hasAllTokensSelected) {
+            scope.selector = scope.selectors[0];
+          } else if (scope.hasNoTokensSelected) {
+            scope.selector = scope.selectors[1];
+          }
+        };
 
         scope.selectAll = function() {
           state.multiSelect(Object.keys(scope.tokens));

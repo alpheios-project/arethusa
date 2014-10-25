@@ -1,5 +1,4 @@
 <input
-  style="margin-left: 10px"
   type="checkbox"
   tooltip="You can also hit the escape key to deselect tokens"
   tooltip-popup-delay="700"
@@ -9,6 +8,7 @@
   ui-indeterminate="hasSomeTokensSelected">
 </input>
 <select
+  style="width: 100px"
   ng-model="selector"
   ng-change="selector.action()"
   ng-options="s as s.label() for s in selectors">
