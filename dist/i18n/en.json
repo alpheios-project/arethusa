@@ -1,4 +1,5 @@
 {
+  "date": "date",
   "preview": "Preview",
   "download": "Download",
   "submit": "Submit",
@@ -147,6 +148,8 @@
     "errorAcrossSentences": "Cannot change heads across sentences"
   },
   "helpPanel": {
+    "about": "About Arethusa",
+    "revision": "Revision",
     "keyboardShortcuts": "Keyboard Shortcuts",
     "colorLegends": "Color Legends"
   },
