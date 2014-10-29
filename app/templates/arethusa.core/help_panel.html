@@ -1,62 +1,42 @@
 <div ng-if="active" class="fade">
-  <br/>
-  <div class="text">
-    <div help-panel-heading toggler="colors" heading="helpPanel.colorLegends"/>
-    <div
-      class="small-12 columns scrollable slider"
-      style="height: 400px"
-      ng-if="visible.colors">
-      <ul class="no-list" ng-repeat="(name, map) in gS.colorMaps()">
-        <li
-          ng-class="{ 'active-colorizer': name === gS.colorizer }">
-          {{ name }}
-        </li>
-        <table class="small">
-          <tr>
-            <th ng-repeat="header in map.header">
-              <strong>{{ header }}</strong>
-            </th>
-          </tr>
-          <tr ng-repeat="(k, col) in map.colors">
-            <td
-              ng-style="col"
-              ng-repeat="val in k.split(' || ') track by $index">
-              {{ val }}
-            </td>
-          </tr>
-        </table>
-      </ul>
-    </div>
+  <div help-panel-item toggler="colors" heading="helpPanel.colorLegends" height="400px">
+    <ul class="no-list" ng-repeat="(name, map) in gS.colorMaps()">
+      <li
+        ng-class="{ 'active-colorizer': name === gS.colorizer }">
+        {{ name }}
+      </li>
+      <table class="small">
+        <tr>
+          <th ng-repeat="header in map.header">
+            <strong>{{ header }}</strong>
+          </th>
+        </tr>
+        <tr ng-repeat="(k, col) in map.colors">
+          <td
+            ng-style="col"
+            ng-repeat="val in k.split(' || ') track by $index">
+            {{ val }}
+          </td>
+        </tr>
+      </table>
+    </ul>
   </div>
-  <div delimiter/>
 
-  <div class="text">
-    <div help-panel-heading toggler="keys" heading="helpPanel.keyboardShortcuts"/>
-    <div
-      class="small-12 columns scrollable slider"
-      style="height: 400px"
-      ng-if="visible.keys">
-      <ul class="no-list" ng-repeat="(section, keys) in kC.activeKeys">
-        <li>{{ section }}</li>
-        <table class="small">
-          <tr ng-repeat="(name, key) in keys">
-            <td><strong>{{ key }}</strong></td><td>{{ name}}</td>
-          </tr>
-        </table>
-      </ul>
-    </div>
+  <div help-panel-item toggler="keys" heading="helpPanel.keyboardShortcuts" height="400px">
+    <ul class="no-list" ng-repeat="(section, keys) in kC.activeKeys">
+      <li>{{ section }}</li>
+      <table class="small">
+        <tr ng-repeat="(name, key) in keys">
+          <td><strong>{{ key }}</strong></td><td>{{ name}}</td>
+        </tr>
+      </table>
+    </ul>
   </div>
-  <div delimiter/>
 
-  <div class="text">
-    <div help-panel-heading toggler="about" heading="helpPanel.about"/>
-    <div
-      class="small-12 columns scrollable slider"
-      style="height: 100px"
-      ng-if="visible.about">
-      <ul class="no-list">
-        <li>
-          <table class="small">
+  <div help-panel-item toggler="about" heading="helpPanel.about" height="100px">
+    <ul class="no-list">
+      <li>
+        <table class="small">
           <tr>
             <td translate="helpPanel.revision"/>
             <td>
@@ -69,8 +49,8 @@
             <td translate="date"/>
             <td>{{ vers.date | date: 'medium' }}</td>
           <tr>
-        </li>
-      </ul>
-    </div>
+        </table>
+      </li>
+    </ul>
   </div>
 </div>

@@ -1,0 +1,10 @@
+<div delimiter/>
+<div class="text">
+  <div help-panel-heading toggler="{{ toggler }}" heading="{{ heading }}"/>
+  <div
+    class="small-12 columns scrollable slider"
+    style="height: {{ height }}"
+    ng-if="visible[toggler]"
+    ng-transclude>
+  </div>
+</div>
