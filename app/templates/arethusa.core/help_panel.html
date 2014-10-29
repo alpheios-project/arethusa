@@ -46,4 +46,31 @@
       </ul>
     </div>
   </div>
+  <div delimiter/>
+
+  <div class="text">
+    <div help-panel-heading toggler="about" heading="about"/>
+    <div
+      class="small-12 columns scrollable slider"
+      style="height: 100px"
+      ng-if="visible.about">
+      <ul class="no-list">
+        <li>
+          <table class="small">
+          <tr>
+            <td translate="helpPanel.revision"/>
+            <td>
+              <a ng-href="{{ vers.commitUrl }}" target="_blank">
+                {{ vers.revision }}
+              </a>
+            </td>
+          <tr>
+          <tr>
+            <td translate="helpPanel.date"/>
+            <td>{{ vers.date | date: 'medium' }}</td>
+          <tr>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
