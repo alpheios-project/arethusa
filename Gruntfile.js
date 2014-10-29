@@ -1,5 +1,7 @@
 "use strict";
 
+var shell = require('shelljs');
+
 var srcFiles = 'app/**/*.js';
 var htmlFiles = 'app/**/*.html';
 var cssFiles = 'app/**/*.scss';
@@ -518,6 +520,9 @@ module.exports = function(grunt) {
           'gem install sass -v 3.3.14',
           'gem install arethusa-cli'
         ].join('&&')
+      },
+      currentCommit: {
+        command: 'git rev-parse HEAD'
       }
     },
     concurrent: {
@@ -542,13 +547,21 @@ module.exports = function(grunt) {
     clean: ['dist/*.js', 'dist/*.map']
   });
 
+  grunt.registerTask('version', function() {
+    var template = grunt.file.read('./app/js/arethusa/.version_template.js');
+    var sha = shell.exec('git rev-parse HEAD', { silent: true }).output;
+    var args = { data: { sha: sha.replace(/(\r\n|\n|\r)/gm, '') } };
+    var result = grunt.template.process(template, args);
+    grunt.file.write('./app/js/arethusa/version.js', result);
+  });
+
   grunt.registerTask('default', ['karma:spec', 'jshint']);
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
 
   // These two server tasks are usually everything you need!
-  grunt.registerTask('server', ['clean', 'minify:all', 'connect:server']);
-  grunt.registerTask('reloading-server', ['clean', 'concurrent:server']);
+  grunt.registerTask('server', ['clean', 'version', 'minify:all', 'connect:server']);
+  grunt.registerTask('reloading-server', ['clean', 'version', 'concurrent:server']);
 
   grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
