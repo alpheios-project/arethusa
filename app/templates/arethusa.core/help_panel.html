@@ -1,11 +1,7 @@
 <div ng-if="active" class="fade">
   <br/>
   <div class="text">
-    <p
-      class="text underline clickable"
-      ng-click="toggle('colors')">
-      <span translate="helpPanel.colorLegends"/>
-    </p>
+    <div help-panel-heading toggler="colors" heading="helpPanel.colorLegends"/>
     <div
       class="small-12 columns scrollable slider"
       style="height: 400px"
@@ -35,11 +31,7 @@
   <div delimiter/>
 
   <div class="text">
-    <p
-      class="text underline clickable"
-      ng-click="toggle('keys')">
-      <span translate="helpPanel.keyboardShortcuts"/>
-    </p>
+    <div help-panel-heading toggler="keys" heading="helpPanel.keyboardShortcuts"/>
     <div
       class="small-12 columns scrollable slider"
       style="height: 400px"
