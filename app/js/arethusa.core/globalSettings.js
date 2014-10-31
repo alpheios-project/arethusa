@@ -11,6 +11,7 @@ angular.module('arethusa.core').service('globalSettings', [
   function(configurator,  plugins, $injector, $rootScope, notifier, $timeout) {
     var self = this;
 
+    self.layout = {};
     self.settings = {};
     self.colorizers = { disabled: true };
 
