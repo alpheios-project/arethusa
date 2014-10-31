@@ -90,13 +90,16 @@ angular.module('arethusa.core').service('arethusaGrid', [
     };
 
     function loadLayout(event, layout) {
-      var grid = layout.grid;
-      if (grid) {
-        self.items = arethusaUtil.map(grid, function(item) {
-          return new Item(item.plugin, item.size, item.position, item.style);
-        });
+      if (layout.grid) {
+        loadGridItems();
         loadItemList();
       }
+    }
+
+    function loadGridItems() {
+      self.items = arethusaUtil.map(globalSettings.layout.grid, function(item) {
+        return new Item(item.plugin, item.size, item.position, item.style);
+      });
     }
 
     function loadItemList(args) {
@@ -115,6 +118,11 @@ angular.module('arethusa.core').service('arethusaGrid', [
       // And startup the initial layout
       loadLayout(null, globalSettings.layout);
     };
+
+    // Immediately set first grid items. The plugins which are held by them, will
+    // only load in a following digest cycle when the plugins load - but we want
+    // to present the user with something immediately, for aesthetic reasons only.
+    loadGridItems();
 
     // Scenario 1: When the application starts
     $rootScope.$on('pluginsLoaded', self.init);
