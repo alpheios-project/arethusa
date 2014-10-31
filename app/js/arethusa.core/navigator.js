@@ -16,7 +16,7 @@ angular.module('arethusa.core').service('navigator', [
       return layoutConf.chunkSize;
     }
     function initChunkSize() {
-      return layoutChunkSize()|| self.conf.chunkSize || 1;
+      return layoutChunkSize() || self.conf.chunkSize || 1;
     }
 
     this.init = function() {
@@ -44,11 +44,11 @@ angular.module('arethusa.core').service('navigator', [
       });
 
       navigator.chunkMode = 'sentence';
-    };
 
-    $rootScope.$on('layoutChange', function(ev, layout) {
-      self.changeChunkSize(initChunkSize());
-    });
+      $rootScope.$on('layoutChange', function(ev, layout) {
+        self.changeChunkSize(initChunkSize());
+      });
+    };
 
     this.applyChunkMode = function() {
       // tbd - we only support sentences so far
