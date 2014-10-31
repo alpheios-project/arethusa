@@ -11,12 +11,9 @@
 </div>
 
 <div ng-repeat="(id, obj) in plugin.currentLabels()">
-  <div class="small-12 columns">
-    <p token-with-id value="obj.string" token-id="id"/p>
-    <div
-      label-selector
-      obj="obj.relation">
+    <div class="small-12 columns" style="padding-bottom: 1rem">
+      <div token-with-id value="obj.string" token-id="id" style="padding-bottom: .4rem"/>
+      <div label-selector obj="obj.relation"/>
     </div>
-  </div>
 </div>
 
