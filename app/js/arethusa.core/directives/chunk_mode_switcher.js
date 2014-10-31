@@ -10,10 +10,11 @@ angular.module('arethusa.core').directive('chunkModeSwitcher', [
       scope: {},
       link: function(scope, element, attrs) {
         scope.navi = navigator;
-        scope.size = navigator.chunkSize;
 
         var tr = {};
         translator('navigator.chunkSizeError', tr, 'chunkSizeError');
+
+        scope.$watch('navi.chunkSize', function(newVal) { scope.size = newVal; });
 
         scope.tryToSetChunkSize = function() {
           var size = scope.size;
