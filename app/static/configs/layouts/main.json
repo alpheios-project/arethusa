@@ -1,0 +1,83 @@
+{
+  "layouts" : [
+    {
+      "name" : "Sidepanel",
+      "template" : "templates/main_with_sidepanel.html"
+    },
+    {
+      "name" : "Grid",
+      "template" : "templates/main_grid.html",
+      "grid" : [
+        {
+          "plugin" : "text",
+          "size" : [14, 1],
+          "position" : [0, 0]
+        },
+        {
+          "plugin" : "depTree",
+          "size" : [9, 8],
+          "position" : [2, 0],
+          "style" : { "overflow": "hidden"}
+        },
+        {
+          "plugin" : "morph",
+          "size" : [5, 8],
+          "position" : [1, 9]
+        },
+        {
+          "plugin" : "search",
+          "size" : [6, 2],
+          "position" : [0, 14]
+        },
+        {
+          "plugin" : "relation",
+          "size" : [6, 3],
+          "position" : [2, 14]
+        },
+        {
+          "plugin" : "artificialToken",
+          "size" : [6, 4],
+          "position" : [7, 14]
+        }
+      ]
+    },
+
+    {
+      "name" : "Grid for Comments",
+      "template" : "templates/main_grid.html",
+      "grid" : [
+        {
+          "plugin" : "text",
+          "size" : [14, 1],
+          "position" : [0, 0]
+        },
+        {
+          "plugin" : "depTree",
+          "size" : [9, 8],
+          "position" : [2, 0],
+          "style" : { "overflow": "hidden"}
+        },
+        {
+          "plugin" : "morph",
+          "size" : [5, 8],
+          "position" : [1, 9]
+        },
+        {
+          "plugin" : "search",
+          "size" : [6, 2],
+          "position" : [0, 14]
+        },
+        {
+          "plugin" : "relation",
+          "size" : [6, 3],
+          "position" : [2, 14]
+        },
+        {
+          "plugin" : "comments",
+          "size" : [6, 4],
+          "position" : [7, 14]
+        }
+      ]
+    }
+  ]
+}
