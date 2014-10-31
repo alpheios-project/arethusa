@@ -44,8 +44,11 @@
     },
 
     {
-      "name" : "Grid",
+      "name" : "Text Grid",
       "template" : "templates/main_grid.html",
+      "navigator" : {
+        "chunkSize" : 2
+      },
       "grid" : [
         {
           "plugin" : "text",
