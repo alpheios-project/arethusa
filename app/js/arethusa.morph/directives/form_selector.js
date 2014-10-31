@@ -24,12 +24,11 @@ angular.module('arethusa.morph').directive('formSelector', function () {
       element.bind('click', action);
     },
     template: '\
-      <span\
-        class="button micro radius"\
-        title="{{ title }}"\
-        ng-class="{ success: form.selected }">\
-          <i class="fi-{{ iconClass }}"></i>\
-      </span>\
+      <input\
+        type="checkbox"\
+        class="postag-selector"\
+        ng-checked="form.selected">\
+      </input>\
     '
   };
 });
