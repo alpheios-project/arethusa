@@ -1,4 +1,5 @@
 {
+  "date": "Datum",
   "preview": "Vorschau",
   "download": "Download",
   "submit": "Absenden",
@@ -147,6 +148,8 @@
     "errorAcrossSentences": "Heads können nicht über Satzgrenzen hinweg verändert werden"
   },
   "helpPanel": {
+    "about": "Über Arethusa",
+    "revision": "Revision",
     "keyboardShortcuts": "Tastaturkürzel",
     "colorLegends": "Farblegenden"
   },

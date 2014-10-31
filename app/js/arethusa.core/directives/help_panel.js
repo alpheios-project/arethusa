@@ -4,8 +4,9 @@ angular.module('arethusa.core').directive('helpPanel', [
   'help',
   'keyCapture',
   'globalSettings',
+  'versioner',
   '$timeout',
-  function(help, keyCapture, globalSettings, $timeout) {
+  function(help, keyCapture, globalSettings, versioner, $timeout) {
     return {
       restrict: 'A',
       scope: {},
@@ -13,6 +14,7 @@ angular.module('arethusa.core').directive('helpPanel', [
         scope.help = help;
         scope.kC = keyCapture;
         scope.gS = globalSettings;
+        scope.vers = versioner;
 
         scope.visible = {};
 
