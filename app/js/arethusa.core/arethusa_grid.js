@@ -6,7 +6,8 @@ angular.module('arethusa.core').service('arethusaGrid', [
   'plugins',
   '$rootScope',
   'notifier',
-  function(gridsterConfig, $window, plugins, $rootScope, notifier) {
+  'globalSettings',
+  function(gridsterConfig, $window, plugins, $rootScope, notifier, globalSettings) {
     var self = this;
 
     var win = angular.element($window);
@@ -52,15 +53,6 @@ angular.module('arethusa.core').service('arethusaGrid', [
       };
     }
 
-    this.items = [
-      new Item('text',     [14, 1], [0, 0]),
-      new Item('depTree',  [9, 8],  [2, 0], { overflow: 'hidden'} ),
-      new Item('morph',    [5, 8],  [1, 9]),
-      new Item('search',   [6, 2],  [0, 14]),
-      new Item('relation', [6, 3],  [2, 14]),
-      new Item('artificialToken', [6, 4],  [7, 14])
-    ];
-
     this.addItem = function(name) {
       self.items.push(new Item(name));
       notifier.success(name + ' added to the grid!');
@@ -97,7 +89,17 @@ angular.module('arethusa.core').service('arethusaGrid', [
       }
     };
 
-    this.init = function() {
+    function loadLayout(event, layout) {
+      var grid = layout.grid;
+      if (grid) {
+        self.items = arethusaUtil.map(grid, function(item) {
+          return new Item(item.plugin, item.size, item.position, item.style);
+        });
+        loadItemList();
+      }
+    }
+
+    function loadItemList(args) {
       self.itemList = arethusaUtil.inject({}, plugins.all, function(memo, name, pl) {
         memo[name] = false;
       });
@@ -105,6 +107,13 @@ angular.module('arethusa.core').service('arethusaGrid', [
       angular.forEach(self.items, function(el, i) {
         self.itemList[el.plugin] = true;
       });
+    }
+
+    this.init = function() {
+      // Set a listener for future layout changes
+      $rootScope.$on('layoutChange', loadLayout);
+      // And startup the initial layout
+      loadLayout(null, globalSettings.layout);
     };
 
     // Scenario 1: When the application starts
