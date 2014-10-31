@@ -598,6 +598,10 @@ div.citbibl {
   }
 }
 
+.postag {
+  @extend .note;
+  font-family: "Lucida Console", Monaco, monospace;
+}
 
 select.compact, input.compact {
   height: 1.8rem;
