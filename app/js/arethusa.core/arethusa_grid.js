@@ -102,14 +102,21 @@ angular.module('arethusa.core').service('arethusaGrid', [
       });
     }
 
-    function loadItemList(args) {
+    function getCleanItemList() {
       self.itemList = arethusaUtil.inject({}, plugins.all, function(memo, name, pl) {
         memo[name] = false;
       });
+    }
 
+    function activateActiveItems() {
       angular.forEach(self.items, function(el, i) {
         self.itemList[el.plugin] = true;
       });
+    }
+
+    function loadItemList(args) {
+      getCleanItemList();
+      activateActiveItems();
     }
 
     this.init = function() {
