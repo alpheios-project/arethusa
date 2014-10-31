@@ -143,6 +143,7 @@ angular.module('arethusa.core').service('globalSettings', [
     function loadLayouts() {
       self.layouts = configurator.configurationFor('main').layouts;
       self.layout  = self.layouts[0];
+      self.broadcastLayoutChange();
     }
 
     // When Arethusa is used as widget, it's imperative to wait
@@ -150,7 +151,7 @@ angular.module('arethusa.core').service('globalSettings', [
     $rootScope.$on('confLoaded', loadLayouts);
 
     this.broadcastLayoutChange = function() {
-      if (self.layout.name === 'Grid') {
+      if (self.layout.grid) {
         $timeout(function() {
           notifier.warning('The grid layout is an experimental feature and WILL contain bugs!', 'WARNING');
         }, 1200);
