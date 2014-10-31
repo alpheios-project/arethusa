@@ -1,83 +1,85 @@
 {
   "layouts" : [
     {
+      "name" : "Grid",
+      "template" : "templates/main_grid.html",
+      "grid" : [
+        {
+          "plugin" : "text",
+          "size" : [35, 3],
+          "position" : [0, 0]
+        },
+        {
+          "plugin" : "depTree",
+          "size" : [23, 25],
+          "position" : [4, 0],
+          "style" : { "overflow": "hidden"}
+        },
+        {
+          "plugin" : "morph",
+          "size" : [12, 25],
+          "position" : [7, 23]
+        },
+        {
+          "plugin" : "search",
+          "size" : [13, 6],
+          "position" : [0, 36]
+        },
+        {
+          "plugin" : "relation",
+          "size" : [13, 9],
+          "position" : [7, 36]
+        },
+        {
+          "plugin" : "artificialToken",
+          "size" : [13, 13],
+          "position" : [16, 36]
+        }
+      ]
+    },
+
+    {
       "name" : "Sidepanel",
       "template" : "templates/main_with_sidepanel.html"
     },
+
     {
       "name" : "Grid",
       "template" : "templates/main_grid.html",
       "grid" : [
         {
           "plugin" : "text",
-          "size" : [14, 1],
+          "size" : [35, 3],
           "position" : [0, 0]
         },
         {
           "plugin" : "depTree",
-          "size" : [9, 8],
-          "position" : [2, 0],
+          "size" : [23, 25],
+          "position" : [4, 0],
           "style" : { "overflow": "hidden"}
         },
         {
           "plugin" : "morph",
-          "size" : [5, 8],
-          "position" : [1, 9]
+          "size" : [12, 25],
+          "position" : [7, 23]
         },
         {
           "plugin" : "search",
-          "size" : [6, 2],
-          "position" : [0, 14]
+          "size" : [13, 6],
+          "position" : [0, 36]
         },
         {
           "plugin" : "relation",
-          "size" : [6, 3],
-          "position" : [2, 14]
-        },
-        {
-          "plugin" : "artificialToken",
-          "size" : [6, 4],
-          "position" : [7, 14]
-        }
-      ]
-    },
-
-    {
-      "name" : "Grid for Comments",
-      "template" : "templates/main_grid.html",
-      "grid" : [
-        {
-          "plugin" : "text",
-          "size" : [14, 1],
-          "position" : [0, 0]
-        },
-        {
-          "plugin" : "depTree",
-          "size" : [9, 8],
-          "position" : [2, 0],
-          "style" : { "overflow": "hidden"}
-        },
-        {
-          "plugin" : "morph",
-          "size" : [5, 8],
-          "position" : [1, 9]
-        },
-        {
-          "plugin" : "search",
-          "size" : [6, 2],
-          "position" : [0, 14]
-        },
-        {
-          "plugin" : "relation",
-          "size" : [6, 3],
-          "position" : [2, 14]
+          "size" : [13, 9],
+          "position" : [7, 36]
         },
         {
           "plugin" : "comments",
-          "size" : [6, 4],
-          "position" : [7, 14]
+          "size" : [13, 13],
+          "position" : [16, 36]
         }
       ]
     }
   ]
 }
+

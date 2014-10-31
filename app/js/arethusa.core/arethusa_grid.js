@@ -25,7 +25,7 @@ angular.module('arethusa.core').service('arethusaGrid', [
     this.setFloating = function(val) { self.options.floating = val; };
 
     this.options = angular.extend(gridsterConfig, {
-      columns: 20,
+      columns: 48,
       rowHeight: 'match',
       defaultSizeX: 6,
       defaultSizeY: 4,
