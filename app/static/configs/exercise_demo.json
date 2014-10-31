@@ -1,6 +1,11 @@
 {
   "main" : {
-    "template"  : "templates/exercise_demo.html",
+    "layouts" : [
+      {
+        "name" : "Demo",
+        "template"  : "templates/exercise_demo.html"
+      }
+    ],
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "fakePerseids"

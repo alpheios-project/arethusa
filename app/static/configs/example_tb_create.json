@@ -2,7 +2,7 @@
   "main" : {
     "debug" : true,
     "showKeys" : true,
-    "template"  : "templates/main_with_sidepanel.html",
+    "@include" : "layouts/main.json",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "demoXml",
