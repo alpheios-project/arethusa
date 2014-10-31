@@ -4,8 +4,7 @@ angular.module('arethusa.core').directive('sidepanelFolder', [
   'sidepanel',
   '$window',
   'translator',
-  '$rootScope',
-  function(sidepanel, $window, translator, $rootScope) {
+  function(sidepanel, $window, translator) {
     return {
       scope: {},
       link: function (scope, element, attrs) {
