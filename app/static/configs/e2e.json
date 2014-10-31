@@ -1,6 +1,11 @@
 {
   "main" : {
-    "@include" : "layouts/main.json",
+    "layouts" : [
+      {
+        "name" : "Sidepanel",
+        "template" : "templates/main_with_sidepanel.html"
+      }
+    ],
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "e2e"
