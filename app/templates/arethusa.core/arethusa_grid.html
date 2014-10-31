@@ -3,7 +3,7 @@
     <li
       gridster-item="item"
       ng-style="item.style"
-      ng-repeat="item in grid.items">
+      ng-repeat="item in grid.items track by item.plugin">
       <arethusa-grid-handle>Handle</arethusa-grid-handle>
       <plugin name="{{ item.plugin }}"></plugin>
     </li>
