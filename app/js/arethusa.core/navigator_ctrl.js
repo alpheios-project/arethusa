@@ -2,7 +2,8 @@
 angular.module('arethusa.core').controller('NavigatorCtrl', [
   '$scope',
   'navigator',
-  function ($scope, navigator) {
+  'translator',
+  function ($scope, navigator, translator) {
     $scope.next = function () {
       navigator.nextChunk();
     };
@@ -59,5 +60,11 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
         $scope.ids = formatIds(newVal);
       }
     });
+
+    $scope.trsls = {};
+    translator('navigator.goToNext', $scope.trsls, 'goToNext');
+    translator('navigator.goToPrev', $scope.trsls, 'goToPrev');
+    translator('navigator.goToFirst', $scope.trsls, 'goToFirst');
+    translator('navigator.goToLast', $scope.trsls, 'goToLast');
   }
 ]);
