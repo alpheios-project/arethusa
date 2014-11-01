@@ -1,18 +1,16 @@
 "use strict";
 
 angular.module('arethusa.core').service('sidepanel', [
-  'configurator',
-  function(configurator) {
+  'globalSettings',
+  '$rootScope',
+  '$timeout',
+  function(globalSettings, $rootScope, $timeout) {
     var self = this;
-
-    this.folded = configurator.configurationFor('main').foldSidepanel;
+    var main, panel;
 
     function get(id) {
       return angular.element(document.getElementById(id));
     }
-
-    var main = get('main-body');
-    var panel = get('sidepanel');
 
     function show() {
       main.width(main.width() - panel.width());
@@ -25,7 +23,20 @@ angular.module('arethusa.core').service('sidepanel', [
     }
 
     function init() {
-      if (self.folded) hide();
+      var layout = globalSettings.layout;
+      self.active = layout.sidepanel;
+      if (self.active) {
+        self.folded = layout.folded;
+
+        // Need a timeout - when a layout change has just been
+        // initialized we need to wait for the next digest -
+        // otherwise we won't have a sidepanel element in our DOM
+        $timeout(function() {
+          main  = get('main-body');
+          panel = get('sidepanel');
+          if (self.folded) hide();
+        });
+      }
     }
 
     this.toggle = function() {
@@ -60,6 +71,9 @@ angular.module('arethusa.core').service('sidepanel', [
     };
 
     this.activeKeys = {};
+
+
+    $rootScope.$on('layoutChange', init);
 
     init();
   }

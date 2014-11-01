@@ -40,7 +40,8 @@
 
     {
       "name" : "Sidepanel",
-      "template" : "templates/main_with_sidepanel.html"
+      "template" : "templates/main_with_sidepanel.html",
+      "sidepanel" : true
     },
 
     {
