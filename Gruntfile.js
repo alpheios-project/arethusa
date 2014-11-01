@@ -554,8 +554,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('version', function() {
     var template = grunt.file.read('./app/js/arethusa/.version_template.js');
-    var sha  = shellOneLineOutput('git rev-parse HEAD');
-    var args = { data: { sha: sha } };
+    var sha    = shellOneLineOutput('git rev-parse HEAD');
+    var branch = shellOneLineOutput('git rev-parse --abbrev-ref HEAD');
+    var args = { data: { sha: sha, branch: branch } };
     var result = grunt.template.process(template, args);
     grunt.file.write('./app/js/arethusa/version.js', result);
   });
