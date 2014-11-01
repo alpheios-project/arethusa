@@ -35,9 +35,18 @@ angular.module('arethusa.core').directive('sidepanelFolder', [
 
         scope.sp = sidepanel;
 
-        scope.$watch('sp.folded', function(newVal, oldVal) {
-          setIconClassAndTitle();
-          win.trigger('resize');
+        var foldWatch = function() {};
+        scope.$watch('sp.active', function(newVal) {
+          if (newVal) {
+            element.show();
+            foldWatch = scope.$watch('sp.folded', function(newVal, oldVal) {
+              setIconClassAndTitle();
+              win.trigger('resize');
+            });
+          } else {
+            element.hide();
+            foldWatch();
+          }
         });
       },
       template: '<i ng-class="iconClass"/>'
