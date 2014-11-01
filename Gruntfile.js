@@ -296,14 +296,14 @@ module.exports = function(grunt) {
         files: [srcFiles, htmlFiles, cssFiles],
         tasks: 'minify:all',
         options: {
-          livereload: true
+          livereload: reloadPort
         }
       },
       serverNoCss: {
         files: [srcFiles, htmlFiles],
         tasks: 'minify',
         options: {
-          livereload: true,
+          livereload: reloadPort,
           spawn: false
         }
       },
@@ -460,7 +460,7 @@ module.exports = function(grunt) {
           port: devServerPort,
           debug: true,
           keepalive: true,
-          livereload: true
+          livereload: reloadPort
         }
       },
     },
