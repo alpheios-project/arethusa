@@ -2,7 +2,7 @@
   "main" : {
     "debug" : true,
     "showKeys" : true,
-    "template"  : "templates/main_grid.html",
+    "@include" : "layouts/main.json",
     "retrievers" : {
       "PhaidraTreebankRetriever" : {
         "resource" : "phaidraTreebanks",

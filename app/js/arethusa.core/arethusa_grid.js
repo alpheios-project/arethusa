@@ -6,7 +6,8 @@ angular.module('arethusa.core').service('arethusaGrid', [
   'plugins',
   '$rootScope',
   'notifier',
-  function(gridsterConfig, $window, plugins, $rootScope, notifier) {
+  'globalSettings',
+  function(gridsterConfig, $window, plugins, $rootScope, notifier, globalSettings) {
     var self = this;
 
     var win = angular.element($window);
@@ -24,7 +25,7 @@ angular.module('arethusa.core').service('arethusaGrid', [
     this.setFloating = function(val) { self.options.floating = val; };
 
     this.options = angular.extend(gridsterConfig, {
-      columns: 20,
+      columns: 48,
       rowHeight: 'match',
       defaultSizeX: 6,
       defaultSizeY: 4,
@@ -51,15 +52,6 @@ angular.module('arethusa.core').service('arethusaGrid', [
         style: style
       };
     }
-
-    this.items = [
-      new Item('text',     [14, 1], [0, 0]),
-      new Item('depTree',  [9, 8],  [2, 0], { overflow: 'hidden'} ),
-      new Item('morph',    [5, 8],  [1, 9]),
-      new Item('search',   [6, 2],  [0, 14]),
-      new Item('relation', [6, 3],  [2, 14]),
-      new Item('artificialToken', [6, 4],  [7, 14])
-    ];
 
     this.addItem = function(name) {
       self.items.push(new Item(name));
@@ -97,15 +89,47 @@ angular.module('arethusa.core').service('arethusaGrid', [
       }
     };
 
-    this.init = function() {
+    function loadLayout(event, layout) {
+      if (layout.grid) {
+        loadGridItems();
+        loadItemList();
+      }
+    }
+
+    function loadGridItems() {
+      self.items = arethusaUtil.map(globalSettings.layout.grid, function(item) {
+        return new Item(item.plugin, item.size, item.position, item.style);
+      });
+    }
+
+    function getCleanItemList() {
       self.itemList = arethusaUtil.inject({}, plugins.all, function(memo, name, pl) {
         memo[name] = false;
       });
+    }
 
+    function activateActiveItems() {
       angular.forEach(self.items, function(el, i) {
         self.itemList[el.plugin] = true;
       });
+    }
+
+    function loadItemList(args) {
+      getCleanItemList();
+      activateActiveItems();
+    }
+
+    this.init = function() {
+      // Set a listener for future layout changes
+      $rootScope.$on('layoutChange', loadLayout);
+      // And startup the initial layout
+      loadLayout(null, globalSettings.layout);
     };
+
+    // Immediately set first grid items. The plugins which are held by them, will
+    // only load in a following digest cycle when the plugins load - but we want
+    // to present the user with something immediately, for aesthetic reasons only.
+    loadGridItems();
 
     // Scenario 1: When the application starts
     $rootScope.$on('pluginsLoaded', self.init);

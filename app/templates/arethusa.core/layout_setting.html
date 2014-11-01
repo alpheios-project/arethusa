@@ -4,7 +4,7 @@
     style="width: 8rem"
     class="compact"
     ng-model="gS[setting.property]"
-    ng-change="gS.broadcastLayoutChange(name)"
-    ng-options="url as name for (url, name) in gS.layouts">
+    ng-change="gS.broadcastLayoutChange()"
+    ng-options="layout.name for layout in gS.layouts">
   </select>
 </label>

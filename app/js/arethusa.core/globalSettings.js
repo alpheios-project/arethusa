@@ -11,6 +11,7 @@ angular.module('arethusa.core').service('globalSettings', [
   function(configurator,  plugins, $injector, $rootScope, notifier, $timeout) {
     var self = this;
 
+    self.layout = {};
     self.settings = {};
     self.colorizers = { disabled: true };
 
@@ -140,27 +141,23 @@ angular.module('arethusa.core').service('globalSettings', [
       self.layout = configurator.configurationFor('main').template;
     }
 
+    function loadLayouts() {
+      self.layouts = configurator.configurationFor('main').layouts;
+      self.layout  = self.layouts[0];
+      self.broadcastLayoutChange();
+    }
+
     // When Arethusa is used as widget, it's imperative to wait
     // for this event.
-    $rootScope.$on('confLoaded', setLayout);
+    $rootScope.$on('confLoaded', loadLayouts);
 
     this.broadcastLayoutChange = function() {
-      var layoutName = self.layouts[self.layout];
-      if (layoutName === 'Grid') {
+      if (self.layout.grid) {
         $timeout(function() {
           notifier.warning('The grid layout is an experimental feature and WILL contain bugs!', 'WARNING');
         }, 1200);
       }
-      $rootScope.$broadcast('layoutChange', layoutName);
-    };
-
-    this.layouts = {
-      'templates/main_with_sidepanel.html': 'Sidepanel',
-      'templates/main_grid.html': 'Grid'
-    };
-
-    this.addLayout = function(name, url) {
-      self.layout[name] = url;
+      $rootScope.$broadcast('layoutChange', self.layout);
     };
 
     this.init = function() {

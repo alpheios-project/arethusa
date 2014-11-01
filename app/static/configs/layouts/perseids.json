@@ -1,0 +1,48 @@
+{
+  "layouts" : [
+    {
+      "name" : "Sidepanel",
+      "template" : "templates/main_with_sidepanel.html"
+    },
+    {
+      "name" : "Grid",
+      "template" : "templates/main_grid.html",
+      "grid" : [
+
+        {
+          "plugin" : "text",
+          "size" : [35, 3],
+          "position" : [0, 0]
+        },
+        {
+          "plugin" : "depTree",
+          "size" : [23, 25],
+          "position" : [4, 0],
+          "style" : { "overflow": "hidden"}
+        },
+        {
+          "plugin" : "morph",
+          "size" : [12, 25],
+          "position" : [7, 23]
+        },
+        {
+          "plugin" : "search",
+          "size" : [13, 6],
+          "position" : [0, 36]
+        },
+        {
+          "plugin" : "relation",
+          "size" : [13, 9],
+          "position" : [7, 36]
+        },
+        {
+          "plugin" : "artificialToken",
+          "size" : [13, 13],
+          "position" : [16, 36]
+        }
+      ]
+    }
+  ]
+}
+
+

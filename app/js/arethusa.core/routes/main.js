@@ -5,7 +5,7 @@ angular.module('arethusa.core').constant('MAIN_ROUTE', {
     <div>\
       <arethusa-navbar></arethusa-navbar>\
       <div\
-        ng-include="gS.layout"\
+        ng-include="gS.layout.template"\
          class="fade slow">\
       </div>\
     </div>\

@@ -1,7 +1,7 @@
 {
   "main" : {
     "showKeys" : true,
-    "template"  : "templates/main_with_sidepanel.html",
+    "@include" : "layouts/main.json",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "fakePerseids",
