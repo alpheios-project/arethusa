@@ -12,13 +12,13 @@ angular.module('arethusa.core').directive('valueWatch', function () {
       scope.$watch('target.' + scope.property, function(newVal, oldVal) {
         if (newVal) {
           scope.value = newVal;
-          scope.empty = false;
+          element.removeClass('bold');
         } else {
           scope.value = scope.emptyVal || '';
-          scope.empty = true;
+          element.addClass('bold');
         }
       });
     },
-    template: '<span ng-class="{ bold: empty }">{{ value }}</span>'
+    template: '<span>{{ value }}</span>'
   };
 });
