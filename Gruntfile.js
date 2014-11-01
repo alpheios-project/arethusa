@@ -38,6 +38,11 @@ var additionalDependencies = {
   ]
 };
 
+function shellOneLineOutput(command) {
+  var output = shell.exec(command, { silent: true }).output;
+  return output.replace(/(\r\n|\n|\r)/gm, '');
+}
+
 function eachModule(fn) {
   for (var i = arethusaModules.length - 1; i >= 0; i--){
     fn(arethusaModules[i]);
@@ -549,8 +554,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('version', function() {
     var template = grunt.file.read('./app/js/arethusa/.version_template.js');
-    var sha = shell.exec('git rev-parse HEAD', { silent: true }).output;
-    var args = { data: { sha: sha.replace(/(\r\n|\n|\r)/gm, '') } };
+    var sha    = shellOneLineOutput('git rev-parse HEAD');
+    var branch = shellOneLineOutput('git rev-parse --abbrev-ref HEAD');
+    var args = { data: { sha: sha, branch: branch } };
     var result = grunt.template.process(template, args);
     grunt.file.write('./app/js/arethusa/version.js', result);
   });
