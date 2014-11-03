@@ -51,5 +51,20 @@ describe('TreebankRetriever', function() {
       expect(tokenIds.length).toEqual(2); // 2 tokens
       expect(s1.tokens[tokenIds[0]].string).toEqual('a');
     });
+
+    it('does not fail when a treebank consists of a single sentence', function() {
+      var tb = toTreebank([[1, [[1, 'a'], [2, 'b']]]]);
+      retriever.parse(tb, callback);
+      expect(result.length).toEqual(1); // 1 sentence
+    });
+
+    // Tests the bug described in http://github.com/latin-language-toolkit/arethusa/issues/440
+    it('does not fail when a sentence consists of a single word', function() {
+      var tb = toTreebank([[1, [[1, 'a']]]]);
+      retriever.parse(tb, callback);
+
+      var tokenIds = Object.keys(result[0].tokens);
+      expect(tokenIds.length).toEqual(1); // 1 token
+    });
   });
 });
