@@ -101,7 +101,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
       var sentences = arethusaUtil.toAry(json.treebank.sentence);
       return arethusaUtil.inject([], sentences, function (memo, sentence, k) {
         var cite = extractCiteInfo(sentence);
-        memo.push(xmlSentenceToState(docId, sentence.word, sentence._id, cite));
+        var words = arethusaUtil.toAry(sentence.word);
+        memo.push(xmlSentenceToState(docId, words, sentence._id, cite));
       });
     }
 
