@@ -30,11 +30,16 @@ angular.module('arethusa.core').factory('Auth', [
     var translations = {};
     translator('auth.notLoggedIn', translations, 'notLoggedIn');
 
-    return function(conf) {
+    return function(conf, modeFn) {
       var self = this;
       self.conf = conf;
+      var skipModes = conf.skipModes || [];
 
       var authFailure;
+
+      function modeToSkip() {
+        return arethusaUtil.isIncluded(skipModes, modeFn());
+      }
 
       function loginWarning() {
         authFailure = true;
@@ -48,6 +53,7 @@ angular.module('arethusa.core').factory('Auth', [
       var pinger = new Pinger(conf.ping);
 
       this.checkAuthentication = function() {
+        if (modeToSkip()) return;
         pinger.checkAuth(noop, checkForAuthFailure);
       };
 
@@ -68,7 +74,7 @@ angular.module('arethusa.core').factory('Auth', [
 
         // If we had no authFailure before, avoid the indirection and
         // launch the callback right away.
-        if (!authFailure) {
+        if (!authFailure || modeToSkip()) {
           launch();
         } else {
           // Check auth will ideally restore our session cookie - we need to
