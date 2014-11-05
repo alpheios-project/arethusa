@@ -60,6 +60,11 @@
         "OaRetriever" : {
           "resource" : "arethusaServerOa"
         }
+      },
+      "persister" : {
+        "OaPersister" : {
+          "resource" : "arethusaServerOa"
+        }
       }
     },
 
