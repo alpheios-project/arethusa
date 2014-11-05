@@ -86,6 +86,12 @@ angular.module('arethusa.core').service('keyCapture', [
 
     var lookUpKey = [];
     this.getForeignKey = function(event, language) {
+
+      // Disallow modifier keys except for shift
+      if (event.altKey || event.ctrlKey) {
+        return undefined;
+      }
+
       var res = [];
       var keys = keysFor(language);
       var key = codesToKeys[event.keyCode];
