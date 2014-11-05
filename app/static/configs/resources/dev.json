@@ -35,6 +35,10 @@
     "params" : [ "doc" ]
   },
 
+  "arethusaServerOa" : {
+    "route" : "http://localhost:8082/examples/oa/oa1"
+  },
+
   "phaidraTreebanks" : {
     "route" : "http://localhost:8082/examples/treebanks/phaidra/:doc",
     "params" : [ "doc" ]

@@ -2,7 +2,7 @@
   "main" : {
     "debug" : true,
     "showKeys" : true,
-    "@include" : "layouts/main.json",
+    "@include" : "layouts/perseids.json",
     "chunkParam" : "chunk",
     "retrievers" : {
       "TreebankRetriever" : {
@@ -19,6 +19,7 @@
     },
     "plugins" : [
       "text",
+      "oa",
       "artificialToken",
       "search",
       "morph",
@@ -52,6 +53,14 @@
   "plugins" : {
     "perseids.translations" : {
       "location" : "http://localhost:8082/dist/perseids.translations.min.js"
+    },
+
+    "oa" : {
+      "retriever" : {
+        "OaRetriever" : {
+          "resource" : "arethusaServerOa"
+        }
+      }
     },
 
     "text" : {
