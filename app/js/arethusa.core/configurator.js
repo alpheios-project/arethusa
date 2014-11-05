@@ -304,6 +304,7 @@ angular.module('arethusa.core').service('configurator', [
     // We alias this for now as the function has to do the same -
     // we might need a new name for it but we'll fix that later
     this.getPersisters = this.getRetrievers;
+    this.getPersister  = this.getRetriever;
 
     this.getRetriever = function(retrievers) {
       var retrs = self.getRetrievers(retrievers);
