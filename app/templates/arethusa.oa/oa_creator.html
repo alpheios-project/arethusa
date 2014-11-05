@@ -1,0 +1,14 @@
+<span> {{ target }}</span>
+
+
+<input
+  type="text"
+  ng-model="body">
+</input>
+
+<select
+  ng-model="predicate"
+  ng-options="name for (name, ontology) in ontologies">
+</select>
+
+<span class="button tiny" ng-click="create()">Create</span>
