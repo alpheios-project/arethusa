@@ -3,9 +3,12 @@
 angular.module('arethusa.oa').service('oa', [
   'state',
   'configurator',
-  function(state, configurator) {
+  'oaHandler',
+  function(state, configurator, oaHandler) {
     var self = this;
     this.name = 'oa';
+
+    this.creatorOpen = false;
 
     var retriever, persister;
 
@@ -19,10 +22,33 @@ angular.module('arethusa.oa').service('oa', [
       persister = configurator.getPersister(self.conf.persister);
     }
 
+    function createInternalAnnotations() {
+      return arethusaUtil.inject({}, state.tokens, function(memo, id, token) {
+        memo[id] = token;
+      });
+    }
+
+    this.toggleCreator = function() {
+      self.creatorOpen = !self.creatorOpen;
+    };
+
+    this.getTarget = function() {
+      return oaHandler.generateTarget(Object.keys(state.clickedTokens));
+    };
+
+    this.save = function(target, body) {
+      console.log(target, body);
+    };
+
+    this.ontologies = {
+      'SAWS' : 'saws ont',
+      'foo'  : 'foo ont'
+    }
+
     this.init = function() {
       configure();
 
-      console.log(retriever, persister);
+      self.annotations = createInternalAnnotations();
       retriever.get(function(data) { console.log(data); });
     };
   }

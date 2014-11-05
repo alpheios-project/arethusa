@@ -1,1 +1,13 @@
 This is the HTML template for arethusa.oa
+
+<div ng-repeat="(id, token) in state.clickedTokens">
+  {{ id }}
+</div>
+
+<span class="button tiny" ng-click="plugin.toggleCreator()">
+  Create Annotation
+</span>
+
+<div ng-if="plugin.creatorOpen">
+  <div oa-creator="state.clickedTokens"/>
+</div>
