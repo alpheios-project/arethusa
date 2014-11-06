@@ -114,7 +114,7 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     function getDataFromInventory(form) {
-      if (inventory) {
+      if (inventory && form.lexInvLocation) {
         var urn = form.lexInvLocation.urn;
         inventory.getData(urn, form);
       }
