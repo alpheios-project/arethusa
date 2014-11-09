@@ -305,7 +305,9 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     // Probably could deregister/reregister that watch, but it doesn't hurt...
-    $rootScope.$on('tokenChange', self.markChunkChanged);
+    $rootScope.$on('tokenChange',  self.markChunkChanged);
+    $rootScope.$on('tokenAdded',   self.markChunkChanged);
+    $rootScope.$on('tokenRemoved', self.markChunkChanged);
     $rootScope.$on('layoutChange', resetList);
   }
 ]);
