@@ -1,7 +1,7 @@
 {
   "main" : {
     "debug" : true,
-    "@include" : "layouts/main.json",
+    "@include" : "layouts/perseids.json",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "demoXml",
