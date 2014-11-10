@@ -14,6 +14,8 @@ angular.module('arethusa.morph').directive('formSelector', function () {
             scope.plugin.setState(id, scope.form);
           }
         });
+        // remove focus so shortcut keys can work
+        event.target.blur();
       }
 
       scope.$watch('form.selected', function(newVal, oldVal) {
