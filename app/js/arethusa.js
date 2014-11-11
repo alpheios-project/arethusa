@@ -12,10 +12,11 @@ angular.module('arethusa', [
 angular.module('arethusa').config([
   '$routeProvider',
   '$translateProvider',
+  'localStorageServiceProvider',
   'LOCALES',
   'MAIN_ROUTE',
   'LANDING',
-  function ($routeProvider, $translateProvider,
+  function ($routeProvider, $translateProvider, localStorageServiceProvider,
             LOCALES, MAIN_ROUTE, LANDING) {
     if (aU.isArethusaMainApplication()) {
       $routeProvider.when('/', LANDING);
@@ -39,6 +40,8 @@ angular.module('arethusa').config([
       .registerAvailableLanguageKeys(LOCALES, localesMap)
       .determinePreferredLanguage()
       .fallbackLanguage('en');
+
+    localStorageServiceProvider.setPrefix('arethusa');
   },
 ]);
 
