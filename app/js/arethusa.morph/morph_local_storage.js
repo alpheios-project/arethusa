@@ -1,0 +1,56 @@
+"use strict";
+
+angular.module('arethusa.morph').service('morphLocalStorage', [
+  'plugins',
+  'localStorageService',
+  function(plugins, localStorageService) {
+    var self = this;
+
+    this.localStorageKey = 'morph.forms';
+
+    function key(k) {
+      return self.localStorageKey + '.' + k;
+    }
+
+
+    function getData(string, callback) {
+      var forms = retrieve(string);
+      callback(forms);
+    }
+
+    function retrieve(string) {
+      return localStorageService.get(key(string)) || [];
+    }
+
+    function persist(string, value) {
+      localStorageService.set(key(string), value);
+    }
+
+    this.retriever = {
+      getData: getData,
+      abort: function() {}
+    };
+
+    this.addForm = function(string, form) {
+      // Check if we already stored info about this word,
+      // if not add a need array to the store
+      var forms = retrieve(string) || [];
+      forms.push(form);
+      persist(string, forms);
+    };
+
+    this.removeForm = function(string, form) {
+      var forms = retrieve(string);
+      if (forms) {
+        // find element and remove it, when it's present
+        var stored = aU.find(forms, function (otherForm) {
+          return self.comparator(form, otherForm);
+        });
+        if (stored) {
+          forms.splice(forms.indexOf(stored), 1);
+        }
+        persist(string, forms);
+      }
+    };
+  }
+]);
