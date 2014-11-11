@@ -35,7 +35,11 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       // Check if we already stored info about this word,
       // if not add a need array to the store
       var forms = retrieve(string) || [];
-      forms.push(form);
+
+      // Store a copy and set the selected property to false!
+      var newForm = angular.copy(form);
+      newForm.selected = false;
+      forms.push(newForm);
       persist(string, forms);
     };
 
