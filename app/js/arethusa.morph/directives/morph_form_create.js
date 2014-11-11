@@ -5,7 +5,8 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
   'state',
   'notifier',
   'translator',
-  function(morph, state, notifier, translator) {
+  'morphLocalStorage',
+  function(morph, state, notifier, translator, morphLocalStorage) {
     return {
       restrict: 'E',
       scope: {
@@ -140,10 +141,12 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           scope.form.origin = 'you';
         }
 
+        // Most of this functionality should be moved into the service!
         function addForm() {
           var newForm = angular.copy(scope.form);
           scope.forms.push(newForm);
           morph.setState(scope.id, newForm);
+          morph.addToLocalStorage(scope.token.string, newForm);
           propagateToEqualTokens(newForm);
           var trsl = scope.translations.createSuccess;
           var msg = [trsl.start, state.asString(scope.id), trsl.end].join(' ');
