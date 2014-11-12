@@ -33,6 +33,15 @@
     </ul>
   </div>
 
+  <div help-panel-item toggler="messages" heading="messages" height="200px">
+    <ul style="list-style-type: none">
+      <li ng-repeat="message in notifier.messages">
+        <span>{{ message.time | date: "HH:mm:ss" }}</span>
+        <span class="{{ message.type }}-message-dark">{{ message.message }}</span>
+      </li>
+    </ul>
+  </div>
+
   <div help-panel-item toggler="about" heading="helpPanel.about" height="100px">
     <ul class="no-list">
       <li>
