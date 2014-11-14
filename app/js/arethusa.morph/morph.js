@@ -43,7 +43,8 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     function abortRetriever(retriever) {
-      retriever.abort();
+      var fn = retriever.abort;
+      if (angular.isFunction(fn)) fn();
     }
 
 
