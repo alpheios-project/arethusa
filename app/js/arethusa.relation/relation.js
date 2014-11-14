@@ -108,10 +108,10 @@ angular.module('arethusa.relation').service('relation', [
 
     this.selectByLabel = function (label) {
       var ids = arethusaUtil.inject([], self.relations, function (memo, id, rel) {
-          if (rel.relation.label === label) {
-            memo.push(id);
-          }
-        });
+        if (rel.relation.label === label) {
+          memo.push(id);
+        }
+      });
       state.multiSelect(ids);
     };
 
