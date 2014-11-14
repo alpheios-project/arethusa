@@ -19,10 +19,14 @@ angular.module('arethusa.relation').directive('labelSelector', [
         });
 
         scope.$on('nestedMenuSelection', function(event, obj) {
-          var oldAncestors = angular.copy(obj.ancestors);
-          $timeout(function() {
-            relation.changeState(obj, oldAncestors);
-          });
+          if (angular.isFunction(scope.change)) {
+            scope.change();
+          } else {
+            var oldAncestors = angular.copy(obj.ancestors);
+            $timeout(function() {
+              relation.changeState(obj, oldAncestors);
+            });
+          }
         });
       },
       templateUrl: 'templates/arethusa.relation/label_selector.html'
