@@ -4,7 +4,7 @@
 // - useful directives
 
 function ArethusaGenerator() {
-  this.panelTrigger = function (service, trsl, trslKey, template) {
+  this.panelTrigger = function (conf) {
     return {
       restrict: 'A',
       compile: function(element) {
@@ -16,16 +16,16 @@ function ArethusaGenerator() {
           function toggle() {
             scope.$apply(function() {
               element.toggleClass('on');
-              service.toggle();
+              conf.service.toggle();
             });
           }
 
-          trsl(trslKey, updateTitle);
+          conf.trsl(conf.trslKey, updateTitle);
 
           element.bind('click', toggle);
         };
       },
-      template: template
+      template: conf.template
     };
   };
 

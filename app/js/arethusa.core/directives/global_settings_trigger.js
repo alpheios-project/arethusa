@@ -4,8 +4,11 @@ angular.module('arethusa.core').directive('globalSettingsTrigger', [
   'globalSettings',
   'translator',
   function(globalSettings, translator) {
-    return aG.panelTrigger(
-      globalSettings, translator, 'globalSettings.title', '<i class="fi-widget"/>'
-    );
+    return aG.panelTrigger({
+      service: globalSettings,
+      trsl: translator,
+      trslKey: 'globalSettings.title',
+      template: '<i class="fi-widget"/>'
+    });
   }
 ]);
