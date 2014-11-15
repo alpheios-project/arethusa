@@ -8,21 +8,46 @@ function ArethusaGenerator() {
     return {
       restrict: 'A',
       compile: function(element) {
+        var hint;
+
         function updateTitle(translation) {
-          element.attr('title', translation);
+          var title = translation;
+          if (hint) title += ' (' + hint + ')';
+          element.attr('title', title);
         }
 
         return function link(scope, element, attrs) {
+          function executeToggle() {
+            element.toggleClass('on');
+            conf.service.toggle();
+          }
+
           function toggle() {
-            scope.$apply(function() {
-              element.toggleClass('on');
-              conf.service.toggle();
-            });
+            // Need to check for a running digest. When we trigger this
+            // function through a hotkey, the keyCapture service will
+            // have launched a digest already.
+            if (scope.$$phase) {
+              executeToggle();
+            } else {
+              scope.$apply(executeToggle);
+            }
           }
 
           conf.trsl(conf.trslKey, updateTitle);
 
           element.bind('click', toggle);
+
+          if (conf.kC) {
+            var keys = conf.kC.initCaptures(function(kC) {
+              var mapping = {};
+              mapping[conf.mapping.name] = [
+                kC.create('toggle', function() { toggle(); }, conf.mapping.key)
+              ];
+              return mapping;
+            });
+
+            hint = keys[conf.mapping.name].toggle;
+          }
         };
       },
       template: conf.template
