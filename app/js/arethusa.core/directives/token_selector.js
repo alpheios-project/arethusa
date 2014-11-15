@@ -56,11 +56,29 @@ angular.module('arethusa.core').directive('tokenSelector', [
           });
         };
 
+
         scope.selectors = [
-            {id: 0, label: function() { return "All"; }, action: scope.selectAll},
-            {id: 1, label: function() { return "None"; }, action: state.deselectAll},
-            {id: 2, label: function() { return scope.tokensWithoutHead().length + " unused"; }, action: scope.selectUnused}
+          {
+          id: 0,
+          label: function() {
+            return "All";
+          },
+          action: function() {
+            scope.resetActive();
+            scope.selectAll();
+          },
+          isActive: function() { return scope.hasAllTokensSelected; }
+        },
+        {id: 1, label: function() { return "None"; }, action: state.deselectAll, isActive: function() { return scope.hasNoTokensSelected; }},
+        {id: 2, label: function() { return scope.tokensWithoutHead().length + " unused"; },
+          action: scope.selectUnused, isActive: function(){ return false;}}
         ];
+
+        scope.resetActive = function() {
+          angular.forEach(scope.selectors, function(selector) {
+            selector.isActive = false;
+          });
+        };
       },
       templateUrl: 'templates/arethusa.core/token_selector.html'
     };
