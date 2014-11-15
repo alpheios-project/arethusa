@@ -23,6 +23,7 @@ angular.module('arethusa.core').directive('tokenSelector', [
           scope.hasAllTokensSelected = newValue === state.totalTokens;
 
           scope.updateSelect();
+          scope.updateSelectors();
         });
 
         scope.updateSelect = function() {
@@ -56,28 +57,44 @@ angular.module('arethusa.core').directive('tokenSelector', [
           });
         };
 
+        var noneSelector = {
+          label: function() { return "None"; },
+          action: state.deselectAll,
+          isActive: true
+        };
+
+        var allSelector = {
+          label: function() { return "All"; },
+          action: scope.selectAll,
+          isActive: false
+        };
+
+        var unusedSelector = {
+          label: function() { return scope.tokensWithoutHead().length + " unused"; },
+          action: scope.selectUnused,
+          isActive: false
+        };
 
         scope.selectors = [
-          {
-          id: 0,
-          label: function() {
-            return "All";
-          },
-          action: function() {
-            scope.resetActive();
-            scope.selectAll();
-          },
-          isActive: function() { return scope.hasAllTokensSelected; }
-        },
-        {id: 1, label: function() { return "None"; }, action: state.deselectAll, isActive: function() { return scope.hasNoTokensSelected; }},
-        {id: 2, label: function() { return scope.tokensWithoutHead().length + " unused"; },
-          action: scope.selectUnused, isActive: function(){ return false;}}
+          noneSelector,
+          allSelector,
+          unusedSelector
         ];
 
-        scope.resetActive = function() {
-          angular.forEach(scope.selectors, function(selector) {
-            selector.isActive = false;
+        scope.areAllSelected = function(tokens) {
+          return _.all(tokens, function(token) {
+            return state.isSelected(token.id);
           });
+        };
+
+        scope.updateSelectors = function() {
+          noneSelector.isActive = scope.hasNoTokensSelected;
+          allSelector.isActive = scope.hasAllTokensSelected;
+
+          var unusedTokens = scope.tokensWithoutHead();
+          unusedSelector.isActive = !scope.hasNoTokensSelected &&
+            scope.countOfSelectedTokens() === unusedTokens.length &&
+            scope.areAllSelected(unusedTokens);
         };
       },
       templateUrl: 'templates/arethusa.core/token_selector.html'

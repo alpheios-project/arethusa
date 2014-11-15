@@ -1,12 +1,13 @@
 <dl class="sub-nav">
   <dt>Selection:</dt>
   <dd ng-repeat="s in selectors" 
-      ng-class="{active: s.isActive()}">
+      ng-class="{active: s.isActive}">
       <a ng-click="s.action()">
         {{s.label()}}
       </a>
   </dd>
 </dl>
+<!--
 <input
   type="checkbox"
   tooltip="You can also hit the escape key to deselect tokens"
@@ -22,3 +23,4 @@
   ng-change="selector.action()"
   ng-options="s as s.label() for s in selectors">
 </select>
+-->
