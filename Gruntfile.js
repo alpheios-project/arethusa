@@ -66,7 +66,6 @@ function arethusaSourceFiles() {
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js",
     "./vendor/highlight/highlight.pack.js",
-    "./vendor/angular-highlightjs/angular-highlightjs.min.js"
   ];
 
   // Of some components there are no non-minified version available
@@ -75,6 +74,7 @@ function arethusaSourceFiles() {
     "./bower_components/angulartics/dist/angulartics-ga.min.js",
     "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
     "./bower_components/angular-gridster/dist/angular-gridster.min.js",
+    "./vendor/angular-highlightjs/angular-highlightjs.min.js"
   ];
 
   var result;
