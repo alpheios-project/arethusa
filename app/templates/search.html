@@ -13,6 +13,11 @@
   <ul lang-specific>
     <li
       ng-repeat="(id, type) in state.selectedTokens"
+      class="fade fast clickable"
+      ng-mouseenter="hovered = true"
+      ng-mouseleave="hovered = false"
+      ng-class="{ 'search-result-hovered': hovered }"
+      ng-click="state.deselectToken(id, type)"
       token-with-id
       value="state.asString(id)"
       token-id="id">

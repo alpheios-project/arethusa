@@ -905,6 +905,11 @@ code {
   }
 }
 
+.search-result-hovered {
+  background-color: #C8E5FF;
+  @include transition(background-color 50ms ease-in);
+}
+
 
 /***************************************************************************
  *                               Animations                                *
