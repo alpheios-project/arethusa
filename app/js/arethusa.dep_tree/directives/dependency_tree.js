@@ -144,7 +144,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Templates to be compiled in the course of this directive
         function rootTokenHtml() {
-          return '<span root-token root-id="' + rootId + '" s-id="' + inferSentenceId() + '">' +
+          return '<span root-token root-id="' + rootId + '" sentence-id="' + inferSentenceId() + '">' +
             rootText +
           '</span>';
         }
