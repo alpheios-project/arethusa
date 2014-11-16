@@ -24,7 +24,8 @@ angular.module('arethusa.depTree').service('depTree', [
   'globalSettings',
   'notifier',
   'translator',
-  function (state, configurator, globalSettings, notifier, translator) {
+  'idHandler',
+  function (state, configurator, globalSettings, notifier, translator, idHandler) {
     var self = this;
     this.name = "depTree";
 
@@ -124,17 +125,18 @@ angular.module('arethusa.depTree').service('depTree', [
     };
 
     this.toRoot = function(token) {
-      state.change(token, 'head.id', '0000');
+      var rootId = idHandler.getId('0', token.sentenceId);
+      state.change(token, 'head.id', rootId);
     };
 
     function getHeadsToChange(token) {
-      var sId = token.sentenceId;
+      var sentenceId = token.sentenceId;
       var id  = token.id;
       var notAllowed;
       var res = [];
       for (var otherId in state.clickedTokens) {
         var otherToken = state.getToken(otherId);
-        if (otherToken.sentenceId !== sId) {
+        if (otherToken.sentenceId !== sentenceId) {
           notAllowed = true;
           break;
         }

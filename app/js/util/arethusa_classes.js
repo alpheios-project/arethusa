@@ -32,12 +32,12 @@ function ArethusaClasses() {
   this.sentence = function(i, t, c) { return new Sentence(i, t, c); };
 
   // A simple token container
-  function Token(string, sId) {
+  function Token(string, sentenceId) {
     this.string = string;
-    this.sentenceId = sId;
+    this.sentenceId = sentenceId;
   }
 
-  this.token = function (s, sId) { return new Token(s, sId); };
+  this.token = function (s, sentenceId) { return new Token(s, sentenceId); };
 }
 
 var arethusaClasses = new ArethusaClasses();

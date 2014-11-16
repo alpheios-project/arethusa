@@ -11,20 +11,20 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
            idHandler, languageSettings, locator) {
     // Single sentence documents for now.
     function parseDocument(doc, docId) {
-      var sId = '1';
+      var sentenceId = '1';
       var tokens = {};
 
       var words = doc.words;
 
       for (var i=0; i < words.length; i++) {
         var word = words[i];
-        var token = aC.token(word.value, sId);
-        var intId = idHandler.getId(word.tbwid, sId);
+        var token = aC.token(word.value, sentenceId);
+        var intId = idHandler.getId(word.tbwid, sentenceId);
         retrieverHelper.generateId(token, intId, word.CTS, docId);
 
         var head = word.head;
         if (angular.isDefined(head)) {
-          token.head = { id: idHandler.getId(head, sId) };
+          token.head = { id: idHandler.getId(head, sentenceId) };
         }
 
         var relation = word.relation;
@@ -40,7 +40,7 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
         tokens[token.id] = token;
       }
 
-      return [new aC.sentence(sId, tokens, doc.CTS)];
+      return [new aC.sentence(sentenceId, tokens, doc.CTS)];
     }
 
     // This is a little ugly (and slow), as the morphology is just thrown

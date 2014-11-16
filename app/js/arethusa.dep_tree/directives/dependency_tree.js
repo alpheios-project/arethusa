@@ -144,7 +144,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
 
         // Templates to be compiled in the course of this directive
         function rootTokenHtml() {
-          return '<span root-token root-id="' + rootId + '" s-id="' + inferSId() + '">' +
+          return '<span root-token root-id="' + rootId + '" sentence-id="' + inferSentenceId() + '">' +
             rootText +
           '</span>';
         }
@@ -366,13 +366,13 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           if (vis) vis.selectAll('*').remove();
         }
 
-        function inferSId() {
+        function inferSentenceId() {
           for (var first in scope.current) break;
           return scope.current[first].sentenceId;
         }
 
         function createRootNode() {
-          rootId = idHandler.getId('0', inferSId());
+          rootId = idHandler.getId('0', inferSentenceId());
           g.addNode(rootId, { label: rootPlaceholder() });
         }
         function createNode(token) {

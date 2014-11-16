@@ -132,9 +132,9 @@ angular.module('arethusa.comments').service('comments', [
       return count;
     };
 
-    function Comment(ids, sId, comment, type) {
+    function Comment(ids, sentenceId, comment, type) {
       this.ids = ids;
-      this.sId = sId;
+      this.sentenceId = sentenceId;
       this.comment = comment;
     }
 

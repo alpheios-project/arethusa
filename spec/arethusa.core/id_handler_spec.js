@@ -72,8 +72,20 @@ describe("idHandler", function() {
   describe('this.padIdWithSId', function() {
     it('adds a sentence id identification to an id', function() {
       var id  = '0004e';
-      var sId = '1';
-      expect(idHandler.padIdWithSId(id, sId)).toEqual('0001-0004e');
+      var sentenceId = '1';
+      expect(idHandler.padIdWithSId(id, sentenceId)).toEqual('0001-0004e');
+    });
+  });
+
+  describe('this.getId', function() {
+    it('adds the amount of padding to an id', function() {
+      var id = '2';
+      expect(idHandler.getId(id)).toEqual('0002');
+    });
+    it('prepends a given sentence id to the id', function() {
+      var id = '2';
+      var sentenceId = '1';
+      expect(idHandler.getId(id, sentenceId)).toEqual('0001-0002');
     });
   });
 });
