@@ -21,7 +21,8 @@
     "jsondiffpatch": "~0.1.8",
     "oclazyload": "LFDM/ocLazyLoad#master",
     "angular-gridster": "0.10.7",
-    "angular-md": "~1.0.0"
+    "angular-md": "~1.0.0",
+    "angular-highlightjs": "~0.3.2"
   },
   "resolutions": {
     "angular": "1.2.17",

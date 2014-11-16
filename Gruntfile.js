@@ -65,6 +65,7 @@ function arethusaSourceFiles() {
     //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js",
+    "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
     "./vendor/highlight/highlight.pack.js",
   ];
 
@@ -74,7 +75,6 @@ function arethusaSourceFiles() {
     "./bower_components/angulartics/dist/angulartics-ga.min.js",
     "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
     "./bower_components/angular-gridster/dist/angular-gridster.min.js",
-    "./vendor/angular-highlightjs/angular-highlightjs.min.js"
   ];
 
   var result;
