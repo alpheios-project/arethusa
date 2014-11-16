@@ -34,17 +34,17 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       // without token identifiers.
       if (!id) return comments.document.push(comment);
 
-      var sIdAndWIds = id.split('.');
+      var sentenceIdAndWIds = id.split('.');
 
-      var sId  = sIdAndWIds[0];
-      var wIds = arethusaUtil.map(sIdAndWIds[1].split(','), function(id) {
-        return idHandler.getId(id, sId);
+      var sentenceId  = sentenceIdAndWIds[0];
+      var wIds = arethusaUtil.map(sentenceIdAndWIds[1].split(','), function(id) {
+        return idHandler.getId(id, sentenceId);
       });
 
-      var arr = arethusaUtil.getProperty(comments, sId);
+      var arr = arethusaUtil.getProperty(comments, sentenceId);
       if (!arr) {
         arr = [];
-        arethusaUtil.setProperty(comments, sId, arr);
+        arethusaUtil.setProperty(comments, sentenceId, arr);
       }
 
       var span = sameSpan(arr, wIds);
@@ -83,8 +83,8 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
       sortComments();
     }
 
-    function sortCommentsOfChunk(wrappedComments, sId) {
-      comments[sId] = wrappedComments.sort(function(a, b) {
+    function sortCommentsOfChunk(wrappedComments, sentenceId) {
+      comments[sentenceId] = wrappedComments.sort(function(a, b) {
         return a.ids > b.ids;
       });
     }
@@ -95,12 +95,12 @@ angular.module('arethusa.comments').factory('CommentsRetriever', [
     }
 
     function addFakeIdsAndStrings(comment) {
-      var sId = comment.sId;
+      var sentenceId = comment.sentenceId;
       var ids = comment.ids;
       var sourceIds = arethusaUtil.map(ids, function(id) {
         return idHandler.formatId(id, '%w');
       });
-      var fakeId = '##' + sId + '.' + sourceIds.join(',') + '##\n\n';
+      var fakeId = '##' + sentenceId + '.' + sourceIds.join(',') + '##\n\n';
       var strings = '#!# ' + state.toTokenStrings(ids) + ' #!#\n\n';
       comment.comment = fakeId + strings + comment.comment;
     }

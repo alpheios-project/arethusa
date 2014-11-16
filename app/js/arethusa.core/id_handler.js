@@ -4,8 +4,8 @@ angular.module('arethusa.core').service('idHandler', [
   function() {
     var self = this;
 
-    this.getId = function(id, sId) {
-      var s = sId ? arethusaUtil.formatNumber(sId, 4) : '';
+    this.getId = function(id, sentenceId) {
+      var s = sentenceId ? arethusaUtil.formatNumber(sentenceId, 4) : '';
       var w = arethusaUtil.formatNumber(id, 4);
       return s ? s + '-' + w : w;
     };
@@ -13,8 +13,8 @@ angular.module('arethusa.core').service('idHandler', [
     // Backwards compatibility function for TreebankRetriever -
     // can be removed at a later stage. Check the function
     // padWithSentenceId there.
-    this.padIdWithSId = function(id, sId) {
-      var s = aU.formatNumber(sId, 4);
+    this.padIdWithSId = function(id, sentenceId) {
+      var s = aU.formatNumber(sentenceId, 4);
       return s + '-' + id;
     };
 
@@ -27,11 +27,11 @@ angular.module('arethusa.core').service('idHandler', [
       var wId = idParts.pop();
       var wParts = wIdParts(wId);
       var wIdNumericPart = arethusaUtil.formatNumber(wParts[1]);
-      var sId = arethusaUtil.formatNumber(idParts.pop(), 0);
+      var sentenceId = arethusaUtil.formatNumber(idParts.pop(), 0);
       var res;
       res = format.replace('%w', wIdNumericPart + (wParts[2] || ''));
       if (format.indexOf('%s' > 1)) {
-        res = sId ? res.replace('%s', sId) : res.replace('%s-', '');
+        res = sentenceId ? res.replace('%s', sentenceId) : res.replace('%s-', '');
       }
       return res;
     };
@@ -123,7 +123,7 @@ angular.module('arethusa.core').service('idHandler', [
     function incDec(id, increment) {
       var idParts = parseId(id);
       var wId = idParts.pop();
-      var sId = idParts.pop();
+      var sentenceId = idParts.pop();
       var wParts = wIdParts(wId);
 
       var newId  = wParts[1];
@@ -133,7 +133,7 @@ angular.module('arethusa.core').service('idHandler', [
       } else {
         if (increment) newId++; else newId--;
       }
-      return self.getId(newId, sId) + letter;
+      return self.getId(newId, sentenceId) + letter;
     }
 
 

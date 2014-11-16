@@ -12,7 +12,7 @@ angular.module('arethusa.core').directive('rootToken', [
       restrict: 'A',
       scope: {
         id: '@rootId',
-        sId: '@'
+        sentenceId: '@'
       },
       link: function(scope, element, attrs) {
         var actionName = 'change head';
@@ -33,7 +33,7 @@ angular.module('arethusa.core').directive('rootToken', [
 
         function MockToken() {
           this.id = scope.id;
-          this.sentenceId = scope.sId;
+          this.sentenceId = scope.sentenceId;
         }
 
         element.bind('click', function() {

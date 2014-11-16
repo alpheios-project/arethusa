@@ -130,13 +130,13 @@ angular.module('arethusa.depTree').service('depTree', [
     };
 
     function getHeadsToChange(token) {
-      var sId = token.sentenceId;
+      var sentenceId = token.sentenceId;
       var id  = token.id;
       var notAllowed;
       var res = [];
       for (var otherId in state.clickedTokens) {
         var otherToken = state.getToken(otherId);
-        if (otherToken.sentenceId !== sId) {
+        if (otherToken.sentenceId !== sentenceId) {
           notAllowed = true;
           break;
         }

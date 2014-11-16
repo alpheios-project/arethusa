@@ -282,15 +282,15 @@ angular.module('arethusa.core').service('navigator', [
     };
 
     this.addToken = function(token) {
-      var sId = token.sentenceId;
+      var sentenceId = token.sentenceId;
       var id  = token.id;
-      self.sentencesById[sId].tokens[id] = token;
+      self.sentencesById[sentenceId].tokens[id] = token;
     };
 
     this.removeToken = function(token) {
-      var sId = token.sentenceId;
+      var sentenceId = token.sentenceId;
       var id  = token.id;
-      delete self.sentencesById[sId].tokens[id];
+      delete self.sentencesById[sentenceId].tokens[id];
     };
 
     this.markChunkChanged = function() {

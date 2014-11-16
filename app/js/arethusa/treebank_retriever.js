@@ -63,24 +63,24 @@ angular.module('arethusa').factory('TreebankRetriever', [
       }
     }
 
-    function xmlTokenId(token, sId) {
+    function xmlTokenId(token, sentenceId) {
       if (token._artificial) {
-        return padWithSentenceId(token._insertion_id, sId);
+        return padWithSentenceId(token._insertion_id, sentenceId);
       } else {
-        return idHandler.getId(token._id, sId);
+        return idHandler.getId(token._id, sentenceId);
       }
     }
 
     // This is for backwards compatibility - we still might encounter documents, which
     // stored the insertion id without the sentence id. This is a little hacky but a
     // must have.
-    function padWithSentenceId(id, sId) {
-      return (id.match(/-/)) ? id : idHandler.padIdWithSId(id, sId);
+    function padWithSentenceId(id, sentenceId) {
+      return (id.match(/-/)) ? id : idHandler.padIdWithSId(id, sentenceId);
     }
 
-    function extractArtificial(memo, token, sId) {
+    function extractArtificial(memo, token, sentenceId) {
       if (token._artificial) {
-        memo[token._id] = padWithSentenceId(token._insertion_id, sId);
+        memo[token._id] = padWithSentenceId(token._insertion_id, sentenceId);
       }
     }
 
