@@ -367,7 +367,7 @@ module.exports = function(grunt) {
             './vendor/dagre-d3/dagre-d3.min.js',
             './vendor/angularJS-toaster/toaster.min.js',
             "./vendor/highlight/highlight.pack.js",
-            "./vendor/angular-highlightjs/angular-highlightjs.min.js",
+            "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
             // Some source files we'll need to include manually, otherwise
             // the load order is wrong
             'app/js/*.js',
