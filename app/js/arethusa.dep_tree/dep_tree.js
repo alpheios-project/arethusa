@@ -125,7 +125,7 @@ angular.module('arethusa.depTree').service('depTree', [
     };
 
     this.toRoot = function(token) {
-      var rootId = idHandler.getId('0', token.id);
+      var rootId = idHandler.getId('0', token.sentenceId);
       state.change(token, 'head.id', rootId);
     };
 
