@@ -29,6 +29,7 @@
   },
 
   "notifier" : {
+    "disable" : true,
     "duration" : "0"
   },
 
