@@ -24,6 +24,7 @@ exports.config = {
     createCapabality('chrome', '38', 'Windows 7'),
     createCapabality('firefox', '25', 'Windows 7'),
     createCapabality('firefox', '33', 'OS X 10.9'),
+    createCapabality('firefox', '33', 'Windows 7'),
     createCapabality('safari', '7', 'OS X 10.9')
     // createCapabality('internet explorer', '11', 'Windows 8.1')
   ],
