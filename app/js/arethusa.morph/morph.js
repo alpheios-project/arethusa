@@ -5,7 +5,9 @@ angular.module('arethusa.morph').service('morph', [
   'plugins',
   'globalSettings',
   'keyCapture',
-  function (state, configurator, plugins, globalSettings, keyCapture) {
+  'morphLocalStorage',
+  function (state, configurator, plugins, globalSettings,
+            keyCapture, morphLocalStorage) {
     var self = this;
     this.name = 'morph';
 
@@ -47,7 +49,8 @@ angular.module('arethusa.morph').service('morph', [
       mappings: {},
       gloss: false,
       matchAll: true,
-      preselect: false
+      preselect: false,
+      localStorage: true
     };
 
     function configure() {
@@ -57,7 +60,8 @@ angular.module('arethusa.morph').service('morph', [
         'mappings',
         'styledThrough',
         'noRetrieval',
-        'gloss'
+        'gloss',
+        'localStorage'
       ];
 
       configurator.getConfAndDelegate(self, props);
@@ -66,6 +70,11 @@ angular.module('arethusa.morph').service('morph', [
       self.analyses = {};
       morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
       propagateMappings(morphRetrievers);
+
+      if (self.localStorage) {
+        morphRetrievers.localStorage = morphLocalStorage.retriever;
+        morphLocalStorage.comparator = isSameForm;
+      }
 
       // This is useful for the creation of new forms. Usually we want to
       // validate if all attributes are set properly - the inclusion of
@@ -472,7 +481,20 @@ angular.module('arethusa.morph').service('morph', [
     this.removeForm = function(id, form) {
       var forms = self.analyses[id].forms;
       var i = forms.indexOf(form);
+      self.removeFromLocalStorage(state.asString(id), form);
       forms.splice(i, 1);
+    };
+
+    this.addToLocalStorage = function(string, form) {
+      if (self.localStorage) {
+        morphLocalStorage.addForm(string, form);
+      }
+    };
+
+    this.removeFromLocalStorage = function(string, form) {
+      if (self.localStorage) {
+        morphLocalStorage.removeForm(string, form);
+      }
     };
 
     function deselectAll(id) {
