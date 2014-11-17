@@ -130,7 +130,7 @@
             "mood" : "*"
           },
           "unless" : {
-            "mood" : "part"
+            "mood" : [ "part", "inf" ]
           }
         }
       ]
@@ -148,6 +148,9 @@
           "if" : {
             "pos" : "verb",
             "mood" : "*"
+          },
+          "unless" : {
+            "mood" : "inf"
           }
         }
       ],
