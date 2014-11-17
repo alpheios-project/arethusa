@@ -40,9 +40,9 @@ angular.module('arethusa.core').directive('tokenSelector', [
 
         var highlightStyle = { "background-color": "rgb(255, 216, 216)" };
         var highlightUnused = function() {
-          unusedSelector.isActive = !unusedSelector.isActive;
+          unusedHighlighter.isActive = !unusedHighlighter.isActive;
           var unused = tokensWithoutHead();
-          if (unusedSelector.isActive) {
+          if (unusedHighlighter.isActive) {
             angular.forEach(unused, function(token) {
               state.addStyle(token.id, highlightStyle);
             });
