@@ -9,58 +9,39 @@ angular.module('arethusa.core').directive('tokenSelector', [
         tokens: "=tokenSelector"
       },
       link: function(scope, element, attrs) {
-        scope.hasNoTokensSelected = true;
-        scope.hasSomeTokensSelected = false;
-        scope.hasAllTokensSelected = false;
+        var hasNoTokensSelected = true;
+        var hasAllTokensSelected = false;
 
         scope.countOfSelectedTokens = function() {
           return state.hasClickSelections();
         };
 
         scope.$watch('countOfSelectedTokens()', function(newValue, oldValue) {
-          scope.hasNoTokensSelected = newValue === 0;
-          scope.hasSomeTokensSelected = newValue > 0 && newValue !== state.totalTokens;
-          scope.hasAllTokensSelected = newValue === state.totalTokens;
+          hasNoTokensSelected = newValue === 0;
+          hasAllTokensSelected = newValue === state.totalTokens;
 
-          scope.updateSelect();
-          scope.updateSelectors();
+          updateSelectors();
         });
 
-        scope.updateSelect = function() {
-          if (scope.hasAllTokensSelected) {
-            scope.selector = scope.selectors[0];
-          } else if (scope.hasNoTokensSelected) {
-            scope.selector = scope.selectors[1];
-          }
-        };
-
-        scope.selectAll = function() {
+        var selectAll = function() {
           state.multiSelect(Object.keys(scope.tokens));
         };
 
-        scope.selectUnused = function() {
-          var unused = scope.tokensWithoutHead();
-          state.multiSelect(_.map(unused, function(token) { return token.id; }));
-        };
-
-        scope.changeSelection = function() {
-          if (scope.hasNoTokensSelected) {
-            scope.selectAll();
-          } else {
-            state.deselectAll();
-          }
-        };
-
-        scope.tokensWithoutHead = function() {
+        var tokensWithoutHead = function() {
           return _.filter(scope.tokens, function(token) {
             return !token.head.id;
           });
         };
 
+        var selectUnused = function() {
+          var unused = tokensWithoutHead();
+          state.multiSelect(_.map(unused, function(token) { return token.id; }));
+        };
+
         var highlightStyle = { "background-color": "rgb(255, 216, 216)" };
         var highlightUnused = function() {
           unusedSelector.isActive = !unusedSelector.isActive;
-          var unused = scope.tokensWithoutHead();
+          var unused = tokensWithoutHead();
           if (unusedSelector.isActive) {
             angular.forEach(unused, function(token) {
               state.addStyle(token.id, highlightStyle);
@@ -81,13 +62,13 @@ angular.module('arethusa.core').directive('tokenSelector', [
 
         var allSelector = {
           label: function() { return "All"; },
-          action: scope.selectAll,
+          action: selectAll,
           isActive: false
         };
 
         var unusedSelector = {
-          label: function() { return scope.tokensWithoutHead().length + " unused"; },
-          action: scope.selectUnused,
+          label: function() { return tokensWithoutHead().length + " unused"; },
+          action: selectUnused,
           isActive: false
         };
 
@@ -104,20 +85,20 @@ angular.module('arethusa.core').directive('tokenSelector', [
           unusedHighlighter
         ];
 
-        scope.areAllSelected = function(tokens) {
+        var areAllSelected = function(tokens) {
           return _.all(tokens, function(token) {
             return state.isClicked(token.id);
           });
         };
 
-        scope.updateSelectors = function() {
-          noneSelector.isActive = scope.hasNoTokensSelected;
-          allSelector.isActive = scope.hasAllTokensSelected;
+        var updateSelectors = function() {
+          noneSelector.isActive = hasNoTokensSelected;
+          allSelector.isActive = hasAllTokensSelected;
 
-          var unusedTokens = scope.tokensWithoutHead();
-          unusedSelector.isActive = !scope.hasNoTokensSelected &&
+          var unusedTokens = tokensWithoutHead();
+          unusedSelector.isActive = !hasNoTokensSelected &&
             scope.countOfSelectedTokens() === unusedTokens.length &&
-            scope.areAllSelected(unusedTokens);
+            areAllSelected(unusedTokens);
         };
       },
       templateUrl: 'templates/arethusa.core/token_selector.html'
