@@ -9,12 +9,6 @@ angular.module('arethusa.core').directive('sentence', [
         sentence: '='
       },
       link: function(scope, element, attrs) {
-        function sentenceToString() {
-          return arethusaUtil.inject([], scope.sentence.tokens, function(memo, id, token) {
-            memo.push(token.string);
-          }).join(' ');
-        }
-
         function getCitation() {
           navigator.getCitation(scope.sentence, function(citation) {
             scope.citation = citation;
@@ -26,7 +20,7 @@ angular.module('arethusa.core').directive('sentence', [
           navigator.switchView();
         };
 
-        scope.sentenceString = sentenceToString();
+        scope.sentenceString = scope.sentence.toString();
         scope.id = scope.sentence.id;
 
         getCitation();
