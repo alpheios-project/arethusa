@@ -101,7 +101,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
       var sentences = arethusaUtil.toAry(json.treebank.sentence);
       return arethusaUtil.inject([], sentences, function (memo, sentence, k) {
         var cite = extractCiteInfo(sentence);
-        memo.push(xmlSentenceToState(docId, sentence.word, sentence._id, cite));
+        var words = arethusaUtil.toAry(sentence.word);
+        memo.push(xmlSentenceToState(docId, words, sentence._id, cite));
       });
     }
 
@@ -139,6 +140,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
       return confs;
     }
 
+
+
     return function (conf) {
       var self = this;
       var resource = configurator.provideResource(conf.resource);
@@ -146,14 +149,17 @@ angular.module('arethusa').factory('TreebankRetriever', [
 
       this.preselections = retrieverHelper.getPreselections(conf);
 
+      this.parse = function(xml, callback) {
+        var json = arethusaUtil.xml2json(xml);
+        var moreConf = findAdditionalConfInfo(json);
+
+        documentStore.addDocument(docId, new aC.doc(xml, json, moreConf));
+        callback(parseDocument(json, docId));
+      };
+
       this.get = function (callback) {
         resource.get().then(function (res) {
-          var xml = res.data;
-          var json = arethusaUtil.xml2json(res.data);
-          var moreConf = findAdditionalConfInfo(json);
-
-          documentStore.addDocument(docId, new aC.doc(xml, json, moreConf));
-          callback(parseDocument(json, docId));
+          self.parse(res.data, callback);
         });
       };
     };
