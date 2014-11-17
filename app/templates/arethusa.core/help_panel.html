@@ -1,65 +1,77 @@
-<div ng-if="active" class="fade">
-  <div help-panel-item toggler="colors" heading="helpPanel.colorLegends" height="400px">
-    <ul class="no-list" ng-repeat="(name, map) in gS.colorMaps()">
-      <li
-        ng-class="{ 'active-colorizer': name === gS.colorizer }">
-        {{ name }}
-      </li>
-      <table class="small">
-        <tr>
-          <th ng-repeat="header in map.header">
-            <strong>{{ header }}</strong>
-          </th>
-        </tr>
-        <tr ng-repeat="(k, col) in map.colors">
-          <td
-            ng-style="col"
-            ng-repeat="val in k.split(' || ') track by $index">
-            {{ val }}
-          </td>
-        </tr>
-      </table>
-    </ul>
-  </div>
-
-  <div help-panel-item toggler="keys" heading="helpPanel.keyboardShortcuts" height="400px">
-    <ul class="no-list" ng-repeat="(section, keys) in kC.activeKeys">
-      <li>{{ section }}</li>
-      <table class="small">
-        <tr ng-repeat="(name, key) in keys">
-          <td><strong>{{ key }}</strong></td><td>{{ name}}</td>
-        </tr>
-      </table>
-    </ul>
-  </div>
-
-  <div help-panel-item toggler="about" heading="helpPanel.about" height="100px">
-    <ul class="no-list">
-      <li>
+<div ng-if="active" class="fade small-12-columns">
+  <div class="small-6 large-6 columns">
+    <div help-panel-item toggler="colors" heading="helpPanel.colorLegends" height="400px">
+      <ul class="no-list" ng-repeat="(name, map) in gS.colorMaps()">
+        <li
+          ng-class="{ 'active-colorizer': name === gS.colorizer }">
+          {{ name }}
+        </li>
         <table class="small">
           <tr>
-            <td translate="helpPanel.revision"/>
-            <td>
-              <a ng-href="{{ vers.commitUrl }}" target="_blank">
-                {{ vers.revision }}
-              </a>
+            <th ng-repeat="header in map.header">
+              <strong>{{ header }}</strong>
+            </th>
+          </tr>
+          <tr ng-repeat="(k, col) in map.colors">
+            <td
+              ng-style="col"
+              ng-repeat="val in k.split(' || ') track by $index">
+              {{ val }}
             </td>
-          <tr>
-          <tr>
-            <!--This is untranslated on purpose!-->
-            <td>Branch</td>
-            <td>
-              <a ng-href="{{ vers.branchUrl }}" target="_blank">
-                {{ vers.branch }}
-              </a>
-            </td>
-          <tr>
-          <tr>
-            <td translate="date"/>
-            <td>{{ vers.date | date: 'medium' }}</td>
-          <tr>
+          </tr>
         </table>
-      </li>
-    </ul>
+      </ul>
+    </div>
+
+    <div help-panel-item toggler="messages" heading="messages" height="200px">
+      <ul class="no-list">
+        <li ng-repeat="message in notifier.messages">
+          <span>{{ message.time | date: "HH:mm:ss" }}</span>
+          <span class="{{ message.type }}-message-dark">{{ message.message }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="small-6 large-6 columns">
+    <div help-panel-item toggler="keys" heading="helpPanel.keyboardShortcuts" height="400px">
+      <ul class="no-list" ng-repeat="(section, keys) in kC.activeKeys">
+        <li>{{ section }}</li>
+        <table class="small">
+          <tr ng-repeat="(name, key) in keys">
+            <td><strong>{{ key }}</strong></td><td>{{ name}}</td>
+          </tr>
+        </table>
+      </ul>
+    </div>
+
+    <div help-panel-item toggler="about" heading="helpPanel.about" height="100px">
+      <ul class="no-list">
+        <li>
+          <table class="small">
+            <tr>
+              <td translate="helpPanel.revision"/>
+              <td>
+                <a ng-href="{{ vers.commitUrl }}" target="_blank">
+                  {{ vers.revision }}
+                </a>
+              </td>
+            <tr>
+            <tr>
+              <!--This is untranslated on purpose!-->
+              <td>Branch</td>
+              <td>
+                <a ng-href="{{ vers.branchUrl }}" target="_blank">
+                  {{ vers.branch }}
+                </a>
+              </td>
+            <tr>
+            <tr>
+              <td translate="date"/>
+              <td>{{ vers.date | date: 'medium' }}</td>
+            <tr>
+          </table>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
