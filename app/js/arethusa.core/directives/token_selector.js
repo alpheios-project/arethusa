@@ -57,6 +57,22 @@ angular.module('arethusa.core').directive('tokenSelector', [
           });
         };
 
+        var highlightStyle = { "background-color": "rgb(255, 216, 216)" };
+        var highlightUnused = function() {
+          unusedSelector.isActive = !unusedSelector.isActive;
+          var unused = scope.tokensWithoutHead();
+          if (unusedSelector.isActive) {
+            angular.forEach(unused, function(token) {
+              state.addStyle(token.id, highlightStyle);
+            });
+          } else {
+            var styles = Object.keys(highlightStyle);
+            angular.forEach(unused, function(token) {
+              state.removeStyle(token.id, styles);
+            });
+          }
+        };
+
         var noneSelector = {
           label: function() { return "None"; },
           action: state.deselectAll,
@@ -75,15 +91,22 @@ angular.module('arethusa.core').directive('tokenSelector', [
           isActive: false
         };
 
+        var unusedHighlighter = {
+          label: function() { return "highlight unused"; },
+          action: highlightUnused,
+          isActive: false
+        };
+
         scope.selectors = [
           noneSelector,
           allSelector,
-          unusedSelector
+          unusedSelector,
+          unusedHighlighter
         ];
 
         scope.areAllSelected = function(tokens) {
           return _.all(tokens, function(token) {
-            return state.isSelected(token.id);
+            return state.isClicked(token.id);
           });
         };
 
