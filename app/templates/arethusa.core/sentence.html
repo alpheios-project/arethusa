@@ -1,9 +1,9 @@
 <div
   ng-click="goTo(id)">
-  <table class="sentence-list">
+  <table class="sentence-list" ng-class="{ changed: sentence.changed }">
     <tr class="sentence-list">
       <td>{{ citation }} {{ id }}</td>
-      <td>{{ sentenceString}}</td>
+      <td>{{ sentenceString }}</td>
     </tr>
   </table>
 </div>

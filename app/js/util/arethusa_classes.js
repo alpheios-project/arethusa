@@ -24,9 +24,17 @@ function ArethusaClasses() {
 
   // Used by retrievers to define sentences
   function Sentence(id, tokens, cite) {
+    var self = this;
+
     this.id = id;
     this.tokens = tokens;
     this.cite = cite;
+
+    this.toString = function() {
+      return arethusaUtil.inject([], self.tokens, function(memo, id, token) {
+        memo.push(token.string);
+      }).join(' ');
+    };
   }
 
   this.sentence = function(i, t, c) { return new Sentence(i, t, c); };

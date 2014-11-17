@@ -910,6 +910,10 @@ code {
   @include transition(background-color 50ms ease-in);
 }
 
+.changed {
+  background-color: rgb(255, 234, 234);
+}
+
 
 /***************************************************************************
  *                               Animations                                *

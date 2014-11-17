@@ -272,12 +272,16 @@ angular.module('arethusa.core').service('navigator', [
       }
     };
 
+    function resetList() {
+      self.hasList = false;
+    }
+
     this.reset = function () {
       updatePosition(0);
       self.sentences = [];
       self.sentencesById = {};
       self.listMode = false;
-      self.hasList  = false;
+      resetList();
       self.updateId();
     };
 
@@ -302,5 +306,6 @@ angular.module('arethusa.core').service('navigator', [
 
     // Probably could deregister/reregister that watch, but it doesn't hurt...
     $rootScope.$on('tokenChange', self.markChunkChanged);
+    $rootScope.$on('layoutChange', resetList);
   }
 ]);
