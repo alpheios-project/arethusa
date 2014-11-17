@@ -16,7 +16,7 @@ angular.module('arethusa.core').directive('sentenceList', [
           if (! navigator.hasList) {
             var template = '\
               <div class="canvas-border"/>\
-              <div id="canvas" class="row panel full-height" full-height>\
+              <div id="canvas" class="row panel full-height scrollable" full-height>\
                 <ul class="sentence-list">\
                   <li \
                     class="sentence-list"\
