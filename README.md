@@ -23,6 +23,8 @@ npm install
 grunt install
 ```
 
+If you want to run the e2e tests also execute `grunt e2e:setup`.
+
 ## Usage
 
 To display a rough demo start a webserver with
