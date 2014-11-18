@@ -488,6 +488,9 @@ module.exports = function(grunt) {
           'gem install arethusa-cli'
         ].join('&&')
       },
+      e2eSetup: {
+        command: './node_modules/protractor/bin/webdriver-manager update'
+      },
       currentCommit: {
         command: 'git rev-parse HEAD'
       }
@@ -542,5 +545,6 @@ module.exports = function(grunt) {
   grunt.registerTask('minify:all', 'concurrent:minifyAll');
 
   grunt.registerTask('install', 'shell:install');
+  grunt.registerTask('e2e:setup', 'shell:e2eSetup');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 };
