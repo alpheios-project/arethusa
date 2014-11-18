@@ -58,7 +58,6 @@ angular.module('arethusa.morph').service('morph', [
         'postagSchema',
         'attributes',
         'mappings',
-        'styledThrough',
         'noRetrieval',
         'gloss',
         'localStorage'
@@ -473,9 +472,12 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     this.styleOf = function (form) {
-      var styler = self.styledThrough;
-      var styleVal = form.attributes[styler];
-      return self.attributeValueObj(styler, styleVal).style;
+      var fullStyle = {};
+      angular.forEach(form.attributes, function(value, key) {
+        var style = self.attributeValueObj(key, value).style;
+        angular.extend(fullStyle, style);
+      });
+      return fullStyle;
     };
 
     this.removeForm = function(id, form) {
