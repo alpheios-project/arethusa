@@ -248,9 +248,10 @@ angular.module('arethusa.relation').service('relation', [
 
     function createColorMap() {
       var keys = ['short', 'long'];
-      var map = { header: keys, colors: {} };
+      var colors = {};
+      var map = { header: keys, maps: [{ label: 'Label', colors: colors }] };
 
-      extractColor(self.relationValues.labels, map.colors, keys);
+      extractColor(self.relationValues.labels, colors, keys);
       return map;
     }
 
