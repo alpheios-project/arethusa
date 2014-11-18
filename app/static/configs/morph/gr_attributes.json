@@ -10,7 +10,6 @@
     "case",
     "degree"
   ],
-  "styledThrough" : "pos",
   "attributes" : {
     "pos" : {
       "long" : "Part of Speech",
