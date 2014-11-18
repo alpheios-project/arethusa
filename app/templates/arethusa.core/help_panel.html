@@ -1,25 +1,30 @@
 <div ng-if="active" class="fade small-12-columns">
   <div class="small-6 large-6 columns">
     <div help-panel-item toggler="colors" heading="helpPanel.colorLegends" height="400px">
-      <ul class="no-list" ng-repeat="(name, map) in gS.colorMaps()">
+      <ul class="no-list" ng-repeat="(name, values) in gS.colorMaps()">
         <li
           ng-class="{ 'active-colorizer': name === gS.colorizer }">
           {{ name }}
         </li>
-        <table class="small">
-          <tr>
-            <th ng-repeat="header in map.header">
-              <strong>{{ header }}</strong>
-            </th>
-          </tr>
-          <tr ng-repeat="(k, col) in map.colors">
-            <td
-              ng-style="col"
-              ng-repeat="val in k.split(' || ') track by $index">
-              {{ val }}
-            </td>
-          </tr>
-        </table>
+        <ul class="no-list" ng-repeat="map in values.maps">
+          <li>
+            {{ map.label }}
+            <table class="small">
+              <tr>
+                <th ng-repeat="header in values.header">
+                  <strong>{{ header }}</strong>
+                </th>
+              </tr>
+              <tr ng-repeat="(k, col) in map.colors">
+                <td
+                  ng-style="col"
+                  ng-repeat="val in k.split(' || ') track by $index">
+                  {{ val }}
+                </td>
+              </tr>
+            </table>
+          </li>
+        </ul>
       </ul>
     </div>
 

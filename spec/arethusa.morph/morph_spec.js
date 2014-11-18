@@ -32,7 +32,10 @@ describe("morph", function() {
           "1st" : {
             "long" : "first person",
             "short" : "1st",
-            "postag" : "1"
+            "postag" : "1",
+            "style" : {
+              "text-decoration": "underline"
+            }
           },
           "2nd" : {
             "long" : "second person",
@@ -43,7 +46,6 @@ describe("morph", function() {
       }
     };
     obj.postagSchema = ['pos', 'pers'];
-    obj.styledThrough = 'pos';
     obj.conf = {};
   }
 
@@ -237,27 +239,19 @@ describe("morph", function() {
       var nounStyle = {
         color : "black"
       };
-      var adjStyle = {
-        color: "blue"
-      };
       var f1 = state.getToken('01').morphology;
-      var f2 = state.getToken('02').morphology;
 
       expect(morph.styleOf(f1)).toEqual(nounStyle);
-      expect(morph.styleOf(f2)).toEqual(adjStyle);
     });
 
-    it('is dependent on the styledThrough configuration to determine where to look up styles', function() {
-      var nounStyle = {
-        color : "black"
+    it('combines several styles defined by each attribute', function() {
+      var adjStyle = {
+        color: "blue",
+        'text-decoration': 'underline'
       };
-      var f1 = state.getToken('01').morphology;
 
-      morph.styledThrough = 'somethingThatDoesNotExist';
-      expect(morph.styleOf(f1)).toBeUndefined();
-
-      morph.styledThrough = 'pos';
-      expect(morph.styleOf(f1)).toEqual(nounStyle);
+      var f2 = state.getToken('02').morphology;
+      expect(morph.styleOf(f2)).toEqual(adjStyle);
     });
   });
 

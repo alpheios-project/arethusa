@@ -58,7 +58,6 @@ angular.module('arethusa.morph').service('morph', [
         'postagSchema',
         'attributes',
         'mappings',
-        'styledThrough',
         'noRetrieval',
         'gloss',
         'localStorage'
@@ -444,20 +443,25 @@ angular.module('arethusa.morph').service('morph', [
 
     function createColorMap() {
       var keys = ['long', 'postag'];
-      var map = { header: keys, colors: {} };
-      var attr = self.styledThrough;
+      var maps = [];
+      var map = { header: keys, maps: maps };
 
-      var values = self.attributes[attr].values;
-
-      return aU.inject(map, values, function(memo, k, v) {
-        var key = aU.flatten(aU.map(keys, v)).join(' || ');
-        memo.colors[key] = v.style;
+      angular.forEach(self.attributes, function(value, key) {
+        var colors = {};
+        var obj = { label: value.long, colors: colors };
+        aU.inject(colors, value.values, function(memo, k, v) {
+          var key = aU.flatten(aU.map(keys, v)).join(' || ');
+          memo[key] = v.style;
+        });
+        maps.push(obj);
       });
+
+      return map;
     }
 
     var colorMap;
     this.colorMap = function() {
-      if (!colorMap)  colorMap = createColorMap();
+      if (!colorMap) colorMap = createColorMap();
       return colorMap;
     };
 
@@ -473,9 +477,12 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     this.styleOf = function (form) {
-      var styler = self.styledThrough;
-      var styleVal = form.attributes[styler];
-      return self.attributeValueObj(styler, styleVal).style;
+      var fullStyle = {};
+      angular.forEach(form.attributes, function(value, key) {
+        var style = self.attributeValueObj(key, value).style;
+        angular.extend(fullStyle, style);
+      });
+      return fullStyle;
     };
 
     this.removeForm = function(id, form) {
