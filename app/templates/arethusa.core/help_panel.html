@@ -5,26 +5,26 @@
         <li
           ng-class="{ 'active-colorizer': name === gS.colorizer }">
           {{ name }}
-          <ul class="no-list" ng-repeat="map in values.maps">
-            <li>
-              {{ map.label }}
-              <table class="small">
-                <tr>
-                  <th ng-repeat="header in values.header">
-                    <strong>{{ header }}</strong>
-                  </th>
-                </tr>
-                <tr ng-repeat="(k, col) in map.colors">
-                  <td
-                    ng-style="col"
-                    ng-repeat="val in k.split(' || ') track by $index">
-                    {{ val }}
-                  </td>
-                </tr>
-              </table>
-            </li>
-          </ul>
         </li>
+        <ul class="no-list" ng-repeat="map in values.maps">
+          <li>
+            {{ map.label }}
+            <table class="small">
+              <tr>
+                <th ng-repeat="header in values.header">
+                  <strong>{{ header }}</strong>
+                </th>
+              </tr>
+              <tr ng-repeat="(k, col) in map.colors">
+                <td
+                  ng-style="col"
+                  ng-repeat="val in k.split(' || ') track by $index">
+                  {{ val }}
+                </td>
+              </tr>
+            </table>
+          </li>
+        </ul>
       </ul>
     </div>
 
