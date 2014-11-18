@@ -42,15 +42,11 @@ grunt reloading-server
 which will also watch any code changes you make and trigger a reload of
 your browser when needed.
 
-A good place to navigate your browser to would be one of the Arethusa's
+A good place to navigate your browser to would be Arethusa's
 [landing page](http:/localhost:8081/app/#/), which you can also visit
 on of the servers that has Arethusa deployed ([Arethusa at Perseids](http://sosol.perseids.org/tools/arethusa/app/#/)).
 
 
-
-During development a watch task (`grunt reloader`) can optionally be
-started - it will live-reload the browser on every change of a js or
-html file and minify files properly.
 
 If you want to see Arethusa's source code inside your browser
 unminified, set the environmental variable `DEV` as in `DEV=1 grunt
