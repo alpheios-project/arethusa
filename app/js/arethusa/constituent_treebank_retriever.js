@@ -54,7 +54,36 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
     function parseWord(w, docId, sentenceId, tokens, parentId) {
       var token = aC.token(w.__text, sentenceId);
       token.id = w._morphId;
+
+      parseMorph(token, w);
+
       tokens.add(token);
+    }
+
+    var morphKeys = {
+      'class': 'pos',
+      'person': 'pers',
+      'number': 'num',
+      'tense': null,
+      'mood': null,
+      'voice': null,
+      'gender': 'gend',
+      'case': null,
+      'degree': null
+    };
+
+    function parseMorph(token, w) {
+      var attrs = {}, key, expandedKey,  attrKey, val;
+      for (key in morphKeys) {
+        attrKey = morphKeys[key] || key;
+        val = w['_' + key];
+        if (val) attrs[attrKey] = val;
+      }
+
+      token.morphology = {
+        lemma: w._lemma,
+        attributes: attrs
+      };
     }
 
     // Helpers
