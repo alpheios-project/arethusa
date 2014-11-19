@@ -24,10 +24,9 @@ angular.module('arethusa.util').service('commons', [
     this.doc = function(x, j, c) { return new Doc(x, j, c); };
 
     // Used by retrievers to define sentences
-    function Sentence(id, tokens, cite) {
+    function Sentence(tokens, constituents, cite) {
       var self = this;
 
-      this.id = id;
       this.tokens = tokens;
       this.cite = cite || '';
 
