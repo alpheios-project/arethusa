@@ -28,6 +28,7 @@
   "list": "Liste",
   "delete": "Löschen",
   "morph": {
+    "lemmaTranslation": "Lemma-Übersetzung",
     "lemmaHint": "Dieses Lemma wurde automatisch eingetragen!\nÜberprüfe es bevor du speicherst!",
     "createError": "Kann unvollständige Form nicht speichern",
     "createNewForm": "Neue Form erstellen",

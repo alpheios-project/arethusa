@@ -24,6 +24,7 @@
   "list": "Liste",
   "delete": "Supprimer",
   "morph": {
+    "lemmaTranslation": "Traduction de lemma",
     "lemmaHint": "Ce lemme a été ajouté automatiquement\nVérifier le avant de sauvegarder.!",
     "createError": "Impossible de créer une forme incomplète",
     "createNewForm": "Créer une nouvelle forme",
