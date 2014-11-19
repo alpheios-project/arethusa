@@ -29,7 +29,7 @@ angular.module('arethusa.util').service('commons', [
 
       this.id = id;
       this.tokens = tokens;
-      this.cite = cite;
+      this.cite = cite || '';
 
       this.toString = function() {
         return arethusaUtil.inject([], self.tokens, function(memo, id, token) {
