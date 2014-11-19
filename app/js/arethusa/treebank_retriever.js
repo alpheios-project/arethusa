@@ -95,7 +95,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
         tokens[token.id] = token;
       });
 
-      var sentence = commons.sentence(tokens, {}, cite);
+      var sentence = commons.sentence(tokens, cite);
       retrieverHelper.generateId(sentence, id, id, docId);
       return sentence;
     }

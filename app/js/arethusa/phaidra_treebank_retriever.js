@@ -41,7 +41,7 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
         tokens[token.id] = token;
       }
 
-      var s = commons.sentence(tokens, {}, doc.CTS);
+      var s = commons.sentence(tokens, doc.CTS);
       retrieverHelper.generateId(s, sentenceId, sentenceId, docId);
       return [s];
     }

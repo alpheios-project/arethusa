@@ -23,7 +23,7 @@ function ArethusaClasses() {
   this.doc = function(x, j, c) { return new Doc(x, j, c); };
 
   // Used by retrievers to define sentences
-  function Sentence(tokens, constituents, cite) {
+  function Sentence(tokens, cite) {
     var self = this;
 
     this.tokens = tokens;
