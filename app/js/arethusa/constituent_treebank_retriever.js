@@ -5,26 +5,30 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
   'documentStore',
   'retrieverHelper',
   'idHandler',
-  function(configurator, documentStore, retrieverHelper, idHandler) {
+  'globalStore',
+  function(configurator, documentStore, retrieverHelper, idHandler, globalStore) {
     // Parse functions
 
     function parseDocument(json, docId) {
       resetSentenceIdCounter();
-      return parseSentences(json.book.sentence, docId);
+      setUpConstituents();
+      var constituents = new Container();
+      var sentences = parseSentences(json.book.sentence, constituents, docId);
+      angular.extend(globalStore.constituents, constituents.container);
+      return sentences;
     }
 
-    function parseSentences(sentences, docId) {
+    function parseSentences(sentences, constituents, docId) {
       return aU.toAry(sentences).map(function(sentence) {
-        return parseSentence(sentence, docId);
+        return parseSentence(sentence, constituents, docId);
       });
     }
 
-    function parseSentence(sentence, docId) {
+    function parseSentence(sentence, constituents, docId) {
       resetWordIdCounter();
       var sourceId = sentence._ID;
       var internalId = getSentenceId();
 
-      var constituents = new Container();
       var tokens = new Container();
 
       // Hack to resolve the ambiguity between sentence and subject
@@ -33,7 +37,7 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
 
       parseWordGroup(wgNode, docId, internalId, constituents, tokens);
 
-      var s = aC.sentence(tokens.container, constituents.container);
+      var s = aC.sentence(tokens.container);
       retrieverHelper.generateId(s, internalId, sourceId, docId);
       return s;
     }
@@ -93,6 +97,10 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
       this.add = function(el) {
         self.container[el.id] = el;
       };
+    }
+
+    function setUpConstituents() {
+      if (!globalStore.constituents) globalStore.constituents = {};
     }
 
     var morphKeys = {
