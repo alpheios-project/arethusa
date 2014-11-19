@@ -41,7 +41,7 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
         tokens[token.id] = token;
       }
 
-      return [new commons.sentence(sentenceId, tokens, doc.CTS)];
+      return [commons.sentence(sentenceId, tokens, {}, doc.CTS)];
     }
 
     // This is a little ugly (and slow), as the morphology is just thrown
