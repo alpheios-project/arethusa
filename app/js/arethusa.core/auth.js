@@ -14,7 +14,7 @@ angular.module('arethusa.core').factory('Auth', [
 
     function Pinger(url) {
       if (url) {
-        var resource = $resource(url, null, {});
+        var resource = $resource(url, null, { get: { withCredentials: true } });
         this.checkAuth = function(success, error) {
           resource.get(success, error);
         };
