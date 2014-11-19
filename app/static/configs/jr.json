@@ -21,6 +21,8 @@
       "text",
       "search",
       "morph",
+      "depTree",
+      "relation",
       "history",
       "comments"
     ]
@@ -56,7 +58,6 @@
     },
 
     "depTree" : {
-      "main" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
       "template" : "templates/dep_tree.html"
