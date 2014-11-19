@@ -28,7 +28,6 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
       resetWordIdCounter();
       var sourceId = sentence._ID;
       var internalId = getSentenceId();
-
       var tokens = new Container();
 
       // Hack to resolve the ambiguity between sentence and subject
@@ -71,6 +70,7 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
       retrieverHelper.generateId(token, internalId, sourceId, docId);
 
       parseMorph(token, w);
+      addConstituent(token, w, parentId);
 
       tokens.add(token);
     }
@@ -86,6 +86,13 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
       token.morphology = {
         lemma: w._lemma,
         attributes: attrs
+      };
+    }
+
+    function addConstituent(token, w, parentId) {
+      token.constituency = {
+        parent: parentId,
+        role: w._role
       };
     }
 

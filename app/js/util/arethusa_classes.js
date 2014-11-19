@@ -39,12 +39,12 @@ function ArethusaClasses() {
   this.sentence = function(i, t, c, cite) { return new Sentence(i, t, c, cite); };
 
   // Used by retrievers to define constituents
-  function Constituent(cl, role, id, sentenceId, head) { // might want to add more here
+  function Constituent(cl, role, id, sentenceId, parentId) { // might want to add more here
     this.class = cl;
     this.role = role;
     this.id = id;
     this.sentenceId = sentenceId;
-    this.head = head;
+    this.parent = parentId;
   }
 
   this.constituent = function(c, r, i, h) { return new Constituent(c, r, i, h); };
