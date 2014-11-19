@@ -3,10 +3,13 @@
 angular.module('arethusa').factory('ConstituentTreebankRetriever', [
   'configurator',
   'documentStore',
-  function(configurator, documentStore) {
+  'retrieverHelper',
+  'idHandler',
+  function(configurator, documentStore, retrieverHelper, idHandler) {
     // Parse functions
 
     function parseDocument(json, docId) {
+      resetSentenceIdCounter();
       return parseSentences(json.book.sentence, docId);
     }
 
@@ -17,7 +20,10 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
     }
 
     function parseSentence(sentence, docId) {
-      var sentenceId = sentence._ID;
+      resetWordIdCounter();
+      var sourceId = sentence._ID;
+      var internalId = getSentenceId();
+
       var constituents = new Container();
       var tokens = new Container();
 
@@ -25,9 +31,9 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
       var wgNode = sentence.wg;
       wgNode._role = 'sent';
 
-      parseWordGroup(wgNode, docId, sentenceId, constituents, tokens);
+      parseWordGroup(wgNode, docId, internalId, constituents, tokens);
 
-      return aC.sentence(sentenceId, tokens.container, constituents.container);
+      return aC.sentence(internalId, tokens.container, constituents.container);
     }
 
     function parseWordGroup(wg, docId, sentenceId, constituents, tokens, parentId) {
@@ -53,24 +59,15 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
 
     function parseWord(w, docId, sentenceId, tokens, parentId) {
       var token = aC.token(w.__text, sentenceId);
-      token.id = w._morphId;
+
+      var sourceId = w._morphId;
+      var internalId = idHandler.getId(getWordId(), sentenceId);
+      retrieverHelper.generateId(token, internalId, sourceId, docId);
 
       parseMorph(token, w);
 
       tokens.add(token);
     }
-
-    var morphKeys = {
-      'class': 'pos',
-      'person': 'pers',
-      'number': 'num',
-      'tense': null,
-      'mood': null,
-      'voice': null,
-      'gender': 'gend',
-      'case': null,
-      'degree': null
-    };
 
     function parseMorph(token, w) {
       var attrs = {}, key, expandedKey,  attrKey, val;
@@ -95,6 +92,25 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
         self.container[el.id] = el;
       };
     }
+
+    var morphKeys = {
+      'class': 'pos',
+      'person': 'pers',
+      'number': 'num',
+      'tense': null,
+      'mood': null,
+      'voice': null,
+      'gender': 'gend',
+      'case': null,
+      'degree': null
+    };
+
+    var wIdCounter, sIdCounter;
+    function resetWordIdCounter()     { wIdCounter = 0; }
+    function resetSentenceIdCounter() { sIdCounter = 0; }
+    function getWordId()     { wIdCounter += 1; return wIdCounter; }
+    function getSentenceId() { sIdCounter += 1; return sIdCounter; }
+
 
     return function(conf) {
       var self = this;
