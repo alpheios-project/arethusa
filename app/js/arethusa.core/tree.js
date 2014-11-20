@@ -132,7 +132,6 @@ angular.module('arethusa.core').factory('Tree', [
         angular.element(element[0].previousElementSibling).append($compile(el)(scope));
       }
 
-      scope.focusTemplate = templatePath('focus_controls');
       scope.panelTemplate = templatePath('settings');
 
 
@@ -775,7 +774,6 @@ angular.module('arethusa.core').factory('Tree', [
 
         // Append and prepend all templates
         element.append(tree);
-        prependTemplate('focusTemplate');
         prependTemplate('panelTemplate');
         element.prepend($compile('<div dep-tree-navigator/>')(scope));
 
