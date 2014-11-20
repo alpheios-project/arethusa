@@ -41,12 +41,17 @@ angular.module('arethusa.util').service('commons', [
 
 
     // Used by retrievers to define constituents
-    function Constituent(cl, role, id, sentenceId, head) { // might want to add more here
+    function Constituent(cl, role, id, sentenceId, parentId) { // might want to add more here
       this.class = cl;
       this.role = role;
       this.id = id;
       this.sentenceId = sentenceId;
-      this.head = head;
+      this.parent = parentId;
+
+      // To make a constituent conform to a token, we also save the parentId
+      // at the exact same spot as a token would do.
+      this.constituency = {};
+      this.constituency.id = parentId;
     }
 
     this.constituent = function(c, r, i, h) { return new Constituent(c, r, i, h); };
