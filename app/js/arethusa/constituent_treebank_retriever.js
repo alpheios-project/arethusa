@@ -25,7 +25,6 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
     }
 
     function parseSentence(sentence, constituents, docId) {
-      resetWordIdCounter();
       var sourceId = sentence._ID;
       var internalId = getSentenceId();
       var tokens = new Container();
@@ -66,7 +65,7 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
       var token = aC.token(w.__text, sentenceId);
 
       var sourceId = w._morphId;
-      var internalId = idHandler.getId(getWordId(), sentenceId);
+      var internalId = idHandler.getId(getWordId(sourceId), sentenceId);
       retrieverHelper.generateId(token, internalId, sourceId, docId);
 
       parseMorph(token, w);
@@ -122,11 +121,13 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
       'degree': null
     };
 
-    var wIdCounter, sIdCounter;
-    function resetWordIdCounter()     { wIdCounter = 0; }
+    var sIdCounter;
     function resetSentenceIdCounter() { sIdCounter = 0; }
-    function getWordId()     { wIdCounter += 1; return wIdCounter; }
     function getSentenceId() { sIdCounter += 1; return sIdCounter; }
+
+    function getWordId(source) {
+      return source.substr(source.length - 3);
+    }
 
 
     return function(conf) {
