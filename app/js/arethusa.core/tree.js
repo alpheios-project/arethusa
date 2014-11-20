@@ -12,9 +12,11 @@ angular.module('arethusa.core').factory('Tree', [
   'translator',
   'plugins',
   'navigator',
-  function ($compile, languageSettings, keyCapture, idHandler,
-            $window, state, $timeout, translator, plugins, navigator) {
+  'globalStore',
+  function ($compile, languageSettings, keyCapture, idHandler, $window,
+            state, $timeout, translator, plugins, navigator, globalStore) {
     return function(scope, element, conf) {
+      var self = this;
 
       // General margin value so that trees don't touch the canvas border.
       var treeMargin = 15;
@@ -54,10 +56,10 @@ angular.module('arethusa.core').factory('Tree', [
       var viewModeFn;
 
       // Will contain the dagreD3 graph, including all nodes, edges and label.
-      var g;
+      this.g = undefined;
 
       // The g element contained in the svg canvas.
-      var vis;
+      this.vis = undefined;
 
       // The svg itself.
       var svg = d3.select(element[0]);
@@ -83,7 +85,7 @@ angular.module('arethusa.core').factory('Tree', [
         var ev, val;
         ev  = d3.event;
         val = 'translate(' + ev.translate + ') scale(' + ev.scale + ')';
-        vis.attr('transform', val);
+        self.vis.attr('transform', val);
       }
 
       // dagre renderer
@@ -209,7 +211,7 @@ angular.module('arethusa.core').factory('Tree', [
       var edgeStyleResets = {};
       var labelStyleResets = {};
       function applyCustomStyling() {
-        var edges = vis.selectAll('g.edgePath path');
+        var edges = self.vis.selectAll('g.edgePath path');
         angular.forEach(scope.styles, function (style, id) {
           var labelStyle = style.label;
           var edgeStyle = style.edge;
@@ -251,10 +253,10 @@ angular.module('arethusa.core').factory('Tree', [
       // Getter functions for nodes, labels, edges,  generators for
       // properly namespaced ids and query methods for these elements.
       function edges() {
-        return vis.selectAll('g.edgePath path');
+        return self.vis.selectAll('g.edgePath path');
       }
       function edge(id) {
-        return vis.select('#' + edgeId(id));
+        return self.vis.select('#' + edgeId(id));
       }
       function edgePresent(id) {
         return edge(id)[0][0];  // yes, that's valid d3 syntax
@@ -263,7 +265,7 @@ angular.module('arethusa.core').factory('Tree', [
         return 'tep' + id;
       }
       function label(id) {
-        return vis.select('#' + labelId(id));
+        return self.vis.select('#' + labelId(id));
       }
       function labelId(id) {
         return 'tel' + id;
@@ -272,13 +274,13 @@ angular.module('arethusa.core').factory('Tree', [
         return 'tph' + id;
       }
       function node(id) {
-        return vis.select('#' + nodeId(id));
+        return self.vis.select('#' + nodeId(id));
       }
       function nodes() {
-        return vis.selectAll('div.node');
+        return self.vis.selectAll('div.node');
       }
       function nodePresent(id) {
-        return g._nodes[id];
+        return self.g._nodes[id];
       }
       function hasHead(token) {
         return aU.getProperty(token, conf.mainAttribute);
@@ -308,7 +310,7 @@ angular.module('arethusa.core').factory('Tree', [
         }
 
         clearOldGraph();
-        g = new dagreD3.Digraph();
+        self.g = new dagreD3.Digraph();
         if (conf.syntheticRoot) createRootNode();
         createEdges();
         render();
@@ -320,7 +322,7 @@ angular.module('arethusa.core').factory('Tree', [
       }
 
       function clearOldGraph() {
-        if (vis) vis.selectAll('*').remove();
+        if (self.vis) self.vis.selectAll('*').remove();
       }
 
       function inferSentenceId() {
@@ -330,10 +332,10 @@ angular.module('arethusa.core').factory('Tree', [
 
       function createRootNode() {
         rootId = idHandler.getId('0', inferSentenceId());
-        g.addNode(rootId, { label: rootPlaceholder() });
+        self.g.addNode(rootId, { label: rootPlaceholder() });
       }
       function createNode(token) {
-        g.addNode(token.id, { label: tokenPlaceholder(token) });
+        self.g.addNode(token.id, { label: tokenPlaceholder(token) });
       }
       function createEdges() {
         angular.forEach(scope.current, function (token, index) {
@@ -360,14 +362,14 @@ angular.module('arethusa.core').factory('Tree', [
         }
 
         if (!nodePresent(headId)) {
-          createNode(scope.current[headId]);
+          createNode(scope.current[headId] || globalStore.constituents[headId]);
         }
-        g.addEdge(id, id, headId, { label: labelPlaceholder(token) });
+        self.g.addEdge(id, id, headId, { label: labelPlaceholder(token) });
       }
 
       function updateEdge(token) {
         if (edgePresent(token.id)) {
-          g.delEdge(token.id);
+          self.g.delEdge(token.id);
         }
         drawEdge(token);
       }
@@ -391,8 +393,8 @@ angular.module('arethusa.core').factory('Tree', [
 
 
       function render() {
-        vis = svg.select('g');
-        renderer.layout(scope.layout).run(g, vis);
+        self.vis = svg.select('g');
+        renderer.layout(scope.layout).run(self.g, self.vis);
         customizeGraph();
 
         // Not very elegant, but we don't want marker-end arrowheads right now
@@ -405,7 +407,7 @@ angular.module('arethusa.core').factory('Tree', [
         // A bug in webkit makes it impossible to select camelCase tags...
         // We work around by using a function.
         // http://stackoverflow.com/questions/11742812/cannot-select-svg-foreignobject-element-in-d3
-        vis.selectAll(function () {
+        self.vis.selectAll(function () {
           return this.getElementsByTagName('foreignObject');
         }).each(function () {
           angular.element(this.children[0]).attr('style', 'float: center;');
@@ -510,7 +512,7 @@ angular.module('arethusa.core').factory('Tree', [
         syncZoomAndDrag(x, y, sc);
         var translate = 'translate(' + x + ',' + y +' )';
         var scale = sc ? ' scale(' + sc+ ')' : '';
-        vis.transition()
+        self.vis.transition()
           .attr('transform', translate + scale)
           .duration(transitionDuration)
           .ease();
@@ -534,7 +536,7 @@ angular.module('arethusa.core').factory('Tree', [
       }
 
       function graphSize() {
-        return vis.node().getBBox();
+        return self.vis.node().getBBox();
       }
 
       function calculateSvgHotspots() {
@@ -655,7 +657,7 @@ angular.module('arethusa.core').factory('Tree', [
         state.on('tokenRemoved', function(event, token) {
           var id = token.id;
           if (inActiveTree(id) && nodePresent(id)) {
-            g.delNode(id);
+            self.g.delNode(id);
             render();
           }
         });
@@ -673,7 +675,7 @@ angular.module('arethusa.core').factory('Tree', [
               // If a disconnection has been requested, we just
               // have to delete the edge and do nothing else
               if (newVal === "") {
-                g.delEdge(token.id);
+                self.g.delEdge(token.id);
               } else {
                 updateEdge(token);
               }
