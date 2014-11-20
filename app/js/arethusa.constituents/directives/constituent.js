@@ -23,7 +23,7 @@ angular.module('arethusa.constituents').directive('constituent', [
           scope.$watch('constituent.' + part, buildLabel);
         }
       },
-      template: '<span>{{ label }}'
+      template: '<div class="center">{{ label }}</div>'
     };
   }
 ]);
