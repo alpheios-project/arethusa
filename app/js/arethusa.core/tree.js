@@ -14,7 +14,7 @@ angular.module('arethusa.core').factory('Tree', [
   'navigator',
   function ($compile, languageSettings, keyCapture, idHandler,
             $window, state, $timeout, translator, plugins, navigator) {
-    return function(scope, element) {
+    return function(scope, element, conf) {
 
       // General margin value so that trees don't touch the canvas border.
       var treeMargin = 15;
@@ -164,8 +164,7 @@ angular.module('arethusa.core').factory('Tree', [
         childScope.obj = token.relation;
         return $compile(edgeLabelTemplate)(childScope)[0];
       }
-
-      function compiledToken(token) {
+function compiledToken(token) {
         var childScope = scope.$new();
         childScopes.push(childScope);
         childScope.token = token;
@@ -280,7 +279,7 @@ angular.module('arethusa.core').factory('Tree', [
         return g._nodes[id];
       }
       function hasHead(token) {
-        return (token.head || {}).id;
+        return aU.getProperty(token, conf.mainAttribute);
       }
 
       function stillSameTree(a, b) {
@@ -308,7 +307,7 @@ angular.module('arethusa.core').factory('Tree', [
 
         clearOldGraph();
         g = new dagreD3.Digraph();
-        createRootNode();
+        if (conf.syntheticRoot) createRootNode();
         createEdges();
         render();
       }
@@ -352,7 +351,7 @@ angular.module('arethusa.core').factory('Tree', [
         // be investigated.
         if (!angular.isDefined(id)) return;
 
-        var headId = token.head.id;
+        var headId = aU.getProperty(token, conf.mainAttribute);
 
         if (!nodePresent(id)) {
           createNode(token);
@@ -383,7 +382,7 @@ angular.module('arethusa.core').factory('Tree', [
       function customizeGraph() {
         // Customize the graph so that it holds our directives
         clearChildScopes();
-        insertRootDirective();
+        if (conf.syntheticRoot) insertRootDirective();
         insertTokenDirectives();
         insertEdgeDirectives();
       }
@@ -590,7 +589,7 @@ angular.module('arethusa.core').factory('Tree', [
       function init(noRegroup) {
         createGraph(noRegroup);
         moveToStart();
-        if (isMainTree()) plugins.declareReady('depTree');
+        if (isMainTree()) plugins.declareReady(conf.parentPlugin);
       }
 
       scope.$watch('styles', function (newVal, oldVal) {
@@ -663,7 +662,7 @@ angular.module('arethusa.core').factory('Tree', [
         // in, is in progress, we wait for its end to re-render the tree
         // only once and not several times for each head change.
         var queuedChangesPresent;
-        state.watch('head.id', function(newVal, oldVal, event) {
+        state.watch(conf.mainAttribute, function(newVal, oldVal, event) {
           var token = event.token;
           if (inActiveTree(token.id)) {
             // Very important to do here, otherwise the tree will

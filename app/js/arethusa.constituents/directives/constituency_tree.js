@@ -10,7 +10,10 @@ angular.module('arethusa.constituents').directive('constituencyTree', [
         styles: '='
       },
       link: function (scope, element, attrs) {
-        var tree = new Tree(scope, element);
+        var tree = new Tree(scope, element, {
+          mainAttribute: 'constituency.parent',
+          parentPlugin: 'constituents'
+        });
         tree.launch();
       },
     };
