@@ -765,23 +765,6 @@ angular.module('arethusa.core').factory('Tree', [
         }
       }
 
-
-      function grid() { return element.parents('.gridster'); }
-      function isPartOfGrid() { return grid().length; }
-      function gridReady() { return grid().hasClass('gridster-loaded'); }
-
-      // Special handling for an edge case:
-      // When we change the layout which uses this directive on the fly
-      // to a grid based one, we need to wait a little, so that the grid
-      // item which holds our tree has the correct size, otherwise our
-      // tree will render too little (where too little could also mean
-      // with a width of 0...)
-      if (isPartOfGrid() && !gridReady()) {
-        $timeout(start, 130);
-      } else {
-        start();
-      }
-
       var keys = keyCapture.initCaptures(keyBindings);
 
       scope.keyHints = arethusaUtil.inject({}, keys.tree, function(memo, name, key) {
@@ -796,6 +779,24 @@ angular.module('arethusa.core').factory('Tree', [
       angular.forEach(translateValues, function(val, i) {
         translator('tree.' + val, scope.translations, val);
       });
+
+      function grid() { return element.parents('.gridster'); }
+      function isPartOfGrid() { return grid().length; }
+      function gridReady() { return grid().hasClass('gridster-loaded'); }
+
+      // Special handling for an edge case:
+      // When we change the layout which uses this directive on the fly
+      // to a grid based one, we need to wait a little, so that the grid
+      // item which holds our tree has the correct size, otherwise our
+      // tree will render too little (where too little could also mean
+      // with a width of 0...)
+      this.launch = function() {
+        if (isPartOfGrid() && !gridReady()) {
+          $timeout(start, 130);
+        } else {
+          start();
+        }
+      };
     };
   }
 ]);
