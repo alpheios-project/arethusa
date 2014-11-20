@@ -52,6 +52,8 @@ angular.module('arethusa.util').service('commons', [
       // at the exact same spot as a token would do.
       this.constituency = {};
       this.constituency.id = parentId;
+
+      this.isConstituent = true;
     }
 
     this.constituent = function(c, r, i, sId, h) { return new Constituent(c, r, i, sId, h); };
@@ -60,6 +62,8 @@ angular.module('arethusa.util').service('commons', [
     function Token(string, sentenceId) {
       this.string = string;
       this.sentenceId = sentenceId;
+
+      this.isToken = true;
     }
 
     this.token = function (s, sentenceId) { return new Token(s, sentenceId); };
