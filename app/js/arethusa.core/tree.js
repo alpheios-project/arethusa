@@ -112,6 +112,7 @@ angular.module('arethusa.core').factory('Tree', [
           click="true"\
           hover="true"/>\
       ';
+
       var edgeLabelTemplate = '\
         <span\
          value-watch\
@@ -164,7 +165,8 @@ angular.module('arethusa.core').factory('Tree', [
         childScope.obj = token.relation;
         return $compile(edgeLabelTemplate)(childScope)[0];
       }
-function compiledToken(token) {
+
+      function compiledToken(token) {
         var childScope = scope.$new();
         childScopes.push(childScope);
         childScope.token = token;
