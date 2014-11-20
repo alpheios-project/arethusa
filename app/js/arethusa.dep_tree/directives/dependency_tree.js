@@ -49,7 +49,8 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
         styles: '='
       },
       link: function (scope, element, attrs) {
-        new Tree(scope, element);
+        var tree = new Tree(scope, element);
+        tree.launch();
       },
     };
   }
