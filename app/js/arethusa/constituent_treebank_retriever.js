@@ -46,6 +46,7 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
         wg._class,
         wg._role,
         id,
+        sentenceId,
         parentId
       );
 
