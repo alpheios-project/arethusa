@@ -59,14 +59,14 @@ angular.module('arethusa.core').factory('Resource', [
         return $resource(self.route, null, {
           get: {
             method: 'GET',
-            withCredentials: true,
+            withCredentials: auth.withCredentials,
             transformResponse: parseResponse,
             timeout: aborter.promise
           },
           save: {
             // TODO we need save and partial save -- latter will use PATCH
             method: 'POST',
-            withCredentials: true,
+            withCredentials: auth.withCredentials,
             transformRequest: function(data,headers) {
               var contentType = self.mimetype || 'application/json';
               headers()["Content-Type"] = contentType;

@@ -12,9 +12,9 @@ angular.module('arethusa.core').factory('Auth', [
       return lazyNotifier;
     }
 
-    function Pinger(url) {
+    function Pinger(url,withCredentials) {
       if (url) {
-        var resource = $resource(url, null, { get: { withCredentials: true } });
+        var resource = $resource(url, null, { get: { withCredentials: withCredentials } });
         this.checkAuth = function(success, error) {
           resource.get(success, error);
         };
@@ -50,7 +50,10 @@ angular.module('arethusa.core').factory('Auth', [
         if (res.status === 403) loginWarning();
       }
 
-      var pinger = new Pinger(conf.ping);
+      this.withCredentials = conf.crossDomain ? true : false;
+
+      var pinger = new Pinger(conf.ping,this.withCredentials);
+
 
       this.checkAuthentication = function() {
         if (modeToSkip()) return;
