@@ -948,6 +948,16 @@ code {
   }
 }
 
+// Sub navs
+
+.sub-nav dd {
+  margin-left: .2rem;
+
+  a {
+    padding: .4rem;
+  }
+}
+
 dd.active {
   a.unused-highlighter {
     $bg-color: rgb(255, 216, 216);
