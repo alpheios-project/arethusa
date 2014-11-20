@@ -75,6 +75,7 @@ angular.module('arethusa.core').directive('tokenSelector', [
         var unusedHighlighter = {
           label: function() { return "highlight unused"; },
           action: highlightUnused,
+          styleClasses: 'unused-highlighter',
           isActive: false
         };
 

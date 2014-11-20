@@ -948,6 +948,19 @@ code {
   }
 }
 
+dd.active {
+  a.unused-highlighter {
+    $bg-color: rgb(255, 216, 216);
+    color: #737373;
+    cursor: pointer;
+    background-color: $bg-color;
+
+    &:hover {
+      background-color: darken($bg-color, 10%);
+    }
+  }
+}
+
 
 /***************************************************************************
  *                               Animations                                *

@@ -2,7 +2,9 @@
   <dt>Selection:</dt>
   <dd ng-repeat="s in selectors" 
       ng-class="{active: s.isActive}">
-      <a ng-click="s.action()">
+      <a
+        ng-click="s.action()"
+        ng-class="s.styleClasses">
         {{s.label()}}
       </a>
   </dd>
