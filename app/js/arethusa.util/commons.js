@@ -47,11 +47,6 @@ angular.module('arethusa.util').service('commons', [
       this.sentenceId = sentenceId;
       this.parent = parentId;
 
-      // To make a constituent conform to a token, we also save the parentId
-      // at the exact same spot as a token would do.
-      this.constituency = {};
-      this.constituency.id = parentId;
-
       this.isConstituent = true;
     }
 
