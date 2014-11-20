@@ -56,7 +56,7 @@ angular.module('arethusa.util').service('commons', [
       this.isConstituent = true;
     }
 
-    this.constituent = function(c, r, i, h) { return new Constituent(c, r, i, h); };
+    this.constituent = function(c, r, i, h, p) { return new Constituent(c, r, i, h, p); };
 
     // A simple token container
     function Token(string, sentenceId) {
