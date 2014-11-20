@@ -761,7 +761,7 @@ angular.module('arethusa.core').factory('Tree', [
       // as main layout.
       var canvas = element.parents('.tree-canvas');
       function checkBorderStyle() {
-        if (isPartOfGrid()) {
+        if (isPartOfGrid() || isPartOfSidepanel()) {
           canvas.addClass('no-border');
         } else {
           canvas.removeClass('no-border');
@@ -782,10 +782,12 @@ angular.module('arethusa.core').factory('Tree', [
       angular.forEach(translateValues, function(val, i) {
         translator('tree.' + val, scope.translations, val);
       });
-
       function grid() { return element.parents('.gridster'); }
       function isPartOfGrid() { return grid().length; }
+
       function gridReady() { return grid().hasClass('gridster-loaded'); }
+      function sidepanel() { return element.parents('#sidepanel'); }
+      function isPartOfSidepanel() { return sidepanel().length; }
 
       // Special handling for an edge case:
       // When we change the layout which uses this directive on the fly
