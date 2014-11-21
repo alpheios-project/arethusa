@@ -89,9 +89,12 @@ angular.module('arethusa').factory('TreebankRetriever', [
     }
 
     function parseRelation(token, word) {
-      token.relation = {};
       var relation = word._relation;
-      token.relation.label = (relation && relation !== 'nil') ? relation : '';
+      var label = (relation && relation !== 'nil') ? relation : '';
+
+      token.relation = {
+        label: label
+      };
     }
 
     function parseSg(token, word) {
@@ -151,7 +154,6 @@ angular.module('arethusa').factory('TreebankRetriever', [
       if (cite) {
         return cite;
       } else {
-
         var docId = sentence._document_id;
         var subdoc = sentence._subdoc;
         if (subdoc) {
