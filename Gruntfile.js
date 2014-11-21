@@ -17,6 +17,7 @@ var arethusaModules = [
   'arethusa.morph',
   'arethusa.artificial_token',
   'arethusa.core',
+  'arethusa.util',
   'arethusa.comments',
   'arethusa.hebrew_morph',
   'arethusa.context_menu',
@@ -94,7 +95,7 @@ function arethusaSourceFiles() {
 
 function arethusaMainFiles() {
   var files = [
-    "arethusa_util",
+    "arethusa.util",
     "arethusa.core",
     "arethusa.context_menu",
     "arethusa.history",
@@ -139,7 +140,6 @@ function arethusaConcat() {
 
   obj.packages = { src: sourceFiles, dest: toConcatPath('arethusa_packages') };
   obj.main = pluginFiles('arethusa', 'arethusa.main', true);
-  obj.util = { src: "app/js/util/**/*.js", dest: toConcatPath('arethusa_util') };
   obj.app = { src: mainFiles, dest: toConcatPath('arethusa') };
 
   return obj;
@@ -376,7 +376,6 @@ module.exports = function(grunt) {
             // the load order is wrong
             'app/js/*.js',
             'app/js/arethusa*/**/*.js',
-            'app/js/util/**/*.js',
             'dist/templates.min.js',
             specFiles
           ],

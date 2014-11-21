@@ -1,4 +1,5 @@
 angular.module('arethusa.core', [
+  'arethusa.util',
   'ngResource',
   'ngCookies',
   'ngAnimate',
