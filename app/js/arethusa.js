@@ -9,8 +9,6 @@ angular.module('arethusa', [
   'arethusa.history'
 ]);
 
-angular.module('arethusa').constant('_', window._);
-
 angular.module('arethusa').config([
   '$routeProvider',
   '$translateProvider',
