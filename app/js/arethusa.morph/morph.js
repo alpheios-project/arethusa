@@ -6,8 +6,9 @@ angular.module('arethusa.morph').service('morph', [
   'globalSettings',
   'keyCapture',
   'morphLocalStorage',
+  'saver',
   function (state, configurator, plugins, globalSettings,
-            keyCapture, morphLocalStorage) {
+            keyCapture, morphLocalStorage, saver) {
     var self = this;
     this.name = 'morph';
 
@@ -535,6 +536,7 @@ angular.module('arethusa.morph').service('morph', [
 
     this.updateGloss = function(id, form) {
       if (self.gloss) {
+        saver.needsSave = true;
         var gloss = self.analyses[id].gloss;
         if (gloss) {
           form = form || selectedForm(id);
@@ -548,7 +550,7 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     this.setState = function (id, form) {
-      setGloss(id, form);
+      self.updateGloss(id);
       state.change(id, 'morphology', form, undoFn(id), preExecFn(id, form));
     };
 

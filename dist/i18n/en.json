@@ -28,6 +28,7 @@
   "list": "List",
   "delete": "Delete",
   "morph": {
+    "lemmaTranslation": "Lemma Translation",
     "lemmaHint": "This lemma was added automatically!\nCheck it before you save!",
     "createError": "Cannot save an incomplete form",
     "createNewForm": "Create new form",
