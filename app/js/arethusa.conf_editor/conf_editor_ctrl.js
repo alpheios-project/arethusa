@@ -5,7 +5,8 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', [
   'confUrl',
   'notifier',
   '$http',
-  function ($scope, configurator, confUrl, notifier, $http) {
+  'logger',
+  function ($scope, configurator, confUrl, notifier, $http, logger) {
     $scope.conf = configurator.getConfTemplate();
     $scope.filePath = '';
     // If we have specified a conf file to preload, we fetch it here
@@ -67,10 +68,10 @@ angular.module('arethusa.confEditor').controller('ConfEditorCtrl', [
       // running locally on port 8086.
       // Check http://github.com/latin-language-toolkit/llt-arethusa-file_server
       $http.post('http://localhost:8086/write', request).success(function (res) {
-        arethusaLogger.log('File saved');
+        logger.log('File saved');
         notifier.succes('File saved!');
       }).error(function (res) {
-        arethusaLogger.log('Error while saving file');
+        logger.log('Error while saving file');
         notifier.error('Failed to write file!');
       });
     };

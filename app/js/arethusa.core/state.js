@@ -9,8 +9,9 @@ angular.module('arethusa.core').service('state', [
   'StateChange',
   'idHandler',
   'globalSettings',
+  'logger',
   function (configurator, navigator, $rootScope, documentStore, keyCapture,
-            locator, StateChange, idHandler, globalSettings) {
+            locator, StateChange, idHandler, globalSettings, logger) {
     var self = this;
     var tokenRetrievers;
 
@@ -292,7 +293,7 @@ angular.module('arethusa.core').service('state', [
 
     // DEPRECATED
     this.setState = function (id, category, val) {
-      arethusaLogger.log('state.setState is DEPRECATED. Use state.change() instead.');
+      logger.log('state.setState is DEPRECATED. Use state.change() instead.');
       var token = self.tokens[id];
       // We're covering up for diffs - review is the only plugin still using
       // this - of artificialTokens, where ids might not match.
