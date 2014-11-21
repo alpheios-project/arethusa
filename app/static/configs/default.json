@@ -1,9 +1,0 @@
-{
-  "main" : {
-    "template"  : "templates/main3.html"
-  },
-
-  "navbar" : {
-    "template" : "templates/navbar1.html"
-  }
-}
