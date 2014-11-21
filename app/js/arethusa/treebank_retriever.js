@@ -32,10 +32,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
 
       var artificials = extractArtificials(words, id);
 
-      var last = words.length - 1;
       angular.forEach(words, function (word, i) {
         var token = parseWord(word, id, docId, artificials);
-        if (i === last) token.terminator = true;
         tokens[token.id] = token;
       });
 
@@ -56,6 +54,8 @@ angular.module('arethusa').factory('TreebankRetriever', [
       parseSg(token, word);
       parseArtificial(token, word);
       parseHead(token, word, artificials);
+
+      parseTermination(token);
 
       var internalId = generateInternalId(word, sentenceId);
       var sourceId   = word._id;
@@ -106,6 +106,12 @@ angular.module('arethusa').factory('TreebankRetriever', [
       if (word._artificial) {
         token.artificial = true;
         token.type = word._artificial;
+      }
+    }
+
+    function parseTermination(token) {
+      if (aU.isTerminatingPunctuation(token.string)) {
+        token.terminator = true;
       }
     }
 
@@ -186,8 +192,9 @@ angular.module('arethusa').factory('TreebankRetriever', [
       this.parse = function(xml, callback) {
         var json = arethusaUtil.xml2json(xml);
         var moreConf = findAdditionalConfInfo(json);
+        var doc = commons.doc(xml, json, moreConf);
 
-        documentStore.addDocument(docId, new commons.doc(xml, json, moreConf));
+        documentStore.addDocument(docId, doc);
         callback(parseDocument(json, docId));
       };
 
