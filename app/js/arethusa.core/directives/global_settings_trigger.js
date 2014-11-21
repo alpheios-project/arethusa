@@ -1,11 +1,12 @@
 "use strict";
 
 angular.module('arethusa.core').directive('globalSettingsTrigger', [
+  'generator',
   'globalSettings',
   'translator',
   'keyCapture',
-  function(globalSettings, translator, keyCapture) {
-    return aG.panelTrigger({
+  function(generator, globalSettings, translator, keyCapture) {
+    return generator.panelTrigger({
       service: globalSettings,
       trsl: translator,
       trslKey: 'globalSettings.title',
