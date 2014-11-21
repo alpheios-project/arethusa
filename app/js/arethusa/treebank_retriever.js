@@ -11,64 +11,124 @@ angular.module('arethusa').factory('TreebankRetriever', [
   'documentStore',
   'retrieverHelper',
   'idHandler',
-  function (commons, configurator, documentStore, retrieverHelper, idHandler) {
-    function xmlTokenToState(docId, token, sentenceId, artificials) {
+  function ( commons, configurator, documentStore, retrieverHelper, idHandler) {
+    function parseDocument(json, docId) {
+      var sentences = arethusaUtil.toAry(json.treebank.sentence);
+      return parseSentences(sentences, docId);
+    }
+
+    function parseSentences(sentences, docId) {
+      return sentences.map(function(sentence) {
+        var cite = extractCiteInfo(sentence);
+        var words = arethusaUtil.toAry(sentence.word);
+        return parseSentence(sentence, sentence._id, docId, cite);
+      });
+    }
+
+    function parseSentence(sentence, id, docId, cite) {
+      var words = aU.toAry(sentence.word);
+      var tokens = {};
+
+      var artificials = extractArtificials(words, id);
+
+      var last = words.length - 1;
+      angular.forEach(words, function (word, i) {
+        var token = parseWord(word, id, docId, artificials);
+        if (i === last) token.terminator = true;
+        tokens[token.id] = token;
+      });
+
+      var sentenceObj = commons.sentence(tokens, cite);
+      retrieverHelper.generateId(sentenceObj, id, id, docId);
+
+      return sentenceObj;
+    }
+
+    function parseWord(word, sentenceId, docId, artificials) {
       // One could formalize this to real rules that are configurable...
       //
       // Remember that attributes of the converted xml are prefixed with underscore
-      var obj = commons.token(token._form, sentenceId);
+      var token = commons.token(word._form, sentenceId);
 
-      obj.morphology = {
-        lemma: token._lemma,
-        postag: token._postag
+      parseMorphology(token, word);
+      parseRelation(token, word);
+      parseSg(token, word);
+      parseArtificial(token, word);
+      parseHead(token, word, artificials);
+
+      var internalId = generateInternalId(word, sentenceId);
+      var sourceId   = word._id;
+      retrieverHelper.generateId(token, internalId, sourceId, docId);
+
+      return token;
+    }
+
+    function parseHead(token, word, artificials) {
+      var headId = word._head;
+      if (angular.isDefined(headId) && headId !== "") {
+        var newHead = {};
+        var artHeadId = artificials[headId];
+        var sentenceId = token.sentenceId;
+        newHead.id = artHeadId ? artHeadId : idHandler.getId(headId, sentenceId);
+
+        token.head = newHead;
+      }
+    }
+
+
+    function parseMorphology(token, word) {
+      token.morphology = {
+        lemma: word._lemma,
+        postag: word._postag
       };
 
-      obj.relation = {};
-
-      var relation = token._relation;
-      obj.relation.label = (relation && relation !== 'nil') ? relation : '';
-
-      var gloss = token._gloss;
+      var gloss = word._gloss;
       if (gloss) {
-        obj.morphology.gloss = gloss;
+        token.morphology.gloss = gloss;
       }
+    }
 
-      var sg = token._sg;
+    function parseRelation(token, word) {
+      token.relation = {};
+      var relation = word._relation;
+      token.relation.label = (relation && relation !== 'nil') ? relation : '';
+    }
+
+    function parseSg(token, word) {
+      var sg = word._sg;
       if (sg && !sg.match(/^\s*$/)) {
-        obj.sg = { ancestors: sg.split(' ') };
-      }
-
-      if (token._artificial) {
-        obj.artificial = true;
-        obj.type = token._artificial;
-      }
-
-      if (aU.isTerminatingPunctuation(obj.string)) {
-        obj.terminator = true;
-      }
-
-      var intId = xmlTokenId(token, sentenceId);
-      retrieverHelper.generateId(obj, intId, token._id, docId);
-      createHead(obj, token, artificials);
-
-      return obj;
-    }
-
-    function createHead(stateToken, xmlToken, artificials) {
-      var head = xmlToken._head;
-      if (angular.isDefined(head) && head !== "") {
-        var newHead = {};
-        var artHead = artificials[head];
-        newHead.id = artHead ? artHead : idHandler.getId(head, stateToken.sentenceId);
-        stateToken.head = newHead;
+        token.sg = { ancestors: sg.split(' ') };
       }
     }
 
-    function xmlTokenId(token, sentenceId) {
-      if (token._artificial) {
-        return padWithSentenceId(token._insertion_id, sentenceId);
+    function parseArtificial(token, word) {
+      if (word._artificial) {
+        token.artificial = true;
+        token.type = word._artificial;
+      }
+    }
+
+
+    // Helpers
+
+
+    function extractArtificials(words, sentenceId) {
+      return arethusaUtil.inject({}, words, function(memo, word, i) {
+        extractArtificial(memo, word, sentenceId);
+      });
+    }
+
+    function extractArtificial(memo, word, sentenceId) {
+      if (word._artificial) {
+        memo[word._id] = padWithSentenceId(word._insertion_id, sentenceId);
+      }
+    }
+
+    function generateInternalId(word, sentenceId) {
+      if (word._artificial) {
+        return padWithSentenceId(word._insertion_id, sentenceId);
       } else {
-        return idHandler.getId(token._id, sentenceId);
+        return idHandler.getId(word._id, sentenceId);
       }
     }
 
@@ -77,36 +137,6 @@ angular.module('arethusa').factory('TreebankRetriever', [
     // must have.
     function padWithSentenceId(id, sentenceId) {
       return (id.match(/-/)) ? id : idHandler.padIdWithSId(id, sentenceId);
-    }
-
-    function extractArtificial(memo, token, sentenceId) {
-      if (token._artificial) {
-        memo[token._id] = padWithSentenceId(token._insertion_id, sentenceId);
-      }
-    }
-
-    function xmlSentenceToState(docId, words, id, cite) {
-      var tokens = {};
-      var artificials = arethusaUtil.inject({}, words, function(memo, token, i) {
-        extractArtificial(memo, token, id);
-      });
-      angular.forEach(words, function (xmlToken, i) {
-        var token = xmlTokenToState(docId, xmlToken, id, artificials);
-        tokens[token.id] = token;
-      });
-
-      var sentence = commons.sentence(tokens, cite);
-      retrieverHelper.generateId(sentence, id, id, docId);
-      return sentence;
-    }
-
-    function parseDocument(json, docId) {
-      var sentences = arethusaUtil.toAry(json.treebank.sentence);
-      return arethusaUtil.inject([], sentences, function (memo, sentence, k) {
-        var cite = extractCiteInfo(sentence);
-        var words = arethusaUtil.toAry(sentence.word);
-        memo.push(xmlSentenceToState(docId, words, sentence._id, cite));
-      });
     }
 
     // Try to support the new as well as the old schema for now
@@ -156,7 +186,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
         var json = arethusaUtil.xml2json(xml);
         var moreConf = findAdditionalConfInfo(json);
 
-        documentStore.addDocument(docId, new commons.doc(xml, json, moreConf));
+        documentStore.addDocument(docId, commons.doc(xml, json, moreConf));
         callback(parseDocument(json, docId));
       };
 
