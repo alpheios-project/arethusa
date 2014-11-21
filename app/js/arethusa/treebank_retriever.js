@@ -6,16 +6,17 @@
  *
  */
 angular.module('arethusa').factory('TreebankRetriever', [
+  'commons',
   'configurator',
   'documentStore',
   'retrieverHelper',
   'idHandler',
-  function (configurator, documentStore, retrieverHelper, idHandler) {
+  function (commons, configurator, documentStore, retrieverHelper, idHandler) {
     function xmlTokenToState(docId, token, sentenceId, artificials) {
       // One could formalize this to real rules that are configurable...
       //
       // Remember that attributes of the converted xml are prefixed with underscore
-      var obj = aC.token(token._form, sentenceId);
+      var obj = commons.token(token._form, sentenceId);
 
       obj.morphology = {
         lemma: token._lemma,
@@ -94,7 +95,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
         tokens[token.id] = token;
       });
 
-      return aC.sentence(id, tokens, cite);
+      return commons.sentence(id, tokens, cite);
     }
 
     function parseDocument(json, docId) {
@@ -153,7 +154,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
         var json = arethusaUtil.xml2json(xml);
         var moreConf = findAdditionalConfInfo(json);
 
-        documentStore.addDocument(docId, new aC.doc(xml, json, moreConf));
+        documentStore.addDocument(docId, new commons.doc(xml, json, moreConf));
         callback(parseDocument(json, docId));
       };
 

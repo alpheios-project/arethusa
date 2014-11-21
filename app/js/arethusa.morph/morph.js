@@ -7,8 +7,9 @@ angular.module('arethusa.morph').service('morph', [
   'keyCapture',
   'morphLocalStorage',
   'saver',
+  'commons',
   function (state, configurator, plugins, globalSettings,
-            keyCapture, morphLocalStorage, saver) {
+            keyCapture, morphLocalStorage, saver, commons) {
     var self = this;
     this.name = 'morph';
 
@@ -708,8 +709,8 @@ angular.module('arethusa.morph').service('morph', [
     angular.extend(self.activeKeys, keys.selections);
 
     this.settings = [
-      aC.setting('Expand Selected', 'expandSelection'),
-      aC.setting('Preselect', 'preselect', 'preselectToggled')
+      commons.setting('Expand Selected', 'expandSelection'),
+      commons.setting('Preselect', 'preselect', 'preselectToggled')
     ];
 
     this.init = function () {

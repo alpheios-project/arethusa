@@ -3,7 +3,8 @@ angular.module('arethusa.relation').service('relation', [
   'state',
   'configurator',
   'globalSettings',
-  function (state, configurator, globalSettings) {
+  'commons',
+  function (state, configurator, globalSettings, commons) {
     var self = this;
     this.name = "relation";
 
@@ -278,7 +279,7 @@ angular.module('arethusa.relation').service('relation', [
     };
 
     this.settings = [
-      aC.setting('Advanced Mode', 'advancedMode')
+      commons.setting('Advanced Mode', 'advancedMode')
     ];
 
     this.init = function () {
