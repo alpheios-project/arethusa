@@ -5,7 +5,8 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
   '$parse',
   '$window',
   'translator',
-  function(state, $parse, $window, translator) {
+  'StateChangeWatcher',
+  function(state, $parse, $window, translator, StateChangeWatcher) {
     return {
       restrict: 'A',
       scope: {
@@ -28,6 +29,15 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
           }
         }
 
+        var stateChangeWatcher = new StateChangeWatcher(
+          scope.uthCheckProperty,
+          getter, function(token) {
+            state.addStyle(token.id, style);
+          }, function(token) {
+            removeStyle(token.id);
+          });
+        stateChangeWatcher.initCount();
+
         function findUnusedTokens() {
           angular.forEach(state.tokens, checkIfUnused);
         }
@@ -46,6 +56,8 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
             unusedTokens[id] = true;
             if (highlightMode) state.addStyle(id, style);
           }
+
+          console.log('Old: ' + scope.unusedCount + ' New: ' + stateChangeWatcher.count);
         }
 
         state.watch(scope.uthCheckProperty, watchChange);
