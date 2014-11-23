@@ -15,29 +15,39 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
         uthCheckProperty: '@'
       },
       link: function(scope, element, attrs) {
-        var unusedTokens;
+        // var unusedTokens;
         var style = scope.style || { "background-color": "rgb(255, 216, 216)" }; // a very light red
         var highlightMode = !!scope.highlightMode;
         scope.s = state;
+        scope.total = state.totalTokens;
 
         var getter = $parse(scope.uthCheckProperty);
 
+        /*
         function checkIfUnused(token, id) {
           if (!getter(token)) {
             scope.unusedCount++;
             unusedTokens[id] = true;
           }
         }
+       */
 
+        var callbacks = {
+          newMatch: function(token) {
+            if (highlightMode) state.addStyle(token.id, style);
+          },
+          lostMatch: function(token) {
+            if (highlightMode) removeStyle(token.id);
+          },
+          changedCount: function(newCount) {
+            scope.unusedCount = newCount;
+          }
+        };
         var stateChangeWatcher = new StateChangeWatcher(
-          scope.uthCheckProperty,
-          getter, function(token) {
-            state.addStyle(token.id, style);
-          }, function(token) {
-            removeStyle(token.id);
-          });
+          scope.uthCheckProperty, getter, callbacks);
         stateChangeWatcher.initCount();
 
+        /*
         function findUnusedTokens() {
           angular.forEach(state.tokens, checkIfUnused);
         }
@@ -59,9 +69,11 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
 
           console.log('Old: ' + scope.unusedCount + ' New: ' + stateChangeWatcher.count);
         }
+       */
 
-        state.watch(scope.uthCheckProperty, watchChange);
+        // state.watch(scope.uthCheckProperty, watchChange);
 
+        /*
         function init() {
           scope.total = state.totalTokens;
           scope.unusedCount = 0;
@@ -69,11 +81,20 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
           findUnusedTokens();
           if (highlightMode) applyHighlighting();
         }
+       */
+
+        if (highlightMode) applyHighlighting();
 
         function applyHighlighting() {
+          stateChangeWatcher.applyToMatching(function(id) {
+            state.addStyle(id, style);
+          });
+
+          /*
           angular.forEach(unusedTokens, function(val, id) {
             state.addStyle(id, style);
           });
+         */
         }
 
         function removeStyle(id) {
@@ -82,14 +103,20 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
         }
 
         function unapplyHighlighting() {
+          stateChangeWatcher.applyToMatching(function(id) {
+            removeStyle(id);
+          });
+          /*
           angular.forEach(unusedTokens, function(val, id) {
             removeStyle(id);
           });
+         */
         }
 
         function selectUnusedTokens() {
           unapplyHighlighting();
-          state.multiSelect(Object.keys(unusedTokens));
+          // state.multiSelect(Object.keys(unusedTokens));
+          state.multiSelect(Object.keys(stateChangeWatcher.matchingTokens));
         }
 
         element.bind('click', function() {
@@ -116,13 +143,19 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
         });
 
         scope.$watch('s.tokens', function(newVal, oldVal) {
-          init();
+          // init();
+          stateChangeWatcher.initCount();
         });
 
         scope.$on('tokenAdded', function(event, token) {
+          /*
           var id = token.id;
           scope.total++;
           checkIfUnused(token, id);
+         */
+          scope.total++;
+          stateChangeWatcher.initCount();
+          if (highlightMode) applyHighlighting();
         });
 
         scope.$on('tokenRemoved', function(event, token) {
@@ -133,13 +166,13 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
         translator('uth.tooltip', scope.tooltip, 'text');
       },
       template: '\
-        <span\
-          tooltip-html-unsafe="{{ tooltip.text }}"\
-          tooltip-popup-delay="700"\
-          tooltip-placement="left"\
-          translate="uth.count"\
-          translate-value-count="{{ unusedCount }}"\
-          translate-value-total="{{ total }}">\
+      <span\
+      tooltip-html-unsafe="{{ tooltip.text }}"\
+      tooltip-popup-delay="700"\
+      tooltip-placement="left"\
+      translate="uth.count"\
+      translate-value-count="{{ unusedCount }}"\
+      translate-value-total="{{ total }}">\
       '
     };
   }
