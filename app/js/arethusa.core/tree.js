@@ -12,9 +12,10 @@ angular.module('arethusa.core').factory('Tree', [
   'translator',
   'plugins',
   'navigator',
-  function ($compile, languageSettings, keyCapture, idHandler,
-            $window, state, $timeout, translator, plugins, navigator) {
-    return function(scope, element) {
+  function ($compile, languageSettings, keyCapture, idHandler, $window,
+            state, $timeout, translator, plugins, navigator) {
+    return function(scope, element, conf) {
+      var self = this;
 
       // General margin value so that trees don't touch the canvas border.
       var treeMargin = 15;
@@ -143,7 +144,7 @@ angular.module('arethusa.core').factory('Tree', [
       }
 
       function tokenPlaceholder(token) {
-        return '<div class="node" id="tph' + token.id + '">' + token.string + '</div>';
+        return '<div class="node token-node" id="tph' + token.id + '">' + token.string + '</div>';
       }
 
       function labelPlaceholder(token) {
@@ -157,17 +158,16 @@ angular.module('arethusa.core').factory('Tree', [
       //
       // Their return values will be inserted into
       // the tree and replace the placeholders.
-      var childScopes = [];
       function compiledEdgeLabel(token) {
         var childScope = scope.$new();
-        childScopes.push(childScope);
+        self.childScopes.push(childScope);
         childScope.obj = token.relation;
         return $compile(edgeLabelTemplate)(childScope)[0];
       }
 
       function compiledToken(token) {
         var childScope = scope.$new();
-        childScopes.push(childScope);
+        self.childScopes.push(childScope);
         childScope.token = token;
         // Ugly but working...
         // We replace the colorize value in our token template string.
@@ -276,6 +276,9 @@ angular.module('arethusa.core').factory('Tree', [
       function nodes() {
         return vis.selectAll('div.node');
       }
+      function tokenNodes() {
+        return self.vis.selectAll('div.node.token-node');
+      }
       function nodePresent(id) {
         return g._nodes[id];
       }
@@ -336,10 +339,13 @@ angular.module('arethusa.core').factory('Tree', [
       }
       function createEdges() {
         angular.forEach(scope.current, function (token, index) {
-          if (hasHead(token)) drawEdge(token);
+          if (hasHead(token)) self.drawEdge(token);
         });
       }
-      function drawEdge(token) {
+
+      // This function serves dependencyTrees and can be overriden
+      // for other usages.
+      this.drawEdge = function drawEdge(token) {
         var id = token.id;
 
         // This is a hack - we have some troubles here on
@@ -361,14 +367,14 @@ angular.module('arethusa.core').factory('Tree', [
         if (!nodePresent(headId)) {
           createNode(scope.current[headId]);
         }
-        g.addEdge(id, id, headId, { label: labelPlaceholder(token) });
-      }
+        self.g.addEdge(id, id, headId, { label: labelPlaceholder(token) });
+      };
 
       function updateEdge(token) {
         if (edgePresent(token.id)) {
           g.delEdge(token.id);
         }
-        drawEdge(token);
+        self.drawEdge(token);
       }
 
       function destroy(childScope) {
@@ -376,16 +382,16 @@ angular.module('arethusa.core').factory('Tree', [
       }
 
       function clearChildScopes() {
-        angular.forEach(childScopes, destroy);
-        childScopes = [];
+        angular.forEach(self.childScopes, destroy);
+        self.childScopes = [];
       }
 
       function customizeGraph() {
         // Customize the graph so that it holds our directives
         clearChildScopes();
-        insertRootDirective();
-        insertTokenDirectives();
-        insertEdgeDirectives();
+        if (conf.syntheticRoot) insertRootDirective();
+        self.insertNodeDirectives();
+        self.insertEdgeDirectives();
       }
 
 
@@ -407,6 +413,13 @@ angular.module('arethusa.core').factory('Tree', [
         vis.selectAll(function () {
           return this.getElementsByTagName('foreignObject');
         }).each(function () {
+          var el = angular.element(this);
+          if (el.find('.token-node').length) {
+            var w = el.attr('width');
+            var h = el.attr('height');
+            el.attr('width', w + 2);
+            el.attr('height', h + 4);
+          }
           angular.element(this.children[0]).attr('style', 'float: center;');
         });
 
@@ -428,8 +441,12 @@ angular.module('arethusa.core').factory('Tree', [
         });
       }
 
+      function insertNodeDirectives() {
+        self.insertTokenDirectives();
+      }
+
       function insertTokenDirectives() {
-        nodes().append(function () {
+        tokenNodes().append(function () {
           // This is the element we append to and we created as a placeholder
           // We clear out its text content so that we can display the content
           // of our compiled token directive.
@@ -454,6 +471,12 @@ angular.module('arethusa.core').factory('Tree', [
       // Change the trees layout, position and size
 
       scope.compactTree = function() {
+        // Also makes this configurable from the outside.
+        // A constituent tree benefits from more narrow spacing.
+        //
+        //scope.nodeSep = 20;
+        //scope.edgeSep = 7;
+        //scope.rankSep = 10;
         scope.nodeSep = 30;
         scope.edgeSep = 10;
         scope.rankSep = 30;
@@ -727,7 +750,6 @@ angular.module('arethusa.core').factory('Tree', [
         .edgeSep(scope.edgeSep)
         .rankSep(scope.rankSep);
 
-
       function start() {
         // This watch is responsible for firing up the directive
         scope.currentFocus = 0;
@@ -784,6 +806,9 @@ angular.module('arethusa.core').factory('Tree', [
       function isPartOfGrid() { return grid().length; }
       function gridReady() { return grid().hasClass('gridster-loaded'); }
 
+      function sidepanel() { return element.parents('#sidepanel'); }
+      function isPartOfSidepanel() { return sidepanel().length; }
+
       // Special handling for an edge case:
       // When we change the layout which uses this directive on the fly
       // to a grid based one, we need to wait a little, so that the grid
@@ -797,6 +822,18 @@ angular.module('arethusa.core').factory('Tree', [
           start();
         }
       };
+
+      // Functions to be overridden by directives that use this
+      function noop() {}
+
+      this.createEdges = noop;
+      this.nodePresent = nodePresent;
+      this.createNode  = createNode;
+      this.insertNodeDirectives  = insertNodeDirectives;
+      this.insertTokenDirectives = insertTokenDirectives;
+      this.insertEdgeDirectives  = insertEdgeDirectives;
+
+      this.childScopes = [];
     };
   }
 ]);
