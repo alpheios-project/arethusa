@@ -36,6 +36,8 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
       parseWordGroup(wgNode, docId, internalId, constituents, tokens);
 
       var s = aC.sentence(tokens.container);
+      var ids = Object.keys(s.tokens).sort();
+      s.tokens[ids[ids.length - 1]].terminator = true;
       retrieverHelper.generateId(s, internalId, sourceId, docId);
       return s;
     }
