@@ -50,10 +50,7 @@
         "verb" : {
           "long" : "verb",
           "short" : "verb",
-          "postag" : "v",
-          "style" : {
-            "color" : "red"
-          }
+          "postag" : "v"
         },
         "adv" : {
           "long" : "adverb",
@@ -63,9 +60,9 @@
             "color" : "darkorange"
           }
         },
-        "adp" : {
-          "long" : "adposition",
-          "short" : "adp",
+        "prep" : {
+          "long" : "preposition",
+          "short" : "prep",
           "postag" : "r",
           "style" : {
             "color" : "green"
@@ -185,22 +182,36 @@
         "pr" : {
           "long" : "present",
           "short" : "pr",
-          "postag" : "p"
+          "postag" : "p",
+          "style" : {
+            "background-color": "lightgreen"
+          }
         },
         "imp" : {
           "long" : "imperfect",
           "short" : "imp",
-          "postag" : "i"
+          "postag" : "i",
+          "style" : {
+            "background-color" : "lightgreen",
+            "text-decoration" : "underline"
+          }
         },
         "perf" : {
           "long" : "perfect",
           "short" : "perf",
-          "postag" : "r"
+          "postag" : "r",
+          "style" : {
+            "background-color" : "pink"
+          }
         },
         "pqpf" : {
           "long" : "plusquamperfect",
           "short" : "pqpf",
-          "postag" : "l"
+          "postag" : "l",
+          "style" : {
+            "background-color" : "pink",
+            "text-decoration" : "underline"
+          }
         },
         "fex" : {
           "long" : "future perfect",
@@ -210,12 +221,20 @@
         "fut" : {
           "long" : "future",
           "short" : "fut",
-          "postag" : "f"
+          "postag" : "f",
+          "style" : {
+            "background-color" : "#ffffa8",
+            "text-decoration" : "overline"
+          }
         },
         "aor" : {
           "long" : "aorist",
           "short" : "aor",
-          "postag" : "a"
+          "postag" : "a",
+          "style" : {
+            "background-color" : "#ffffa8",
+            "text-decoration" : "underline"
+          }
         }
       }
     },
@@ -238,27 +257,42 @@
         "sub" : {
           "long" : "subjunctive",
           "short" : "sub",
-          "postag" : "s"
+          "postag" : "s",
+          "style" : {
+            "border-left" : "thick double #ff0000"
+          }
         },
         "inf" : {
           "long" : "infinitive",
           "short" : "inf",
-          "postag" : "n"
+          "postag" : "n",
+          "style" : {
+            "border-left" : "thick double #0000ff"
+          }
         },
         "imp" : {
           "long" : "imperative",
           "short" : "imp",
-          "postag" : "m"
+          "postag" : "m",
+          "style" : {
+            "border-left" : "thick double #ff00ff"
+          }
         },
         "part" : {
           "long" : "participle",
           "short" : "part",
-          "postag" : "p"
+          "postag" : "p",
+          "style" : {
+            "border-left" : "thick double #ff0000"
+          }
         },
         "opt" : {
           "long" : "optative",
           "short" : "opt",
-          "postag" : "o"
+          "postag" : "o",
+          "style" : {
+            "border-left" : "thick double #0000ff"
+          }
         }
       }
     },
@@ -281,12 +315,22 @@
         "pass" : {
           "long" : "passive",
           "short" : "pass",
-          "postag" : "p"
+          "postag" : "p",
+          "style" : {
+            "border-top" : "solid",
+            "border-bottom": "solid",
+            "border-color" : "plum"
+          }
         },
         "mid" : {
           "long" : "middle",
           "short" : "mid",
-          "postag" : "m"
+          "postag" : "m",
+          "style" : {
+            "border-top" : "solid",
+            "border-bottom": "solid",
+            "border-color" : "blue"
+          }
         },
         "mp" : {
           "long" : "medio-passive",
@@ -429,7 +473,6 @@
           "verb\nparticiple": "verb",
           "numeral": "adjective",
           "particle": "adverb",
-          "preposition": "adposition",
           "exclamation": "interjection"
         },
         "tense" : {
