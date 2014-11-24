@@ -1,1 +1,18 @@
-This is the HTML template for arethusa.constituents
+<div class="tree-canvas">
+  <div class="tree-settings">
+    <span
+      class="note right settings-span-button"
+      style="margin-left: 10px"
+      unused-token-highlighter
+      uth-check-property="constituency.parent">
+    </span>
+  </div>
+
+  <div
+    lang-specific
+    constituency-tree
+    tokens="state.tokens"
+    styles="plugin.diffStyles()"
+    to-bottom>
+  </div>
+</div>
