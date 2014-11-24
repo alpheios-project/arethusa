@@ -88,7 +88,7 @@
           }
         }
       },
-      "@include" : "morph/gr_attributes2.json"
+      "@include" : "morph/gr_attributes_jr.json"
     },
 
     "relation" : {
