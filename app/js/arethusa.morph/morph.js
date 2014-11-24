@@ -176,7 +176,7 @@ angular.module('arethusa.morph').service('morph', [
           var attrVals = self.attributeValues(el);
           var val = attrs[el];
           var valObj = arethusaUtil.findObj(attrVals, function (e) {
-            return e.short === val;
+            return e.short === val || e.long === val;
           });
           return valObj ? valObj.postag : '-';
         });
