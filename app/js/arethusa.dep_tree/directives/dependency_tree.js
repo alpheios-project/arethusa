@@ -54,6 +54,7 @@ angular.module('arethusa.depTree').directive('dependencyTree', [
           parentPlugin: 'depTree',
           syntheticRoot: true
         });
+
         tree.launch();
       },
     };
