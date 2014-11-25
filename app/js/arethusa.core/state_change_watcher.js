@@ -16,7 +16,7 @@
  *
  * @requires arethusa.core.state
  */
-angular.module('arethusa.core').service('StateChangeWatcher', [
+angular.module('arethusa.core').factory('StateChangeWatcher', [
   'state',
   function (state) {
     return function(propertyToWatch, checkFunction, callbacks) {
