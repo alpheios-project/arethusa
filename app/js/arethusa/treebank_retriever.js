@@ -11,10 +11,27 @@ angular.module('arethusa').factory('TreebankRetriever', [
   'retrieverHelper',
   'idHandler',
   'commons',
-  function (configurator, documentStore, retrieverHelper, idHandler, commons) {
+  'editors',
+  function (configurator, documentStore, retrieverHelper,
+            idHandler, commons, editors) {
     function parseDocument(json, docId) {
+      var annotators = arethusaUtil.toAry(json.treebank.annotator || []);
+      parseEditors(annotators, docId);
       var sentences = arethusaUtil.toAry(json.treebank.sentence);
       return parseSentences(sentences, docId);
+    }
+
+    function parseEditors(annotators, docId) {
+      angular.forEach(annotators, function(annotator, i) {
+        if (isHumanAnnotator(annotator)) {
+          editors.addEditor(docId, {
+            name: annotator.short,
+            fullName: annotator.name,
+            page: annotator.url,
+            mail: annotator.address
+          });
+        }
+      });
     }
 
     function parseSentences(sentences, docId) {
@@ -179,6 +196,11 @@ angular.module('arethusa').factory('TreebankRetriever', [
         confs.fullFile = format;
       }
       return confs;
+    }
+
+    function isHumanAnnotator(annotator) {
+      // Machine services don't come with a name attached to them
+      return annotator.name && annotator.short;
     }
 
 

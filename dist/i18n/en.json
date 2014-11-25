@@ -181,5 +181,9 @@
     "count": "{{ count }} of {{ total }} commented",
     "docLevelComm": "Document level comments",
     "on": "on"
+  },
+  "editors": {
+    "noEditorsPresent": "No editors known.",
+    "title": "Editors"
   }
 }
