@@ -43,11 +43,15 @@ angular.module('arethusa.core').service('languageSettings', [
           return undefined;
         }
 
-        var lang = document.json.treebank["_xml:lang"];
-        if (lang in self.languageSpecifics) {
-          var langObj = self.languageSpecifics[lang];
-          self.setFor('treebank', langObj);
-          return langObj;
+        // This is not robust at all - just a very temporary solution
+        var doc = document.json.treebank || document.json.book;
+        if (doc) {
+          var lang = doc["_xml:lang"];
+          if (lang in self.languageSpecifics) {
+            var langObj = self.languageSpecifics[lang];
+            self.setFor('treebank', langObj);
+            return langObj;
+          }
         }
 
         return undefined;
