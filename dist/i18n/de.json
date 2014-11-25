@@ -180,5 +180,9 @@
     "count": "{{ count }} von {{ total }} kommentiert",
     "docLevelComm": "Kommentare auf Dokumentebene",
     "on": "zu"
+  },
+  "editors": {
+    "noEditorsPresent": "Keine Bearbeiter bekannt.",
+    "title": "Bearbeiter"
   }
 }

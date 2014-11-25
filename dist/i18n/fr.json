@@ -167,5 +167,9 @@
     "count": "{{ count }} sur {{ total }} de commenté(s)",
     "docLevelComm": "Commentaires pour le document entier",
     "on": "à"
+  },
+  "editors": {
+    "noEditorsPresent": "Aucun éditeur connu.",
+    "title": "Éditeurs"
   }
 }
