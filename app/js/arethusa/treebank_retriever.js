@@ -6,7 +6,6 @@
  *
  */
 angular.module('arethusa').factory('TreebankRetriever', [
-  'commons',
   'configurator',
   'documentStore',
   'retrieverHelper',
