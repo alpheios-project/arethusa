@@ -7,8 +7,9 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
   'idHandler',
   'languageSettings',
   'locator',
+  'commons',
   function(configurator, documentStore, retrieverHelper,
-           idHandler, languageSettings, locator) {
+           idHandler, languageSettings, locator, commons) {
     // Single sentence documents for now.
     function parseDocument(doc, docId) {
       var sentenceId = '1';
@@ -18,7 +19,7 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
 
       for (var i=0; i < words.length; i++) {
         var word = words[i];
-        var token = aC.token(word.value, sentenceId);
+        var token = commons.token(word.value, sentenceId);
         var intId = idHandler.getId(word.tbwid, sentenceId);
         retrieverHelper.generateId(token, intId, word.CTS, docId);
 
@@ -40,7 +41,7 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
         tokens[token.id] = token;
       }
 
-      return [new aC.sentence(sentenceId, tokens, doc.CTS)];
+      return [new commons.sentence(sentenceId, tokens, doc.CTS)];
     }
 
     // This is a little ugly (and slow), as the morphology is just thrown
@@ -83,7 +84,7 @@ angular.module('arethusa').factory('PhaidraTreebankRetriever', [
       this.get = function(callback) {
         resource.get().then(function(res) {
           var data = res.data;
-          documentStore.addDocument(docId, new aC.doc(null, data, null));
+          documentStore.addDocument(docId, commons.doc(null, data, null));
           languageSettings.setFor(docId, inferLanguage(data));
           callback(parseDocument(data, docId));
         });

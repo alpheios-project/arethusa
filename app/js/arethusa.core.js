@@ -1,4 +1,5 @@
 angular.module('arethusa.core', [
+  'arethusa.util',
   'ngResource',
   'ngCookies',
   'ngAnimate',
@@ -9,4 +10,6 @@ angular.module('arethusa.core', [
   'gridster',
   'hljs',
   'LocalStorageModule'
-]).value('BASE_PATH', '..');
+])
+  .value('BASE_PATH', '..')
+  .constant('_', window._);

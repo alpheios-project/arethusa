@@ -17,6 +17,7 @@ var arethusaModules = [
   'arethusa.morph',
   'arethusa.artificial_token',
   'arethusa.core',
+  'arethusa.util',
   'arethusa.comments',
   'arethusa.hebrew_morph',
   'arethusa.context_menu',
@@ -63,6 +64,7 @@ function arethusaSourceFiles() {
     "./bower_components/x2js/xml2json.min.js",
     "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
     "./bower_components/angular-local-storage/dist/angular-local-storage.min.js",
+    "./bower_components/lodash/dist/lodash.min.js",
     //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js",
@@ -93,7 +95,7 @@ function arethusaSourceFiles() {
 
 function arethusaMainFiles() {
   var files = [
-    "arethusa_util",
+    "arethusa.util",
     "arethusa.core",
     "arethusa.context_menu",
     "arethusa.history",
@@ -138,7 +140,6 @@ function arethusaConcat() {
 
   obj.packages = { src: sourceFiles, dest: toConcatPath('arethusa_packages') };
   obj.main = pluginFiles('arethusa', 'arethusa.main', true);
-  obj.util = { src: "app/js/util/**/*.js", dest: toConcatPath('arethusa_util') };
   obj.app = { src: mainFiles, dest: toConcatPath('arethusa') };
 
   return obj;
@@ -370,11 +371,11 @@ module.exports = function(grunt) {
             "./vendor/highlight/highlight.pack.js",
             "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
             "./bower_components/angular-local-storage/dist/angular-local-storage.min.js",
+            "./bower_components/lodash/dist/lodash.min.js",
             // Some source files we'll need to include manually, otherwise
             // the load order is wrong
             'app/js/*.js',
             'app/js/arethusa*/**/*.js',
-            'app/js/util/**/*.js',
             'dist/templates.min.js',
             specFiles
           ],

@@ -1,10 +1,11 @@
 "use strict";
 
 angular.module('arethusa.history').directive('histRedo', [
+  'generator',
   'history',
   'translator',
-  function(history, translator) {
-    return aG.historyTrigger(history, translator, 'redo', 'repeat');
+  function(generator, history, translator) {
+    return generator.historyTrigger(history, translator, 'redo', 'repeat');
   }
 ]);
 

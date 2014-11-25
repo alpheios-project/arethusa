@@ -1,11 +1,12 @@
 "use strict";
 
 angular.module('arethusa.core').directive('helpTrigger', [
+  'generator',
   'help',
   'translator',
   'keyCapture',
-  function(help, translator, keyCapture) {
-    return aG.panelTrigger({
+  function(generator, help, translator, keyCapture) {
+    return generator.panelTrigger({
       service: help,
       trsl: translator,
       trslKey: 'help',
