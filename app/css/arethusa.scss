@@ -398,15 +398,24 @@ dl.tabs {
 }
 
 /* Alpheios theme overrides -- better to use sass at some point */
+
+$button-color: #3E8D9C;
+$button-color-hover: #73CDDE;
+
+$button-color-on: #014653;
+$button-color-on-hover: #006375;
+
+
 body {
 
 }
 a {
-  color: #73CDDE;
+  color: $button-color;
+  @include single-transition(color);
 }
 
 a:hover, a:focus {
-  color: #5BC8DC;
+  color: $button-color-hover;
 }
 
 .tabs dd a {
@@ -426,20 +435,20 @@ a:hover, a:focus {
 }
 
 .top-bar-section ul li>a.button, li>button, button, .button, .label {
-  background: #3E8D9C;
+  background: $button-color;
   color: white;
 }
 
 .top-bar-section ul li>a.button:hover, li>button:hover, button:hover, .button:hover, button:focus, .button:focus {
-  background: #73CDDE;
+  background: $button-color-hover;
 }
 
 a.button.on, .button.on {
-  background: #014653 !important;
+  background: $button-color-on !important;
 }
 
-a.button.on:hover, .button.on {
-  background: #006375 !important;
+a.button.on:hover, .button.on:hover {
+  background: $button-color-on-hover !important;
 }
 
 .button.alert {
