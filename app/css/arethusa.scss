@@ -927,6 +927,21 @@ code {
   background-color: rgb(255, 234, 234);
 }
 
+.notification-list-item {
+  margin-bottom: .4rem;
+
+  .time {
+    margin-right: .4rem;
+    font-size: .8rem;
+  }
+
+  .message {
+    border-radius: 3px;
+    padding: .25rem;
+    color: white
+  }
+}
+
 
 /***************************************************************************
  *                               Animations                                *

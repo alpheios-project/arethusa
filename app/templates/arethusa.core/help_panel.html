@@ -31,8 +31,10 @@
     <div help-panel-item toggler="messages" heading="messages" height="200px">
       <ul class="no-list">
         <li ng-repeat="message in notifier.messages">
-          <span>{{ message.time | date: "HH:mm:ss" }}</span>
-          <span class="{{ message.type }}-message-dark">{{ message.message }}</span>
+          <div class="notification-list-item">
+            <span class="time">{{ message.time | date: "HH:mm:ss" }}</span>
+            <span class="message toast-{{ message.type }}">{{ message.message }}</span>
+          </div>
         </li>
       </ul>
     </div>
