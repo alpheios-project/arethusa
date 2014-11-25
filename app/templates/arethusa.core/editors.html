@@ -1,0 +1,10 @@
+<ul class="no-list">
+  <li ng-repeat="(doc, users) in editors.perDocument">
+     <strong>{{ doc }}</strong>
+     <ul class="no-list">
+       <li ng-repeat="user in users">
+          <div arethusa-user="user" with-mail="true"/>
+       </li>
+     </ul>
+  </li>
+</ul>
