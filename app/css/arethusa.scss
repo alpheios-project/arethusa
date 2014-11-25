@@ -327,7 +327,7 @@ svg {
 }
 
 .edgePath {
-  stroke: #333;
+  stroke: #333; // #ADADAD; This color is better for const trees.
   stroke-width : 0.5px;
   fill: none;
 }
