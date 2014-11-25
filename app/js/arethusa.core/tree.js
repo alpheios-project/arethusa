@@ -405,7 +405,6 @@ angular.module('arethusa.core').factory('Tree', [
         self.insertEdgeDirectives();
       }
 
-
       function render() {
         self.vis = svg.select('g');
         renderer.layout(scope.layout).run(self.g, self.vis);
@@ -418,18 +417,14 @@ angular.module('arethusa.core').factory('Tree', [
           angular.element(this).attr('id', edgeId(id));
         }).attr('marker-end', '');
 
-        foreignObjects().each(function () {
-          // This gives a little more breathing room to token labels and avoids
-          // a couple of visual bugs where the compiled token directive outgrows
-          // its SVG box.
-          var el = angular.element(this);
-          if (el.find('.token-node').length) {
-            var w = el.attr('width');
-            var h = el.attr('height');
-            el.attr('width', w + 2);
-            el.attr('height', h + 4);
-          }
+        var foreignObjs = foreignObjects();
+        foreignObjs.each(function () {
           angular.element(this.children[0]).attr('style', 'float: center;');
+
+          // The content of the foreignObject element can overflow its bounding
+          // box, which would lead to clipped display.
+          // its SVG box.
+          angular.element(this).attr('overflow', 'visible');
         });
 
         // Reactivate Transitions - as we recompile the token directives during
