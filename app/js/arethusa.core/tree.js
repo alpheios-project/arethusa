@@ -733,14 +733,15 @@ angular.module('arethusa.core').factory('Tree', [
         };
       }
 
-      function start() {
-        // Initial tree layout
 
+      function setLayout() {
         scope.compactTree = self.compactTree;
         scope.wideTree = self.wideTree;
 
         scope.textDirection = sortRankByIdAscending();
         scope.rankDir = 'BT';
+        if (conf.direction === 'vertical') scope.changeDir();
+
         scope.compactTree();
         scope.layout = dagreD3.layout()
           .sortRankByIdAscending(scope.textDirection)
@@ -748,6 +749,10 @@ angular.module('arethusa.core').factory('Tree', [
           .nodeSep(scope.nodeSep)
           .edgeSep(scope.edgeSep)
           .rankSep(scope.rankSep);
+      }
+
+      function start() {
+        setLayout();
 
         // This watch is responsible for firing up the directive
         scope.currentFocus = 0;
@@ -765,7 +770,6 @@ angular.module('arethusa.core').factory('Tree', [
         prependTemplate('focusTemplate');
         prependTemplate('panelTemplate');
         element.prepend($compile('<div dep-tree-navigator/>')(scope));
-
 
         // Initialize some more starting values
         calculateSvgHotspots();

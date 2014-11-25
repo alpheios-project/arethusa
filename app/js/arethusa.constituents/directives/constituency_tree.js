@@ -36,7 +36,8 @@ angular.module('arethusa.constituents').directive('constituencyTree', [
 
         var tree = new Tree(scope, element, {
           mainAttribute: mainAttribute,
-          parentPlugin: 'constituents'
+          parentPlugin: 'constituents',
+          direction: 'vertical'
         });
 
         function constituentPlaceholder(constituent) {
