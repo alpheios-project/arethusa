@@ -134,9 +134,24 @@ angular.module('arethusa.constituents').directive('constituencyTree', [
 
         var constituentHtml = '<span constituent="constituent"/>';
 
+        function compactTree() {
+          scope.nodeSep = 20;
+          scope.edgeSep = 7;
+          scope.rankSep = 10;
+        }
+
+        function wideTree() {
+          scope.nodeSep = 30;
+          scope.edgeSep = 10;
+          scope.rankSep = 30;
+        }
+
         tree.drawEdge = drawEdge;
         tree.insertEdgeDirectives = noop;
         tree.insertNodeDirectives = insertNodeDirectives;
+
+        tree.compactTree = compactTree;
+        tree.wideTree    = wideTree;
 
         tree.launch();
       },
