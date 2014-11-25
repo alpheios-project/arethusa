@@ -780,7 +780,7 @@ angular.module('arethusa.core').factory('Tree', [
       // as main layout.
       var canvas = element.parents('.tree-canvas');
       function checkBorderStyle() {
-        if (isPartOfGrid()) {
+        if (isPartOfGrid() || isPartOfSidepanel()) {
           canvas.addClass('no-border');
         } else {
           canvas.removeClass('no-border');
