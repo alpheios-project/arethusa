@@ -11,6 +11,9 @@ angular.module('arethusa.core').service('editors', [
       var doc = self.perDocument[docId];
       if (!doc) doc = self.perDocument[docId] = [];
       doc.push(new User(editor));
+      self.present = true;
     };
+
+    this.editorsPresent = false;
   }
 ]);
