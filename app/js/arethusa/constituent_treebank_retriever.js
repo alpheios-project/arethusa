@@ -6,7 +6,9 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
   'retrieverHelper',
   'idHandler',
   'globalStore',
-  function(configurator, documentStore, retrieverHelper, idHandler, globalStore) {
+  'commons',
+  function(configurator, documentStore, retrieverHelper, idHandler,
+           globalStore, commons) {
     // Parse functions
 
     function parseDocument(json, docId) {
@@ -35,7 +37,7 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
 
       parseWordGroup(wgNode, docId, internalId, constituents, tokens);
 
-      var s = aC.sentence(tokens.container);
+      var s = commons.sentence(tokens.container);
       var ids = Object.keys(s.tokens).sort();
       s.tokens[ids[ids.length - 1]].terminator = true;
       retrieverHelper.generateId(s, internalId, sourceId, docId);
@@ -44,7 +46,7 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
 
     function parseWordGroup(wg, docId, sentenceId, constituents, tokens, parentId) {
       var id = wg._nodeId;
-      var constituent = aC.constituent(
+      var constituent = commons.constituent(
         wg._class,
         wg._role,
         id,
@@ -65,7 +67,7 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
     }
 
     function parseWord(w, docId, sentenceId, tokens, parentId) {
-      var token = aC.token(w.__text, sentenceId);
+      var token = commons.token(w.__text, sentenceId);
 
       var sourceId = w._morphId;
       var internalId = idHandler.getId(getWordId(sourceId), sentenceId);
@@ -140,7 +142,7 @@ angular.module('arethusa').factory('ConstituentTreebankRetriever', [
 
       this.parse = function(xml, callback) {
         var json = arethusaUtil.xml2json(xml);
-        documentStore.addDocument(docId, new aC.doc(xml, json));
+        documentStore.addDocument(docId, commons.doc(xml, json));
 
         callback(parseDocument(json, docId));
       };

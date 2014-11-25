@@ -3,8 +3,9 @@
 angular.module('arethusa.constituents').directive('constituencyTree', [
   'Tree',
   'globalStore',
+  'commons',
   '$compile',
-  function (Tree, globalStore, $compile) {
+  function (Tree, globalStore, commons, $compile) {
     function noop() {}
     // This prefix is itself prefixed with zeroes - that way we can guarantee
     // a certain sorting order, so that tokens always show up left of their
@@ -77,7 +78,7 @@ angular.module('arethusa.constituents').directive('constituencyTree', [
           if (obj.isToken) {
             var fakeConstId = idPrefix + id;
             if (!tree.nodePresent(fakeConstId)) {
-              var fakeConstituent = aC.constituent(
+              var fakeConstituent = commons.constituent(
                 null,
                 obj.constituency.role,
                 fakeConstId,
