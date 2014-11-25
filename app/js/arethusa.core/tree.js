@@ -627,8 +627,7 @@ angular.module('arethusa.core').factory('Tree', [
       var watches = {
         'nodeSep': function(newVal) { scope.layout.nodeSep(newVal); },
         'edgeSep': function(newVal) { scope.layout.edgeSep(newVal); },
-        'edgeDir': function(newVal) { scope.layout.edgeDir(newVal); },
-        'nodeDir': function(newVal) { scope.layout.nodeDir(newVal); },
+        'rankSep': function(newVal) { scope.layout.rankSep(newVal); },
         'rankDir': function(newVal) { scope.layout.rankDir(newVal); },
         'textDirection': function(newVal) { scope.layout.sortRankByIdAscending(newVal); }
       };
