@@ -280,6 +280,16 @@ angular.module('arethusa.core').factory('Tree', [
       function tokenNodes() {
         return self.vis.selectAll('div.node.token-node');
       }
+
+      // A bug in webkit makes it impossible to select camelCase tags...
+      // We work around by using a function.
+      // http://stackoverflow.com/questions/11742812/cannot-select-svg-foreignobject-element-in-d3
+      function foreignObjects() {
+        return self.vis.selectAll(function () {
+          return this.getElementsByTagName('foreignObject');
+        });
+      }
+
       function nodePresent(id) {
         return self.g._nodes[id];
       }
@@ -408,12 +418,7 @@ angular.module('arethusa.core').factory('Tree', [
           angular.element(this).attr('id', edgeId(id));
         }).attr('marker-end', '');
 
-        // A bug in webkit makes it impossible to select camelCase tags...
-        // We work around by using a function.
-        // http://stackoverflow.com/questions/11742812/cannot-select-svg-foreignobject-element-in-d3
-        self.vis.selectAll(function () {
-          return this.getElementsByTagName('foreignObject');
-        }).each(function () {
+        foreignObjects().each(function () {
           // This gives a little more breathing room to token labels and avoids
           // a couple of visual bugs where the compiled token directive outgrows
           // its SVG box.
