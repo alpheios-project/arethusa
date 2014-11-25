@@ -471,23 +471,17 @@ angular.module('arethusa.core').factory('Tree', [
       //
       // Change the trees layout, position and size
 
-      scope.compactTree = function() {
-        // Also makes this configurable from the outside.
-        // A constituent tree benefits from more narrow spacing.
-        //
-        //scope.nodeSep = 20;
-        //scope.edgeSep = 7;
-        //scope.rankSep = 10;
+      function compactTree() {
         scope.nodeSep = 30;
         scope.edgeSep = 10;
         scope.rankSep = 30;
-      };
+      }
 
-      scope.wideTree = function() {
+      function wideTree () {
         scope.nodeSep = 80;
         scope.edgeSep = 5;
         scope.rankSep = 40;
-      };
+      }
 
       scope.changeDir = function() {
         var horDir;
@@ -739,19 +733,22 @@ angular.module('arethusa.core').factory('Tree', [
         };
       }
 
-      // Initial tree layout
-
-      scope.textDirection = sortRankByIdAscending();
-      scope.rankDir = 'BT';
-      scope.compactTree();
-      scope.layout = dagreD3.layout()
-        .sortRankByIdAscending(scope.textDirection)
-        .rankDir(scope.rankDir)
-        .nodeSep(scope.nodeSep)
-        .edgeSep(scope.edgeSep)
-        .rankSep(scope.rankSep);
-
       function start() {
+        // Initial tree layout
+
+        scope.compactTree = self.compactTree;
+        scope.wideTree = self.wideTree;
+
+        scope.textDirection = sortRankByIdAscending();
+        scope.rankDir = 'BT';
+        scope.compactTree();
+        scope.layout = dagreD3.layout()
+          .sortRankByIdAscending(scope.textDirection)
+          .rankDir(scope.rankDir)
+          .nodeSep(scope.nodeSep)
+          .edgeSep(scope.edgeSep)
+          .rankSep(scope.rankSep);
+
         // This watch is responsible for firing up the directive
         scope.currentFocus = 0;
 
@@ -833,6 +830,9 @@ angular.module('arethusa.core').factory('Tree', [
       this.insertNodeDirectives  = insertNodeDirectives;
       this.insertTokenDirectives = insertTokenDirectives;
       this.insertEdgeDirectives  = insertEdgeDirectives;
+
+      this.compactTree = compactTree;
+      this.wideTree = wideTree;
 
       this.childScopes = [];
     };
