@@ -122,18 +122,41 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       return id;
     }
 
+    function handleTerminatorState() {
+      if (self.insertBehind) {
+        var iP = self.model.insertionPoint;
+        if (iP.terminator) {
+          self.model.terminator = true;
+          iP.terminator = false;
+        } else {
+          // Could be that this token is inserted behind the last token
+          // of a sentence, which might not a terminator anymore, when
+          // another aT claimed that place.
+          var lastATInFront = self.createdTokens[idHandler.decrement(self.model.id)];
+          if (lastATInFront) {
+            self.model.terminator = true;
+            lastATInFront.terminator = false;
+          }
+        }
+      }
+    }
+
     this.insertBehind = false;
 
     this.propagateToState = function() {
       setString();
-      var id = self.model.insertionPoint.id;
+      var iP = self.model.insertionPoint;
+      var id = iP.id;
       var newId = self.insertBehind ? id : idHandler.decrement(id);
       if (!idHandler.isExtendedId(id)) {
         newId = idHandler.extendId(newId);
       }
       newId = findNextNewId(newId);
       self.model.id = newId;
-      self.model.sentenceId = self.model.insertionPoint.sentenceId;
+      self.model.sentenceId = iP.sentenceId;
+
+      handleTerminatorState();
+
       state.addToken(self.model, newId);
       resetModel();
     };
