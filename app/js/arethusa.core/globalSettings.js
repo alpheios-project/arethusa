@@ -63,6 +63,10 @@ angular.module('arethusa.core').service('globalSettings', [
     this.toggle = function() {
       self.active = !self.active;
     };
+    this.propagateSetting = function(property) {
+      userPreferences().set(self.name, property, self[property]);
+    };
+
 
     var deselectors = {};
 

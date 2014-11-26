@@ -13,6 +13,7 @@
           <div ng-switch-default>
             <input
               type="{{ setting.type }}"
+              ng-change="gS.propagateSetting(setting.property)"
               ng-model="gS[setting.property]"/>
             <label>
               <span translate="{{ setting.label }}"/>
