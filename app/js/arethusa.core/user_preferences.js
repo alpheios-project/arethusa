@@ -14,7 +14,7 @@ angular.module('arethusa.core').service('userPreferences', [
     }
 
     function set(plugin, setting, value) {
-      arethusaLocalStorage.set(key(plugin + '.' + setting, value));
+      arethusaLocalStorage.set(key(plugin + '.' + setting), value);
     }
 
     function get(plugin, setting) {
