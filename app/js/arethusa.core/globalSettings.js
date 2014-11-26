@@ -18,12 +18,14 @@ angular.module('arethusa.core').service('globalSettings', [
 
     var confKeys = [
       "alwaysDeselect",
-      "colorizer"
+      "colorizer",
+      "persistSettings"
     ];
 
     self.defaultConf = {
       alwaysDeselect: false,
-      colorizer: 'morph'
+      colorizer: 'morph',
+      persistSettings: true
     };
 
     function configure() {
@@ -41,6 +43,7 @@ angular.module('arethusa.core').service('globalSettings', [
     }
 
     function defineSettings() {
+      self.defineSetting('persistSettings');
       self.defineSetting('chunkMode', 'custom', 'chunk-mode-switcher');
       self.defineSetting('clickAction', 'custom', 'global-click-action');
       self.defineSetting('alwaysDeselect');
