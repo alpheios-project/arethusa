@@ -2,8 +2,8 @@
 
 angular.module('arethusa.morph').service('morphLocalStorage', [
   'plugins',
-  'localStorageService',
-  function(plugins, localStorageService) {
+  'arethusaLocalStorage',
+  function(plugins, arethusaLocalStorage) {
     var self = this;
 
     this.localStorageKey = 'morph.forms';
@@ -19,11 +19,11 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
     }
 
     function retrieve(string) {
-      return localStorageService.get(key(string)) || [];
+      return arethusaLocalStorage.get(key(string)) || [];
     }
 
     function persist(string, value) {
-      localStorageService.set(key(string), value);
+      arethusaLocalStorage.set(key(string), value);
     }
 
     this.retriever = {
