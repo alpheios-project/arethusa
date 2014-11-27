@@ -96,10 +96,11 @@ describe('configurator', function() {
     $httpBackend = $injector.get('$httpBackend');
   }));
 
-  var configurator;
+  var configurator, userPreferences;
 
-  beforeEach(inject(function(_configurator_) {
+  beforeEach(inject(function(_configurator_, _userPreferences_) {
     configurator = _configurator_;
+    userPreferences = _userPreferences_;
   }));
 
 
@@ -450,6 +451,20 @@ describe('configurator', function() {
       configurator.delegateConf(obj, ['x', 'y'], true);
       expect(obj.x).toBeFalsy();
       expect(obj.y).toBeFalsy();
+    });
+
+    it('retrieves configurations from userPreferences', function() {
+      userPreferences.get = function(plugin, property) {
+        if (plugin === 'morph' && property === 'x') {
+          return 'success';
+        }
+      };
+
+      configurator.configuration = conf1;
+      var obj = { name: 'morph', conf: configurator.configurationFor('morph') };
+      configurator.delegateConf(obj, ['x']);
+
+      expect(obj.x).toEqual('success');
     });
   });
 

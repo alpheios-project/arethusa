@@ -92,15 +92,6 @@
     "compact": "Compact tree",
     "widen": "Widen tree"
   },
-  "globalSettings": {
-    "title": "Global Settings",
-    "alwaysDeselect": "Deselect after every annotation action",
-    "keyboardMappings": "Disable keyboard mapping for input fields",
-    "colorizer": "Colorize tokens by",
-    "layout": "Layout",
-    "clickAction": "Click behaviour",
-    "chunkMode": "Chunk Mode"
-  },
   "grid": {
     "dragging": "Dragging",
     "pushing": "Pushing",
@@ -185,5 +176,15 @@
   "editors": {
     "noEditorsPresent": "No editors known.",
     "title": "Editors"
+  },
+  "globalSettings": {
+    "persistSettings": "Save preferences",
+    "title": "Global Settings",
+    "alwaysDeselect": "Deselect after every annotation action",
+    "disableKeyboardMappings": "Disable keyboard mapping for input fields",
+    "colorizer": "Colorize tokens by",
+    "layout": "Layout",
+    "clickAction": "Click behaviour",
+    "chunkMode": "Chunk Mode"
   }
 }

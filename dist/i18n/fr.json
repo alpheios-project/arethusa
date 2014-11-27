@@ -87,15 +87,6 @@
     "compact": "Taille minimale",
     "widen": "Taille maximale"
   },
-  "globalSettings": {
-    "title": "Paramètres globaux",
-    "alwaysDeselect": "Déselectionner après une annotation",
-    "keyboardMappings": "Désactiver les raccourcis claviers pendant une saisie",
-    "colorizer": "Coloriser les tokens par",
-    "layout": "Mise en page",
-    "clickAction": "Comportement du clic",
-    "chunkMode": "Chunk Mode"
-  },
   "grid": {
     "dragging": "Glisser",
     "pushing": "Pousser",
@@ -171,5 +162,15 @@
   "editors": {
     "noEditorsPresent": "Aucun éditeur connu.",
     "title": "Éditeurs"
+  },
+  "globalSettings": {
+    "persistSettings": "Sauvegarder mes préférences",
+    "title": "Paramètres globaux",
+    "alwaysDeselect": "Déselectionner après une annotation",
+    "disableKeyboardMappings": "Désactiver les raccourcis claviers pendant une saisie",
+    "colorizer": "Coloriser les tokens par",
+    "layout": "Mise en page",
+    "clickAction": "Comportement du clic",
+    "chunkMode": "Chunk Mode"
   }
 }

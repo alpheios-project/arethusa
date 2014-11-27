@@ -13,7 +13,6 @@
   "auth": {},
   "uth": {},
   "tree": {},
-  "globalSettings": {},
   "grid": {},
   "history": {
     "add": {},
@@ -33,5 +32,6 @@
   },
   "relation": {},
   "comments": {},
-  "editors": {}
+  "editors": {},
+  "globalSettings": {}
 }

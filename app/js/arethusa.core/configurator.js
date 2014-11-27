@@ -35,6 +35,12 @@ angular.module('arethusa.core').service('configurator', [
       return $injector.get('notifier');
     }
 
+    var uPCached;
+    function userPreferences() {
+      if (!uPCached) uPCached = $injector.get('userPreferences');
+      return uPCached;
+    }
+
     // The second param is optional.
     this.defineConfiguration = function (confFile, location) {
       this.configuration = angular.extend(new Template(), confFile);
@@ -231,13 +237,17 @@ angular.module('arethusa.core').service('configurator', [
     this.delegateConf = function (obj, otherKeys, sticky) {
       var props = sticky ? otherKeys : arethusaUtil.pushAll(standardProperties, otherKeys);
       var defConf = obj.defaultConf || {};
-      var isDef = angular.isDefined;
+      var isDef = function(arg) { return arg !== undefined && arg !== null; };
       angular.forEach(props, function (property, i) {
         if (sticky && isDef(obj[property])) return;
 
+        var userProp = userPreferences().get(obj.name, property);
         var confProp = obj.conf[property];
-        var isDefined = angular.isDefined(confProp);
-        var val = isDef(confProp) ? confProp : defConf[property];
+
+        var val = isDef(userProp) ?
+          userProp :
+          isDef(confProp) ? confProp : defConf[property];
+
         obj[property] = val;
       });
 

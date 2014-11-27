@@ -11,6 +11,7 @@ angular.module('arethusa.core').service('globalSettings', [
   function(configurator,  plugins, $injector, $rootScope, notifier, $timeout) {
     var self = this;
 
+    self.name = 'globalSettings'; // configurator will ask for this
     self.layout = {};
     self.settings = {};
     self.colorizers = { disabled: true };
@@ -18,12 +19,16 @@ angular.module('arethusa.core').service('globalSettings', [
 
     var confKeys = [
       "alwaysDeselect",
-      "colorizer"
+      "colorizer",
+      "persistSettings",
+      "disableKeyboardMappings"
     ];
 
     self.defaultConf = {
       alwaysDeselect: false,
-      colorizer: 'morph'
+      colorizer: 'morph',
+      persistSettings: true,
+      disableKeyboardMappings: false
     };
 
     function configure() {
@@ -41,10 +46,11 @@ angular.module('arethusa.core').service('globalSettings', [
     }
 
     function defineSettings() {
+      self.defineSetting('persistSettings');
       self.defineSetting('chunkMode', 'custom', 'chunk-mode-switcher');
       self.defineSetting('clickAction', 'custom', 'global-click-action');
       self.defineSetting('alwaysDeselect');
-      self.defineSetting('keyboardMappings');
+      self.defineSetting('disableKeyboardMappings');
       self.defineSetting('colorizer', 'custom', 'colorizer-setting');
       self.defineSetting('layout', 'custom', 'layout-setting');
     }
@@ -55,6 +61,10 @@ angular.module('arethusa.core').service('globalSettings', [
 
     this.removeSetting = function(setting) {
       delete self.settings[setting];
+    };
+
+    this.propagateSetting = function(property) {
+      userPreferences().set(self.name, property, self[property]);
     };
 
     this.toggle = function() {
@@ -116,6 +126,12 @@ angular.module('arethusa.core').service('globalSettings', [
     function state() {
       if (!lazyState) lazyState = $injector.get('state');
       return lazyState;
+    }
+
+    var lazyUserPref;
+    function userPreferences() {
+      if (!lazyUserPref) lazyUserPref = $injector.get('userPreferences');
+      return lazyUserPref;
     }
 
     this.applyColorizer = function() {

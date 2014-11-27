@@ -92,15 +92,6 @@
     "compact": "Baum verdichten",
     "widen": "Baum ausdehnen"
   },
-  "globalSettings": {
-    "title": "Globale Einstellungen",
-    "alwaysDeselect": "Deselektiere nach jeder Annotations-Aktion",
-    "keyboardMappings": "Deaktiviere Tastaturmappings in Eingabefeldern",
-    "colorizer": "Token einfärben nach",
-    "layout": "Layout",
-    "clickAction": "Klickverhalten",
-    "chunkMode": "Teilungsmodus"
-  },
   "grid": {
     "dragging": "Ziehen",
     "pushing": "Schieben",
@@ -184,5 +175,15 @@
   "editors": {
     "noEditorsPresent": "Keine Bearbeiter bekannt.",
     "title": "Bearbeiter"
+  },
+  "globalSettings": {
+    "persistSettings": "Einstellungen speichern",
+    "title": "Globale Einstellungen",
+    "alwaysDeselect": "Deselektiere nach jeder Annotations-Aktion",
+    "disableKeyboardMappings": "Deaktiviere Tastaturmappings in Eingabefeldern",
+    "colorizer": "Token einfärben nach",
+    "layout": "Layout",
+    "clickAction": "Klickverhalten",
+    "chunkMode": "Teilungsmodus"
   }
 }
