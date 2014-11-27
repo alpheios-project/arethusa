@@ -146,18 +146,28 @@ describe("relation", function() {
   });
 
   describe('this.buildLabelAndSearch', function() {
-    it('builds a label on an obj and searches for it afterwards', function() {
-      var relObj = { prefix: 'OBJ', suffix: 'CO' };
-      relation.buildLabelAndSearch(relObj);
-      expect(state.isSelected('01')).toBeTruthy();
-      expect(state.isSelected('02')).toBeTruthy();
+    describe('with exact matching', function() {
+      beforeEach(function() { relation.exactSearchMatch = true; });
+
+      it('builds a label on an obj and searches for it afterwards', function() {
+        var relObj = { prefix: 'OBJ', suffix: 'CO' };
+        relation.buildLabelAndSearch(relObj);
+        expect(state.isSelected('01')).toBeTruthy();
+        expect(state.isSelected('02')).toBeTruthy();
+      });
+
+      it('when no obj is given, the searchedLabel model is used instead', function() {
+        relation.searchedLabel = { prefix: 'OBJ', suffix: 'CO' };
+        relation.buildLabelAndSearch();
+        expect(state.isSelected('01')).toBeTruthy();
+        expect(state.isSelected('02')).toBeTruthy();
+      });
     });
 
-    it('when no obj is given, the searchedLabel model is used instead', function() {
-      relation.searchedLabel = { prefix: 'OBJ', suffix: 'CO' };
-      relation.buildLabelAndSearch();
-      expect(state.isSelected('01')).toBeTruthy();
-      expect(state.isSelected('02')).toBeTruthy();
+    describe('without exact matching', function() {
+      it('searches successful when only prefix matches', function() {
+
+      });
     });
   });
 

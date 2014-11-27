@@ -106,12 +106,15 @@ angular.module('arethusa.relation').service('relation', [
       self.searchedLabel = self.relationTemplate();
     };
 
+    // TODO
+    // This should be more flexible and take pre/suffixing into account,
+    // at least as optional feature
     this.selectByLabel = function (label) {
       var ids = arethusaUtil.inject([], self.relations, function (memo, id, rel) {
-          if (rel.relation.label === label) {
-            memo.push(id);
-          }
-        });
+        if (rel.relation.label === label) {
+          memo.push(id);
+        }
+      });
       state.multiSelect(ids);
     };
 
