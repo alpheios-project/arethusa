@@ -96,41 +96,6 @@
               "color" : "deeppink"
             }
           },
-          "AuxR" : {
-            "short" : "AuxR",
-            "long" : "reflexive passive",
-            "style" : {
-              "color" : "rgb(162, 70, 235)"
-            }
-          },
-          "AuxV" : {
-            "short" : "AuxV",
-            "long" : "auxiliary verb",
-            "style" : {
-              "color" : "rgb(70, 96, 235)"
-            }
-          },
-          "AuxX" : {
-            "short" : "AuxX",
-            "long" : "comma",
-            "style" : {
-              "color" : "black"
-            }
-          },
-          "AuxG" : {
-            "short" : "AuxG",
-            "long" : "bracketing punctuation",
-            "style" : {
-              "color" : "black"
-            }
-          },
-          "AuxK" : {
-            "short" : "AuxK",
-            "long" : "terminal punctuation",
-            "style" : {
-              "color" : "black"
-            }
-          },
           "AuxY" : {
             "short" : "AuxY",
             "long" : "sentence adverbial",
@@ -143,6 +108,41 @@
             "long" : "emphasizing particle",
             "style" : {
               "color" : "rgb(216, 57, 159)"
+            }
+          },
+          "AuxV" : {
+            "short" : "AuxV",
+            "long" : "auxiliary verb",
+            "style" : {
+              "color" : "rgb(70, 96, 235)"
+            }
+          },
+          "AuxR" : {
+            "short" : "AuxR",
+            "long" : "reflexive passive",
+            "style" : {
+              "color" : "rgb(162, 70, 235)"
+            }
+          },
+          "AuxG" : {
+            "short" : "AuxG",
+            "long" : "bracketing punctuation",
+            "style" : {
+              "color" : "black"
+            }
+          },
+          "AuxX" : {
+            "short" : "AuxX",
+            "long" : "comma",
+            "style" : {
+              "color" : "black"
+            }
+          },
+          "AuxK" : {
+            "short" : "AuxK",
+            "long" : "terminal punctuation",
+            "style" : {
+              "color" : "black"
             }
           }
         }
