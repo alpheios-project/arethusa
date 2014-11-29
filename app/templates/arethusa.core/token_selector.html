@@ -1,11 +1,11 @@
 <dl class="sub-nav" style="display:inline-block">
   <dt>Selection:</dt>
-  <dd ng-repeat="s in selectors" 
-      ng-class="{active: s.isActive}">
+  <dd ng-repeat="selector in selectors" 
+      ng-class="{active: selector.isActive}">
       <a
-        ng-click="s.action()"
-        ng-class="s.styleClasses">
-        {{s.label()}}
+        ng-click="selector.action()"
+        ng-class="selector.styleClasses">
+        {{selector.label}}
       </a>
   </dd>
 </dl>

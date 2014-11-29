@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('arethusa.core').directive('tokenSelector', [
-  'state', '_',
-  function(state, _) {
+  'state', '_', 'StateChangeWatcher', '$parse',
+  function(state, _, StateChangeWatcher, $parse) {
     return {
       restrict: 'A',
       scope: {
@@ -23,58 +23,79 @@ angular.module('arethusa.core').directive('tokenSelector', [
           updateSelectors();
         });
 
+        var callbacks = {
+          newMatch: function(token) {
+            if (unusedHighlighter.isActive) state.addStyle(token.id, style);
+          },
+          lostMatch: function(token) {
+            if (unusedHighlighter.isActive) removeStyle(token.id);
+          },
+          changedCount: function(newCount) {
+            unusedSelector.label = newCount + " unused";
+          }
+        };
+        var property = 'head.id';
+        var getter = $parse(property);
+        var unusedWatcher = new StateChangeWatcher(
+          property, getter, callbacks);
+
         var selectAll = function() {
           state.multiSelect(Object.keys(scope.tokens));
         };
 
-        var tokensWithoutHead = function() {
-          return _.filter(scope.tokens, function(token) {
-            return !token.head.id;
-          });
-        };
-
         var selectUnused = function() {
-          var unused = tokensWithoutHead();
-          state.multiSelect(_.map(unused, function(token) { return token.id; }));
+          unapplyHighlighting();
+          state.multiSelect(Object.keys(unusedWatcher.matchingTokens));
         };
 
-        var highlightStyle = { "background-color": "rgb(255, 216, 216)" };
-        var highlightUnused = function() {
-          unusedHighlighter.isActive = !unusedHighlighter.isActive;
-          var unused = tokensWithoutHead();
+        var style = scope.style || { "background-color": "rgb(255, 216, 216)" }; // a very light red
+        function applyHighlighting() {
+          unusedWatcher.applyToMatching(function(id) {
+            state.addStyle(id, style);
+          });
+        }
+
+        function removeStyle(id) {
+          var styles = Object.keys(style);
+          state.removeStyle(id, styles);
+        }
+
+        function unapplyHighlighting() {
+          unusedWatcher.applyToMatching(function(id) {
+            removeStyle(id);
+          });
+        }
+
+        function switchHighlighting() {
           if (unusedHighlighter.isActive) {
-            angular.forEach(unused, function(token) {
-              state.addStyle(token.id, highlightStyle);
-            });
+            unapplyHighlighting();
           } else {
-            var styles = Object.keys(highlightStyle);
-            angular.forEach(unused, function(token) {
-              state.removeStyle(token.id, styles);
-            });
+            applyHighlighting();
           }
-        };
+          unusedHighlighter.isActive = !unusedHighlighter.isActive;
+        }
 
         var noneSelector = {
-          label: function() { return "None"; },
+          label: "none",
           action: state.deselectAll,
           isActive: true
         };
 
         var allSelector = {
-          label: function() { return "All"; },
+          label: "all",
           action: selectAll,
           isActive: false
         };
 
         var unusedSelector = {
-          label: function() { return tokensWithoutHead().length + " unused"; },
+          label: "0 unused",
           action: selectUnused,
           isActive: false
         };
 
         var unusedHighlighter = {
-          label: function() { return "highlight unused"; },
-          action: highlightUnused,
+          label: "highlight unused",
+          action: switchHighlighting,
           styleClasses: 'unused-highlighter',
           isActive: false
         };
@@ -87,8 +108,8 @@ angular.module('arethusa.core').directive('tokenSelector', [
         ];
 
         var areAllSelected = function(tokens) {
-          return _.all(tokens, function(token) {
-            return state.isClicked(token.id);
+          return _.all(Object.keys(tokens), function(tokenId) {
+            return state.isClicked(tokenId);
           });
         };
 
@@ -96,11 +117,12 @@ angular.module('arethusa.core').directive('tokenSelector', [
           noneSelector.isActive = hasNoTokensSelected;
           allSelector.isActive = hasAllTokensSelected;
 
-          var unusedTokens = tokensWithoutHead();
           unusedSelector.isActive = !hasNoTokensSelected &&
-            scope.countOfSelectedTokens() === unusedTokens.length &&
-            areAllSelected(unusedTokens);
+            scope.countOfSelectedTokens() === unusedWatcher.count &&
+            areAllSelected(unusedWatcher.matchingTokens);
         };
+
+        unusedWatcher.initCount();
       },
       templateUrl: 'templates/arethusa.core/token_selector.html'
     };
