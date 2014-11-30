@@ -66,6 +66,7 @@ function arethusaSourceFiles() {
     "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
     "./bower_components/angular-local-storage/dist/angular-local-storage.min.js",
     "./bower_components/lodash/dist/lodash.min.js",
+    "./bower_components/angular-ui-utils/ui-utils.min.js",
     //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js",
@@ -365,6 +366,7 @@ module.exports = function(grunt) {
             './bower_components/oclazyload/dist/ocLazyLoad.min.js',
             './bower_components/angular-gridster/dist/angular-gridster.min.js',
             './bower_components/javascript-detect-element-resize/jquery.resize.js',
+            './bower_components/angular-ui-utils/ui-utils.min.js',
             './vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.js',
             './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
             './vendor/dagre-d3/dagre-d3.min.js',
@@ -519,12 +521,17 @@ module.exports = function(grunt) {
     clean: ['dist/*.js', 'dist/*.map']
   });
 
-  grunt.registerTask('version', function() {
-    var template = grunt.file.read('./app/js/arethusa/.version_template.js');
+  function createVersionInfo() {
     var sha    = shellOneLineOutput('git rev-parse HEAD');
     var branch = shellOneLineOutput('git rev-parse --abbrev-ref HEAD');
-    var args = { data: { sha: sha, branch: branch } };
-    var result = grunt.template.process(template, args);
+    var date = new Date().toJSON();
+
+    return { data: { sha: sha, branch: branch, date: date } };
+  }
+
+  grunt.registerTask('version', function() {
+    var template = grunt.file.read('./app/js/arethusa/.version_template.js');
+    var result = grunt.template.process(template, createVersionInfo());
     grunt.file.write('./app/js/arethusa/version.js', result);
   });
 
