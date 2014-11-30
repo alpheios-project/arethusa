@@ -63,7 +63,10 @@ angular.module('arethusa.core').directive('tokenSelector', [
 
         var noneSelector = {
           label: "none",
-          action: state.deselectAll,
+          action: function() {
+            state.deselectAll();
+            highlighter.applyHighlighting();
+          },
           isActive: true
         };
 
