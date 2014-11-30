@@ -286,7 +286,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    versionInfo: grunt.file.readJSON(versionInfoFilename), //grunt.file.exists(versionInfoFilename) ? grunt.file.readJSON(versionInfoFilename) : {},
+    versionInfo: grunt.file.exists(versionInfoFilename) ? grunt.file.readJSON(versionInfoFilename) : {},
     jasmine: {
       src: srcFiles,
       options: {
