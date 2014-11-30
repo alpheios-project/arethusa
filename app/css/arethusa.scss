@@ -958,8 +958,15 @@ code {
   }
 }
 
-dd.active {
+.sub-nav dd.active {
+  margin-left: .2rem;
+
+  a {
+    padding: .4rem;
+  }
+
   a.unused-highlighter {
+    padding: .4rem;
     $bg-color: rgb(255, 216, 216);
     color: #737373;
     cursor: pointer;
