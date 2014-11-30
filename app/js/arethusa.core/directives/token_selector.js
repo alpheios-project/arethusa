@@ -2,7 +2,7 @@
 
 angular.module('arethusa.core').directive('tokenSelector', [
   'state', '_', 'StateChangeWatcher', '$parse', 'Highlighter',
-  function(state, _, StateChangeWatcher, $parse, Highlighter) {
+  function(state, _, StateChangeWatcher, Highlighter) {
     return {
       restrict: 'A',
       scope: {
@@ -35,10 +35,7 @@ angular.module('arethusa.core').directive('tokenSelector', [
             unusedSelector.label = newCount + " unused";
           }
         };
-        var property = 'head.id';
-        var getter = $parse(property);
-        var unusedWatcher = new StateChangeWatcher(
-          property, getter, callbacks);
+        var unusedWatcher = new StateChangeWatcher('head.id', callbacks);
 
         var highlighter = new Highlighter(unusedWatcher, style);
 
