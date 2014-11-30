@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('arethusa.core').directive('tokenSelector', [
-  'state', '_', 'StateChangeWatcher', '$parse',
-  function(state, _, StateChangeWatcher, $parse) {
+  'state', '_', 'StateChangeWatcher', '$parse', 'Highlighter',
+  function(state, _, StateChangeWatcher, $parse, Highlighter) {
     return {
       restrict: 'A',
       scope: {
@@ -11,6 +11,7 @@ angular.module('arethusa.core').directive('tokenSelector', [
       link: function(scope, element, attrs) {
         var hasNoTokensSelected = true;
         var hasAllTokensSelected = false;
+        var style = scope.style || { "background-color": "rgb(255, 216, 216)" }; // a very light red
 
         scope.countOfSelectedTokens = function() {
           return state.hasClickSelections();
@@ -28,7 +29,7 @@ angular.module('arethusa.core').directive('tokenSelector', [
             if (unusedHighlighter.isActive) state.addStyle(token.id, style);
           },
           lostMatch: function(token) {
-            if (unusedHighlighter.isActive) removeStyle(token.id);
+            if (unusedHighlighter.isActive) highlighter.removeStyle(token.id);
           },
           changedCount: function(newCount) {
             unusedSelector.label = newCount + " unused";
@@ -39,38 +40,23 @@ angular.module('arethusa.core').directive('tokenSelector', [
         var unusedWatcher = new StateChangeWatcher(
           property, getter, callbacks);
 
+        var highlighter = new Highlighter(unusedWatcher, style);
+
         var selectAll = function() {
           state.multiSelect(Object.keys(scope.tokens));
         };
 
         var selectUnused = function() {
-          unapplyHighlighting();
+          highlighter.unapplyHighlighting();
           state.multiSelect(Object.keys(unusedWatcher.matchingTokens));
         };
 
-        var style = scope.style || { "background-color": "rgb(255, 216, 216)" }; // a very light red
-        function applyHighlighting() {
-          unusedWatcher.applyToMatching(function(id) {
-            state.addStyle(id, style);
-          });
-        }
-
-        function removeStyle(id) {
-          var styles = Object.keys(style);
-          state.removeStyle(id, styles);
-        }
-
-        function unapplyHighlighting() {
-          unusedWatcher.applyToMatching(function(id) {
-            removeStyle(id);
-          });
-        }
 
         function switchHighlighting() {
           if (unusedHighlighter.isActive) {
-            unapplyHighlighting();
+            highlighter.unapplyHighlighting();
           } else {
-            applyHighlighting();
+            highlighter.applyHighlighting();
           }
           unusedHighlighter.isActive = !unusedHighlighter.isActive;
         }
