@@ -10,6 +10,7 @@ var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
+var versionInfoFilename = 'app/js/arethusa/version.json';
 
 var devMode = process.env.DEV;
 
@@ -114,7 +115,8 @@ function arethusaMainFiles() {
 function arethusaUglify() {
   var obj = {
     options: {
-      sourceMap: true
+      sourceMap: true,
+      banner: '/*! <%= versionInfo.branch %> - <%= versionInfo.sha %> - <%= versionInfo.date %> */'
     },
     dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
@@ -284,6 +286,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    versionInfo: grunt.file.readJSON(versionInfoFilename), //grunt.file.exists(versionInfoFilename) ? grunt.file.readJSON(versionInfoFilename) : {},
     jasmine: {
       src: srcFiles,
       options: {
@@ -521,17 +524,21 @@ module.exports = function(grunt) {
     clean: ['dist/*.js', 'dist/*.map']
   });
 
+
   function createVersionInfo() {
     var sha    = shellOneLineOutput('git rev-parse HEAD');
     var branch = shellOneLineOutput('git rev-parse --abbrev-ref HEAD');
     var date = new Date().toJSON();
 
-    return { data: { sha: sha, branch: branch, date: date } };
+    return { sha: sha, branch: branch, date: date };
   }
+
 
   grunt.registerTask('version', function() {
     var template = grunt.file.read('./app/js/arethusa/.version_template.js');
-    var result = grunt.template.process(template, createVersionInfo());
+    var versionInfo = createVersionInfo();
+    grunt.file.write(versionInfoFilename, JSON.stringify(versionInfo));
+    var result = grunt.template.process(template, { data: versionInfo });
     grunt.file.write('./app/js/arethusa/version.js', result);
   });
 
