@@ -3,10 +3,8 @@
     <div class="canvas-border"/>
 
     <div id="canvas" class="row panel full-height" full-height>
-      <div id="main-body" to-bottom class="">
-        <div ng-repeat="pl in plugins.main">
-          <plugin name="{{ pl.name }}"/>
-        </div>
+      <div id="main-body" to-bottom>
+        <div ng-repeat="pl in plugins.main" plugin name="{{ pl.name }}"/>
         <div keys-to-screen/>
       </div>
 
