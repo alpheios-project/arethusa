@@ -12,21 +12,7 @@
 
       <div id="sidepanel" sidepanel to-bottom class="scrollable">
         <div id="sidepanel-resizer" resizable to-bottom></div>
-        <div id="sidepanel-body">
-          <tabset>
-            <tab
-              ng-repeat="pl in plugins.sub"
-              select="plugins.setActive(pl)"
-              heading="{{ pl.displayName }}"
-              active="plugins.isSelected(pl)">
-              <plugin
-                name="{{ pl.name }}"
-                with-settings="true"
-                ng-if="plugins.isActive(pl)">
-              </plugin>
-            </tab>
-          </tabset>
-        </div>
+        <div id="sidepanel-body" arethusa-tabs="plugins.sub"/>
       </div>
     </div>
 
