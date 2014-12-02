@@ -12,9 +12,11 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
   '$timeout',
   'globalSettings',
   'arethusaErrorHandler',
+  'logger',
+  '$location',
   function ($scope, configurator, state, documentStore, notifier,
             saver, history, plugins, translator, $timeout, globalSettings,
-            arethusaErrorHandler) {
+            arethusaErrorHandler, logger, $location) {
     // This is the entry point to the application.
 
     var translations = {};
@@ -97,7 +99,11 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
     }
 
     function onError(exception, cause) {
-      // Implement custom error handling
+      var date, msg;
+      date = new Date().toJSON();
+      msg =  date + " " + $location.absUrl();
+      msg += "\n" + exception.stack;
+      logger.remoteLog(msg);
     }
 
     arethusaErrorHandler.listen(onError);
