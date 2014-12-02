@@ -99,11 +99,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
     }
 
     function onError(exception, cause) {
-      var date, msg;
-      date = new Date().toJSON();
-      msg =  date + " " + $location.absUrl();
-      msg += "\n" + exception.stack;
-      logger.remoteLog(msg);
+      logger.remoteLog($location.absUrl() + "\n" + exception.stack);
     }
 
     arethusaErrorHandler.listen(onError);
