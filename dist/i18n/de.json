@@ -27,15 +27,6 @@
   "create": "Erstellen",
   "list": "Liste",
   "delete": "Löschen",
-  "tree": {
-    "changeDir": "Ändere Richtung",
-    "focusRoot": "Fokusiere Root",
-    "focusSel": "Fokusiere Selektion",
-    "centerTree": "Baum zentrieren",
-    "perfectWidth": "Breite anpassen",
-    "compact": "Baum verdichten",
-    "widen": "Baum ausdehnen"
-  },
   "sidepanel": {
     "fold": "Panel verbergen",
     "show": "Panel anzeigen"
@@ -90,6 +81,21 @@
   "uth": {
     "count": "{{ count }} von {{ total }} unbenutzt",
     "tooltip": "Linksklick um hervorzuheben<br>Doppelklick um zu selektieren"
+  },
+  "selector": {
+    "all": "Alle",
+    "none": "Keines",
+    "unused": "{{ count }} unbenutzt",
+    "highlightUnused": "Unbenutzte hervorheben"
+  },
+  "tree": {
+    "changeDir": "Ändere Richtung",
+    "focusRoot": "Fokusiere Root",
+    "focusSel": "Fokusiere Selektion",
+    "centerTree": "Baum zentrieren",
+    "perfectWidth": "Breite anpassen",
+    "compact": "Baum verdichten",
+    "widen": "Baum ausdehnen"
   },
   "grid": {
     "dragging": "Ziehen",

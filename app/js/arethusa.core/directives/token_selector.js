@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('arethusa.core').directive('tokenSelector', [
-  'state', '_', 'StateChangeWatcher', '$parse', 'Highlighter',
-  function(state, _, StateChangeWatcher, Highlighter) {
+  'state', '_', 'StateChangeWatcher', 'Highlighter', 'translator',
+  function(state, _, StateChangeWatcher, Highlighter, translator) {
     return {
       restrict: 'A',
       scope: {
@@ -32,7 +32,8 @@ angular.module('arethusa.core').directive('tokenSelector', [
             if (unusedHighlighter.isActive) highlighter.removeStyle(token.id);
           },
           changedCount: function(newCount) {
-            unusedSelector.label = newCount + " unused";
+            unusedSelector.count = newCount;
+            translator("selector.unused", unusedSelector, "label");
           }
         };
         var unusedWatcher = new StateChangeWatcher('head.id', callbacks);
@@ -59,32 +60,33 @@ angular.module('arethusa.core').directive('tokenSelector', [
         }
 
         var noneSelector = {
-          label: "none",
           action: function() {
             state.deselectAll();
             highlighter.applyHighlighting();
           },
           isActive: true
         };
+        translator("selector.none", noneSelector, "label");
 
         var allSelector = {
-          label: "all",
           action: selectAll,
           isActive: false
         };
+        translator("selector.all", allSelector, "label");
 
         var unusedSelector = {
-          label: "0 unused",
           action: selectUnused,
-          isActive: false
+          isActive: false,
+          count: 0
         };
+        translator("selector.unused", unusedSelector, "label");
 
         var unusedHighlighter = {
-          label: "highlight unused",
           action: switchHighlighting,
           styleClasses: 'unused-highlighter',
           isActive: false
         };
+        translator("selector.highlightUnused", unusedHighlighter, "label");
 
         scope.selectors = [
           noneSelector,

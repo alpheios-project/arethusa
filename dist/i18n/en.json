@@ -27,15 +27,6 @@
   "create": "Create",
   "list": "List",
   "delete": "Delete",
-  "tree": {
-    "changeDir": "Change Direction",
-    "focusRoot": "Focus Root",
-    "focusSel": "Focus Selection",
-    "centerTree": "Center Tree",
-    "perfectWidth": "Perfect Width",
-    "compact": "Compact tree",
-    "widen": "Widen tree"
-  },
   "sidepanel": {
     "fold": "Fold Panel",
     "show": "Show Panel"
@@ -90,6 +81,21 @@
   "uth": {
     "count": "{{ count }} of {{ total }} unused",
     "tooltip": "Click to toggle highlighting<br>Double-click to select"
+  },
+  "selector": {
+    "all": "all",
+    "none": "none",
+    "unused": "{{ count }} unused",
+    "highlightUnused": "highlight unused"
+  },
+  "tree": {
+    "changeDir": "Change Direction",
+    "focusRoot": "Focus Root",
+    "focusSel": "Focus Selection",
+    "centerTree": "Center Tree",
+    "perfectWidth": "Perfect Width",
+    "compact": "Compact tree",
+    "widen": "Widen tree"
   },
   "grid": {
     "dragging": "Dragging",
