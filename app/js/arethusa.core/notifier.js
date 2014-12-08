@@ -2,7 +2,8 @@
 angular.module('arethusa.core').service('notifier', [
   'configurator',
   'toaster',
-  function(configurator, toaster) {
+  '$timeout',
+  function(configurator, toaster, $timeout) {
     var self = this;
 
     function configure() {
@@ -22,22 +23,51 @@ angular.module('arethusa.core').service('notifier', [
     }
 
     function generate(type) {
-      self[type] = function(message, title) {
+      self[type] = function(message, title, debounce) {
         if (!self.disable) {
-          self.addMessage(type, message, title);
+          self.addMessage(type, message, title, debounce);
         }
       };
     }
 
+    var debouncer = {};
+
     var types = ['success', 'info', 'wait', 'warning', 'error'];
     angular.forEach(types, generate);
 
-    this.addMessage = function(type, message, title) {
+    function messageKey(type, message, title) {
+      return [type, message, title].join('||');
+    }
+
+    function messageAlreadyAdded(msgKey) {
+      return debouncer[msgKey];
+    }
+
+    function cancelTimer(msgKey) {
+      return function() {
+        $timeout.cancel(debouncer[msgKey]);
+      };
+    }
+
+    function addDebouncing(msgKey, duration) {
+      debouncer[msgKey] = $timeout(cancelTimer, duration, false);
+    }
+
+    this.addMessage = function(type, message, title, debounce) {
       if (self.messages.length === self.maxMessages) {
         self.messages.pop();
       }
 
-      self.messages.unshift(new Message(type, message, title));
+      var msgKey = messageKey(type, message, title);
+      if (debounce) {
+        if (messageAlreadyAdded(type, message, title)) {
+          return;
+        } else {
+          addDebouncing(msgKey, debounce);
+        }
+      }
+      var msg = new Message(type, message, title);
+      self.messages.unshift(msg);
       toaster.pop(type, title, message);
     };
 
