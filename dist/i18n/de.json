@@ -83,6 +83,7 @@
     "tooltip": "Linksklick um hervorzuheben<br>Doppelklick um zu selektieren"
   },
   "selector": {
+    "selection": "Auswahl",
     "all": "Alle",
     "none": "Keines",
     "unused": "{{ count }} unbenutzt",

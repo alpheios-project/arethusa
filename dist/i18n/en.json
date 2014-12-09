@@ -83,6 +83,7 @@
     "tooltip": "Click to toggle highlighting<br>Double-click to select"
   },
   "selector": {
+    "selection": "selection",
     "all": "all",
     "none": "none",
     "unused": "{{ count }} unused",
