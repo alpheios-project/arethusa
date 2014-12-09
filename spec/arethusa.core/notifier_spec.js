@@ -57,7 +57,7 @@ describe("notifier", function() {
       expect(notifier.messages[0].message).toEqual('3');
     });
 
-    iit('fourth argument can be the duration of debouncing', function() {
+    it('fourth argument can be the duration of debouncing', function() {
       var counter = 0;
       var t = 'info', m = 'msg', title = 'title';
 
