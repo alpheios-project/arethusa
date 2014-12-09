@@ -175,27 +175,39 @@ angular.module('arethusa.core').service('navigator', [
       self.getCitation(currentSentenceObjs(), storeCitation);
     }
 
+    function isCtsUrn(cite) {
+      return cite.match(/^urn:cts/);
+    }
+
+    function parseCtsUrn(cite, callback) {
+      var citation;
+      var citeSplit = splitCiteString(cite);
+      var doc = citeSplit[0];
+      var sec = citeSplit[1];
+      citation = citationCache.get(doc);
+      if (! citation) {
+        citeMapper.get({ cite: doc}).then(function(res) {
+          citation = res.data;
+          citationCache.put(doc, citation);
+          callback(citationToString(citation, sec));
+        });
+      } else {
+        callback(citationToString(citation, sec));
+      }
+    }
+
     var citationCache = $cacheFactory('citation', { number: 100 });
     this.getCitation = function(sentences, callback) {
       if (!citeMapper) return;
       var sentence = sentences[0];
       if (!sentence) return;
 
-      var citation;
       var cite = sentence.cite;
       if (cite) {
-        var citeSplit = splitCiteString(cite);
-        var doc = citeSplit[0];
-        var sec = citeSplit[1];
-        citation = citationCache.get(doc);
-        if (! citation) {
-          citeMapper.get({ cite: doc}).then(function(res) {
-            citation = res.data;
-            citationCache.put(doc, citation);
-            callback(citationToString(citation, sec));
-          });
+        if (isCtsUrn(cite)) {
+          parseCtsUrn(cite, callback);
         } else {
-          callback(citationToString(citation, sec));
+          callback(cite);
         }
       }
     };
