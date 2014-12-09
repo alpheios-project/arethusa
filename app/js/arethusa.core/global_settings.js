@@ -7,8 +7,10 @@ angular.module('arethusa.core').service('globalSettings', [
   '$rootScope',
   'notifier',
   'translator',
+  'keyCapture',
   '$timeout',
-  function(configurator,  plugins, $injector, $rootScope, notifier, translator, $timeout) {
+  function(configurator,  plugins, $injector, $rootScope, notifier,
+           translator, keyCapture, $timeout) {
     var self = this;
 
     self.name = 'globalSettings'; // configurator will ask for this
@@ -188,6 +190,23 @@ angular.module('arethusa.core').service('globalSettings', [
       }, 500);
       $rootScope.$broadcast('layoutChange', self.layout);
     };
+
+    function cycleLayouts() {
+      if (self.layouts.length < 2) return;
+
+      var next = self.layouts.indexOf(self.layout) + 1;
+      if (next == self.layouts.length) next = 0;
+      self.layout = self.layouts[next];
+      self.broadcastLayoutChange();
+    }
+
+    keyCapture.initCaptures(function(kC) {
+      return {
+        layout: [
+          kC.create('cycle', cycleLayouts, 'l')
+        ]
+      };
+    });
 
     this.init = function() {
       configure();
