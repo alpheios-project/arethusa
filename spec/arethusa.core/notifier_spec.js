@@ -15,7 +15,7 @@ describe("notifier", function() {
   beforeEach(inject(function(_notifier_, _$timeout_) {
     notifier = _notifier_;
     notifier.init();
-    $timeout = $timeout;
+    $timeout = _$timeout_;
   }));
 
   describe('this.addMessage', function() {
@@ -57,31 +57,28 @@ describe("notifier", function() {
       expect(notifier.messages[0].message).toEqual('3');
     });
 
-    it('fourth argument can be the duration of debouncing', function() {
+    iit('fourth argument can be the duration of debouncing', function() {
       var counter = 0;
-      var oldNotify = notifier.addMessage;
-      notifier.addMessage = function(type, message, title, debounce) {
-        oldNotify(type, message, title, debounce);
-        counter++;
-      };
+      var t = 'info', m = 'msg', title = 'title';
 
       // Sending the same message twice and immediately
-      var t = 'info', m = 'msg', title = 'title';
       notifier.addMessage(t, m, title);
       notifier.addMessage(t, m, title);
 
-      expect(counter).toEqual(2);
+
+      expect(notifier.messages.length).toEqual(2);
 
       // Now with debouncement - only one more notification recorded
       notifier.addMessage(t, m, title, 10);
       notifier.addMessage(t, m, title, 10);
+      notifier.addMessage(t, m, title);
 
-      expect(counter).toEqual(3);
+      expect(notifier.messages.length).toEqual(3);
 
       // Registers again after the timeout expired
       $timeout(function() {
         notifier.addMessage(t, m, title);
-        expect(counter).toEqual(4);
+        expect(notifier.messages.length).toEqual(4);
       }, 15);
     });
   });
