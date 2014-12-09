@@ -33,5 +33,7 @@
   "relation": {},
   "comments": {},
   "editors": {},
-  "globalSettings": {}
+  "globalSettings": {
+    "layoutLoaded": {}
+  }
 }

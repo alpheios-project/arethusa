@@ -6,9 +6,11 @@ angular.module('arethusa.core').service('globalSettings', [
   '$injector',
   '$rootScope',
   'notifier',
+  'translator',
+  'keyCapture',
   '$timeout',
-  '$injector',
-  function(configurator,  plugins, $injector, $rootScope, notifier, $timeout) {
+  function(configurator,  plugins, $injector, $rootScope, notifier,
+           translator, keyCapture, $timeout) {
     var self = this;
 
     self.name = 'globalSettings'; // configurator will ask for this
@@ -16,6 +18,8 @@ angular.module('arethusa.core').service('globalSettings', [
     self.settings = {};
     self.colorizers = { disabled: true };
 
+    var trsls = {};
+    translator('globalSettings.layoutLoaded', trsls, 'layoutLoaded', true);
 
     var confKeys = [
       "alwaysDeselect",
@@ -167,14 +171,42 @@ angular.module('arethusa.core').service('globalSettings', [
     // for this event.
     $rootScope.$on('confLoaded', loadLayouts);
 
+    function layoutLoadedMessage() {
+      return [trsls.layoutLoaded.start, self.layout.name, trsls.layoutLoaded.end].join(' ');
+    }
+
     this.broadcastLayoutChange = function() {
       if (self.layout.grid) {
         $timeout(function() {
           notifier.warning('The grid layout is an experimental feature and WILL contain bugs!', 'WARNING');
         }, 1200);
       }
+      // Postpone this a bit, so that it doesn't show up as first message - also
+      // fixes a little bug with the notification window disappearing too fast on
+      // a layout change (as the main html is reloaded with it, the container that
+      // shows the notification also reloads)
+      $timeout(function() {
+        notifier.info(layoutLoadedMessage());
+      }, 500);
       $rootScope.$broadcast('layoutChange', self.layout);
     };
+
+    function cycleLayouts() {
+      if (self.layouts.length < 2) return;
+
+      var next = self.layouts.indexOf(self.layout) + 1;
+      if (next == self.layouts.length) next = 0;
+      self.layout = self.layouts[next];
+      self.broadcastLayoutChange();
+    }
+
+    keyCapture.initCaptures(function(kC) {
+      return {
+        layout: [
+          kC.create('cycle', cycleLayouts, 'l')
+        ]
+      };
+    });
 
     this.init = function() {
       configure();

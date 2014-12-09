@@ -185,6 +185,10 @@
     "colorizer": "Colorize tokens by",
     "layout": "Layout",
     "clickAction": "Click behaviour",
-    "chunkMode": "Chunk Mode"
+    "chunkMode": "Chunk Mode",
+    "layoutLoaded": {
+      "start": "",
+      "end": "layout loaded!"
+    }
   }
 }

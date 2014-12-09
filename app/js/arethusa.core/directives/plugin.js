@@ -3,7 +3,7 @@ angular.module('arethusa.core').directive('plugin', [
   'plugins',
   function (plugins) {
     return {
-      restrict: 'E',
+      restrict: 'AE',
       scope: true,
       link: function (scope, element, attrs) {
         var nameMap = {
