@@ -184,6 +184,9 @@
     "colorizer": "Token einfärben nach",
     "layout": "Layout",
     "clickAction": "Klickverhalten",
-    "chunkMode": "Teilungsmodus"
+    "chunkMode": "Teilungsmodus",
+    "layoutLoaded": {
+      "end": "Layout geladen!"
+    }
   }
 }
