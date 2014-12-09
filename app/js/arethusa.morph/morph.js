@@ -315,8 +315,10 @@ angular.module('arethusa.morph').service('morph', [
           }
         }
         if (duplicate) {
+          var oldSelectionState = firstForm.selected;
           angular.extend(firstForm, duplicate);
           firstForm.origin = 'document';
+          firstForm.selected = oldSelectionState;
           otherForms.splice(otherForms.indexOf(duplicate), 1);
         }
       }
