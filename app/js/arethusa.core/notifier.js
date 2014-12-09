@@ -59,13 +59,9 @@ angular.module('arethusa.core').service('notifier', [
       }
 
       var msgKey = messageKey(type, message, title);
-      if (debounce) {
-        if (messageAlreadyAdded(type, message, title)) {
-          return;
-        } else {
-          addDebouncing(msgKey, debounce);
-        }
-      }
+      if (messageAlreadyAdded(msgKey)) return;
+      if (debounce) addDebouncing(msgKey, debounce);
+
       var msg = new Message(type, message, title);
       self.messages.unshift(msg);
       toaster.pop(type, title, message);
