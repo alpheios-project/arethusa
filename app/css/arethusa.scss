@@ -949,6 +949,10 @@ code {
 }
 
 // Sub navs
+.sub-nav dt {
+  text-transform: none;
+  margin-right: .4rem;
+}
 
 .sub-nav dd {
   margin-left: .2rem;
