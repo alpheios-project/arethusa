@@ -106,9 +106,9 @@ describe('configurator', function() {
 
   describe('this.defineConfiguration', function() {
     it('sets a configuration file', inject(function(configurator) {
-      expect(configurator.configuration).toBeUndefined();
+      expect(configurator.configuration.main).toEqual({});
       configurator.defineConfiguration(conf1);
-      expect(configurator.configuration).toBeDefined();
+      expect(configurator.configuration.main).toEqual(mainConf);
     }));
 
     xit('resolves references to external files inside a configuration', inject(function(configurator) {
