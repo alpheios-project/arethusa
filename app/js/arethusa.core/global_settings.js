@@ -7,7 +7,6 @@ angular.module('arethusa.core').service('globalSettings', [
   '$rootScope',
   'notifier',
   '$timeout',
-  '$injector',
   function(configurator,  plugins, $injector, $rootScope, notifier, $timeout) {
     var self = this;
 
@@ -173,6 +172,7 @@ angular.module('arethusa.core').service('globalSettings', [
           notifier.warning('The grid layout is an experimental feature and WILL contain bugs!', 'WARNING');
         }, 1200);
       }
+      notifier.info(self.layout.label)
       $rootScope.$broadcast('layoutChange', self.layout);
     };
 
