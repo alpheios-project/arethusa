@@ -29,11 +29,5 @@
     </span>
   </div>
 
-  <input foreign-keys type="text" ng-model="token.string"/>
-  <select
-    class="compact"
-    required
-    ng-model="token.type"
-    ng-options="type for type in plugin.supportedTypes">
-  </select>
+  <div artificial-token-edit="token"/>
 </div>

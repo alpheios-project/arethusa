@@ -1,0 +1,8 @@
+<input foreign-keys type="text" ng-change="changeString()" ng-model="string"/>
+<select
+  class="compact"
+  required
+  ng-model="type"
+  ng-change="changeType()"
+  ng-options="opt for opt in aT.supportedTypes">
+</select>
