@@ -112,11 +112,25 @@ function arethusaMainFiles() {
   return res;
 }
 
+var banner = [
+  '/*',
+  ' * Arethusa - a backend-independent client-side annotation framework',
+  ' * http://github.com/latin-language-toolkit/arethusa',
+  ' *',
+  ' * Built from branch <%= versionInfo.branch %>',
+  ' * at <%= versionInfo.sha %>',
+  ' * on <%= versionInfo.date %>',
+  ' *',
+  ' * Published under an MIT license',
+  '*/',
+  ''
+].join('\n');
+
 function arethusaUglify() {
   var obj = {
     options: {
       sourceMap: true,
-      banner: '/*! <%= versionInfo.branch %> - <%= versionInfo.sha %> - <%= versionInfo.date %> */'
+      banner: banner
     },
     dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
