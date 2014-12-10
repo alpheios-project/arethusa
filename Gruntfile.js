@@ -10,6 +10,7 @@ var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
+var versionInfoFilename = 'app/js/arethusa/version.json';
 
 var devMode = process.env.DEV;
 
@@ -66,6 +67,7 @@ function arethusaSourceFiles() {
     "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
     "./bower_components/angular-local-storage/dist/angular-local-storage.min.js",
     "./bower_components/lodash/dist/lodash.min.js",
+    "./bower_components/angular-ui-utils/ui-utils.min.js",
     //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js",
@@ -110,10 +112,25 @@ function arethusaMainFiles() {
   return res;
 }
 
+var banner = [
+  '/*',
+  ' * Arethusa - a backend-independent client-side annotation framework',
+  ' * http://github.com/latin-language-toolkit/arethusa',
+  ' *',
+  ' * Built from branch <%= versionInfo.branch %>',
+  ' * at <%= versionInfo.sha %>',
+  ' * on <%= versionInfo.date %>',
+  ' *',
+  ' * Published under an MIT license',
+  '*/',
+  ''
+].join('\n');
+
 function arethusaUglify() {
   var obj = {
     options: {
-      sourceMap: true
+      sourceMap: true,
+      banner: banner
     },
     dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
@@ -283,6 +300,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    versionInfo: grunt.file.exists(versionInfoFilename) ? grunt.file.readJSON(versionInfoFilename) : {},
     jasmine: {
       src: srcFiles,
       options: {
@@ -365,6 +383,7 @@ module.exports = function(grunt) {
             './bower_components/oclazyload/dist/ocLazyLoad.min.js',
             './bower_components/angular-gridster/dist/angular-gridster.min.js',
             './bower_components/javascript-detect-element-resize/jquery.resize.js',
+            './bower_components/angular-ui-utils/ui-utils.min.js',
             './vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.js',
             './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
             './vendor/dagre-d3/dagre-d3.min.js',
@@ -519,12 +538,21 @@ module.exports = function(grunt) {
     clean: ['dist/*.js', 'dist/*.map']
   });
 
-  grunt.registerTask('version', function() {
-    var template = grunt.file.read('./app/js/arethusa/.version_template.js');
+
+  function createVersionInfo() {
     var sha    = shellOneLineOutput('git rev-parse HEAD');
     var branch = shellOneLineOutput('git rev-parse --abbrev-ref HEAD');
-    var args = { data: { sha: sha, branch: branch } };
-    var result = grunt.template.process(template, args);
+    var date = new Date().toJSON();
+
+    return { sha: sha, branch: branch, date: date };
+  }
+
+
+  grunt.registerTask('version', function() {
+    var template = grunt.file.read('./app/js/arethusa/.version_template.js');
+    var versionInfo = createVersionInfo();
+    grunt.file.write(versionInfoFilename, JSON.stringify(versionInfo));
+    var result = grunt.template.process(template, { data: versionInfo });
     grunt.file.write('./app/js/arethusa/version.js', result);
   });
 

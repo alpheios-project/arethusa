@@ -1,0 +1,14 @@
+<tabset>
+  <tab
+    ng-repeat="pl in tabs"
+    select="plugins.setActive(pl)"
+    heading="{{ pl.displayName }}"
+    active="plugins.isSelected(pl)">
+    <plugin
+      name="{{ pl.name }}"
+      with-settings="true"
+      ng-if="plugins.isActive(pl)">
+    </plugin>
+  </tab>
+</tabset>
+

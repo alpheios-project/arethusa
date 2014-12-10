@@ -171,6 +171,7 @@
     "colorizer": "Coloriser les tokens par",
     "layout": "Mise en page",
     "clickAction": "Comportement du clic",
-    "chunkMode": "Chunk Mode"
+    "chunkMode": "Chunk Mode",
+    "layoutLoaded": {}
   }
 }

@@ -31,6 +31,10 @@ angular.module('arethusa.core').service('configurator', [
     var self = this;
     var includeParam = 'fileUrl';
 
+    // Start with an empty configuration, especially useful
+    // to satisfy spec files.
+    this.configuration = new Template();
+
     function notifier() {
       return $injector.get('notifier');
     }
