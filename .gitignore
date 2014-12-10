@@ -7,3 +7,4 @@ dist/*
 deployment/
 .sass-cache
 app/css/*.css*
+app/js/arethusa/version.json
