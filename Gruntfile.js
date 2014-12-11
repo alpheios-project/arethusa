@@ -582,7 +582,14 @@ module.exports = function(grunt) {
         imageLink: 'http://arethusa.latin-language-toolkit.net',
         navTemplate: 'dist/docs/html/nav.html'
       },
-      all: [srcFiles]
+      api: {
+        src: [srcFiles],
+        title: 'API Documentation'
+      },
+      guide: {
+        src: 'dist/docs/guides/*.ndgoc',
+        title: 'Guide'
+      }
     }
   });
 
