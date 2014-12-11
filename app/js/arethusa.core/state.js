@@ -1,4 +1,31 @@
 'use strict';
+
+/**
+ * @ngdoc service
+ * @name arethusa.core.state
+ *
+ * @description
+ * One of Arethusa's key components.
+ *
+ * 1. Retrieves documents
+ * 2. Holds the current annotation targets - tokens - presented to the user
+ * 3. Handles selections of tokens
+ * 4. Provides an API to make changes to tokens, while notifying listeners
+ *
+ * Reads its configuration from the `main` section.
+ *
+ * @requires arethusa.core.configurator
+ * @requires arethusa.core.navigator
+ * @requires $rootScope
+ * @requires arethusa.core.documentStore
+ * @requires arethusa.core.keyCapture
+ * @requires arethusa.core.locator
+ * @requires arethusa.core.StateChange
+ * @requires arethusa.core.idHandler
+ * @requires arethusa.core.globalSettings
+ * @requires arethusa.util.logger
+ */
+
 angular.module('arethusa.core').service('state', [
   'configurator',
   'navigator',
@@ -86,6 +113,16 @@ angular.module('arethusa.core').service('state', [
       return Object.keys(tokenRetrievers).length === 0;
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#retrieveTokens
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Tries to iterate over all available retrievers and gets documents
+     * from them.
+     *
+     */
     this.retrieveTokens = function () {
       //var container = {};
       navigator.reset();
@@ -443,30 +480,95 @@ angular.module('arethusa.core').service('state', [
       return watch.destroy;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#on
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Delegates to `$rootScope.$on`.
+     *
+     * @param {String} event The eventname
+     * @param {Function} fn Callback function
+     *
+     */
     this.on = function(event, fn) {
       $rootScope.$on(event, fn);
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#broadcast
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Delegates to `$rootScope.broadcast`.
+     *
+     * @param {String} event The eventname
+     * @param {*} [arg] Optional argument transmitted alongside the event
+     */
     this.broadcast = function(event, arg) {
       $rootScope.$broadcast(event, arg);
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#doSilent
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Calls a function in `silent` mode. No events are broadcasted and no
+     * listeners notified upon changes made during it.
+     *
+     * @param {Function} fn Function to call during `silent` mode
+     *
+     */
     this.doSilent = function(fn) {
       self.silent = true;
       fn();
       self.silent = false;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#doBatched
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Calls a function in `batchChange` mode. All state events firing
+     * during this mode will be collected and broadcasted as a single event.
+     *
+     * @param {Function} fn Function to call during `batchChange` mode
+     *
+     */
     this.doBatched = function(fn) {
       self.batchChangeStart();
       fn();
       self.batchChangeStop();
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#batchChangeStart
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Activates `batchChange` mode.
+     *
+     */
     this.batchChangeStart = function() {
       self.batchChange = true;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#batchChangeStop
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Deactivates `batchChange` mode. Broadcasts the `batchChangeStop` event.
+     *
+     */
     this.batchChangeStop = function() {
       self.batchChange = false;
       self.broadcast('batchChangeStop');
@@ -477,6 +579,15 @@ angular.module('arethusa.core').service('state', [
       self.countTotalTokens();
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#init
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Configures the service and starts the document retrieval process.
+     *
+     */
     this.init = function () {
       configure();
       self.retrieveTokens();
