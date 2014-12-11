@@ -56,7 +56,6 @@ describe("morph", function() {
       var custom = { getConfAndDelegate: morphConf };
       $provide.value('configurator', arethusaMocks.configurator(custom));
       $provide.value('plugins', arethusaMocks.plugins());
-      $provide.value('$analytics', { eventTrack: function() {}});
     });
 
     module("arethusa.morph");
