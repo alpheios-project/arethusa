@@ -7,14 +7,6 @@
  *
  * @description
  *
- * @example
-   <example module="arethusa.core">
-     <file name="index.html">
-      <span exit>
-        Exit
-      </span>
-     </file>
-   </example>
  */
 angular.module('arethusa.core').directive('exit', [
   'exitHandler',
