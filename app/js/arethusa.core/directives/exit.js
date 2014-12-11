@@ -7,7 +7,7 @@
  *
  * @description
  * Adds a click event and an exit icon, which triggers
- * {@link arethusa.core:exitHandler#leave exitHandler#leave},
+ * {@link arethusa.core:exitHandler#methods_leave exitHandler#leave},
  * when an exit route is defined in the {@link arethusa.core:exitHandler exitHandler},
  * otherwise will hides the element decorated with this directive.
  *
