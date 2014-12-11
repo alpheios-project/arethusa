@@ -472,6 +472,35 @@ angular.module('arethusa.core').service('state', [
       };
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#watch
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Registers a `listener` callback executed whenever a
+     * {@link arethusa.core.state#methods_change state.change} with a matching
+     * event is called.
+     *
+     * @param {String} event Name of the change event to listen to - meant to
+     *   be the path of a property on a token object (e.g. `'head.id'`).
+     *
+     *   The special param `'*'` can be passed to listen to all change events.
+     *
+     * @param {Function} fn Callback to be executed when a change has happened.
+     *
+     *   Three arguments are passed to this function
+     *
+     *   1. the new value
+     *   2. the old value
+     *   3. a {@link arethusa.core.StateChange StateChange} event object
+     *
+     * @param {Function} [destroyFn] Optional callback executed when the
+     *   listener is deregistered.
+     *
+     * @returns {Function} Deregisters the listener when executed.
+     *
+     */
     this.watch = function(event, fn, destroyFn) {
       var watchers = changeWatchers[event];
       if (!watchers) watchers = changeWatchers[event] = [];
