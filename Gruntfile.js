@@ -356,7 +356,11 @@ module.exports = function(grunt) {
       },
       doc: {
         files: [srcFiles],
-        tasks: 'ngdocs'
+        tasks: 'ngdocs',
+        options: {
+          livereload: reloadPort,
+          spawn: false
+        }
       }
     },
     jshint: {
