@@ -5,12 +5,14 @@
  * @name arethusa.core.state
  *
  * @description
- * One of Arethusa's key components.
+ * One of Arethusa's key components, typically injected by every plugin.
  *
  * 1. Retrieves documents
  * 2. Holds the current annotation targets - tokens - presented to the user
  * 3. Handles selections of tokens
- * 4. Provides an API to make changes to tokens, while notifying registered listeners
+ * 4. Provides an API to make changes to tokens, while notifying listeners
+ *    (e.g. {@link arethusa.core.state#methods_change state.change} and
+ *    {@link arethusa.core.state#methods_watch state.watch})
  *
  * Reads its configuration from the `main` section.
  *
@@ -583,7 +585,8 @@ angular.module('arethusa.core').service('state', [
      *
      * @description
      * Calls a function in `silent` mode. No events are broadcasted and no
-     * listeners notified upon changes made during it.
+     * listeners notified upon changes (typically firing through a call of
+     * {@link arethusa.core.state#methods_change state.change}) made during it.
      *
      * @param {Function} fn Function to call during `silent` mode
      *
@@ -600,8 +603,12 @@ angular.module('arethusa.core').service('state', [
      * @methodOf arethusa.core.state
      *
      * @description
-     * Calls a function in `batchChange` mode. All state events firing
+     * Calls a function in `batchChange` mode. All change events (typically
+     * done through {@link arethusa.core.state#methods_change state.change}) firing
      * during this mode will be collected and broadcasted as a single event.
+     *
+     * This is especially helpful when we want to undo a multi-change action in
+     * a single step.
      *
      * @param {Function} fn Function to call during `batchChange` mode
      *
@@ -620,6 +627,8 @@ angular.module('arethusa.core').service('state', [
      * @description
      * Activates `batchChange` mode.
      *
+     * Typically called during the execution of {@link arethusa.core.state#methods_doBatched state.doBatched}.
+     *
      */
     this.batchChangeStart = function() {
       self.batchChange = true;
@@ -631,7 +640,9 @@ angular.module('arethusa.core').service('state', [
      * @methodOf arethusa.core.state
      *
      * @description
-     * Deactivates `batchChange` mode. Broadcasts the `batchChangeStop` event.
+     * Deactivates `batchChange` mode and broadcasts the `batchChangeStop` event.
+     *
+     * Typically called during the execution of {@link arethusa.core.state#methods_doBatched state.doBatched}.
      *
      */
     this.batchChangeStop = function() {

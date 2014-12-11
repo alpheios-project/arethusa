@@ -26,6 +26,8 @@
  *   (the `StateChange` object) as argument and notifies all listeners
  *   registered through {@link arethusa.core.state#methods_watch state.watch}.
  *
+ *   Returns itself.
+ *
  */
 angular.module('arethusa.core').factory('StateChange', [
   '$parse',
