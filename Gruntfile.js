@@ -544,6 +544,12 @@ module.exports = function(grunt) {
         options: {
           logConcurrentOutput: true
         }
+      },
+      docs: {
+        tasks: ['ngdocs', 'watch:doc', 'connect:doc'],
+        options: {
+          logConcurrentOutput: true
+        }
       }
     },
     concat: arethusaConcat(),
@@ -599,9 +605,10 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
 
-  // These two server tasks are usually everything you need!
+  // These three server tasks are usually everything you need!
   grunt.registerTask('server', ['clean', 'version', 'minify:all', 'connect:server']);
   grunt.registerTask('reloading-server', ['clean', 'version', 'concurrent:server']);
+  grunt.registerTask('doc-server', ['concurrent:docs']);
 
   grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');
