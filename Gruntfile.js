@@ -461,7 +461,8 @@ module.exports = function(grunt) {
         options: {
           keepalive: true,
           port: 9002,
-          base: 'docs'
+          base: 'dist/docs',
+          livereload: reloadPort
         }
       }
     },
@@ -573,6 +574,7 @@ module.exports = function(grunt) {
     },
     ngdocs: {
       options: {
+        dest: 'dist/docs',
         scripts: [
           './dist/arethusa_packages.min.js',
           './dist/arethusa.min.js'],
