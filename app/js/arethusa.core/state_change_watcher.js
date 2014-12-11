@@ -7,7 +7,7 @@
  * Watches changes to the given `propertyToWatch`, which must
  * be given as a string.
  *
- * The callbacks object must have the following function:
+ * The callbacks object must have the following functions:
  *
  * - newMatch(token): This is called when a token changes its `propertyToWatch`
  *   to a truthy value.
