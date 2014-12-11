@@ -2,8 +2,7 @@
 
 /**
  * @ngdoc service
- * @name arethusa.core:exitHandler
- * @restrict A
+ * @name arethusa.core.exitHandler
  *
  * @description
  * Allows to define an exit route of the application.
@@ -20,7 +19,7 @@
  *
  * @requires $location
  * @requires $window
- * @requires arethusa.core:configurator
+ * @requires arethusa.core.configurator
  *
  */
 
@@ -77,7 +76,7 @@ angular.module('arethusa.core').service('exitHandler', [
     /**
      * @ngdoc function
      * @name arethusa.core:exitHandler#leave
-     * @methodOf arethusa.core:exitHandler
+     * @methodOf arethusa.core.exitHandler
      *
      * @description
      * Leaves arethusa to the configured route.

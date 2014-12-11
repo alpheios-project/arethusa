@@ -1,7 +1,7 @@
 'use strict';
 /**
  * @ngdoc service
- * @name arethusa.core:StateChangeWatcher
+ * @name arethusa.core.StateChangeWatcher
  * @description
  * # StateChangeWatcher
  * Watches changes to the given `propertyToWatch`, which must
@@ -16,7 +16,7 @@
  * - changedCount(newCount): This is called if the count of tokens with a
  *   truthy `propertyToWatch` changes
  *
- * @requires arethusa.core:state
+ * @requires arethusa.core.state
  */
 angular.module('arethusa.core').factory('StateChangeWatcher', [
   'state',

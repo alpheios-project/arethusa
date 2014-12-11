@@ -2,17 +2,17 @@
 
 /**
  * @ngdoc directive
- * @name arethusa.core:directives:exit
+ * @name arethusa.core.directives:exit
  * @restrict A
  *
  * @description
  * Adds a click event and an exit icon, which triggers
- * {@link arethusa.core:exitHandler#methods_leave exitHandler#leave},
- * when an exit route is defined in the {@link arethusa.core:exitHandler exitHandler},
+ * {@link arethusa.core.exitHandler#methods_leave exitHandler#leave},
+ * when an exit route is defined in the {@link arethusa.core.exitHandler exitHandler},
  * otherwise will hides the element decorated with this directive.
  *
- * @requires arethusa.core:exitHandler
- * @requires arethusa.core:translator
+ * @requires arethusa.core.exitHandler
+ * @requires arethusa.core.translator
  */
 angular.module('arethusa.core').directive('exit', [
   'exitHandler',
