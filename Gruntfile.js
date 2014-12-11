@@ -356,7 +356,7 @@ module.exports = function(grunt) {
       },
       doc: {
         files: [srcFiles],
-        tasks: 'ngdocs',
+        tasks: ['plato', 'ngdocs'],
         options: {
           livereload: reloadPort,
           spawn: false
@@ -532,6 +532,12 @@ module.exports = function(grunt) {
       },
       currentCommit: {
         command: 'git rev-parse HEAD'
+      },
+      plato: {
+        command: [
+          'rm -rf dist/docs/plato',
+          'node_modules/.bin/plato -d dist/docs/plato -l .jshintrc -r -t "Arethusa JS Source Analysis" app/js/**/* > /dev/null'
+        ].join(';')
       }
     },
     concurrent: {
@@ -619,6 +625,8 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['karma:spec', 'jshint']);
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
+
+  grunt.registerTask('plato', 'shell:plato');
 
   // These three server tasks are usually everything you need!
   grunt.registerTask('server', ['clean', 'version', 'minify:all', 'connect:server']);

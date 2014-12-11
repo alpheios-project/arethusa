@@ -26,6 +26,7 @@
     "grunt-githooks": "^0.3.1",
     "grunt-karma": "0.8.0",
     "grunt-newer": "LFDM/grunt-newer",
+    "grunt-ngdocs": "0.2.4",
     "grunt-protractor-runner": "1.0.0",
     "grunt-sauce-connect-launcher": "~0.3.0",
     "grunt-shell": "0.7.0",
@@ -35,10 +36,10 @@
     "karma-jasmine": "0.1.5",
     "karma-phantomjs-launcher": "0.1.4",
     "load-grunt-tasks": "^0.6.0",
+    "plato": "^1.2.2",
     "protractor": "~0.23.1",
     "shelljs": "^0.3.0",
-    "grunt-bump": "0.0.16",
-    "grunt-ngdocs": "0.2.4"
+    "grunt-bump": "0.0.16"
   },
   "scripts": {
     "test": "grunt karma:spec coveralls jshint && protractor protractor-config-travis.js"
