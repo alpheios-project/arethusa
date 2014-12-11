@@ -1,12 +1,14 @@
 'use strict';
 /**
  * @ngdoc service
- * @name arethusa.core.StateChangeWatcher
+ * @name arethusa.core:StateChangeWatcher
  * @description
- * # StateChangeWatcherj
+ * # StateChangeWatcher
  * Watches changes to the given `propertyToWatch`, which must
  * be given as a string.
+ *
  * The callbacks object must have the following function:
+ *
  * - newMatch(token): This is called when a token changes its `propertyToWatch`
  *   to a truthy value.
  * - lostMatch(token): This is called when a token changes its `propertyToWatch`
@@ -14,7 +16,7 @@
  * - changedCount(newCount): This is called if the count of tokens with a
  *   truthy `propertyToWatch` changes
  *
- * @requires arethusa.core.state
+ * @requires arethusa.core:state
  */
 angular.module('arethusa.core').factory('StateChangeWatcher', [
   'state',

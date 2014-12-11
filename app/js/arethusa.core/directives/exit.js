@@ -2,11 +2,13 @@
 
 /**
  * @ngdoc directive
- * @name exit
+ * @name arethusa.core:directives:exit
  * @restrict A
  *
  * @description
  *
+ * @requires arethusa.core:exitHandler
+ * @requires arethusa.core:translator
  */
 angular.module('arethusa.core').directive('exit', [
   'exitHandler',
