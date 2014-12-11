@@ -10,7 +10,7 @@
  * 1. Retrieves documents
  * 2. Holds the current annotation targets - tokens - presented to the user
  * 3. Handles selections of tokens
- * 4. Provides an API to make changes to tokens, while notifying listeners
+ * 4. Provides an API to make changes to tokens, while notifying registered listeners
  *
  * Reads its configuration from the `main` section.
  *
@@ -444,6 +444,42 @@ angular.module('arethusa.core').service('state', [
       return new StateChange(self, tokenOrId, property, newVal, undoFn, preExecFn);
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#change
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Sets the property of a token to a new value.
+     *
+     * **ALWAYS** use this function when you want to make changes to a `token`.
+     * While it is possible to access all properties of a `token` - and therefore
+     * also the assign them to a new value - you should **NEVER** do this manually.
+     *
+     * By using this function you guarantee a proper event flow. The change itself
+     * is done through an {@link arethusa.core.StateChange StateChange} object,
+     * which notifies all listeners registered through {@link arethusa.core.state#methods_watch state.watch}
+     * and also broadcasts a `tokenChange` event.
+     *
+     * Communicates with {@link arethusa.core.globalSettings#method_shouldDeselect globalSettings.shouldDeselect}
+     * to determine whether all selections should be negated or not.
+     *
+     * @param {Token|String} tokenOrId Token or the id of a token to execute a
+     *   change on
+     * @param {String} property Path to the property which needs to be changed,
+     *   e.g. `'head.id'`
+     * @param {*} newVal The new value set during this change
+     * @param {Function} [undoFn] Optional custom function to undo the change.
+     *   Defaults to a simple inversion - i.e. setting the `property` back to
+     *   the old value.
+     * @param {Function} [preExecFn] Optional function to be executed right
+     *   before a change is happening, i.e. the `property` is set to the `newVal`
+     *   during the execution of {@link arethusa.core.StateChange StateChange}.exec
+     *
+     * @returns {StateChange} Returns a {@link arethusa.core.StateChange StateChange}
+     *   event object
+     *
+     */
     this.change = function(tokenOrId, property, newVal, undoFn, preExecFn) {
       var event = self.lazyChange(tokenOrId, property, newVal, undoFn, preExecFn);
       if (globalSettings.shouldDeselect(property)) self.deselectAll();
