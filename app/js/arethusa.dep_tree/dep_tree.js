@@ -129,6 +129,12 @@ angular.module('arethusa.depTree').service('depTree', [
       state.change(token, 'head.id', rootId);
     };
 
+    this.makeHead = function(token) {
+      angular.forEach(Object.keys(state.clickedTokens), function(clickedToken) {
+        state.change(clickedToken, 'head.id', token.id);
+      });
+    };
+
     function getHeadsToChange(token) {
       var sentenceId = token.sentenceId;
       var id  = token.id;
