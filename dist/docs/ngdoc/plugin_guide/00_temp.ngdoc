@@ -1,6 +1,6 @@
-TODO intro
-
--------------------------
+@ngdoc overview
+@name Temp
+@description
 
 We will cover the following topics:
 
@@ -238,7 +238,7 @@ If we take a look at `spec/perseids.translations/translations_spec.js`
 we will see that the `init` command has already spared us from writing
 roughly 20 lines of boilerplate code.
 
-```javascript
+<pre>
 "use strict";
 
 describe('translations', function() {
@@ -263,8 +263,7 @@ describe('translations', function() {
     expect(translations).toBeDefined();
   });
 });
-
-```
+</pre>
 
 The most important thing here is the call of `beforeEach`. This function
 will setup a clean test and functional environment before every unit
@@ -272,10 +271,10 @@ test we are going to write.
 
 First it defines two modules:
 
-```javascript
+<pre>
   module("arethusa.core");
   module('perseids.translations');
-```
+</pre>
 
 `arethusa.core` is `Arethusa`'s main module where all the important
 services and factories are located. Every plugin will use at least some
@@ -357,7 +356,7 @@ Let's add translations for two sentences which we can test against. We
 will want to have access to them in many places, so we define them
 inside the scope of the main `describe` function:
 
-```javascript
+<pre>
 "use strict";
 
 describe('translations', function() {
@@ -369,7 +368,7 @@ describe('translations', function() {
   var s2 = "The Belgae inhabit one of these.";
 
   // ...
-```
+</pre>
 
 Our `beforeEach` function already called `translations.init()` - when
 nothing else is explicitly declared, we can safely assume, that an
@@ -400,13 +399,13 @@ In another terminal window we open up our
 following:
 
 
-```javascript
+<pre>
 describe('on startup', function() {
   it('exposes the translation of the current (i.e. first) sentence', function() {
     expect(translations.translation).toEqual(s1);
   });
 });
-```
+</pre>
 
 Once you saved your changes, you will see our `watch` task executing -
 and we will have a first failing spec. `translations.translation` is of
@@ -440,7 +439,7 @@ response and transform it to something the plugin can easily work with.
 A plugin knows which `retrievers` to use by configuration. Let's add to
 the empty conf object at the top of our spec file.
 
-```javascript
+<pre>
 var conf = {
   "plugins": {
     "perseids.translations" : {
@@ -450,7 +449,7 @@ var conf = {
     }
   },
 };
-```
+</pre>
 
 All plugin configuration goes inside a `plugins` object. We specify the
 full name of our plugin and add a single retriever for it. The empty
@@ -470,7 +469,7 @@ Time to take a look at the service's code in
 
 ### The main business logic of a plugin
 
-```javascript
+<pre>
 "use strict";
 
 angular.module('perseids.translations').service('translations', [
@@ -493,7 +492,7 @@ angular.module('perseids.translations').service('translations', [
     };
   }
 ]);
-```
+</pre>
 
 The CLI tool has already provided us with a skeleton for our plugin
 service.
@@ -550,7 +549,7 @@ up-to-date.
 
 Let's fetch our retriever:
 
-```javascript
+<pre>
 function(state, configurator) {
   var self = this;
   this.name = 'perseids.translations';
@@ -565,7 +564,7 @@ function(state, configurator) {
   }
 
   // ...
-```
+</pre>
 
 We just declared a private `retriever` variable, placed inside the
 plugin's scope, because we definitely want to have access to it from
@@ -591,7 +590,7 @@ We've mentioned before that our current spec isn't interested in the
 internals of a retriever at all, we can therefore safely mock it up
 inside our `translations_spec.js` file.
 
-```javascript
+<pre>
 beforeEach(function() {
   module("arethusa.core");
 
@@ -600,7 +599,8 @@ beforeEach(function() {
   });
 
   // ...
-```
+</pre>
+
 `Angular` provides fantastic tools to mock-up complete instances or
 decorate them efficiently. In this case we use the `$provide` service to
 declare a `PerseidsTranslationRetriever` inside our
@@ -616,7 +616,7 @@ When we save, we can examine that we are back to our first error message - `tran
 
 Let's define how we want our retrievers to behave:
 
-```javascript
+<pre>
 module('perseids.translations', function($provide) {
   $provide.value("PerseidsTranslationRetriever", function() {
     this.get = function(chunkId, callback) {
@@ -624,7 +624,7 @@ module('perseids.translations', function($provide) {
     };
   });
 });
-```
+</pre>
 
 We want the retriever respond to a `get` function, which takes two
 arguments:
@@ -637,15 +637,15 @@ second - this should suffice to produce a valid test.
 
 Remember that we have defined the variables `s1` and `s2` before:
 
-```javascript
+<pre>
 var s1 = "Gaul as a whole is divided into three parts.";
 var s2 = "The Belgae inhabit one of these.";
-```
+</pre>
 
 We can make use of this `get` function inside of our service now.
 
 
-```javascript
+<pre>
 function updateTranslation(translation) {
   self.translation = translation;
 }
@@ -654,7 +654,7 @@ this.init = function() {
   configure();
   retriever.get('1', updateTranslation);
 };
-```
+</pre>
 Inside of `init()` we call the retriever right after we have configured
 our plugin. We pass the `retriever`'s get function a `chunkId` (so far
 just `'1'` - this hardcoded reference will be dealt with later) and a 
@@ -674,14 +674,14 @@ for our plugin to know how to update its translation. We've mentioned
 before that moves between document chunks are handled by the
 `navigator`.
 
-```javascript
+<pre>
 describe('when a chunk is changed', function() {
   it('updates the current translation properly', function() {
     navigator.nextSentence();
     expect(translations.translation).toEqual(s2);
   });
 });
-```
+</pre>
 
 The `navigator` has a `nextSentence()` function - which does just what
 it should: It moves `Arethusa` to the next sentence.
@@ -692,7 +692,7 @@ Our `watch` spec immediately tells us, that `navigator` is `undefined`,
 which is of course correct - we haven't defined it yet.
 
 
-```javascript
+<pre>
 "use strict";
 
 describe('translations', function() {
@@ -711,7 +711,7 @@ describe('translations', function() {
       translations.init();
     });
   });
-```
+</pre>
 
 Now that we successfully injected the `navigator` we can again see our
 error message change. The backtrace tells us that it still originates
@@ -723,7 +723,7 @@ Normally - when `Arethusa` is started inside your browser - the
 manually again.
 
 
-```javascript
+<pre>
 var sentences = [
   { id: '1' },
   { id: '2' }
@@ -744,7 +744,7 @@ beforeEach(function() {
     translations.init();
   });
 });
-```
+</pre>
 
 `navigator` also has an `init()` function, that gets called once on
 application startup. It has an internal data store, where it holds
@@ -768,7 +768,7 @@ have still hardcoded the chunkId to `'1'` - the error was therefore to
 be expected.
 
 
-```javascript
+<pre>
 "use strict";
 
 angular.module('perseids.translations').service('translations', [
@@ -785,7 +785,7 @@ angular.module('perseids.translations').service('translations', [
     };
   }
 ]);
-```
+</pre>
 
 We inject the `navigator` into our service so that we are able to
 communicate with it. Our hardcoded reference `'1'` we replace with
@@ -799,7 +799,7 @@ Unfortunately this didn't fix our spec immediately. There is still one
 thing left to do - in fact, our business logic is already sound, but the
 `spec` we have written is not.
 
-```javascript
+<pre>
 describe('when a chunk is changed', function() {
   it('updates the current translation properly', function() {
     navigator.nextSentence();
@@ -807,7 +807,7 @@ describe('when a chunk is changed', function() {
     expect(translations.translation).toEqual(s2);
   });
 });
-```
+</pre>
 
 If we remember what we have said above about when `init()` calls of
 plugins are made by `ArethusaCtrl`, it's clear that inside of our spec suite we have to
@@ -842,7 +842,7 @@ also its spec file.
 Let's take a look at the retriever in
 `app/js/perseids.translations/perseids_translation_retriever.js` first
 
-```javascript
+<pre>
 "use strict";
 
 angular.module('perseids.translations').factory('PerseidsTranslationsRetriever', [
@@ -861,7 +861,7 @@ angular.module('perseids.translations').factory('PerseidsTranslationsRetriever',
     };
   }
 ]);
-```
+</pre>
 
 Some pieces of this might already look a bit familiar. The retriever is
 a factory, that returns a constructor function, which takes a single
@@ -896,7 +896,7 @@ course, which we will start to do so soon.
 
 The accompanying `spec` file  looks like this:
 
-```javascript
+<pre>
 "use strict";
 
 describe('PerseidsTranslationsRetriever', function() {
@@ -943,7 +943,7 @@ describe('PerseidsTranslationsRetriever', function() {
     });
   });
 });
-```
+</pre>
 
 Let's jump right into the `inject` function first. We'll see two new
 things here. The `$httpBackend` and the `locator`.
@@ -965,24 +965,24 @@ We also assign the retriever which we want to test here through
 `configurator.getRetriever`, which we pass the retriever's configuration.
 
 The object
-```
+<pre>
 {
   PerseidsTranslationsRetriever : {
     resource: 'testResource'
   }
 }
-```
+</pre>
 is equivalent to what we defined earlier in the configuration of the
 `translations` plugin.
 
-```
+<pre>
 plugins: {
   'perseids.translations' : {
     "retriever" : {
       "PerseidsTranslationRetriever" : {}
     }
   }
-```
+</pre>
 Only this time, we really add a configuration for the retriever. All
 retrievers need to define their resource - which can simply be the name
 of a `resource` instance.
@@ -991,7 +991,7 @@ The configurator will know where to read in the configuration for this
 `resource` then. We called `configurator.defineConfiguration` with the
 following configuration.
 
-```
+<pre>
 var conf = {
   resources: {
     testResource: {
@@ -999,7 +999,7 @@ var conf = {
     }
   }
 };
-```
+</pre>
 
 Just as plugins, `resource`s have their own section inside a
 configuration file. This is to leverage their reuse - different
@@ -1017,7 +1017,7 @@ GET /translations/DOC_ID
 
 Let's make our `resource` conform to this:
 
-```
+<pre>
 var backendUrl = 'http://www.test.com/translations/';
 
 var conf = {
@@ -1027,14 +1027,14 @@ var conf = {
     }
   }
 };
-```
+</pre>
 Our mock-up backend URL is `http://www.test.com/translations`. The full route
 of our testResource is `www.test.com/translations/:doc`. The interesting
 part here is `:doc`. This allows us for example to pass an object with
 
-```
+<pre>
 { doc: 'caes1' }
-```
+</pre>
 to the `resource`, which would then make a call to the expanded route
 `http://www.test.com/translations/caes1`.
 
@@ -1052,7 +1052,7 @@ resource as well.
 We do this by adding a `params` array to the `resource`'s configuration.
 All params specified there will be read from the URL.
 
-```
+<pre>
 var conf = {
   resources: {
     testResource: {
@@ -1063,7 +1063,7 @@ var conf = {
     }
   }
 };
-```
+</pre>
 
 When we discussed the `inject` function we said that we still have to
 customize `Arethusa`'s `locator` service, which is the wrapper around
@@ -1071,7 +1071,7 @@ URL handling. As we don't really have an URL accessible in our spec
 suite, we mock up this parameter by hand.
 
 
-```
+<pre>
 inject(function($httpBackend, configurator, locator) {
 
   // ...
@@ -1079,12 +1079,12 @@ inject(function($httpBackend, configurator, locator) {
   locator.watchUrl(false);
   locator.set('doc', 'caes1');
 });
-```
+</pre>
 
 Enough of setting up for now - time to update the first spec that was
 set up for us.
 
-```
+<pre>
 var s1 = "Gaul as a whole is divided into three parts.";
 var s2 = "The Belgae inhabit one of these.";
 
@@ -1108,7 +1108,7 @@ describe('get', function() {
     expect(doc).toBeDefined();
   });
 });
-```
+</pre>
 
 First we prepare a response, where we define that our external services
 provides us with a JSON object, where the keys are sentence ids and the
@@ -1138,14 +1138,14 @@ If we save our changes, we set that our spec dramatically explodes. A
 TypeError - `'1'` is not a function. We have to update our retriever
 code now.
 
-```javascript
+<pre>
 this.get = function(chunkId, callback) {
   resource.get().then(function(res) {
     var data = res.data;
     callback(data);
   });
 };
-```
+</pre>
 
 The automatically generated code couldn't foresee, that we
 wanted to add a second argument (the chunkId) to our `get()` function.
@@ -1166,7 +1166,7 @@ getting something back from our API - but this something is not
 necessarily the right thing. Let's add another test.
 
 
-```javascript
+<pre>
 it('returns a selection of the document, specified by a chunkId', function() {
   var doc;
 
@@ -1180,7 +1180,7 @@ it('returns a selection of the document, specified by a chunkId', function() {
 
   expect(doc).toEqual(s1);
 });
-```
+</pre>
 
 As we can see, this test is almost completely the same - it's usually
 really not good to have so much duplicate code anywhere. In this case it
@@ -1202,14 +1202,15 @@ of the complete document.
 
 If we make this minor change inside the retriever's `get' function`
 
-```javascript
+<pre>
 this.get = function(chunkId, callback) {
   resource.get().then(function(res) {
     var data = res.data;
     callback(data[chunkId]);
   });
 };
-```
+</pre>
+
 where we use the `chunkId` param to select the correct sentence. The
 tests should be all green again.
 
