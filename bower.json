@@ -2,6 +2,16 @@
   "name": "arethusa",
   "version": "0.1.0",
   "main": ["dist/arethusa_packages.min.js", "dist/arethusa.min.js"],
+  "ignore": [
+      "**/.*",
+      "app",
+      "hooks",
+      "node_modules",
+      "bower_components",
+      "spec*",
+      "vendor",
+      "*.js"
+  ],
   "dependencies": {
     "jquery": "~2.1.0",
     "angular": "1.2.17",
