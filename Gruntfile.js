@@ -356,7 +356,7 @@ module.exports = function(grunt) {
         tasks: 'protractor:all'
       },
       doc: {
-        files: [ srcFiles, docPath + '/ngdoc/api/*.ngdoc' ],
+        files: [ srcFiles, docPath + '/ngdoc/**/*.ngdoc' ],
         tasks: ['plato', 'ngdocs'],
         options: {
           livereload: reloadPort,
@@ -602,7 +602,7 @@ module.exports = function(grunt) {
         title: 'API Documentation'
       },
       guide: {
-        src: docPath + '/ngdoc/guides/*.ngdoc',
+        src: docPath + '/ngdoc/guide/*.ngdoc',
         title: 'Guide'
       }
     }
