@@ -1,16 +1,27 @@
 {
   "name": "arethusa",
   "version": "0.1.0",
+  "authors": [
+      "Gernot Höflechner",
+      "Christof Sirk",
+      "Robert Lichtensteiner",
+      "Bridget Almas"
+  ],
+  "description": "A backend-independent client-side annotation framework",
+  "keywords": [
+    "annotation"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/latin-language-toolkit/arethusa",
   "main": ["dist/arethusa_packages.min.js", "dist/arethusa.min.js"],
   "ignore": [
-      "**/.*",
-      "app",
-      "hooks",
-      "node_modules",
-      "bower_components",
-      "spec*",
-      "vendor",
-      "*.js"
+    "app",
+    "hooks",
+    "node_modules",
+    "bower_components",
+    "spec*",
+    "vendor",
+    "*.js"
   ],
   "dependencies": {
     "jquery": "~2.1.0",
