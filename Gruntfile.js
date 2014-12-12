@@ -9,6 +9,7 @@ var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
+var docPath  = 'dist/docs';
 var versionInfoFilename = 'app/js/arethusa/version.json';
 
 var devMode = process.env.DEV;
@@ -355,7 +356,7 @@ module.exports = function(grunt) {
         tasks: 'protractor:all'
       },
       doc: {
-        files: [srcFiles],
+        files: [ srcFiles, docPath + '/ngdoc/api/*.ngdoc' ],
         tasks: ['plato', 'ngdocs'],
         options: {
           livereload: reloadPort,
@@ -465,7 +466,7 @@ module.exports = function(grunt) {
         options: {
           keepalive: true,
           port: 9002,
-          base: 'dist/docs',
+          base: docPath,
           livereload: reloadPort
         }
       }
@@ -535,8 +536,8 @@ module.exports = function(grunt) {
       },
       plato: {
         command: [
-          'rm -rf dist/docs/plato',
-          'node_modules/.bin/plato -d dist/docs/plato -l .jshintrc -r -t "Arethusa JS Source Analysis" app/js/**/* > /dev/null'
+          'rm -rf ' + docPath + '/plato',
+          'node_modules/.bin/plato -d ' + docPath + '/plato -l .jshintrc -r -t "Arethusa JS Source Analysis" app/js/**/* > /dev/null'
         ].join(';')
       }
     },
@@ -584,20 +585,24 @@ module.exports = function(grunt) {
     },
     ngdocs: {
       options: {
-        dest: 'dist/docs',
+        dest: docPath,
         scripts: [
           './dist/arethusa_packages.min.js',
           './dist/arethusa.min.js'],
         html5Mode: false,
         imageLink: 'http://arethusa.latin-language-toolkit.net',
-        navTemplate: 'dist/docs/html/nav.html'
+        navTemplate: docPath + '/html/nav.html',
+        sourcePath: 'http://github.com/latin-language-toolkit/arethusa/tree/doc'
       },
       api: {
-        src: [srcFiles],
+        src: [
+          srcFiles,
+          docPath + '/ngdoc/api/*.ngdoc'
+        ],
         title: 'API Documentation'
       },
       guide: {
-        src: 'dist/docs/guides/*.ndgoc',
+        src: docPath + '/ngdoc/guides/*.ngdoc',
         title: 'Guide'
       }
     }
