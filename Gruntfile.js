@@ -590,7 +590,8 @@ module.exports = function(grunt) {
           './dist/arethusa_packages.min.js',
           './dist/arethusa.min.js'],
         html5Mode: false,
-        imageLink: 'http://arethusa.latin-language-toolkit.net',
+        title: 'Arethusa',
+        titleLink: 'http://arethusa.latin-language-toolkit.net',
         navTemplate: docPath + '/html/nav.html',
         sourcePath: 'http://github.com/latin-language-toolkit/arethusa/tree/doc'
       },
