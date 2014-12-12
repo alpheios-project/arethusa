@@ -602,9 +602,13 @@ module.exports = function(grunt) {
         ],
         title: 'API Documentation'
       },
-      guide: {
-        src: docPath + '/ngdoc/guide/*.ngdoc',
-        title: 'Guide'
+      core_guide: {
+        src: docPath + '/ngdoc/core_guide/*.ngdoc',
+        title: 'Core Guide'
+      },
+      plugin_guide: {
+        src: docPath + '/ngdoc/plugin_guide/*.ngdoc',
+        title: 'Plugin Guide'
       }
     }
   });
