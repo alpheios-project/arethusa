@@ -1,4 +1,13 @@
 'use strict';
+
+/**
+ * @ngdoc overview
+ * @name arethusa
+ *
+ * @description
+ * Arethusa's main module. Handles routing.
+ *
+ */
 angular.module('arethusa', [
   'angulartics',
   'angulartics.google.analytics',
