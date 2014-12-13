@@ -67,6 +67,7 @@
     "confirmQuestion": "Êtes-vous sûr de vouloir quitter ??"
   },
   "landing": {
+    "awards": "Prix",
     "description": "Un framework client d'annotation indépendent de tout backend",
     "modularNature": "Du fait de sa nature modulaire, Arethusa peut être configuré pour répondre à différentes situations.",
     "moreScreencasts": "Plus de vidéo exemple",

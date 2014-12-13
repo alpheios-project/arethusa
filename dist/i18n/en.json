@@ -74,6 +74,7 @@
     "confirmQuestion": "Are you sure you want to leave?"
   },
   "landing": {
+    "awards": "Awards",
     "description": "A backend-independent client-side annotation framework",
     "modularNature": "Through its modular nature Arethusa can be configured to solve different use cases.",
     "moreScreencasts": "More Screencasts",

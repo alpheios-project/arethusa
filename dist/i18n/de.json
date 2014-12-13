@@ -74,6 +74,7 @@
     "confirmQuestion": "Bist du sicher, dass du gehen willst?"
   },
   "landing": {
+    "awards": "Auszeichnungen",
     "description": "Ein backend-unabhängiges client-side Annotations-Framework",
     "modularNature": "Aufgrund seiner Modularität kann Arethusa unterschiedlich konfiguriert werden, um verschiedenen Anforderungen gerecht zu werden.",
     "moreScreencasts": "Weitere Screencasts",
