@@ -32,7 +32,8 @@
     "karma-phantomjs-launcher": "0.1.4",
     "load-grunt-tasks": "^0.6.0",
     "protractor": "~0.23.1",
-    "shelljs": "^0.3.0"
+    "shelljs": "^0.3.0",
+    "grunt-bump": "0.0.16"
   },
   "scripts": {
     "test": "grunt karma:spec coveralls jshint && protractor protractor-config-travis.js"

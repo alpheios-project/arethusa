@@ -536,7 +536,23 @@ module.exports = function(grunt) {
     },
     concat: arethusaConcat(),
     copy: arethusaCopy(),
-    clean: ['dist/*.js', 'dist/*.map']
+    clean: ['dist/*.js', 'dist/*.map'],
+    bump: {
+      options: {
+        files: ['package.json', 'bower.json'],
+        updateConfigs: [],
+        commit: true,
+        commitMessage: 'Release v%VERSION%',
+        commitFiles: ['package.json', 'bower.json', 'dist/arethusa.min.js', 'dist/arethusa.min.css', 'dist/arethusa.min.map', './dist/arethusa_packages.min.js'],
+        createTag: true,
+        tagName: 'v%VERSION%',
+        tagMessage: 'Version %VERSION%',
+        push: true,
+        pushTo: 'upstream',
+        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
+        globalReplace: false
+      }
+    }
   });
 
 
