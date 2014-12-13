@@ -566,7 +566,6 @@ module.exports = function(grunt) {
     },
     concat: arethusaConcat(),
     copy: arethusaCopy(),
-    clean: ['dist/*.js', 'dist/*.map'],
     bump: {
       options: {
         files: ['package.json', 'bower.json'],
@@ -582,6 +581,12 @@ module.exports = function(grunt) {
         gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
         globalReplace: false
       }
+    },
+    clean: {
+      dist: ['dist/*.js', 'dist/*.map'],
+      docs: [ 'css', 'font', 'grunt-scripts', 'index.html', 'js', 'partials'].map(function(file) {
+        return docPath + '/' + file;
+      })
     },
     ngdocs: {
       options: {
@@ -639,8 +644,8 @@ module.exports = function(grunt) {
   grunt.registerTask('plato', 'shell:plato');
 
   // These three server tasks are usually everything you need!
-  grunt.registerTask('server', ['clean', 'version', 'minify:all', 'connect:server']);
-  grunt.registerTask('reloading-server', ['clean', 'version', 'concurrent:server']);
+  grunt.registerTask('server', ['clean:dist', 'version', 'minify:all', 'connect:server']);
+  grunt.registerTask('reloading-server', ['clean:dist', 'version', 'concurrent:server']);
   grunt.registerTask('doc-server', ['concurrent:docs']);
 
   grunt.registerTask('reloader', 'concurrent:watches');
