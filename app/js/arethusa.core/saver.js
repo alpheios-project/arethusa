@@ -11,7 +11,7 @@ angular.module('arethusa.core').service('saver', [
   function(configurator, notifier, keyCapture, state,
            $rootScope, $window, translator) {
     var self = this;
-    var persisters;
+    var conf, persisters;
 
     var translations = translator({
       'saver.success': 'success',
@@ -23,14 +23,15 @@ angular.module('arethusa.core').service('saver', [
     });
 
     function getPersisters() {
-      var persisterConf = configurator.configurationFor('main').persisters;
-      return configurator.getPersisters(persisterConf);
+      conf = configurator.configurationFor('main');
+      return configurator.getPersisters(conf.persisters);
     }
 
     function getOutputters() {
-      return aU.inject({}, persisters, function(memo, name, persister) {
+      var fromPersisters = aU.inject({}, persisters, function(memo, name, persister) {
         if (angular.isFunction(persister.output)) memo[name] = persister;
       });
+      return angular.extend(fromPersisters, configurator.getPersisters(conf.outputters));
     }
 
     function getPersistersAndOutputters() {
