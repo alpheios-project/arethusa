@@ -6,7 +6,7 @@
       <address>1986gh@gmail.com</address>
       <uri>http://data.perseus.org/sosol/users/LFDM</uri>
   </annotator>
-   <sentence id="1" document_id="" subdoc="" span="">
+   <sentence id="1" document_id="Caes. BG. 2.1" subdoc="" span="">
       <word id="1" form="Cum" lemma="" postag="" relation="" head=""/>
       <word id="2" form="esset" lemma="" postag="" relation="" head=""/>
       <word id="3" form="Caesar" lemma="" postag="" relation="" head=""/>
@@ -51,6 +51,9 @@
       <word id="42" form="inter" lemma="" postag="" relation="" head=""/>
       <word id="43" form="se" lemma="" postag="" relation="" head=""/>
       <word id="44" form="dare" lemma="" postag="" relation="" head=""/>
+      <word id="45" form="adduceretur" lemma="" postag="" relation="AuxK" head="0"/>
+   </sentence>
+   <sentence id="1" document_id="Caes. BG. 2.1" subdoc="" span="">
       <word id="45" form="Coniurandi" lemma="" postag="" relation="" head=""/>
       <word id="46" form="has" lemma="" postag="" relation="" head=""/>
       <word id="47" form="esse" lemma="" postag="" relation="" head=""/>
