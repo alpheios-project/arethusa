@@ -515,6 +515,15 @@ module.exports = function(grunt) {
       },
       currentCommit: {
         command: 'git rev-parse HEAD'
+      },
+      assumeUnchanged: {
+        command: 'git update-index --assume-unchanged dist/arethusa.min.js && git update-index --assume-unchanged dist/arethusa.min.map'
+      },
+      noAssumeUnchanged: {
+        command: 'git update-index --no-assume-unchanged dist/arethusa.min.js && git update-index --no-assume-unchanged dist/arethusa.min.map'
+      },
+      listAssumeUnchanged: {
+        command: "git ls-files -v|grep '^h'"
       }
     },
     concurrent: {
