@@ -15,7 +15,11 @@
   "homepage": "https://github.com/latin-language-toolkit/arethusa",
   "main": ["dist/arethusa_packages.min.js", "dist/arethusa.min.js"],
   "ignore": [
-    "app/**/*",
+    "app/css",
+    "app/images",
+    "app/js",
+    "app/static",
+    "app/templates",
     "hooks",
     "node_modules",
     "bower_components",
