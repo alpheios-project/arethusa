@@ -2,12 +2,18 @@
 angular.module('arethusa.text').service('text', [
   'state',
   'configurator',
-  function (state, configurator) {
+  'navigator',
+  'commons',
+  function (state, configurator, navigator, commons) {
     var self = this;
     this.name = "text";
 
+    var props = [
+      'showContext'
+    ]
+
     function configure() {
-      configurator.getConfAndDelegate(self);
+      configurator.getConfAndDelegate(self, props);
       self.hideArtificialTokens = false;
     }
 
@@ -45,6 +51,12 @@ angular.module('arethusa.text').service('text', [
         removeRealToken(self.tokens, token.id, token);
       }
     });
+
+    this.context = navigator.status.context;
+
+    this.settings = [
+      commons.setting('Show Context', 'showContext')
+    ];
 
     this.init = function() {
       configure();
