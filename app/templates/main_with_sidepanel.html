@@ -4,7 +4,10 @@
 
     <div id="canvas" class="row panel full-height" full-height>
       <div id="main-body" to-bottom>
-        <div ng-repeat="pl in plugins.main" plugin name="{{ pl.name }}"/>
+        <div
+          ng-repeat="pl in plugins.main"
+          plugin name="{{ pl.name }}"
+          with-settings="true"/>
         <div keys-to-screen/>
       </div>
 
