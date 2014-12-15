@@ -1,5 +1,4 @@
 "use strict";
-
 var shell = require('shelljs');
 
 var srcFiles = 'app/**/*.js';
@@ -297,6 +296,8 @@ module.exports = function(grunt) {
     }
     return cmds;
   }
+
+  devServerPort = grunt.option('port') || devServerPort;
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
