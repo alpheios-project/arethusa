@@ -1,10 +1,8 @@
-<span ng-repeat="ancestor in obj.ancestors">
-  <spacer ng-if="!$first"/>
+<span ng-repeat="ancestor in obj.ancestors" ng-class="{ notfirst: !$first }">
   {{ ancestor.long }}
 </span>
 <span>(
-  <span ng-repeat="ancestor in obj.ancestors">
+  <span ng-repeat="ancestor in obj.ancestors" ng-class="{ notfirst: !$first }">
     {{ ancestor.short }}
-    <spacer ng-if="!$first"/>
   </span>
 )</span>
