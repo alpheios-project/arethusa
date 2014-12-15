@@ -10,6 +10,7 @@ angular.module('arethusa.core').service('navigator', [
             keyCapture, $rootScope, globalSettings) {
     var self = this;
     var citeMapper;
+    var context = {};
 
     function layoutChunkSize() {
       var layoutConf = globalSettings.layout.navigator || {};
@@ -28,7 +29,8 @@ angular.module('arethusa.core').service('navigator', [
 
       self.sentences = [];
       self.sentencesById = {};
-      self.status = {};
+      //holds a pointer to the currently displayed chunk
+      self.status = { context: context };
       updatePosition(0);
 
       citeMapper = configurator.provideResource('citeMapper');
@@ -97,6 +99,7 @@ angular.module('arethusa.core').service('navigator', [
         for (var i=0; i < currSentences.length; i++) {
           angular.extend(currentChunk, currSentences[i].tokens);
         }
+        updateContext();
       }
       return currentChunk;
     };
@@ -245,6 +248,28 @@ angular.module('arethusa.core').service('navigator', [
     function updateNextAndPrev() {
       self.status.hasNext = self.hasNext();
       self.status.hasPrev = self.hasPrev();
+    }
+
+    function getPreContext(index) {
+      if (index !== 0) return self.sentences[index - 1];
+    }
+
+    function getPostContext(index) {
+      if (index !== self.sentences.length - 1) return self.sentences[index + 1];
+    }
+
+    function updateContext() {
+      var sentences = currentSentenceObjs();
+      var firstSentence = sentences[0];
+      var lastSentence  = sentences[sentences.length - 1];
+
+      var firstIndex = self.sentences.indexOf(firstSentence);
+      var lastIndex  = self.sentences.indexOf(lastSentence);
+
+      // Probably make context size configurable
+      context.pre = getPreContext(firstIndex);
+      context.post = getPostContext(lastIndex);
+      console.log(context);
     }
 
     this.updateId = function () {
