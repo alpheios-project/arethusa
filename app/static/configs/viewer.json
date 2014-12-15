@@ -6,12 +6,12 @@
     "globalDefaults" : {
       "mode" : "viewer"
     },
-    "layouts" : {
+    "layouts" : [
       {
         "name" : "Viewer",
         "template" : "templates/main_viewer.html"
       }
-    }
+    ],
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "fakePerseids",
