@@ -1,0 +1,20 @@
+<p lang-specific>
+  <span
+    ng-if="plugin.showContext"
+    text-context="plugin.context.pre">
+  </span>
+  <span ng-repeat="token in plugin.tokens">
+    <span
+      token="token"
+      colorize="true"
+      click="true"
+      hover="true"
+      highlight="true">
+    </span>
+  </span>
+  <span
+    ng-if="plugin.showContext"
+    text-context="plugin.context.post">
+  </span>
+</p>
+
