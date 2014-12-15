@@ -172,7 +172,7 @@ angular.module('arethusa.core').service('state', [
     this.hasSelections = function() {
       return Object.keys(self.selectedTokens).length;
     };
-    
+
     // alias to represent intent of use
     this.numberOfSelections = this.hasSelections;
 
@@ -472,6 +472,13 @@ angular.module('arethusa.core').service('state', [
     this.postInit = function () {
       self.addStatusObjects();
       self.countTotalTokens();
+    };
+
+    this.currentSelection = function(clickOnly) {
+      var cont = clickOnly ? self.clickedTokens : self.selectedTokens;
+      return arethusaUtil.inject({}, cont, function(memo, id) {
+        memo[id] = self.getToken(id);
+      });
     };
 
     this.init = function () {
