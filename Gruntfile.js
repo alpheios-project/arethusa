@@ -574,4 +574,5 @@ module.exports = function(grunt) {
   grunt.registerTask('install', 'shell:install');
   grunt.registerTask('e2e:setup', 'shell:e2eSetup');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
+  grunt.registerTask('release', ['version', 'shell:noAssumeUnchanged', 'bump', 'shell:assumeUnchanged']);
 };
