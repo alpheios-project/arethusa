@@ -1,0 +1,28 @@
+<div>
+  <div id="arethusa-editor">
+    <div class="canvas-border"/>
+
+    <div id="canvas" class="row panel full-height" full-height>
+      <div id="main-body" to-bottom>
+        <div
+          ng-repeat="pl in plugins.main"
+          plugin name="{{ pl.name }}"
+          with-settings="true"/>
+        <div keys-to-screen/>
+      </div>
+
+      <div id="sidepanel" sidepanel to-bottom class="scrollable">
+        <div id="sidepanel-resizer" resizable to-bottom></div>
+        <div id="sidepanel-body">
+          <div plugin name="morph"/>
+          <div plugin name="relation"/>
+        </div>
+      </div>
+    </div>
+
+    <div arethusa-context-menus tokens="state.tokens" plugins="plugins.withMenu"/>
+  </div>
+  <div notifications/>
+  <div id="arethusa-sentence-list" class="hide"/>
+</div>
+

@@ -1,0 +1,47 @@
+<div ng-repeat="(id, analysis) in plugin.currentAnalyses()">
+  <div class="small-12 columns" lang-specific>
+    <p token-with-id value="analysis.string" token-id="id"/>
+    <p ng-if="plugin.gloss">
+      <label>
+        <span translate="morph.lemmaTranslation"/>
+        <input class="compact"
+          type="text"
+          ng-change="plugin.updateGloss(id)"
+          ng-model="analysis.gloss">
+        </input>
+      </label>
+    </p>
+    <accordion close-others="oneAtATime">
+      <accordion-group
+        ng-repeat="form in analysis.forms"
+        is-open="plugin.expandSelection && form.selected">
+        <accordion-heading>
+          <div class="row" accordion-highlighter>
+            <div morph-form="form"/>
+          </div>
+          <hr class="small">
+        </accordion-heading>
+        <div class="small-12 columns" morph-form-attributes="form" token-id="id"></div>
+        <p class="small-12 columns"/>
+        <hr>
+      </accordion-group>
+    </accordion>
+  </div>
+  <div ng-if="plugin.canEdit()">
+    <div class="small-6 columns">
+      <button
+        reveal-toggle="mfc{{ id }}"
+        class="micro radius">
+        <span translate="morph.createNewForm"/>
+      </button>
+    </div>
+    <morph-form-create
+      id="mfc{{ id }}"
+      morph-id="id"
+      morph-token="analysis"
+      class="hide">
+    </morph-form-create>
+  </div>
+  <div delimiter/>
+</div>
+
