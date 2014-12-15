@@ -17,17 +17,7 @@
         is-open="plugin.expandSelection && form.selected">
         <accordion-heading>
           <div class="row" accordion-highlighter>
-            <div form-selector class="columns large-1 small-1"></div>
-            <div class="columns large-3 small-5 text">
-              <span ng-style="plugin.styleOf(form)" lang-specific>{{ form.lemma }}
-              <br>
-              </span> {{ plugin.concatenatedAttributes(form) }}
-            </div>
-            <div
-              class="columns large-4 small-5 postag">
-              {{ form.postag }}
-            </div>
-            <div class="columns large-1 hide-for-small hide-for-medium note end">{{ form.origin }}</div>
+            <div morph-form="form"/>
           </div>
           <hr class="small">
         </accordion-heading>
