@@ -14,8 +14,11 @@
       <div id="sidepanel" sidepanel to-bottom class="scrollable">
         <div id="sidepanel-resizer" resizable to-bottom></div>
         <div id="sidepanel-body">
-          <div plugin name="morph"/>
-          <div plugin name="relation"/>
+          <div ng-repeat="(id, token) in state.currentSelection()">
+            <p token-with-id value="token.string" token-id="id"/>
+            <div morph-form="token.morphology"/>
+            <div label-viewer obj="token.relation"/>
+          </div>
         </div>
       </div>
     </div>
