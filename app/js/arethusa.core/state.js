@@ -170,12 +170,18 @@ angular.module('arethusa.core').service('state', [
     this.clickedTokens  = {};
 
     this.hasSelections = function() {
-      return Object.keys(self.selectedTokens).length !== 0;
+      return Object.keys(self.selectedTokens).length;
     };
+    
+    // alias to represent intent of use
+    this.numberOfSelections = this.hasSelections;
 
     this.hasClickSelections = function() {
       return Object.keys(self.clickedTokens).length;
     };
+
+    // alias to represent intent of use
+    this.numberOfClickSelections = this.hasClickSelections;
 
     this.isSelected = function(id) {
       return id in this.selectedTokens;
