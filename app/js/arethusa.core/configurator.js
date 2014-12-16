@@ -43,8 +43,6 @@ angular.module('arethusa.core').service('configurator', [
     var self = this;
     var includeParam = 'fileUrl';
 
-    // to satisfy spec files.
-
     /**
      * @ngdoc property
      * @name configuration
