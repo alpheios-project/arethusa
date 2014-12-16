@@ -1,21 +1,33 @@
 'use strict';
-/* This service handles everything related to configuration files
+
+/**
+ * @ngdoc service
+ * @name arethusa.core.configurator
  *
- * It is a provider of resources and services.
+ * @description
+ * Service to handle the configuration of the application.
  *
- * this.configuration needs to be set from the outside through
- * defineConfiguration(), typically by a route that enters the application.
+ * A key component of Arethusa, typically injected by every plugin and many core services.
  *
+ * Provides an API to
+ * - access configurations
+ * - create Retriever, Persister and Resource instances
  *
+ * *Commented example configuration*
+ * <pre>
+ *   {
+       // TODO
+ *   }
+ * </pre>
  *
- * As of now a valid conf file can contain these sections
- *   main
- *   navbar
- *   notifier
- *   navigator
- *   plugins
- *   resources
- *
+ * @requires $injector
+ * @requires $http
+ * @requires $rootScope
+ * @requires arethusa.core.Resource
+ * @requires arethusa.core.Auth
+ * @requires $timeout
+ * @requires $location
+ * @requires $q
  */
 angular.module('arethusa.core').service('configurator', [
   '$injector',
@@ -31,8 +43,23 @@ angular.module('arethusa.core').service('configurator', [
     var self = this;
     var includeParam = 'fileUrl';
 
-    // Start with an empty configuration, especially useful
     // to satisfy spec files.
+
+    /**
+     * @ngdoc property
+     * @name configuration
+     * @propertyOf arethusa.core.configurator
+     *
+     * @description
+     * Stores the current configuration. Typically **NOT** meant to be accessed
+     * directly.
+     *
+     * Use the getter
+     * {@link arethusa.core.configurator#methods_configurationFor configurationFor}
+     * and the setter
+     * {@link arethusa.core.configurator#methods_defineConfiguration defineConfiguration}
+     * instead.
+     */
     this.configuration = new Template();
 
     function notifier() {
@@ -45,7 +72,27 @@ angular.module('arethusa.core').service('configurator', [
       return uPCached;
     }
 
-    // The second param is optional.
+    /**
+     * @ngdoc event
+     * @name arethusa.core.configurator#confLoaded
+     * @eventOf arethusa.core.configurator
+     *
+     * @description
+     * Broadcasted through {@link $rootScope} when the application's
+     * configuration is ready to use. Before this event is launched, it is
+     * **not** safe to instantiate services and/or plugins!
+     *
+     * Typically broadcased by {@link arethusa.core.configurator#methods_defineConfiguration defineConfiguration}.
+     */
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#defineConfiguration
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.defineConfiguration = function (confFile, location) {
       this.configuration = angular.extend(new Template(), confFile);
       this.confFileLocation = location;
@@ -66,6 +113,14 @@ angular.module('arethusa.core').service('configurator', [
       }
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#loadAdditionalConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.loadAdditionalConf = function(confs) {
       var proms = arethusaUtil.inject([], confs, function(memo, plugin, url) {
         var promise;
@@ -200,10 +255,26 @@ angular.module('arethusa.core').service('configurator', [
       return a;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getService
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.getService = function (serviceName) {
       return $injector.get(serviceName);
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getServices
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.getServices = function (serviceNames) {
       if (serviceNames) {
         var that = this;
@@ -220,6 +291,15 @@ angular.module('arethusa.core').service('configurator', [
     // we therefore just tell the service where the conf for specific things
     // is to be found in the JSON tree.
     // I guess the key is to abstract the conf file a little more.
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#configurationFor
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.configurationFor = function (plugin) {
       var conf = self.configuration;
       return conf[plugin] || conf.plugins[plugin] || conf.resources[plugin] || {};
@@ -238,6 +318,15 @@ angular.module('arethusa.core').service('configurator', [
 
     // Delegates a set of standard properties to the given object to allow
     // a more direct access.
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#delegateConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.delegateConf = function (obj, otherKeys, sticky) {
       var props = sticky ? otherKeys : arethusaUtil.pushAll(standardProperties, otherKeys);
       var defConf = obj.defaultConf || {};
@@ -293,37 +382,97 @@ angular.module('arethusa.core').service('configurator', [
       });
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#mode
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Getter to read the current global mode of the application.
+     *
+     * @returns {String} The current mode, e.g. `'editor'` or `'viewer'`.
+     */
     this.mode = function() {
       return getGlobalDefaults().mode;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getConfAndDelegate
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.getConfAndDelegate = function (obj, keys) {
       obj.conf = self.configurationFor(obj.name);
       self.delegateConf(obj, keys);
       return obj;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getStickyConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.getStickyConf = function(obj, keys) {
       obj.conf = self.configurationFor(obj.name);
       self.delegateConf(obj, keys, true);
       return obj;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getRetrievers
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.getRetrievers = function (retrievers) {
       return arethusaUtil.inject({}, retrievers, function (memo, name, conf) {
         var Retriever = self.getService(name);
         memo[name] = new Retriever(conf);
       });
     };
+
     // We alias this for now as the function has to do the same -
     // we might need a new name for it but we'll fix that later
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getPersisters
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.getPersisters = this.getRetrievers;
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getRetriever
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.getRetriever = function(retrievers) {
       var retrs = self.getRetrievers(retrievers);
       return retrs[Object.keys(retrs)[0]];
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#provideResource
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.provideResource = function (name) {
       var conf = self.configuration.resources[name];
       if (!conf) return;
@@ -338,6 +487,14 @@ angular.module('arethusa.core').service('configurator', [
       return new Auth(auths()[name] || {}, self.mode);
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#addPluginConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.addPluginConf = function(name, conf) {
       self.configuration.plugins[name] = conf;
     };
