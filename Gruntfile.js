@@ -116,12 +116,13 @@ var banner = [
   ' * Arethusa - a backend-independent client-side annotation framework',
   ' * http://github.com/latin-language-toolkit/arethusa',
   ' *',
-  ' * Built from branch <%= versionInfo.branch %>',
+  ' * Version <%= versionInfo.version %>',
+  ' * built from branch <%= versionInfo.branch %>',
   ' * at <%= versionInfo.sha %>',
   ' * on <%= versionInfo.date %>',
   ' *',
-  ' * Published under an MIT license',
-  '*/',
+  ' * Published under the MIT license',
+  ' */',
   ''
 ].join('\n');
 
@@ -298,9 +299,10 @@ module.exports = function(grunt) {
   }
 
   devServerPort = grunt.option('port') || devServerPort;
+  var packageJson = grunt.file.readJSON('package.json');
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: packageJson,
     versionInfo: grunt.file.exists(versionInfoFilename) ? grunt.file.readJSON(versionInfoFilename) : {},
     jasmine: {
       src: srcFiles,
@@ -536,7 +538,23 @@ module.exports = function(grunt) {
     },
     concat: arethusaConcat(),
     copy: arethusaCopy(),
-    clean: ['dist/*.js', 'dist/*.map']
+    clean: ['dist/*.js', 'dist/*.map'],
+    bump: {
+      options: {
+        files: ['package.json', 'bower.json'],
+        updateConfigs: [],
+        commit: true,
+        commitMessage: 'Release v%VERSION%',
+        commitFiles: ['package.json', 'bower.json'],
+        createTag: true,
+        tagName: 'v%VERSION%',
+        tagMessage: 'Version %VERSION%',
+        push: true,
+        pushTo: 'upstream',
+        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
+        globalReplace: false
+      }
+    }
   });
 
 
@@ -552,6 +570,7 @@ module.exports = function(grunt) {
   grunt.registerTask('version', function() {
     var template = grunt.file.read('./app/js/arethusa/.version_template.js');
     var versionInfo = createVersionInfo();
+    versionInfo.version = packageJson.version;
     grunt.file.write(versionInfoFilename, JSON.stringify(versionInfo));
     var result = grunt.template.process(template, { data: versionInfo });
     grunt.file.write('./app/js/arethusa/version.js', result);
