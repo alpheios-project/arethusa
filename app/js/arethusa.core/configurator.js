@@ -402,7 +402,13 @@ angular.module('arethusa.core').service('configurator', [
      * @methodOf arethusa.core.configurator
      *
      * @description
-     * TODO
+     * Retrieves an objects configuration defined by its `name` property and delegates
+     * configuration properties to the object.
+     *
+     * @param {Object} object Object to add configuration to. Frequently a plugin.
+     * @param {Array} additionalProperties Additional properties passed to
+     *   {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
+     * @returns {Object} The updated `object`.
      */
     this.getConfAndDelegate = function (obj, keys) {
       obj.conf = self.configurationFor(obj.name);
@@ -416,7 +422,13 @@ angular.module('arethusa.core').service('configurator', [
      * @methodOf arethusa.core.configurator
      *
      * @description
-     * TODO
+     * Works the same as {@link arethusa.core.configurator#methods_getConfAndDelegate getConfAndDelegate},
+     * but with activated `sticky` mode (cf. {@link arethusa.core.configurator#methods_delegateConf delegateConf}).
+     *
+     * @param {Object} object Object to add configuration to. Frequently a plugin.
+     * @param {Array} additionalProperties Additional properties passed to
+     *   {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
+     * @returns {Object} The updated `object`.
      */
     this.getStickyConf = function(obj, keys) {
       obj.conf = self.configurationFor(obj.name);
@@ -439,9 +451,6 @@ angular.module('arethusa.core').service('configurator', [
       });
     };
 
-    // We alias this for now as the function has to do the same -
-    // we might need a new name for it but we'll fix that later
-
     /**
      * @ngdoc function
      * @name arethusa.core.configurator#getPersisters
@@ -450,6 +459,9 @@ angular.module('arethusa.core').service('configurator', [
      * @description
      * TODO
      */
+
+    // We alias this for now as the function has to do the same -
+    // we might need a new name for it but we'll fix that later
     this.getPersisters = this.getRetrievers;
 
     /**
@@ -471,7 +483,13 @@ angular.module('arethusa.core').service('configurator', [
      * @methodOf arethusa.core.configurator
      *
      * @description
-     * TODO
+     * Creates a new {@link arethusa.core.Resource Resource} instance, including
+     * proper {@link arethusa.core.Auth Auth} support.
+     *
+     * Returns `undefined` when no configuration for a the given resource is present.
+     *
+     * @param {String} name The name of the resource as specified in a conf file
+     * @returns {Resource} A new {@link arethusa.core.Resource Resource} instance
      */
     this.provideResource = function (name) {
       var conf = self.configuration.resources[name];
