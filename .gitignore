@@ -6,6 +6,7 @@ dist/*
 !dist/i18n
 docs
 dist/
+!dist/docs/custom
 deployment/
 .sass-cache
 app/css/*.css*
