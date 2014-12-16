@@ -515,15 +515,6 @@ module.exports = function(grunt) {
       },
       currentCommit: {
         command: 'git rev-parse HEAD'
-      },
-      assumeUnchanged: {
-        command: 'git update-index --assume-unchanged dist/arethusa.min.js && git update-index --assume-unchanged dist/arethusa.min.map'
-      },
-      noAssumeUnchanged: {
-        command: 'git update-index --no-assume-unchanged dist/arethusa.min.js && git update-index --no-assume-unchanged dist/arethusa.min.map'
-      },
-      listAssumeUnchanged: {
-        command: "git ls-files -v|grep '^h'"
       }
     },
     concurrent: {
@@ -552,7 +543,7 @@ module.exports = function(grunt) {
         updateConfigs: [],
         commit: true,
         commitMessage: 'Release v%VERSION%',
-        commitFiles: ['package.json', 'bower.json', 'dist/arethusa.min.js', 'dist/arethusa.min.css', 'dist/arethusa.min.map', './dist/arethusa_packages.min.js'],
+        commitFiles: ['package.json', 'bower.json'],
         createTag: true,
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
@@ -603,5 +594,4 @@ module.exports = function(grunt) {
   grunt.registerTask('install', 'shell:install');
   grunt.registerTask('e2e:setup', 'shell:e2eSetup');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
-  grunt.registerTask('release', ['version', 'shell:noAssumeUnchanged', 'bump', 'shell:assumeUnchanged']);
 };
