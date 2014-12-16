@@ -10,6 +10,7 @@ var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
 var docPath  = 'dist/docs';
+var docCustom = docPath + '/custom';
 var versionInfoFilename = 'app/js/arethusa/version.json';
 
 var devMode = process.env.DEV;
@@ -356,7 +357,7 @@ module.exports = function(grunt) {
         tasks: 'protractor:all'
       },
       doc: {
-        files: [ srcFiles, docPath + '/ngdoc/**/*.ngdoc' ],
+        files: [ srcFiles, docCustom + '/ngdoc/**/*.ngdoc', docCustom + '/css/*.css' ],
         tasks: ['plato', 'ngdocs'],
         options: {
           livereload: reloadPort,
@@ -536,8 +537,8 @@ module.exports = function(grunt) {
       },
       plato: {
         command: [
-          'rm -rf ' + docPath + '/plato',
-          'node_modules/.bin/plato -d ' + docPath + '/plato -l .jshintrc -r -t "Arethusa JS Source Analysis" app/js/**/* > /dev/null'
+          'rm -rf ' + docCustom + '/plato',
+          'node_modules/.bin/plato -d ' + docCustom + '/plato -l .jshintrc -r -t "Arethusa JS Source Analysis" app/js/**/* > /dev/null'
         ].join(';')
       }
     },
@@ -597,22 +598,23 @@ module.exports = function(grunt) {
         html5Mode: false,
         title: 'Arethusa',
         titleLink: 'http://arethusa.latin-language-toolkit.net',
-        navTemplate: docPath + '/html/nav.html',
-        sourcePath: 'http://github.com/latin-language-toolkit/arethusa/tree/doc'
+        navTemplate: docCustom + '/html/nav.html',
+        sourcePath: 'http://github.com/latin-language-toolkit/arethusa/tree/doc',
+        styles: [ docCustom + '/css/styles.css' ]
       },
       api: {
         src: [
           srcFiles,
-          docPath + '/ngdoc/api/*.ngdoc'
+          docCustom + '/ngdoc/api/*.ngdoc'
         ],
         title: 'API Documentation'
       },
       core_guide: {
-        src: docPath + '/ngdoc/core_guide/*.ngdoc',
+        src: docCustom + '/ngdoc/core_guide/*.ngdoc',
         title: 'Core Guide'
       },
       plugin_guide: {
-        src: docPath + '/ngdoc/plugin_guide/*.ngdoc',
+        src: docCustom + '/ngdoc/plugin_guide/*.ngdoc',
         title: 'Plugin Guide'
       }
     }
