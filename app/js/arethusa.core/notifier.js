@@ -40,7 +40,7 @@ angular.module('arethusa.core').service('notifier', [
        * @description
        * ***Configurable property***
        *
-       * Set to true to disable all notifications.
+       * Set to true to disable all notifications. Defaults to false.
        */
       self.disable = self.conf.disable;
       self.duration = self.conf.duration || 10000;
