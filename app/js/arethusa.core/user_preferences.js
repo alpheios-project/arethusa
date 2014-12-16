@@ -36,7 +36,6 @@ angular.module('arethusa.core').service('userPreferences', [
      * @name arethusa.core.userPreferences#set
      * @methodOf arethusa.core.userPreferences
      *
-     * @param {} name description
      * @param {String} category Category under which the preference is stored,
      *   often the name of a plugin
      * @param {String} property Property name of the preference
