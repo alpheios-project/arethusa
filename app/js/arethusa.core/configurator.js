@@ -287,23 +287,62 @@ angular.module('arethusa.core').service('configurator', [
       }
     };
 
-    // right now very hacky, not sure about the design of the conf file atm
-    // we therefore just tell the service where the conf for specific things
-    // is to be found in the JSON tree.
-    // I guess the key is to abstract the conf file a little more.
-
     /**
      * @ngdoc function
      * @name arethusa.core.configurator#configurationFor
      * @methodOf arethusa.core.configurator
      *
      * @description
-     * TODO
+     * Getter to retrieve configurations conveniently.
+     *
+     * Looks for the configuration in the main section, the plugins and
+     * the resource section. Returns `{}` when no configuration is present.
+     *
+     * @param {String} name Name of the requested configuration
+     * @returns {Object} A configuration.
      */
     this.configurationFor = function (plugin) {
       var conf = self.configuration;
       return conf[plugin] || conf.plugins[plugin] || conf.resources[plugin] || {};
     };
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#delegateConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Delegates configuration properties to an object, frequently a plugin,
+     * for easier access.
+     *
+     * The object needs to come with his configuration file attached in a `conf`
+     * property.
+     *
+     * A set of standard properties is always delegated to the object (view the source
+     * code to see which), but `additionalProperties` can be given as an
+     * Array of Strings.
+     *
+     * The configuration value to is determined according to the following order
+     * of precedence:
+     *
+     * 1. {@link arethusa.core.userPreferences userPreferences} stored in a category
+     *      determined by `object.name`
+     * 2. The attached configuration in `object.conf`
+     * 3. An objects optional default configuration in `object.defaultConf`
+     * 4. globalDefaults specified in the ``main` section of the configuration file
+     *
+     * The optional `sticky` param determines what happens if an already configured
+     * object is passed to this function.
+     *
+     * When `sticky` is true and a property is already set (this means it is not
+     * `undefined`), it will not be overridden - the configuration will be 'sticky'.
+     *
+     *
+     * @param {Object} object Object to delegate to
+     * @param {Array} additionalProperties Additional properties to delegate in
+     *   addition to the standard ones
+     * @param {Boolean} [sticky=false] Whether or not delegation should be done sticky
+     */
 
     var standardProperties =  [
       'displayName',
@@ -316,21 +355,6 @@ angular.module('arethusa.core').service('configurator', [
       'mode'
     ];
 
-    // Delegates a set of standard properties to the given object to allow
-    // a more direct access.
-
-    /**
-     * @ngdoc function
-     * @name arethusa.core.configurator#delegateConf
-     * @methodOf arethusa.core.configurator
-     *
-     * @description
-     * TODO
-     *
-     * @param {Object} object Object to delegate to
-     * @param {Array} additionalProperties Additional properties to delegate in addition to the standard ones
-     * @param {Boolean} sticky Whether or not delegation should be done sticky
-     */
     this.delegateConf = function (obj, otherKeys, sticky) {
       var props = sticky ? otherKeys : arethusaUtil.pushAll(standardProperties, otherKeys);
       var defConf = obj.defaultConf || {};
@@ -534,7 +558,10 @@ angular.module('arethusa.core').service('configurator', [
      * @methodOf arethusa.core.configurator
      *
      * @description
-     * TODO
+     * Adds a plugin configuration.
+     *
+     * @param {String} name The name of the plugin
+     * @param {Object} conf Configuration of the plugin
      */
     this.addPluginConf = function(name, conf) {
       self.configuration.plugins[name] = conf;
