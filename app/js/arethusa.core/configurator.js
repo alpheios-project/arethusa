@@ -326,6 +326,10 @@ angular.module('arethusa.core').service('configurator', [
      *
      * @description
      * TODO
+     *
+     * @param {Object} object Object to delegate to
+     * @param {Array} additionalProperties Additional properties to delegate in addition to the standard ones
+     * @param {Boolean} sticky Whether or not delegation should be done sticky
      */
     this.delegateConf = function (obj, otherKeys, sticky) {
       var props = sticky ? otherKeys : arethusaUtil.pushAll(standardProperties, otherKeys);
@@ -405,6 +409,8 @@ angular.module('arethusa.core').service('configurator', [
      * Retrieves an objects configuration defined by its `name` property and delegates
      * configuration properties to the object.
      *
+     * Cf. {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
+     *
      * @param {Object} object Object to add configuration to. Frequently a plugin.
      * @param {Array} additionalProperties Additional properties passed to
      *   {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
@@ -442,7 +448,12 @@ angular.module('arethusa.core').service('configurator', [
      * @methodOf arethusa.core.configurator
      *
      * @description
+     * Creates new Retriever instances.
      * TODO
+     * @param {Object} retrievers *Keys:* Name of the Retriever class;
+     *   *Values*: Retriever configuration
+     *
+     * @returns {Object} *Keys:* Name of the Retriever class; *Values:* The Retriever instance.
      */
     this.getRetrievers = function (retrievers) {
       return arethusaUtil.inject({}, retrievers, function (memo, name, conf) {
@@ -457,9 +468,14 @@ angular.module('arethusa.core').service('configurator', [
      * @methodOf arethusa.core.configurator
      *
      * @description
+     * Creates new Persister instances.
+     * TODO
+     * @param {Object} retrievers *Keys:* Name of the Persister class;
+     *   *Values*: Persister configuration
+     *
+     * @returns {Object} *Keys:* Name of the Persister class; *Values:* The Persister instance.
      * TODO
      */
-
     // We alias this for now as the function has to do the same -
     // we might need a new name for it but we'll fix that later
     this.getPersisters = this.getRetrievers;
@@ -470,6 +486,13 @@ angular.module('arethusa.core').service('configurator', [
      * @methodOf arethusa.core.configurator
      *
      * @description
+     * Similar to {@link arethusa.core.configurator#methods_getRetrievers getRetrievers}
+     * operates on a single instance only.
+     *
+     * @param {Object} retrievers *Key:* Name of the Retriever class;
+     *   *Value*: Retriever configuration
+     *
+     * @returns {Object} A new retriever instance.
      * TODO
      */
     this.getRetriever = function(retrievers) {
