@@ -16,8 +16,10 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
     // This is the entry point to the application.
 
     var translations = {};
-    translator('loadInProgress', translations, 'loadInProgress');
-    translator('loadComplete', translations, 'loadComplete');
+    translator([
+      'loadInProgress',
+      'loadComplete'
+    ], translations);
 
     $scope.$on('confLoaded', bootstrap);
 
@@ -61,7 +63,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
       // notification that the load is in progress.
       $timeout(function() {
         notifier.init();
-        notifier.wait(translations.loadInProgress);
+        notifier.wait(translations.loadInProgress());
         state.arethusaLoaded = false;
         state.init();
         saver.init();
@@ -82,7 +84,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
       $scope.init = function () {
         plugins.start(conf.plugins).then(function() {
           state.arethusaLoaded = true;
-          notifier.success(translations.loadComplete);
+          notifier.success(translations.loadComplete());
 
           if (aU.isArethusaMainApplication()) {
             UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
