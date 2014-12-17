@@ -8,5 +8,6 @@ angular.module('arethusa.core', [
   'oc.lazyLoad',
   'gridster',
   'hljs',
+  'mm.foundation',
   'LocalStorageModule'
 ]).value('BASE_PATH', '..');
