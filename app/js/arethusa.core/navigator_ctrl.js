@@ -61,12 +61,11 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
       }
     });
 
-    $scope.trsls = {};
-    translator({
+    $scope.trsls = translator({
       'navigator.goToNext': 'goToNext',
       'navigator.goToPrev': 'goToPrev',
       'navigator.goToFirst': 'goToFirst',
       'navigator.goToLast': 'goToLast'
-    }, $scope.trsls);
+    });
   }
 ]);

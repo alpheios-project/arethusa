@@ -13,15 +13,14 @@ angular.module('arethusa.core').service('saver', [
     var self = this;
     var persisters;
 
-    var translations = {};
-    translator({
+    var translations = translator({
       'saver.success': 'success',
       'saver.error': 'error',
       'saver.inProgress': 'inProgress',
       'saver.nothingToSave': 'nothingToSave',
       'saver.confirmNote': 'confirmNote',
       'saver.confirmQuestion': 'confirmQuestion'
-    }, translations);
+    });
 
     function getPersisters() {
       var persisterConf = configurator.configurationFor('main').persisters;

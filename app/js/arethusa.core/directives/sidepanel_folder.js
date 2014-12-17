@@ -10,11 +10,10 @@ angular.module('arethusa.core').directive('sidepanelFolder', [
       link: function (scope, element, attrs) {
         var win = angular.element($window);
 
-        scope.translations = {};
-        translator({
+        scope.translations = translator({
           'sidepanel.show': 'show',
           'sidepanel.fold': 'fold'
-        }, scope.translations);
+        });
 
         scope.$watch('translations', function(newVal, oldVal) {
           if (newVal !== oldVal) {

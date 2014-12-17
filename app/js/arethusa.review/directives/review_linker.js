@@ -10,11 +10,10 @@ angular.module('arethusa.review').directive('reviewLinker', [
       link: function(scope, element, attrs) {
         scope.review = review;
 
-        scope.translations = {};
-        translator({
+        scope.translations = translator({
           'review.link' : 'link',
           'review.unlink' : 'unlink'
-        }, scope.translations);
+        });
 
         function setTitle(prop) {
           element.attr('title', scope.translations[scope.icon]());

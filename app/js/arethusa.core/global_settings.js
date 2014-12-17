@@ -85,10 +85,9 @@ angular.module('arethusa.core').service('globalSettings', [
      */
     self.colorizers = { disabled: true };
 
-    var trsls = {};
-    translator({
+    var trsls = translator({
       'globalSettings.layoutLoaded' : 'layoutLoaded'
-    }, trsls);
+    });
 
     var confKeys = [
       "alwaysDeselect",

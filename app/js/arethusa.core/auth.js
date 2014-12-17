@@ -27,8 +27,7 @@ angular.module('arethusa.core').factory('Auth', [
 
     function noop() {}
 
-    var translations = {};
-    translator('auth.notLoggedIn', translations, 'notLoggedIn');
+    var translations = translator('auth.notLoggedIn', translations, 'notLoggedIn');
 
     return function(conf, modeFn) {
       var self = this;

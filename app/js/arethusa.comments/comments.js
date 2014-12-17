@@ -138,12 +138,11 @@ angular.module('arethusa.comments').service('comments', [
       this.comment = comment;
     }
 
-    var translations = {};
-    translator({
+    var translations = translator({
       'comments.successMessage': 'success',
       'comments.errorMessage': 'error',
       'comments.selectFirst': 'selectFirst'
-    }, translations);
+    });
 
     function saveSuccess(fn) {
       return function(commentContainer) {

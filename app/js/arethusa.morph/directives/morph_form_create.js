@@ -17,11 +17,10 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         var inArray = arethusaUtil.isIncluded;
         var lemmaForm = element.find('#lemma-form');
 
-        scope.translations = {};
-        translator({
+        scope.translations = translator({
           'morph.createSuccess': 'createSuccess',
           'morph.createError': 'createError'
-        }, scope.translations);
+        });
 
 
         scope.m = morph;

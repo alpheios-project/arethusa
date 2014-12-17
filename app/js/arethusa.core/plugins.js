@@ -15,12 +15,11 @@ angular.module('arethusa.core').service('plugins', [
     var readyPlugins;
     var initCallbacks;
 
-    var translations = {};
-    translator({
+    var translations = translator({
       'plugins.added': 'added',
       'plugins.failed': 'failed',
       'plugins.alreadyLoaded': 'alreadyLoaded'
-    }, translations);
+    });
 
     function partitionPlugins() {
       self.main = [];
