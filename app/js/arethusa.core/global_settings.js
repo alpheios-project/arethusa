@@ -86,7 +86,9 @@ angular.module('arethusa.core').service('globalSettings', [
     self.colorizers = { disabled: true };
 
     var trsls = {};
-    translator('globalSettings.layoutLoaded', trsls, 'layoutLoaded', true);
+    translator({
+      'globalSettings.layoutLoaded' : 'layoutLoaded'
+    }, trsls);
 
     var confKeys = [
       "alwaysDeselect",
@@ -300,10 +302,6 @@ angular.module('arethusa.core').service('globalSettings', [
     // for this event.
     $rootScope.$on('confLoaded', loadLayouts);
 
-    function layoutLoadedMessage() {
-      return [trsls.layoutLoaded.start, self.layout.name, trsls.layoutLoaded.end].join(' ');
-    }
-
     this.broadcastLayoutChange = function() {
       if (self.layout.grid) {
         $timeout(function() {
@@ -315,7 +313,7 @@ angular.module('arethusa.core').service('globalSettings', [
       // a layout change (as the main html is reloaded with it, the container that
       // shows the notification also reloads)
       $timeout(function() {
-        notifier.info(layoutLoadedMessage());
+        notifier.info(trsls.layoutLoaded({ layout: self.layout.name }));
       }, 500);
       $rootScope.$broadcast('layoutChange', self.layout);
     };
