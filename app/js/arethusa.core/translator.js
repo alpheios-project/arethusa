@@ -7,8 +7,51 @@
  * @description
  * Flexible Wrapper around `angular-translate`'s `$translate` service.
  *
+ * Is intended to be used when it's impossible to use the `translate` directive
+ * directly, e.g. when a service needs to work with a localized string. While
+ * the `$translate` service can be used directly to achieve this, it is a bit
+ * cumbersome to do so. This wrapper avoids dealing with promises of the
+ * `$translate` service directly and thus reduces all boilerplate code attached
+ * to proper localization.
+ *
+ * The function also registers a listener to the `$translateChangeSuccess`
+ * event and can therefore be safely used to switch localizations on the fly.
+ *
  * Requires {@link arethusa.core.translatorNullInterpolator nullInterpolator}
- *  to be active.
+ * to be active.
+ *
+ * The two most common usage options of this service can be found in the
+ * examples below, given a translation/localization file like this:
+ *
+ * ```
+ *   {
+ *     "greetings" : {
+ *       "hello": "Hello {{ friend }}!"
+ *       "bye" : "Goodspeed, my friend!"
+ *     }
+ *   }
+ * ```
+ *
+ * <pre>
+ *   // With a dictionary as sole argument
+ *   var translations = translator({
+ *     'greetings.hello': 'hi'
+ *     'greetings.bye':  'bye'
+ *   });
+ *
+ *   translations.hi({ friend: "comrade" }); // -> returns "Hello comrade!"
+ *   translations.bye();                     // -> returns "Goodspeed, my friend!"
+ * </pre>
+ *
+ * <pre>
+ *   // With an id and a function as arguments
+ *   translator('greetings.hello', function(translationFn) {
+ *     greet(translationsFn({ friend: 'comrade' }));
+ *   });
+ *
+ *   // Will call the greet function on initialization and everytime the
+ *   // locale is changed on the fly.
+ * </pre>
  *
  * @param {String|Array|Object} id The prime job ob this argument is to define
  *   the `translationId(s)` used with the `$translate` service. The argument
@@ -29,7 +72,8 @@
  *
  *   When this argument is a Function, the
  *   first argument should be a string, although other combinations are not
- *   explicitly prohibited.
+ *   explicitly prohibited. One argument is passed to this function: the
+ *   `$interpolate` function which returns a localized string.
  * @param {String} [propertyPath] Only effective when the first argument
  *   is a string. Generally deprecated - better use the Object or Array options
  *   to define this path.
@@ -72,6 +116,7 @@ angular.module('arethusa.core').factory('translator', [
         translate(id, objOrFn, propertyPath);
       });
     }
+
     return function(idOrObj, objOrFn, propertyPath) {
       objOrFn = objOrFn || {};
       if (angular.isObject(idOrObj)) {
