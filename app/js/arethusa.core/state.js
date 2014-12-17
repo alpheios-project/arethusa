@@ -9,8 +9,9 @@ angular.module('arethusa.core').service('state', [
   'StateChange',
   'idHandler',
   'globalSettings',
+  'confirmationDialog',
   function (configurator, navigator, $rootScope, documentStore, keyCapture,
-            locator, StateChange, idHandler, globalSettings) {
+            locator, StateChange, idHandler, globalSettings, confirmationDialog) {
     var self = this;
     var tokenRetrievers;
 
@@ -382,15 +383,20 @@ angular.module('arethusa.core').service('state', [
 
     this.removeToken = function(id) {
       var token = self.getToken(id);
-      // broadcast before we actually delete, in case a plugin needs access
-      // during the cleanup process
-      self.doBatched(function() {
-        self.broadcast('tokenRemoved', token);
-        delete self.tokens[id];
-      });
-      navigator.removeToken(token);
-      self.deselectAll();
-      self.countTotalTokens();
+      // We translate this a little later - waiting for a pending
+      // change in the translator which allows to give context.
+      var msg = 'Do you really want to remove ' + token.string + '?';
+      confirmationDialog.ask(msg).then((function() {
+        // broadcast before we actually delete, in case a plugin needs access
+        // during the cleanup process
+        self.doBatched(function() {
+          self.broadcast('tokenRemoved', token);
+          delete self.tokens[id];
+        });
+        navigator.removeToken(token);
+        self.deselectAll();
+        self.countTotalTokens();
+      }));
     };
 
     this.lazyChange = function(tokenOrId, property, newVal, undoFn, preExecFn) {
