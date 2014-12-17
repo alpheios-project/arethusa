@@ -18,13 +18,29 @@ angular.module('arethusa.core').factory('translator', [
         }
       });
     }
-    return function(id, objOrFn, propertyPath, startAndEnd) {
+
+    function registerAndTranslate(id, objOrFn, propertyPath) {
       // needs to run when intialized
-      translate(id, objOrFn, propertyPath, startAndEnd);
+      translate(id, objOrFn, propertyPath);
 
       $rootScope.$on('$translateChangeSuccess', function() {
-        translate(id, objOrFn, propertyPath, startAndEnd);
+        translate(id, objOrFn, propertyPath);
       });
+    }
+    return function(idOrObj, objOrFn, propertyPath) {
+      if (angular.isObject(idOrObj)) {
+        if (angular.isArray(idOrObj)) {
+          angular.forEach(idOrObj, function(idAndPath) {
+            registerAndTranslate(idAndPath, objOrFn, idAndPath);
+          });
+        } else {
+          angular.forEach(idOrObj, function(path, id) {
+            registerAndTranslate(id, objOrFn, path);
+          });
+        }
+      } else {
+        registerAndTranslate(idOrObj, objOrFn, propertyPath);
+      }
     };
   }
 ]);
