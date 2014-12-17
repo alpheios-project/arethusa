@@ -42,6 +42,8 @@ angular.module('arethusa.core').factory('translator', [
       } else {
         registerAndTranslate(idOrObj, objOrFn, propertyPath);
       }
+
+      return objOrFn;
     };
   }
 ]);
