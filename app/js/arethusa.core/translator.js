@@ -29,6 +29,7 @@ angular.module('arethusa.core').factory('translator', [
       });
     }
     return function(idOrObj, objOrFn, propertyPath) {
+      objOrFn = objOrFn || {};
       if (angular.isObject(idOrObj)) {
         if (angular.isArray(idOrObj)) {
           angular.forEach(idOrObj, function(idAndPath) {
