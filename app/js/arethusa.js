@@ -47,7 +47,8 @@ angular.module('arethusa').config([
 
       .registerAvailableLanguageKeys(LOCALES, localesMap)
       .determinePreferredLanguage()
-      .fallbackLanguage('en');
+      .fallbackLanguage('en')
+      .addInterpolation('translatorNullInterpolator');
 
     localStorageServiceProvider.setPrefix('arethusa');
   },
