@@ -75,6 +75,30 @@ function ArethusaMocks() {
     });
   };
 
+  this.resolvedConfirmationDialog = function(customizations) {
+    return withCustomizations({
+      ask: function() {
+        return {
+          then: function(success) {
+            success();
+          }
+        };
+      }
+    });
+  };
+
+  this.rejectedConfirmationDialog = function(customizations) {
+    return withCustomizations({
+      ask: function() {
+        return {
+          then: function(success, error) {
+            error();
+          }
+        };
+      }
+    });
+  };
+
   this.tokens = function() {
     return {
       '01': {
