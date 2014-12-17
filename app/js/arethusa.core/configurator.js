@@ -1,21 +1,33 @@
 'use strict';
-/* This service handles everything related to configuration files
+
+/**
+ * @ngdoc service
+ * @name arethusa.core.configurator
  *
- * It is a provider of resources and services.
+ * @description
+ * Service to handle the configuration of the application.
  *
- * this.configuration needs to be set from the outside through
- * defineConfiguration(), typically by a route that enters the application.
+ * A key component of Arethusa, typically injected by every plugin and many core services.
  *
+ * Provides an API to
+ * - access configurations
+ * - create Retriever, Persister and Resource instances
  *
+ * *Commented example configuration*
+ * <pre>
+ *   {
+       // TODO
+ *   }
+ * </pre>
  *
- * As of now a valid conf file can contain these sections
- *   main
- *   navbar
- *   notifier
- *   navigator
- *   plugins
- *   resources
- *
+ * @requires $injector
+ * @requires $http
+ * @requires $rootScope
+ * @requires arethusa.core.Resource
+ * @requires arethusa.core.Auth
+ * @requires $timeout
+ * @requires $location
+ * @requires $q
  */
 angular.module('arethusa.core').service('configurator', [
   '$injector',
@@ -31,8 +43,21 @@ angular.module('arethusa.core').service('configurator', [
     var self = this;
     var includeParam = 'fileUrl';
 
-    // Start with an empty configuration, especially useful
-    // to satisfy spec files.
+    /**
+     * @ngdoc property
+     * @name configuration
+     * @propertyOf arethusa.core.configurator
+     *
+     * @description
+     * Stores the current configuration. Typically **NOT** meant to be accessed
+     * directly.
+     *
+     * Use the getter
+     * {@link arethusa.core.configurator#methods_configurationFor configurationFor}
+     * and the setter
+     * {@link arethusa.core.configurator#methods_defineConfiguration defineConfiguration}
+     * instead.
+     */
     this.configuration = new Template();
 
     function notifier() {
@@ -45,7 +70,27 @@ angular.module('arethusa.core').service('configurator', [
       return uPCached;
     }
 
-    // The second param is optional.
+    /**
+     * @ngdoc event
+     * @name arethusa.core.configurator#confLoaded
+     * @eventOf arethusa.core.configurator
+     *
+     * @description
+     * Broadcasted through {@link $rootScope} when the application's
+     * configuration is ready to use. Before this event is launched, it is
+     * **not** safe to instantiate services and/or plugins!
+     *
+     * Typically broadcased by {@link arethusa.core.configurator#methods_defineConfiguration defineConfiguration}.
+     */
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#defineConfiguration
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.defineConfiguration = function (confFile, location) {
       this.configuration = angular.extend(new Template(), confFile);
       this.confFileLocation = location;
@@ -66,6 +111,14 @@ angular.module('arethusa.core').service('configurator', [
       }
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#loadAdditionalConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.loadAdditionalConf = function(confs) {
       var proms = arethusaUtil.inject([], confs, function(memo, plugin, url) {
         var promise;
@@ -200,10 +253,26 @@ angular.module('arethusa.core').service('configurator', [
       return a;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getService
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.getService = function (serviceName) {
       return $injector.get(serviceName);
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getServices
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
     this.getServices = function (serviceNames) {
       if (serviceNames) {
         var that = this;
@@ -216,14 +285,62 @@ angular.module('arethusa.core').service('configurator', [
       }
     };
 
-    // right now very hacky, not sure about the design of the conf file atm
-    // we therefore just tell the service where the conf for specific things
-    // is to be found in the JSON tree.
-    // I guess the key is to abstract the conf file a little more.
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#configurationFor
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Getter to retrieve configurations conveniently.
+     *
+     * Looks for the configuration in the main section, the plugins and
+     * the resource section. Returns `{}` when no configuration is present.
+     *
+     * @param {String} name Name of the requested configuration
+     * @returns {Object} A configuration.
+     */
     this.configurationFor = function (plugin) {
       var conf = self.configuration;
       return conf[plugin] || conf.plugins[plugin] || conf.resources[plugin] || {};
     };
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#delegateConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Delegates configuration properties to an object, frequently a plugin,
+     * for easier access.
+     *
+     * The object needs to come with his configuration file attached in a `conf`
+     * property.
+     *
+     * A set of standard properties is always delegated to the object (view the source
+     * code to see which), but `additionalProperties` can be given as an
+     * Array of Strings.
+     *
+     * The configuration value to is determined according to the following order
+     * of precedence:
+     *
+     * 1. {@link arethusa.core.userPreferences userPreferences} stored in a category
+     *      determined by `object.name`
+     * 2. The attached configuration in `object.conf`
+     * 3. An objects optional default configuration in `object.defaultConf`
+     * 4. globalDefaults specified in the ``main` section of the configuration file
+     *
+     * The optional `sticky` param determines what happens if an already configured
+     * object is passed to this function.
+     *
+     * When `sticky` is true and a property is already set (this means it is not
+     * `undefined`), it will not be overridden - the configuration will be 'sticky'.
+     *
+     *
+     * @param {Object} object Object to delegate to
+     * @param {Array} additionalProperties Additional properties to delegate in
+     *   addition to the standard ones
+     * @param {Boolean} [sticky=false] Whether or not delegation should be done sticky
+     */
 
     var standardProperties =  [
       'displayName',
@@ -236,8 +353,6 @@ angular.module('arethusa.core').service('configurator', [
       'mode'
     ];
 
-    // Delegates a set of standard properties to the given object to allow
-    // a more direct access.
     this.delegateConf = function (obj, otherKeys, sticky) {
       var props = sticky ? otherKeys : arethusaUtil.pushAll(standardProperties, otherKeys);
       var defConf = obj.defaultConf || {};
@@ -293,37 +408,134 @@ angular.module('arethusa.core').service('configurator', [
       });
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#mode
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Getter to read the current global mode of the application.
+     *
+     * @returns {String} The current mode, e.g. `'editor'` or `'viewer'`.
+     */
     this.mode = function() {
       return getGlobalDefaults().mode;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getConfAndDelegate
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Retrieves an objects configuration defined by its `name` property and delegates
+     * configuration properties to the object.
+     *
+     * Cf. {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
+     *
+     * @param {Object} object Object to add configuration to. Frequently a plugin.
+     * @param {Array} additionalProperties Additional properties passed to
+     *   {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
+     * @returns {Object} The updated `object`.
+     */
     this.getConfAndDelegate = function (obj, keys) {
       obj.conf = self.configurationFor(obj.name);
       self.delegateConf(obj, keys);
       return obj;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getStickyConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Works the same as {@link arethusa.core.configurator#methods_getConfAndDelegate getConfAndDelegate},
+     * but with activated `sticky` mode (cf. {@link arethusa.core.configurator#methods_delegateConf delegateConf}).
+     *
+     * @param {Object} object Object to add configuration to. Frequently a plugin.
+     * @param {Array} additionalProperties Additional properties passed to
+     *   {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
+     * @returns {Object} The updated `object`.
+     */
     this.getStickyConf = function(obj, keys) {
       obj.conf = self.configurationFor(obj.name);
       self.delegateConf(obj, keys, true);
       return obj;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getRetrievers
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Creates new Retriever instances.
+     * TODO
+     * @param {Object} retrievers *Keys:* Name of the Retriever class;
+     *   *Values*: Retriever configuration
+     *
+     * @returns {Object} *Keys:* Name of the Retriever class; *Values:* The Retriever instance.
+     */
     this.getRetrievers = function (retrievers) {
       return arethusaUtil.inject({}, retrievers, function (memo, name, conf) {
         var Retriever = self.getService(name);
         memo[name] = new Retriever(conf);
       });
     };
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getPersisters
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Creates new Persister instances.
+     * TODO
+     * @param {Object} retrievers *Keys:* Name of the Persister class;
+     *   *Values*: Persister configuration
+     *
+     * @returns {Object} *Keys:* Name of the Persister class; *Values:* The Persister instance.
+     * TODO
+     */
     // We alias this for now as the function has to do the same -
     // we might need a new name for it but we'll fix that later
     this.getPersisters = this.getRetrievers;
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getRetriever
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Similar to {@link arethusa.core.configurator#methods_getRetrievers getRetrievers}
+     * operates on a single instance only.
+     *
+     * @param {Object} retrievers *Key:* Name of the Retriever class;
+     *   *Value*: Retriever configuration
+     *
+     * @returns {Object} A new retriever instance.
+     * TODO
+     */
     this.getRetriever = function(retrievers) {
       var retrs = self.getRetrievers(retrievers);
       return retrs[Object.keys(retrs)[0]];
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#provideResource
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Creates a new {@link arethusa.core.Resource Resource} instance, including
+     * proper {@link arethusa.core.Auth Auth} support.
+     *
+     * Returns `undefined` when no configuration for a the given resource is present.
+     *
+     * @param {String} name The name of the resource as specified in a conf file
+     * @returns {Resource} A new {@link arethusa.core.Resource Resource} instance
+     */
     this.provideResource = function (name) {
       var conf = self.configuration.resources[name];
       if (!conf) return;
@@ -338,6 +550,17 @@ angular.module('arethusa.core').service('configurator', [
       return new Auth(auths()[name] || {}, self.mode);
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#addPluginConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Adds a plugin configuration.
+     *
+     * @param {String} name The name of the plugin
+     * @param {Object} conf Configuration of the plugin
+     */
     this.addPluginConf = function(name, conf) {
       self.configuration.plugins[name] = conf;
     };

@@ -1,5 +1,21 @@
 "use strict";
 
+/**
+ * @ngdoc service
+ * @name arethusa.core.globalSettings
+ *
+ * @description
+ * Service to define and manipulate application-wide settings.
+ *
+ * @requires arethusa.core.configurator
+ * @requires arethusa.core.plugins
+ * @requires $injector
+ * @requires $rootScope
+ * @requires arethusa.core.notifier
+ * @requires arethusa.core.translator
+ * @requires arethusa.core.keyCapture
+ * @requires $timeout
+ */
 angular.module('arethusa.core').service('globalSettings', [
   'configurator',
   'plugins',
@@ -15,7 +31,58 @@ angular.module('arethusa.core').service('globalSettings', [
 
     self.name = 'globalSettings'; // configurator will ask for this
     self.layout = {};
-    self.settings = {};
+
+    var lazyState;
+    function state() {
+      if (!lazyState) lazyState = $injector.get('state');
+      return lazyState;
+    }
+
+    var lazyUserPref;
+    function userPreferences() {
+      if (!lazyUserPref) lazyUserPref = $injector.get('userPreferences');
+      return lazyUserPref;
+    }
+
+    /**
+     * @ngdoc property
+     * @name colorizers
+     * @propertyOf arethusa.core.globalSettings
+     *
+     * @description
+     * Dictionary of usable colorizers, registered through {@link arethusa.core.globalSettings#methods_addColorizer globalSettings.addColorizer}.
+     *
+     * Colorizers are used to add styling to tokens through the functions
+     * {@link arethusa.core.state#methods_addStyle state.addStyle},
+     * {@link arethusa.core.state#methods_removeStyle state.removeStyle} and
+     * {@link arethusa.core.state#methods_unsetStyle state.unsetStyle}.
+     * Before plugins use one of these functions, they typically need to ask
+     * if they are the currently active colorizer through {@link arethusa.core.globalSettings#methods_isColorizer globalSettings.isColorizer}.
+     *
+     * A plugin **NEEDS** to define two public functions to function as a colorizer:
+     *
+     * - *applyStyling*
+     *
+     *    This function is called when a colorizer is changed on the fly and all tokens
+     *    needs to be recolored.
+     *
+     * - *colorMap*
+     *
+     *    Function called to produce a color legend so that users can look up the
+     *    meaning of a colorization scheme.
+     *    The markup of a colorMap object shall be as follows:
+     *    ```
+     *      // TODO
+     *    ```
+     *
+     * The values in this dictionary are irrelevant, we use a dictionary only for fast lookups.
+     *
+     * Comes with the standard option to disable colorization altogether.
+     *
+     * Used by the {@link arethusa.core.directive:colorizerSetting colorizerSetting}
+     * directive to allow the user to choose a colorizer.
+     *
+     */
     self.colorizers = { disabled: true };
 
     var trsls = {};
@@ -49,6 +116,7 @@ angular.module('arethusa.core').service('globalSettings', [
       this.directive = directive;
     }
 
+    self.settings = {};
     function defineSettings() {
       self.defineSetting('persistSettings');
       self.defineSetting('chunkMode', 'custom', 'chunk-mode-switcher');
@@ -95,16 +163,54 @@ angular.module('arethusa.core').service('globalSettings', [
 
     this.clickActions = {};
 
-
+    /**
+     * @ngdoc function
+     * @name arethusa.core.globalSettings#addClickAction
+     * @methodOf arethusa.core.globalSettings
+     *
+     * @description
+     * Adds a handler to the selection of available click handlers.
+     *
+     * @param {String} name Name of the click action handler.
+     * @param {Function} clickAction Callback to be executed when a click is made.
+     * @param {Object} [preClickActions] Optional object to hold functions to be
+     *   executed on `mouseenter` and `mouseleave`, i.e. prior to a possible
+     *   click action. Keys have to be the event names, values the callback functions.
+     */
     this.addClickAction = function(name, fn, preFn) {
       self.clickActions[name] = [fn, preFn];
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.globalSettings#removeClickAction
+     * @methodOf arethusa.core.globalSettings
+     *
+     * @description
+     * Removes a click action handler from the selection of available click
+     * action handlers.
+     *
+     * When the removed handler was currently active, the click action is disabled.
+     *
+     * @param {String} name Name of the click action handler.
+     */
     this.removeClickAction = function(name) {
       delete self.clickActions[name];
       if (self.clickAction === name) self.setClickAction('disabled');
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.globalSettings#setClickAction
+     * @methodOf arethusa.core.globalSettings
+     *
+     * @description
+     * Sets the active click action handler.
+     *
+     * @param {String} name Name of the click action handler.
+     * @param {Boolean} [silent=false] Determines if the `clickActionChange`
+     *   event should be supressed.
+     */
     this.setClickAction = function(name, silent) {
       // When nothing changed, we don't need to do anything
       if (self.clickAction !== name) {
@@ -118,26 +224,41 @@ angular.module('arethusa.core').service('globalSettings', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.globalSettings#addColorizer
+     * @methodOf arethusa.core.globalSettings
+     *
+     * @description
+     * Function to register a plugin as colorizer (cf. {@link arethusa.core.globalSettings#properties_colorizers globalSettings.colorizers}).
+     *
+     * @param {String} plugin Name of the colorizing plugin.
+     */
     this.addColorizer = function(pluginName) {
       self.colorizers[pluginName] = true;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.globalSettings#isColorizer
+     * @methodOf arethusa.core.globalSettings
+     *
+     * @param {String} plugin Name of a plugin.
+     *
+     * @returns {Boolean} Whether a plugin is the active colorizer or not.
+     */
     this.isColorizer = function(pluginName) {
       return self.colorizer === pluginName;
     };
 
-    var lazyState;
-    function state() {
-      if (!lazyState) lazyState = $injector.get('state');
-      return lazyState;
-    }
-
-    var lazyUserPref;
-    function userPreferences() {
-      if (!lazyUserPref) lazyUserPref = $injector.get('userPreferences');
-      return lazyUserPref;
-    }
-
+    /**
+     * @ngdoc function
+     * @name arethusa.core.globalSettings#applyColorizer
+     * @methodOf arethusa.core.globalSettings
+     *
+     * @description
+     * TODO
+     */
     this.applyColorizer = function() {
       if (self.colorizer === 'disabled') {
         state().unapplyStylings();
@@ -149,6 +270,14 @@ angular.module('arethusa.core').service('globalSettings', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.globalSettings#colorMaps
+     * @methodOf arethusa.core.globalSettings
+     *
+     * @description
+     * TODO
+     */
     this.colorMaps = function() {
       return arethusaUtil.inject({}, self.colorizers, function(memo, name, _) {
         if (name !== 'disabled') {

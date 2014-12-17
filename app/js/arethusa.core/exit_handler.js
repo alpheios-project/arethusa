@@ -1,5 +1,28 @@
 "use strict";
 
+/**
+ * @ngdoc service
+ * @name arethusa.core.exitHandler
+ *
+ * @description
+ * Allows to define an exit route of the application.
+ *
+ * Needs to be defined in a configuration file and uses the following format
+ *
+ * ```
+ *   "exitHandler" : {
+ *     "title" : "readable string of the route",
+ *     "route" : "http path to your exit target",
+ *     "params" : [ 'query', 'params' ]
+ *   }
+ * ```
+ *
+ * @requires $location
+ * @requires $window
+ * @requires arethusa.core.configurator
+ *
+ */
+
 angular.module('arethusa.core').service('exitHandler', [
   "$location",
   "$window",
@@ -49,6 +72,17 @@ angular.module('arethusa.core').service('exitHandler', [
       return routeWithQueryParams(parsedRoute, queryParams);
     }
 
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core:exitHandler#leave
+     * @methodOf arethusa.core.exitHandler
+     *
+     * @description
+     * Leaves arethusa to the configured route.
+     *
+     * @param {string} [targetWin='_self'] The target window.
+     */
     this.leave = function(targetWin) {
       targetWin = targetWin || '_self';
       $window.open(exitUrl(), targetWin);

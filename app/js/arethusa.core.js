@@ -1,3 +1,10 @@
+/**
+ * @ngdoc overview
+ * @name arethusa.core
+ *
+ * @description
+ * Module of Arethusa's core functionality
+ */
 angular.module('arethusa.core', [
   'arethusa.util',
   'ngResource',

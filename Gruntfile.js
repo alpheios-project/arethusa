@@ -9,6 +9,8 @@ var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
+var docPath  = 'dist/docs';
+var docCustom = docPath + '/custom';
 var versionInfoFilename = 'app/js/arethusa/version.json';
 
 var devMode = process.env.DEV;
@@ -350,10 +352,17 @@ module.exports = function(grunt) {
           spawn: false
         }
       },
-
       e2e: {
         files: [srcFiles, specE2eFiles],
         tasks: 'protractor:all'
+      },
+      doc: {
+        files: [ srcFiles, docCustom + '/ngdoc/**/*.ngdoc', docCustom + '/css/*.css' ],
+        tasks: ['plato', 'ngdocs'],
+        options: {
+          livereload: reloadPort,
+          spawn: false
+        }
       }
     },
     jshint: {
@@ -454,6 +463,14 @@ module.exports = function(grunt) {
           livereload: reloadPort
         }
       },
+      doc: {
+        options: {
+          keepalive: true,
+          port: 9002,
+          base: docPath,
+          livereload: reloadPort
+        }
+      }
     },
     sauce_connect: {
       your_target: {
@@ -517,6 +534,12 @@ module.exports = function(grunt) {
       },
       currentCommit: {
         command: 'git rev-parse HEAD'
+      },
+      plato: {
+        command: [
+          'rm -rf ' + docCustom + '/plato',
+          'node_modules/.bin/plato -d ' + docCustom + '/plato -l .jshintrc -r -t "Arethusa JS Source Analysis" app/js/**/* > /dev/null'
+        ].join(';')
       }
     },
     concurrent: {
@@ -534,11 +557,16 @@ module.exports = function(grunt) {
         options: {
           logConcurrentOutput: true
         }
+      },
+      docs: {
+        tasks: ['ngdocs', 'watch:doc', 'connect:doc'],
+        options: {
+          logConcurrentOutput: true
+        }
       }
     },
     concat: arethusaConcat(),
     copy: arethusaCopy(),
-    clean: ['dist/*.js', 'dist/*.map'],
     bump: {
       options: {
         files: ['package.json', 'bower.json'],
@@ -553,6 +581,41 @@ module.exports = function(grunt) {
         pushTo: 'upstream',
         gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
         globalReplace: false
+      }
+    },
+    clean: {
+      dist: ['dist/*.js', 'dist/*.map'],
+      docs: [ 'css', 'font', 'grunt-scripts', 'index.html', 'js', 'partials'].map(function(file) {
+        return docPath + '/' + file;
+      })
+    },
+    ngdocs: {
+      options: {
+        dest: docPath,
+        scripts: [
+          './dist/arethusa_packages.min.js',
+          './dist/arethusa.min.js'],
+        html5Mode: false,
+        title: 'Arethusa',
+        titleLink: 'http://arethusa.latin-language-toolkit.net',
+        navTemplate: docCustom + '/html/nav.html',
+        sourcePath: 'http://github.com/latin-language-toolkit/arethusa/tree/doc',
+        styles: [ docCustom + '/css/styles.css' ]
+      },
+      api: {
+        src: [
+          srcFiles,
+          docCustom + '/ngdoc/api/*.ngdoc'
+        ],
+        title: 'API Documentation'
+      },
+      core_guide: {
+        src: docCustom + '/ngdoc/core_guide/*.ngdoc',
+        title: 'Core Guide'
+      },
+      plugin_guide: {
+        src: docCustom + '/ngdoc/plugin_guide/*.ngdoc',
+        title: 'Plugin Guide'
       }
     }
   });
@@ -580,9 +643,12 @@ module.exports = function(grunt) {
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
 
-  // These two server tasks are usually everything you need!
-  grunt.registerTask('server', ['clean', 'version', 'minify:all', 'connect:server']);
-  grunt.registerTask('reloading-server', ['clean', 'version', 'concurrent:server']);
+  grunt.registerTask('plato', 'shell:plato');
+
+  // These three server tasks are usually everything you need!
+  grunt.registerTask('server', ['clean:dist', 'version', 'minify:all', 'connect:server']);
+  grunt.registerTask('reloading-server', ['clean:dist', 'version', 'concurrent:server']);
+  grunt.registerTask('doc-server', ['concurrent:docs']);
 
   grunt.registerTask('reloader', 'concurrent:watches');
   grunt.registerTask('reloader:no-css', 'watch:serverNoCss');

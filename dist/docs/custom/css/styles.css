@@ -1,0 +1,19 @@
+.type-hint-object {
+  background: #7E49A1;
+}
+
+.type-hint-function {
+  background: rgb(208, 208, 29);
+}
+
+.content h1 code {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.form-search .code {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.member code {
+  color: rgb(128, 128, 128);
+}

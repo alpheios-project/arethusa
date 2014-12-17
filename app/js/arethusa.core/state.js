@@ -1,4 +1,33 @@
 'use strict';
+
+/**
+ * @ngdoc service
+ * @name arethusa.core.state
+ *
+ * @description
+ * One of Arethusa's key components, typically injected by every plugin.
+ *
+ * 1. Retrieves documents
+ * 2. Holds the current annotation targets - tokens - presented to the user
+ * 3. Handles selections of tokens
+ * 4. Provides an API to make changes to tokens, while notifying listeners
+ *    (e.g. {@link arethusa.core.state#methods_change state.change} and
+ *    {@link arethusa.core.state#methods_watch state.watch})
+ *
+ * Reads its configuration from the `main` section.
+ *
+ * @requires arethusa.core.configurator
+ * @requires arethusa.core.navigator
+ * @requires $rootScope
+ * @requires arethusa.core.documentStore
+ * @requires arethusa.core.keyCapture
+ * @requires arethusa.core.locator
+ * @requires arethusa.core.StateChange
+ * @requires arethusa.core.idHandler
+ * @requires arethusa.core.globalSettings
+ * @requires arethusa.util.logger
+ */
+
 angular.module('arethusa.core').service('state', [
   'configurator',
   'navigator',
@@ -86,6 +115,16 @@ angular.module('arethusa.core').service('state', [
       return Object.keys(tokenRetrievers).length === 0;
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#retrieveTokens
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Tries to iterate over all available retrievers and gets documents
+     * from them.
+     *
+     */
     this.retrieveTokens = function () {
       //var container = {};
       navigator.reset();
@@ -407,6 +446,42 @@ angular.module('arethusa.core').service('state', [
       return new StateChange(self, tokenOrId, property, newVal, undoFn, preExecFn);
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#change
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Sets the property of a token to a new value.
+     *
+     * **ALWAYS** use this function when you want to make changes to a `token`.
+     * While it is possible to access all properties of a `token` - and therefore
+     * also the assign them to a new value - you should **NEVER** do this manually.
+     *
+     * By using this function you guarantee a proper event flow. The change itself
+     * is done through an {@link arethusa.core.StateChange StateChange} object,
+     * which notifies all listeners registered through {@link arethusa.core.state#methods_watch state.watch}
+     * and also broadcasts a `tokenChange` event.
+     *
+     * Communicates with {@link arethusa.core.globalSettings#method_shouldDeselect globalSettings.shouldDeselect}
+     * to determine whether all selections should be negated or not.
+     *
+     * @param {Token|String} tokenOrId Token or the id of a token to execute a
+     *   change on
+     * @param {String} property Path to the property which needs to be changed,
+     *   e.g. `'head.id'`
+     * @param {*} newVal The new value set during this change
+     * @param {Function} [undoFn] Optional custom function to undo the change.
+     *   Defaults to a simple inversion - i.e. setting the `property` back to
+     *   the old value.
+     * @param {Function} [preExecFn] Optional function to be executed right
+     *   before a change is happening, i.e. the `property` is set to the `newVal`
+     *   during the execution of {@link arethusa.core.StateChange StateChange}.exec
+     *
+     * @returns {StateChange} Returns a {@link arethusa.core.StateChange StateChange}
+     *   event object
+     *
+     */
     this.change = function(tokenOrId, property, newVal, undoFn, preExecFn) {
       var event = self.lazyChange(tokenOrId, property, newVal, undoFn, preExecFn);
       if (globalSettings.shouldDeselect(property)) self.deselectAll();
@@ -435,6 +510,35 @@ angular.module('arethusa.core').service('state', [
       };
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#watch
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Registers a `listener` callback executed whenever a
+     * {@link arethusa.core.state#methods_change state.change} with a matching
+     * event is called.
+     *
+     * @param {String} event Name of the change event to listen to - meant to
+     *   be the path of a property on a token object (e.g. `'head.id'`).
+     *
+     *   The special param `'*'` can be passed to listen to all change events.
+     *
+     * @param {Function} fn Callback to be executed when a change has happened.
+     *
+     *   Three arguments are passed to this function
+     *
+     *   1. the new value
+     *   2. the old value
+     *   3. a {@link arethusa.core.StateChange StateChange} event object
+     *
+     * @param {Function} [destroyFn] Optional callback executed when the
+     *   listener is deregistered.
+     *
+     * @returns {Function} Deregisters the listener when executed.
+     *
+     */
     this.watch = function(event, fn, destroyFn) {
       var watchers = changeWatchers[event];
       if (!watchers) watchers = changeWatchers[event] = [];
@@ -443,30 +547,104 @@ angular.module('arethusa.core').service('state', [
       return watch.destroy;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#on
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Delegates to `$rootScope.$on`.
+     *
+     * @param {String} event The eventname
+     * @param {Function} fn Callback function
+     *
+     */
     this.on = function(event, fn) {
       $rootScope.$on(event, fn);
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#broadcast
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Delegates to `$rootScope.broadcast`.
+     *
+     * @param {String} event The eventname
+     * @param {*} [arg] Optional argument transmitted alongside the event
+     */
     this.broadcast = function(event, arg) {
       $rootScope.$broadcast(event, arg);
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#doSilent
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Calls a function in `silent` mode. No events are broadcasted and no
+     * listeners notified upon changes (typically firing through a call of
+     * {@link arethusa.core.state#methods_change state.change}) made during it.
+     *
+     * @param {Function} fn Function to call during `silent` mode
+     *
+     */
     this.doSilent = function(fn) {
       self.silent = true;
       fn();
       self.silent = false;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#doBatched
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Calls a function in `batchChange` mode. All change events (typically
+     * done through {@link arethusa.core.state#methods_change state.change}) firing
+     * during this mode will be collected and broadcasted as a single event.
+     *
+     * This is especially helpful when we want to undo a multi-change action in
+     * a single step.
+     *
+     * @param {Function} fn Function to call during `batchChange` mode
+     *
+     */
     this.doBatched = function(fn) {
       self.batchChangeStart();
       fn();
       self.batchChangeStop();
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#batchChangeStart
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Activates `batchChange` mode.
+     *
+     * Typically called during the execution of {@link arethusa.core.state#methods_doBatched state.doBatched}.
+     *
+     */
     this.batchChangeStart = function() {
       self.batchChange = true;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#batchChangeStop
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Deactivates `batchChange` mode and broadcasts the `batchChangeStop` event.
+     *
+     * Typically called during the execution of {@link arethusa.core.state#methods_doBatched state.doBatched}.
+     *
+     */
     this.batchChangeStop = function() {
       self.batchChange = false;
       self.broadcast('batchChangeStop');
@@ -477,6 +655,15 @@ angular.module('arethusa.core').service('state', [
       self.countTotalTokens();
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#init
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Configures the service and starts the document retrieval process.
+     *
+     */
     this.init = function () {
       configure();
       self.retrieveTokens();
