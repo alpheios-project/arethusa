@@ -16,7 +16,7 @@ angular.module('arethusa.core').directive('settingsTrigger', [
         element.css(margin, '10px');
 
         translator('settings', function(translation) {
-          element.attr('title', translation);
+          element.attr('title', translation());
         });
       },
       templateUrl: 'templates/arethusa.core/settings_trigger.html'

@@ -43,7 +43,7 @@ angular.module('arethusa.core').factory('Auth', [
 
       function loginWarning() {
         authFailure = true;
-        notifier().warning(translations.notLoggedIn, null, 500);
+        notifier().warning(translations.notLoggedIn(), null, 500);
       }
 
       function checkForAuthFailure(res) {

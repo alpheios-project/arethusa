@@ -18,7 +18,7 @@ angular.module('arethusa.comments').directive('commentInputForm', [
         };
 
         function markdownPlaceholder(translation) {
-          scope.markdownPlaceholder = translation;
+          scope.markdownPlaceholder = translation();
         }
 
         translator('markdownEnabled', markdownPlaceholder);

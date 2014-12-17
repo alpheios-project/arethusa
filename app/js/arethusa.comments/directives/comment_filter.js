@@ -49,8 +49,9 @@ angular.module('arethusa.comments').directive('commentFilter', [
           scope.count = scope.ids.length;
         });
 
-        scope.tooltip = {};
-        translator('uth.tooltip', scope.tooltip, 'text');
+        translator('uth.tooltip', function(trsl) {
+          scope.tooltip = trsl();
+        });
       },
       templateUrl: 'templates/arethusa.comments/comment_filter.html'
     };

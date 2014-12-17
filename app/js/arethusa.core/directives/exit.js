@@ -38,7 +38,7 @@ angular.module('arethusa.core').directive('exit', [
           });
 
           translator('exitHandler.exitTo', function(trsl) {
-            element.attr('title', [trsl.start, exitHandler.title, trsl.end].join(' '));
+            element.attr('title', trsl({ title: exitHandler.title }));
           }, null, true);
         } else {
           element.hide(); // or even remove?

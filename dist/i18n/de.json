@@ -27,30 +27,35 @@
   "create": "Erstellen",
   "list": "Liste",
   "delete": "Löschen",
-  "morph": {
-    "lemmaTranslation": "Lemma-Übersetzung",
-    "lemmaHint": "Dieses Lemma wurde automatisch eingetragen!\nÜberprüfe es bevor du speicherst!",
-    "createError": "Kann unvollständige Form nicht speichern",
-    "createNewForm": "Neue Form erstellen",
-    "searchByForm": "nach Form",
-    "matchAll": "alle",
-    "createSuccess": {
-      "start": "Form für",
-      "end": "hinzugefügt "
-    }
+  "tree": {
+    "changeDir": "Ändere Richtung",
+    "focusRoot": "Fokusiere Root",
+    "focusSel": "Fokusiere Selektion",
+    "centerTree": "Baum zentrieren",
+    "perfectWidth": "Breite anpassen",
+    "compact": "Baum verdichten",
+    "widen": "Baum ausdehnen"
   },
-  "plugins": {
-    "added": {
-      "start": "",
-      "end": "Plugin hinzugefügt!"
+  "sidepanel": {
+    "fold": "Panel verbergen",
+    "show": "Panel anzeigen"
+  },
+  "history": {
+    "undo": "Rückgängig",
+    "redo": "Wiederherstellen",
+    "noRecords": "Keine Ereignisse aufgenommen.",
+    "fromTo": "von {{ from }} zu {{ to }}",
+    "add": {
+      "start": "Einfügen von",
+      "end": ""
     },
-    "failed": {
-      "start": "Laden von",
-      "end": "gescheitert"
+    "remove": {
+      "start": "Entfernen von",
+      "end": ""
     },
-    "alreadyLoaded": {
-      "start": "",
-      "end": "ist bereits geladen!"
+    "change": {
+      "start": "Änderung der <strong>{{ property }}</strong> von",
+      "end": ""
     }
   },
   "search": {
@@ -83,58 +88,11 @@
     "count": "{{ count }} von {{ total }} unbenutzt",
     "tooltip": "Linksklick um hervorzuheben<br>Doppelklick um zu selektieren"
   },
-  "tree": {
-    "changeDir": "Ändere Richtung",
-    "focusRoot": "Fokusiere Root",
-    "focusSel": "Fokusiere Selektion",
-    "centerTree": "Baum zentrieren",
-    "perfectWidth": "Breite anpassen",
-    "compact": "Baum verdichten",
-    "widen": "Baum ausdehnen"
-  },
   "grid": {
     "dragging": "Ziehen",
     "pushing": "Schieben",
     "resizing": "Größe ändern",
     "floating": "Anpassen"
-  },
-  "history": {
-    "undo": "Rückgängig",
-    "redo": "Wiederherstellen",
-    "noRecords": "Keine Ereignisse aufgenommen.",
-    "fromTo": "von {{ from }} zu {{ to }}",
-    "add": {
-      "start": "Einfügen von",
-      "end": ""
-    },
-    "remove": {
-      "start": "Entfernen von",
-      "end": ""
-    },
-    "change": {
-      "start": "Änderung der <strong>{{ property }}</strong> von",
-      "end": ""
-    }
-  },
-  "aT": {
-    "addToken": "Token hinzufügen",
-    "visualRepresentation": "Visuelle Repräsentation des neuen Tokens (optional)",
-    "noArtTokensPresent": "Keine artifizielle Tokens vorhanden",
-    "insertionPoint": "Einfügungspunkt",
-    "insertBehindHint": "hinter Token einfügen (Klick zum Umschalten)",
-    "insertInFrontHint": "vor Token einfügen (Klick zum Umschalten)",
-    "insertBehind": {
-      "start": "hinter",
-      "end": ""
-    },
-    "insertInFront": {
-      "start": "vor",
-      "end": ""
-    }
-  },
-  "sidepanel": {
-    "fold": "Panel verbergen",
-    "show": "Panel anzeigen"
   },
   "depTree": {
     "errorAcrossSentences": "Heads können nicht über Satzgrenzen hinweg verändert werden"
@@ -144,18 +102,6 @@
     "revision": "Revision",
     "keyboardShortcuts": "Tastaturkürzel",
     "colorLegends": "Farblegenden"
-  },
-  "navigator": {
-    "goToFirst": "erster Abschnitt",
-    "goToLast": "letzter Abschnitt",
-    "goToPrev": "vorheriger Abschnitt",
-    "goToNext": "nächster Abschnitt",
-    "chunkSizeError": "Es werden nur Teilungsgrößen zwischen 1 und 5 unterstützt"
-  },
-  "exitHandler": {
-    "exitTo": {
-      "start": "Aussteigen zu"
-    }
   },
   "relation": {
     "changeAll": "Alle verändern",
@@ -176,7 +122,23 @@
     "noEditorsPresent": "Keine Bearbeiter bekannt.",
     "title": "Bearbeiter"
   },
+  "plugins": {
+    "alreadyLoaded": "{{ name }} ist bereits geladen!",
+    "failed": "Laden von {{ name }} gescheitert",
+    "added": "{{ name }} Plugin hinzugefügt!"
+  },
+  "aT": {
+    "insertInFront": "vor",
+    "insertBehind": "hinter",
+    "addToken": "Token hinzufügen",
+    "visualRepresentation": "Visuelle Repräsentation des neuen Tokens (optional)",
+    "noArtTokensPresent": "Keine artifizielle Tokens vorhanden",
+    "insertionPoint": "Einfügungspunkt",
+    "insertBehindHint": "hinter Token einfügen (Klick zum Umschalten)",
+    "insertInFrontHint": "vor Token einfügen (Klick zum Umschalten)"
+  },
   "globalSettings": {
+    "layoutLoaded": "{{ layout }} Layout geladen!",
     "persistSettings": "Einstellungen speichern",
     "title": "Globale Einstellungen",
     "alwaysDeselect": "Deselektiere nach jeder Annotations-Aktion",
@@ -184,9 +146,25 @@
     "colorizer": "Token einfärben nach",
     "layout": "Layout",
     "clickAction": "Klickverhalten",
-    "chunkMode": "Teilungsmodus",
-    "layoutLoaded": {
-      "end": "Layout geladen!"
-    }
+    "chunkMode": "Teilungsmodus"
+  },
+  "navigator": {
+    "goToFirst": "erster Abschnitt",
+    "goToLast": "letzter Abschnitt",
+    "goToPrev": "vorheriger Abschnitt",
+    "goToNext": "nächster Abschnitt",
+    "chunkSizeError": "Es werden nur Teilungsgrößen zwischen 1 und {{ max }} unterstützt"
+  },
+  "morph": {
+    "createSuccess": "Form für  {{ form }} hinzugefügt",
+    "lemmaTranslation": "Lemma-Übersetzung",
+    "lemmaHint": "Dieses Lemma wurde automatisch eingetragen!\nÜberprüfe es bevor du speicherst!",
+    "createError": "Kann unvollständige Form nicht speichern",
+    "createNewForm": "Neue Form erstellen",
+    "searchByForm": "nach Form",
+    "matchAll": "alle"
+  },
+  "exitHandler": {
+    "exitTo": "Aussteigen zu {{ title }}"
   }
 }

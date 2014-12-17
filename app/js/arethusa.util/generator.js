@@ -12,7 +12,7 @@ angular.module('arethusa.util').service('generator', [
           var hint;
 
           function updateTitle(translation) {
-            var title = translation;
+            var title = translation();
             if (hint) title += ' (' + hint + ')';
             element.attr('title', title);
           }

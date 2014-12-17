@@ -18,7 +18,7 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
         var trsl = {};
         function updateAndTrigger(key) {
           return function(translation) {
-            trsl[key] = translation;
+            trsl[key] = translation();
             setInsertDirText();
           };
         }

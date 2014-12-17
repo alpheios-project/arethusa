@@ -19,7 +19,7 @@ angular.module('arethusa.core').directive('outputter', [
         });
 
         translator('saver.previewAndDownload', function(trsl) {
-          element.attr('title', trsl);
+          element.attr('title', trsl());
         });
       },
       template: '<i class="fa fa-download"/>'

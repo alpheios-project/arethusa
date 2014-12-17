@@ -30,7 +30,7 @@ angular.module('arethusa.core').directive('translateLanguage', [
 
         var parent = element.parent();
         translator('language', function(translation) {
-          parent.attr('title', translation);
+          parent.attr('title', translation());
         });
 
         useKey();

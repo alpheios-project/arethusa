@@ -139,9 +139,11 @@ angular.module('arethusa.comments').service('comments', [
     }
 
     var translations = {};
-    translator('comments.successMessage', translations, 'success');
-    translator('comments.errorMessage', translations, 'error');
-    translator('comments.selectFirst', translations, 'selectFirst');
+    translator({
+      'comments.successMessage': 'success',
+      'comments.errorMessage': 'error',
+      'comments.selectFirst': 'selectFirst'
+    }, translations);
 
     function saveSuccess(fn) {
       return function(commentContainer) {
@@ -154,12 +156,12 @@ angular.module('arethusa.comments').service('comments', [
           retrieveComments();
         }
         fn();
-        notifier.success(translations.success);
+        notifier.success(translations.success());
       };
     }
 
     function saveError() {
-      notifier.error(translations.error);
+      notifier.error(translations.error());
     }
 
     // Bad system - not compatible with multi sentences
@@ -181,7 +183,7 @@ angular.module('arethusa.comments').service('comments', [
         self.creator = true;
         plugins.setActive(self);
       } else {
-        notifier.info(translations.selectFirst);
+        notifier.info(translations.selectFirst());
       }
     }
 

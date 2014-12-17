@@ -9,7 +9,7 @@ angular.module('arethusa.core').controller('SearchCtrl', [
     };
 
     translator('search_documents', function(translation) {
-      $scope.search_documents = translation;
+      $scope.search_documents = translation();
     });
   }
 ]);

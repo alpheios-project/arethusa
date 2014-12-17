@@ -18,8 +18,10 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
         var lemmaForm = element.find('#lemma-form');
 
         scope.translations = {};
-        translator('morph.createSuccess', scope.translations, 'createSuccess', true);
-        translator('morph.createError',   scope.translations, 'createError');
+        translator({
+          'morph.createSuccess': 'createSuccess',
+          'morph.createError': 'createError'
+        }, scope.translations);
 
 
         scope.m = morph;
@@ -148,8 +150,8 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           morph.setState(scope.id, newForm);
           morph.addToLocalStorage(scope.token.string, newForm);
           propagateToEqualTokens(newForm);
-          var trsl = scope.translations.createSuccess;
-          var msg = [trsl.start, state.asString(scope.id), trsl.end].join(' ');
+          var str = state.asString(scope.id);
+          var msg = scope.translations.createSuccess({ form: str });
           notifier.success(msg);
         }
 

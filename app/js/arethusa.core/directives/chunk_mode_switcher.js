@@ -5,6 +5,7 @@ angular.module('arethusa.core').directive('chunkModeSwitcher', [
   'notifier',
   'translator',
   function(navigator, notifier, translator) {
+    var MAX_CHUNK_SIZE = 10;
     return {
       restrict: 'A',
       scope: {},
@@ -12,7 +13,9 @@ angular.module('arethusa.core').directive('chunkModeSwitcher', [
         scope.navi = navigator;
 
         var tr = {};
-        translator('navigator.chunkSizeError', tr, 'chunkSizeError');
+        translator({
+          'navigator.chunkSizeError':  'chunkSizeError'
+        }, tr);
 
         scope.$watch('navi.chunkSize', function(newVal) { scope.size = newVal; });
 
@@ -21,8 +24,8 @@ angular.module('arethusa.core').directive('chunkModeSwitcher', [
           if (navigator.chunkSize === size) {
             return;
           }
-          if (size < 1 || size > 5) {
-            notifier.error(tr.chunkSizeError);
+          if (size < 1 || size > MAX_CHUNK_SIZE) {
+            notifier.error(tr.chunkSizeError({ max: MAX_CHUNK_SIZE }));
             scope.size = navigator.chunkSize;
           } else {
             navigator.changeChunkSize(scope.size);

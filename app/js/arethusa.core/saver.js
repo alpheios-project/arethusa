@@ -14,12 +14,14 @@ angular.module('arethusa.core').service('saver', [
     var persisters;
 
     var translations = {};
-    translator('saver.success', translations, 'success');
-    translator('saver.error', translations, 'error');
-    translator('saver.inProgress', translations, 'inProgress');
-    translator('saver.nothingToSave', translations, 'nothingToSave');
-    translator('saver.confirmNote', translations, 'confirmNote');
-    translator('saver.confirmQuestion', translations, 'confirmQuestion');
+    translator({
+      'saver.success': 'success',
+      'saver.error': 'error',
+      'saver.inProgress': 'inProgress',
+      'saver.nothingToSave': 'nothingToSave',
+      'saver.confirmNote': 'confirmNote',
+      'saver.confirmQuestion': 'confirmQuestion'
+    }, translations);
 
     function getPersisters() {
       var persisterConf = configurator.configurationFor('main').persisters;
@@ -60,7 +62,7 @@ angular.module('arethusa.core').service('saver', [
     function success(res) {
       self.needsSave = false;
       setChangeWatch();
-      notifier.success(translations.success);
+      notifier.success(translations.success());
     }
 
     function error(res) {
@@ -71,7 +73,7 @@ angular.module('arethusa.core').service('saver', [
       if (res.status == 406) {
         success();
       } else {
-        notifier.error(translations.error);
+        notifier.error(translations.error());
       }
     }
 
@@ -82,10 +84,10 @@ angular.module('arethusa.core').service('saver', [
     this.save = function() {
 
       if (self.needsSave) {
-        notifier.wait(translations.inProgress);
+        notifier.wait(translations.inProgress());
         angular.forEach(persisters, callSave);
       } else {
-        notifier.info(translations.nothingToSave);
+        notifier.info(translations.nothingToSave());
       }
     };
 
@@ -126,13 +128,13 @@ angular.module('arethusa.core').service('saver', [
       // altogether.
 
       $window.onbeforeunload = function() {
-        if (self.needsSave) { return translations.confirmNote; }
+        if (self.needsSave) { return translations.confirmNote(); }
       };
 
       // We need this when a user is changing the url from within the application
       $rootScope.$on('$locationChangeStart', function(event) {
         if (self.needsSave) {
-          if (!$window.confirm(translations.confirmNote + "\n" + translations.confirmQuestion)) {
+          if (!$window.confirm(translations.confirmNote() + "\n" + translations.confirmQuestion())) {
             event.preventDefault();
           }
         }
