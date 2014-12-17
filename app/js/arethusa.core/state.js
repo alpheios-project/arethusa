@@ -10,8 +10,10 @@ angular.module('arethusa.core').service('state', [
   'idHandler',
   'globalSettings',
   'confirmationDialog',
+  'notifier',
   function (configurator, navigator, $rootScope, documentStore, keyCapture,
-            locator, StateChange, idHandler, globalSettings, confirmationDialog) {
+            locator, StateChange, idHandler, globalSettings, confirmationDialog,
+            notifier) {
     var self = this;
     var tokenRetrievers;
 
@@ -394,6 +396,7 @@ angular.module('arethusa.core').service('state', [
           delete self.tokens[id];
         });
         navigator.removeToken(token);
+        notifier.success(token.string + ' removed!');
         self.deselectAll();
         self.countTotalTokens();
       }));
