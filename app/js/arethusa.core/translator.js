@@ -3,25 +3,18 @@
 angular.module('arethusa.core').factory('translator', [
   '$rootScope',
   '$translate',
-  function($rootScope, $translate) {
-    function formatTrslObj(translation, id) {
-      var obj = {};
-      obj.start = translation[id + '.start'];
-      obj.end = translation[id + '.end'];
-      return obj;
-    }
-
-    function translate(id, objOrFn, propertyPath, startAndEnd) {
-      var trslId = startAndEnd ? [id + '.start', id + '.end'] : id;
-      $translate(trslId).then(function(translation) {
-        if (startAndEnd) {
-          translation = formatTrslObj(translation, id);
-        }
-
+  '$interpolate',
+  function($rootScope, $translate, $interpolate) {
+    function translate(id, objOrFn, propertyPath) {
+      $translate(id, null, 'nullInterpolator').then(function(translation) {
         if (angular.isFunction(objOrFn)) {
           objOrFn(translation);
         } else {
-          arethusaUtil.setProperty(objOrFn, propertyPath, translation);
+          arethusaUtil.setProperty(
+            objOrFn,
+            propertyPath,
+            $interpolate(translation)
+          );
         }
       });
     }
