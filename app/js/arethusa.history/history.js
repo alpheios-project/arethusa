@@ -1,4 +1,18 @@
 'use strict';
+/**
+ * @ngdoc service
+ * @name arethusa.history.history
+ *
+ * @description
+ * Tracks and stores all changes happening through the
+ * {@link arethusa.core.state state} API
+ *
+ *
+ *
+ * @requires arethusa.core.configurator
+ * @requires arethusa.core.keyCapture
+ * @requires arethusa.core.state
+ */
 angular.module('arethusa.history').service('history', [
   'configurator',
   'keyCapture',
@@ -9,7 +23,18 @@ angular.module('arethusa.history').service('history', [
 
     function configure() {
       configurator.getConfAndDelegate(self);
-      self.maxSize = self.maxSize || 20;
+
+      /**
+       * @ngdoc property
+       * @name maxSize
+       * @propertyOf arethusa.history.history
+       *
+       * @description
+       * ***Configurable property***
+       *
+       * Maximum number of saved events. Defaults to 50.
+       */
+      self.maxSize = self.maxSize || 50;
     }
 
     function doSilent(fn) {
@@ -56,6 +81,14 @@ angular.module('arethusa.history').service('history', [
  *                            Public Functions                             *
  ***************************************************************************/
 
+    /**
+     * @ngdoc function
+     * @name arethusa.history.history#undo
+     * @methodOf arethusa.history.history
+     *
+     * @description
+     * Undoes the last event.
+     */
     this.undo = function() {
       if (self.canUndo) {
         doSilent(function() {
@@ -65,6 +98,14 @@ angular.module('arethusa.history').service('history', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.history.history#redo
+     * @methodOf arethusa.history.history
+     *
+     * @description
+     * Redoes the last event.
+     */
     this.redo = function() {
       if (self.canRedo) {
         doSilent(function() {
@@ -105,6 +146,14 @@ angular.module('arethusa.history').service('history', [
       this.undo = function() { state.doBatched(multiUndo); };
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.history.history#saveEvent
+     * @methodOf arethusa.history.history
+     *
+     * @description
+     * Adds a new event to the history.
+     */
     var batchedEvent = new BatchEvent();
     this.saveEvent = function(event) {
       if (state.silent) return;
@@ -173,9 +222,48 @@ angular.module('arethusa.history').service('history', [
     this.init = function() {
       keyCaptures();
       configure();
+
+      /**
+       * @ngdoc property
+       * @name canRedo
+       * @propertyOf arethusa.history.history
+       *
+       * @description
+       * Determines if an {@link arethusa.history.history#methods_redo redo}
+       * operation can be done.
+       */
       self.canRedo = false;
+
+      /**
+       * @ngdoc property
+       * @name canUndo
+       * @propertyOf arethusa.history.history
+       *
+       * @description
+       * Determines if an {@link arethusa.history.history#methods_undo undo}
+       * operation can be done.
+       */
       self.canUndo = false;
+
+      /**
+       * @ngdoc property
+       * @name events
+       * @propertyOf arethusa.history.history
+       *
+       * @description
+       * Array of all stored history events.
+       */
       self.events = [];
+
+      /**
+       * @ngdoc property
+       * @name position
+       * @propertyOf arethusa.history.history
+       *
+       * @description
+       * Current position in the
+       * {@link arethusa.history.history#properties_events events} container.
+       */
       self.position = 0;
     };
   }
