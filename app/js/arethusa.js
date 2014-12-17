@@ -2,7 +2,6 @@
 angular.module('arethusa', [
   'angulartics',
   'angulartics.google.analytics',
-  'mm.foundation',
   'ngRoute',
   'arethusa.core',
   'arethusa.contextMenu',
