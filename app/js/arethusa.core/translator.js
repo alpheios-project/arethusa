@@ -7,13 +7,14 @@ angular.module('arethusa.core').factory('translator', [
   function($rootScope, $translate, $interpolate) {
     function translate(id, objOrFn, propertyPath) {
       $translate(id, null, 'nullInterpolator').then(function(translation) {
+        var interpolate = $interpolate(translation);
         if (angular.isFunction(objOrFn)) {
-          objOrFn(translation);
+          objOrFn(interpolate);
         } else {
           arethusaUtil.setProperty(
             objOrFn,
             propertyPath,
-            $interpolate(translation)
+            interpolate
           );
         }
       });
