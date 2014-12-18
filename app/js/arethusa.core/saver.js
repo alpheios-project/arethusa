@@ -60,7 +60,6 @@ angular.module('arethusa.core').service('saver', [
     // to handle the success notification better.
     function success(res) {
       self.needsSave = false;
-      setChangeWatch();
       notifier.success(translations.success());
     }
 
@@ -102,21 +101,14 @@ angular.module('arethusa.core').service('saver', [
       angular.extend(self.activeKeys, keys.saver);
     }
 
-    var changeWatch;
     function setChangeWatch() {
-      changeWatch = state.watch('*', watchChange);
+      state.on('tokenChange',  watchChange);
       state.on('tokenAdded',   watchChange);
       state.on('tokenRemoved', watchChange);
     }
 
     function watchChange() {
       self.needsSave = true;
-      unsetChangeWatch();
-    }
-
-    function unsetChangeWatch() {
-      if (changeWatch) changeWatch();
-      changeWatch = undefined;
     }
 
     // Don't let the user leave without a prompt, when
