@@ -540,11 +540,9 @@ angular.module('arethusa.morph').service('morph', [
     this.updateGloss = function(id, form) {
       if (self.gloss) {
         state.broadcast('tokenChange');
-        var gloss = self.analyses[id].gloss;
-        if (gloss) {
-          form = form || selectedForm(id);
-          form.gloss = gloss;
-        }
+        var gloss = self.analyses[id].gloss || '';
+        form = form || selectedForm(id);
+        form.gloss = gloss;
       }
     };
 
