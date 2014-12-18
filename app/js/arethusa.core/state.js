@@ -198,7 +198,6 @@ angular.module('arethusa.core').service('state', [
       self.checkLoadStatus();
     };
 
-    // Delegators
     this.asString = function (id) {
       return self.tokens[id].string;
     };
@@ -207,8 +206,8 @@ angular.module('arethusa.core').service('state', [
       return self.tokens[id] || {};
     };
 
-    // Selections
     this.selectedTokens = {};
+
     this.clickedTokens  = {};
 
     this.hasSelections = function() {
@@ -227,7 +226,6 @@ angular.module('arethusa.core').service('state', [
       return id in this.clickedTokens;
     };
 
-    // multi-selects tokens, given an array of ids
     this.multiSelect = function(ids) {
       self.deselectAll();
       selectMultipleTokens(ids);
@@ -239,13 +237,19 @@ angular.module('arethusa.core').service('state', [
       });
     }
 
+    function isSelectable(oldVal, newVal) {
+      // if an element was hovered, we only select it when another
+      // selection type is present (such as 'click'), if there was
+      // no selection at all (oldVal === undefined), we select too
+      return oldVal === 'hover' && newVal !== 'hover' || !oldVal;
+    }
 
     // type should be either 'click', 'ctrl-click' or 'hover'
     var simpleToMultiSelect;
     this.selectToken = function (id, type) {
       if (type === 'click') self.deselectAll();
 
-      if (self.isSelectable(self.selectionType(id), type)) {
+      if (isSelectable(self.selectionType(id), type)) {
         self.selectedTokens[id] = type;
         if (type !== 'hover') {
           self.clickedTokens[id] = type;
@@ -268,13 +272,6 @@ angular.module('arethusa.core').service('state', [
 
     this.selectionType = function (id) {
       return self.selectedTokens[id];
-    };
-
-    this.isSelectable = function (oldVal, newVal) {
-      // if an element was hovered, we only select it when another
-      // selection type is present (such as 'click'), if there was
-      // no selection at all (oldVal === undefined), we select too
-      return oldVal === 'hover' && newVal !== 'hover' || !oldVal;
     };
 
     this.deselectToken = function (id, type) {
