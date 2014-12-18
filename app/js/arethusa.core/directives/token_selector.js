@@ -33,7 +33,6 @@ angular.module('arethusa.core').directive('tokenSelector', [
           },
           changedCount: function(newCount) {
             unusedSelector.count = newCount;
-            translator("selector.unused", unusedSelector, "label");
           }
         };
         var unusedWatcher = new StateChangeWatcher('head.id', callbacks);
@@ -66,27 +65,35 @@ angular.module('arethusa.core').directive('tokenSelector', [
           },
           isActive: true
         };
-        translator("selector.none", noneSelector, "label");
+        translator("selector.none", function(translationFn) {
+          noneSelector.label = translationFn();
+        });
 
         var allSelector = {
           action: selectAll,
           isActive: false
         };
-        translator("selector.all", allSelector, "label");
+        translator("selector.all", function(translationFn) {
+          allSelector.label = translationFn();
+        });
 
         var unusedSelector = {
           action: selectUnused,
           isActive: false,
           count: 0
         };
-        translator("selector.unused", unusedSelector, "label");
+        translator("selector.unused", function(translationFn) {
+          unusedSelector.label = translationFn({count: unusedSelector.count});
+        });
 
         var unusedHighlighter = {
           action: switchHighlighting,
           styleClasses: 'unused-highlighter',
           isActive: false
         };
-        translator("selector.highlightUnused", unusedHighlighter, "label");
+        translator("selector.highlightUnused", function(translationFn) {
+          unusedHighlighter.label = translationFn();
+        });
 
         scope.selectors = [
           noneSelector,
