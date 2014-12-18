@@ -569,12 +569,18 @@ angular.module('arethusa.core').service('state', [
      * @methodOf arethusa.core.state
      *
      * @description
-     * Delegates to `$rootScope.broadcast`.
+     * Delegates to `$rootScope.broadcast` to provide 
+     * access to this feature from state rather than 
+     * requiring injection of rootScope 
      *
      * @param {String} event The eventname
      * @param {*} [arg] Optional argument transmitted alongside the event
      */
     this.broadcast = function(event, arg) {
+      // broadcast here iterates through all 
+      // handlers which have registered a listener
+      // on the broadcasted event and executes them
+      // before returning
       $rootScope.$broadcast(event, arg);
     };
 
