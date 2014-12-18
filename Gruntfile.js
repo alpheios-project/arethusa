@@ -9,7 +9,7 @@ var specE2eFiles = 'spec-e2e/**/*.js';
 var devServerPort = 8081;
 var reloadPort = 35279;
 var confPath = 'app/static/configs';
-var docPath  = 'dist/docs';
+var docPath  = 'docs';
 var docCustom = docPath + '/custom';
 var versionInfoFilename = 'app/js/arethusa/version.json';
 

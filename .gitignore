@@ -4,9 +4,9 @@ bower_components/*
 coverage
 dist/*
 !dist/i18n
-docs
+docs/*
+!docs/custom
 dist/
-!dist/docs/custom
 deployment/
 .sass-cache
 app/css/*.css*
