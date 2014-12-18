@@ -41,6 +41,8 @@
     "show": "Show Panel"
   },
   "history": {
+    "redoSuccess": "Change redone",
+    "undoSuccess": "Change undone",
     "undo": "Undo",
     "redo": "Redo",
     "noRecords": "No history events recorded.",
