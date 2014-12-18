@@ -18,9 +18,16 @@ angular.module('arethusa.history').service('history', [
   'configurator',
   'keyCapture',
   'state',
-  function (configurator, keyCapture, state) {
+  'translator',
+  'notifier',
+  function (configurator, keyCapture, state, translator, notifier) {
     var self = this;
     this.name = "history";
+
+    var trsls = translator({
+      'history.undoSuccess': 'undoSuccess',
+      'history.redoSuccess': 'redoSuccess'
+    });
 
     function configure() {
       configurator.getConfAndDelegate(self);
@@ -103,6 +110,7 @@ angular.module('arethusa.history').service('history', [
           current().undo();
           self.position++;
         });
+        notifier.success(trsls.undoSuccess());
       }
     };
 
@@ -128,6 +136,7 @@ angular.module('arethusa.history').service('history', [
           self.position--;
           current().exec();
         });
+        notifier.success(trsls.redoSuccess());
       }
     };
 
