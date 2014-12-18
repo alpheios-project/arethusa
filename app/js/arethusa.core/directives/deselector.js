@@ -23,7 +23,7 @@ angular.module('arethusa.core').directive('deselector', [
         });
 
         translator('deselectAll', function(translation) {
-          trsl = translation;
+          trsl = translation();
           setTitle();
         });
 

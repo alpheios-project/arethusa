@@ -38,8 +38,8 @@ angular.module('arethusa.core').directive('exit', [
           });
 
           translator('exitHandler.exitTo', function(trsl) {
-            element.attr('title', [trsl.start, exitHandler.title, trsl.end].join(' '));
-          }, null, true);
+            element.attr('title', trsl({ title: exitHandler.title }));
+          });
         } else {
           element.hide(); // or even remove?
         }

@@ -18,14 +18,14 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
         var trsl = {};
         function updateAndTrigger(key) {
           return function(translation) {
-            trsl[key] = translation;
+            trsl[key] = translation();
             setInsertDirText();
           };
         }
-        translator('aT.insertBehind',     updateAndTrigger('behind'), null, true);
-        translator('aT.insertInFront',    updateAndTrigger('inFront'), null, true);
-        translator('aT.insertBehindHint', updateAndTrigger('behindHint'));
-        translator('aT.insertInFrontHint',    updateAndTrigger('inFrontHint'));
+        translator('aT.insertBehind',      updateAndTrigger('behind'));
+        translator('aT.insertInFront',     updateAndTrigger('inFront'));
+        translator('aT.insertBehindHint',  updateAndTrigger('behindHint'));
+        translator('aT.insertInFrontHint', updateAndTrigger('inFrontHint'));
 
         function setInsertDirText() {
           var dir = scope.aT.insertBehind ? 'behind' : 'inFront';

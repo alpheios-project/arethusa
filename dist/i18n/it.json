@@ -1,39 +1,9 @@
 {
-  "morph": {
-    "createSuccess": {}
-  },
-  "plugins": {
-    "added": {},
-    "failed": {},
-    "alreadyLoaded": {}
-  },
-  "search": {},
-  "saver": {},
-  "landing": {},
-  "auth": {},
-  "uth": {},
-  "tree": {},
-  "grid": {},
-  "history": {
-    "add": {},
-    "remove": {},
-    "change": {}
-  },
-  "aT": {
-    "insertBehind": {},
-    "insertInFront": {}
-  },
-  "sidepanel": {},
-  "depTree": {},
-  "helpPanel": {},
+  "review": {},
+  "plugins": {},
+  "aT": {},
+  "globalSettings": {},
   "navigator": {},
-  "exitHandler": {
-    "exitTo": {}
-  },
-  "relation": {},
-  "comments": {},
-  "editors": {},
-  "globalSettings": {
-    "layoutLoaded": {}
-  }
+  "morph": {},
+  "exitHandler": {}
 }

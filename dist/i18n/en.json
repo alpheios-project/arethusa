@@ -27,30 +27,35 @@
   "create": "Create",
   "list": "List",
   "delete": "Delete",
-  "morph": {
-    "lemmaTranslation": "Lemma Translation",
-    "lemmaHint": "This lemma was added automatically!\nCheck it before you save!",
-    "createError": "Cannot save an incomplete form",
-    "createNewForm": "Create new form",
-    "searchByForm": "by form",
-    "matchAll": "all",
-    "createSuccess": {
-      "start": "Added form for",
-      "end": ""
-    }
+  "tree": {
+    "changeDir": "Change Direction",
+    "focusRoot": "Focus Root",
+    "focusSel": "Focus Selection",
+    "centerTree": "Center Tree",
+    "perfectWidth": "Perfect Width",
+    "compact": "Compact tree",
+    "widen": "Widen tree"
   },
-  "plugins": {
-    "added": {
-      "start": "",
-      "end": "plugin added"
-    },
-    "failed": {
-      "start": "Failed to load",
+  "sidepanel": {
+    "fold": "Fold Panel",
+    "show": "Show Panel"
+  },
+  "history": {
+    "undo": "Undo",
+    "redo": "Redo",
+    "noRecords": "No history events recorded.",
+    "fromTo": "from {{ from }} to {{ to }}",
+    "add": {
+      "start": "Added",
       "end": ""
     },
-    "alreadyLoaded": {
-      "start": "",
-      "end": "is already loaded!"
+    "remove": {
+      "start": "Removed",
+      "end": ""
+    },
+    "change": {
+      "start": "Changed <strong>{{ property }}</strong> of",
+      "end": ""
     }
   },
   "search": {
@@ -83,58 +88,11 @@
     "count": "{{ count }} of {{ total }} unused",
     "tooltip": "Click to toggle highlighting<br>Double-click to select"
   },
-  "tree": {
-    "changeDir": "Change Direction",
-    "focusRoot": "Focus Root",
-    "focusSel": "Focus Selection",
-    "centerTree": "Center Tree",
-    "perfectWidth": "Perfect Width",
-    "compact": "Compact tree",
-    "widen": "Widen tree"
-  },
   "grid": {
     "dragging": "Dragging",
     "pushing": "Pushing",
     "resizing": "Resizing",
     "floating": "Floating"
-  },
-  "history": {
-    "undo": "Undo",
-    "redo": "Redo",
-    "noRecords": "No history events recorded.",
-    "fromTo": "from {{ from }} to {{ to }}",
-    "add": {
-      "start": "Added",
-      "end": ""
-    },
-    "remove": {
-      "start": "Removed",
-      "end": ""
-    },
-    "change": {
-      "start": "Changed <strong>{{ property }}</strong> of",
-      "end": ""
-    }
-  },
-  "aT": {
-    "addToken": "Add token",
-    "visualRepresentation": "Visual representation of new token (optional)",
-    "noArtTokensPresent": "No artificial tokens present",
-    "insertionPoint": "Insertion Point",
-    "insertBehindHint": "insert behind token (click to toggle)",
-    "insertInFrontHint": "insert in front of token (click to toggle)",
-    "insertBehind": {
-      "start": "behind",
-      "end": ""
-    },
-    "insertInFront": {
-      "start": "in front of",
-      "end": ""
-    }
-  },
-  "sidepanel": {
-    "fold": "Fold Panel",
-    "show": "Show Panel"
   },
   "depTree": {
     "errorAcrossSentences": "Cannot change heads across sentences"
@@ -144,19 +102,6 @@
     "revision": "Revision",
     "keyboardShortcuts": "Keyboard Shortcuts",
     "colorLegends": "Color Legends"
-  },
-  "navigator": {
-    "goToFirst": "go to first chunk",
-    "goToLast": "go to last chunk",
-    "goToPrev": "go to previous chunk",
-    "goToNext": "go to next chunk",
-    "chunkSizeError": "Only chunk sizes between 1 and 5 are currently supported"
-  },
-  "exitHandler": {
-    "exitTo": {
-      "start": "Exit to",
-      "end": ""
-    }
   },
   "relation": {
     "changeAll": "Change all",
@@ -177,7 +122,23 @@
     "noEditorsPresent": "No editors known.",
     "title": "Editors"
   },
+  "plugins": {
+    "alreadyLoaded": "{{ name }} is already loaded!",
+    "failed": "Failed to load {{ name }}",
+    "added": "{{ name }} plugin added!"
+  },
+  "aT": {
+    "insertInFront": "in front of",
+    "insertBehind": "behind",
+    "addToken": "Add token",
+    "visualRepresentation": "Visual representation of new token (optional)",
+    "noArtTokensPresent": "No artificial tokens present",
+    "insertionPoint": "Insertion Point",
+    "insertBehindHint": "insert behind token (click to toggle)",
+    "insertInFrontHint": "insert in front of token (click to toggle)"
+  },
   "globalSettings": {
+    "layoutLoaded": "{{ layout }} layout loaded!",
     "persistSettings": "Save preferences",
     "title": "Global Settings",
     "alwaysDeselect": "Deselect after every annotation action",
@@ -185,10 +146,25 @@
     "colorizer": "Colorize tokens by",
     "layout": "Layout",
     "clickAction": "Click behaviour",
-    "chunkMode": "Chunk Mode",
-    "layoutLoaded": {
-      "start": "",
-      "end": "layout loaded!"
-    }
+    "chunkMode": "Chunk Mode"
+  },
+  "navigator": {
+    "goToFirst": "go to first chunk",
+    "goToLast": "go to last chunk",
+    "goToPrev": "go to previous chunk",
+    "goToNext": "go to next chunk",
+    "chunkSizeError": "Only chunk sizes between 1 and {{ max }} are currently supported"
+  },
+  "morph": {
+    "createSuccess": "Added form for {{ form }}",
+    "lemmaTranslation": "Lemma Translation",
+    "lemmaHint": "This lemma was added automatically!\nCheck it before you save!",
+    "createError": "Cannot save an incomplete form",
+    "createNewForm": "Create new form",
+    "searchByForm": "by form",
+    "matchAll": "all"
+  },
+  "exitHandler": {
+    "exitTo": "Exit to {{ title }}"
   }
 }

@@ -57,7 +57,7 @@ angular.module('arethusa.core').directive('saver', [
         });
 
         translator('save', function(translation) {
-          trsl = translation;
+          trsl = translation();
           setTitle();
         });
 

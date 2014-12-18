@@ -27,8 +27,7 @@ angular.module('arethusa.core').factory('Auth', [
 
     function noop() {}
 
-    var translations = {};
-    translator('auth.notLoggedIn', translations, 'notLoggedIn');
+    var translations = translator('auth.notLoggedIn', translations, 'notLoggedIn');
 
     return function(conf, modeFn) {
       var self = this;
@@ -43,7 +42,7 @@ angular.module('arethusa.core').factory('Auth', [
 
       function loginWarning() {
         authFailure = true;
-        notifier().warning(translations.notLoggedIn, null, 500);
+        notifier().warning(translations.notLoggedIn(), null, 500);
       }
 
       function checkForAuthFailure(res) {

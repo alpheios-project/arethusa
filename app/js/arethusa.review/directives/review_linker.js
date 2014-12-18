@@ -10,17 +10,18 @@ angular.module('arethusa.review').directive('reviewLinker', [
       link: function(scope, element, attrs) {
         scope.review = review;
 
-        scope.translations = {};
-        translator('review.link',   scope.translations, 'link');
-        translator('review.unlink', scope.translations, 'unlink');
+        scope.translations = translator({
+          'review.link' : 'link',
+          'review.unlink' : 'unlink'
+        });
 
         function setTitle(prop) {
-          element.attr('title', scope.translations[scope.icon]);
+          element.attr('title', scope.translations[scope.icon]());
         }
 
         scope.$watch('translations', function(newVal, oldVal) {
           if (newVal !== oldVal) setTitle();
-        });
+        }, true);
 
         scope.$watch('review.link', function(newVal, oldVal) {
           if (newVal) {

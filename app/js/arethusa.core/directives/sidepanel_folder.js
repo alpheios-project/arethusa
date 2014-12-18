@@ -10,9 +10,10 @@ angular.module('arethusa.core').directive('sidepanelFolder', [
       link: function (scope, element, attrs) {
         var win = angular.element($window);
 
-        scope.translations = {};
-        translator('sidepanel.show', scope.translations, 'show');
-        translator('sidepanel.fold', scope.translations, 'fold');
+        scope.translations = translator({
+          'sidepanel.show': 'show',
+          'sidepanel.fold': 'fold'
+        });
 
         scope.$watch('translations', function(newVal, oldVal) {
           if (newVal !== oldVal) {
@@ -25,7 +26,7 @@ angular.module('arethusa.core').directive('sidepanelFolder', [
           var text = sidepanel.folded ? 'show' : 'fold';
           var key  = arethusaUtil.formatKeyHint(sidepanel.activeKeys.toggle);
           scope.iconClass = 'fi-arrows-' + icon;
-          element.attr('title', scope.translations[text] + " " + key);
+          element.attr('title', scope.translations[text]() + " " + key);
         }
 
         element.on('click', function () {

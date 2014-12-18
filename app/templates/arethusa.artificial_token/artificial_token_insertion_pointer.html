@@ -4,13 +4,12 @@
     <div class="small-panel row text-left">
       <span ng-if="!insertionPoint">-</span>
       <span ng-if=" insertionPoint">
-        <span>{{ insertDirText.start }}</span>
+        <span>{{ insertDirText }}</span>
         <span
           token-with-id
           value="insertionPoint.string"
           token-id="insertionPoint.id">
         </span>
-        <span>{{ insertDirText.end }}</span>
       </span>
       <span class="right">
         <span

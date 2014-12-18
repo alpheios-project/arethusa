@@ -23,30 +23,35 @@
   "create": "Créer",
   "list": "Liste",
   "delete": "Supprimer",
-  "morph": {
-    "lemmaTranslation": "Traduction du lemme",
-    "lemmaHint": "Ce lemme a été ajouté automatiquement\nVérifier le avant de sauvegarder.!",
-    "createError": "Impossible de créer une forme incomplète",
-    "createNewForm": "Créer une nouvelle forme",
-    "searchByForm": "par forme",
-    "matchAll": "Tout",
-    "createSuccess": {
-      "start": "Forme ajoutée pour",
-      "end": ""
-    }
+  "tree": {
+    "changeDir": "Changer la direction",
+    "focusRoot": "Centrer sur la racine",
+    "focusSel": "Sélectionner la racine",
+    "centerTree": "Centrer l'arbre",
+    "perfectWidth": "Ajuster la largeur",
+    "compact": "Taille minimale",
+    "widen": "Taille maximale"
   },
-  "plugins": {
-    "added": {
-      "start": "Plugin",
+  "sidepanel": {
+    "fold": "Fold Panel",
+    "show": "Show Panel"
+  },
+  "history": {
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "noRecords": "Aucun événement dans l'historique.",
+    "fromTo": "De {{ from }} à {{ to }}",
+    "add": {
+      "start": "",
       "end": "ajouté"
     },
-    "failed": {
-      "start": "Impossible de charger",
+    "remove": {
+      "start": "supprimé",
       "end": ""
     },
-    "alreadyLoaded": {
-      "start": "",
-      "end": "est déjà chargé!"
+    "change": {
+      "start": "Changement de <strong>{{ property }}</strong> pour ",
+      "end": ""
     }
   },
   "search": {
@@ -78,58 +83,11 @@
     "count": "{{ count }} sur {{ total }} d'inutilisé(s)",
     "tooltip": "Cliquer pour surgligner\nDouble-cliquer pour sélectionner"
   },
-  "tree": {
-    "changeDir": "Changer la direction",
-    "focusRoot": "Centrer sur la racine",
-    "focusSel": "Sélectionner la racine",
-    "centerTree": "Centrer l'arbre",
-    "perfectWidth": "Ajuster la largeur",
-    "compact": "Taille minimale",
-    "widen": "Taille maximale"
-  },
   "grid": {
     "dragging": "Glisser",
     "pushing": "Pousser",
     "resizing": "Redimensionner",
     "floating": "Floating"
-  },
-  "history": {
-    "undo": "Annuler",
-    "redo": "Rétablir",
-    "noRecords": "Aucun événement dans l'historique.",
-    "fromTo": "De {{ from }} à {{ to }}",
-    "add": {
-      "start": "",
-      "end": "ajouté"
-    },
-    "remove": {
-      "start": "supprimé",
-      "end": ""
-    },
-    "change": {
-      "start": "Changement de <strong>{{ property }}</strong> pour ",
-      "end": ""
-    }
-  },
-  "aT": {
-    "addToken": "",
-    "visualRepresentation": "",
-    "noArtTokensPresent": "No artificial tokens present",
-    "insertionPoint": "Point d'insertion",
-    "insertBehindHint": "insert behind token (click to toggle)",
-    "insertInFrontHint": "insert in front of token (click to toggle)",
-    "insertBehind": {
-      "start": "derrière",
-      "end": ""
-    },
-    "insertInFront": {
-      "start": "devant",
-      "end": ""
-    }
-  },
-  "sidepanel": {
-    "fold": "Fold Panel",
-    "show": "Show Panel"
   },
   "depTree": {
     "errorAcrossSentences": "Cannot change heads across sentences"
@@ -137,12 +95,6 @@
   "helpPanel": {
     "keyboardShortcuts": "Raccourcis claviers",
     "colorLegends": "Légende couleurs"
-  },
-  "navigator": {
-    "chunkSizeError": "Only chunk sizes between 1 and 5 are currently supported"
-  },
-  "exitHandler": {
-    "exitTo": {}
   },
   "relation": {
     "changeAll": "Changer tout",
@@ -163,6 +115,21 @@
     "noEditorsPresent": "Aucun éditeur connu.",
     "title": "Éditeurs"
   },
+  "plugins": {
+    "alreadyLoaded": "{{ name }} est déjà chargé!",
+    "failed": "Impossible de charger {{ name }}",
+    "added": "Plugin {{ name }} ajouté!"
+  },
+  "aT": {
+    "insertInFront": "devant",
+    "insertBehind": "derrière",
+    "addToken": "",
+    "visualRepresentation": "",
+    "noArtTokensPresent": "No artificial tokens present",
+    "insertionPoint": "Point d'insertion",
+    "insertBehindHint": "insert behind token (click to toggle)",
+    "insertInFrontHint": "insert in front of token (click to toggle)"
+  },
   "globalSettings": {
     "persistSettings": "Sauvegarder mes préférences",
     "title": "Paramètres globaux",
@@ -171,7 +138,19 @@
     "colorizer": "Coloriser les tokens par",
     "layout": "Mise en page",
     "clickAction": "Comportement du clic",
-    "chunkMode": "Chunk Mode",
-    "layoutLoaded": {}
-  }
+    "chunkMode": "Chunk Mode"
+  },
+  "navigator": {
+    "chunkSizeError": "Only chunk sizes between 1 and {{ max }} are curently supported"
+  },
+  "morph": {
+    "createSuccess": "Forme ajoutée pour {{ form }}",
+    "lemmaTranslation": "Traduction du lemme",
+    "lemmaHint": "Ce lemme a été ajouté automatiquement\nVérifier le avant de sauvegarder.!",
+    "createError": "Impossible de créer une forme incomplète",
+    "createNewForm": "Créer une nouvelle forme",
+    "searchByForm": "par forme",
+    "matchAll": "Tout"
+  },
+  "exitHandler": {}
 }

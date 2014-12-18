@@ -3,15 +3,13 @@
 angular.module('arethusa.core').controller('LandingCtrl', [
   '$scope',
   '$window',
-  'translator',
-  function ($scope, $window, translator) {
+  function ($scope, $window) {
     $scope.template = 'templates/landing_page.html';
 
     var imgPath = '../dist/examples/images/';
 
 
     function Example(name, caption, img, url) {
-      translator(name, this, 'name');
       this.name = name;
       this.caption = caption;
       this.img = imgPath + img;

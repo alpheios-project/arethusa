@@ -98,12 +98,13 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
           scope.total--;
         });
 
-        scope.tooltip = {};
-        translator('uth.tooltip', scope.tooltip, 'text');
+        translator('uth.tooltip', function(trsl) {
+          scope.tooltip = trsl();
+        });
       },
       template: '\
       <span\
-      tooltip-html-unsafe="{{ tooltip.text }}"\
+      tooltip-html-unsafe="{{ tooltip }}"\
       tooltip-popup-delay="700"\
       tooltip-placement="left"\
       translate="uth.count"\

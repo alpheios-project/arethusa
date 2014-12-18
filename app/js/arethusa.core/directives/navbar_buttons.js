@@ -12,8 +12,9 @@ angular.module('arethusa.core').directive('navbarButtons', [
           scope.bTemplate = 'templates/arethusa.core/navbar_buttons' + coll + '.html';
         });
 
-        scope.translations = {};
-        translator('menu', scope.translations, 'menu');
+        translator('menu', function(trsl) {
+          scope.menuTitle = trsl();
+        });
       },
       template: '<ul class="has-form button-group right" ng-include="bTemplate"/>'
     };
