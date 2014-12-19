@@ -43,6 +43,10 @@ angular.module('arethusa.core').controller('LandingCtrl', [
       new Partner('Perseus', 'perseus_logo.jpg', 'http://www.perseus.tufts.edu')
     ];
 
+    $scope.awards = [
+      new Partner('ELCH Uni Graz', 'elch_banner.png', 'http://elch.uni-graz.at/?page_id=3158'),
+    ];
+
     $scope.goTo = function(url) {
       $window.open(url);
     };

@@ -67,13 +67,14 @@
     "confirmQuestion": "Êtes-vous sûr de vouloir quitter ??"
   },
   "landing": {
+    "awards": "Prix",
     "description": "Un framework client d'annotation indépendent de tout backend",
     "modularNature": "Du fait de sa nature modulaire, Arethusa peut être configuré pour répondre à différentes situations.",
     "moreScreencasts": "Plus de vidéo exemple",
     "devDescription": "Arethusa est construit à partir du framework javascript <a href=\"https://angularjs.org/angular.js\">AngularJS</a> pour applications web et prodigue une infrastructure indépendante de tout back-end lié à la mise à disposition de textes, de services d'annotations ou d'outils linguistiques. L'extensibilité est une caractéristique primaire de notre développement - Arethusa inclut des outils pour la génération automatique de structures de modules (<a href=\"https://github.com/latin-language-toolkit/arethusa-cli\">Arethusa::CLI</a>) et des <a href=\"http://github.com/latin-language-toolkit/arethusa/blob/docs/docs/content/plugin_guide.md\">guides de développement détaillé</a> sont en cours de rédaction, avec l'espoir que d'autres seront capables de réutiliser et de construire sur cette plateforme des nouvelles fonctionnalités pour d'autres annotations, langues, back-end et workflow.",
     "partners": "Partenaires",
     "funders": "Financements",
-    "fundersDescription": "Ce projet a été soutenu par la <a href=\"http://www.mellon.org/\">Fondation Andrew W. Mellon</a>, l'<a href=\"http://imls.gov/\">Institute of Museum and Library Services</a> et l'<a href=\"http://ec.europa.eu/esf/home.jsp\">European Social Fund</a>",
+    "fundersDescription": "Ce projet a été soutenu par la <a href=\"http://www.mellon.org/\">Fondation Andrew W. Mellon</a>, l'<a href=\"http://imls.gov/\">Institute of Museum and Library Services</a> et l'<a href=\"http://ec.europa.eu/esf/home.jsp\">European Social Fund</a>.",
     "tryYourself": "Essayer !"
   },
   "auth": {

@@ -10,6 +10,11 @@
         "preselector" : "w"
       }
     },
+    "outputters" : {
+      "TreebankPersister" : {
+        "docIdentifier" : "treebank"
+      }
+    },
     "plugins" : [
       "text",
       "search",

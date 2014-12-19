@@ -8,7 +8,7 @@
     <p class="italic"><span translate="landing.description"/></p>
 
     <div style="margin: auto">
-      <img src="../dist/examples/images/grid.png" style="height: 650px; display: block; margin: auto"/>
+      <img src="../dist/examples/images/grid.png" style="display: block; padding: 0 2rem; margin: auto"/>
     </div>
   </div>
 
@@ -25,7 +25,7 @@
           <div
             class="large-4 columns panel clickable"
             ng-click="goTo(example.url)">
-            <h4>{{ example.name }}</h4>
+            <h4 translate="{{ example.name }}"></h4>
             <img ng-src="{{ example.img }}"/>
             <p>{{ example.caption }}</p>
           </div>
@@ -79,6 +79,19 @@
       </div>
     </div>
     <p>
+  </div>
+
+  <div class="large-12 columns" style="padding: 1rem 0"/>
+
+  <div style="section">
+    <h3><span translate="landing.awards"/></h3>
+    <div class="large-12 columns">
+      <div class="img-container" style="display: inline-block">
+        <a href="{{ awards[0].href }}">
+          <img class="center" style="height: 120px" ng-src="{{ awards[0].img }}"/>
+        </a>
+      </div>
+    </div>
   </div>
 
   <div class="large-12 columns" style="padding: 1rem 0"/>
