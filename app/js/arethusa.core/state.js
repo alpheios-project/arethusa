@@ -528,10 +528,77 @@ angular.module('arethusa.core').service('state', [
       if (self.launched) self.broadcast('stateLoaded');
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#setStyle
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Sets the style of a token. When the token already has a styling,
+     * this function will override all former information.
+     *
+     * @param {String} id Id of a token
+     * @param {Object} style Dictionary of CSS styles, e.g.
+     *   `{ color: 'red' }`
+     */
     this.setStyle = function (id, style) {
       self.getToken(id).style = style;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#unsetStyle
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Removes all styling information of a token
+     *
+     * @param {String} id Id of a token
+     */
+    this.unsetStyle = function (id) {
+      self.getToken(id).style = {};
+    };
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#addStyle
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Adds style information to a token. Already set stylings are not
+     * overriden, but merging rules apply.
+     *
+     * Given a current token style of
+     *
+     * ```
+     * {
+     *   'color': 'blue',
+     *   'font-style': 'italic'
+     * }
+     * ```
+     *
+     * calling
+     *
+     * ```
+     * state.addStyle(id, {
+     *   'color': 'red',
+     *   'text-decoration': 'underline'
+     * });
+     * ```
+     *
+     * will result in a token style of
+     *
+     * ```
+     * {
+     *   'color': 'red',
+     *   'font-style': 'italic'
+     *   'text-decoration': 'underline'
+     * }
+     *
+     * @param {String} id Id of a token
+     * @param {Object} style Dictionary of CSS styles, e.g.
+     *   `{ color: 'red' }`
+     */
     this.addStyle = function(id, style) {
       var token = self.getToken(id);
       if (!token.style) {
@@ -540,12 +607,18 @@ angular.module('arethusa.core').service('state', [
       angular.extend(token.style, style);
     };
 
-    this.unapplyStylings = function() {
-      angular.forEach(self.tokens, function(token, id) {
-        self.unsetStyle(id);
-      });
-    };
-
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#removeStyle
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Removes one or several stylings of a token
+     *
+     * @param {String} id Id of a token
+     * @param {String|Array} style Either a single CSS property or an
+     *   Array of CSS properties to remove from the token's styling
+     */
     this.removeStyle = function(id, style) {
       var tokenStyle = self.getToken(id).style;
       if (! tokenStyle) return;
@@ -556,9 +629,21 @@ angular.module('arethusa.core').service('state', [
       });
     };
 
-    this.unsetStyle = function (id) {
-      self.getToken(id).style = {};
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#unapplyStylings
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Remove stylings of all current
+     * {@link arethusa.core.state#properties_tokens tokens}
+     */
+    this.unapplyStylings = function() {
+      angular.forEach(self.tokens, function(token, id) {
+        self.unsetStyle(id);
+      });
     };
+
 
     this.addStatusObjects = function () {
       angular.forEach(self.tokens, addStatus);
