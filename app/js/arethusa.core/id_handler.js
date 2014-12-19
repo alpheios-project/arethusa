@@ -87,7 +87,7 @@ angular.module('arethusa.core').service('idHandler', [
 
     this.transformToSoureIds = function(tokens, docIdentifier, idCreator) {
       var transformation = new Transformation();
-      return arethusaUtil.inject(new Transformation(), tokens, function(memo, id, token) {
+      return arethusaUtil.inject(transformation, tokens, function(memo, id, token) {
         memo.add(token, docIdentifier, idCreator);
       });
     };
