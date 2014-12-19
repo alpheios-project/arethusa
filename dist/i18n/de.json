@@ -41,6 +41,8 @@
     "show": "Panel anzeigen"
   },
   "history": {
+    "redoSuccess": "Änderung wiederhergestellt",
+    "undoSuccess": "Änderung zurückgesetzt",
     "undo": "Rückgängig",
     "redo": "Wiederherstellen",
     "noRecords": "Keine Ereignisse aufgenommen.",
