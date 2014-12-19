@@ -198,34 +198,126 @@ angular.module('arethusa.core').service('state', [
       self.checkLoadStatus();
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#asString
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Controlled access to the string of a token.
+     *
+     * @param {String} id Id of a token
+     * @returns {String} The token string
+     */
     this.asString = function (id) {
-      return self.tokens[id].string;
+      return (self.getToken(id) || {}).string;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#getToken
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Retrieves a Token object by id. Use this instead of accessing
+     * {@link arethusa.core.state#properties_tokens state.tokens} directly.
+     *
+     * @param {String} id Id of a token
+     * @returns {Token} A Token object
+     */
     this.getToken = function (id) {
       return self.tokens[id] || {};
     };
 
+    /**
+     * @ngdoc property
+     * @name selectedTokens
+     * @propertyOf arethusa.core.state
+     *
+     * @description
+     * Stores the currently selected tokens
+     *
+     * A dictionary of `ids` and their `selectionType`,
+     * which is either `hover`, `click` or `ctrl-click` (which
+     * indicates a multi-selection).
+     */
     this.selectedTokens = {};
 
+    /**
+     * @ngdoc property
+     * @name clickedTokens
+     * @propertyOf arethusa.core.state
+     *
+     * @description
+     * Store of the currently clicked tokens
+     *
+     * Differs from {@link arethusa.core.state#properties_selectedTokens}
+     * as no `hover` selections are recorded.
+     *
+     * TODO Need to expose the tokens directly here as values. Document
+     * this behavior then.
+     */
     this.clickedTokens  = {};
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#hasSelections
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     *
+     * @returns {Integer} Number of selected tokens - 0 is a falsy value.
+     */
     this.hasSelections = function() {
       return Object.keys(self.selectedTokens).length !== 0;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#hasClickSelections
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * @returns {Integer} Number of clicked tokens - 0 is a falsy value.
+     */
     this.hasClickSelections = function() {
       return Object.keys(self.clickedTokens).length;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#isSelected
+     * @methodOf arethusa.core.state
+     *
+     * @param {String} id Id of a token
+     * @returns {Boolean} Whether a token is selected or not
+     */
     this.isSelected = function(id) {
       return id in this.selectedTokens;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#isClicked
+     * @methodOf arethusa.core.state
+     *
+     * @param {String} id Id of a token
+     * @returns {Boolean} Whether a token is clicked or not
+     */
     this.isClicked = function(id) {
       return id in this.clickedTokens;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#multiSelect
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Function to multi-select tokens efficiently
+     *
+     * @param {Array} ids Array token ids which should be multi-selected
+     */
     this.multiSelect = function(ids) {
       self.deselectAll();
       selectMultipleTokens(ids);
@@ -246,6 +338,18 @@ angular.module('arethusa.core').service('state', [
 
     // type should be either 'click', 'ctrl-click' or 'hover'
     var simpleToMultiSelect;
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#selectToken
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Function to select a token in a controlled way
+     *
+     * @param {String} id Id of a token
+     * @param {String} type The selection type. Either `hover`, `click` or
+     *   `ctrl-click`
+     */
     this.selectToken = function (id, type) {
       if (type === 'click') self.deselectAll();
 
@@ -270,10 +374,34 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#selectionType
+     * @methodOf arethusa.core.state
+     *
+     * @param {String} id Id of a token
+     * @returns {String} The current selection type. Either `hover`, `click`
+     *   or `ctrl-click`. Returns `undefined` when the token is not selected
+     *   at atll.
+     */
     this.selectionType = function (id) {
       return self.selectedTokens[id];
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#deselectToken
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Function to deselect a token in a controlled way
+     *
+     * @param {String} id Id of a token
+     * @param {String} type The selection type. This is important to
+     *   determine whether a token can really be deselected at this point,
+     *   e.g. a deselect call for a `hover` selection shall not deselect a
+     *   token that was `click`ed.
+     */
     this.deselectToken = function (id, type) {
       // only deselect when the old selection type is the same as
       // the argument, i.e. a hover selection can only deselect a
@@ -284,6 +412,20 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#toggleSelection
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Toggle the selection state of a token
+     *
+     * Either calls {@link arethusa.core.state#methods_selectToken} or
+     * {@link arethusa.core.state#methods_deselectToken}
+     *
+     * @param {String} id Id of a token
+     * @param {String} type The selection type to toggle
+     */
     this.toggleSelection = function (id, type) {
       // only deselect when the selectionType is the same.
       // a hovered selection can still be selected by click.
@@ -294,6 +436,14 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#deselectAll
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Function to deselct all tokens, no matter their selection type.
+     */
     this.deselectAll = function () {
       for (var el in self.selectedTokens) {
         delete self.selectedTokens[el];
@@ -301,11 +451,19 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#firstSelected
+     * @methodOf arethusa.core.state
+     *
+     * @returns {Token} The first selected token of the current chunk.
+     *   Returns `undefined` when no selection is present.
+     */
     this.firstSelected = function() {
       return Object.keys(self.selectedTokens)[0];
     };
 
-    this.selectSurroundingToken = function (direction) {
+    function selectSurroundingToken(direction) {
       // take the first current selection
       var firstId = self.firstSelected();
       var allIds = Object.keys(self.tokens);
@@ -324,13 +482,13 @@ angular.module('arethusa.core').service('state', [
       self.deselectAll();
       // and select the new one
       self.selectToken(newId, 'click');
-    };
+    }
 
     this.selectNextToken = function () {
-      self.selectSurroundingToken('next');
+      selectSurroundingToken('next');
     };
     this.selectPrevToken = function () {
-      self.selectSurroundingToken('prev');
+      selectSurroundingToken('prev');
     };
 
     this.toTokenStrings = function(ids) {
