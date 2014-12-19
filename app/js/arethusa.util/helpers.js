@@ -21,7 +21,7 @@ var arethusaUtil = {
       return mapping ? '(' + mapping +')' : '';
     },
 
-    map: function (container, fn) {
+    map: function (container, fn, args) {
       if (typeof fn === 'object') {
         var obj = fn;
         fn = function(el) { return obj[el]; };
@@ -33,7 +33,13 @@ var arethusaUtil = {
       }
       var result = [];
       container.forEach(function (e) {
-        result.push(fn(e));
+        if (args) {
+          var myArgs = [e];
+          myArgs.push(args.slice(0))
+          result.push(fn.apply(null,myArgs));
+        } else {
+          result.push(fn(e));
+        }
       });
       return result;
     },
