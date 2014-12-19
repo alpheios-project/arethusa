@@ -77,13 +77,15 @@ describe('TreebankRetriever', function() {
     });
     
     // Test that namespaced treebank files are also okay
-    it('fails when a treebank is namespace prefixed', function() {
+    // But not that this test is of limited value due to
+    // https://github.com/ariya/phantomjs/issues/10428
+    it('succeeds when a treebank is namespace prefixed', function() {
       var tb = toNsTreebank([[1, [[1, 'a']]]]);
       retriever.parse(tb, callback);
 
       var tokenIds = Object.keys(result[0].tokens);
       var s1 = result[0];
-      expect(tokenIds.length).toEqual(1); // nothing parsed 
+      expect(tokenIds.length).toEqual(1); 
       expect(s1.id).toBeDefined();
       expect(s1.tokens[tokenIds[0]].string).toEqual('a');
     });
