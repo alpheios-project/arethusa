@@ -766,6 +766,24 @@ angular.module('arethusa.core').service('state', [
       return event.exec();
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#notifyWatchers
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Triggers all callbacks of listeners registerd through
+     * {@link arethusa.core.state#methods_watch state.watch}.
+     *
+     * Which listeners are triggered is determined by the given event.
+     *
+     * This function is usually not meant to be triggered manually - a
+     * {@link arethusa.core.StateChange StateChange}'s `exec` function
+     * will do this automatically.
+     *
+     * @param {StateChange} event A {@link arethusa.core.StateChange StateChange}
+     *   event object
+     */
     this.notifyWatchers = function(event) {
       function execWatch(watch) { watch.exec(event.newVal, event.oldVal, event); }
 
