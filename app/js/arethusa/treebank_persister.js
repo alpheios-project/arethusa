@@ -101,8 +101,8 @@ angular.module('arethusa').factory('TreebankPersister', [
         var wordsInXml = arethusaUtil.toAry(sentence.word);
         // We create a new object that holds all tokens of a sentence,
         // identified by their mappings in the original document.
-        // Unmapped tokens are exposed through an array and will receive
-        // mapped ids later
+        // Formerly unmapped tokens are exposed through an array to allow
+        // postprocessing on them (such as adding artificialToken information)
         lastId = wordsInXml[wordsInXml.length - 1]._id;
 
         var tokens = idHandler.transformToSoureIds(updated.tokens, identifier, idCreator);
@@ -122,18 +122,23 @@ angular.module('arethusa').factory('TreebankPersister', [
           wordsInXml.splice(index, 1);
         });
 
-        // Usually, updatedTokens will be empty by now - it won't be
-        // if artificialTokens were added during the annotation. New
-        // word nodes needs to be inserted in the document now.
+        // tokens - the result of the id.Handler.transfomToSource call -
+        // exposes all previously unmapped ids in an Array.
+        // When artificialTokens were added during the last call of this function
+        // and now, the unmapped Array will contain them - we have to add
+        // the artificialToken information now to complete the insertion of such
+        // new nodes in the XML document.
+        // After they have been inserted once, they will already have their id
+        // mapping, so an artificialToken can never end up in the unmapped Array
+        // twice.
         angular.forEach(tokens.unmapped, function(token, i) {
           var internalId = token.id;
           var sourceId   = token.idMap.sourceId(identifier);
           var newWord = new ArtificialNode(sourceId, internalId);
           updateWord(newWord, token, fullMap);
           wordsInXml.push(newWord);
-          // update the formerly unmapped token
-          token.idMap.add(identifier, internalId, lastId);
         });
+        updated.changed = false;
       }
 
       function updateDocument() {
