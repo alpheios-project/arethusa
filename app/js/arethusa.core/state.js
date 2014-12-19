@@ -655,10 +655,33 @@ angular.module('arethusa.core').service('state', [
       }
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#countTotalTokens
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Counts the total number of currently present tokens
+     *
+     * @returns {Integer} Number of tokens
+     */
     this.countTotalTokens = function () {
       self.totalTokens = Object.keys(self.tokens).length;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#countTokens
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Counts the number of currently present tokens, for which
+     * a given function returns a truthy value.
+     *
+     * @param {Function} condition A function that takes a token. Has to
+     *   return a truthy or falsy value
+     * @returns {Integer} Number of tokens for which the condition is truthy
+     */
     this.countTokens = function (conditionFn) {
       var count = 0;
       angular.forEach(self.tokens, function (token, id) {
