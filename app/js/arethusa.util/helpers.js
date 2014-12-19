@@ -35,7 +35,7 @@ var arethusaUtil = {
       container.forEach(function (e) {
         if (args) {
           var myArgs = [e];
-          myArgs.push(args.slice(0))
+          myArgs.push(args.slice(0));
           result.push(fn.apply(null,myArgs));
         } else {
           result.push(fn(e));
