@@ -15,18 +15,27 @@ describe('TreebankRetriever', function() {
     });
   });
 
-  function toWord(idAndForm) {
-    return '<word id="' + idAndForm[0] + '" form="' + idAndForm[1] + '"/>';
+  function makePrefix(pfx) {
+    return pfx ? pfx + ':' : '';
   }
 
-  function toSentence(idAndWords) {
-    var ws =  aU.map(idAndWords[1], toWord).join('');
-    return '<sentence id="' + idAndWords[0] + '">' + ws + '</sentence>';
+  function toWord(idAndForm, pfx) {
+    return '<' + makePrefix(pfx) + 'word id="' + idAndForm[0] + '" form="' + idAndForm[1] + '"/>';
+  }
+
+  function toSentence(idAndWords, pfx) {
+    var ws =  aU.map(idAndWords[1], toWord, pfx).join('');
+    return '<' + makePrefix(pfx) + 'sentence id="' + idAndWords[0] + '">' + ws + '</' + makePrefix(pfx) + 'sentence>';
   }
 
   function toTreebank(sentences) {
     var ss = aU.map(sentences, toSentence).join('');
     return '<treebank>' + ss + '</treebank>';
+  }
+
+  function toNsTreebank(sentences) {
+    var ss = aU.map(sentences, toSentence, 'ns1').join('');
+    return '<ns1:treebank xmlns:ns1="http://example.org/ns">' + ss + '</ns1:treebank>';
   }
 
   describe('parse', function() {
@@ -65,6 +74,20 @@ describe('TreebankRetriever', function() {
 
       var tokenIds = Object.keys(result[0].tokens);
       expect(tokenIds.length).toEqual(1); // 1 token
+    });
+    
+    // Test that namespaced treebank files are also okay
+    // But not that this test is of limited value due to
+    // https://github.com/ariya/phantomjs/issues/10428
+    it('succeeds when a treebank is namespace prefixed', function() {
+      var tb = toNsTreebank([[1, [[1, 'a']]]]);
+      retriever.parse(tb, callback);
+
+      var tokenIds = Object.keys(result[0].tokens);
+      var s1 = result[0];
+      expect(tokenIds.length).toEqual(1); 
+      expect(s1.id).toBeDefined();
+      expect(s1.tokens[tokenIds[0]].string).toEqual('a');
     });
   });
 });
