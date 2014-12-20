@@ -6,6 +6,8 @@
  * Module of Arethusa's core functionality
  */
 angular.module('arethusa.core', [
+  'angulartics',
+  'angulartics.google.analytics',
   'arethusa.util',
   'ngResource',
   'ngCookies',

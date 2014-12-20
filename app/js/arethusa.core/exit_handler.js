@@ -27,7 +27,8 @@ angular.module('arethusa.core').service('exitHandler', [
   "$location",
   "$window",
   "configurator",
-  function($location, $window, configurator) {
+  "$analytics",
+  function($location, $window, configurator, $analytics) {
     var self = this;
 
 
@@ -84,6 +85,10 @@ angular.module('arethusa.core').service('exitHandler', [
      * @param {string} [targetWin='_self'] The target window.
      */
     this.leave = function(targetWin) {
+      $analytics.eventTrack('exit', {
+        category: 'actions', label: 'exit'
+      });
+
       targetWin = targetWin || '_self';
       $window.open(exitUrl(), targetWin);
     };

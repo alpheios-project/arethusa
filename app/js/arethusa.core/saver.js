@@ -8,8 +8,9 @@ angular.module('arethusa.core').service('saver', [
   '$rootScope',
   '$window',
   'translator',
+  '$analytics',
   function(configurator, notifier, keyCapture, state,
-           $rootScope, $window, translator) {
+           $rootScope, $window, translator, $analytics) {
     var self = this;
     var conf, persisters;
 
@@ -81,6 +82,9 @@ angular.module('arethusa.core').service('saver', [
     }
 
     this.save = function() {
+      $analytics.eventTrack('save', {
+        category: 'actions', label: 'save'
+      });
 
       if (self.needsSave) {
         notifier.wait(translations.inProgress());
