@@ -1,9 +1,12 @@
 "use strict";
 
 describe('treebank persister', function() {
-  var $httpBackend;
   var documentStore;
   var TreebankPersister;
+  var state;
+  var idHandler;
+  var docId = 'some-treebank';
+
 
   var mockConfigurator = {
     configurationFor: function(name) {
@@ -20,45 +23,39 @@ describe('treebank persister', function() {
       };
     }
   };
-  var IdMap = function(id) {
-    this.add = function() {};
-    this.sourceId = function() {
-      return id;
-    };
-  };
-  var mockNavigator = {
-    sentencesById: {
-      "2": {
-        "tokens": {
-          "0001": {
-            id: '0001',
-            head: {
-              id: '0002'
-            },
-            idMap: new IdMap(1)
-          },
-          "0002": {
-            id: '0002',
-            head: {
-              id: '0000'
-            },
-            idMap: new IdMap(2)
-          }
-        }
+
+  var s2 = {
+    "tokens": {
+      "0001": {
+        id: '0001',
+        head: {
+          id: ''
+        },
+      },
+      "0002": {
+        id: '0002',
+        head: {
+          id: '0000'
+        },
       }
-    }
+    },
+    id: '2'
   };
 
   beforeEach(module('arethusa', function($provide) {
     $provide.value('configurator', mockConfigurator);
-    $provide.value('navigator', mockNavigator);
   }));
 
-  beforeEach(inject(function($injector, _documentStore_, _TreebankPersister_) {
-    $httpBackend = $injector.get('$httpBackend');
+  beforeEach(inject(function(
+    _documentStore_, _TreebankPersister_, _state_, _idHandler_, _navigator_) {
     TreebankPersister = _TreebankPersister_;
     documentStore = _documentStore_;
-    documentStore.addDocument('some-treebank', {
+    state = _state_;
+    idHandler = _idHandler_;
+    _navigator_.init();
+    _navigator_.addSentences([s2]);
+    documentStore.reset();
+    documentStore.addDocument(docId, {
       json: {
         "treebank": {
           "sentence": {
@@ -69,7 +66,7 @@ describe('treebank persister', function() {
               "_form": "Coniurandi",
               "_lemma": "conjuro1",
               "_postag": "t-spdang-",
-              "_head": "4",
+              "_head": "",
               "_relation": "ATR"
             },
             {
@@ -77,54 +74,70 @@ describe('treebank persister', function() {
               "_form": "has",
               "_lemma": "hic1",
               "_postag": "p-p---fa-",
-              "_head": "3",
+              "_head": "0",
               "_relation": "PNOM"
             }]
           }
         }
       }
     });
+
+    var t1 = s2.tokens['0001'];
+    var t2 = s2.tokens['0002'];
+
+    var m1 = new idHandler.Map();
+    var m2 = new idHandler.Map();
+
+    m1.add(docId, '0001', '1');
+    m2.add(docId, '0002', '2');
+
+    t1.idMap = m1;
+    t2.idMap = m2;
+
+    state.replaceState(s2.tokens);
   }));
 
   describe('this.saveData()', function() {
-    it('saves data when when changes are present', function() {
-      var conf = {
+    var conf, persister;
+
+    beforeEach(function() {
+      conf = {
         'resource' : 'test-resource',
-        'docIdentifier' : 'some-treebank'
+        'docIdentifier' : docId
       };
-      var persister = new TreebankPersister(conf);
+      persister = new TreebankPersister(conf);
+    });
 
-
+    it('saves data when when changes are present', function() {
       expect(persister).toBeDefined();
 
-      mockNavigator.sentencesById['2'].changed = true;
+      state.change('0001', 'head.id', '0002');
 
+      var updatedDoc = documentStore.store[docId];
       persister.saveData(function() {});
 
-      var updatedJson = documentStore.store['some-treebank'];
-      expect(updatedJson).toBeDefined();
-      expect(updatedJson.json.treebank.sentence.word[0]._head).toBe(2);
+      expect(updatedDoc).toBeDefined();
+      expect(updatedDoc.json.treebank.sentence.word[0]._head).toBe('2');
     });
 
     it('does not update when chunk is not marked as changed', function() {
-      var conf = {
-        'resource' : 'test-resource',
-        'docIdentifier' : 'some-treebank'
-      };
-      var persister = new TreebankPersister(conf);
-
-
       expect(persister).toBeDefined();
 
-      mockNavigator.sentencesById['2'].changed = false;
-
-      var updatedJson = documentStore.store['some-treebank'];
-      var valBeforeSave = updatedJson.json.treebank.sentence.word[0]._head;
+      var updatedDoc = documentStore.store[docId];
+      var firstHead = function() {
+        return updatedDoc.json.treebank.sentence.word[0]._head;
+      };
+      var valBeforeSave = firstHead();
 
       persister.saveData(function() {});
 
-      expect(updatedJson).toBeDefined();
-      expect(updatedJson.json.treebank.sentence.word[0]._head).toBe(valBeforeSave);
+      expect(updatedDoc).toBeDefined();
+      expect(firstHead()).toBe(valBeforeSave);
+    });
+
+    describe('with newly added tokens', function() {
+      it('handles artificial tokens properly', function() {
+      });
     });
   });
 });
