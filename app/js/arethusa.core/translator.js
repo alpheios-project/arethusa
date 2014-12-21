@@ -97,13 +97,25 @@ angular.module('arethusa.core').factory('translator', [
   '$translate',
   '$interpolate',
   function($rootScope, $translate, $interpolate) {
+    function noop() {}
+
     function translate(id, objOrFn, propertyPath) {
+      var isFunction = angular.isFunction(objOrFn);
+      var set = function(fn) {
+        arethusaUtil.setProperty(objOrFn, propertyPath, fn);
+      };
+
+      // Immediately set a value - especially useful with unit tests.
+      // This way we don't need to promise to resolve prior to a first
+      // call of this
+      if (!isFunction) set(noop);
+
       $translate(id, null, 'nullInterpolator').then(function(translation) {
         var interpolate = $interpolate(translation);
-        if (angular.isFunction(objOrFn)) {
+        if (isFunction) {
           objOrFn(interpolate);
         } else {
-          arethusaUtil.setProperty(objOrFn, propertyPath, interpolate);
+          set(interpolate);
         }
       });
     }
