@@ -210,11 +210,14 @@ describe('treebank persister', function() {
           expect(words.length).toEqual(4);
           // new id of the inserted token should be sequential
           expect(areIdsSequential(words)).toBeTruthy();
+
+          // check if sourceMappings are OK
+          expect(aT1.idMap.sourceId(docId)).toEqual(3);
+          expect(aT2.idMap.sourceId(docId)).toEqual(4);
         };
 
         // check if token made it to the xml by reparsing and checking it
         var newWords = parse(doc.xml).treebank.sentence.word;
-
         testArtificialTokens(newWords);
 
         // resaving is not destroying the document
