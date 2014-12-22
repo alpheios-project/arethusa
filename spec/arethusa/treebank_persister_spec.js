@@ -193,6 +193,28 @@ describe('treebank persister', function() {
         // new id of the inserted token should be sequential
         expect(areIdsSequential(words)).toBeTruthy();
       });
+
+      it('handles insertion of two artificial tokens properly', function() {
+        state.addToken(aT1, aT1.id);
+        state.addToken(aT2, aT2.id);
+
+        var doc = documentStore.store[docId];
+        var words = doc.json.treebank.sentence.word;
+
+        expect(words.length).toEqual(2);
+        persister.saveData(noop);
+
+        expect(words.length).toEqual(4);
+
+        // check if token made it to the xml by reparsing and checking it
+        var fromXml = parse(doc.xml);
+        var newWords = fromXml.treebank.sentence.word;
+
+        expect(newWords.length).toEqual(4);
+
+        // new id of the inserted token should be sequential
+        expect(areIdsSequential(words)).toBeTruthy();
+      });
     });
   });
 });
