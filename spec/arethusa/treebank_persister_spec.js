@@ -207,13 +207,19 @@ describe('treebank persister', function() {
         expect(words.length).toEqual(4);
 
         // check if token made it to the xml by reparsing and checking it
-        var fromXml = parse(doc.xml);
-        var newWords = fromXml.treebank.sentence.word;
+        var newWords = parse(doc.xml).treebank.sentence.word;
 
         expect(newWords.length).toEqual(4);
 
         // new id of the inserted token should be sequential
         expect(areIdsSequential(newWords)).toBeTruthy();
+
+        // resaving is not destroying the document
+        persister.saveData(noop);
+
+        var updatedWords = parse(doc.xml).treebank.sentence.word;
+        expect(updatedWords.length).toEqual(4);
+        expect(areIdsSequential(updatedWords)).toBeTruthy();
       });
     });
   });
