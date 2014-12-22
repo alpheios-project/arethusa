@@ -191,7 +191,7 @@ describe('treebank persister', function() {
         expect(newWords.length).toEqual(3);
 
         // new id of the inserted token should be sequential
-        expect(areIdsSequential(words)).toBeTruthy();
+        expect(areIdsSequential(newWords)).toBeTruthy();
       });
 
       it('handles insertion of two artificial tokens properly', function() {
@@ -213,7 +213,7 @@ describe('treebank persister', function() {
         expect(newWords.length).toEqual(4);
 
         // new id of the inserted token should be sequential
-        expect(areIdsSequential(words)).toBeTruthy();
+        expect(areIdsSequential(newWords)).toBeTruthy();
       });
     });
   });
