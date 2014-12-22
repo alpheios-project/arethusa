@@ -25,20 +25,23 @@ describe('treebank persister', function() {
     }
   };
 
+  var t1 = {
+    id: '0001',
+    head: {
+      id: ''
+    },
+  };
+
+  var t2 = {
+    id: '0002',
+    head: {
+      id: '0000'
+    },
+  };
   var s2 = {
     "tokens": {
-      "0001": {
-        id: '0001',
-        head: {
-          id: ''
-        },
-      },
-      "0002": {
-        id: '0002',
-        head: {
-          id: '0000'
-        },
-      }
+      "0001": t1,
+      "0002": t2
     },
     id: '2'
   };
@@ -82,9 +85,6 @@ describe('treebank persister', function() {
         }
       }
     });
-
-    var t1 = s2.tokens['0001'];
-    var t2 = s2.tokens['0002'];
 
     var m1 = new idHandler.Map();
     var m2 = new idHandler.Map();
@@ -149,8 +149,8 @@ describe('treebank persister', function() {
           this.idMap = new idHandler.Map();
         }
 
-        aT1 = new ArtificialToken('0002e', [1]);
-        aT2 = new ArtificialToken('0002f', [2]);
+        aT1 = new ArtificialToken('0002e', '[1]');
+        aT2 = new ArtificialToken('0002f', '[2]');
       });
 
       function parse(xml) {
@@ -206,20 +206,29 @@ describe('treebank persister', function() {
 
         expect(words.length).toEqual(4);
 
+        var testArtificialTokens = function(words) {
+          expect(words.length).toEqual(4);
+          // new id of the inserted token should be sequential
+          expect(areIdsSequential(words)).toBeTruthy();
+        };
+
         // check if token made it to the xml by reparsing and checking it
         var newWords = parse(doc.xml).treebank.sentence.word;
 
-        expect(newWords.length).toEqual(4);
-
-        // new id of the inserted token should be sequential
-        expect(areIdsSequential(newWords)).toBeTruthy();
+        testArtificialTokens(newWords);
 
         // resaving is not destroying the document
         persister.saveData(noop);
 
         var updatedWords = parse(doc.xml).treebank.sentence.word;
-        expect(updatedWords.length).toEqual(4);
-        expect(areIdsSequential(updatedWords)).toBeTruthy();
+        testArtificialTokens(updatedWords);
+
+        // and resaving is not destroying the document after a change has been made
+        state.change('0001', 'head.id', '0000');
+        persister.saveData(noop);
+
+        updatedWords = parse(doc.xml).treebank.sentence.word;
+        testArtificialTokens(updatedWords);
       });
     });
   });
