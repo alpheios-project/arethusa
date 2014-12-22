@@ -6,6 +6,7 @@ describe('treebank persister', function() {
   var state;
   var idHandler;
   var docId = 'some-treebank';
+  var noop = function() {};
 
 
   var mockConfigurator = {
@@ -129,14 +130,68 @@ describe('treebank persister', function() {
       };
       var valBeforeSave = firstHead();
 
-      persister.saveData(function() {});
+      persister.saveData(noop);
 
       expect(updatedDoc).toBeDefined();
       expect(firstHead()).toBe(valBeforeSave);
     });
 
     describe('with newly added tokens', function() {
-      it('handles artificial tokens properly', function() {
+      var aT1, aT2;
+
+      beforeEach(function() {
+        function ArtificialToken(id, str) {
+          this.id = id;
+          this.string = str;
+          this.type = 'artificial';
+          this.artificial = true;
+          this.sentenceId = '2';
+          this.idMap = new idHandler.Map();
+        }
+
+        aT1 = new ArtificialToken('0002e', [1]);
+        aT2 = new ArtificialToken('0002f', [2]);
+      });
+
+      function parse(xml) {
+        return arethusaUtil.xml2json(xml);
+      }
+
+      function areIdsSequential(words) {
+        var last = words[words.length - 1];
+        var sequential = true;
+        for (var i=0; i < words.length; i++) {
+          var word = words[i];
+          if (word !== last) {
+            var next = words[i + 1];
+            if ((parseInt(word._id) + 1) !== parseInt(next._id)) {
+              sequential = false;
+              break;
+            }
+          }
+        }
+        return sequential;
+      }
+
+      it('handles insertion of one artificial tokens properly', function() {
+        state.addToken(aT1, aT1.token);
+
+        var doc = documentStore.store[docId];
+        var words = doc.json.treebank.sentence.word;
+
+        expect(words.length).toEqual(2);
+        persister.saveData(noop);
+
+        expect(words.length).toEqual(3);
+
+        // check if token made it to the xml by reparsing and checking it
+        var fromXml = parse(doc.xml);
+        var newWords = fromXml.treebank.sentence.word;
+
+        expect(newWords.length).toEqual(3);
+
+        // new id of the inserted token should be sequential
+        expect(areIdsSequential(words)).toBeTruthy();
       });
     });
   });
