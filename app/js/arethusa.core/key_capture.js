@@ -305,11 +305,14 @@ angular.module('arethusa.core').service('keyCapture', [
         });
       });
 
-      return function() {
-        for (var i = destructors.length - 1; i >= 0; i--) { destructors[i](); }
-      };
+      return destructorFn(destructors);
     }
 
+    function destructorFn(arr) {
+      return function() {
+        for (var i = arr.length - 1; i >= 0; i--) { arr[i](); }
+      };
+    }
 
     // Tries to init keyCaptures - returns every successful keybinding in the format:
     //
@@ -336,9 +339,7 @@ angular.module('arethusa.core').service('keyCapture', [
         $rootScope.$broadcast('keysAdded', keys);
         destructors.push(addToKeyLists(keys));
       }
-      keys.$destroy = function() {
-        for (var i = destructors.length - 1; i >= 0; i--) { destructors[i](); }
-      };
+      keys.$destroy = destructorFn(destructors);
       return keys;
     };
 
