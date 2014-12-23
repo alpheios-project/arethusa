@@ -8,7 +8,7 @@ var express = require('express'),
 var app = express();
 
 function docPath(req, addPath, ending) {
-  return __dirname + '/public/' + addPath + '/' + req.params.doc + '.' + ending;
+  return __dirname + '/examples/data/' + addPath + '/' + req.params.doc + '.' + ending;
 }
 
 var contentTypes = {
