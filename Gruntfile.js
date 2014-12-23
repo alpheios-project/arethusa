@@ -183,8 +183,8 @@ function arethusaCopy() {
 
 function uglifyTasks() {
   var res = [
-    'newer:ngtemplates',
-    'newer:concat',
+    'ngtemplates',
+    'concat',
   ];
 
   // We don't need newer for copy - the overhead of asking
@@ -447,30 +447,13 @@ module.exports = function(grunt) {
         },
       }
     },
-    connect: {
-      server: {
-        options: {
-          port: devServerPort,
-          debug: true,
-          keepalive: true
-        }
+    express: {
+      options: {
+        script: 'server.js',
+        background: false,
+        port: devServerPort
       },
-      devServer: {
-        options: {
-          port: devServerPort,
-          debug: true,
-          keepalive: true,
-          livereload: reloadPort
-        }
-      },
-      doc: {
-        options: {
-          keepalive: true,
-          port: 9002,
-          base: docPath,
-          livereload: reloadPort
-        }
-      }
+      server: {}
     },
     sauce_connect: {
       your_target: {
@@ -553,13 +536,13 @@ module.exports = function(grunt) {
         }
       },
       server: {
-        tasks: ['concurrent:watches', 'minify:all', 'connect:devServer'],
+        tasks: ['concurrent:watches', 'minify:all', 'express:server'],
         options: {
           logConcurrentOutput: true
         }
       },
       docs: {
-        tasks: ['ngdocs', 'watch:doc', 'connect:doc'],
+        tasks: ['ngdocs', 'watch:doc', 'express:server'],
         options: {
           logConcurrentOutput: true
         }
@@ -646,7 +629,7 @@ module.exports = function(grunt) {
   grunt.registerTask('plato', 'shell:plato');
 
   // These three server tasks are usually everything you need!
-  grunt.registerTask('server', ['clean:dist', 'version', 'minify:all', 'connect:server']);
+  grunt.registerTask('server', ['clean:dist', 'version', 'minify:all', 'express:server']);
   grunt.registerTask('reloading-server', ['clean:dist', 'version', 'concurrent:server']);
   grunt.registerTask('doc-server', ['concurrent:docs']);
 
