@@ -263,18 +263,6 @@ angular.module('arethusa.core').service('keyCapture', [
       });
     }
 
-    // deprecated - use initCaptures instead
-    this.registerCaptures = function(captures, scope) {
-      scope = scope ? scope : $rootScope;
-      angular.forEach(captures, function(fn, key) {
-        if (angular.isDefined(key)) {
-          self.onKeyPressed(key, function() {
-            scope.$apply(fn);
-          });
-        }
-      });
-    };
-
     function Capture(confKey, fn, defaultKey) {
       this.confKey = confKey;
       this.fn = fn;
