@@ -661,6 +661,12 @@ angular.module('arethusa.core').factory('Tree', [
         return scope.current[id];
       }
 
+      function isDisconnected(val) {
+        // The new head value might be undefined or set to an
+        // empty string to indicate disconnection.
+        return !(angular.isDefined(val) && val !== "");
+      }
+
       // only do this if we are the main tree!
       if (isMainTree()) {
         state.on('tokenAdded', function(event, token) {
@@ -691,7 +697,7 @@ angular.module('arethusa.core').factory('Tree', [
             if (newVal !== oldVal) {
               // If a disconnection has been requested, we just
               // have to delete the edge and do nothing else
-              if (newVal === "") {
+              if (isDisconnected(newVal)) {
                 self.g.delEdge(token.id);
               } else {
                 updateEdge(token);
