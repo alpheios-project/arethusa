@@ -1,4 +1,19 @@
 'use strict';
+
+/**
+ * @ngdoc service
+ * @name arethusa.core.keyCapture
+ *
+ * @description
+ * Service to handle Arethusa's keyboard shortcuts.
+ *
+ * While its API is fairly clean and comfortable to use, the implementation
+ * is of very poor quality and very hard to read.
+ *
+ *
+ * @requires arethusa.core.configurator
+ * @requires $rootScope
+ */
 angular.module('arethusa.core').service('keyCapture', [
   'configurator',
   '$rootScope',
@@ -314,11 +329,14 @@ angular.module('arethusa.core').service('keyCapture', [
       arr.splice(i, 1);
     }
 
-    // Tries to init keyCaptures - returns every successful keybinding in the format:
-    //
-    // { section: { nameOfAction: key }
-    //
-    // keyCapture stores them in keyCapture.activeKeys as well.
+    /**
+     * @ngdoc function
+     * @name arethusa.core.keyCapture#initCaptures
+     * @methodOf arethusa.core.keyCapture
+     *
+     * @description
+     * TODO
+     */
     this.initCaptures = function(callback) {
       var destructors = [];
       var keys = arethusaUtil.inject({}, callback(self), function(memo, section, captures) {
@@ -395,8 +413,24 @@ angular.module('arethusa.core').service('keyCapture', [
       return res;
     };
 
-    // We might have to reinit this at some point
+    /**
+     * @ngdoc property
+     * @name activeKeys
+     * @propertyOf arethusa.core.keyCapture
+     *
+     * @description
+     * TODO
+     */
     this.activeKeys = {};
+
+    /**
+     * @ngdoc property
+     * @name keyList
+     * @propertyOf arethusa.core.keyCapture
+     *
+     * @description
+     * TODO
+     */
     this.keyList = {};
   }
 ]);
