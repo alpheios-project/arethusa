@@ -60,6 +60,8 @@ for (var route in exampleFileRoutes) {
   app.post('/examples/' + route + '/:doc', post(route, fileType));
 }
 
+app.use(express.static(__dirname));
+
 var port = process.env.NODE_PORT || 8082;
 var server = app.listen(port, function() {
   console.log('arethusa-server listening on port %d...', server.address().port);
