@@ -803,6 +803,8 @@ angular.module('arethusa.core').factory('Tree', [
         memo[name] = arethusaUtil.formatKeyHint(key);
       });
 
+      scope.$on('$destroy', keys.$destroy);
+
       scope.translations = {};
       var translateValues = [
         'changeDir', 'focusRoot', 'focusSel', 'centerTree',
