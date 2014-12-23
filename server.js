@@ -56,6 +56,9 @@ function post(route, fileType) {
 }
 
 app.use(morgan('dev'));
+app.use(require('connect-livereload')({
+  port: 35279
+}));
 
 for (var route in exampleFileRoutes) {
   var fileType = exampleFileRoutes[route];
