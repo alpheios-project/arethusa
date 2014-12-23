@@ -3,6 +3,7 @@
 /* global __dirname, console  */
 
 var express = require('express'),
+    morgan  = require('morgan'),
     fs = require('fs');
 var app = express();
 
@@ -53,6 +54,8 @@ function get(route, fileType) {
 function post(route, fileType) {
   return function(req, res) { writeFile(req, res, route, fileType); };
 }
+
+app.use(morgan('dev'));
 
 for (var route in exampleFileRoutes) {
   var fileType = exampleFileRoutes[route];
