@@ -16,8 +16,23 @@ angular.module('arethusa.relation').service('relation', [
       configurator.getConfAndDelegate(self);
       configurator.getStickyConf(self, ['advancedMode']);
       self.relationValues = self.conf.relations;
+      addParentsToRelationConf();
       self.relations = {};
       colorMap = undefined;
+    }
+
+    function addParentsToRelationConf() {
+      angular.forEach(self.relationValues.labels, addParentsToNested);
+    }
+
+    function addParentsToNested(obj) {
+      var nested = obj.nested;
+      if (nested) {
+        angular.forEach(nested, function(rel, key) {
+          rel.parent = obj;
+          addParentsToNested(rel);
+        });
+      }
     }
 
     // Currently selected labels
@@ -67,20 +82,42 @@ angular.module('arethusa.relation').service('relation', [
     this.useSuffix = 'suffix';
     this.defineAncestors = true;
 
-    // This function is a disgrace. Please refactor.
-    function getRelationValueObj(prefix) {
-      var hits = arethusaUtil.findNestedProperties(self.relationValues, prefix);
-      try {
-        return hits[prefix][0][prefix];
-      } catch(e) {}
+    function findLabel(key, container) {
+      var k, v, result;
+      for (k in container) {
+        v = container[k];
+        if (k === key) {
+          result = v;
+          break;
+        } else {
+          var nested = v.nested;
+          if (nested) {
+            result = findLabel(key, nested);
+          }
+        }
+      }
+      return result;
     }
+
+    function addParents(parents, obj) {
+      var parent = obj.parent;
+      if (parent) {
+        addParents(parents, parent);
+        parents.unshift(parent);
+      }
+      return parents;
+    }
+
     this.initAncestors = function(relation) {
       // calculate a real ancestor chain here if need be
       var prefix = relation.prefix;
       var ancestors = [];
       if (prefix) {
-        var obj = getRelationValueObj(prefix);
-        if (obj) ancestors.push(obj);
+        var obj = findLabel(prefix, self.relationValues.labels);
+        if (obj) {
+          ancestors = addParents([], obj);
+          ancestors.push(obj);
+        }
       }
       relation.ancestors = ancestors;
     };
