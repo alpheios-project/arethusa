@@ -238,11 +238,7 @@ angular.module('arethusa.core').service('keyCapture', [
       var cb = new Callback(callback, priority);
       callbacks.push(cb);
       keyPressedCallbacks[keyCode] = sortedByPriority(callbacks);
-      return function() {
-        var cbs = keyPressedCallbacks[keyCode];
-        var i = cbs.indexOf[cb];
-        cbs.splice(i, 1);
-      };
+      return function() { removeElement(keyPressedCallbacks[keyCode], cb); };
     };
 
     function sortedByPriority(callbacks) {
@@ -299,8 +295,7 @@ angular.module('arethusa.core').service('keyCapture', [
             var sec = self.activeKeys[section] || {};
             var k   = sec[capture];
             if (key === k) delete sec[capture];
-            var i = keysDefined.indexOf(listKey);
-            keysDefined.splice(i, 1);
+            removeElement(keysDefined, listKey);
           });
         });
       });
@@ -312,6 +307,11 @@ angular.module('arethusa.core').service('keyCapture', [
       return function() {
         for (var i = arr.length - 1; i >= 0; i--) { arr[i](); }
       };
+    }
+
+    function removeElement(arr, el) {
+      var i = arr.indexOf(el);
+      arr.splice(i, 1);
     }
 
     // Tries to init keyCaptures - returns every successful keybinding in the format:
