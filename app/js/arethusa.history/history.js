@@ -246,26 +246,22 @@ angular.module('arethusa.history').service('history', [
       batchedEvent = new BatchEvent();
     });
 
+    var keys = keyCapture.initCaptures(function(kC) {
+      return {
+        history: [
+          kC.create('undo', self.undo, ':'),
+          kC.create('redo', self.redo, "'")
+        ]
+      };
+    });
+    self.activeKeys = angular.extend({}, keys.history);
 
 
 /***************************************************************************
  *                                  Init                                   *
  ***************************************************************************/
 
-    function keyCaptures() {
-      var keys = keyCapture.initCaptures(function(kC) {
-        return {
-          history: [
-            kC.create('undo', self.undo, ':'),
-            kC.create('redo', self.redo, "'")
-          ]
-        };
-      });
-      self.activeKeys = angular.extend({}, keys.history);
-    }
-
     this.init = function() {
-      keyCaptures();
       configure();
 
       /**
