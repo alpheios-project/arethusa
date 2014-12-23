@@ -523,6 +523,9 @@ module.exports = function(grunt) {
           'rm -rf ' + docCustom + '/plato',
           'node_modules/.bin/plato -d ' + docCustom + '/plato -l .jshintrc -r -t "Arethusa JS Source Analysis" app/js/**/* > /dev/null'
         ].join(';')
+      },
+      cloneExampleRepo: {
+        command: 'git clone git@github.com:latin-language-toolkit/arethusa-example-data.git examples'
       }
     },
     concurrent: {
@@ -646,4 +649,6 @@ module.exports = function(grunt) {
   grunt.registerTask('install', 'shell:install');
   grunt.registerTask('e2e:setup', 'shell:e2eSetup');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
+
+  grunt.registerTask('import', 'shell:cloneExampleRepo');
 };
