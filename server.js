@@ -7,8 +7,11 @@ var express = require('express'),
     fs = require('fs');
 var app = express();
 
+
+var exampleDir = '/examples/data/';
+
 function docPath(req, addPath, ending) {
-  return __dirname + '/examples/data/' + addPath + '/' + req.params.doc + '.' + ending;
+  return __dirname + exampleDir + addPath + '/' + req.params.doc + '.' + ending;
 }
 
 var contentTypes = {
@@ -31,11 +34,13 @@ function writeFile(req, res, addPath, ending) {
   });
 }
 
-app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+function get(route, fileType) {
+  return function(req, res) { sendFile(req, res, route, fileType); };
+}
+
+function post(route, fileType) {
+  return function(req, res) { writeFile(req, res, route, fileType); };
+}
 
 var exampleFileRoutes = {
   'treebanks': 'xml',
@@ -47,18 +52,14 @@ var exampleFileRoutes = {
   'translations/phaidra': 'json'
 };
 
-function get(route, fileType) {
-  return function(req, res) { sendFile(req, res, route, fileType); };
-}
-
-function post(route, fileType) {
-  return function(req, res) { writeFile(req, res, route, fileType); };
-}
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 
 app.use(morgan('dev'));
-app.use(require('connect-livereload')({
-  port: 35279
-}));
+app.use(require('connect-livereload')({ port: 35279 }));
 
 for (var route in exampleFileRoutes) {
   var fileType = exampleFileRoutes[route];
@@ -69,6 +70,7 @@ for (var route in exampleFileRoutes) {
 app.use(express.static(__dirname));
 
 var port = process.env.NODE_PORT || 8081;
-var server = app.listen(port, function() {
-  console.log('arethusa-server listening on port %d...', server.address().port);
+
+app.listen(port, function() {
+  console.log('arethusa-server listening on port %d...', port);
 });
