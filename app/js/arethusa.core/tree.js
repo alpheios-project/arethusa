@@ -691,7 +691,9 @@ angular.module('arethusa.core').factory('Tree', [
             if (newVal !== oldVal) {
               // If a disconnection has been requested, we just
               // have to delete the edge and do nothing else
-              if (newVal === "") {
+              // if it's a previously unattached artificial token and this is an 
+              // undo action the newVal will be undefined
+              if (!(angular.isDefined(newVal)) || newVal === "") {
                 self.g.delEdge(token.id);
               } else {
                 updateEdge(token);
