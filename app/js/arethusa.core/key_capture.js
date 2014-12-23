@@ -246,6 +246,14 @@ angular.module('arethusa.core').service('keyCapture', [
       keyList[code] = key;
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.keyCapture#onKeyPressed
+     * @methodOf arethusa.core.keyCapture
+     *
+     * @description
+     * TODO
+     */
     this.onKeyPressed = function(key, callback, priority) {
       var keyCode = self.getKeyCode(key);
       addToKeyList(keyCode, key);
@@ -264,6 +272,14 @@ angular.module('arethusa.core').service('keyCapture', [
 
     var propagationStopped = false;
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.keyCapture#stopPropagation
+     * @methodOf arethusa.core.keyCapture
+     *
+     * @description
+     * TODO
+     */
     this.stopPropagation = function() {
       propagationStopped = true;
     };
