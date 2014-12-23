@@ -235,8 +235,14 @@ angular.module('arethusa.core').service('keyCapture', [
       var keyCode = self.getKeyCode(key);
       addToKeyList(keyCode, key);
       var callbacks = keyPressedCallbacks[keyCode] || [];
-      callbacks.push(new Callback(callback, priority));
+      var cb = new Callback(callback, priority);
+      callbacks.push(cb);
       keyPressedCallbacks[keyCode] = sortedByPriority(callbacks);
+      return function() {
+        var cbs = keyPressedCallbacks[keyCode];
+        var i = cbs.indexOf[cb];
+        cbs.splice(i, 1);
+      };
     };
 
     function sortedByPriority(callbacks) {
@@ -279,14 +285,29 @@ angular.module('arethusa.core').service('keyCapture', [
     }
 
     function addToKeyLists(keys) {
+      var destructors = [];
       angular.extend(self.activeKeys, keys);
       angular.forEach(keys, function(captures, section) {
         angular.forEach(captures, function(key, capture) {
           var keysDefined = self.keyList[key];
           if (!keysDefined) keysDefined = self.keyList[key] = [];
-          keysDefined.push(section + "." + capture);
+          var listKey = section + '.' + capture;
+          keysDefined.push(listKey);
+          destructors.push(function() {
+            // only remove when these elements haven't been redefined by someone
+            // else
+            var sec = self.activeKeys[section] || {};
+            var k   = sec[capture];
+            if (key === k) delete sec[capture];
+            var i = keysDefined.indexOf(listKey);
+            keysDefined.splice(i, 1);
+          });
         });
       });
+
+      return function() {
+        for (var i = destructors.length - 1; i >= 0; i--) { destructors[i](); }
+      };
     }
 
 
@@ -296,22 +317,28 @@ angular.module('arethusa.core').service('keyCapture', [
     //
     // keyCapture stores them in keyCapture.activeKeys as well.
     this.initCaptures = function(callback) {
+      var destructors = [];
       var keys = arethusaUtil.inject({}, callback(self), function(memo, section, captures) {
         var conf = self.conf(section);
         angular.forEach(captures, function(capture, i) {
           var key = conf[capture.confKey] || capture.defaultKey;
           if (angular.isDefined(key)) {
             addToKeys(memo, section, capture.confKey, key);
-            self.onKeyPressed(key, function() {
+            var destructor = self.onKeyPressed(key, function() {
               $rootScope.$apply(capture.fn);
             });
+            destructors.push(destructor);
           }
         });
       });
+
       if (!angular.equals({}, keys)) {
         $rootScope.$broadcast('keysAdded', keys);
-        addToKeyLists(keys);
+        destructors.push(addToKeyLists(keys));
       }
+      keys.$destroy = function() {
+        for (var i = destructors.length - 1; i >= 0; i--) { destructors[i](); }
+      };
       return keys;
     };
 
