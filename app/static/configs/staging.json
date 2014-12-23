@@ -1,59 +1,52 @@
 {
   "main" : {
-    "@include" : "layouts/main.json",
-    "foldSidepanel" : true,
+    "debug" : true,
+    "showKeys" : true,
+    "@include" : "layouts/perseids.json",
+    "chunkParam" : "chunk",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "staticFiles",
+        "resource" : "arethusaServerTreebank",
         "docIdentifier" : "treebank",
         "preselector" : "w"
       }
     },
     "persisters" : {
       "TreebankPersister" : {
-        "resource" : "staticFiles",
+        "resource" : "arethusaServerTreebank",
         "docIdentifier" : "treebank"
       }
     },
     "plugins" : [
       "text",
+      "artificialToken",
       "search",
       "morph",
       "relation",
       "depTree",
       "review",
-      "history"
+      "history",
+      "comments"
     ]
   },
 
   "navbar" : {
     "template" : "templates/navbar1.html",
     "search" : true,
-    "navigation" : true,
-    "notifier" : true
+    "navigation" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "navigator" : {
+    "chunkSize" : 1
   },
 
   "resources" : {
-    "staticFiles" : {
-      "route" : "http://services.perseids.org/llt-data/:doc.xml",
-      "params" : ["doc"]
-    },
-
-    "fakeGold" : {
-      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
-      "params" : [
-        "gold",
-        "s"
-      ]
-    },
-
-    "lexInvFusekiEndpoint" : {
-      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
-    },
-
-    "morphologyService" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
-    }
+    "@include" : "resources/dev.json"
   },
 
   "plugins" : {
@@ -70,14 +63,13 @@
     },
 
     "search" : {
-      "template" : "templates/search.html",
-      "regex" : true
+      "template" : "templates/search.html"
     },
 
     "morph" : {
       "retrievers" : {
         "BspMorphRetriever" : {
-          "resource" : "morphologyService"
+          "resource" : "morphologyServiceLat"
         }
       },
       "template"  : "templates/morph3.html",
@@ -90,12 +82,12 @@
           }
         }
       },
-      "matchAll" : true,
       "@include" : "morph/lat_attributes.json"
     },
 
     "relation" : {
       "template" : "templates/relation.html",
+      "advancedMode" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
       "@include" : "relation/relations.json"
@@ -105,48 +97,48 @@
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
-          "resource" : "fakeGold"
+          "resource" : "arethusaServerTreebankGold"
         }
       }
     },
 
     "history" : {
-      "listener" : true,
       "maxSize" : 5,
       "template" : "templates/history.html"
     },
 
-    "comment" : {
-      "template" : "templates/comment2.html"
+    "artificialToken" : {
+      "template" : "templates/arethusa.artificial_token/artificial_token.html"
+    },
+
+    "comments" : {
+      "retriever" : {
+        "CommentsRetriever" : {
+          "resource" : "fakePerseidsComments"
+        }
+      }
+    },
+
+    "sg" : {
+      "retriever" : {
+        "SgGrammarRetriever" : {
+          "resource" : "sgGrammar"
+        }
+      },
+      "template" : "templates/sg.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
+      "@include" : "sg2/sg_labels.json"
     }
   },
 
+  "exitHandler" : {
+    "title" : "LLT",
+    "route" : "http://latin-languge-toolkit.net"
+  },
+
   "keyCapture" : {
-    "sidepanel" : {
-      "nextTab" : "W",
-      "prevTab" : "E",
-      "toggle"  : "q"
-    },
-    "selections" : {
-      "nextToken" : "w",
-      "prevToken" : "e"
-    },
-    "navigation" : {
-      "nextSentence" : "u",
-      "prevSentence" : "i",
-      "list" : "L"
-    },
-    "tree" : {
-      "directionChange" : "c",
-      "focusSelection"  : "a",
-      "centerTree" : "s",
-      "perfectWidth" : "d"
-    },
-    "saver" : {
-      "save" : "ctrl-S"
-    },
-    "search" : {
-      "focus" : "A"
-    }
+    "@include" : "keyboard/key_map.json"
   }
 }
+
