@@ -653,6 +653,7 @@ angular.module('arethusa.morph').service('morph', [
       var id = token.id;
       var forms = new Forms(token.string);
       self.analyses[id] = forms;
+      token.morphology = {};
       loadToken(forms, id);
     });
 
