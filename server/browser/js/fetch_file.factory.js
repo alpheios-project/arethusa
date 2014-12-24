@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('FetchFileFactory', ['$http',
+angular.module('fileBrowserApp').factory('FetchFileFactory', ['$http',
   function($http) {
     var _factory = {};
 

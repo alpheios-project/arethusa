@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BrowserController', [
+angular.module('fileBrowserApp').controller('BrowserController', [
   '$scope',
   'FetchFileFactory',
   function($scope, FetchFileFactory) {

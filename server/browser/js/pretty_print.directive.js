@@ -1,6 +1,8 @@
 'use strict';
 
-app.directive('prettyPrint', [
+/* global prettyPrint */
+
+angular.module('fileBrowserApp').directive('prettyPrint', [
   '$timeout',
   '$compile',
   function($timeout, $compile) {

@@ -1,6 +1,6 @@
 'use strict';
 
-window.app = angular.module('fileBrowserApp', [
+angular.module('fileBrowserApp', [
   'ngRoute',
   'jsTree.directive'
 ])
