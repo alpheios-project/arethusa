@@ -3,11 +3,13 @@
     <js-tree tree-events="select_node:nodeSelected" tree-ajax="/browse/api/tree"></js-tree>
   </div>
   <div class="col-md-9 file-viewer">
-    <div ng-if="arethusaHref">
-      <button>
-        <a ng-href="{{ arethusaHref }}" target="_blank">Open in Arethusa</a>
+    <div>
+      <button ng-if="arethusaHref">
+        <a ng-href="{{ arethusaHref }}" target="_blank">
+          Open in Arethusa
+        </a>
       </button>
     </div>
-    <pre><code>{{fileViewer}}</pre></code>
+    <pre pretty-print="syntaxHighlighting" content="fileViewer"/>
   </div>
 </div>
