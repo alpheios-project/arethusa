@@ -14,7 +14,6 @@ var base = path.resolve(__dirname, '../../examples/data');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
-router.use(express.static(path.join(__dirname, '..', 'browser')));
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -44,12 +43,15 @@ router.get('/api/resource', function(req, res) {
 });
 
 function processReq(_p, res) {
-  var resp = [];
+  var files = [];
+  var directories = [];
   fs.readdir(_p, function(err, list) {
     for (var i = list.length - 1; i >= 0; i--) {
-      resp.unshift(processNode(_p, list[i]));
+      var el = processNode(_p, list[i]);
+      var target = el.children ? directories : files;
+      target.unshift(el);
     }
-    res.json(resp);
+    res.json(directories.concat(files));
   });
 }
 
