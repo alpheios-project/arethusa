@@ -8,12 +8,19 @@ var express = require('express'),
     app = express();
 
 var examples = require('./routes/examples');
+var fileBrowser = require('./routes/file_browser');
 var base = path.resolve(__dirname + '/..');
+
+app.set('views', path.join(__dirname, 'views'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 app.use(morgan('dev'));
 app.use(require('connect-livereload')({ port: 35279 }));
 
+
 app.use('/examples', examples);
+app.use('/browse', fileBrowser);
 app.use(express.static(base));
 
 app.all('*', function(req, res, next) {
