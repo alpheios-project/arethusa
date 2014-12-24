@@ -1,22 +1,21 @@
 'use strict';
 
-/* global __dirname, console  */
+/* global __dirname */
 
 var express = require('express'),
-    morgan  = require('morgan'),
-    fs = require('fs');
-var app = express();
+    fs      = require('fs'),
+    path    = require('path'),
+    router  = express.Router();
 
-
-var exampleDir = '/examples/data/';
+var base = path.resolve(__dirname, '../../examples/data');
 
 function docPath(req, addPath, ending) {
-  return __dirname + exampleDir + addPath + '/' + req.params.doc + '.' + ending;
+  return base + '/' + addPath + '/' + req.params.doc + '.' + ending;
 }
 
 var contentTypes = {
   'xml' : 'text/xml; charset=utf-8',
-  'json' : 'application/json; charset=utf-8',
+  'json': 'application/json; charset=utf-8',
   'html': 'text/html; charset=utf-8'
 };
 
@@ -52,25 +51,10 @@ var exampleFileRoutes = {
   'translations/phaidra': 'json'
 };
 
-app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
-
-app.use(morgan('dev'));
-app.use(require('connect-livereload')({ port: 35279 }));
-
 for (var route in exampleFileRoutes) {
   var fileType = exampleFileRoutes[route];
-  app.get( '/examples/' + route + '/:doc', get(route, fileType));
-  app.post('/examples/' + route + '/:doc', post(route, fileType));
+  router.get( '/' + route + '/:doc', get(route, fileType));
+  router.post('/' + route + '/:doc', post(route, fileType));
 }
 
-app.use(express.static(__dirname));
-
-var port = process.env.NODE_PORT || 8081;
-
-app.listen(port, function() {
-  console.log('arethusa-server listening on port %d...', port);
-});
+module.exports = router;

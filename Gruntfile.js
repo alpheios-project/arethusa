@@ -449,7 +449,7 @@ module.exports = function(grunt) {
     },
     express: {
       options: {
-        script: 'server.js',
+        script: 'server/app.js',
         background: false,
         port: devServerPort
       },
