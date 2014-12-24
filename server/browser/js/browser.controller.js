@@ -10,7 +10,7 @@ angular.module('fileBrowserApp').controller('BrowserController', [
 
     function generateTreebankLink(node) {
       var base = '../app/#/staging?doc=';
-      var docId = node.text.match(/(.*)\.xml/)[1];
+      var docId = node.id.match(/treebanks\/(.*)\.xml/)[1];
 
       $scope.arethusaHref = base + docId;
     }
