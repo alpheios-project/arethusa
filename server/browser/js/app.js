@@ -13,7 +13,7 @@ angular.module('fileBrowserApp', [
       controller: 'BrowserController'
     }).
     otherwise({
-      redirectTo: '/home'
+      redirectTo: '/'
     });
   }
 ]);
