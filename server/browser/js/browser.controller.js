@@ -19,9 +19,10 @@ app.controller('BrowserController', [
       $scope.arethusaHref = undefined;
     }
 
+    var placeholder = 'Please select a file to view its contents';
 
 
-    $scope.fileViewer = 'Please select a file to view its contents';
+    $scope.fileViewer = placeholder;
 
     $scope.nodeSelected = function(e, data) {
       var node = data.node;
@@ -48,7 +49,7 @@ app.controller('BrowserController', [
 
         //http://jimhoskins.com/2012/12/17/angularjs-and-apply.html//
         $scope.$apply(function() {
-          $scope.fileViewer = 'Please select a file to view its contents';
+          $scope.fileViewer = placeholder;
           $scope.preview = false;
         });
       }
