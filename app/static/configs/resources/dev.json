@@ -30,6 +30,11 @@
     ]
   },
 
+  "arethusaServerComments" : {
+    "route" : "http://localhost:8081/examples/comments/:doc",
+    "params" : [ "doc" ]
+  },
+
   "arethusaServerTreebank" : {
     "route" : "http://localhost:8081/examples/treebanks/:doc",
     "params" : [ "doc" ]

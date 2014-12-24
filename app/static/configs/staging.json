@@ -114,7 +114,7 @@
     "comments" : {
       "retriever" : {
         "CommentsRetriever" : {
-          "resource" : "fakePerseidsComments"
+          "resource" : "arethusaServerComments"
         }
       }
     },
