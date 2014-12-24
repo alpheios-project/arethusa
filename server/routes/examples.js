@@ -51,6 +51,7 @@ function post(route, fileType) {
 
 var exampleFileRoutes = {
   'treebanks': 'xml',
+  'comments': 'json',
   'translations': 'json',
   'tei' : 'xml',
   'oa' : 'json',
