@@ -42,6 +42,13 @@ router.get('/api/resource', function(req, res) {
   res.send(fs.readFileSync(req.query.resource, 'UTF-8'));
 });
 
+/* Stats of a Resource */
+router.get('/api/stats', function(req, res) {
+  fs.stat(req.query.resource, function(err, stats) {
+    res.json(stats);
+  });
+});
+
 function processReq(_p, res) {
   var files = [];
   var directories = [];
