@@ -9,6 +9,11 @@ html, body {
   }
 }
 
+pre {
+  background-color: transparent;
+  font-size: 12px;
+}
+
 .tree-browser {
   overflow: auto;
 }
