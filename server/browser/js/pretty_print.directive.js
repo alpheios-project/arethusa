@@ -26,8 +26,7 @@ angular.module('fileBrowserApp').directive('prettyPrint', [
         scope.$watch('content', update);
         scope.$watch('on', update);
 
-        update();
-
+        update(true, false); // run once on init
       }
     };
   }
