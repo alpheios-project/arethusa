@@ -41,24 +41,33 @@ angular.module('fileBrowserApp').controller('BrowserController', [
       }
     }
 
+    function fetchFile(file) {
+      FetchFileFactory.fetchFile(file).then(function(data) {
+        var _d = data.data;
+        if (typeof _d == 'object') {
+          //http://stackoverflow.com/a/7220510/1015046//
+          _d = JSON.stringify(_d, undefined, 2);
+        }
+        $scope.fileViewer = _d;
+        checkHighlighting(_d);
+      });
+    }
+
+    function fetchStats(file) {
+      FetchFileFactory.fetchStats(file).then(function(res) {
+        $scope.fileStats = res.data;
+      });
+    }
+
     $scope.fileViewer = placeholder;
 
     $scope.nodeSelected = function(e, data) {
       var node = data.node;
       var _l = node.li_attr;
 
-      checkForTreebankLink(node);
-
       if (_l.isLeaf) {
-        FetchFileFactory.fetchFile(_l.base).then(function(data) {
-          var _d = data.data;
-          if (typeof _d == 'object') {
-            //http://stackoverflow.com/a/7220510/1015046//
-            _d = JSON.stringify(_d, undefined, 2);
-          }
-          $scope.fileViewer = _d;
-          checkHighlighting(_d);
-        });
+        fetchFile(_l.base);
+        checkForTreebankLink(node);
       } else {
         //http://jimhoskins.com/2012/12/17/angularjs-and-apply.html//
         $scope.$apply(function() {
@@ -66,6 +75,7 @@ angular.module('fileBrowserApp').controller('BrowserController', [
           $scope.fileViewer = placeholder;
         });
       }
+      fetchStats(_l.base);
     };
   }
 ]);
