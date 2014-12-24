@@ -26,7 +26,7 @@ angular.module('fileBrowserApp').controller('BrowserController', [
     }
 
     function checkHighlighting(file) {
-      if (file.length < 100000) {
+      if (file.length < 50000) {
         toggleHighlighting(true);
       } else {
         toggleHighlighting(false);
