@@ -5,6 +5,7 @@
 var express = require('express'),
     fs      = require('fs'),
     path    = require('path'),
+    pd      = require('pretty-data').pd,
     router  = express.Router();
 
 var base = path.resolve(__dirname, '../../examples/data');
@@ -24,12 +25,19 @@ function sendFile(req, res, addPath, ending) {
   res.sendFile(docPath(req, addPath, ending));
 }
 
+function prettify(str, req) {
+  var type = req.headers['content-type'];
+  if (type.match(/xml/))  return pd.xml(str);
+  if (type.match(/json/)) return pd.json(str);
+  return str;
+}
+
 function writeFile(req, res, addPath, ending) {
   var doc = '';
   req.on('data', function(data) { doc += data; });
   req.on('end', function() {
     var path = docPath(req, addPath, ending);
-    fs.writeFile(path, doc, function() { res.end(); });
+    fs.writeFile(path, prettify(doc, req), function() { res.end(); });
   });
 }
 
