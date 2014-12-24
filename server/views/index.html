@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="fileBrowserApp">
+
+<head>
+  <meta charset="utf-8">
+  <title>Browse Arethusa files</title>
+
+  <link rel="stylesheet" type="text/css" href="/server/browser/libs/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/server/browser/jstree/themes/default/style.min.css">
+  <link rel="stylesheet" type="text/css" href="/server/browser/css/app.css">
+
+  <script src="http://localhost:8081/dist/arethusa_packages.min.js"></script>
+  <script src="http://localhost:8081/dist/arethusa.min.js"></script>
+
+  <script src="/server/browser/jstree/jstree.min.js"></script>
+
+  <script src="/server/browser/libs/jstree-directive/jsTree.directive.js"></script>
+
+  <script src="/server/browser/js/app.js"></script>
+  <script src="/server/browser/js/fetch_file.factory.js"></script>
+  <script src="/server/browser/js/browser.controller.js"></script>
+
+</head>
+
+<body class="container">
+  <h1>Arethusa File Browser</h1>
+  <div class="clearfix"></div>
+  <hr>
+  <ng-view></ng-view>
+</body>
+
+</html>
