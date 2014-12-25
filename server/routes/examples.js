@@ -6,6 +6,7 @@ var express = require('express'),
     fs      = require('fs'),
     path    = require('path'),
     pd      = require('pretty-data').pd,
+    mkdirp  = require('mkdirp'),
     router  = express.Router();
 
 var base = path.resolve(__dirname, '../../examples/data');
@@ -36,8 +37,10 @@ function writeFile(req, res, addPath, ending) {
   var doc = '';
   req.on('data', function(data) { doc += data; });
   req.on('end', function() {
-    var path = docPath(req, addPath, ending);
-    fs.writeFile(path, prettify(doc, req), function() { res.end(); });
+    var p = docPath(req, addPath, ending);
+    mkdirp(path.basename(p), function() {
+      fs.writeFile(path, prettify(doc, req), function() { res.end(); });
+    });
   });
 }
 
@@ -72,22 +75,23 @@ for (var route in exampleFileRoutes) {
 router.get( docRoute('comments'), get('comments', 'json'));
 router.post(docRoute('comments'), function(req, res) {
   var comment, comments;
-  var path = docPath(req, 'comments', 'json');
+  var p = docPath(req, 'comments', 'json');
   var now = new Date().toJSON();
   req.on('data', function(data) { comment  = JSON.parse(data); });
   req.on('end', function() {
-    fs.readFile(path, function(err, file) {
+    fs.readFile(p, function(err, file) {
       if (err) { comments = []; } else { comments = JSON.parse(file); }
       var ids = comments.map(function(el) { return el.comment_id; }).sort();
       delete comment.ids;
       delete comment.sentenceId;
       comment.comment_id = (ids[ids.length - 1] || 0) + 1;
       comment.reason = 'general';
-      comment.created_at = now;
-      comment.updated_at = now;
       comment.user = 'you';
+      comment.created_at = comment.updated_at = now;
       comments.push(comment);
-      fs.writeFile(path, prettify(comments, req), function() { res.json(comment); });
+      mkdirp(path.dirname(p), function(err) {
+        fs.writeFile(p, prettify(comments, req), function() { res.json(comment); });
+      });
     });
   });
 });
