@@ -4,7 +4,11 @@
 
 <div class="row">
   <div class="col-md-3 tree-browser">
-    <js-tree tree-events="select_node:nodeSelected" tree-ajax="/browse/api/tree"></js-tree>
+    <js-tree
+      tree-events="select_node:nodeSelected"
+      tree-plugins="search"
+      tree-ajax="/browse/api/tree">
+    </js-tree>
   </div>
   <div class="col-md-9 file-viewer">
     <div>
