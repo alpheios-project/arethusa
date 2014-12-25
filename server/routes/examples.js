@@ -7,9 +7,10 @@ var express = require('express'),
     path    = require('path'),
     pd      = require('pretty-data').pd,
     mkdirp  = require('mkdirp'),
+    paths   = require('../paths'),
     router  = express.Router();
 
-var base = path.resolve(__dirname, '../../examples/data');
+var base = path.resolve(__dirname, '../../' + paths.examples);
 
 function docPath(req, addPath, ending) {
   return base + '/' + addPath + '/' + req.params.doc + '.' + ending;

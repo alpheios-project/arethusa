@@ -8,9 +8,10 @@ var express    = require('express'),
     fs         = require('fs'),
     path       = require('path'),
     bodyParser = require('body-parser'),
+    paths      = require('../paths'),
     router  = express.Router();
 
-var base = path.resolve(__dirname, '../../examples/data');
+var base = path.resolve(__dirname, '../../' + paths.examples);
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
