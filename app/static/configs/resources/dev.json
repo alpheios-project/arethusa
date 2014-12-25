@@ -31,17 +31,22 @@
   },
 
   "arethusaServerTreebank" : {
-    "route" : "http://localhost:8082/examples/treebanks/:doc",
+    "route" : "http://localhost:8081/examples/treebanks/:doc",
     "params" : [ "doc" ]
   },
 
+  "arethusaServerTreebankGold" : {
+    "route" : "http://localhost:8081/examples/treebanks/:gold",
+    "params" : [ "gold" ]
+  },
+
   "phaidraTreebanks" : {
-    "route" : "http://localhost:8082/examples/treebanks/phaidra/:doc",
+    "route" : "http://localhost:8081/examples/treebanks/phaidra/:doc",
     "params" : [ "doc" ]
   },
 
   "phaidraTranslations" : {
-    "route" : "http://localhost:8082/examples/translations/phaidra/:doc",
+    "route" : "http://localhost:8081/examples/translations/phaidra/:doc",
     "params" : [ "doc" ]
   },
 
