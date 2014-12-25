@@ -31,17 +31,17 @@
   },
 
   "arethusaServerComments" : {
-    "route" : "http://localhost:8081/examples/comments/:doc",
+    "route" : "/examples/comments/:doc",
     "params" : [ "doc" ]
   },
 
   "arethusaServerTreebank" : {
-    "route" : "http://localhost:8081/examples/treebanks/:doc",
+    "route" : "/examples/treebanks/:doc",
     "params" : [ "doc" ]
   },
 
   "arethusaServerTreebankGold" : {
-    "route" : "http://localhost:8081/examples/treebanks/:gold",
+    "route" : "/examples/treebanks/:gold",
     "params" : [ "gold" ]
   },
 
