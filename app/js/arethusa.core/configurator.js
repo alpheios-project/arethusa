@@ -103,11 +103,16 @@ angular.module('arethusa.core').service('configurator', [
       });
     };
 
+    function auxConfPath() {
+      return self.configuration.main.auxConfPath ||
+        'http://services.perseids.org/arethusa-configs';
+    }
+
     function parseConfUrl(url) {
       if (url.match('^http:\/\/')) {
         return url;
       } else {
-        return 'http://services.perseids.org/arethusa-configs/' + url + '.json';
+        return auxConfPath() + '/' + url + '.json';
       }
     }
 
