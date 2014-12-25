@@ -30,13 +30,14 @@ ngJSTree.directive('jsTree', function($http) {
 
         if (config.plugins.indexOf('search') >= 0) {
           var to = false;
-          e.after('<input type="text" placeholder="Search Tree" class="ng-tree-search"/>')
-            .next()
+          e.before('<input type="text" placeholder="Search Tree" class="ng-tree-search"/>')
+            .prev()
             .on('keyup', function(ev) {
               if (to) {
                 clearTimeout(to);
               }
               to = setTimeout(function() {
+                console.log('xxx');
                 treeDir.tree.jstree(true).search(ev.target.value);
               }, 250);
             });
