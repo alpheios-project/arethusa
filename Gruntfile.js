@@ -536,7 +536,10 @@ module.exports = function(grunt) {
         ].join(';')
       },
       cloneExampleRepo: {
-        command: 'git clone git@github.com:latin-language-toolkit/arethusa-example-data.git examples'
+        command: 'git clone git@github.com:latin-language-toolkit/arethusa-example-data.git data/examples'
+      },
+      cloneAuxConfigs: {
+        command: 'git clone git@github.com:latin-language-toolkit/arethusa-configs.git data/aux_configs'
       }
     },
     concurrent: {
@@ -661,5 +664,5 @@ module.exports = function(grunt) {
   grunt.registerTask('e2e:setup', 'shell:e2eSetup');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 
-  grunt.registerTask('import', 'shell:cloneExampleRepo');
+  grunt.registerTask('import', ['shell:cloneExampleRepo', 'shell:cloneAuxConfigs']);
 };
