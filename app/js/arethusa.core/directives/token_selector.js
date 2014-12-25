@@ -33,6 +33,9 @@ angular.module('arethusa.core').directive('tokenSelector', [
           },
           changedCount: function(newCount) {
             unusedSelector.count = newCount;
+            translator("selector.unused", function(translationFn) {
+              unusedSelector.label = translationFn({count: unusedSelector.count});
+            });
           }
         };
         var unusedWatcher = new StateChangeWatcher('head.id', callbacks);
