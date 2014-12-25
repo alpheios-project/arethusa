@@ -13,6 +13,9 @@ var docPath  = 'docs';
 var docCustom = docPath + '/custom';
 var versionInfoFilename = 'app/js/arethusa/version.json';
 
+var expressFiles = ['server/**/*', '!server/browser/**/*'];
+var browserAppFiles = ['server/browser/js/**/*'];
+
 var devMode = process.env.DEV;
 
 var arethusaModules = [
@@ -161,6 +164,10 @@ function arethusaConcat() {
   obj.packages = { src: sourceFiles, dest: toConcatPath('arethusa_packages') };
   obj.main = pluginFiles('arethusa', 'arethusa.main', true);
   obj.app = { src: mainFiles, dest: toConcatPath('arethusa') };
+
+  obj.browserApp = {
+    src: browserAppFiles, dest: 'dist/file_browser_app.concat.js'
+  };
 
   return obj;
 }
@@ -363,6 +370,10 @@ module.exports = function(grunt) {
           livereload: reloadPort,
           spawn: false
         }
+      },
+      browserApp: {
+        files: browserAppFiles,
+        tasks: ['concat:browserApp']
       }
     },
     jshint: {
@@ -533,7 +544,7 @@ module.exports = function(grunt) {
         tasks: ['minify:css', 'minify', 'minify:conf']
       },
       watches: {
-        tasks: ['reloader:no-css', 'reloader:conf', 'reloader:css'],
+        tasks: ['reloader:no-css', 'reloader:conf', 'reloader:css', 'watch:browserApp'],
         options: {
           logConcurrentOutput: true
         }
