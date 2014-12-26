@@ -18,6 +18,13 @@ angular.module('fileBrowserApp').factory('FetchFileFactory', ['$http',
       return getResource('stats', file);
     };
 
+    _factory.moveFile = function(oldName, newName) {
+      return $http.post(apiPath + '/' + 'move', {
+        old: oldName,
+        new: newName
+      });
+    };
+
     return _factory;
   }
 ]);
