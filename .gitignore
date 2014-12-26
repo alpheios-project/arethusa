@@ -7,7 +7,7 @@ dist/*
 docs/*
 !docs/custom
 docs/custom/plato
-examples/
+data/
 dist/
 deployment/
 .sass-cache

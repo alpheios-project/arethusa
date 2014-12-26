@@ -13,6 +13,9 @@ var docPath  = 'docs';
 var docCustom = docPath + '/custom';
 var versionInfoFilename = 'app/js/arethusa/version.json';
 
+var expressFiles = ['server/**/*', '!server/browser/**/*'];
+var browserAppFiles = ['server/browser/js/**/*'];
+
 var devMode = process.env.DEV;
 
 var arethusaModules = [
@@ -161,6 +164,10 @@ function arethusaConcat() {
   obj.packages = { src: sourceFiles, dest: toConcatPath('arethusa_packages') };
   obj.main = pluginFiles('arethusa', 'arethusa.main', true);
   obj.app = { src: mainFiles, dest: toConcatPath('arethusa') };
+
+  obj.browserApp = {
+    src: browserAppFiles, dest: 'dist/file_browser_app.concat.js'
+  };
 
   return obj;
 }
@@ -363,6 +370,10 @@ module.exports = function(grunt) {
           livereload: reloadPort,
           spawn: false
         }
+      },
+      browserApp: {
+        files: browserAppFiles,
+        tasks: ['concat:browserApp']
       }
     },
     jshint: {
@@ -525,7 +536,10 @@ module.exports = function(grunt) {
         ].join(';')
       },
       cloneExampleRepo: {
-        command: 'git clone git@github.com:latin-language-toolkit/arethusa-example-data.git examples'
+        command: 'git clone git@github.com:latin-language-toolkit/arethusa-example-data.git data/examples'
+      },
+      cloneAuxConfigs: {
+        command: 'git clone git@github.com:latin-language-toolkit/arethusa-configs.git data/aux_configs'
       }
     },
     concurrent: {
@@ -533,7 +547,7 @@ module.exports = function(grunt) {
         tasks: ['minify:css', 'minify', 'minify:conf']
       },
       watches: {
-        tasks: ['reloader:no-css', 'reloader:conf', 'reloader:css'],
+        tasks: ['reloader:no-css', 'reloader:conf', 'reloader:css', 'watch:browserApp'],
         options: {
           logConcurrentOutput: true
         }
@@ -650,5 +664,5 @@ module.exports = function(grunt) {
   grunt.registerTask('e2e:setup', 'shell:e2eSetup');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
 
-  grunt.registerTask('import', 'shell:cloneExampleRepo');
+  grunt.registerTask('import', ['shell:cloneExampleRepo', 'shell:cloneAuxConfigs']);
 };

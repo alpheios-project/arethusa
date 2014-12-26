@@ -1,0 +1,26 @@
+<h1>Arethusa File Browser</h1>
+<div class="clearfix"></div>
+<hr>
+
+<div class="row">
+  <div class="col-md-3 tree-browser">
+    <js-tree
+      tree-events="select_node:nodeSelected"
+      tree-plugins="search"
+      tree-ajax="/browse/api/tree">
+    </js-tree>
+  </div>
+  <div class="col-md-9 file-viewer">
+    <div>
+      <button ng-if="arethusaHref">
+        <a ng-href="{{ arethusaHref }}" target="_blank">
+          Open in Arethusa
+        </a>
+      </button>
+      <span class="pull-right" file-stats="fileStats"/>
+    </div>
+  </div>
+  <div class="col-md-9 file-viewer">
+      <pre pretty-print="syntaxHighlighting" content="fileViewer"/>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+
+html, body {
+  overflow: auto;
+}
+
+@media (min-width: 1600px) {
+  .container {
+    width: 1500px
+  }
+}
+
+@media (min-width: 1900px) {
+  .container {
+    width: 1700px
+  }
+}
+
+pre {
+  background-color: transparent;
+  font-size: 12px;
+}
+
+.tree-browser {
+  overflow: auto;
+}
+.file-viewer {
+  padding-left: 50px;
+  overflow: auto;
+}
+.jstree-custom-folder{
+  background-image: url('../imgs/folder.png') !important;
+  background-position: 0 !important;
+}
+.jstree-custom-file {
+  background-image: url('../imgs/file.png') !important;
+  background-position: 0 !important;
+}
