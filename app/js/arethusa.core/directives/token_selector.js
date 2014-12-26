@@ -33,9 +33,7 @@ angular.module('arethusa.core').directive('tokenSelector', [
           },
           changedCount: function(newCount) {
             unusedSelector.count = newCount;
-            translator("selector.unused", function(translationFn) {
-              unusedSelector.label = translationFn({count: unusedSelector.count});
-            });
+            translator("selector.unused", setLabel(unusedSelector));
           }
         };
         var unusedWatcher = new StateChangeWatcher('head.id', callbacks);
@@ -61,6 +59,12 @@ angular.module('arethusa.core').directive('tokenSelector', [
           unusedHighlighter.isActive = !unusedHighlighter.isActive;
         }
 
+        function setLabel(obj) {
+          return function(translationFn) {
+              obj.label = translationFn(obj);
+          };
+        }
+
         var noneSelector = {
           action: function() {
             state.deselectAll();
@@ -68,35 +72,27 @@ angular.module('arethusa.core').directive('tokenSelector', [
           },
           isActive: true
         };
-        translator("selector.none", function(translationFn) {
-          noneSelector.label = translationFn();
-        });
+        translator("selector.none", setLabel(noneSelector));
 
         var allSelector = {
           action: selectAll,
           isActive: false
         };
-        translator("selector.all", function(translationFn) {
-          allSelector.label = translationFn();
-        });
+        translator("selector.all", setLabel(allSelector));
 
         var unusedSelector = {
           action: selectUnused,
           isActive: false,
           count: 0
         };
-        translator("selector.unused", function(translationFn) {
-          unusedSelector.label = translationFn({count: unusedSelector.count});
-        });
+        translator("selector.unused", setLabel(unusedSelector));
 
         var unusedHighlighter = {
           action: switchHighlighting,
           styleClasses: 'unused-highlighter',
           isActive: false
         };
-        translator("selector.highlightUnused", function(translationFn) {
-          unusedHighlighter.label = translationFn();
-        });
+        translator("selector.highlightUnused", setLabel(unusedHighlighter));
 
         scope.selectors = [
           noneSelector,
