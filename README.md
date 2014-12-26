@@ -42,7 +42,7 @@ grunt reloading-server
 which will also watch any code changes you make and trigger a reload of
 your browser when needed.
 
-(Optionally pass `--port=PORT` to these server task to start them on a
+(Optionally pass `--port=PORT` to these server tasks to start them on a
 custom port instead of the default, which is 8081)
 
 A good place to navigate your browser to would be Arethusa's
