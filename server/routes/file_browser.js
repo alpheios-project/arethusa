@@ -8,6 +8,7 @@ var express    = require('express'),
     fs         = require('fs'),
     path       = require('path'),
     bodyParser = require('body-parser'),
+    mv         = require('mv'),
     paths      = require('../paths'),
     router  = express.Router();
 
@@ -50,6 +51,18 @@ router.get('/api/stats', function(req, res) {
   });
 });
 
+/* Move a Resoruce */
+router.post('/api/move', function(req, res) {
+  var paths;
+  req.on('data', function(data) { paths = JSON.parse(data); });
+  req.on('end', function() {
+    mv(paths.old, paths.new, function(err) {
+      res.end();
+    });
+  });
+});
+
+
 function processReq(_p, res) {
   var files = [];
   var directories = [];
@@ -65,6 +78,7 @@ function processReq(_p, res) {
 
 function processNode(_p, f) {
   var s = fs.statSync(path.join(_p, f));
+  console.log(path.join(_p, f));
   return {
     "id": path.join(_p, f),
     "text": f,
