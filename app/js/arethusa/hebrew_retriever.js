@@ -19,12 +19,12 @@ angular.module('arethusa').factory('HebrewRetriever', [
         this.terminator = terminator;
       }
 
-      function createIds(id) {
+      function createIds(id,sentence) {
         var match = /^ref\.(\d+\.){3}(\d+)\.(\d+)$/.exec(id);
         var internalId = idHandler.getId(match[2]) + '-' + idHandler.getId(match[3]);
         var sourceId   = id;
         var idMap = new idHandler.Map();
-        idMap.add(docIdentifier, internalId, sourceId);
+        idMap.add(docIdentifier, internalId, sourceId, sentence);
         return { map: idMap, id: internalId };
       }
 
@@ -35,7 +35,7 @@ angular.module('arethusa').factory('HebrewRetriever', [
           var tokens = arethusaUtil.toAry(sentence.token);
           var lastTokenI = tokens.length - 1;
           angular.forEach(tokens, function(token, otherI) {
-            var ids = createIds(token._id);
+            var ids = createIds(token._id,sentence._id);
             var string = token._surface;
             var term = otherI === lastTokenI;
             var id = ids.id;

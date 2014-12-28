@@ -9,7 +9,7 @@ angular.module('arethusa').service('retrieverHelper', [
   function(idHandler, locator) {
     this.generateId = function(stateToken, internalId, sourceId, docId) {
       var idMap = new idHandler.Map();
-      idMap.add(docId, internalId, sourceId);
+      idMap.add(docId, internalId, sourceId, stateToken.sentenceId);
       stateToken.id = internalId;
       stateToken.idMap = idMap;
     };
