@@ -132,7 +132,7 @@ angular.module('arethusa.core').service('idHandler', [
       };
 
       this.clearSourceIdAssignments = function(sentenceId) {
-        angular.forEach(self.mappings, function(docId,i) {
+        angular.forEach(Object.keys(self.mappings), function(docId,i) {
           assigned[docId][sentenceId][self.sourceId(docId)] = false;
         });
       };
