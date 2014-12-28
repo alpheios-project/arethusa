@@ -96,7 +96,7 @@ angular.module('arethusa.core').directive('tokenSelector', [
 
         scope.selectors = [
           noneSelector,
-          allSelector,
+          // allSelector, // not used right now for performance reasons
           unusedSelector,
           unusedHighlighter
         ];
