@@ -56,6 +56,12 @@ function ArethusaMocks() {
     });
   };
 
+  this.idHandler = function(customizations) {
+    return withCustomizations({
+      unassignSourceId: mockFn
+    });
+  };
+
   this.plugins = function(customizations) {
     return withCustomizations({
       startUp: mockFn,
