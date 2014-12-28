@@ -396,6 +396,7 @@ angular.module('arethusa.core').service('state', [
           delete self.tokens[id];
         });
         navigator.removeToken(token);
+        idHandler.unassignSourceId(token);
         notifier.success(token.string + ' removed!');
         self.deselectAll();
         self.countTotalTokens();
