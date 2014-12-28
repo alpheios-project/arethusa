@@ -69,7 +69,7 @@ angular.module('arethusa.core').service('idHandler', [
      */
     this.unassignSourceId = function(token) {
       token.idMap.clearSourceIdAssignments(token.sentenceId);
-    }
+    };
 
     /**
      * @ngdoc function
@@ -133,7 +133,7 @@ angular.module('arethusa.core').service('idHandler', [
 
       this.clearSourceIdAssignments = function(sentenceId) {
         angular.forEach(self.mappings, function(docId,i) {
-          assigned[docid][sentenceId][self.sourceId(docId)] = false;
+          assigned[docId][sentenceId][self.sourceId(docId)] = false;
         });
       };
     };
