@@ -88,4 +88,20 @@ describe("idHandler", function() {
       expect(idHandler.getId(id, sentenceId)).toEqual('0001-0002');
     });
   });
+
+  describe('this.assignSourceId', function() {
+    it('assigns an new sourceid', function() {
+      var map = new idHandler.Map();
+      var added = map.add('treebank','0001',1,1)
+      expect(added).toBeDefined();
+    });
+    it('does not reassign a sourceid', function() {
+      var map = new idHandler.Map();
+      var added = map.add('treebank','0001',1,1)
+      expect(added).toBeDefined();
+      var dupe = new idHandler.Map();
+      added = dupe.add('treebank','0001',1,1)
+      expect(added).not.toBeDefined();
+    });
+  });
 });
