@@ -966,7 +966,14 @@ code {
   margin-left: .2rem;
 
   a {
+    background-color: $button-color;
     padding: .4rem;
+    @include transition(background-color 300ms ease-in-out);
+
+    &:hover {
+      background-color: $button-color-hover;
+      @include transition(background-color 300ms ease-in-out);
+    }
   }
 
   a.unused-highlighter {
