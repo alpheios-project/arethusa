@@ -2,11 +2,11 @@
 
 angular.module('arethusa.core').directive('unusedTokenHighlighter', [
   'state',
-  '$parse',
   '$window',
   'translator',
   'StateChangeWatcher',
-  function(state, $parse, $window, translator, StateChangeWatcher) {
+  'Highlighter',
+  function(state, $window, translator, StateChangeWatcher, Highlighter) {
     return {
       restrict: 'A',
       scope: {
@@ -20,53 +20,36 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
         scope.s = state;
         scope.total = state.totalTokens;
 
-        var getter = $parse(scope.uthCheckProperty);
-
         var callbacks = {
           newMatch: function(token) {
             if (highlightMode) state.addStyle(token.id, style);
           },
           lostMatch: function(token) {
-            if (highlightMode) removeStyle(token.id);
+            if (highlightMode) highlighter.removeStyle(token.id);
           },
           changedCount: function(newCount) {
             scope.unusedCount = newCount;
           }
         };
         var stateChangeWatcher = new StateChangeWatcher(
-          scope.uthCheckProperty, getter, callbacks);
+          scope.uthCheckProperty, callbacks);
         stateChangeWatcher.initCount();
 
-        if (highlightMode) applyHighlighting();
+        var highlighter = new Highlighter(stateChangeWatcher, style);
 
-        function applyHighlighting() {
-          stateChangeWatcher.applyToMatching(function(id) {
-            state.addStyle(id, style);
-          });
-        }
-
-        function removeStyle(id) {
-          var styles = Object.keys(style);
-          state.removeStyle(id, styles);
-        }
-
-        function unapplyHighlighting() {
-          stateChangeWatcher.applyToMatching(function(id) {
-            removeStyle(id);
-          });
-        }
+        if (highlightMode) highlighter.applyHighlighting();
 
         function selectUnusedTokens() {
-          unapplyHighlighting();
+          highlighter.unapplyHighlighting();
           state.multiSelect(Object.keys(stateChangeWatcher.matchingTokens));
         }
 
         element.bind('click', function() {
           scope.$apply(function() {
             if (highlightMode) {
-              unapplyHighlighting();
+              highlighter.unapplyHighlighting();
             } else {
-              applyHighlighting();
+              highlighter.applyHighlighting();
             }
           });
           highlightMode = !highlightMode;
@@ -91,7 +74,7 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
         scope.$on('tokenAdded', function(event, token) {
           scope.total++;
           stateChangeWatcher.initCount();
-          if (highlightMode) applyHighlighting();
+          if (highlightMode) highlighter.applyHighlighting();
         });
 
         scope.$on('tokenRemoved', function(event, token) {

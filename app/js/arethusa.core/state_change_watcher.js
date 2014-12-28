@@ -17,18 +17,20 @@
  *   truthy `propertyToWatch` changes
  *
  * @requires arethusa.core.state
+ * @requires $parse
  */
 angular.module('arethusa.core').factory('StateChangeWatcher', [
-  'state',
-  function (state) {
-    return function(propertyToWatch, checkFunction, callbacks) {
+  'state', '$parse',
+  function (state, $parse) {
+    return function(propertyToWatch, callbacks) {
       var self = this;
+      this.checkFunction = $parse(propertyToWatch);
 
       this.initCount = function() {
         self.count = 0;
         self.matchingTokens = {};
         angular.forEach(state.tokens, function(token) {
-          if (!checkFunction(token)) {
+          if (!self.checkFunction(token)) {
             self.count++;
             self.matchingTokens[token.id] = true;
           }

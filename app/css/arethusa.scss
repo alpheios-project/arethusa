@@ -948,6 +948,47 @@ code {
   }
 }
 
+// Sub navs
+.sub-nav dt {
+  text-transform: none;
+  margin-right: .4rem;
+}
+
+.sub-nav dd {
+  margin-left: .2rem;
+
+  a {
+    padding: .4rem;
+  }
+}
+
+.sub-nav dd.active {
+  margin-left: .2rem;
+
+  a {
+    background-color: $button-color;
+    padding: .4rem;
+    @include transition(background-color 300ms ease-in-out);
+
+    &:hover {
+      background-color: $button-color-hover;
+      @include transition(background-color 300ms ease-in-out);
+    }
+  }
+
+  a.unused-highlighter {
+    padding: .4rem;
+    $bg-color: rgb(255, 216, 216);
+    color: #737373;
+    cursor: pointer;
+    background-color: $bg-color;
+
+    &:hover {
+      background-color: darken($bg-color, 10%);
+    }
+  }
+}
+
 
 /***************************************************************************
  *                               Animations                                *
