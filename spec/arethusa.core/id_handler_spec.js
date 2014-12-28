@@ -103,5 +103,13 @@ describe("idHandler", function() {
       added = dupe.add('treebank','0001',1,1);
       expect(added).not.toBeDefined();
     });
+    it('clears sourceids', function() {
+      var map = new idHandler.Map();
+      var added = map.add('treebank','0001',1,1);
+      expect(added).toBeDefined();
+      map.clearSourceIdAssignments(1);
+      added = map.add('treebank','0001',1,1);
+      expect(added).toBeDefined();
+    });
   });
 });
