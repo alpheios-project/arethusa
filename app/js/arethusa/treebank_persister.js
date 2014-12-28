@@ -132,7 +132,7 @@ angular.module('arethusa').factory('TreebankPersister', [
           updateWord(newWord, token, fullMap);
           wordsInXml.push(newWord);
           // update the formerly unmapped token
-          token.idMap.add(identifier, internalId, lastId);
+          token.idMap.add(identifier, internalId, lastId, token.sentenceId);
         });
       }
 
