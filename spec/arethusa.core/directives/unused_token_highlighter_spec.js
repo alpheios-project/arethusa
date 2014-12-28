@@ -57,6 +57,7 @@ describe("unusedTokenHighlighter", function() {
       $provide.value('configurator', arethusaMocks.configurator());
       $provide.value('navigator', arethusaMocks.navigator());
       $provide.value('confirmationDialog', arethusaMocks.resolvedConfirmationDialog());
+      $provide.value('idHandler', arethusaMocks.idHandler());
     });
   });
 
