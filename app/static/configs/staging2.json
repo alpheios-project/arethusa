@@ -142,6 +142,10 @@
     "params" : ["x", "q"]
   },
 
+  "logger" : {
+    "resource" : "localLogger"
+  },
+
   "keyCapture" : {
     "@include" : "keyboard/key_map.json"
   }
