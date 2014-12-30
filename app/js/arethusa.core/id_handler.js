@@ -9,7 +9,8 @@
  *
  */
 angular.module('arethusa.core').service('idHandler', [
-  function() {
+  'errorDialog',
+  function(errorDialog) {
     var self = this;
 
     /**
@@ -95,6 +96,9 @@ angular.module('arethusa.core').service('idHandler', [
       var alreadyAssigned = assigned[docId][sentenceId][sourceId];
       if (! alreadyAssigned) {
         canAssign = assigned[docId][sentenceId][sourceId] = true;
+      }
+      if (!canAssign) {
+        errorDialog.sendError("Unexpected error calculating token mappings for sourceid: " + sourceId);
       }
       return canAssign;
     }
