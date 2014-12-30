@@ -882,10 +882,23 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
   top: 5% !important;
 }
 
-.confirmation-modal {
+.confirmation-modal, .error-modal {
   width: 30% !important;
   left: 74% !important;
-  top: 30% !important;
+  top: 5% !important;
+}
+
+.overflow-wrap-word {
+  overflow-wrap: break-word !important;
+}
+
+.error-modal-sendhint {
+  text-align: left;
+}
+
+.error-uv-embedded {
+  width: 400px !important;
+  height: 400px !important;
 }
 
 code {

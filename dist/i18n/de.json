@@ -166,6 +166,9 @@
       "start": "Aussteigen zu"
     }
   },
+  "errorDialog": {
+   "close" : "Schließen",
+  },
   "relation": {
     "changeAll": "Alle verändern",
     "searchByLabel": "nach Label"

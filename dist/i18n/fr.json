@@ -153,6 +153,9 @@
   "exitHandler": {
     "exitTo": {}
   },
+  "errorDialog": {
+    "close" : "Fermer",
+  },
   "relation": {
     "changeAll": "Changer tout",
     "searchByLabel": "par label"
