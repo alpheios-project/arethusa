@@ -32,6 +32,7 @@
     "browser" : false,
     "by" : false,
     "element" : false,
-    "process" : false
+    "process" : false,
+    "printStackTrace": true
   }
 }
