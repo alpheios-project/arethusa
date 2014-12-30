@@ -169,5 +169,8 @@
   },
   "exitHandler": {
     "exitTo": "Aussteigen zu {{ title }}"
+  },
+  "errorDialog": {
+    "close" : "Schließen",
   }
 }
