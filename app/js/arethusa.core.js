@@ -19,7 +19,8 @@ angular.module('arethusa.core', [
   'gridster',
   'hljs',
   'mm.foundation',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'angularUUID2'
 ])
   .value('BASE_PATH', '..')
   .constant('_', window._);

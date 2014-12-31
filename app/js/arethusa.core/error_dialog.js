@@ -15,7 +15,7 @@
 angular.module('arethusa.core').service('errorDialog', [
   '$modal',
   '$rootScope',
-  function($modal, $rootScope) {
+  function($modal, $rootScope, uuid2) {
     function ask(message,trace) {
       var scope = $rootScope.$new();
       scope.message = message;
