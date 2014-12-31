@@ -11,12 +11,8 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
   'translator',
   '$timeout',
   'globalSettings',
-  'arethusaErrorHandler',
-  'logger',
-  '$location',
   function ($scope, configurator, state, documentStore, notifier,
-            saver, history, plugins, translator, $timeout, globalSettings,
-            arethusaErrorHandler, logger, $location) {
+            saver, history, plugins, translator, $timeout, globalSettings) {
     // This is the entry point to the application.
 
     var translations = translator(['loadInProgress', 'loadComplete']);
@@ -95,11 +91,5 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
         });
       };
     }
-
-    function onError(exception, cause) {
-      logger.remoteLog($location.absUrl() + "\n" + exception.stack);
-    }
-
-    arethusaErrorHandler.listen(onError);
   }
 ]);
