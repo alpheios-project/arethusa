@@ -96,7 +96,7 @@ angular.module('arethusa.util').service('generator', [
           });
 
           translator('history.' + type, function(translation) {
-            trsl = translation;
+            trsl = translation();
             setTitle();
           });
 
