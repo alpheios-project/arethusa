@@ -185,8 +185,8 @@ function arethusaCopy() {
 
 function uglifyTasks() {
   var res = [
-    'newer:ngtemplates',
-    'newer:concat',
+    'ngtemplates',
+    'concat',
   ];
 
   // We don't need newer for copy - the overhead of asking
