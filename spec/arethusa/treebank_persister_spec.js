@@ -89,8 +89,8 @@ describe('treebank persister', function() {
     var m1 = new idHandler.Map();
     var m2 = new idHandler.Map();
 
-    m1.add(docId, '0001', '1');
-    m2.add(docId, '0002', '2');
+    m1.add(docId, '0001', '1', 2);
+    m2.add(docId, '0002', '2', 2);
 
     t1.idMap = m1;
     t2.idMap = m2;
