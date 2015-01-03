@@ -23,15 +23,15 @@ angular.module('arethusa.core').directive('uservoiceEmbed', [
             scope.hint = translation();
             // it would be nice to do this as a result of the confirm modal action
             // but it's more work to include a screenshot of the error in that case
-            // we could do this as custom key/value pair but we are only allowed one 
+            // we could do this as custom key/value pair but we are only allowed one
             // and might hit field length limitations.
-            UserVoice.push(['embed', '#'+embedded_elem_id, { 
-              mode: 'contact',  
+            UserVoice.push(['embed', '#'+embedded_elem_id, {
+              mode: 'contact',
               contact_title: '',
               strings: { contact_message_placeholder: scope.hint }
             }]);
         });
       }
-    }; 
+    };
   }
 ]);
