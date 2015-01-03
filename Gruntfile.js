@@ -190,8 +190,8 @@ function arethusaCopy() {
 
 function uglifyTasks() {
   var res = [
-    'ngtemplates',
-    'concat',
+    'newer:ngtemplates',
+    'newer:concat',
   ];
 
   // We don't need newer for copy - the overhead of asking
@@ -217,7 +217,10 @@ function arethusaTemplates() {
   };
 
   eachModule(function(module) {
-    obj[toJsScript(module)] = templateObj(module);
+    // arethusa.util does not come with templates
+    if (module != 'arethusa.util') {
+      obj[toJsScript(module)] = templateObj(module);
+    }
   });
 
   return obj;
