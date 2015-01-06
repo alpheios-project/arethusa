@@ -12,8 +12,9 @@ angular.module('arethusa').factory('TreebankRetriever', [
   'idHandler',
   'commons',
   'editors',
+  'provTools',
   function (configurator, documentStore, retrieverHelper,
-            idHandler, commons, editors) {
+            idHandler, commons, editors, provTools) {
     function parseDocument(json, docId) {
       var annotators = arethusaUtil.toAry(json.treebank.annotator || []);
       parseEditors(annotators, docId);
@@ -29,6 +30,10 @@ angular.module('arethusa').factory('TreebankRetriever', [
             fullName: annotator.name,
             page: annotator.url,
             mail: annotator.address
+          });
+        } else {
+          provTools.addTool(docId, {
+            uri: annotator.uri
           });
         }
       });
