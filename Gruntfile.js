@@ -533,6 +533,8 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['karma:spec', 'jshint']);
   grunt.registerTask('spec', 'karma:spec');
   grunt.registerTask('e2e', 'protractor:all');
+  grunt.registerTask('ngdocs', function() {});
+  grunt.registerTask('plato', function() {});
 
   // These two server tasks are usually everything you need!
   grunt.registerTask('server', ['clean', 'version', 'minify:all', 'connect:server']);
