@@ -47,6 +47,11 @@
     "params" : [ "doc" ]
   },
 
+  "arethusaServerTei" : {
+    "route" : "/examples/tei/:doc",
+    "params" : [ "doc" ]
+  },
+
   "arethusaServerTreebankGold" : {
     "route" : "/examples/treebanks/:gold",
     "params" : [ "gold" ]

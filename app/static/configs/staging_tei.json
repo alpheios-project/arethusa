@@ -4,16 +4,17 @@
     "showKeys" : true,
     "@include" : "layouts/tei.json",
     "chunkParam" : "chunk",
+    "auxConfPath": "/data/aux_configs/dist",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "fakePerseids",
+        "resource" : "arethusaServerTreebank",
         "docIdentifier" : "treebank",
         "preselector" : "w"
       }
     },
     "persisters" : {
       "TreebankPersister" : {
-        "resource" : "fakePerseids",
+        "resource" : "arethusaServerTreebank",
         "docIdentifier" : "treebank"
       }
     },
@@ -58,7 +59,7 @@
       "main" : true,
       "retriever" : {
         "TeiRetriever" : {
-          "resource" : "fakeTei"
+          "resource" : "arethusaServerTei"
         }
       }
     },
@@ -105,7 +106,7 @@
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
-          "resource" : "fakeGold"
+          "resource" : "arethusaServerTreebankGold"
         }
       }
     },
@@ -122,7 +123,7 @@
     "comments" : {
       "retriever" : {
         "CommentsRetriever" : {
-          "resource" : "fakePerseidsComments"
+          "resource" : "arethusaServerComments"
         }
       }
     },
