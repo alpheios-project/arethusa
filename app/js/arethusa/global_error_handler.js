@@ -21,10 +21,11 @@ angular.module('arethusa').factory('$exceptionHandler', [
   '$analytics',
   '$log',
   function($analytics, $log) {
-    return function(exception, cause) {
+    return function errorHandler(exception, cause) {
       $log.error.apply($log, arguments);
-      $analytics.eventTrack(exception + ": " + cause, {
-        category: 'error', label: exception
+      var trace = printStackTrace();
+      $analytics.eventTrack(exception + ': ' + cause, {
+        category: 'error', label: trace.join(', ')
       });
     };
   }
