@@ -6,9 +6,11 @@ angular.module('arethusa').factory('GlobalErrorHandler', [
   function($window, $analytics) {
     var oldErrorHandler = $window.onerror;
     $window.onerror = function errorHandler(errorMessage, url, lineNumber) {
+      var trace = printStackTrace();
       $analytics.eventTrack(errorMessage + " @" + url + " : " + lineNumber, {
-        category: 'error', label: errorMessage
+        category: 'error', label: trace.join(', ')
       });
+
       if (oldErrorHandler)
         return oldErrorHandler(errorMessage, url, lineNumber);
 
