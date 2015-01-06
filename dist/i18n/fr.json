@@ -116,6 +116,10 @@
     "noEditorsPresent": "Aucun éditeur connu.",
     "title": "Éditeurs"
   },
+  "provTools": {
+    "noToolsPresent": "Pas d'outils",
+    "title": "Provenance du Document - Outils Utilisé(s)"
+  },
   "plugins": {
     "alreadyLoaded": "{{ name }} est déjà chargé!",
     "failed": "Impossible de charger {{ name }}",

@@ -132,6 +132,8 @@
     "noEditorsPresent": "Keine Bearbeiter bekannt.",
     "title": "Bearbeiter"
   },
+  "provTools": {
+  },
   "plugins": {
     "alreadyLoaded": "{{ name }} ist bereits geladen!",
     "failed": "Laden von {{ name }} gescheitert",

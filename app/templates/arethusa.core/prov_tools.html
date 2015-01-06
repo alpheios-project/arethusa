@@ -1,0 +1,12 @@
+<ul ng-if="provTools.toolsPresent" class="no-list">
+  <li ng-repeat="(doc, tools) in provTools.perDocument">
+     <strong>{{ doc }}</strong>
+     <ul class="no-list">
+       <li ng-repeat="tool in tools">
+          <div arethusa-tool="tool"/>
+       </li>
+     </ul>
+  </li>
+</ul>
+
+<div ng-if="!provTools.toolsPresent" translate="provTools.noToolsPresent"/>

@@ -132,6 +132,10 @@
     "noEditorsPresent": "No editors known.",
     "title": "Editors"
   },
+  "provTools": {
+    "noToolsPresent": "No tools known.",
+    "title": "Document Provenance - Tools Used"
+  },
   "plugins": {
     "alreadyLoaded": "{{ name }} is already loaded!",
     "failed": "Failed to load {{ name }}",
