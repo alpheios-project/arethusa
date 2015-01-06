@@ -16,3 +16,16 @@ angular.module('arethusa').factory('GlobalErrorHandler', [
     };
   }
 ]);
+
+angular.module('arethusa').factory('$exceptionHandler', [
+  '$analytics',
+  '$log',
+  function($analytics, $log) {
+    return function(exception, cause) {
+      $log.error.apply($log, arguments);
+      $analytics.eventTrack(exception + ": " + cause, {
+        category: 'error', label: exception
+      });
+    };
+  }
+]);
