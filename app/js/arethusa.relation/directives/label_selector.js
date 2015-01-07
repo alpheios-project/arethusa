@@ -19,7 +19,7 @@ angular.module('arethusa.relation').directive('labelSelector', [
         });
 
         scope.$on('nestedMenuSelection', function(event, obj) {
-          if (angular.isFunction(scope.change)) {
+          if (attrs.change && angular.isFunction(scope.change)) {
             scope.change();
           } else {
             var oldAncestors = angular.copy(obj.ancestors);
