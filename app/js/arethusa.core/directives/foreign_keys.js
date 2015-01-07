@@ -13,7 +13,7 @@ angular.module('arethusa.core').directive('foreignKeys',[
         foreignKeys: '='
       },
       link: function (scope, element, attrs) {
-        scope.enabled = !globalSettings.keyboardMappings;
+        scope.enabled = !globalSettings.disableKeyboardMappings;
         scope.element = element;
 
         var parent = scope.$parent;
