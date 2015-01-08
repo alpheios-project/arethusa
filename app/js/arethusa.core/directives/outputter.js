@@ -28,7 +28,12 @@ angular.module('arethusa.core').directive('outputter', [
 ]);
 
 angular.module('arethusa.core').directive('outputterItem', [
-  function() {
+  '$window',
+  function($window) {
+    function createUrl(blob) {
+      return ($window.URL || $window.webkitURL).createObjectURL(blob);
+    }
+
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
@@ -49,10 +54,9 @@ angular.module('arethusa.core').directive('outputterItem', [
         var downloader;
         scope.download = function() {
           if (!downloader) downloader = document.createElement('a');
-          var str = encodeURIComponent(scope.data());
-          var type = 'data:' + scope.obj.mimeType + ' ;charset=utf-8,';
+          var blob = new Blob([scope.data()], { type: scope.obj.mimeType + ';charset=utf-8'});
           var fileName = scope.obj.identifier + '.' + scope.obj.fileType;
-          downloader.setAttribute('href', type + str);
+          downloader.setAttribute('href', createUrl(blob));
           downloader.setAttribute('download', fileName);
           downloader.click();
         };
