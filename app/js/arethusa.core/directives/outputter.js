@@ -58,7 +58,12 @@ angular.module('arethusa.core').directive('outputterItem', [
           var fileName = scope.obj.identifier + '.' + scope.obj.fileType;
           downloader.setAttribute('href', createUrl(blob));
           downloader.setAttribute('download', fileName);
+
+          // Firefox cannot handle the click event correctly when the element
+          // is not attached to the DOM - we therefore hack this temporarily
+          document.body.appendChild(downloader);
           downloader.click();
+          document.body.removeChild(downloader);
         };
       },
       templateUrl: 'templates/arethusa.core/outputter_item.html',
