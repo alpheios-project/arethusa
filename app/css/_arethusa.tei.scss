@@ -16,5 +16,11 @@
 
 .meter-pentameter {
     padding-left: 1rem;
-
 }
+
+w .token-meter-hexameter:after, w .token-meter-pentameter:after, {
+  content: '' !important;
+  background-color: transparent;
+  padding: 0;
+}
+

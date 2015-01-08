@@ -1052,3 +1052,24 @@ code {
 .reveal-modal-bg.in {
   opacity: .5;
 }
+
+/* Hack Meter */
+.token-meter-hexameter:after {
+  content: "hexameter";
+  font-size: smaller;
+  color: white;
+  background-color: black;
+  font-weight: bold;
+  padding: .2rem;
+}
+
+.token-meter-pentameter:after {
+  content: "pentameter";
+  font-size: smaller;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  padding: .2rem;
+}
+
+

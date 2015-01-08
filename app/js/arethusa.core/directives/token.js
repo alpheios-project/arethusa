@@ -23,6 +23,7 @@ angular.module('arethusa.core').directive('token', [
       scope: {
         token: '=',
         colorize: '=',
+        decorate: '=',
         click: '@',
         hover: '@',
         highlight: '@'
@@ -145,6 +146,11 @@ angular.module('arethusa.core').directive('token', [
             }
           }
         }, true);
+        scope.$watch('token.decorate', function (newVal, oldVal) {
+          if (newVal) {
+            element.addClass('token-meter-'+newVal);
+          }
+        });
 
         // Special handling of articial tokens
         if (scope.token.artificial) {

@@ -110,6 +110,7 @@ angular.module('arethusa.core').factory('Tree', [
         <span token="token"\
           class="no-transition"\
           colorize="STYLE"\
+          decorate="DECOR"\
           click="true"\
           hover="true"/>\
       ';
@@ -187,7 +188,7 @@ angular.module('arethusa.core').factory('Tree', [
         } else {
           style = 'true';
         }
-        return $compile(tokenHtml.replace('STYLE', style))(childScope)[0];
+        return $compile(tokenHtml.replace('STYLE', style).replace('DECOR',token.decorate))(childScope)[0];
       }
 
       // Styling functions
