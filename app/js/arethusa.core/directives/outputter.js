@@ -54,6 +54,13 @@ angular.module('arethusa.core').directive('outputterItem', [
         var downloader;
         scope.download = function() {
           if (!downloader) downloader = document.createElement('a');
+
+          // This should detect that Safari is used...
+          if (!angular.isDefined(downloader.download)) {
+            /* global alert */
+            alert("Your browser does not support this feature - use Chrome, Firefox or Opera");
+            return;
+          }
           var blob = new Blob([scope.data()], { type: scope.obj.mimeType + ';charset=utf-8'});
           var fileName = scope.obj.identifier + '.' + scope.obj.fileType;
           downloader.setAttribute('href', createUrl(blob));
