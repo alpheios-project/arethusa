@@ -64,12 +64,14 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
 
     $scope.goToNextKeyHint = aU.formatKeyHint(navigator.nextChunkKey);
     $scope.goToPrevKeyHint = aU.formatKeyHint(navigator.prevChunkKey);
+    $scope.listKeyHint = aU.formatKeyHint(navigator.listKey);
 
     $scope.trsls = translator({
       'navigator.goToNext': 'goToNext',
       'navigator.goToPrev': 'goToPrev',
       'navigator.goToFirst': 'goToFirst',
-      'navigator.goToLast': 'goToLast'
+      'navigator.goToLast': 'goToLast',
+      'list': 'list'
     });
   }
 ]);

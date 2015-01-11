@@ -38,7 +38,7 @@ angular.module('arethusa.core').service('navigator', [
           navigation: [
             kC.create('nextChunk', function() { kC.doRepeated(self.nextChunk); }, self.nextChunkKey),
             kC.create('prevChunk', function() { kC.doRepeated(self.prevChunk); }, self.prevChunkKey),
-            kC.create('list', function() { self.switchView(); }, 'L')
+            kC.create('list', function() { self.switchView(); }, self.listKey)
           ]
         };
       });
@@ -272,6 +272,7 @@ angular.module('arethusa.core').service('navigator', [
     this.list = function() {
       return angular.element(document.getElementById('arethusa-sentence-list'));
     };
+    this.listKey = 'L';
 
     this.switchView = function() {
       $rootScope.$broadcast('viewModeSwitched');
