@@ -50,8 +50,9 @@
     "angular-md": "~1.0.0",
     "angular-highlightjs": "~0.3.2",
     "angular-local-storage": "~0.1.5",
+    "angular-uuid2": "",
     "lodash": "~2.4.1",
-    "angular-ui-utils": "~0.1.1"
+    "stacktrace-js": "~0.6.4"
   },
   "resolutions": {
     "angular": "1.2.17",

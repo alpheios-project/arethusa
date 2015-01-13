@@ -898,7 +898,33 @@ $gridster-resizer-size: #{$gridster-padding - 5px};
 .confirmation-modal {
   width: 30% !important;
   left: 74% !important;
-  top: 30% !important;
+  top: 5% !important;
+}
+
+.error-modal {
+  overflow: auto;
+  width: 50% !important;
+  height: 50% !important;
+  left: 55% !important;
+  top: 5% !important;
+}
+
+.overflow-wrap-word {
+  overflow-wrap: break-word !important;
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+  width:600px;
+}
+
+.error-modal-sendhint {
+  text-align: left;
+}
+
+.error-uv-embedded {
+  overflow: hidden;
 }
 
 code {

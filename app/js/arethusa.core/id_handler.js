@@ -1,8 +1,27 @@
 "use strict";
 
+/**
+ * @ngdoc service
+ * @name arethusa.core.idHandler
+ *
+ * @description
+ * TODO
+ *
+ */
 angular.module('arethusa.core').service('idHandler', [
-  function() {
+  'errorDialog',
+  function(errorDialog) {
     var self = this;
+
+    /**
+     * @ngdoc property
+     * @name assigned
+     * @propertyOf arethusa.core.idHandler
+     *
+     * @description
+     * Stores the currently assigned sourceIds
+    */
+    var assigned = {};
 
     this.getId = function(id, sentenceId) {
       var s = sentenceId ? arethusaUtil.formatNumber(sentenceId, 4) : '';
@@ -36,6 +55,54 @@ angular.module('arethusa.core').service('idHandler', [
       return res;
     };
 
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.idHandler#unassignSourceId
+     * @methodOf arethusa.core.idHandler
+     *
+     * @description
+     * clears out the idHandler's internal record of sourceids 
+     * assigned for the supplied token
+     *
+     * @param {Token} token Token whose sourceids are being cleared
+     *
+     */
+    this.unassignSourceId = function(token) {
+      token.idMap.clearSourceIdAssignments(token.sentenceId);
+    };
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.idHandler#assignSourceId
+     * @methodOf arethusa.core.idHandler
+     *
+     * @description
+     * responds to a request to assign a new sourceId for a token
+     *
+     * @param {Token} token Token whose sourceids are being cleared
+     *
+     * @returns {Boolean} true if the sourceId can be assigned and
+     *   false if the sourceId is already taken
+     */
+    function assignSourceId(sentenceId,sourceId,docId) {
+      var canAssign = false;
+      if (!angular.isDefined(assigned[docId])) {
+        assigned[docId] = {};
+      }
+      if (! angular.isDefined(assigned[docId][sentenceId])) {
+       assigned[docId][sentenceId] = {};
+      }
+      var alreadyAssigned = assigned[docId][sentenceId][sourceId];
+      if (! alreadyAssigned) {
+        canAssign = assigned[docId][sentenceId][sourceId] = true;
+      }
+      if (!canAssign) {
+        errorDialog.sendError("Unexpected error calculating token mappings for sourceid: " + sourceId);
+      }
+      return canAssign;
+    }
+
     function wIdParts(wId) {
       return /(\d*)(\w*)?/.exec(wId);
     }
@@ -46,17 +113,32 @@ angular.module('arethusa.core').service('idHandler', [
       this.sourceId   = sourceId;
     }
 
+
     this.Map = function() {
       var self = this;
       this.mappings = {};
 
-      this.add = function(identifier, internalId, sourceId) {
-        self.mappings[identifier] = new IdMapping(internalId, sourceId);
+      this.add = function(identifier, internalId, sourceId, sentenceId) {
+        // we only want to add sourceid mapping if the sourceid hasn't already
+        // been assigned. We might want to do something other than quietly fail in this
+        // case, but it's not clear what.
+        // Note that sentences can get idMappings too, but in this case the source id mappings
+        // are fairly useless so we can quietly fail in this case too
+        if (angular.isDefined(sentenceId) && assignSourceId(sentenceId,sourceId,identifier)) {
+          self.mappings[identifier] = new IdMapping(internalId, sourceId);
+        }
+        return self.mappings[identifier];
       };
 
       this.sourceId = function(identifier) {
         var map = self.mappings[identifier];
         if (map) return map.sourceId;
+      };
+
+      this.clearSourceIdAssignments = function(sentenceId) {
+        angular.forEach(Object.keys(self.mappings), function(docId,i) {
+          assigned[docId][sentenceId][self.sourceId(docId)] = false;
+        });
       };
     };
 
@@ -70,24 +152,23 @@ angular.module('arethusa.core').service('idHandler', [
         var internalId = token.id;
         if (sourceId) {
           self.mapped[sourceId] = token;
+          self.fullMap[internalId] = sourceId;
         } else {
           self.unmapped.push(token);
           sourceId = idCreator();
-          token.idMap.add(identifier, internalId, sourceId);
+          if (angular.isDefined(token.idMap.add(identifier, internalId, sourceId, token.sentenceId))) {
+            // only add the sourceId to the fullMap if we actually were able to assign it
+            // currently we silently fail if we can't but we may want to eventually throw an error notification
+            // here
+            self.fullMap[internalId] = sourceId;
+          }
         }
-        self.fullMap[internalId] = sourceId;
       };
     }
 
-    this.sourceIdMap = function(tokens, identifier) {
-      return arethusaUtil.inject({}, tokens, function(memo, id, token) {
-        memo[token.idMap.sourceId(identifier)] = id;
-      });
-    };
-
     this.transformToSoureIds = function(tokens, docIdentifier, idCreator) {
       var transformation = new Transformation();
-      return arethusaUtil.inject(new Transformation(), tokens, function(memo, id, token) {
+      return arethusaUtil.inject(transformation, tokens, function(memo, id, token) {
         memo.add(token, docIdentifier, idCreator);
       });
     };

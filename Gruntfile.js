@@ -71,7 +71,9 @@ function arethusaSourceFiles() {
     "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
     "./bower_components/angular-local-storage/dist/angular-local-storage.min.js",
     "./bower_components/lodash/dist/lodash.min.js",
+    "./bower_components/stacktrace-js/dist/stacktrace.min.js",
     "./bower_components/angular-ui-utils/ui-utils.min.js",
+    "./bower_components/angular-uuid2/dist/angular-uuid2.min.js",
     //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js",
@@ -410,6 +412,7 @@ module.exports = function(grunt) {
             './bower_components/angular-gridster/dist/angular-gridster.min.js',
             './bower_components/javascript-detect-element-resize/jquery.resize.js',
             './bower_components/angular-ui-utils/ui-utils.min.js',
+            './bower_components/angular-uuid2/dist/angular-uuid2.min.js',
             './vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.js',
             './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
             './vendor/dagre-d3/dagre-d3.min.js',
@@ -418,6 +421,7 @@ module.exports = function(grunt) {
             "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
             "./bower_components/angular-local-storage/dist/angular-local-storage.min.js",
             "./bower_components/lodash/dist/lodash.min.js",
+            "./bower_components/stacktrace-js/dist/stacktrace.min.js",
             // Some source files we'll need to include manually, otherwise
             // the load order is wrong
             'app/js/*.js',

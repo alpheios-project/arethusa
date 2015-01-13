@@ -1,0 +1,20 @@
+<div class="center">
+  <p class="italic bold ">
+    {{ message }}
+  </p>
+  <p class="error-modal-sendhint" translate="errorDialog.sendHint"/>
+  <pre class="overflow-wrap-word">
+    {{ trace }}
+  </pre>
+  <div uservoice-embed target="error-uv-embedded" class="error-modal">
+    <div class="error-uv-embedded"></div>
+  </div>
+  <div class="center">
+    <span
+      ng-click="$dismiss()"
+      class="button success alert"
+      translate="errorDialog.close">
+    </span>
+  </div>
+</div>
+

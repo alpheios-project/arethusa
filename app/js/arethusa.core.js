@@ -20,7 +20,8 @@ angular.module('arethusa.core', [
   'hljs',
   'mm.foundation',
   'ui.indeterminate',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'angularUUID2'
 ])
   .value('BASE_PATH', '..')
   .constant('_', window._);
