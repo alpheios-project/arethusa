@@ -128,11 +128,10 @@ angular.module('arethusa.core').factory('Tree', [
       }
 
       function prependTemplate(template) {
-        var el = '<span ng-include="' + template + '"/>';
-        element.prepend($compile(el)(scope));
+        var el = '<span class="right" ng-include="' + template + '"/>';
+        angular.element(element[0].previousElementSibling).append($compile(el)(scope));
       }
 
-      scope.focusTemplate = templatePath('focus_controls');
       scope.panelTemplate = templatePath('settings');
 
 
@@ -775,7 +774,6 @@ angular.module('arethusa.core').factory('Tree', [
 
         // Append and prepend all templates
         element.append(tree);
-        prependTemplate('focusTemplate');
         prependTemplate('panelTemplate');
         element.prepend($compile('<div dep-tree-navigator/>')(scope));
 
@@ -802,6 +800,8 @@ angular.module('arethusa.core').factory('Tree', [
       scope.keyHints = arethusaUtil.inject({}, keys.tree, function(memo, name, key) {
         memo[name] = arethusaUtil.formatKeyHint(key);
       });
+
+      scope.$on('$destroy', keys.$destroy);
 
       scope.translations = {};
       var translateValues = [

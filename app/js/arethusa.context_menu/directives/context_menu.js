@@ -134,16 +134,17 @@ angular.module('arethusa.contextMenu').factory('menuElement', function () {
 
         $document.on('click', handleOtherClick);
 
-        scope.$on('$destroy', function() {
-          $document.off('click', handleOtherClick);
-        });
-
-        keyCapture.onKeyPressed('esc', function() {
+        var deregisterKeyBinding = keyCapture.onKeyPressed('esc', function() {
           if (opened) {
             closeAndApply();
             keyCapture.stopPropagation();
           }
         }, 1000);
+
+        scope.$on('$destroy', function() {
+          $document.off('click', handleOtherClick);
+          deregisterKeyBinding();
+        });
       }
     };
   }

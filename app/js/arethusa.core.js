@@ -19,6 +19,7 @@ angular.module('arethusa.core', [
   'gridster',
   'hljs',
   'mm.foundation',
+  'ui.indeterminate',
   'LocalStorageModule',
   'angularUUID2'
 ])

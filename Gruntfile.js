@@ -13,6 +13,9 @@ var docPath  = 'docs';
 var docCustom = docPath + '/custom';
 var versionInfoFilename = 'app/js/arethusa/version.json';
 
+var expressFiles = ['server/**/*', '!server/browser/**/*'];
+var browserAppFiles = ['server/browser/js/**/*'];
+
 var devMode = process.env.DEV;
 
 var arethusaModules = [
@@ -163,6 +166,10 @@ function arethusaConcat() {
   obj.packages = { src: sourceFiles, dest: toConcatPath('arethusa_packages') };
   obj.main = pluginFiles('arethusa', 'arethusa.main', true);
   obj.app = { src: mainFiles, dest: toConcatPath('arethusa') };
+
+  obj.browserApp = {
+    src: browserAppFiles, dest: 'dist/file_browser_app.concat.js'
+  };
 
   return obj;
 }
@@ -365,6 +372,10 @@ module.exports = function(grunt) {
           livereload: reloadPort,
           spawn: false
         }
+      },
+      browserApp: {
+        files: browserAppFiles,
+        tasks: ['concat:browserApp']
       }
     },
     jshint: {
@@ -451,30 +462,13 @@ module.exports = function(grunt) {
         },
       }
     },
-    connect: {
-      server: {
-        options: {
-          port: devServerPort,
-          debug: true,
-          keepalive: true
-        }
+    express: {
+      options: {
+        script: 'server/app.js',
+        background: false,
+        port: devServerPort
       },
-      devServer: {
-        options: {
-          port: devServerPort,
-          debug: true,
-          keepalive: true,
-          livereload: reloadPort
-        }
-      },
-      doc: {
-        options: {
-          keepalive: true,
-          port: 9002,
-          base: docPath,
-          livereload: reloadPort
-        }
-      }
+      server: {}
     },
     sauce_connect: {
       your_target: {
@@ -544,6 +538,12 @@ module.exports = function(grunt) {
           'rm -rf ' + docCustom + '/plato',
           'node_modules/.bin/plato -d ' + docCustom + '/plato -l .jshintrc -r -t "Arethusa JS Source Analysis" app/js/**/* > /dev/null'
         ].join(';')
+      },
+      cloneExampleRepo: {
+        command: 'git clone git@github.com:latin-language-toolkit/arethusa-example-data.git data/examples'
+      },
+      cloneAuxConfigs: {
+        command: 'git clone git@github.com:latin-language-toolkit/arethusa-configs.git data/aux_configs'
       }
     },
     concurrent: {
@@ -551,19 +551,19 @@ module.exports = function(grunt) {
         tasks: ['minify:css', 'minify', 'minify:conf']
       },
       watches: {
-        tasks: ['reloader:no-css', 'reloader:conf', 'reloader:css'],
+        tasks: ['reloader:no-css', 'reloader:conf', 'reloader:css', 'watch:browserApp'],
         options: {
           logConcurrentOutput: true
         }
       },
       server: {
-        tasks: ['concurrent:watches', 'minify:all', 'connect:devServer'],
+        tasks: ['concurrent:watches', 'minify:all', 'express:server'],
         options: {
           logConcurrentOutput: true
         }
       },
       docs: {
-        tasks: ['ngdocs', 'watch:doc', 'connect:doc'],
+        tasks: ['ngdocs', 'watch:doc', 'express:server'],
         options: {
           logConcurrentOutput: true
         }
@@ -650,7 +650,7 @@ module.exports = function(grunt) {
   grunt.registerTask('plato', 'shell:plato');
 
   // These three server tasks are usually everything you need!
-  grunt.registerTask('server', ['clean:dist', 'version', 'minify:all', 'connect:server']);
+  grunt.registerTask('server', ['clean:dist', 'version', 'minify:all', 'express:server']);
   grunt.registerTask('reloading-server', ['clean:dist', 'version', 'concurrent:server']);
   grunt.registerTask('doc-server', ['concurrent:docs']);
 
@@ -667,4 +667,6 @@ module.exports = function(grunt) {
   grunt.registerTask('install', 'shell:install');
   grunt.registerTask('e2e:setup', 'shell:e2eSetup');
   grunt.registerTask('sauce', ['sauce_connect', 'protractor:travis', 'sauce-connect-close']);
+
+  grunt.registerTask('import', ['shell:cloneExampleRepo', 'shell:cloneAuxConfigs']);
 };

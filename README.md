@@ -42,18 +42,21 @@ grunt reloading-server
 which will also watch any code changes you make and trigger a reload of
 your browser when needed.
 
-(Optionally pass --port=PORT to these server task to start them on a
-custom port instead of the default, which is 98081.
+(Optionally pass `--port=PORT` to these server tasks to start them on a
+custom port instead of the default, which is 8081)
 
 A good place to navigate your browser to would be Arethusa's
-[landing page](http:/localhost:8081/app/#/), which you can also visit
+[landing page](http://localhost:8081/app/#/), which you can also visit
 on of the servers that has Arethusa deployed ([Arethusa at Perseids](http://sosol.perseids.org/tools/arethusa/app/#/)).
-
 
 
 If you want to see Arethusa's source code inside your browser
 unminified, set the environmental variable `DEV` as in `DEV=1 grunt
 server`.
+
+To set up a completely local environment run `grunt import` to import
+example data and explore it in a web-browser based file browser at
+[http://localhost:8081/browse](http://localhost:8081/browse).
 
 ## Funders
 

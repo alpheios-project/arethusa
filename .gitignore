@@ -6,8 +6,11 @@ dist/*
 !dist/i18n
 docs/*
 !docs/custom
+docs/custom/plato
+data/
 dist/
 deployment/
 .sass-cache
 app/css/*.css*
 app/js/arethusa/version.json
+app/js/arethusa/version.js

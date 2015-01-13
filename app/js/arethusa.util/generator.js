@@ -87,10 +87,9 @@ angular.module('arethusa.util').service('generator', [
 
           var trsl, hint;
 
-          scope.$on('keysAdded', function(_, keys) {
-            var sel = keys.history;
-            if (sel) {
-              hint = aU.formatKeyHint(sel[type]);
+          scope.$watch('history.activeKeys.' + type, function(key) {
+            if (key) {
+              hint = aU.formatKeyHint(key);
               setTitle();
             }
           });

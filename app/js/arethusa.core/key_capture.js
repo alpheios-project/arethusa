@@ -1,4 +1,19 @@
 'use strict';
+
+/**
+ * @ngdoc service
+ * @name arethusa.core.keyCapture
+ *
+ * @description
+ * Service to handle Arethusa's keyboard shortcuts.
+ *
+ * While its API is fairly clean and comfortable to use, the implementation
+ * is of very poor quality and very hard to read.
+ *
+ *
+ * @requires arethusa.core.configurator
+ * @requires $rootScope
+ */
 angular.module('arethusa.core').service('keyCapture', [
   'configurator',
   '$rootScope',
@@ -231,12 +246,22 @@ angular.module('arethusa.core').service('keyCapture', [
       keyList[code] = key;
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.keyCapture#onKeyPressed
+     * @methodOf arethusa.core.keyCapture
+     *
+     * @description
+     * TODO
+     */
     this.onKeyPressed = function(key, callback, priority) {
       var keyCode = self.getKeyCode(key);
       addToKeyList(keyCode, key);
       var callbacks = keyPressedCallbacks[keyCode] || [];
-      callbacks.push(new Callback(callback, priority));
+      var cb = new Callback(callback, priority);
+      callbacks.push(cb);
       keyPressedCallbacks[keyCode] = sortedByPriority(callbacks);
+      return function() { removeElement(keyPressedCallbacks[keyCode], cb); };
     };
 
     function sortedByPriority(callbacks) {
@@ -247,6 +272,14 @@ angular.module('arethusa.core').service('keyCapture', [
 
     var propagationStopped = false;
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.keyCapture#stopPropagation
+     * @methodOf arethusa.core.keyCapture
+     *
+     * @description
+     * TODO
+     */
     this.stopPropagation = function() {
       propagationStopped = true;
     };
@@ -262,18 +295,6 @@ angular.module('arethusa.core').service('keyCapture', [
         }
       });
     }
-
-    // deprecated - use initCaptures instead
-    this.registerCaptures = function(captures, scope) {
-      scope = scope ? scope : $rootScope;
-      angular.forEach(captures, function(fn, key) {
-        if (angular.isDefined(key)) {
-          self.onKeyPressed(key, function() {
-            scope.$apply(fn);
-          });
-        }
-      });
-    };
 
     function Capture(confKey, fn, defaultKey) {
       this.confKey = confKey;
@@ -291,39 +312,68 @@ angular.module('arethusa.core').service('keyCapture', [
     }
 
     function addToKeyLists(keys) {
+      var destructors = [];
       angular.extend(self.activeKeys, keys);
       angular.forEach(keys, function(captures, section) {
         angular.forEach(captures, function(key, capture) {
           var keysDefined = self.keyList[key];
           if (!keysDefined) keysDefined = self.keyList[key] = [];
-          keysDefined.push(section + "." + capture);
+          var listKey = section + '.' + capture;
+          keysDefined.push(listKey);
+          destructors.push(function() {
+            // only remove when these elements haven't been redefined by someone
+            // else
+            var sec = self.activeKeys[section] || {};
+            var k   = sec[capture];
+            if (key === k) delete sec[capture];
+            removeElement(keysDefined, listKey);
+          });
         });
       });
+
+      return destructorFn(destructors);
     }
 
+    function destructorFn(arr) {
+      return function() {
+        for (var i = arr.length - 1; i >= 0; i--) { arr[i](); }
+      };
+    }
 
-    // Tries to init keyCaptures - returns every successful keybinding in the format:
-    //
-    // { section: { nameOfAction: key }
-    //
-    // keyCapture stores them in keyCapture.activeKeys as well.
+    function removeElement(arr, el) {
+      var i = arr.indexOf(el);
+      arr.splice(i, 1);
+    }
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.keyCapture#initCaptures
+     * @methodOf arethusa.core.keyCapture
+     *
+     * @description
+     * TODO
+     */
     this.initCaptures = function(callback) {
+      var destructors = [];
       var keys = arethusaUtil.inject({}, callback(self), function(memo, section, captures) {
         var conf = self.conf(section);
         angular.forEach(captures, function(capture, i) {
           var key = conf[capture.confKey] || capture.defaultKey;
           if (angular.isDefined(key)) {
             addToKeys(memo, section, capture.confKey, key);
-            self.onKeyPressed(key, function() {
+            var destructor = self.onKeyPressed(key, function() {
               $rootScope.$apply(capture.fn);
             });
+            destructors.push(destructor);
           }
         });
       });
+
       if (!angular.equals({}, keys)) {
         $rootScope.$broadcast('keysAdded', keys);
-        addToKeyLists(keys);
+        destructors.push(addToKeyLists(keys));
       }
+      keys.$destroy = destructorFn(destructors);
       return keys;
     };
 
@@ -379,8 +429,24 @@ angular.module('arethusa.core').service('keyCapture', [
       return res;
     };
 
-    // We might have to reinit this at some point
+    /**
+     * @ngdoc property
+     * @name activeKeys
+     * @propertyOf arethusa.core.keyCapture
+     *
+     * @description
+     * TODO
+     */
     this.activeKeys = {};
+
+    /**
+     * @ngdoc property
+     * @name keyList
+     * @propertyOf arethusa.core.keyCapture
+     *
+     * @description
+     * TODO
+     */
     this.keyList = {};
   }
 ]);
