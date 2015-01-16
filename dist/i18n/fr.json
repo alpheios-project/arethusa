@@ -153,6 +153,7 @@
   "exitHandler": {
     "exitTo": {}
   },
+  "relocateHandler": { },
   "errorDialog": {
     "close" : "Fermer",
   },
