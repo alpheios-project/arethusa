@@ -44,7 +44,6 @@ angular.module('arethusa.core').service('relocateHandler', [
 
     function relocateUrl(key) {
       var base = conf[key].baseUrl;
-      debugger;
       var currentUrl = $location.url();
       return base + currentUrl;
     }
