@@ -60,9 +60,9 @@ angular.module('arethusa.core').service('relocateHandler', [
      * @param {string} loc The key to the location.
      * @param {string} [targetWin='_self'] The target window.
      */
-    this.relocate = function(loc,targetWin) {
+    this.relocate = function(loc, targetWin) {
       $analytics.eventTrack('relocate', {
-        category: 'actions', label: 'relocate'
+        category: 'actions', label: loc
       });
 
       targetWin = targetWin || '_self';
