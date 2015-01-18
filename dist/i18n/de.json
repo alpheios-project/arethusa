@@ -166,8 +166,12 @@
       "start": "Aussteigen zu"
     }
   },
+  "relocateHandler": {
+    "title" : "Alternative Versionen",
+    "noLocations" : "Nicht verfügbar"
+  },
   "errorDialog": {
-   "close" : "Schließen",
+   "close" : "Schließen"
   },
   "relation": {
     "changeAll": "Alle verändern",

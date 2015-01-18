@@ -339,7 +339,7 @@ module.exports = function(grunt) {
       options: {
         jshintrc: true,
       },
-      all: ['*.js', srcFiles, specFiles]
+      all: ['*.js', srcFiles, specFiles, './dist/i18n/*.json']
     },
     karma: {
       spec: {

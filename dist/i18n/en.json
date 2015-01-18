@@ -167,6 +167,10 @@
       "end": ""
     }
   },
+  "relocateHandler": {
+    "title" : "Alternate Versions",
+    "noLocations" : "N/A"
+  },
   "errorDialog": {
    "close" : "Close",
    "sendMessage" : "Type description of what you were doing here.",

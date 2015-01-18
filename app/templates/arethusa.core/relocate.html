@@ -1,0 +1,6 @@
+<ul ng-if="locations" class="no-list">
+  <li class="relocate-item" ng-repeat="location in locations" ng-click="relocate(location)">
+    {{ location }}
+  </li>
+</ul>
+<div ng-if="!locations" translate="relocateHandler.noLocations"/>
