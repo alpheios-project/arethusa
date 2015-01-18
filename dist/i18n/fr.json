@@ -155,7 +155,7 @@
   },
   "relocateHandler": { },
   "errorDialog": {
-    "close" : "Fermer",
+    "close" : "Fermer"
   },
   "relation": {
     "changeAll": "Changer tout",
