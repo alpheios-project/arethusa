@@ -166,7 +166,10 @@
       "start": "Aussteigen zu"
     }
   },
-  "relocateHandler": { },
+  "relocateHandler": {
+    "title" : "Alternative Versionen",
+    "noLocations" : "Nicht verfügbar"
+  },
   "errorDialog": {
    "close" : "Schließen",
   },
