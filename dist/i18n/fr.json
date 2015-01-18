@@ -153,7 +153,7 @@
     "searchByForm": "par forme",
     "matchAll": "Tout"
   },
-  "exitHandler": {}
+  "exitHandler": {},
   "errorDialog": {
     "close" : "Fermer"
   },
