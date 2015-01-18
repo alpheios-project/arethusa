@@ -134,7 +134,7 @@
 
   "relocateHandler" : {
     "staging" :  {
-      "baseUrl" : "http://www.perseids.org/tools/arethusa_staging/app/#"
+      "baseUrl" : "http://www.perseids.org/tools/arethusa-staging/app/#"
      }
   },
 
