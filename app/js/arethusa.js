@@ -9,6 +9,8 @@
  *
  */
 angular.module('arethusa', [
+  'angulartics',
+  'angulartics.google.analytics',
   'ngRoute',
   'arethusa.core',
   'arethusa.contextMenu',

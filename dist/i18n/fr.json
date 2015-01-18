@@ -155,6 +155,7 @@
   },
   "exitHandler": {}
   "errorDialog": {
-    "close" : "Fermer",
-  }
+    "close" : "Fermer"
+  },
+  "relocateHandler": { }
 }

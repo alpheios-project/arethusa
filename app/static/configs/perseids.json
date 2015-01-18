@@ -132,6 +132,12 @@
     "@include" : "exit_handler/perseids.json"
   },
 
+  "relocateHandler" : {
+    "production" :  {
+      "baseUrl" : "http://www.perseids.org/tools/arethusa/app/#"
+     }
+  },
+
   "keyCapture" : {
     "@include" : "keyboard/key_map.json"
   }

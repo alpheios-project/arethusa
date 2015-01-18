@@ -950,6 +950,14 @@ code {
   }
 }
 
+.relocate-item {
+  padding-left: 0;
+  color: #3E8D9C;
+}
+.relocate-item:hover {
+  color: #73CDDE;
+}
+
 .search-result-hovered {
   background-color: #C8E5FF;
   @include transition(background-color 50ms ease-in);

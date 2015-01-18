@@ -178,6 +178,10 @@
     "exitTo": "Aussteigen zu {{ title }}"
   },
   "errorDialog": {
-    "close" : "Schließen",
+    "close" : "Schließen"
+  },
+  "relocateHandler": {
+    "title" : "Alternative Versionen",
+    "noLocations" : "Nicht verfügbar"
   }
 }

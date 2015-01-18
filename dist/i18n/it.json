@@ -11,6 +11,7 @@
   "globalSettings": {},
   "navigator": {},
   "morph": {},
-  "exitHandler": {}
-  "errorDialog": {}
+  "exitHandler": {},
+  "errorDialog": {},
+  "relocateHandler": {}
 }

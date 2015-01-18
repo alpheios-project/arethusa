@@ -182,5 +182,9 @@
     "sendMessage" : "Type description of what you were doing here.",
     "sendHint" : "To send details of this error to us for investigation, please supply a brief description of what you were doing, check the 'Include Screenshot' checkbox to include the full error details, and click 'Next' to complete the steps to send. Then click 'Close' when done (or to skip sending)."
  
+  },
+  "relocateHandler": {
+    "title" : "Alternate Versions",
+    "noLocations" : "N/A"
   }
 }
