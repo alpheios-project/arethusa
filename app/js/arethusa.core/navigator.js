@@ -175,8 +175,10 @@ angular.module('arethusa.core').service('navigator', [
       self.getCitation(currentSentenceObjs(), storeCitation);
     }
 
-    function isCtsUrn(cite) {
-      return cite.match(/^urn:cts/);
+    function hasCtsUrn(cite) {
+      // CTS urns might be prefixed with a uri
+      // prefix and not appear at the beginng of the doc id
+      return cite.match(/urn:cts/);
     }
 
     function parseCtsUrn(cite, callback) {
@@ -204,7 +206,7 @@ angular.module('arethusa.core').service('navigator', [
 
       var cite = sentence.cite;
       if (cite) {
-        if (isCtsUrn(cite)) {
+        if (hasCtsUrn(cite)) {
           parseCtsUrn(cite, callback);
         } else {
           callback(cite);
