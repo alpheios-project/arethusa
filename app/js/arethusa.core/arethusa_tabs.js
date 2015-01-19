@@ -2,7 +2,8 @@
 
 angular.module('arethusa.core').directive('arethusaTabs', [
   'plugins',
-  function(plugins) {
+  'state',
+  function(plugins,state) {
     return {
       restrict: 'A',
       scope: {
@@ -10,6 +11,7 @@ angular.module('arethusa.core').directive('arethusaTabs', [
       },
       link: function(scope, element, attrs) {
         scope.plugins = plugins;
+        scope.state = state;
       },
       templateUrl: 'templates/arethusa.core/arethusa_tabs.html'
     };
