@@ -711,7 +711,7 @@ angular.module('arethusa.morph').service('morph', [
 
     this.settings = [
       commons.setting('Expand Selected', 'expandSelection'),
-      commons.setting('Preselect', 'preselect', 'preselectToggled')
+      commons.setting('Preselect', 'preselect', this.preselectToggled)
     ];
 
     this.init = function () {
