@@ -12,12 +12,9 @@ angular.module('arethusa.core').directive('tokenSelector', [
         var hasNoTokensSelected = true;
         var hasAllTokensSelected = false;
         var style = scope.style || { "background-color": "rgb(255, 216, 216)" }; // a very light red
+        scope.state = state;
 
-        scope.countOfSelectedTokens = function() {
-          return state.hasClickSelections();
-        };
-
-        scope.$watch('countOfSelectedTokens()', function(newValue, oldValue) {
+        scope.$watch('state.hasClickSelections()', function(newValue, oldValue) {
           hasNoTokensSelected = newValue === 0;
           hasAllTokensSelected = newValue === state.totalTokens;
 
@@ -116,7 +113,9 @@ angular.module('arethusa.core').directive('tokenSelector', [
             areAllSelected(unusedWatcher.matchingTokens);
         };
 
-        unusedWatcher.initCount();
+        scope.$watch('state.tokens', function(newVal, oldVal) {
+          unusedWatcher.initCount();
+        });
       },
       templateUrl: 'templates/arethusa.core/token_selector.html'
     };
