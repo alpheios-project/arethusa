@@ -84,10 +84,14 @@
   },
   "selector": {
     "selection": "selection",
+    "selectionTooltip": "Use buttons to the right to change selections and highlighting",
     "all": "all",
     "none": "none",
+    "noneTooltip": "Click to deselect any selection",
     "unused": "{{ count }} unused",
-    "highlightUnused": "highlight unused"
+    "unusedTooltip": "Click to select all unused tokens",
+    "highlightUnused": "highlight unused",
+    "highlightUnusedTooltip": "Click to highlight unused tokens"
   },
   "tree": {
     "changeDir": "Change Direction",

@@ -1,10 +1,19 @@
 <dl class="sub-nav" style="display:inline-block">
-  <dt translate="selector.selection"></dt>
+  <dt
+    style="color: #4D4D4D"
+    tooltip-popup-delay="700"\
+    tooltip-placement="bottom"\
+    tooltip-html-unsafe="{{ selection.tooltip }}">
+    {{ selection.label }}
+  </dt>
   <dd ng-repeat="selector in selectors" 
       ng-class="{active: selector.isActive}">
       <a
         ng-click="selector.action()"
-        ng-class="selector.styleClasses">
+        ng-class="selector.styleClasses"
+        tooltip-popup-delay="700"\
+        tooltip-placement="bottom"\
+        tooltip-html-unsafe="{{ selector.tooltip }}">
         {{selector.label}}
       </a>
   </dd>
