@@ -62,6 +62,21 @@ angular.module('arethusa.core').directive('tokenSelector', [
           };
         }
 
+        function setTooltip(obj) {
+          return function(translationFn) {
+              obj.tooltip = translationFn(obj);
+          };
+        }
+
+        function translateSelector(selector, name) {
+          var translationId = "selector." + name;
+          translator(translationId, setLabel(selector));
+          translator(translationId + "Tooltip", setTooltip(selector));
+        }
+
+        scope.selection = {};
+        translateSelector(scope.selection, "selection");
+
         var noneSelector = {
           action: function() {
             state.deselectAll();
@@ -69,27 +84,27 @@ angular.module('arethusa.core').directive('tokenSelector', [
           },
           isActive: true
         };
-        translator("selector.none", setLabel(noneSelector));
+        translateSelector(noneSelector, "none");
 
         var allSelector = {
           action: selectAll,
           isActive: false
         };
-        translator("selector.all", setLabel(allSelector));
+        translateSelector(allSelector, "all");
 
         var unusedSelector = {
           action: selectUnused,
           isActive: false,
           count: 0
         };
-        translator("selector.unused", setLabel(unusedSelector));
+        translateSelector(unusedSelector, "unused");
 
         var unusedHighlighter = {
           action: switchHighlighting,
           styleClasses: 'unused-highlighter',
           isActive: false
         };
-        translator("selector.highlightUnused", setLabel(unusedHighlighter));
+        translateSelector(unusedHighlighter, "highlightUnused");
 
         scope.selectors = [
           noneSelector,
