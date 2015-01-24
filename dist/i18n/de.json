@@ -84,10 +84,14 @@
   },
   "selector": {
     "selection": "Auswahl",
+    "selectionTooltip": "Schaltflächen rechts dienen zum Ändern der Auswahl und des Hervorhebens",
     "all": "Alle",
     "none": "Keines",
+    "noneTooltip": "Linksklick um Auswahl aufzuheben",
     "unused": "{{ count }} unbenutzt",
-    "highlightUnused": "Unbenutzte hervorheben"
+    "unusedTooltip": "Linksklick um Unbenutze zu selektieren",
+    "highlightUnused": "Unbenutzte hervorheben",
+    "highlightUnusedTooltip": "Linksklick um Unbenutze hervorzuheben"
   },
   "tree": {
     "changeDir": "Ändere Richtung",
