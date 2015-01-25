@@ -1,11 +1,15 @@
 "use strict";
 
 angular.module('arethusa').controller('MorphImportCtrl', [
-  '$scope', 'plugins',
+  '$scope',
+  'plugins',
   'latinAttrs',
   'greekAttrs',
   'configurator',
-  '$http', function($scope, plugins, latinAttrs, greekAttrs, configurator, $http) {
+  'MORPH_IMPORTS',
+  '$http',
+  function($scope, plugins, latinAttrs, greekAttrs,
+           configurator, MORPH_IMPORTS, $http) {
     var morph;
     var attrs = {
       lat: latinAttrs.data,
@@ -29,18 +33,7 @@ angular.module('arethusa').controller('MorphImportCtrl', [
       $scope.ready = true;
     });
 
-    $scope.files = [
-      {
-        name: 'Latin Morphology',
-        language: 'lat',
-        route: '...'
-      },
-      {
-        name: 'Greek Morphology',
-        language: 'grc',
-        route: '...'
-      }
-    ];
+    $scope.files = MORPH_IMPORTS;
 
     function loadForms(data, filter) {
       var lines = data.split('\n');
