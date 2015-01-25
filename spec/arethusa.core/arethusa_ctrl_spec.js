@@ -26,7 +26,8 @@ describe('ArethusaCtrl', function() {
       history: arethusaMocks.history(),
       plugins: arethusaMocks.plugins(),
       globalSettings: globalSettings,
-      translator: function() {}
+      translator: function() {},
+      routeChangeWatcher: function() {}
     };
 
     var ctrl = $controller('ArethusaCtrl', mainCtrlInits);
