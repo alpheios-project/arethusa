@@ -4,7 +4,7 @@
   <div class="fade" ng-if="ready">
     <ul>
       <li ng-repeat="file in files">
-        <a ng-click="loadFile(fileobj)">{{ file.name }}</a>
+        <a ng-click="loadFile(file)">{{ file.name }}</a>
       </li>
     </ul>
 
