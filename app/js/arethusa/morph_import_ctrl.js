@@ -35,6 +35,9 @@ angular.module('arethusa').controller('MorphImportCtrl', [
 
     $scope.files = MORPH_IMPORTS;
 
+    var userCache = {
+    };
+
     function loadForms(data, filter) {
       var lines = data.split('\n');
       for (var i=0; i < lines.length; i++) {
@@ -44,8 +47,8 @@ angular.module('arethusa').controller('MorphImportCtrl', [
         var fields = lines[i].split(',');
         var form = {
           lemma: fields[1],
-          postag: fields[2],
-          origin: fields[3]
+          postag: fields[2]
+          //origin: fields[3]
         };
 
         morph.postagToAttributes(form);
@@ -58,7 +61,6 @@ angular.module('arethusa').controller('MorphImportCtrl', [
         useLanguage(fileObj.language);
         loadForms(res.data);
       });
-
     };
   }
 ]);
