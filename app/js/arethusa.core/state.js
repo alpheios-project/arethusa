@@ -241,6 +241,7 @@ angular.module('arethusa.core').service('state', [
 
 
     // type should be either 'click', 'ctrl-click' or 'hover'
+    var simpleToMultiSelect;
     this.selectToken = function (id, type) {
       if (type === 'click') self.deselectAll();
 
@@ -248,6 +249,19 @@ angular.module('arethusa.core').service('state', [
         self.selectedTokens[id] = type;
         if (type !== 'hover') {
           self.clickedTokens[id] = type;
+        }
+        // If a token is selected by a simple click and the next one is
+        // selected by a ctrl-click, we want to transform the first click
+        // type also to ctrl-click, so that deselections through holding
+        // down the ctrl-key work properly.
+        if (type === 'click') {
+          simpleToMultiSelect = function() {
+            self.selectedTokens[id] = self.clickedTokens[id] = 'ctrl-click';
+          };
+        }
+        if (type === 'ctrl-click' && simpleToMultiSelect) {
+          simpleToMultiSelect();
+          simpleToMultiSelect = undefined;
         }
       }
     };
