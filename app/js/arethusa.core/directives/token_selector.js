@@ -124,7 +124,7 @@ angular.module('arethusa.core').directive('tokenSelector', [
           allSelector.isActive = hasAllTokensSelected;
 
           unusedSelector.isActive = !hasNoTokensSelected &&
-            scope.countOfSelectedTokens() === unusedWatcher.count &&
+            state.hasClickSelections() === unusedWatcher.count &&
             areAllSelected(unusedWatcher.matchingTokens);
         };
 
