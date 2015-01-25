@@ -5,8 +5,7 @@ angular.module('arethusa').controller('MorphImportCtrl', [
   'latinAttrs',
   'greekAttrs',
   'configurator',
-  '$http',
-  function($scope, plugins, latinAttrs, greekAttrs, configurator, $http) {
+  '$http', function($scope, plugins, latinAttrs, greekAttrs, configurator, $http) {
     var morph;
     var attrs = {
       lat: latinAttrs.data,
@@ -15,15 +14,16 @@ angular.module('arethusa').controller('MorphImportCtrl', [
 
     var config = configurator.configuration;
 
-    $scope.useLanguage = function(attr) {
+    function useLanguage(attr) {
       config.plugins.morph = attrs[attr];
       $scope.usedLanguage = attr;
-    };
+    }
 
     // Use a starting value so the morph service can load properly
-    $scope.useLanguage('lat');
+    useLanguage('lat');
 
     var data = "Caesar,Caesar,n-s---mn-,lfdm";
+
     plugins.start(['morph']).then(function() {
       morph = plugins.get('morph');
       $scope.ready = true;
@@ -54,6 +54,7 @@ angular.module('arethusa').controller('MorphImportCtrl', [
           postag: fields[2],
           origin: fields[3]
         };
+
         morph.postagToAttributes(form);
         morph.addToLocalStorage(fields[0], form);
       }
@@ -61,7 +62,7 @@ angular.module('arethusa').controller('MorphImportCtrl', [
 
     $scope.loadFile = function(fileObj) {
       $http.get(fileObj.route).then(function(res) {
-        $scope.useLanguage(fileObj.language);
+        useLanguage(fileObj.language);
         loadForms(res.data);
       });
 
