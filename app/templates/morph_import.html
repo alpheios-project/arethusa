@@ -1,0 +1,12 @@
+<div class="small-12 columns">
+  <h3>Arethusa Morph Import</h3>
+
+  <div class="fade" ng-if="ready">
+    <ul>
+      <li ng-repeat="file in files">
+        <a ng-click="loadFile(fileobj)">{{ file.name }}</a>
+      </li>
+    </ul>
+
+  </div>
+</div>
