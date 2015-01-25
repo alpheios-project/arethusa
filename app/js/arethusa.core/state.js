@@ -241,7 +241,7 @@ angular.module('arethusa.core').service('state', [
 
 
     // type should be either 'click', 'ctrl-click' or 'hover'
-    this.selectToken = function (id, type, changeHead) {
+    this.selectToken = function (id, type) {
       if (type === 'click') self.deselectAll();
 
       if (self.isSelectable(self.selectionType(id), type)) {
