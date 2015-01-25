@@ -9,8 +9,9 @@ angular.module('arethusa').controller('MorphImportCtrl', [
   'MORPH_IMPORTS',
   '$http',
   '$injector',
+  '$q',
   function($scope, plugins, latinAttrs, greekAttrs,
-           configurator, MORPH_IMPORTS, $http, $injector) {
+           configurator, MORPH_IMPORTS, $http, $injector, $q) {
     var morph, localStorage;
 
     var attrs = {
@@ -28,8 +29,6 @@ angular.module('arethusa').controller('MorphImportCtrl', [
     // Use a starting value so the morph service can load properly
     useLanguage('lat');
 
-    var data = "Caesar,Caesar,n-s---mn-,lfdm";
-
     plugins.start(['morph']).then(function() {
       morph = plugins.get('morph');
       localStorage = $injector.get('morphLocalStorage');
@@ -38,27 +37,52 @@ angular.module('arethusa').controller('MorphImportCtrl', [
 
     $scope.files = MORPH_IMPORTS;
 
+    var userCache = {};
+
+    var userRouteParams = {
+      headers: {
+        'Accept': 'application/json'
+      }
+    };
+
+    function parseOrigin(form, userRoute) {
+      var deferred = $q.defer();
+      var userName = userCache[userRoute];
+      if (userName) {
+        deferred.resolve(userName);
+      } else {
+        $http.get(userRoute, userRouteParams).then(function(res) {
+          var userName = res.data.name;
+          userCache[userRoute] = userName;
+          deferred.resolve(userName);
+        });
+      }
+      return deferred.promise;
+    }
+
     function loadForms(data, filter) {
       resetStatus();
       var lines = data.split('\n');
-      for (var i=0; i < lines.length; i++) {
+      angular.forEach(lines, function(line, key) {
         // Fields are organized like
         // Form       - Lemma   - Postag   - User
         // Caesaris   - Caesar  - .......  - ....
-        var fields = lines[i].split(',');
+        var fields = line.split(',');
         var str = fields[0];
         var form = {
           lemma: fields[1],
           postag: fields[2]
-          //origin: fields[3]
         };
 
-        morph.postagToAttributes(form);
-        if (formNotDuplicate(str, form)) {
-          morph.addToLocalStorage(fields[0], form);
-          $scope.status.count += 1;
-        }
-      }
+        parseOrigin(form, fields[3]).then(function(userName) {
+          form.origin = userName;
+          morph.postagToAttributes(form);
+          if (formNotDuplicate(str, form)) {
+            morph.addToLocalStorage(fields[0], form);
+            $scope.status.count += 1;
+          }
+        });
+      });
     }
 
     function formNotDuplicate(str, form) {
