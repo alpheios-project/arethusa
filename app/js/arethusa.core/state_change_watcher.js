@@ -63,6 +63,26 @@ angular.module('arethusa.core').factory('StateChangeWatcher', [
       };
 
       state.watch(propertyToWatch, this.watchChange);
+
+      state.on('tokenAdded',   function(event, token) {
+        if (!self.checkFunction(token)) {
+          self.matchingTokens[token.id] = true;
+          callbacks.newMatch(event.token);
+
+          self.count++;
+          callbacks.changedCount(self.count);
+        }
+      });
+
+      state.on('tokenRemoved', function(event, token) {
+        if (!self.checkFunction(token)) {
+          delete self.matchingTokens[token.id];
+          callbacks.lostMatch(event.token);
+
+          self.count--;
+          callbacks.changedCount(self.count);
+        }
+      });
     };
   }
 ]);
