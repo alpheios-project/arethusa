@@ -9,4 +9,12 @@
     </ul>
 
   </div>
+
+  <div ng-if="importStarted" style="color: green">
+    Processing import...
+  </div>
+
+  <div ng-if="status.count">
+    {{ status.count}} forms successfully imported!
+  </div>
 </div>
