@@ -68,6 +68,7 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
         });
 
         scope.$watch('s.tokens', function(newVal, oldVal) {
+          scope.total = state.totalTokens;
           stateChangeWatcher.initCount();
         });
 
