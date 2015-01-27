@@ -62,16 +62,21 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
       }
     });
 
-    $scope.goToNextKeyHint = aU.formatKeyHint(navigator.nextChunkKey);
-    $scope.goToPrevKeyHint = aU.formatKeyHint(navigator.prevChunkKey);
-    $scope.listKeyHint = aU.formatKeyHint(navigator.listKey);
-
     $scope.trsls = translator({
       'navigator.goToNext': 'goToNext',
       'navigator.goToPrev': 'goToPrev',
       'navigator.goToFirst': 'goToFirst',
       'navigator.goToLast': 'goToLast',
       'list': 'list'
+    });
+
+    $scope.keys = {};
+    $scope.$watch(function() { return navigator.keys; }, function(newValue) {
+      if (newValue) {
+        $scope.keys.nextChunkKey = aU.formatKeyHint(newValue.navigation.nextChunk);
+        $scope.keys.prevChunkKey = aU.formatKeyHint(newValue.navigation.prevChunk);
+        $scope.keys.listKey = aU.formatKeyHint(newValue.navigation.list);
+      }
     });
   }
 ]);

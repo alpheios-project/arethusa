@@ -25,7 +25,7 @@
   "markdownEnabled": "Markdown input enabled!",
   "apply": "Apply",
   "create": "Create",
-  "list": "List",
+  "list": "List {{ listKey }}",
   "delete": "Delete",
   "sidepanel": {
     "fold": "Fold Panel",
@@ -165,8 +165,8 @@
   "navigator": {
     "goToFirst": "go to first chunk",
     "goToLast": "go to last chunk",
-    "goToPrev": "go to previous chunk",
-    "goToNext": "go to next chunk",
+    "goToPrev": "go to previous chunk {{ prevChunkKey }}",
+    "goToNext": "go to next chunk {{ nextChunkKey }}",
     "chunkSizeError": "Only chunk sizes between 1 and {{ max }} are currently supported"
   },
   "morph": {

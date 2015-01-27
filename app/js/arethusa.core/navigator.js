@@ -33,12 +33,12 @@ angular.module('arethusa.core').service('navigator', [
 
       citeMapper = configurator.provideResource('citeMapper');
 
-      keyCapture.initCaptures(function(kC) {
+      self.keys = keyCapture.initCaptures(function(kC) {
         return {
           navigation: [
-            kC.create('nextChunk', function() { kC.doRepeated(self.nextChunk); }, self.nextChunkKey),
-            kC.create('prevChunk', function() { kC.doRepeated(self.prevChunk); }, self.prevChunkKey),
-            kC.create('list', function() { self.switchView(); }, self.listKey)
+            kC.create('nextChunk', function() { kC.doRepeated(self.nextChunk); }, 'u'),
+            kC.create('prevChunk', function() { kC.doRepeated(self.prevChunk); }, 'i'),
+            kC.create('list', function() { self.switchView(); }, 'L')
           ]
         };
       });
@@ -104,11 +104,9 @@ angular.module('arethusa.core').service('navigator', [
     this.nextChunk = function () {
       if (self.hasNext()) movePosition(1);
     };
-    this.nextChunkKey = 'u';
     this.prevChunk = function () {
       if (self.hasPrev()) movePosition(-1);
     };
-    this.prevChunkKey = 'i';
 
     this.hasNext = function() {
       return self.currentPosition + self.chunkSize < self.sentences.length;
@@ -272,7 +270,6 @@ angular.module('arethusa.core').service('navigator', [
     this.list = function() {
       return angular.element(document.getElementById('arethusa-sentence-list'));
     };
-    this.listKey = 'L';
 
     this.switchView = function() {
       $rootScope.$broadcast('viewModeSwitched');
