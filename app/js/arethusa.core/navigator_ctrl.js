@@ -71,7 +71,7 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
     });
 
     $scope.keys = {};
-    $scope.$watch(function() { return navigator.keys; }, function(newValue) {
+    $scope.$watch('nav.keys', function(newValue) {
       if (newValue) {
         $scope.keys.nextChunkKey = aU.formatKeyHint(newValue.navigation.nextChunk);
         $scope.keys.prevChunkKey = aU.formatKeyHint(newValue.navigation.prevChunk);
