@@ -53,25 +53,25 @@
       <word id="44" form="dare" lemma="" postag="" relation="" head=""/>
       <word id="45" form="adduceretur" lemma="" postag="" relation="AuxK" head="0"/>
    </sentence>
-   <sentence id="1" document_id="Caes. BG. 2.1" subdoc="" span="">
-      <word id="45" form="Coniurandi" lemma="" postag="" relation="" head=""/>
-      <word id="46" form="has" lemma="" postag="" relation="" head=""/>
-      <word id="47" form="esse" lemma="" postag="" relation="" head=""/>
-      <word id="48" form="causas" lemma="" postag="" relation="" head=""/>
-      <word id="49" form="primum" lemma="" postag="" relation="" head=""/>
-      <word id="50" form="quod" lemma="" postag="" relation="" head=""/>
-      <word id="51" form="vererentur" lemma="" postag="" relation="" head=""/>
-      <word id="52" form="ne" lemma="" postag="" relation="" head=""/>
-      <word id="53" form="," lemma="punc1" postag="u--------" relation="AuxX" head=""/>
-      <word id="54" form="omni" lemma="" postag="" relation="" head=""/>
-      <word id="55" form="pacata" lemma="" postag="" relation="" head=""/>
-      <word id="56" form="Gallia" lemma="" postag="" relation="" head=""/>
-      <word id="57" form="," lemma="punc1" postag="u--------" relation="AuxX" head=""/>
-      <word id="58" form="ad" lemma="" postag="" relation="" head=""/>
-      <word id="59" form="eos" lemma="" postag="" relation="" head=""/>
-      <word id="60" form="exercitus" lemma="" postag="" relation="" head=""/>
-      <word id="61" form="noster" lemma="" postag="" relation="" head=""/>
-      <word id="62" form="adduceretur" lemma="" postag="" relation="" head=""/>
-      <word id="63" form="." lemma="punc1" postag="u--------" relation="AuxK" head="0"/>
+   <sentence id="2" document_id="Caes. BG. 2.1" subdoc="" span="">
+      <word id="1" form="Coniurandi" lemma="" postag="" relation="" head=""/>
+      <word id="2" form="has" lemma="" postag="" relation="" head=""/>
+      <word id="3" form="esse" lemma="" postag="" relation="" head=""/>
+      <word id="4" form="causas" lemma="" postag="" relation="" head=""/>
+      <word id="5" form="primum" lemma="" postag="" relation="" head=""/>
+      <word id="6" form="quod" lemma="" postag="" relation="" head=""/>
+      <word id="7" form="vererentur" lemma="" postag="" relation="" head=""/>
+      <word id="8" form="ne" lemma="" postag="" relation="" head=""/>
+      <word id="9" form="," lemma="punc1" postag="u--------" relation="AuxX" head=""/>
+      <word id="10" form="omni" lemma="" postag="" relation="" head=""/>
+      <word id="11" form="pacata" lemma="" postag="" relation="" head=""/>
+      <word id="12" form="Gallia" lemma="" postag="" relation="" head=""/>
+      <word id="13" form="," lemma="punc1" postag="u--------" relation="AuxX" head=""/>
+      <word id="14" form="ad" lemma="" postag="" relation="" head=""/>
+      <word id="15" form="eos" lemma="" postag="" relation="" head=""/>
+      <word id="16" form="exercitus" lemma="" postag="" relation="" head=""/>
+      <word id="17" form="noster" lemma="" postag="" relation="" head=""/>
+      <word id="18" form="adduceretur" lemma="" postag="" relation="" head=""/>
+      <word id="19" form="." lemma="punc1" postag="u--------" relation="AuxK" head="0"/>
    </sentence>
 </treebank>
