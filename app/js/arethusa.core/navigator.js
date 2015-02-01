@@ -33,7 +33,7 @@ angular.module('arethusa.core').service('navigator', [
 
       citeMapper = configurator.provideResource('citeMapper');
 
-      keyCapture.initCaptures(function(kC) {
+      self.keys = keyCapture.initCaptures(function(kC) {
         return {
           navigation: [
             kC.create('nextChunk', function() { kC.doRepeated(self.nextChunk); }, 'u'),

@@ -19,7 +19,7 @@
   <div>
     <a
       class="nav-link"
-      title="{{ trsls.goToPrev() }}"
+      title="{{ trsls.goToPrev(keys) }}"
       ng-click="prev()"
       ng-class="{ disabled: !navStat.hasPrev }">
       <i class="fi-arrow-left"></i>
@@ -41,7 +41,8 @@
                 </form>
               </div>
               <div>
-                <a sentence-list translate="list"/>
+                <a sentence-list translate="list"
+                  title="{{ trsls.list(keys) }}"/>
               </div>
             </div>
           </ul>
@@ -53,7 +54,7 @@
     <div>
       <a
         class="nav-link"
-        title="{{ trsls.goToNext() }}"
+        title="{{ trsls.goToNext(keys) }}"
         ng-click="next()"
         ng-class="{ disabled: !navStat.hasNext }">
         <i class="fi-arrow-right"></i>

@@ -165,8 +165,8 @@
   "navigator": {
     "goToFirst": "erster Abschnitt",
     "goToLast": "letzter Abschnitt",
-    "goToPrev": "vorheriger Abschnitt",
-    "goToNext": "nächster Abschnitt",
+    "goToPrev": "vorheriger Abschnitt {{ prevChunkKey }}",
+    "goToNext": "nächster Abschnitt {{ nextChunkKey }}",
     "chunkSizeError": "Es werden nur Teilungsgrößen zwischen 1 und {{ max }} unterstützt"
   },
   "morph": {

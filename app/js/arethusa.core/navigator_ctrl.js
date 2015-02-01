@@ -3,7 +3,8 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
   '$scope',
   'navigator',
   'translator',
-  function ($scope, navigator, translator) {
+  'keyCapture',
+  function ($scope, navigator, translator, keyCapture) {
     $scope.next = function () {
       navigator.nextChunk();
     };
@@ -65,7 +66,17 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
       'navigator.goToNext': 'goToNext',
       'navigator.goToPrev': 'goToPrev',
       'navigator.goToFirst': 'goToFirst',
-      'navigator.goToLast': 'goToLast'
+      'navigator.goToLast': 'goToLast',
+      'list': 'list'
+    });
+
+    $scope.keys = {};
+    $scope.$watch('nav.keys', function(newValue) {
+      if (newValue) {
+        $scope.keys.nextChunkKey = aU.formatKeyHint(newValue.navigation.nextChunk);
+        $scope.keys.prevChunkKey = aU.formatKeyHint(newValue.navigation.prevChunk);
+        $scope.keys.listKey = aU.formatKeyHint(newValue.navigation.list);
+      }
     });
   }
 ]);
