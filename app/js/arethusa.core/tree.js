@@ -108,6 +108,7 @@ angular.module('arethusa.core').factory('Tree', [
 
       var tokenHtml = '\
         <span token="token"\
+          style="white-space: nowrap"\
           class="no-transition"\
           colorize="STYLE"\
           click="true"\
