@@ -1,5 +1,6 @@
 'use strict';
 angular.module('arethusa.core').controller('ArethusaCtrl', [
+  'GlobalErrorHandler',
   '$scope',
   'configurator',
   'state',
@@ -12,8 +13,8 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
   '$timeout',
   'globalSettings',
   'routeChangeWatcher',
-  function ($scope, configurator, state, documentStore, notifier, saver, history,
-            plugins, translator, $timeout, globalSettings, routeChangeWatcher) {
+  function (GlobalErrorHandler, $scope, configurator, state, documentStore, notifier,
+            saver, history, plugins, translator, $timeout, globalSettings, routeChangeWatcher) {
     // This is the entry point to the application.
 
     var translations = translator(['loadInProgress', 'loadComplete']);
