@@ -293,7 +293,6 @@ angular.module('arethusa.morph').service('morph', [
           mergeDuplicateForms(forms[0], res);
           var newForms = makeUnique(res);
           arethusaUtil.pushAll(forms, newForms);
-
           if (self.preselect) {
             preselectForm(forms[0], id);
           }
@@ -612,8 +611,18 @@ angular.module('arethusa.morph').service('morph', [
     };
 
     var searchIndex;
-    function createSearchIndex() {
+    function initSearchIndex() {
+      // @balmas: I don't know if there is any reason not to just
+      // initialize it where it's declared. This was split from 
+      // createSearchIndex for 
+      //https://github.com/latin-language-toolkit/arethusa/issues/613
       searchIndex = {};
+    }
+    function loadSearchIndex() {
+      // we should have initialized it before here but just in case
+      if (! angular.isDefined(searchIndex)) {
+        initSearchIndex;
+      }
       angular.forEach(state.tokens, function(token, id) {
         var form = token.morphology || {};
         addToIndex(form, id);
@@ -719,8 +728,9 @@ angular.module('arethusa.morph').service('morph', [
       configure();
       self.emptyPostag = createEmptyPostag();
       self.analyses = seedAnalyses();
+      initSearchIndex();
       loadInitalAnalyses();
-      createSearchIndex();
+      loadSearchIndex();
       plugins.declareReady(self);
     };
   }
