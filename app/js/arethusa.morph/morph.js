@@ -621,7 +621,7 @@ angular.module('arethusa.morph').service('morph', [
     function loadSearchIndex() {
       // we should have initialized it before here but just in case
       if (! angular.isDefined(searchIndex)) {
-        initSearchIndex;
+        initSearchIndex();
       }
       angular.forEach(state.tokens, function(token, id) {
         var form = token.morphology || {};
