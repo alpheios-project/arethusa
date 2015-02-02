@@ -158,7 +158,7 @@ html, body {
   padding: .7rem;
   position: absolute;
   list-style: none;
-  margin-left: 0; 
+  margin-left: 0;
   height: auto;
   max-height: none;
   background: $bgcol;
@@ -409,6 +409,7 @@ $button-color-on-hover: #006375;
 body {
 
 }
+
 a {
   color: $button-color;
   @include single-transition(color);
@@ -416,6 +417,16 @@ a {
 
 a:hover, a:focus {
   color: $button-color-hover;
+}
+
+.navbar-navigation {
+  a {
+    color: lighten($button-color, 10%);
+  }
+
+  a:hover {
+    color: lighten($button-color, 20%);
+  }
 }
 
 .tabs dd a {
