@@ -1,5 +1,6 @@
 'use strict';
 angular.module('arethusa.core').controller('ArethusaCtrl', [
+  'GlobalErrorHandler',
   '$scope',
   'configurator',
   'state',
@@ -11,7 +12,7 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
   'translator',
   '$timeout',
   'globalSettings',
-  function ($scope, configurator, state, documentStore, notifier,
+  function (GlobalErrorHandler, $scope, configurator, state, documentStore, notifier,
             saver, history, plugins, translator, $timeout, globalSettings) {
     // This is the entry point to the application.
 
