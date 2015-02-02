@@ -14,6 +14,7 @@ angular.module('arethusa.morph').service('morph', [
 
     var morphRetrievers;
     var inventory;
+    var searchIndex;
 
     // Shows a need to define the plugins name upfront - would
     // also spare a first configure round when the service is injected
@@ -88,6 +89,7 @@ angular.module('arethusa.morph').service('morph', [
       }
 
       colorMap = undefined;
+      searchIndex = {};
     }
 
     var emptyAttribute = {
@@ -293,7 +295,6 @@ angular.module('arethusa.morph').service('morph', [
           mergeDuplicateForms(forms[0], res);
           var newForms = makeUnique(res);
           arethusaUtil.pushAll(forms, newForms);
-
           if (self.preselect) {
             preselectForm(forms[0], id);
           }
@@ -611,9 +612,7 @@ angular.module('arethusa.morph').service('morph', [
       state.multiSelect(Object.keys(ids));
     };
 
-    var searchIndex;
-    function createSearchIndex() {
-      searchIndex = {};
+    function loadSearchIndex() {
       angular.forEach(state.tokens, function(token, id) {
         var form = token.morphology || {};
         addToIndex(form, id);
@@ -720,7 +719,7 @@ angular.module('arethusa.morph').service('morph', [
       self.emptyPostag = createEmptyPostag();
       self.analyses = seedAnalyses();
       loadInitalAnalyses();
-      createSearchIndex();
+      loadSearchIndex();
       plugins.declareReady(self);
     };
   }
