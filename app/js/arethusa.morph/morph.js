@@ -14,6 +14,7 @@ angular.module('arethusa.morph').service('morph', [
 
     var morphRetrievers;
     var inventory;
+    var searchIndex;
 
     // Shows a need to define the plugins name upfront - would
     // also spare a first configure round when the service is injected
@@ -88,6 +89,7 @@ angular.module('arethusa.morph').service('morph', [
       }
 
       colorMap = undefined;
+      searchIndex = {};
     }
 
     var emptyAttribute = {
@@ -610,19 +612,7 @@ angular.module('arethusa.morph').service('morph', [
       state.multiSelect(Object.keys(ids));
     };
 
-    var searchIndex;
-    function initSearchIndex() {
-      // @balmas: I don't know if there is any reason not to just
-      // initialize it where it's declared. This was split from 
-      // createSearchIndex for 
-      //https://github.com/latin-language-toolkit/arethusa/issues/613
-      searchIndex = {};
-    }
     function loadSearchIndex() {
-      // we should have initialized it before here but just in case
-      if (! angular.isDefined(searchIndex)) {
-        initSearchIndex();
-      }
       angular.forEach(state.tokens, function(token, id) {
         var form = token.morphology || {};
         addToIndex(form, id);
@@ -728,7 +718,6 @@ angular.module('arethusa.morph').service('morph', [
       configure();
       self.emptyPostag = createEmptyPostag();
       self.analyses = seedAnalyses();
-      initSearchIndex();
       loadInitalAnalyses();
       loadSearchIndex();
       plugins.declareReady(self);
