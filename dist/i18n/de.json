@@ -160,7 +160,8 @@
     "colorizer": "Token einfärben nach",
     "layout": "Layout",
     "clickAction": "Klickverhalten",
-    "chunkMode": "Teilungsmodus"
+    "chunkMode": "Teilungsmodus",
+    "pluginSettings": "Plugin Einstellungen"
   },
   "navigator": {
     "goToFirst": "erster Abschnitt",

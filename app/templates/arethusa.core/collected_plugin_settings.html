@@ -1,0 +1,9 @@
+<table class="plugin-settings">
+  <tr ng-repeat="plugin in plugins.all" ng-if="plugin.settings">
+    <td class="name">{{ plugin.displayName }}</td>
+    <td ng-repeat="setting in plugin.settings">
+      <span ng-if="setting.directive" dynamic-directive="{{ setting.directive }}"/>
+      <span ng-if="!setting.directive" plugin-setting orientation="left"/>
+    </td>
+  </tr>
+</table>

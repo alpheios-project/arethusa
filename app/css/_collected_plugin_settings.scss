@@ -1,0 +1,18 @@
+table.plugin-settings {
+  $margin: .8rem;
+  margin-top: $margin;
+  margin-left: $margin;
+
+    .name {
+      font-weight: bold;
+    }
+
+    input[type=checkbox] {
+      float: left;
+      margin-right: .3rem !important;
+    }
+
+    label {
+      margin: 0 !important;
+    }
+}

@@ -21,6 +21,12 @@ angular.module('arethusa.core').directive('globalSettingsPanel', [
             if (newVal) element.slideDown(); else element.slideUp();
           });
         });
+
+        scope.togglePluginSettings = togglePluginSettings;
+
+        function togglePluginSettings() {
+          scope.pluginSettingsVisible = !scope.pluginSettingsVisible;
+        }
       },
       templateUrl: 'templates/arethusa.core/global_settings_panel.html'
     };
