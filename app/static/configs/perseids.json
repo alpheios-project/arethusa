@@ -45,7 +45,7 @@
   "plugins" : {
     "text" : {
       "main" : true,
-      "template"  : "templates/text2.html"
+      "template"  : "templates/text_with_context.html"
     },
 
     "depTree" : {
