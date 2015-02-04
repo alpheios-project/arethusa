@@ -271,7 +271,6 @@ angular.module('arethusa.core').service('navigator', [
       // Probably make context size configurable
       context.pre = getPreContext(firstIndex);
       context.post = getPostContext(lastIndex);
-      console.log(context);
     }
 
     this.updateId = function () {
