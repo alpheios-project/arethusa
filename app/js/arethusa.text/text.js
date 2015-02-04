@@ -3,14 +3,15 @@ angular.module('arethusa.text').service('text', [
   'state',
   'configurator',
   'navigator',
+  'keyCapture',
   'commons',
-  function (state, configurator, navigator, commons) {
+  function (state, configurator, navigator, keyCapture, commons) {
     var self = this;
     this.name = "text";
 
     var props = [
       'showContext'
-    ]
+    ];
 
     function configure() {
       configurator.getConfAndDelegate(self, props);
@@ -57,6 +58,18 @@ angular.module('arethusa.text').service('text', [
     this.settings = [
       commons.setting('Show Context', 'showContext')
     ];
+
+    function toggleContext() {
+      self.showContext = !self.showContext;
+    }
+
+    keyCapture.initCaptures(function(kC) {
+      return {
+        text: [
+          kC.create('toggleContext', toggleContext, 'k')
+        ]
+      };
+    });
 
     this.init = function() {
       configure();
