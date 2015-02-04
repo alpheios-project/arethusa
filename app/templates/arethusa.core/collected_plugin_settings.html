@@ -3,7 +3,7 @@
     <td class="name">{{ plugin.displayName }}</td>
     <td ng-repeat="setting in plugin.settings">
       <span ng-if="setting.directive" dynamic-directive="{{ setting.directive }}"/>
-      <span ng-if="!setting.directive" plugin-setting orientation="left"/>
+      <span ng-if="!setting.directive" plugin-setting/>
     </td>
   </tr>
 </table>
