@@ -198,36 +198,126 @@ angular.module('arethusa.core').service('state', [
       self.checkLoadStatus();
     };
 
-    // Delegators
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#asString
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Controlled access to the string of a token.
+     *
+     * @param {String} id Id of a token
+     * @returns {String} The token string
+     */
     this.asString = function (id) {
-      return self.tokens[id].string;
+      return (self.getToken(id) || {}).string;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#getToken
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Retrieves a Token object by id. Use this instead of accessing
+     * {@link arethusa.core.state#properties_tokens state.tokens} directly.
+     *
+     * @param {String} id Id of a token
+     * @returns {Token} A Token object
+     */
     this.getToken = function (id) {
       return self.tokens[id] || {};
     };
 
-    // Selections
+    /**
+     * @ngdoc property
+     * @name selectedTokens
+     * @propertyOf arethusa.core.state
+     *
+     * @description
+     * Stores the currently selected tokens
+     *
+     * A dictionary of `ids` and their `selectionType`,
+     * which is either `hover`, `click` or `ctrl-click` (which
+     * indicates a multi-selection).
+     */
     this.selectedTokens = {};
+
+    /**
+     * @ngdoc property
+     * @name clickedTokens
+     * @propertyOf arethusa.core.state
+     *
+     * @description
+     * Store of the currently clicked tokens
+     *
+     * Differs from {@link arethusa.core.state#properties_selectedTokens}
+     * as no `hover` selections are recorded.
+     *
+     * TODO Need to expose the tokens directly here as values. Document
+     * this behavior then.
+     */
     this.clickedTokens  = {};
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#hasSelections
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     *
+     * @returns {Integer} Number of selected tokens - 0 is a falsy value.
+     */
     this.hasSelections = function() {
       return Object.keys(self.selectedTokens).length !== 0;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#hasClickSelections
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * @returns {Integer} Number of clicked tokens - 0 is a falsy value.
+     */
     this.hasClickSelections = function() {
       return Object.keys(self.clickedTokens).length;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#isSelected
+     * @methodOf arethusa.core.state
+     *
+     * @param {String} id Id of a token
+     * @returns {Boolean} Whether a token is selected or not
+     */
     this.isSelected = function(id) {
       return id in this.selectedTokens;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#isClicked
+     * @methodOf arethusa.core.state
+     *
+     * @param {String} id Id of a token
+     * @returns {Boolean} Whether a token is clicked or not
+     */
     this.isClicked = function(id) {
       return id in this.clickedTokens;
     };
 
-    // multi-selects tokens, given an array of ids
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#multiSelect
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Function to multi-select tokens efficiently
+     *
+     * @param {Array} ids Array token ids which should be multi-selected
+     */
     this.multiSelect = function(ids) {
       self.deselectAll();
       selectMultipleTokens(ids);
@@ -239,13 +329,31 @@ angular.module('arethusa.core').service('state', [
       });
     }
 
+    function isSelectable(oldVal, newVal) {
+      // if an element was hovered, we only select it when another
+      // selection type is present (such as 'click'), if there was
+      // no selection at all (oldVal === undefined), we select too
+      return oldVal === 'hover' && newVal !== 'hover' || !oldVal;
+    }
 
     // type should be either 'click', 'ctrl-click' or 'hover'
     var simpleToMultiSelect;
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#selectToken
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Function to select a token in a controlled way
+     *
+     * @param {String} id Id of a token
+     * @param {String} type The selection type. Either `hover`, `click` or
+     *   `ctrl-click`
+     */
     this.selectToken = function (id, type) {
       if (type === 'click') self.deselectAll();
 
-      if (self.isSelectable(self.selectionType(id), type)) {
+      if (isSelectable(self.selectionType(id), type)) {
         self.selectedTokens[id] = type;
         if (type !== 'hover') {
           self.clickedTokens[id] = type;
@@ -266,17 +374,34 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#selectionType
+     * @methodOf arethusa.core.state
+     *
+     * @param {String} id Id of a token
+     * @returns {String} The current selection type. Either `hover`, `click`
+     *   or `ctrl-click`. Returns `undefined` when the token is not selected
+     *   at atll.
+     */
     this.selectionType = function (id) {
       return self.selectedTokens[id];
     };
 
-    this.isSelectable = function (oldVal, newVal) {
-      // if an element was hovered, we only select it when another
-      // selection type is present (such as 'click'), if there was
-      // no selection at all (oldVal === undefined), we select too
-      return oldVal === 'hover' && newVal !== 'hover' || !oldVal;
-    };
-
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#deselectToken
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Function to deselect a token in a controlled way
+     *
+     * @param {String} id Id of a token
+     * @param {String} type The selection type. This is important to
+     *   determine whether a token can really be deselected at this point,
+     *   e.g. a deselect call for a `hover` selection shall not deselect a
+     *   token that was `click`ed.
+     */
     this.deselectToken = function (id, type) {
       // only deselect when the old selection type is the same as
       // the argument, i.e. a hover selection can only deselect a
@@ -287,6 +412,20 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#toggleSelection
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Toggle the selection state of a token
+     *
+     * Either calls {@link arethusa.core.state#methods_selectToken} or
+     * {@link arethusa.core.state#methods_deselectToken}
+     *
+     * @param {String} id Id of a token
+     * @param {String} type The selection type to toggle
+     */
     this.toggleSelection = function (id, type) {
       // only deselect when the selectionType is the same.
       // a hovered selection can still be selected by click.
@@ -297,6 +436,14 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#deselectAll
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Function to deselct all tokens, no matter their selection type.
+     */
     this.deselectAll = function () {
       for (var el in self.selectedTokens) {
         delete self.selectedTokens[el];
@@ -304,11 +451,19 @@ angular.module('arethusa.core').service('state', [
       }
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#firstSelected
+     * @methodOf arethusa.core.state
+     *
+     * @returns {Token} The first selected token of the current chunk.
+     *   Returns `undefined` when no selection is present.
+     */
     this.firstSelected = function() {
       return Object.keys(self.selectedTokens)[0];
     };
 
-    this.selectSurroundingToken = function (direction) {
+    function selectSurroundingToken(direction) {
       // take the first current selection
       var firstId = self.firstSelected();
       var allIds = Object.keys(self.tokens);
@@ -327,13 +482,13 @@ angular.module('arethusa.core').service('state', [
       self.deselectAll();
       // and select the new one
       self.selectToken(newId, 'click');
-    };
+    }
 
     this.selectNextToken = function () {
-      self.selectSurroundingToken('next');
+      selectSurroundingToken('next');
     };
     this.selectPrevToken = function () {
-      self.selectSurroundingToken('prev');
+      selectSurroundingToken('prev');
     };
 
     this.toTokenStrings = function(ids) {
@@ -373,10 +528,77 @@ angular.module('arethusa.core').service('state', [
       if (self.launched) self.broadcast('stateLoaded');
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#setStyle
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Sets the style of a token. When the token already has a styling,
+     * this function will override all former information.
+     *
+     * @param {String} id Id of a token
+     * @param {Object} style Dictionary of CSS styles, e.g.
+     *   `{ color: 'red' }`
+     */
     this.setStyle = function (id, style) {
       self.getToken(id).style = style;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#unsetStyle
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Removes all styling information of a token
+     *
+     * @param {String} id Id of a token
+     */
+    this.unsetStyle = function (id) {
+      self.getToken(id).style = {};
+    };
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#addStyle
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Adds style information to a token. Already set stylings are not
+     * overriden, but merging rules apply.
+     *
+     * Given a current token style of
+     *
+     * ```
+     * {
+     *   'color': 'blue',
+     *   'font-style': 'italic'
+     * }
+     * ```
+     *
+     * calling
+     *
+     * ```
+     * state.addStyle(id, {
+     *   'color': 'red',
+     *   'text-decoration': 'underline'
+     * });
+     * ```
+     *
+     * will result in a token style of
+     *
+     * ```
+     * {
+     *   'color': 'red',
+     *   'font-style': 'italic'
+     *   'text-decoration': 'underline'
+     * }
+     *
+     * @param {String} id Id of a token
+     * @param {Object} style Dictionary of CSS styles, e.g.
+     *   `{ color: 'red' }`
+     */
     this.addStyle = function(id, style) {
       var token = self.getToken(id);
       if (!token.style) {
@@ -385,12 +607,18 @@ angular.module('arethusa.core').service('state', [
       angular.extend(token.style, style);
     };
 
-    this.unapplyStylings = function() {
-      angular.forEach(self.tokens, function(token, id) {
-        self.unsetStyle(id);
-      });
-    };
-
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#removeStyle
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Removes one or several stylings of a token
+     *
+     * @param {String} id Id of a token
+     * @param {String|Array} style Either a single CSS property or an
+     *   Array of CSS properties to remove from the token's styling
+     */
     this.removeStyle = function(id, style) {
       var tokenStyle = self.getToken(id).style;
       if (! tokenStyle) return;
@@ -401,9 +629,21 @@ angular.module('arethusa.core').service('state', [
       });
     };
 
-    this.unsetStyle = function (id) {
-      self.getToken(id).style = {};
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#unapplyStylings
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Remove stylings of all current
+     * {@link arethusa.core.state#properties_tokens tokens}
+     */
+    this.unapplyStylings = function() {
+      angular.forEach(self.tokens, function(token, id) {
+        self.unsetStyle(id);
+      });
     };
+
 
     this.addStatusObjects = function () {
       angular.forEach(self.tokens, addStatus);
@@ -415,10 +655,33 @@ angular.module('arethusa.core').service('state', [
       }
     }
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#countTotalTokens
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Counts the total number of currently present tokens
+     *
+     * @returns {Integer} Number of tokens
+     */
     this.countTotalTokens = function () {
       self.totalTokens = Object.keys(self.tokens).length;
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#countTokens
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Counts the number of currently present tokens, for which
+     * a given function returns a truthy value.
+     *
+     * @param {Function} condition A function that takes a token. Has to
+     *   return a truthy or falsy value
+     * @returns {Integer} Number of tokens for which the condition is truthy
+     */
     this.countTokens = function (conditionFn) {
       var count = 0;
       angular.forEach(self.tokens, function (token, id) {
@@ -503,6 +766,24 @@ angular.module('arethusa.core').service('state', [
       return event.exec();
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#notifyWatchers
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Triggers all callbacks of listeners registerd through
+     * {@link arethusa.core.state#methods_watch state.watch}.
+     *
+     * Which listeners are triggered is determined by the given event.
+     *
+     * This function is usually not meant to be triggered manually - a
+     * {@link arethusa.core.StateChange StateChange}'s `exec` function
+     * will do this automatically.
+     *
+     * @param {StateChange} event A {@link arethusa.core.StateChange StateChange}
+     *   event object
+     */
     this.notifyWatchers = function(event) {
       function execWatch(watch) { watch.exec(event.newVal, event.oldVal, event); }
 
@@ -568,7 +849,9 @@ angular.module('arethusa.core').service('state', [
      * @methodOf arethusa.core.state
      *
      * @description
-     * Delegates to `$rootScope.$on`.
+     * Delegates to `$rootScope.$on`. This is convenient when a plugin
+     * needs to send such an event, without a having to inject `$rootScope`
+     * directly.
      *
      * @param {String} event The eventname
      * @param {Function} fn Callback function
@@ -584,7 +867,9 @@ angular.module('arethusa.core').service('state', [
      * @methodOf arethusa.core.state
      *
      * @description
-     * Delegates to `$rootScope.broadcast`.
+     * Delegates to `$rootScope.$broadcast`. This is convenient when a plugin
+     * needs to send such an event, without a having to inject `$rootScope`
+     * directly.
      *
      * @param {String} event The eventname
      * @param {*} [arg] Optional argument transmitted alongside the event

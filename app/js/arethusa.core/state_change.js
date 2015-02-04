@@ -22,7 +22,7 @@
  * @property {fn} exec Function to trigger the change - setting the `newVal`
  *   on the `property` of the `token`.
  *
- *   Broadcast a `tokenChange` event on the `$rootScope` with itself
+ *   Broadcasts a `tokenChange` event on the `$rootScope` with itself
  *   (the `StateChange` object) as argument and notifies all listeners
  *   registered through {@link arethusa.core.state#methods_watch state.watch}.
  *
