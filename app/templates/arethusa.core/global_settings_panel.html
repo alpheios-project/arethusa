@@ -22,5 +22,15 @@
         </div>
       </li>
     </ul>
+    <div ng-click="togglePluginSettings()" class="underline clickable">
+      Plugin Settings
+    </div>
+
+    <div
+      style="height: 250px"
+      class="fade"
+      ng-if="pluginSettingsVisible"
+      collected-plugin-settings>
+    </div>
   </div>
 </div>
