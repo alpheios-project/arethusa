@@ -8,7 +8,7 @@ angular.module('arethusa.core').directive('navbarButtons', [
       replace: true,
       link: function(scope, element, attrs) {
         scope.$watch('windowWidth', function(newVal, oldVal) {
-          var coll = newVal > 1090 ? '' : '_collapsed';
+          var coll = newVal > 1150 ? '' : '_collapsed';
           scope.bTemplate = 'templates/arethusa.core/navbar_buttons' + coll + '.html';
         });
 
