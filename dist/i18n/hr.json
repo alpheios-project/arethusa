@@ -1,0 +1,192 @@
+{
+  "date": "Datum",
+  "preview": "Prikaz",
+  "download": "Download",
+  "submit": "Predaj",
+  "search_documents": "Traženje dokumenata",
+  "loadInProgress": "Učitavanje...",
+  "loadComplete": "Učitavanje uspješno!",
+  "language": "Hrvatski",
+  "help": "Pomoć",
+  "contactUs": "Poruka urednicima",
+  "messages": "Obavijesti",
+  "menu": "Izbornik",
+  "deselectAll": "Poništi sve izbore",
+  "settings": "Podešavanje",
+  "save": "Snimi",
+  "reset": "Poništi promjene",
+  "items": "Elementi",
+  "useCases": "Primjena",
+  "gettingStarted": "Uvod",
+  "development": "Razvoj",
+  "depTrees": "Ovisnosna stabla",
+  "review": "Recenziranje",
+  "Treebanking": "Označavanje stabala",
+  "markdownEnabled": "Aktiviran markdown!",
+  "apply": "Provedi",
+  "create": "Stvori",
+  "list": "Popis",
+  "delete": "Brisanje",
+  "sidepanel": {
+    "fold": "Skrivanje panela",
+    "show": "Prikaz panela"
+  },
+  "history": {
+    "redoSuccess": "Izmjena vraćena",
+    "undoSuccess": "Izmjena poništena",
+    "undo": "Poništi izmjenu",
+    "redo": "Vrati izmjenu",
+    "noRecords": "Nema zapisa.",
+    "fromTo": "od {{ from }} do {{ to }}",
+    "add": {
+      "start": "Dodaj od",
+      "end": ""
+    },
+    "remove": {
+      "start": "Ukloni iz",
+      "end": ""
+    },
+    "change": {
+      "start": "Mijenjanje <strong>{{ property }}</strong> u",
+      "end": ""
+    }
+  },
+  "search": {
+    "foundTokens": "Nađeni tokeni",
+    "searchByToken": "po tokenu"
+  },
+  "saver": {
+    "previewAndDownload": "Prikaz i download",
+    "success": "Dokument snimljen!",
+    "error": "Snimanje nije uspjelo! Da probamo ponovo?",
+    "inProgress": "Snimanje...",
+    "nothingToSave": "Nema se što snimiti!",
+    "confirmNote": "Postoje izmjene koje nisu snimljene!",
+    "confirmQuestion": "Jeste li sigurni da želite izaći?"
+  },
+  "landing": {
+    "awards": "Priznanja",
+    "description": "Klijent za anotacije neovisan o backend-sustavu",
+    "modularNature": "Modularnost omogućava rekonfiguraciju Arethuse i prilagođavanje različitima zadacima.",
+    "moreScreencasts": "Još filmova",
+    "devDescription": "Arethusa je razvijena na <a href=\"https://angularjs.org/angular.js\">AngularJS</a>, Javascript frameworku za mrežne aplikacije. Strukturirana je kao niz pluginova, neovisnih o back-endu, i omogućava pristup tekstovima, njihovo anotiranje i korištenje različitih lingvističkih servisa iz različitih izvora.  Osnovno je načelo dizajna jednostavna nadogradivost - Arethusa uključuje alate koji osiguravaju osnovu za nove pluginove (<a href=\"https://github.com/latin-language-toolkit/arethusa-cli\">Arethusa::CLI</a>) i nudi podršku za njih; upute za daljnji razvoj zasad su u pripremi, a nadamo se da će se kolege znanstvenici poslužiti platformom da bi omogućili podršku za više tipova anotacija, za daljnje jezike, back-endove i 'workflow-engines'.",
+    "partners": "Partneri",
+    "funders": "Financiranje",
+    "fundersDescription": "Projekt su podržali <a href=\"http://www.mellon.org/\">Andrew W. Mellon Foundation</a>, <a href=\"http://imls.gov/\">Institute of Museum and Library Services</a> i <a href=\"http://ec.europa.eu/esf/home.jsp\">European Social Fund</a>.",
+    "tryYourself": "Isprobajte!"
+  },
+  "auth": {
+    "notLoggedIn": "Niste prijavljeni!"
+  },
+  "uth": {
+    "count": "Neiskorišteno {{ count }} od ukupno {{ total }}",
+    "tooltip": "Lijevi klik za označavanje<br>Dvostruki klik za odabir"
+  },
+  "selector": {
+    "selection": "Odabir",
+    "selectionTooltip": "Gumbi na desnoj strani mijenjaju način izbora i isticanja",
+    "all": "Svi",
+    "none": "Ništa",
+    "noneTooltip": "Lijevim klikom poništite odabir",
+    "unused": "Neiskorišteno {{ count }}",
+    "unusedTooltip": "Lijevim klikom odaberite neiskorišteno",
+    "highlightUnused": "Isticanje neiskorištenog",
+    "highlightUnusedTooltip": "Lijevim klikom istaknite neiskorišteno"
+  },
+  "tree": {
+    "changeDir": "Promijeni smjer",
+    "focusRoot": "Fokus na korijen stabla",
+    "focusSel": "Fokus na odabir",
+    "centerTree": "Centriraj stablo",
+    "perfectWidth": "Prilagodi širinu",
+    "compact": "Suzi stablo",
+    "widen": "Raširi stablo"
+  },
+  "grid": {
+    "dragging": "Povuci",
+    "pushing": "Potegni",
+    "resizing": "Promijeni veličinu",
+    "floating": "Prilagodi"
+  },
+  "depTree": {
+    "errorAcrossSentences": "Osnove stabla ne mogu biti izvan rečeničnih granica"
+  },
+  "helpPanel": {
+    "about": "O Arethusi",
+    "revision": "Revizija",
+    "keyboardShortcuts": "Prečaci na tipkovnici",
+    "colorLegends": "Tumačenje boja"
+  },
+  "relation": {
+    "changeAll": "Izmijeni sve",
+    "searchByLabel": "po oznaci"
+  },
+  "comments": {
+    "newComment": "Novi komentar",
+    "fullTextSearch": "Pretraga cjelovitog teksta",
+    "filterSelected": "Filtriraj po odabranom",
+    "successMessage": "Komentar izrađen!",
+    "errorMessage": "Komentiranje nije uspjelo",
+    "selectFirst": "Treba odabrati token",
+    "count": "Komentirano {{ count }} od {{ total }}",
+    "docLevelComm": "Komentari na razini čitavog dokumenta",
+    "on": "uz"
+  },
+  "editors": {
+    "noEditorsPresent": "Urednici nisu zabilježeni.",
+    "title": "Urednici"
+  },
+  "plugins": {
+    "alreadyLoaded": "{{ name }} je već učitan!",
+    "failed": "Učitavanje plugina {{ name }} nije uspjelo",
+    "added": "Plugin {{ name }} je dodan!"
+  },
+  "aT": {
+    "insertInFront": "ispred",
+    "insertBehind": "iza",
+    "addToken": "Dodaj token",
+    "visualRepresentation": "Vizualizacija novog tokena (nije nužno)",
+    "noArtTokensPresent": "Nema umjetnih tokena",
+    "insertionPoint": "Točka dodavanja",
+    "insertBehindHint": "dodati iza tokena (klikni za drugu opciju)",
+    "insertInFrontHint": "dodati ispred tokena (klikni za drugu opciju)"
+  },
+  "globalSettings": {
+    "layoutLoaded": "Učitan layout {{ layout }}!",
+    "persistSettings": "Snimanje postavki",
+    "title": "Opće postavke",
+    "alwaysDeselect": "Deselektiraj nakon svakog anotiranja",
+    "disableKeyboardMappings": "Deaktiviraj mapiranja tipkovnice u poljima unosa",
+    "colorizer": "Oboji token prema",
+    "layout": "Layout",
+    "clickAction": "Radnja nakon klika",
+    "chunkMode": "Način podjele teksta",
+    "pluginSettings": "Postavke plugina"
+  },
+  "navigator": {
+    "goToFirst": "prvi odlomak",
+    "goToLast": "posljednji odlomak",
+    "goToPrev": "prethodni odlomak {{ prevChunkKey }}",
+    "goToNext": "sljedeći odlomak {{ nextChunkKey }}",
+    "chunkSizeError": "Podržane su samo vrijednosti između 1 i {{ max }}"
+  },
+  "morph": {
+    "createSuccess": "Dodan je oblik riječi  {{ form }}",
+    "lemmaTranslation": "Prijevod leme",
+    "lemmaHint": "Lema je određena automatski!\nProvjerite je prije snimanja!",
+    "createError": "Nije moguće snimiti nepotpun oblik",
+    "createNewForm": "Dodaj novi oblik",
+    "searchByForm": "po obliku",
+    "matchAll": "svi"
+  },
+  "exitHandler": {
+    "exitTo": "Izlaz u {{ title }}"
+  },
+  "errorDialog": {
+    "close" : "Zatvori"
+  },
+  "relocateHandler": {
+    "title" : "Druge verzije",
+    "noLocations" : "Nije raspoloživo"
+  }
+}
