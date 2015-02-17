@@ -5,7 +5,8 @@ angular.module('arethusa.text').service('text', [
   'navigator',
   'keyCapture',
   'commons',
-  function (state, configurator, navigator, keyCapture, commons) {
+  'userPreferences',
+  function (state, configurator, navigator, keyCapture, commons, userPreferences) {
     var self = this;
     this.name = "text";
 
@@ -60,7 +61,9 @@ angular.module('arethusa.text').service('text', [
     ];
 
     function toggleContext() {
-      self.showContext = !self.showContext;
+      var newVal = !self.showContext;
+      userPreferences.set(self.name, 'showContext', newVal);
+      self.showContext = newVal;
     }
 
     keyCapture.initCaptures(function(kC) {
