@@ -74,6 +74,7 @@ function arethusaSourceFiles() {
     "./bower_components/stacktrace-js/dist/stacktrace.min.js",
     "./bower_components/angular-uuid2/dist/angular-uuid2.min.js",
     //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
+    "./bower_components/angular-foundation/mm-foundation-tpls.min.js",
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js",
     "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
@@ -84,7 +85,6 @@ function arethusaSourceFiles() {
   var alwaysMinifified = [
     "./bower_components/angulartics/dist/angulartics.min.js",
     "./bower_components/angulartics/dist/angulartics-ga.min.js",
-    "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
     "./bower_components/angular-gridster/dist/angular-gridster.min.js",
   ];
 
@@ -412,7 +412,7 @@ module.exports = function(grunt) {
             './bower_components/javascript-detect-element-resize/jquery.resize.js',
             './bower_components/angular-uuid2/dist/angular-uuid2.min.js',
             './vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.js',
-            './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
+            './bower_components/angular-foundation/mm-foundation-tpls.js',
             './vendor/dagre-d3/dagre-d3.min.js',
             './vendor/angularJS-toaster/toaster.min.js',
             "./vendor/highlight/highlight.pack.js",
