@@ -17,7 +17,6 @@
   "ignore": [
     "app/css",
     "app/images",
-    "app/js",
     "app/static",
     "app/templates",
     "hooks",
