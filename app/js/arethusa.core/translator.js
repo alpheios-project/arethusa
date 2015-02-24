@@ -91,6 +91,7 @@
  * @requires $rootScope
  * @requires $translate
  * @requires $interpolate
+ * @requires arethusa.core.LOCALES
  */
 angular.module('arethusa.core').factory('translator', [
   '$rootScope',
