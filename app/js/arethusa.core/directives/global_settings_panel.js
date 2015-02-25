@@ -19,7 +19,7 @@ angular.module('arethusa.core').directive('globalSettingsPanel', [
           // in the following we make the element visible.
           $timeout(function() {
             if (newVal) element.slideDown(); else element.slideUp();
-          });
+          }, 0, false);
         });
 
         scope.togglePluginSettings = togglePluginSettings;
