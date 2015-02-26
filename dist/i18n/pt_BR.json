@@ -1,0 +1,194 @@
+{
+  "date": "Data",
+  "preview": "Pré-visualizar",
+  "download": "Baixar",
+  "submit": "Submeter",
+  "search_documents": "Buscar documentos",
+  "loadInProgress": "Carregando...",
+  "loadComplete": "Carregamento completo!",
+  "language": "Português",
+  "help": "Ajuda",
+  "contactUs": "Contate-nos",
+  "messages": "Mensagens",
+  "menu": "Menu",
+  "deselectAll": "Desmarcar tudo",
+  "settings": "Configurações",
+  "save": "Salvar",
+  "reset": "Restaurar",
+  "items": "Itens",
+  "useCases": "Use Casos",
+  "gettingStarted": "Começando",
+  "development": "Desenvolvimento",
+  "depTrees": "Árvores de dependência",
+  "review": "Rever",
+  "Treebanking": "Treebanking",
+  "markdownEnabled": "Input de markdown ativado!",
+  "apply": "Aplicar",
+  "create": "Criar",
+  "list": "Listar {{ listKey }}",
+  "delete": "Apagar",
+  "sidepanel": {
+    "fold": "Encolher Painel",
+    "show": "Mostrar Pianel"
+  },
+  "history": {
+    "redoSuccess": "Alteração refeita",
+    "undoSuccess": "Alteração desfeita",
+    "undo": "Desfazer",
+    "redo": "Refazer",
+    "noRecords": "Sem registro de eventos gravados.",
+    "fromTo": "de {{ from }} para {{ to }}",
+    "add": {
+      "start": "Adicionado",
+      "end": ""
+    },
+    "remove": {
+      "start": "Removido",
+      "end": ""
+    },
+    "change": {
+      "start": "Alterado <strong>{{ property }}</strong> de",
+      "end": ""
+    }
+  },
+  "search": {
+    "foundTokens": "Tokens encontrados",
+    "searchByToken": "por token"
+  },
+  "saver": {
+    "previewAndDownload": "Pré-visualizar e Baixar",
+    "success": "Documento salvo!",
+    "error": "Falha ao salvar! Tentar novamente?",
+    "inProgress": "Salvando...",
+    "nothingToSave": "Não há nada para salvar ainda!",
+    "confirmNote": "Você não salvou as mudanças!",
+    "confirmQuestion": "Você tem certeza de que quer sair?"
+  },
+  "landing": {
+    "awards": "Prêmios",
+    "description": "Um modelo de anotação do lado do cliente independente do backend",
+    "modularNature": "Através da natureza modular,  Arethusa pode ser configurada para solucionar diferentes casos.",
+    "moreScreencasts": "Mais Vídeos de captura de tela",
+    "devDescription": "Arethusa é construída sobre <a href=\"https://angularjs.org/angular.js\">AngularJS</a> uma aplicação de javascript para web e provê uma infraestrutura de plugin independente de back-end para acessar textos, anotações,   e serviços linguísticos  a partir de uma variedade de fontes. Extensabilidade é uma meta de design - Arethusa inclui ferramentas para geração automática de novos skeletons de plugin (<a href=\"https://github.com/latin-language-toolkit/arethusa-cli\">Arethusa::CLI</a>) e detalhados <a href=\"http://github.com/latin-language-toolkit/arethusa/blob/docs/docs/content/plugin_guide.md\">guias de desenvolvimento</a> estão em andamento, esperando que outros serão capazes de reutilizar e construir sobre a plataforma e adicionar suporte para outros tipos de anotação, línguas, e repositórios back-end e mecanismos de fluxo de trabalho.",
+    "partners": "Parceiros",
+    "funders": "Fundadores",
+    "fundersDescription": "Este projeto recebeu apoio da <a href=\"http://www.mellon.org/\">Andrew W. Mellon Foundation</a>, do <a href=\"http://imls.gov/\">Institute of Museum and Library Services</a> and do <a href=\"http://ec.europa.eu/esf/home.jsp\">European Social Fund</a>.",
+    "tryYourself": "Experimente"
+  },
+  "auth": {
+    "notLoggedIn": "Você não efetuou entrada no sistema!"
+  },
+  "uth": {
+    "count": "{{ count }} de {{ total }} não usado",
+    "tooltip": "Clique para alternar o realce<br>Clique duas vezes para selecionar"
+  },
+  "selector": {
+    "selection": "seleção",
+    "selectionTooltip": "Use os botões à direita para mudar as escolhas e o realce",
+    "all": "tudo",
+    "none": "none",
+    "noneTooltip": "Clique desmarcar qualquer seleção",
+    "unused": "{{ count }} não usado",
+    "unusedTooltip": "Clique para selecionar todos os tokens não usados",
+    "highlightUnused": "realçar não usado",
+    "highlightUnusedTooltip": "Clique para realçar tokens não usados"
+  },
+  "tree": {
+    "changeDir": "Mudar Direção",
+    "focusRoot": "Focalizar Raiz",
+    "focusSel": "Focalizar Seleção",
+    "centerTree": "Centralizar a árvore",
+    "perfectWidth": "Largura perfeita",
+    "compact": "Concentrar árvore",
+    "widen": "Alargar árvore"
+  },
+  "grid": {
+    "dragging": "Arrastando",
+    "pushing": "Empurrando",
+    "resizing": "Redimensionado",
+    "floating": "Flutuando"
+  },
+  "depTree": {
+    "errorAcrossSentences": "Não pode mudar os nós através das sentenças"
+  },
+  "helpPanel": {
+    "about": "Sobre Arethusa",
+    "revision": "Revisão",
+    "keyboardShortcuts": "Atalhos de teclado",
+    "colorLegends": "Legendas de cor"
+  },
+  "relation": {
+    "changeAll": "Mudar tudo",
+    "searchByLabel": "pelo rótulo"
+  },
+  "comments": {
+    "newComment": "Novo Comentário",
+    "fullTextSearch": "Busca de texto completo",
+    "filterSelected": "Filtro selecionado",
+    "successMessage": "Comentário criado!",
+    "errorMessage": "A criação de comentário falhou",
+    "selectFirst": "É preciso selecionar alguns tokens primeiro",
+    "count": "{{ count }} de {{ total }} comentados",
+    "docLevelComm": "Comentários de nível de documento",
+    "on": "ligado"
+  },
+  "editors": {
+    "noEditorsPresent": "Editores desconhecidos.",
+    "title": "Editores"
+  },
+  "plugins": {
+    "alreadyLoaded": "{{ name }} já foi carregado!",
+    "failed": "Carregamento falhou {{ name }}",
+    "added": "{{ name }} plugin adicionado!"
+  },
+  "aT": {
+    "insertInFront": "na frente",
+    "insertBehind": "atrás",
+    "addToken": "Adicionar token",
+    "visualRepresentation": "Representação visual de novo token (opcional)",
+    "noArtTokensPresent": "Sem presença de tokens artificiais",
+    "insertionPoint": "Ponto de inserção",
+    "insertBehindHint": "inserir atrás do token  (clique para alternar)",
+    "insertInFrontHint": "inserir na frente do token (clique para alternar)"
+  },
+  "globalSettings": {
+    "layoutLoaded": "{{ layout }} layout carregado!",
+    "persistSettings": "Salvar preferências",
+    "title": "Configurações globais",
+    "alwaysDeselect": "Desmarcar depois de cada ação de anotação",
+    "disableKeyboardMappings": "Desativar o mapeamento do teclado para campos de input",
+    "colorizer": "Colorir tokens por",
+    "layout": "Layout",
+    "clickAction": "Clicar comportamento",
+    "chunkMode": "Modo por chunks ou segmentos lexicais",
+    "pluginSettings": "Configurações de plugin"
+  },
+  "navigator": {
+    "goToFirst": "ir para o primeiro chunk ou segmento lexical",
+    "goToLast": "ir para o último chunk ou segmento lexical",
+    "goToPrev": "ir para o chunk ou segmento anterior {{ prevChunkKey }}",
+    "goToNext": "ir para o próximo segmento chunk {{ nextChunkKey }}",
+    "chunkSizeError": "Apenas tamanhos ou horizontes de segmentos lexicais entre 1 e {{ max }} são atualmente possíveis"
+  },
+  "morph": {
+    "createSuccess": "Adicionada a forma para {{ form }}",
+    "lemmaTranslation": "Tradução do lema - em inglês",
+    "lemmaHint": "Este lema foi adicionado automaticamente!\nVerifique antes de salvar!",
+    "createError": "Não é possível salvar uma forma incompleta",
+    "createNewForm": "Criar uma nova forma",
+    "searchByForm": "por forma",
+    "matchAll": "tudo"
+  },
+  "exitHandler": {
+    "exitTo": "Sair para {{ title }}"
+  },
+  "errorDialog": {
+    "close" : "Fechar",
+    "sendMessage" : "Escreva a descrição do que você estava fazendo aqui.",
+    "sendHint" : "Para enviar detalhes desse erro para investigarmos, por favor, forneça uma breve descrição do que você estava fazendo, marque a caixa de seleção 'Incluir Captura de Tela' para incluir os detalhes completos do erro e clique  'Próximo' para completar os passos do envio. Depois clique 'Fechar' quando terminar (ou para pular o envio)."
+  },
+  "relocateHandler": {
+    "title" : "Versões Alternativas",
+    "noLocations" : "N/A"
+  }
+}

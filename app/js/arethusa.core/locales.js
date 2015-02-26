@@ -35,5 +35,8 @@
 angular.module('arethusa.core').constant('LOCALES', [
   'en',
   'de',
-  'fr'
+  'fr',
+  'hr',
+  'pt_BR',
+  'ka'
 ]);
