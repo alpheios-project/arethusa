@@ -634,6 +634,12 @@ div.citbibl {
   font-family: "Lucida Console", Monaco, monospace;
 }
 
+.postag-selector {
+  $size: 1.3rem;
+  width: $size;
+  height: $size;
+}
+
 select.compact, input.compact {
   height: 1.8rem;
   padding: 0.3rem;
