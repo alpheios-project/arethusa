@@ -74,7 +74,8 @@ angular.module('arethusa.core').service('state', [
           selections: [
             kC.create('nextToken', function() { kC.doRepeated(self.selectNextToken); }, 'w'),
             kC.create('prevToken', function() { kC.doRepeated(self.selectPrevToken); }, 'e'),
-            kC.create('deselect', self.deselectAll, 'esc' )
+            kC.create('deselect', self.deselectAll, 'esc'),
+            kC.create('deselect-alternative', self.deselectAll, '↵')
           ]
         };
       });

@@ -27,6 +27,7 @@ angular.module('arethusa.core').service('keyCapture', [
 
     var keyCodes = {
       return: 13,
+      '↵': 13,
       shift: 16,
       ctrl: 17,
       alt: 18,
