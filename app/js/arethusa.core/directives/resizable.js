@@ -2,7 +2,15 @@
 angular.module('arethusa.core').directive('resizable', [
   '$window',
   '$document',
-  function ($window, $document) {
+  'keyCapture',
+  function (
+    $window,
+    $document,
+    keyCapture
+  ) {
+
+    var STEP = 25;
+
     return {
       restrict: 'AEC',
       link: function (scope, element, attrs) {
@@ -29,7 +37,10 @@ angular.module('arethusa.core').directive('resizable', [
         // the resized diffs - right now we are moving them around step
         // by step.
         function mousemove(event) {
-          var x = Math.floor(event.pageX);
+          resize(Math.floor(event.pageX));
+        }
+
+        function resize(x) {
           var leftPos = Math.round(panel.position().left);
           var width = Math.round(panel.width());
           var border = leftPos + width;
@@ -43,6 +54,16 @@ angular.module('arethusa.core').directive('resizable', [
           }
         }
 
+        function shrink() {
+          var pos = Math.round(panel.position().left);
+          resize(pos + STEP);
+        }
+
+        function grow() {
+          var pos = Math.round(panel.position().left);
+          resize(pos - STEP);
+        }
+
         function withinBoundaries(panel, main) {
           return panel > panelMin && main > mainMin;
         }
@@ -52,6 +73,15 @@ angular.module('arethusa.core').directive('resizable', [
           $document.unbind('mousemove', mousemove);
           $document.unbind('mouseup', mouseup);
         }
+
+        var keys = keyCapture.initCaptures(function(kC) {
+          return {
+            sidepanelResizing: [
+              kC.create('grow', grow, '←'),
+              kC.create('shrink', shrink, '→')
+            ]
+          };
+        });
       }
     };
   }
