@@ -94,14 +94,16 @@ angular.module('arethusa').factory('TreebankRetriever', [
 
 
     function parseMorphology(token, word) {
-      token.morphology = {
-        lemma: word._lemma,
-        postag: word._postag
-      };
+      if (word._lemma && word._postag) {
+        token.morphology = {
+          lemma: word._lemma,
+          postag: word._postag
+        };
 
-      var gloss = word._gloss;
-      if (gloss) {
-        token.morphology.gloss = gloss;
+        var gloss = word._gloss;
+        if (gloss) {
+          token.morphology.gloss = gloss;
+        }
       }
     }
 
