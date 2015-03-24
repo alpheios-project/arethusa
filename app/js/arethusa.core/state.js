@@ -351,7 +351,9 @@ angular.module('arethusa.core').service('state', [
      *   `ctrl-click`
      */
     this.selectToken = function (id, type) {
-      if (type === 'click') self.deselectAll();
+      if (type === 'click') {
+        self.deselectAll();
+      }
 
       if (isSelectable(self.selectionType(id), type)) {
         self.selectedTokens[id] = type;
@@ -445,6 +447,7 @@ angular.module('arethusa.core').service('state', [
      * Function to deselct all tokens, no matter their selection type.
      */
     this.deselectAll = function () {
+      simpleToMultiSelect = undefined;
       for (var el in self.selectedTokens) {
         delete self.selectedTokens[el];
         delete self.clickedTokens[el];
