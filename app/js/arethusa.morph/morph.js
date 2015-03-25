@@ -7,8 +7,9 @@ angular.module('arethusa.morph').service('morph', [
   'keyCapture',
   'morphLocalStorage',
   'commons',
+  'saver',
   function (state, configurator, plugins, globalSettings,
-            keyCapture, morphLocalStorage, commons) {
+            keyCapture, morphLocalStorage, commons, saver) {
     var self = this;
     this.name = 'morph';
 
@@ -291,10 +292,14 @@ angular.module('arethusa.morph').service('morph', [
             // try to obtain additional info from the inventory
             getDataFromInventory(el);
           });
+          var str = analysisObj.string;
           var forms = analysisObj.forms;
           mergeDuplicateForms(forms[0], res);
           var newForms = makeUnique(res);
           arethusaUtil.pushAll(forms, newForms);
+
+          sortByPreference(str, forms);
+
           if (self.preselect) {
             preselectForm(forms[0], id);
           }
@@ -712,6 +717,22 @@ angular.module('arethusa.morph').service('morph', [
       commons.setting('Expand Selected', 'expandSelection'),
       commons.setting('Preselect', 'preselect', this.preselectToggled)
     ];
+
+    function afterSave() {
+      angular.forEach(state.tokens, savePreference);
+    }
+
+    function sortByPreference(string, forms) {
+      return morphLocalStorage.sortByPreference(string, forms);
+    }
+
+    function savePreference(token) {
+      if (token.morphology && token.morphology.postag) {
+        morphLocalStorage.addPreference(token.string, token.morphology);
+      }
+    }
+
+    saver.onSuccess(afterSave);
 
     this.init = function () {
       abortOutstandingRequests();
