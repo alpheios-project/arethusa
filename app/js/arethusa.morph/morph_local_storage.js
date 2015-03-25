@@ -70,7 +70,14 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       persist(string, forms);
     }
 
-    function addForms(string, forms) {
+    function addForms(string, newForms) {
+      var forms = retrieve(string) || [];
+      var keys = _.map(forms, formToKey);
+      _.forEach(newForms, function(form) {
+        if (!_.contains(keys, formToKey(form))) {
+          forms.push(form);
+        }
+      });
       persist(string, forms);
     }
 
