@@ -404,6 +404,12 @@ dl.tabs {
   margin: 0;
 }
 
+button.small, .button.small {
+  &.rounded {
+    border-radius: .4rem;
+  }
+}
+
 /* Alpheios theme overrides -- better to use sass at some point */
 
 $button-color: #3E8D9C;
@@ -632,6 +638,12 @@ div.citbibl {
 .postag {
   @extend .note;
   font-family: "Lucida Console", Monaco, monospace;
+}
+
+.postag-selector {
+  $size: 1.3rem;
+  width: $size;
+  height: $size;
 }
 
 select.compact, input.compact {

@@ -7,8 +7,21 @@ angular.module('arethusa.morph').service('morph', [
   'keyCapture',
   'morphLocalStorage',
   'commons',
-  function (state, configurator, plugins, globalSettings,
-            keyCapture, morphLocalStorage, commons) {
+  'saver',
+  'navigator',
+  'exitHandler',
+  function (
+    state,
+    configurator,
+    plugins,
+    globalSettings,
+    keyCapture,
+    morphLocalStorage,
+    commons,
+    saver,
+    navigator,
+    exitHandler
+  ) {
     var self = this;
     this.name = 'morph';
 
@@ -53,7 +66,8 @@ angular.module('arethusa.morph').service('morph', [
       gloss: false,
       matchAll: true,
       preselect: false,
-      localStorage: true
+      localStorage: true,
+      storePreferences: true
     };
 
     function configure() {
@@ -63,7 +77,8 @@ angular.module('arethusa.morph').service('morph', [
         'mappings',
         'noRetrieval',
         'gloss',
-        'localStorage'
+        'localStorage',
+        'storePreferences'
       ];
 
       configurator.getConfAndDelegate(self, props);
@@ -291,10 +306,14 @@ angular.module('arethusa.morph').service('morph', [
             // try to obtain additional info from the inventory
             getDataFromInventory(el);
           });
+          var str = analysisObj.string;
           var forms = analysisObj.forms;
           mergeDuplicateForms(forms[0], res);
           var newForms = makeUnique(res);
           arethusaUtil.pushAll(forms, newForms);
+
+          sortByPreference(str, forms);
+
           if (self.preselect) {
             preselectForm(forms[0], id);
           }
@@ -710,8 +729,35 @@ angular.module('arethusa.morph').service('morph', [
 
     this.settings = [
       commons.setting('Expand Selected', 'expandSelection'),
+      commons.setting('Store Preferences', 'storePreferences'),
       commons.setting('Preselect', 'preselect', this.preselectToggled)
     ];
+
+    var shouldSavePreference;
+    function afterSave() {
+      shouldSavePreference = true;
+    }
+
+    function sortByPreference(string, forms) {
+      return morphLocalStorage.sortByPreference(string, forms);
+    }
+
+    function savePreferences() {
+      if (shouldSavePreference && self.storePreferences) {
+        angular.forEach(state.tokens, savePreference);
+        shouldSavePreference = false;
+      }
+    }
+
+    function savePreference(token) {
+      if (token.morphology && token.morphology.postag) {
+        morphLocalStorage.addPreference(token.string, token.morphology);
+      }
+    }
+
+    saver.onSuccess(afterSave);
+    navigator.onMove(savePreferences);
+    exitHandler.onLeave(savePreferences);
 
     this.init = function () {
       abortOutstandingRequests();

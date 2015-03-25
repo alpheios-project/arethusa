@@ -28,12 +28,9 @@ angular.module('arethusa.core').directive('outputter', [
 ]);
 
 angular.module('arethusa.core').directive('outputterItem', [
+  'fileHandler',
   '$window',
-  function($window) {
-    function createUrl(blob) {
-      return ($window.URL || $window.webkitURL).createObjectURL(blob);
-    }
-
+  function(fileHandler, $window) {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
@@ -51,26 +48,11 @@ angular.module('arethusa.core').directive('outputterItem', [
 
         scope.togglePreview = function() { scope.preview = !scope.preview; };
 
-        var downloader;
         scope.download = function() {
-          if (!downloader) downloader = document.createElement('a');
-
-          // This should detect that Safari is used...
-          if (!angular.isDefined(downloader.download)) {
-            /* global alert */
-            alert("Your browser does not support this feature - use Chrome, Firefox or Opera");
-            return;
-          }
-          var blob = new Blob([scope.data()], { type: scope.obj.mimeType + ';charset=utf-8'});
           var fileName = scope.obj.identifier + '.' + scope.obj.fileType;
-          downloader.setAttribute('href', createUrl(blob));
-          downloader.setAttribute('download', fileName);
+          var mime = scope.obj.mimeType;
 
-          // Firefox cannot handle the click event correctly when the element
-          // is not attached to the DOM - we therefore hack this temporarily
-          document.body.appendChild(downloader);
-          downloader.click();
-          document.body.removeChild(downloader);
+          fileHandler.download(fileName, scope.data(), mime);
         };
       },
       templateUrl: 'templates/arethusa.core/outputter_item.html',

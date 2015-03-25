@@ -27,12 +27,17 @@ angular.module('arethusa.core').service('keyCapture', [
 
     var keyCodes = {
       return: 13,
+      '↵': 13,
       shift: 16,
       ctrl: 17,
       alt: 18,
       esc: 27,
       up: 38,
       down: 40,
+      left:  37,
+      right: 39,
+      '←': 37,
+      '→': 39,
       '↑': 38,
       '↓': 40,
       ":" : 186,
@@ -185,7 +190,7 @@ angular.module('arethusa.core').service('keyCapture', [
       $rootScope.$broadcast('keyCaptureLaunched', keyList[key] || key);
     }
 
-    var forbiddenTags = ['INPUT', 'TEXTAREA'];
+    var forbiddenTags = ['INPUT', 'TEXTAREA', 'SELECT'];
     this.keydown = function (event) {
       if (arethusaUtil.isIncluded(forbiddenTags, event.target.tagName) ||
           isRepeater(event.keyCode)) {
