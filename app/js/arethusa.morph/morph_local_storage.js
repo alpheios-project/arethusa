@@ -23,6 +23,9 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
     this.addPreference = addPreference;
     this.sortByPreference = sortByPreference;
 
+    this.getForms = getForms;
+    this.gePreferences = getPreferences;
+
     function key(k) {
       return self.localStorageKey + '.' + k;
     }
@@ -131,6 +134,23 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
 
     function formToKey(form) {
       return form.lemma + '|-|' + form.postag;
+    }
+
+    function getForms() {
+      return collectFromStore(self.localStorageKey);
+    }
+
+    function getPreferences() {
+      return collectFromStore(self.preferenceKey);
+    }
+
+    function collectFromStore(keyFragment) {
+      return _.inject(arethusaLocalStorage.keys(), function(memo, key) {
+        if (key.match(keyFragment)) {
+          memo[key] = arethusaLocalStorage.get(key);
+        }
+        return memo;
+      }, {});
     }
   }
 ]);
