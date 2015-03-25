@@ -20,6 +20,7 @@
     },
     "plugins" : [
       "text",
+      "query",
       "artificialToken",
       "search",
       "morph",
@@ -61,6 +62,14 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
       "template" : "templates/dep_tree.html"
+    },
+
+    "query" : {
+      "retriever" : {
+        "AhabRetriever": {
+          "resource" : "capitanAhabEndpoint"
+        }
+      }
     },
 
     "search" : {

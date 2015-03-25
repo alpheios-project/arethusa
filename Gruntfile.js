@@ -19,6 +19,7 @@ var browserAppFiles = ['server/browser/js/**/*'];
 var devMode = process.env.DEV;
 
 var arethusaModules = [
+  "arethusa.query",
   "arethusa.constituents",
   'arethusa.morph',
   'arethusa.artificial_token',

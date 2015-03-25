@@ -82,6 +82,10 @@
     "route" : "http://74.70.97.104:8085/smyth/:doc.html"
   },
 
+  "capitanAhabEndpoint" : {
+    "route" : "..."
+  },
+
   "demoXml" : {
     "route" : "../dist/examples/:doc.xml",
     "params" : [ "doc" ]
