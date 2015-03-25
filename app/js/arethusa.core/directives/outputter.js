@@ -28,9 +28,9 @@ angular.module('arethusa.core').directive('outputter', [
 ]);
 
 angular.module('arethusa.core').directive('outputterItem', [
-  'downloader',
+  'fileHandler',
   '$window',
-  function(downloader,$window) {
+  function(fileHandler, $window) {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
@@ -48,12 +48,11 @@ angular.module('arethusa.core').directive('outputterItem', [
 
         scope.togglePreview = function() { scope.preview = !scope.preview; };
 
-        var downloader;
         scope.download = function() {
           var fileName = scope.obj.identifier + '.' + scope.obj.fileType;
           var mime = scope.obj.mimeType;
 
-          downloader.download(fileName, scope.data(), mime);
+          fileHandler.download(fileName, scope.data(), mime);
         };
       },
       templateUrl: 'templates/arethusa.core/outputter_item.html',

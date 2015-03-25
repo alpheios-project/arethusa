@@ -10,7 +10,7 @@ angular.module('arethusa').controller('MorphImportCtrl', [
   '$http',
   '$injector',
   '$q',
-  'downloader',
+  'fileHandler',
   '_',
   function(
     $scope,
@@ -22,7 +22,7 @@ angular.module('arethusa').controller('MorphImportCtrl', [
     $http,
     $injector,
     $q,
-    downloader,
+    fileHandler,
     _
   ) {
     var EXPORT_FILE_NAME   = 'arethusa_morph_forms.json';
@@ -147,7 +147,7 @@ angular.module('arethusa').controller('MorphImportCtrl', [
       resetStatus();
 
       var forms = localStorage.getForms();
-      downloader.download(
+      fileHandler.download(
         EXPORT_FILE_NAME,
         JSON.stringify(forms, null, 2),
         EXPORT_FILE_ENDING
