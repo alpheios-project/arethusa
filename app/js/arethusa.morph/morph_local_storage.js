@@ -5,12 +5,12 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
   'arethusaLocalStorage',
   '_',
   function(plugins, arethusaLocalStorage, _) {
-    var PREFERENCE_DELIMITER = ';;;';
-    var PREFERENCE_COUNT_DELIMITER = '@@@';
+    var PREFERENCE_DELIMITER = ';;';
+    var PREFERENCE_COUNT_DELIMITER = '@@';
     var self = this;
 
     this.localStorageKey = 'morph.forms';
-    this.preferenceKey = 'morph.preference';
+    this.preferenceKey = 'morph.prefs';
 
     this.retriever = {
       getData: getData,
@@ -118,10 +118,11 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
         memo[formToKey(form)] = form;
         return memo;
       }, {});
+
       _.forEachRight(toSortedArray(counts), function(counter) {
         var form = selectors[counter[0]];
         if (form) {
-          var i = forms.splice(forms.indexOf(i), 1);
+          var i = forms.splice(forms.indexOf(form), 1);
           forms.unshift(form);
         }
       });
