@@ -3,13 +3,32 @@
 angular.module('arethusa.morph').service('morphLocalStorage', [
   'plugins',
   'arethusaLocalStorage',
-  function(plugins, arethusaLocalStorage) {
+  '_',
+  function(plugins, arethusaLocalStorage, _) {
+    var PREFERENCE_DELIMITER = ';;';
+    var PREFERENCE_COUNT_DELIMITER = '@@';
     var self = this;
 
     this.localStorageKey = 'morph.forms';
+    this.preferenceKey = 'morph.prefs';
+
+    this.retriever = {
+      getData: getData,
+      abort: function() {}
+    };
+
+    this.addForm = addForm;
+    this.removeForm = removeForm;
+
+    this.addPreference = addPreference;
+    this.sortByPreference = sortByPreference;
 
     function key(k) {
       return self.localStorageKey + '.' + k;
+    }
+
+    function preferenceKey(k) {
+      return self.preferenceKey + '.' + k;
     }
 
 
@@ -22,16 +41,20 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       return arethusaLocalStorage.get(key(string)) || [];
     }
 
+    function retrievePreference(string) {
+      return arethusaLocalStorage.get(preferenceKey(string)) || '';
+    }
+
     function persist(string, value) {
       arethusaLocalStorage.set(key(string), value);
     }
 
-    this.retriever = {
-      getData: getData,
-      abort: function() {}
-    };
+    function persistPreference(string, value) {
+      return arethusaLocalStorage.set(preferenceKey(string), value);
 
-    this.addForm = function(string, form) {
+    }
+
+    function addForm(string, form) {
       // Check if we already stored info about this word,
       // if not add a need array to the store
       var forms = retrieve(string) || [];
@@ -41,9 +64,9 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       newForm.selected = false;
       forms.push(newForm);
       persist(string, forms);
-    };
+    }
 
-    this.removeForm = function(string, form) {
+    function removeForm(string, form) {
       var forms = retrieve(string);
       if (forms) {
         // find element and remove it, when it's present
@@ -55,6 +78,59 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
         }
         persist(string, forms);
       }
-    };
+    }
+
+    function addPreference(string, form) {
+      var key = formToKey(form);
+      var counts = preferencesToCounts(string, key);
+      var counter = counts[key];
+      var newCount = counter ? counter + 1 : 1;
+      counts[key] = newCount;
+      var sortedCounts = toSortedArray(counts);
+      var toStore = _.map(sortedCounts, function(countArr) {
+        return countArr[0] + PREFERENCE_COUNT_DELIMITER + countArr[1];
+      }).join(PREFERENCE_COUNT_DELIMITER);
+
+      persistPreference(string, toStore);
+    }
+
+    function toSortedArray(counts) {
+      return _.map(counts, function(v, k) {
+        return [k, v];
+      }).sort(function(a, b) {
+        return a[1] < b[1];
+      });
+    }
+
+    function preferencesToCounts(string) {
+      var prefs = retrievePreference(string).split(PREFERENCE_DELIMITER);
+      return _.inject(_.filter(prefs), function(memo, pref) {
+        var parts = pref.split(PREFERENCE_COUNT_DELIMITER);
+        memo[parts[0]] = parseInt(parts[1]);
+        return memo;
+      }, {});
+    }
+
+    // Might be better to do this in an immutable way, but it works suprisingly well
+    function sortByPreference(string, forms) {
+      var counts = preferencesToCounts(string);
+      var selectors = _.inject(forms, function(memo, form) {
+        memo[formToKey(form)] = form;
+        return memo;
+      }, {});
+
+      _.forEachRight(toSortedArray(counts), function(counter) {
+        var form = selectors[counter[0]];
+        if (form) {
+          var i = forms.splice(forms.indexOf(form), 1);
+          forms.unshift(form);
+        }
+      });
+      return forms;
+    }
+
+    function formToKey(form) {
+      return form.lemma + '|-|' + form.postag;
+    }
   }
 ]);

@@ -28,9 +28,16 @@ angular.module('arethusa.core').service('exitHandler', [
   "$window",
   "configurator",
   "$analytics",
-  function($location, $window, configurator, $analytics) {
+  '$rootScope',
+  function(
+    $location,
+    $window,
+    configurator,
+    $analytics,
+    $rootScope
+  ) {
+    var LEAVE_EVENT = 'exit:leave';
     var self = this;
-
 
     var conf = configurator.configurationFor('exitHandler') || {};
 
@@ -73,6 +80,9 @@ angular.module('arethusa.core').service('exitHandler', [
       return routeWithQueryParams(parsedRoute, queryParams);
     }
 
+    this.leave = leave;
+    this.onLeave = onLeave;
+    this.triggerLeaveEvent = triggerLeaveEvent;
 
     /**
      * @ngdoc function
@@ -84,13 +94,22 @@ angular.module('arethusa.core').service('exitHandler', [
      *
      * @param {string} [targetWin='_self'] The target window.
      */
-    this.leave = function(targetWin) {
+    function leave(targetWin) {
       $analytics.eventTrack('exit', {
         category: 'actions', label: 'exit'
       });
 
       targetWin = targetWin || '_self';
+      triggerLeaveEvent();
       $window.open(exitUrl(), targetWin);
-    };
+    }
+
+    function onLeave(cb) {
+      $rootScope.$on(LEAVE_EVENT, cb);
+    }
+
+    function triggerLeaveEvent() {
+      $rootScope.$broadcast(LEAVE_EVENT);
+    }
   }
 ]);
