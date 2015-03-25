@@ -100,6 +100,7 @@ angular.module('arethusa.core').service('exitHandler', [
       });
 
       targetWin = targetWin || '_self';
+      triggerLeaveEvent();
       $window.open(exitUrl(), targetWin);
     }
 

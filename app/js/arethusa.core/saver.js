@@ -9,8 +9,18 @@ angular.module('arethusa.core').service('saver', [
   '$window',
   'translator',
   '$analytics',
-  function(configurator, notifier, keyCapture, state,
-           $rootScope, $window, translator, $analytics) {
+  'exitHandler',
+  function(
+    configurator,
+    notifier,
+    keyCapture,
+    state,
+    $rootScope,
+    $window,
+    translator,
+    $analytics,
+    exitHandler
+  ) {
 
     var SUCCESS_EVENT = 'saveSuccess';
 
@@ -126,9 +136,17 @@ angular.module('arethusa.core').service('saver', [
     if (!state.debug) {
       // We need this when the user wants to reload, or move to another url
       // altogether.
-
-      $window.onbeforeunload = function() {
-        if (self.needsSave) { return translations.confirmNote(); }
+      // Due to crappy browser support we cannot trigger a leave event after the
+      // user does a confirmation of closing the application, which is something
+      // we are OK with for now: When the user does not want to save before he
+      // leaves, we will also do not trigger our event which will do further
+      // cleanups, caching etc.
+      $window.onbeforeunload = function(event) {
+        if (self.needsSave) {
+          return translations.confirmNote();
+        } else {
+          exitHandler.triggerLeaveEvent();
+        }
       };
 
       // We need this when a user is changing the url from within the application
