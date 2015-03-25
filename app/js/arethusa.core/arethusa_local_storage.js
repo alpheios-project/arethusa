@@ -38,6 +38,8 @@ angular.module('arethusa.core').service('arethusaLocalStorage', [
      */
     this.set = localStorageService.set;
 
+    this.keys = localStorageService.keys;
+
     var JSONBooleans = ['true', 'false', 'null'];
     function coerce(value) {
       if (JSONBooleans.indexOf(value) === -1) {

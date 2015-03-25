@@ -25,11 +25,13 @@ angular.module('arethusa').config([
   'localStorageServiceProvider',
   'LOCALES',
   'MAIN_ROUTE',
+  'MORPH_IMPORT',
   'LANDING',
   function ($routeProvider, $translateProvider, localStorageServiceProvider,
-            LOCALES, MAIN_ROUTE, LANDING) {
+            LOCALES, MAIN_ROUTE, MORPH_IMPORT, LANDING) {
     if (aU.isArethusaMainApplication()) {
       $routeProvider.when('/', LANDING);
+      $routeProvider.when('/morph_import', MORPH_IMPORT);
       //$routeProvider.when('/conf_editor', CONF_ROUTE);
       $routeProvider.when('/:conf', MAIN_ROUTE);
       //$routeProvider.when('/conf_editor/:conf', CONF_ROUTE);

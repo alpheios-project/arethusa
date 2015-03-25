@@ -18,10 +18,14 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
     };
 
     this.addForm = addForm;
+    this.addForms = addForms;
     this.removeForm = removeForm;
 
     this.addPreference = addPreference;
     this.sortByPreference = sortByPreference;
+
+    this.getForms = getForms;
+    this.gePreferences = getPreferences;
 
     function key(k) {
       return self.localStorageKey + '.' + k;
@@ -63,6 +67,17 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       var newForm = angular.copy(form);
       newForm.selected = false;
       forms.push(newForm);
+      persist(string, forms);
+    }
+
+    function addForms(string, newForms) {
+      var forms = retrieve(string) || [];
+      var keys = _.map(forms, formToKey);
+      _.forEach(newForms, function(form) {
+        if (!_.contains(keys, formToKey(form))) {
+          forms.push(form);
+        }
+      });
       persist(string, forms);
     }
 
@@ -131,6 +146,24 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
 
     function formToKey(form) {
       return form.lemma + '|-|' + form.postag;
+    }
+
+    function getForms() {
+      return collectFromStore(self.localStorageKey);
+    }
+
+    function getPreferences() {
+      return collectFromStore(self.preferenceKey);
+    }
+
+    function collectFromStore(keyFragment) {
+      return _.inject(arethusaLocalStorage.keys(), function(memo, key) {
+        var match = key.match('^' + keyFragment + '.(.*)');
+        if (match) {
+          memo[match[1]] = arethusaLocalStorage.get(key);
+        }
+        return memo;
+      }, {});
     }
   }
 ]);
