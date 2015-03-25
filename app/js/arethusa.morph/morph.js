@@ -9,6 +9,7 @@ angular.module('arethusa.morph').service('morph', [
   'commons',
   'saver',
   'navigator',
+  'exitHandler',
   function (
     state,
     configurator,
@@ -18,7 +19,8 @@ angular.module('arethusa.morph').service('morph', [
     morphLocalStorage,
     commons,
     saver,
-    navigator
+    navigator,
+    exitHandler
   ) {
     var self = this;
     this.name = 'morph';
@@ -742,7 +744,6 @@ angular.module('arethusa.morph').service('morph', [
 
     function savePreferences() {
       if (shouldSavePreference && self.storePreferences) {
-        console.log('saving');
         angular.forEach(state.tokens, savePreference);
         shouldSavePreference = false;
       }
@@ -756,6 +757,7 @@ angular.module('arethusa.morph').service('morph', [
 
     saver.onSuccess(afterSave);
     navigator.onMove(savePreferences);
+    exitHandler.onLeave(savePreferences);
 
     this.init = function () {
       abortOutstandingRequests();
