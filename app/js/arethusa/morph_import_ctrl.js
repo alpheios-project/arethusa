@@ -140,10 +140,13 @@ angular.module('arethusa').controller('MorphImportCtrl', [
     }
 
     function importFile() {
+      resetStatus();
       fileHandler.upload(function(data) {
         _.forEach(data, function(forms, str) {
           localStorage.addForms(str, forms);
         });
+        setImportCount(data);
+        $scope.$digest(); // so that the count can update
       });
     }
 
@@ -161,7 +164,19 @@ angular.module('arethusa').controller('MorphImportCtrl', [
     }
 
     function setExportCount(forms) {
-      $scope.status.export.count = _.inject(forms, function(memo, f) {
+      setCount('export', forms);
+    }
+
+    function setImportCount(forms) {
+      setCount('import', forms);
+    }
+
+    function setCount(type, forms) {
+      $scope.status[type].count = countForms(forms);
+    }
+
+    function countForms(forms) {
+      return _.inject(forms, function(memo, f) {
         memo += f.length;
         return memo;
       }, 0);
