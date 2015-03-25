@@ -11,6 +11,9 @@ angular.module('arethusa.core').service('saver', [
   '$analytics',
   function(configurator, notifier, keyCapture, state,
            $rootScope, $window, translator, $analytics) {
+
+    var SUCCESS_EVENT = 'saveSuccess';
+
     var self = this;
     var conf, persisters;
 
@@ -62,6 +65,7 @@ angular.module('arethusa.core').service('saver', [
     // to handle the success notification better.
     function success(res) {
       self.needsSave = false;
+      $rootScope.$broadcast(SUCCESS_EVENT);
       notifier.success(translations.success());
     }
 
@@ -139,6 +143,10 @@ angular.module('arethusa.core').service('saver', [
       // When we really leave, clean up on onbeforeunload event
       $rootScope.$on('destroy', function() { $window.onbeforeunload = undefined; });
     }
+
+    this.onSuccess = function(cb) {
+      $rootScope.$on(SUCCESS_EVENT, cb);
+    };
 
     this.init = function(newPersisters) {
       defineKeyCaptures();
