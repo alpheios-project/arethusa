@@ -18,6 +18,7 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
     };
 
     this.addForm = addForm;
+    this.addForms = addForms;
     this.removeForm = removeForm;
 
     this.addPreference = addPreference;
@@ -66,6 +67,10 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       var newForm = angular.copy(form);
       newForm.selected = false;
       forms.push(newForm);
+      persist(string, forms);
+    }
+
+    function addForms(string, forms) {
       persist(string, forms);
     }
 
@@ -146,8 +151,9 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
 
     function collectFromStore(keyFragment) {
       return _.inject(arethusaLocalStorage.keys(), function(memo, key) {
-        if (key.match(keyFragment)) {
-          memo[key] = arethusaLocalStorage.get(key);
+        var match = key.match('^' + keyFragment + '.(.*)');
+        if (match) {
+          memo[match[1]] = arethusaLocalStorage.get(key);
         }
         return memo;
       }, {});

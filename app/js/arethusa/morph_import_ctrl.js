@@ -140,7 +140,11 @@ angular.module('arethusa').controller('MorphImportCtrl', [
     }
 
     function importFile() {
-
+      fileHandler.upload(function(data) {
+        _.forEach(data, function(forms, str) {
+          localStorage.addForms(str, forms);
+        });
+      });
     }
 
     function exportFile() {
