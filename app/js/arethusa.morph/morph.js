@@ -8,8 +8,18 @@ angular.module('arethusa.morph').service('morph', [
   'morphLocalStorage',
   'commons',
   'saver',
-  function (state, configurator, plugins, globalSettings,
-            keyCapture, morphLocalStorage, commons, saver) {
+  'navigator',
+  function (
+    state,
+    configurator,
+    plugins,
+    globalSettings,
+    keyCapture,
+    morphLocalStorage,
+    commons,
+    saver,
+    navigator
+  ) {
     var self = this;
     this.name = 'morph';
 
@@ -54,7 +64,8 @@ angular.module('arethusa.morph').service('morph', [
       gloss: false,
       matchAll: true,
       preselect: false,
-      localStorage: true
+      localStorage: true,
+      storePreferences: true
     };
 
     function configure() {
@@ -64,7 +75,8 @@ angular.module('arethusa.morph').service('morph', [
         'mappings',
         'noRetrieval',
         'gloss',
-        'localStorage'
+        'localStorage',
+        'storePreferences'
       ];
 
       configurator.getConfAndDelegate(self, props);
@@ -715,15 +727,25 @@ angular.module('arethusa.morph').service('morph', [
 
     this.settings = [
       commons.setting('Expand Selected', 'expandSelection'),
+      commons.setting('Store Preferences', 'storePreferences'),
       commons.setting('Preselect', 'preselect', this.preselectToggled)
     ];
 
+    var shouldSavePreference;
     function afterSave() {
-      angular.forEach(state.tokens, savePreference);
+      shouldSavePreference = true;
     }
 
     function sortByPreference(string, forms) {
       return morphLocalStorage.sortByPreference(string, forms);
+    }
+
+    function savePreferences() {
+      if (shouldSavePreference && self.storePreferences) {
+        console.log('saving');
+        angular.forEach(state.tokens, savePreference);
+        shouldSavePreference = false;
+      }
     }
 
     function savePreference(token) {
@@ -733,6 +755,7 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     saver.onSuccess(afterSave);
+    navigator.onMove(savePreferences);
 
     this.init = function () {
       abortOutstandingRequests();
