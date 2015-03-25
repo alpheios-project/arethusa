@@ -404,6 +404,12 @@ dl.tabs {
   margin: 0;
 }
 
+button.small, .button.small {
+  &.rounded {
+    border-radius: .4rem;
+  }
+}
+
 /* Alpheios theme overrides -- better to use sass at some point */
 
 $button-color: #3E8D9C;
