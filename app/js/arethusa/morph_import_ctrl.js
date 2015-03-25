@@ -10,40 +10,63 @@ angular.module('arethusa').controller('MorphImportCtrl', [
   '$http',
   '$injector',
   '$q',
-  function($scope, plugins, latinAttrs, greekAttrs,
-           configurator, MORPH_IMPORTS, $http, $injector, $q) {
-    var morph, localStorage;
+  'downloader',
+  '_',
+  function(
+    $scope,
+    plugins,
+    latinAttrs,
+    greekAttrs,
+    configurator,
+    MORPH_IMPORTS,
+    $http,
+    $injector,
+    $q,
+    downloader,
+    _
+  ) {
+    var EXPORT_FILE_NAME   = 'arethusa_morph_forms.json';
+    var EXPORT_FILE_ENDING = 'application/json';
 
-    var attrs = {
+    var ATTRS = {
       lat: latinAttrs.data,
       grc: greekAttrs.data
     };
 
-    var config = configurator.configuration;
-
-    function useLanguage(attr) {
-      config.plugins.morph = attrs[attr];
-      $scope.usedLanguage = attr;
-    }
-
-    // Use a starting value so the morph service can load properly
-    useLanguage('lat');
-
-    plugins.start(['morph']).then(function() {
-      morph = plugins.get('morph');
-      localStorage = $injector.get('morphLocalStorage');
-      $scope.ready = true;
-    });
-
-    $scope.files = MORPH_IMPORTS;
-
-    var userCache = {};
-
-    var userRouteParams = {
+    var USER_ROUTE_PARAMS = {
       headers: {
         'Accept': 'application/json'
       }
     };
+
+    var morph, localStorage, userCache = {};
+
+    var config = configurator.configuration;
+
+    //$scope.files = MORPH_IMPORTS; // online import currently disabled
+    $scope.loadCsvFile = loadCsvFile;
+
+    $scope.importFile = importFile;
+    $scope.exportFile = exportFile;
+
+    init();
+
+    function useLanguage(attr) {
+      config.plugins.morph = ATTRS[attr];
+      $scope.usedLanguage = attr;
+    }
+
+    function init() {
+      // Use a starting value so the morph service can load properly
+      useLanguage('lat');
+
+      plugins.start(['morph']).then(function() {
+        morph = plugins.get('morph');
+        localStorage = $injector.get('morphLocalStorage');
+        $scope.ready = true;
+      });
+    }
+
 
     function parseOrigin(form, userRoute) {
       var deferred = $q.defer();
@@ -51,7 +74,7 @@ angular.module('arethusa').controller('MorphImportCtrl', [
       if (userName) {
         deferred.resolve(userName);
       } else {
-        $http.get(userRoute, userRouteParams).then(function(res) {
+        $http.get(userRoute, USER_ROUTE_PARAMS).then(function(res) {
           var userName = res.data.name;
           userCache[userRoute] = userName;
           deferred.resolve(userName);
@@ -60,7 +83,7 @@ angular.module('arethusa').controller('MorphImportCtrl', [
       return deferred.promise;
     }
 
-    function loadForms(data, filter) {
+    function loadFormsFromCsv(data, filter) {
       resetStatus();
       var lines = data.split('\n');
       angular.forEach(lines, function(line, key) {
@@ -98,17 +121,46 @@ angular.module('arethusa').controller('MorphImportCtrl', [
 
     function resetStatus() {
       $scope.status = {
-        count: 0
+        import: { count: 0 },
+        export: { count: 0 }
       };
     }
 
-    $scope.loadFile = function(fileObj) {
+    function loadCsvFile(fileObj) {
       $scope.importStarted = true;
       $http.get(fileObj.route).then(function(res) {
         useLanguage(fileObj.language);
-        loadForms(res.data);
+        loadFormsFromCsv(res.data);
         $scope.importStarted = false;
       });
-    };
+    }
+
+    function loadFile(file) {
+
+    }
+
+    function importFile() {
+
+    }
+
+    function exportFile() {
+      resetStatus();
+
+      var forms = localStorage.getForms();
+      downloader.download(
+        EXPORT_FILE_NAME,
+        JSON.stringify(forms, null, 2),
+        EXPORT_FILE_ENDING
+      );
+
+      setExportCount(forms);
+    }
+
+    function setExportCount(forms) {
+      $scope.status.export.count = _.inject(forms, function(memo, f) {
+        memo += f.length;
+        return memo;
+      }, 0);
+    }
   }
 ]);
