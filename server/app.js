@@ -9,6 +9,7 @@ var express = require('express'),
 
 var examples = require('./routes/examples');
 var fileBrowser = require('./routes/file_browser');
+var resolver = require('./routes/resolver');
 var base = path.resolve(__dirname + '/..');
 
 app.set('views', path.join(__dirname, 'views'));
@@ -18,7 +19,7 @@ app.set('view engine', 'html');
 app.use(morgan('dev'));
 app.use(require('connect-livereload')({ port: 35279 }));
 
-
+app.use('/resolve', resolver);
 app.use('/examples', examples);
 app.use('/browse', fileBrowser);
 app.use(express.static(base));
