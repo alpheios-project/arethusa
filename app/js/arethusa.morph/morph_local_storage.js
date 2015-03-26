@@ -25,7 +25,7 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
     this.sortByPreference = sortByPreference;
 
     this.getForms = getForms;
-    this.gePreferences = getPreferences;
+    this.getPreferences = getPreferences;
 
     function key(k) {
       return self.localStorageKey + '.' + k;
