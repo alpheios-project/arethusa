@@ -112,6 +112,7 @@
     "errorAcrossSentences": "Cannot change heads across sentences"
   },
   "helpPanel": {
+    "tools": "Tools",
     "about": "About Arethusa",
     "revision": "Revision",
     "keyboardShortcuts": "Keyboard Shortcuts",
