@@ -1,4 +1,4 @@
-<tabset>
+<tabset class="arethusa-tabs">
   <tab
     ng-repeat="pl in visibleTabs"
     select="plugins.setActive(pl)"
@@ -14,6 +14,8 @@
     <tab-heading>
       <i class="fi-widget rotate-on-hover"></i>
     </tab-heading>
+
+    <p translate="tabs.helpText"></p>
 
     <ul dnd-list="tabs">
       <li ng-repeat="tab in tabs"
