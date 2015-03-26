@@ -217,8 +217,14 @@ angular.module('arethusa').factory('TreebankRetriever', [
         callback(parseDocument(json, docId));
       };
 
-      this.get = function (callback) {
-        resource.get().then(function (res) {
+      // Called with either one, or two params
+      this.get = function (params, callback) {
+        if (!callback) {
+          callback = params;
+          params = {};
+        }
+
+        resource.get(params).then(function (res) {
           self.parse(res.data, callback);
         });
       };
