@@ -1,6 +1,6 @@
 <tabset>
   <tab
-    ng-repeat="pl in tabs"
+    ng-repeat="pl in visibleTabs"
     select="plugins.setActive(pl)"
     heading="{{ pl.displayName }}"
     active="plugins.isSelected(pl)">
@@ -9,6 +9,26 @@
       with-settings="true"
       ng-if="plugins.isActive(pl)">
     </plugin>
+  </tab>
+  <tab ng-if="showSettingsTab">
+    <tab-heading>
+      <i class="fi-widget rotate-on-hover"></i>
+    </tab-heading>
+
+    <ul dnd-list="tabs">
+      <li ng-repeat="tab in tabs"
+        dnd-draggable="tab"
+        dnd-moved="moveTab($index)"
+        dnd-effect-allowed="move"
+        dnd-selected="toggleTab(tab)"
+        ng-class="{ deactivated: !isActive(tab) }">
+        <div>
+          <span>
+            {{ tab.displayName }}
+          </span>
+        </div>
+      </li>
+    </ul>
   </tab>
 </tabset>
 
