@@ -1,4 +1,11 @@
 {
+  "fakeResolver" : {
+    "route" : "http://localhost:8081/resolve/:urn",
+    "params": [
+      "urn"
+    ]
+  },
+
   "fakePerseids" : {
     "route" : "http://74.70.97.104:8085/xml_server/:doc",
     "params" : [

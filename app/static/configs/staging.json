@@ -5,6 +5,12 @@
     "@include" : "layouts/perseids.json",
     "chunkParam" : "chunk",
     "auxConfPath": "/data/aux_configs/dist",
+    "resolver" : {
+      "resource" : "fakeResolver",
+      "map" : {
+        "treebank" : "TreebankRetriever"
+      }
+    },
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "arethusaServerTreebank",
