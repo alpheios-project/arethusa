@@ -19,6 +19,7 @@ angular.module('arethusa.core').directive('arethusaTabs', [
         tabs: "=arethusaTabs"
       },
       link: function(scope, element, attrs) {
+        var tabMap;
         var activeTabs = getFromLocalStorage();
 
         scope.plugins = plugins;
@@ -33,12 +34,33 @@ angular.module('arethusa.core').directive('arethusaTabs', [
 
         function init(tabs) {
           if (!tabs) return;
-
+          // Dragging and dropping can be a bit buggy when working on our large
+          // object. We therefore only work on a small dataset and update the real
+          // tabs once it changes.
+          scope.list = createListItems(tabs);
+          tabMap = createTabMap(tabs);
           activateSettings();
-          doInitialActivation();
+          doInitialActivation(tabs);
           updateVisibleTabs();
         }
 
+        function createListItems(tabs) {
+          return _.map(tabs, createListItem);
+        }
+
+        function createListItem(tab) {
+          return {
+            name: tab.name,
+            label: tab.displayName
+          };
+        }
+
+        function createTabMap(tabs) {
+          return _.inject(tabs, function(memo, tab) {
+            memo[tab.name] = tab;
+            return memo;
+          }, {});
+        }
 
         function activate(tab) {
           activeTabs[tab.name] = true;
@@ -53,7 +75,7 @@ angular.module('arethusa.core').directive('arethusaTabs', [
         }
 
         function moveTab(i) {
-          scope.tabs.splice(i, 1);
+          scope.list.splice(i, 1);
           updateVisibleTabs();
         }
 
@@ -71,8 +93,8 @@ angular.module('arethusa.core').directive('arethusaTabs', [
           scope.showSettingsTab = true;
         }
 
-        function doInitialActivation() {
-          _.forEach(scope.tabs, function(tab) {
+        function doInitialActivation(tabs) {
+          _.forEach(tabs, function(tab) {
             // If a setting is already present, don't do anything,
             // otherwise activate it.
             if (!angular.isDefined(isActive(tab))) {
@@ -82,9 +104,12 @@ angular.module('arethusa.core').directive('arethusaTabs', [
         }
 
         function updateVisibleTabs() {
-          scope.visibleTabs =_.filter(scope.tabs, function(tab) {
-            return isActive(tab);
-          });
+          scope.visibleTabs =_.inject(scope.list, function(memo, item) {
+            if (isActive(item)) {
+              memo.push(tabMap[item.name]);
+            }
+            return memo;
+          }, []);
         }
 
         function getFromLocalStorage() {

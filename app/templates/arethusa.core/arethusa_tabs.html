@@ -17,16 +17,16 @@
 
     <p translate="tabs.helpText"></p>
 
-    <ul dnd-list="tabs">
-      <li ng-repeat="tab in tabs"
-        dnd-draggable="tab"
+    <ul dnd-list="list">
+      <li ng-repeat="item in list"
+        dnd-draggable="item"
         dnd-moved="moveTab($index)"
         dnd-effect-allowed="move"
-        dnd-selected="toggleTab(tab)"
-        ng-class="{ deactivated: !isActive(tab) }">
+        dnd-selected="toggleTab(item)"
+        ng-class="{ deactivated: !isActive(item) }">
         <div>
           <span>
-            {{ tab.displayName }}
+            {{ item.label }}
           </span>
         </div>
       </li>
