@@ -41,11 +41,12 @@ angular.module('arethusa.core').service('state', [
   'confirmationDialog',
   'notifier',
   'logger',
+  'DocumentResolver',
   function (configurator, navigator, $rootScope, documentStore, keyCapture,
             locator, StateChange, idHandler, globalSettings, confirmationDialog,
-            notifier, logger) {
+            notifier, logger, DocumentResolver) {
     var self = this;
-    var tokenRetrievers;
+    var tokenRetrievers, resolver;
 
     this.documents = function() {
       return documentStore.store;
@@ -116,6 +117,18 @@ angular.module('arethusa.core').service('state', [
       return Object.keys(tokenRetrievers).length === 0;
     }
 
+    this.retrieveDocuments = retrieveDocuments;
+    this.retrieveTokens    = retrieveTokens;
+
+    function retrieveDocuments(resolverConf) {
+      if (resolverConf) {
+        resolver = new DocumentResolver(resolverConf);
+        resolver.resolve(tokenRetrievers, onSuccessfulRetrievalFn);
+      } else {
+        retrieveTokens();
+      }
+    }
+
     /**
      * @ngdoc function
      * @name arethusa.core.state#retrieveTokens
@@ -126,7 +139,7 @@ angular.module('arethusa.core').service('state', [
      * from them.
      *
      */
-    this.retrieveTokens = function () {
+    function retrieveTokens() {
       //var container = {};
       navigator.reset();
       self.deselectAll();
@@ -137,7 +150,13 @@ angular.module('arethusa.core').service('state', [
       }
 
       angular.forEach(tokenRetrievers, function (retriever, name) {
-        retriever.get(function (data) {
+        retriever.get(onSuccessfulRetrievalFn(retriever));
+      });
+      //tokens = container;
+    }
+
+    function onSuccessfulRetrievalFn(retriever) {
+      return function onSuccessfulRetrieval(data) {
           navigator.addSentences(data);
           moveToSentence();
           // Check comment for saveTokens
@@ -146,10 +165,8 @@ angular.module('arethusa.core').service('state', [
 
           declarePreselections(retriever.preselections);
           declareLoaded(retriever);
-        });
-      });
-      //tokens = container;
-    };
+      };
+    }
 
     function getChunkParam() {
       var param = self.conf.chunkParam;
@@ -970,7 +987,7 @@ angular.module('arethusa.core').service('state', [
      */
     this.init = function () {
       configure();
-      self.retrieveTokens();
+      retrieveDocuments(self.conf.resolver);
     };
   }
 ]);
