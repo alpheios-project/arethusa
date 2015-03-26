@@ -77,6 +77,7 @@ function arethusaSourceFiles() {
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js",
     "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
+    "./bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js",
     "./vendor/highlight/highlight.pack.js",
   ];
 

@@ -2,10 +2,10 @@
   "name": "arethusa",
   "version": "0.2.5",
   "authors": [
-      "Gernot Höflechner",
-      "Christof Sirk",
-      "Robert Lichtensteiner",
-      "Bridget Almas"
+    "Gernot Höflechner",
+    "Christof Sirk",
+    "Robert Lichtensteiner",
+    "Bridget Almas"
   ],
   "description": "A backend-independent client-side annotation framework",
   "keywords": [
@@ -13,7 +13,10 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/latin-language-toolkit/arethusa",
-  "main": ["dist/arethusa_packages.min.js", "dist/arethusa.min.js"],
+  "main": [
+    "dist/arethusa_packages.min.js",
+    "dist/arethusa.min.js"
+  ],
   "ignore": [
     "app/css",
     "app/images",
@@ -52,7 +55,8 @@
     "angular-local-storage": "~0.1.5",
     "angular-uuid2": "",
     "lodash": "~2.4.1",
-    "stacktrace-js": "~0.6.4"
+    "stacktrace-js": "~0.6.4",
+    "angular-drag-and-drop-lists": "~1.2.0"
   },
   "resolutions": {
     "angular": "1.2.17",
