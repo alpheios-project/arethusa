@@ -1,7 +1,7 @@
 'use strict';
-angular.module('arethusa.core').constant('MORPH_IMPORT', {
-  controller: 'MorphImportCtrl',
-  templateUrl: 'templates/morph_import.html',
+angular.module('arethusa.core').constant('MORPH_TOOLS', {
+  controller: 'MorphToolsCtrl',
+  templateUrl: 'templates/morph_tools.html',
   resolve: {
     latinAttrs: [
       '$http',
