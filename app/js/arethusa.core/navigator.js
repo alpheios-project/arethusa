@@ -2,16 +2,21 @@
 angular.module('arethusa.core').service('navigator', [
   '$injector',
   'configurator',
-  '$cacheFactory',
   'keyCapture',
   '$rootScope',
   'globalSettings',
-  function ($injector, configurator, $cacheFactory,
-            keyCapture, $rootScope, globalSettings) {
+  'citeMapper',
+  function (
+    $injector,
+    configurator,
+    keyCapture,
+    $rootScope,
+    globalSettings,
+    citeMapper
+  ) {
 
     var MOVE_EVENT = 'navigator:move';
     var self = this;
-    var citeMapper;
     var context = {};
 
     function layoutChunkSize() {
@@ -34,8 +39,6 @@ angular.module('arethusa.core').service('navigator', [
       //holds a pointer to the currently displayed chunk
       self.status = { context: context };
       updatePosition(0);
-
-      citeMapper = configurator.provideResource('citeMapper');
 
       self.keys = keyCapture.initCaptures(function(kC) {
         return {
@@ -180,49 +183,14 @@ angular.module('arethusa.core').service('navigator', [
       self.getCitation(currentSentenceObjs(), storeCitation);
     }
 
-    function hasCtsUrn(cite) {
-      // CTS urns might be prefixed with a uri
-      // prefix and not appear at the beginng of the doc id
-      return cite.match(/urn:cts/);
-    }
-
-    function parseCtsUrn(cite, callback) {
-      var citation;
-      var citeSplit = splitCiteString(cite);
-      var doc = citeSplit[0];
-      var sec = citeSplit[1];
-      citation = citationCache.get(doc);
-      if (! citation) {
-        citeMapper.get({ cite: doc}).then(function(res) {
-          citation = res.data;
-          citationCache.put(doc, citation);
-          callback(citationToString(citation, sec));
-        });
-      } else {
-        callback(citationToString(citation, sec));
-      }
-    }
-
-    var citationCache = $cacheFactory('citation', { number: 100 });
     this.getCitation = function(sentences, callback) {
       if (!citeMapper) return;
       var sentence = sentences[0];
       if (!sentence) return;
 
       var cite = sentence.cite;
-      if (cite) {
-        if (hasCtsUrn(cite)) {
-          parseCtsUrn(cite, callback);
-        } else {
-          callback(cite);
-        }
-      }
+      citeMapper.get(cite, callback);
     };
-
-    function splitCiteString(cite) {
-      var i = cite.lastIndexOf(':');
-      return [cite.slice(0, i), cite.slice(i + 1)];
-    }
 
     function resetCitation() {
       delete self.status.citation;
