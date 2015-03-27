@@ -1184,3 +1184,33 @@ syntactical-description {
     width: 10%;
   }
 }
+
+.query-plugin {
+  .paginator {
+    .pagination-item {
+      display: inline-block;
+      width: 1.5rem;
+      text-align: center;
+      border: 1px darkgray solid;
+      border-radius: 3px;
+      font-size: small;
+      padding: .3rem;
+      margin: 1px;
+
+      @include transition(all, .5s, ease-in-out);
+
+      &.selected {
+        background-color: $button-color;
+        color: white;
+
+        &:hover {
+          background-color: $button-color-hover;
+        }
+      }
+
+      &:hover {
+        background-color: white;
+      }
+    }
+  }
+}

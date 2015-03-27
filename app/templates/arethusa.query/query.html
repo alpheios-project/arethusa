@@ -1,14 +1,22 @@
-<form ng-submit="plugin.query()">
-  <div class="row collapse">
-    <div class="search-on-click">
-      <input type="search" ng-model="plugin.queryString" />
-      <button class="micro" type="submit">Query</button>
+<div class="query-plugin">
+  <form ng-submit="plugin.query()">
+    <div class="row collapse">
+      <div class="search-on-click">
+        <input type="search" ng-model="plugin.queryString" />
+        <button class="micro" type="submit">Query</button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 
-<div>
   <div>
-    {{ self.queryStats.count }}
+    <span>Total: </span>{{ plugin.queryStats.total || 0 }}
+    <div class="paginator">
+      <div
+        class="pagination-item"
+        ng-class="{ selected: page === plugin.queryStats.page }"
+        ng-repeat="page in plugin.queryStats.pages">
+        {{ page }}
+      </div>
+    </div>
   </div>
 </div>
