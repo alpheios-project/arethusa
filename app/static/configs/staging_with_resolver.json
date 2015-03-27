@@ -5,6 +5,12 @@
     "@include" : "layouts/perseids.json",
     "chunkParam" : "chunk",
     "auxConfPath": "/data/aux_configs/dist",
+    "resolver" : {
+      "resource" : "fakeResolver",
+      "map" : {
+        "treebank" : "TreebankRetriever"
+      }
+    },
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "arethusaServerTreebank",
@@ -20,6 +26,7 @@
     },
     "plugins" : [
       "text",
+      "query",
       "artificialToken",
       "search",
       "morph",
@@ -61,6 +68,14 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
       "template" : "templates/dep_tree.html"
+    },
+
+    "query" : {
+      "retriever" : {
+        "AhabRetriever": {
+          "resource" : "capitanAhabEndpoint"
+        }
+      }
     },
 
     "search" : {
@@ -142,4 +157,5 @@
     "@include" : "keyboard/key_map.json"
   }
 }
+
 
