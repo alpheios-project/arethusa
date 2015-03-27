@@ -76,9 +76,9 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
           recompile();
         }
 
-        function update(token) {
-          if (isTracked(token.id)) {
-            init();
+        function update(newVal, oldVal, event) {
+          if (isTracked(event.token.id)) {
+            init(scope.tokenId);
           }
         }
 
