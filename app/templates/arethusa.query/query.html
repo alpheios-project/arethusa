@@ -15,7 +15,7 @@
   <div ng-if="plugin.queryStats.total">
     <div class="query-stats clearfix">
       <span>Total: {{ plugin.queryStats.total }}</span>
-      <span>Current: {{ plugin.queryStats.start }} - {{ plugin.queryStats.end }}</span>
+      <span>{{ plugin.queryStats.start }} - {{ plugin.queryStats.end }}</span>
     </div>
     <div class="paginator" ng-if="plugin.queryStats.totalPages > 1">
       <div
