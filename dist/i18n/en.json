@@ -195,5 +195,8 @@
   },
   "tabs" : {
     "helpText" : "Click to enable/disable a tab, or drag and drop to change the order or tabs."
+  },
+  "query": {
+    "noResults": "No results found"
   }
 }
