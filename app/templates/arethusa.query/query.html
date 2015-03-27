@@ -1,15 +1,22 @@
 <div class="query-plugin">
   <form ng-submit="plugin.query()">
-    <div class="row collapse">
-      <div class="search-on-click">
-        <input type="search" ng-model="plugin.queryString" />
-        <button class="micro" type="submit">Query</button>
-      </div>
+    <div class="search-on-click">
+      <input type="search" ng-model="plugin.queryString" />
+      <button class="micro" type="submit">Query</button>
     </div>
   </form>
 
-  <div>
-    <span>Total: </span>{{ plugin.queryStats.total || 0 }}
+  <div
+    translate="query.noResults"
+    ng-if="!plugin.queryStats.total && !plugin.queryInProgress"
+    class="query-no-results">
+  </div>
+
+  <div ng-if="plugin.queryStats.total">
+    <div class="query-stats">
+      <span>Total </span>{{ plugin.queryStats.total }}
+      <span>Current </span>{{ plugin.queryStats.start }} - {{ plugin.queryStats.end }}
+    </div>
     <div class="paginator">
       <div
         class="pagination-item"
@@ -23,5 +30,8 @@
 
   <div ng-if="plugin.queryInProgress" class="query-spinner">
     <i class="fa fa-spinner fa-spin"></i>
+  </div>
+
+  <div ng-if="!plugin.queryInProgress" class="query-results">
   </div>
 </div>

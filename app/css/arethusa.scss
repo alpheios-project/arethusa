@@ -1192,6 +1192,19 @@ syntactical-description {
     font-size: larger;
   }
 
+  .query-no-results {
+    text-align: center;
+    padding: 3rem 0;
+    font-style: italic;
+  }
+
+  .query-stats {
+    span {
+      font-size: .875rem;
+      font-weight: 400;
+    }
+  }
+
   .paginator {
     .pagination-item {
       display: inline-block;

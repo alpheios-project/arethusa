@@ -64,6 +64,8 @@ angular.module('arethusa.query').service('query', [
     }
 
     function parseQueryData(res) {
+      self.queryStats.start = res.offset;
+      self.queryStats.end   = res.offset + res.results.length - 1;
       self.currentPage = res;
     }
 
@@ -71,7 +73,7 @@ angular.module('arethusa.query').service('query', [
       self.queryStats = {
         total: res.count,
         pages: createPages(Math.ceil(res.count / res.limit)),
-        page: 1
+        page: 1,
       };
     }
 
