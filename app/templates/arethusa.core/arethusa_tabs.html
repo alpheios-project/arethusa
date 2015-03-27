@@ -24,11 +24,7 @@
         dnd-effect-allowed="move"
         dnd-selected="toggleTab(item)"
         ng-class="{ deactivated: !isActive(item) }">
-        <div>
-          <span>
-            {{ item.label }}
-          </span>
-        </div>
+        {{ item.label }}
       </li>
     </ul>
   </tab>
