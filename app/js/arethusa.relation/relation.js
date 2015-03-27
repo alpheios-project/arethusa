@@ -4,7 +4,8 @@ angular.module('arethusa.relation').service('relation', [
   'configurator',
   'globalSettings',
   'commons',
-  function (state, configurator, globalSettings, commons) {
+  '_',
+  function (state, configurator, globalSettings, commons, _) {
     var self = this;
     this.name = "relation";
 
@@ -321,6 +322,16 @@ angular.module('arethusa.relation').service('relation', [
     this.settings = [
       commons.setting('Advanced Mode', 'advancedMode')
     ];
+
+    function getLabelObj(token) {
+      return _.last(getAncestors(token));
+    }
+
+    function getAncestors(token) {
+      return (token.relation || {}).ancestors || [];
+    }
+
+    this.getLabelObj = getLabelObj;
 
     this.init = function () {
       configure();
