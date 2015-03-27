@@ -451,7 +451,7 @@ a:hover, a:focus {
   border-color: #aaaaaa;
 }
 
-.arethusa-tabs {
+.arethusa-tabs-settings-tab {
   p {
     font-size: small;
     font-style: italic;
@@ -1160,4 +1160,12 @@ code {
 
 .reveal-modal-bg.in {
   opacity: .5;
+}
+
+syntactical-description {
+  padding: 1rem;
+
+  .syntax-token {
+    font-style: italic;
+  }
 }

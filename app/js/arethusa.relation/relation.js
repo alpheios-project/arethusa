@@ -4,7 +4,8 @@ angular.module('arethusa.relation').service('relation', [
   'configurator',
   'globalSettings',
   'commons',
-  function (state, configurator, globalSettings, commons) {
+  '_',
+  function (state, configurator, globalSettings, commons, _) {
     var self = this;
     this.name = "relation";
 
@@ -83,20 +84,20 @@ angular.module('arethusa.relation').service('relation', [
     this.defineAncestors = true;
 
     function findLabel(key, container) {
-      var k, v, result;
+      var k, v, res;
       for (k in container) {
-        v = container[k];
-        if (k === key) {
-          result = v;
-          break;
+        if (key === k) {
+          return container[k];
         } else {
-          var nested = v.nested;
-          if (nested) {
-            result = findLabel(key, nested);
+          v = container[k];
+          if (v.nested) {
+            res = findLabel(key, v.nested);
+            if (res) {
+              return res;
+            }
           }
         }
       }
-      return result;
     }
 
     function addParents(parents, obj) {
@@ -321,6 +322,16 @@ angular.module('arethusa.relation').service('relation', [
     this.settings = [
       commons.setting('Advanced Mode', 'advancedMode')
     ];
+
+    function getLabelObj(token) {
+      return _.last(getAncestors(token));
+    }
+
+    function getAncestors(token) {
+      return (token.relation || {}).ancestors || [];
+    }
+
+    this.getLabelObj = getLabelObj;
 
     this.init = function () {
       configure();
