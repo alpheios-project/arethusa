@@ -13,9 +13,9 @@
   </div>
 
   <div ng-if="plugin.queryStats.total">
-    <div class="query-stats">
-      <span>Total </span>{{ plugin.queryStats.total }}
-      <span>Current </span>{{ plugin.queryStats.start }} - {{ plugin.queryStats.end }}
+    <div class="query-stats clearfix">
+      <span>Total: {{ plugin.queryStats.total }}</span>
+      <span>Current: {{ plugin.queryStats.start }} - {{ plugin.queryStats.end }}</span>
     </div>
     <div class="paginator">
       <div
@@ -33,5 +33,15 @@
   </div>
 
   <div ng-if="!plugin.queryInProgress" class="query-results">
+    <!--extract to directive once it can do more-->
+    <article class="query-item panel" ng-repeat="page in plugin.queryStats.results">
+      <header>The parsed section's name</header>
+      <section>
+        <span>{{ page.text.previous}}</span>
+        <span class="highlighted">{{ page.text.hi }}</span>
+        <span>{{ page.text.after}}</span>
+      </section>
+      <footer>{{ page.urn }}</footer>
+    </article>
   </div>
 </div>

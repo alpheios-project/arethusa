@@ -1202,10 +1202,44 @@ syntactical-description {
     span {
       font-size: .875rem;
       font-weight: 400;
+
+      &:first-child {
+        float: left;
+      }
+
+      &:last-child {
+        float: right;
+      }
+    }
+  }
+
+  .query-item {
+    padding: 1rem;
+    margin: .5rem;
+    border-radius: 5px;
+    background-color: white;
+
+    header {
+      font-weight: bold;
+    }
+
+    section {
+      padding: .7rem 0;
+    }
+
+    footer {
+      font-style: italic;
+      font-size: smaller;
+    }
+
+    .highlighted {
+      padding: 0 .3rem;
+      background-color: lighten(yellow, 20%);
     }
   }
 
   .paginator {
+    margin: .3rem 0;
     .pagination-item {
       display: inline-block;
       width: 1.5rem;
