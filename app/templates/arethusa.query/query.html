@@ -13,10 +13,15 @@
     <div class="paginator">
       <div
         class="pagination-item"
+        ng-click="plugin.getPage(page)"
         ng-class="{ selected: page === plugin.queryStats.page }"
         ng-repeat="page in plugin.queryStats.pages">
         {{ page }}
       </div>
     </div>
+  </div>
+
+  <div ng-if="plugin.queryInProgress" class="query-spinner">
+    <i class="fa fa-spinner fa-spin"></i>
   </div>
 </div>

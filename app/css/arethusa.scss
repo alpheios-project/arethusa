@@ -1186,6 +1186,12 @@ syntactical-description {
 }
 
 .query-plugin {
+  .query-spinner {
+    text-align: center;
+    padding: 3rem 0;
+    font-size: larger;
+  }
+
   .paginator {
     .pagination-item {
       display: inline-block;
