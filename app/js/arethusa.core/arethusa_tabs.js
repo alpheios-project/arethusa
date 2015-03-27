@@ -20,7 +20,7 @@ angular.module('arethusa.core').directive('arethusaTabs', [
       },
       link: function(scope, element, attrs) {
         var tabMap;
-        var activeTabs = getFromLocalStorage();
+        var tabConf = getFromLocalStorage();
 
         scope.plugins = plugins;
         scope.state = state;
@@ -63,15 +63,21 @@ angular.module('arethusa.core').directive('arethusaTabs', [
         }
 
         function activate(tab) {
-          activeTabs[tab.name] = true;
+          getConf(tab).active = true;
         }
 
         function deactivate(tab) {
-          activeTabs[tab.name] = false;
+          getConf(tab).active = false;
         }
 
         function isActive(tab) {
-          return activeTabs[tab.name];
+          return getConf(tab).active;
+        }
+
+        function getConf(tab) {
+          var conf = tabConf[tab.name];
+          if (!conf) conf = tabConf[tab.name] = {};
+          return conf;
         }
 
         function moveTab(i, event) {
@@ -121,7 +127,7 @@ angular.module('arethusa.core').directive('arethusaTabs', [
         }
 
         function setLocalStorage() {
-          arethusaLocalStorage.set(LOCAL_STORAGE_KEY, activeTabs);
+          arethusaLocalStorage.set(LOCAL_STORAGE_KEY, tabConf);
         }
       },
       templateUrl: 'templates/arethusa.core/arethusa_tabs.html'
