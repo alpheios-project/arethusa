@@ -13,9 +13,14 @@ angular.module('arethusa.relation').service('relation', [
 
     globalSettings.addColorizer('relation');
 
+    var props = [
+      'advancedMode',
+      'syntaxDescriptions'
+    ];
+
     function configure() {
       configurator.getConfAndDelegate(self);
-      configurator.getStickyConf(self, ['advancedMode']);
+      configurator.getStickyConf(self, props);
       self.relationValues = self.conf.relations;
       addParentsToRelationConf();
       self.relations = {};
@@ -320,7 +325,8 @@ angular.module('arethusa.relation').service('relation', [
     };
 
     this.settings = [
-      commons.setting('Advanced Mode', 'advancedMode')
+      commons.setting('Advanced Mode', 'advancedMode'),
+      commons.setting('Show Syntax Descriptions', 'syntaxDescriptions')
     ];
 
     function getLabelObj(token) {
