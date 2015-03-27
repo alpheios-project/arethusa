@@ -74,7 +74,11 @@ angular.module('arethusa.core').directive('arethusaTabs', [
           return activeTabs[tab.name];
         }
 
-        function moveTab(i) {
+        function moveTab(i, event) {
+          // The splice happens a little delayed, which means that for a short
+          // while we'll have one item in the list twice - let's hide it to
+          // avoid the flicker.
+          angular.element(event.toElement).hide();
           scope.list.splice(i, 1);
           updateVisibleTabs();
         }

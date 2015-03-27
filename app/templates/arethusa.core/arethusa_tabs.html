@@ -20,7 +20,7 @@
     <ul dnd-list="list">
       <li ng-repeat="item in list"
         dnd-draggable="item"
-        dnd-moved="moveTab($index)"
+        dnd-moved="moveTab($index, event)"
         dnd-effect-allowed="move"
         dnd-selected="toggleTab(item)"
         ng-class="{ deactivated: !isActive(item) }">
