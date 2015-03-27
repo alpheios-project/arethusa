@@ -8,7 +8,7 @@ angular.module('arethusa.query').factory('AhabRetriever', [
       var resource = configurator.provideResource(conf.resource);
 
       this.get = function(params, callback) {
-        resource.get(params).then(function(res) {
+        return resource.get(params).then(function(res) {
           var data = res.data;
           callback(data);
         });
