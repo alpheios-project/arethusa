@@ -17,7 +17,7 @@
       <span>Total: {{ plugin.queryStats.total }}</span>
       <span>Current: {{ plugin.queryStats.start }} - {{ plugin.queryStats.end }}</span>
     </div>
-    <div class="paginator">
+    <div class="paginator" ng-if="plugin.queryStats.totalPages > 1">
       <div
         class="pagination-item"
         ng-click="plugin.getPage(page)"
