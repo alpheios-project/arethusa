@@ -14,6 +14,14 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
     var HEAD_PROPERTY = 'head.id';
 
     var TEMPLATES = {
+      '1-0': [
+        '<div>',
+          tokenTpl('target'),
+          'is {{ content.target.article}}',
+          labelTpl('target') + '.',
+        '</div>'
+      ].join(' '),
+
       '1-1': [
         '<div>',
           tokenTpl('target'),
@@ -104,8 +112,8 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
 
         function getHead(token) {
           var id;
-          if (token) id = aU.getProperty(token, HEAD_PROPERTY) ;
-          return state.getToken(id);
+          if (token) id = aU.getProperty(token, HEAD_PROPERTY);
+          return id ? state.getToken(id) : undefined;
         }
 
         function addToTracker(id) {
@@ -154,6 +162,7 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
         }
 
         function setContent(name, obj) {
+          if (!obj) return;
           scope.content[name] = obj;
         }
 
@@ -165,6 +174,7 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
           element.empty();
 
           var template = getTpl(counts);
+
           if (template) {
             setContent('target', toScopeObj(left.token));
             setContent('head', toScopeObj(right.head));
@@ -181,6 +191,8 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
         }
 
         function toScopeObj(token) {
+          if (!token) return;
+
           var string, label, style;
           if (isRoot(token)) {
             string = 'root of the sentence';
