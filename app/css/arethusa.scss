@@ -451,6 +451,51 @@ a:hover, a:focus {
   border-color: #aaaaaa;
 }
 
+.arethusa-tabs {
+  p {
+    font-size: small;
+    font-style: italic;
+    padding: .5rem 1.5rem;
+  }
+
+  ul[dnd-list]{
+    .dndDraggingSource {
+        display: none;
+    }
+
+    .dndPlaceholder {
+        display: block;
+        background-color: #ddd;
+        min-height: 42px;
+    }
+
+    > li {
+      position: relative;
+    }
+
+    li {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+      display: block;
+      padding: 10px 15px;
+      margin-bottom: -1px;
+
+      @include transition(all 300ms ease-in-out);
+
+      &:hover {
+        cursor: -webkit-grab;
+      }
+
+      &.deactivated {
+        color: darken(darkgray, 20%);
+        background-color: $panel-bg;
+      }
+    }
+  }
+}
+
 .top-bar, .top-bar-section .has-form, .top-bar-section ul, .top-bar-section li:not(.has-form) a:not(.button) {
   background: #4E6476;
 }
