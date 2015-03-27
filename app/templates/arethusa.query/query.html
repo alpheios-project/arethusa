@@ -20,10 +20,38 @@
     <div class="paginator" ng-if="plugin.queryStats.totalPages > 1">
       <div
         class="pagination-item"
+        ng-disabled="!plugin.queryStats.hasPrev"
+        ng-click="plugin.getFirstPage()"
+        ng-if="plugin.queryStats.totalPages > 3">
+        <i class="fi-previous"></i>
+      </div>
+      <div
+        class="pagination-item"
+        ng-click="plugin.getPrevPage()"
+        ng-if="plugin.queryStats.totalPages > 2">
+        <i class="fi-arrow-left"></i>
+      </div>
+      <div
+        class="pagination-item"
+        ng-disabled="!plugin.queryStats.hasPrev"
         ng-click="plugin.getPage(page)"
         ng-class="{ selected: page === plugin.queryStats.page }"
         ng-repeat="page in plugin.queryStats.pages">
         {{ page }}
+      </div>
+      <div
+        class="pagination-item"
+        ng-disabled="!plugin.queryStats.hasNext"
+        ng-click="plugin.getNextPage()"
+        ng-if="plugin.queryStats.totalPages > 2">
+        <i class="fi-arrow-right"></i>
+      </div>
+      <div
+        class="pagination-item"
+        ng-disabled="!plugin.queryStats.hasNext"
+        ng-click="plugin.getLastPage()"
+        ng-if="plugin.queryStats.totalPages > 3">
+        <i class="fi-next"></i>
       </div>
     </div>
   </div>

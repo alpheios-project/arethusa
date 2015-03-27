@@ -12,6 +12,8 @@ angular.module('arethusa.query').service('query', [
     this.getPage = getPage;
     this.getNextPage = getNextPage;
     this.getPrevPage = getPrevPage;
+    this.getFirstPage = getFirstPage;
+    this.getLastPage = getLastPage;
 
     this.defaultConf = {
       template: 'templates/arethusa.query/query.html',
@@ -31,6 +33,7 @@ angular.module('arethusa.query').service('query', [
       if (self.queryString) {
         retrieveQuery(1, function(reply) {
           setQueryStats(reply);
+          updatePageBounds(self.queryStats);
         });
       }
     }
@@ -49,6 +52,14 @@ angular.module('arethusa.query').service('query', [
       }
     }
 
+    function getFirstPage() {
+      getPage(1);
+    }
+
+    function getLastPage() {
+      getPage(self.queryStats.totalPages);
+    }
+
     function getPage(i) {
       setPage(i);
       var offset = (i - 1) * self.queryLimit + 1;
@@ -57,6 +68,13 @@ angular.module('arethusa.query').service('query', [
 
     function setPage(i) {
       self.queryStats.page = i;
+      updatePageBounds(self.queryStats);
+    }
+
+    function updatePageBounds(stats) {
+      var page = stats.page;
+      stats.hasNext = page !== stats.totalPages;
+      stats.hasPrev = page !== 1;
     }
 
     function retrieveQuery(offset, cb) {
