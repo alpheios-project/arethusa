@@ -14,6 +14,7 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
     var HEAD_PROPERTY = 'head.id';
 
     var TEMPLATES = {
+      // When a token has no head
       '1-0': [
         '<div>',
           tokenTpl('target'),
@@ -22,6 +23,7 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
         '</div>'
       ].join(' '),
 
+      // When a token has a head
       '1-1': [
         '<div>',
           tokenTpl('target'),
@@ -32,6 +34,16 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
           tokenTpl('head') + '.',
         '</div>'
       ].join(' ')
+
+      // When a coordinated token has no head
+
+      // When a coordinated token has a head
+
+      // When a coordinated token has a coordinated head
+
+      // When a token is in apposition
+
+      // ...
     };
 
     function labelTpl(arg) {
