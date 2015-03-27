@@ -111,7 +111,6 @@ angular.module('arethusa.query').service('query', [
 
     this.init = function() {
       configure();
-      getNamespace();
     };
   }
 ]);
