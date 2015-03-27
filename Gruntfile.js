@@ -24,6 +24,7 @@ var arethusaModules = [
   'arethusa.artificial_token',
   'arethusa.core',
   'arethusa.util',
+  'arethusa.tools',
   'arethusa.comments',
   'arethusa.hebrew_morph',
   'arethusa.context_menu',
@@ -106,6 +107,7 @@ function arethusaMainFiles() {
   var files = [
     "arethusa.util",
     "arethusa.core",
+    "arethusa.tools",
     "arethusa.context_menu",
     "arethusa.history",
     "arethusa.main"

@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').controller('MorphToolsCtrl', [
+angular.module('arethusa.tools').controller('MorphToolsCtrl', [
   '$scope',
   'plugins',
   'latinAttrs',

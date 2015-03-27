@@ -14,7 +14,8 @@ angular.module('arethusa', [
   'ngRoute',
   'arethusa.core',
   'arethusa.contextMenu',
-  'arethusa.history'
+  'arethusa.history',
+  'arethusa.tools',
 ]);
 
 angular.module('arethusa').constant('_', window._);
