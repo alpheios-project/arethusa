@@ -43,7 +43,7 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
     }
 
     function getTpl(counts) {
-      var id = [counts.leftHand, counts.rightHand].join('-');
+      var id = [counts.left, counts.right].join('-');
       return TEMPLATES[id];
     }
 
@@ -54,6 +54,7 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
       },
       link: function(scope, element, attrs) {
         var counts, token, head, tracker = [], watchers = [];
+        var left, right;
 
         scope.$watch('tokenId', init);
 
@@ -63,16 +64,12 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
         scope.$on('$destroy', removeWatchers);
 
         function init(id) {
-          resetCounts();
-          resetContent();
+          reset();
 
-          token = getToken(id);
-          var headId = token ? aU.getProperty(token, HEAD_PROPERTY) : undefined;
-          head = getToken(headId);
+          left.token  = getToken(id);
+          right.head  = getHead(left.token);
 
-          if (token) addLeft();
-          if (head) addRight();
-
+          calculateCounts();
           recompile();
         }
 
@@ -105,6 +102,12 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
           }
         }
 
+        function getHead(token) {
+          var id;
+          if (token) id = aU.getProperty(token, HEAD_PROPERTY) ;
+          return state.getToken(id);
+        }
+
         function addToTracker(id) {
           if (!isTracked(id)) {
             tracker.push(id);
@@ -118,16 +121,32 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
           }
         }
 
+        function calculateCounts() {
+          if (left.token) addLeft();
+          if (right.head) addRight();
+        }
+
         function addLeft() {
-          counts.leftHand += 1;
+          counts.left += 1;
         }
 
         function addRight() {
-          counts.rightHand += 1;
+          counts.right += 1;
+        }
+
+        function reset() {
+          resetContainers();
+          resetCounts();
+          resetContent();
         }
 
         function resetCounts() {
-          counts = { leftHand: 0, rightHand: 0 };
+          counts = { left: 0, right: 0 };
+        }
+
+        function resetContainers() {
+          left  = {};
+          right = {};
         }
 
         function resetContent() {
@@ -147,8 +166,8 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
 
           var template = getTpl(counts);
           if (template) {
-            setContent('target', toScopeObj(token));
-            setContent('head', toScopeObj(head));
+            setContent('target', toScopeObj(left.token));
+            setContent('head', toScopeObj(right.head));
 
             var content = $compile(template)(scope);
             element.append(content);
