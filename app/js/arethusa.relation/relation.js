@@ -84,20 +84,20 @@ angular.module('arethusa.relation').service('relation', [
     this.defineAncestors = true;
 
     function findLabel(key, container) {
-      var k, v, result;
+      var k, v, res;
       for (k in container) {
-        v = container[k];
-        if (k === key) {
-          result = v;
-          break;
+        if (key === k) {
+          return container[k];
         } else {
-          var nested = v.nested;
-          if (nested) {
-            result = findLabel(key, nested);
+          v = container[k];
+          if (v.nested) {
+            res = findLabel(key, v.nested);
+            if (res) {
+              return res;
+            }
           }
         }
       }
-      return result;
     }
 
     function addParents(parents, obj) {
