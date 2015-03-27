@@ -56,10 +56,17 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
 
     function tokenTpl(arg) {
       return [
-        '<span class="syntax-token">',
+        '<span ng-if=" content.' + arg + '.token"',
+          'token="content.' + arg + '.token"',
+          'class="syntax-token"',
+          'click="true"',
+          'hover="true">',
+        '</span>',
+        '<span ng-if="!content.' + arg + ' .token"',
+          'class="syntax-token">',
           '{{ content.' + arg + '.string}}',
         '</span>'
-      ].join('');
+      ].join(' ');
     }
 
     function getTpl(counts) {
@@ -208,6 +215,7 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
           var string, label, style;
           if (isRoot(token)) {
             string = 'root of the sentence';
+            token = undefined;
           } else {
             var relObj = relation.getLabelObj(token);
             label = relObj.long;
@@ -215,10 +223,11 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
             string = token.string;
           }
           return {
+            token: token,
             string: string,
             label: label,
             style: style,
-            article: getArticle(label)
+            article: getArticle(label),
           };
         }
 
