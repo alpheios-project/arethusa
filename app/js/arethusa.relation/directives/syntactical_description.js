@@ -16,17 +16,30 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
     var TEMPLATES = {
       '1-1': [
         '<div>',
-          '{{ content.target.string }} is {{ content.target.article}}',
-          labelTpl('content.target'),
+          tokenTpl('target'),
+          'is {{ content.target.article}}',
+          labelTpl('target'),
           'of the',
-          labelTpl('content.head'),
-          '{{ content.head.string }}.',
+          labelTpl('head'),
+          tokenTpl('head') + '.',
         '</div>'
       ].join(' ')
     };
 
     function labelTpl(arg) {
-      return '<span ng-style="{{ ' + arg + '.style }}">{{ ' + arg + '.label}}</span>';
+      return [
+        '<span ng-style="{{ content.' + arg + '.style }}">',
+          '{{ content.' + arg + '.label}}',
+        '</span>'
+      ].join('');
+    }
+
+    function tokenTpl(arg) {
+      return [
+        '<span class="syntax-token">',
+          '{{ content.' + arg + '.string}}',
+        '</span>'
+      ].join('');
     }
 
     function getTpl(counts) {
