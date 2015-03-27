@@ -144,20 +144,33 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
         }
 
         function getArticle(label) {
-          console.log(label);
+          label = label || '';
           return label.match(/^[aeiou]/) ? 'an' : 'a';
         }
 
         function toScopeObj(token) {
-          var relObj = relation.getLabelObj(token);
-          var label = relObj.long;
-          var style = relObj.style;
+          var string, label, style;
+          if (isRoot(token)) {
+            string = 'root of the sentence';
+          } else {
+            var relObj = relation.getLabelObj(token);
+            label = relObj.long;
+            style = relObj.style;
+            string = token.string;
+          }
           return {
-            string: token.string,
+            string: string,
             label: label,
             style: style,
             article: getArticle(label)
           };
+        }
+
+        function isRoot(token) {
+          // no good way to detect this right now - as state.getToken is returning
+          // an empty object when a token cannot be found in the store, this will
+          // in all cases right now be the root. Very brittle!
+          return angular.equals(token, {});
         }
       }
     };
