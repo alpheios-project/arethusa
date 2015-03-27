@@ -3,17 +3,26 @@
 angular.module('arethusa.query').service('query', [
   'state',
   'configurator',
-  function(state, configurator) {
+  'citeMapper',
+  '_',
+  function(
+    state,
+    configurator,
+    citeMapper,
+    _
+  ) {
     var self = this, retriever;
     this.name = 'query';
 
     this.query = query;
 
     this.getPage = getPage;
-    this.getNextPage = getNextPage;
-    this.getPrevPage = getPrevPage;
+    this.getNextPage  = getNextPage;
+    this.getPrevPage  = getPrevPage;
     this.getFirstPage = getFirstPage;
-    this.getLastPage = getLastPage;
+    this.getLastPage  = getLastPage;
+
+    this.init = configure;
 
     this.defaultConf = {
       template: 'templates/arethusa.query/query.html',
@@ -34,6 +43,7 @@ angular.module('arethusa.query').service('query', [
         retrieveQuery(1, function(reply) {
           setQueryStats(reply);
           updatePageBounds(self.queryStats);
+          mapCitations(reply.results);
         });
       }
     }
@@ -136,9 +146,19 @@ angular.module('arethusa.query').service('query', [
       return promise;
     }
 
+    function mapCitations(results) {
+      _.forEach(results, getCiteMapping);
+    }
 
-    this.init = function() {
-      configure();
-    };
+    function getCiteMapping(result) {
+      result.mappingInProgress = true;
+      var cite = result.passage;
+      citeMapper.get(cite, function(str) {
+        result.mappingInProgress = false;
+        if (str !== cite) {
+          result.readablePassage = str;
+        }
+      });
+    }
   }
 ]);

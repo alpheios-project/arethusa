@@ -63,7 +63,12 @@
   <div ng-if="!plugin.queryInProgress" class="query-results">
     <!--extract to directive once it can do more-->
     <article class="query-item panel" ng-repeat="page in plugin.queryStats.results">
-      <header>The parsed section's name</header>
+      <header ng-if="result.readablePassage">
+        {{ result.readablePassage }}
+      </header>
+      <header ng-if="page.mappingInProgress">
+        <i class="fa fa-spinner fa-spin"></i>
+      </header>
       <section>
         <span>{{ page.text.previous}}</span>
         <span class="highlighted">{{ page.text.hi }}</span>
