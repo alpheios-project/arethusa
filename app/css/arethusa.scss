@@ -1169,3 +1169,18 @@ syntactical-description {
     font-style: italic;
   }
 }
+
+.search-on-click {
+  $height: ($input-font-size + ($form-spacing * 1.5) - rem-calc(1));
+  input {
+    display: inline;
+    height: $height;
+    width: 89%;
+    margin-right: 0;
+    padding-right: 0;
+  }
+  button {
+    height: $height;
+    width: 10%;
+  }
+}
