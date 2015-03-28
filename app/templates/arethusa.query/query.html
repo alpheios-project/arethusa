@@ -56,8 +56,11 @@
     </div>
   </div>
 
-  <div ng-if="plugin.queryInProgress" class="query-spinner">
-    <i class="fa fa-spinner fa-spin"></i>
+  <div
+    lazy-spinner
+    class="query-spinner"
+    promise="plugin.queryInProgress"
+    delay="{{ plugin.spinnerDelay }}">
   </div>
 
   <div ng-if="!plugin.queryInProgress" class="query-results">

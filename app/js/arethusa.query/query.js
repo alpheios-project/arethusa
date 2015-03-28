@@ -22,6 +22,8 @@ angular.module('arethusa.query').service('query', [
     this.getFirstPage = getFirstPage;
     this.getLastPage  = getLastPage;
 
+    this.queryStats = {};
+
     this.init = configure;
 
     this.defaultConf = {
@@ -141,8 +143,9 @@ angular.module('arethusa.query').service('query', [
 
     function doSpinning(cb) {
       var promise = cb();
-      self.queryInProgress = true;
-      promise['finally'](function() { self.queryInProgress = false; });
+      self.queryInProgress = promise;
+      self.spinnerDelay = self.queryStats.results ? undefined : 0;
+      promise['finally'](function() { self.queryInProgress = undefined; });
       return promise;
     }
 
