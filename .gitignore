@@ -11,6 +11,6 @@ data/
 dist/
 deployment/
 .sass-cache
-app/css/*.css*
+app/**/*.css*
 app/js/arethusa/version.json
 app/js/arethusa/version.js
