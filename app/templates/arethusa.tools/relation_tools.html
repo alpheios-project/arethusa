@@ -1,5 +1,21 @@
-<div class="row">
+<div class="relation-tools row">
   <h3>Relation Tools</h3>
+
+  <button
+    class="small rounded"
+    ng-click="loadLocalFile()">
+    Import File
+  </button>
+  <button
+    class="small rounded"
+    ng-disabled="!currentFile || !currentFile.name"
+    ng-click="saveLocalFile()">
+    Export File
+  </button>
+
+  <div class="file-name" ng-if="currentFile">
+    <input type="text" ng-model="currentFile.name">
+  </div>
 
   <relation-item-list list="list.list"></relation-item-list>
 </div>
