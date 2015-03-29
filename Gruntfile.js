@@ -193,7 +193,7 @@ function arethusaSass() {
     'app/css/arethusa.css': 'app/css/arethusa.scss',
   };
   arethusaPluginModules.forEach(function(module) {
-    var path = toCssPath(module) + toTaskScript(module);
+    var path = toCssPath(module) + toShortName(module);
     var key = path + '.css';
     var val = path + '.scss';
     files[key] = val;
@@ -299,7 +299,11 @@ function toJsScript(str) {
 }
 
 function toTaskScript(str) {
-  return toJsScript(str.replace(/^arethusa\./, ''));
+  return toJsScript(toShortName(str));
+}
+
+function toShortName(str) {
+  return str.replace(/^arethusa\./, '');
 }
 
 function toConcatPath(module) {
