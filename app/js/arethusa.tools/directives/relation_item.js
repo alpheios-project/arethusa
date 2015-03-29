@@ -18,7 +18,8 @@ angular.module('arethusa.core').directive('relationItem', [
     return {
       restrict: 'EA',
       scope: {
-        item: '='
+        item: '=',
+        parent: '='
       },
       link: function(scope, element, attrs) {
         scope.onItemMoved = onItemMoved;
@@ -32,7 +33,7 @@ angular.module('arethusa.core').directive('relationItem', [
 
         function onItemMoved(i, event) {
           angular.element(event.toElement).hide();
-          scope.item.list.splice(i, 1);
+          scope.parent.splice(i, 1);
         }
       }
     };
