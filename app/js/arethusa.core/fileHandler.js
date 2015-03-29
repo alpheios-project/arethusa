@@ -2,7 +2,8 @@
 
 angular.module('arethusa.core').service('fileHandler', [
   '$window',
-  function($window) {
+  '$rootScope',
+  function($window, $rootScope) {
     var uploader, downloader;
 
     this.upload = upload;
@@ -49,7 +50,9 @@ angular.module('arethusa.core').service('fileHandler', [
         var file = event.target.files[0];
         var reader = new $window.FileReader();
         reader.onload = function(event) {
-          cb(parseFile(event.target.result, type));
+          $rootScope.$apply(function() {
+            cb(parseFile(event.target.result, type));
+          });
         };
         reader.readAsText(file);
       };
