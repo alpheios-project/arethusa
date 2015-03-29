@@ -1,0 +1,85 @@
+@import 'bourbon';
+@import 'arethusa_vars';
+
+.query-plugin {
+  .query-spinner {
+    text-align: center;
+    padding: 3rem 0;
+    font-size: larger;
+  }
+
+  .query-no-results {
+    text-align: center;
+    padding: 3rem 0;
+    font-style: italic;
+  }
+
+  .query-stats {
+    span {
+      font-size: .875rem;
+      font-weight: 400;
+
+      &:first-child {
+        float: left;
+      }
+
+      &:last-child {
+        float: right;
+      }
+    }
+  }
+
+  .query-item {
+    padding: 1rem;
+    margin: .5rem;
+    border-radius: 5px;
+    background-color: white;
+
+    header {
+      font-weight: bold;
+    }
+
+    section {
+      padding: .7rem 0;
+    }
+
+    footer {
+      font-style: italic;
+      font-size: smaller;
+    }
+
+    .highlighted {
+      padding: 0 .3rem;
+      background-color: lighten(yellow, 20%);
+    }
+  }
+
+  .paginator {
+    margin: .3rem 0;
+    .pagination-item {
+      display: inline-block;
+      width: 1.5rem;
+      text-align: center;
+      border: 1px darkgray solid;
+      border-radius: 3px;
+      font-size: small;
+      padding: .3rem;
+      margin: 1px;
+
+      @include transition(all, .5s, ease-in-out);
+
+      &.selected {
+        background-color: $button-color;
+        color: white;
+
+        &:hover {
+          background-color: $button-color-hover;
+        }
+      }
+
+      &:hover {
+        background-color: white;
+      }
+    }
+  }
+}
