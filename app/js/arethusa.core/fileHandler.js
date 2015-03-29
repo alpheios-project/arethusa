@@ -51,7 +51,7 @@ angular.module('arethusa.core').service('fileHandler', [
         var reader = new $window.FileReader();
         reader.onload = function(event) {
           $rootScope.$apply(function() {
-            cb(parseFile(event.target.result, type));
+            cb(parseFile(event.target.result, type), file);
           });
         };
         reader.readAsText(file);
