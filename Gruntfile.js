@@ -40,6 +40,26 @@ var arethusaModules = [
   'arethusa.text'
 ];
 
+var arethusaMainModules = [
+  "arethusa.util",
+  "arethusa.core",
+  "arethusa.tools",
+  "arethusa.context_menu",
+  "arethusa.history",
+  "arethusa.main"
+];
+
+var arethusaPluginModules = function() {
+  var res = [];
+  for (var i = arethusaModules.length - 1; i >= 0; i--) {
+    var mod  = arethusaModules[i];
+    if (arethusaMainModules.indexOf(mod) === -1) {
+      res.push(mod);
+    }
+  }
+  return res;
+}();
+
 var additionalDependencies = {
   'arethusa.comments' : [
     "./bower_components/marked/lib/marked.js",
@@ -105,18 +125,9 @@ function arethusaSourceFiles() {
 }
 
 function arethusaMainFiles() {
-  var files = [
-    "arethusa.util",
-    "arethusa.core",
-    "arethusa.tools",
-    "arethusa.context_menu",
-    "arethusa.history",
-    "arethusa.main"
-  ];
-
   var res = [];
-  for (var i=0; i < files.length; i++) {
-    res.push(toConcatPath(files[i]));
+  for (var i=0; i < arethusaMainModules.length; i++) {
+    res.push(toConcatPath(arethusaMainModules[i]));
   }
   return res;
 }
@@ -175,6 +186,39 @@ function arethusaConcat() {
   };
 
   return obj;
+}
+
+function arethusaSass() {
+  var files = {
+    'app/css/arethusa.css': 'app/css/arethusa.scss',
+  };
+  arethusaPluginModules.forEach(function(module) {
+    var path = toCssPath(module) + toTaskScript(module);
+    var key = path + '.css';
+    var val = path + '.scss';
+    files[key] = val;
+  });
+  return files;
+}
+
+function arethusaCssMin() {
+  var files = {
+    css: {
+      src: [
+        'bower_components/angular-gridster/dist/angular-gridster.min.css',
+        'app/css/arethusa.css',
+        'app/css/fonts/**/*.css'
+      ],
+      dest: 'dist/arethusa.min.css'
+    },
+  };
+  arethusaPluginModules.forEach(function(module) {
+    var key = toTaskScript(module);
+    var src = toCssPath(module) + key + '.css';
+    var dest = toCssMinPath(module);
+    files[key] = { src: src, dest: dest };
+  });
+  return files;
 }
 
 function toCopyObject(name) {
@@ -264,6 +308,14 @@ function toConcatPath(module) {
 
 function toMinPath(module) {
   return 'dist/' + module + '.min.js';
+}
+
+function toCssMinPath(module) {
+  return 'dist/' + module + '.min.css';
+}
+
+function toCssPath(module) {
+  return 'app/js/' + module + '/css/';
 }
 
 
@@ -488,23 +540,16 @@ module.exports = function(grunt) {
     sass: {
       dist: {
         options: {
-          sourcemap: true
+          sourcemap: true,
+          loadPath: [
+            'app/css/',
+            'bower_components/bourbon/dist'
+          ]
         },
-        files: {
-          'app/css/arethusa.css': 'app/css/arethusa.scss'
-        }
+        files: arethusaSass()
       }
     },
-    cssmin: {
-      css: {
-        src: [
-          'bower_components/angular-gridster/dist/angular-gridster.min.css',
-          'app/css/arethusa.css',
-          'app/css/fonts/**/*.css'
-        ],
-        dest: 'dist/arethusa.min.css'
-      }
-    },
+    cssmin: arethusaCssMin(),
     githooks: {
       precommit: {
         options: {
