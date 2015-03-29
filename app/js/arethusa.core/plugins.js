@@ -50,7 +50,7 @@ angular.module('arethusa.core').service('plugins', [
       return str.replace(/([A-Z])/g, '_$1').toLowerCase();
     }
 
-    function LoadRequest(name, location) {
+    function LoadRequest(name, location, loadCss) {
       var self = this;
       function getName(name, location) {
         return location ? name : 'arethusa.' + name;
@@ -60,8 +60,13 @@ angular.module('arethusa.core').service('plugins', [
         return (location || 'dist/' + toSnakeCase(self.name) + '.min.js');
       }
 
+      function getStylesheetName() {
+        return getLocation(location).replace(/js$/, 'css');
+      }
+
       this.name = getName(name, location);
       this.files = [getLocation(location)];
+      this.getStylesheetName = getStylesheetName;
     }
 
     function loadPlugin(name) {
@@ -76,8 +81,18 @@ angular.module('arethusa.core').service('plugins', [
       } else {
         var pluginConf = configurator.configurationFor(name);
         var request = new LoadRequest(name, pluginConf.location);
-        return dependencyLoader.load(request);
+        var jsPromise  = dependencyLoader.load(request);
+        var cssPromise = loadCss(request);
+        return $q.all([jsPromise, cssPromise]);
       }
+    }
+
+    function loadCss(request) {
+      var location = request.getStylesheetName();
+      var deferred = $q.defer();
+      // The css is optional - even if the load fails, we resolve.
+      dependencyLoader.load(location)['finally'](deferred.resolve);
+      return deferred.promise;
     }
 
     function resolveWhenReady(names, loader) {
