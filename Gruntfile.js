@@ -713,7 +713,7 @@ module.exports = function(grunt) {
   grunt.registerTask('reloader:conf', 'watch:conf');
   grunt.registerTask('reloader:css', 'watch:serverCss');
 
-  grunt.registerTask('minify:css', ['sass', 'cssmin:css']);
+  grunt.registerTask('minify:css', ['sass', 'cssmin']);
   grunt.registerTask('minify:conf', 'shell:minifyConfs');
   grunt.registerTask('minify', uglifyTasks());
   grunt.registerTask('minify:all', 'concurrent:minifyAll');
