@@ -1,0 +1,59 @@
+relation-item-list {
+  ul {
+    list-style: none;
+    margin: 20px;
+  }
+  position: relative;
+
+  .dndPlaceholder {
+    max-width: 50%;
+    background-color: #ddd;
+    min-height: 42px;
+    display: block;
+    position: relative;
+  }
+}
+
+relation-item {
+  position: relative;
+  background-color: #fff;
+  display: block;
+  padding: 0px;
+  background-color: #fff;
+
+  input[type="text"] {
+    background-color: transparent;
+    width: inherit;
+    font-size: inherit;
+    border: inherit;
+    margin: inherit;
+    padding: inherit;
+    box-shadow: none;
+    display: inline;
+  }
+
+  header {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    background-image: -webkit-linear-gradient(top,#fcf8e3 0,#faf2cc 100%);
+    background-image: linear-gradient(to bottom,#fcf8e3 0,#faf2cc 100%);
+    background-repeat: repeat-x;
+    display: inline;
+    font-size: 16px;
+    padding: 10px 15px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  section {
+  }
+
+  .dndDraggingSource {
+    display: none;
+  }
+
+  .dndDragging {
+    opacity: .7;
+  }
+
+}
