@@ -43,7 +43,7 @@ angular.module('arethusa.core').controller('RelationToolsCtrl', [
       if (!orig) return;
       _.forEach(orig, function(el) {
         var item = new ListItem(el.short, el.long, el.style);
-        list.add(item);
+        list.nested.push(item);
         traverseList(el.nested, item);
       });
     }
@@ -51,7 +51,7 @@ angular.module('arethusa.core').controller('RelationToolsCtrl', [
     function saveLocalFile() {
       var data = {
         relations: {
-          labels: $scope.list.toJSON().nested
+          labels: listToJSON($scope.list.nested)
         }
       };
 
@@ -62,40 +62,32 @@ angular.module('arethusa.core').controller('RelationToolsCtrl', [
       );
     }
 
-    function ListItem(abbr, full, style, list) {
-      var self = this;
-      this.short = abbr || '';
-      this.long  = full || '';
-      this.style = style || {};
-      this.list = list || [];
-
-      this.add = add;
-      this.toJSON = toJSON;
-
-      function add(el) {
-        self.list.push(el);
-      }
-
-      function listToJSON() {
-        return _.inject(self.list, function(memo, item) {
-          memo[item.short] = item.toJSON();
+    function listToJSON(list) {
+        return _.inject(list, function(memo, item) {
+          memo[item.short] = itemToJSON(item);
           return memo;
         }, {});
-      }
+    }
 
-      function toJSON() {
+    function itemToJSON(item) {
         var obj = {
-          short: self.short,
-          long:  self.long,
-          style: self.style,
+          short: item.short,
+          long:  item.long,
+          style: item.style,
         };
 
-        var nested = listToJSON();
+        var nested = listToJSON(item.nested);
         if (_.size(nested)) {
           obj.nested = nested;
         }
         return obj;
-      }
+    }
+
+    function ListItem(abbr, full, style, nested) {
+      this.short = abbr || '';
+      this.long  = full || '';
+      this.style = style || {};
+      this.nested = nested || [];
     }
 
     //loadWebFile();

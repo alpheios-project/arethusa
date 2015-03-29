@@ -12,7 +12,7 @@ angular.module('arethusa.core').directive('relationItem', [
           '<input type="text" ng-model="item.short">',
           '<input type="text" ng-model="item.long">',
         '</header>',
-        '<relation-item-list list="item.list"></relation-item-list>',
+        '<relation-item-list list="item.nested"></relation-item-list>',
       '</li>'
     ].join(' ');
     return {
