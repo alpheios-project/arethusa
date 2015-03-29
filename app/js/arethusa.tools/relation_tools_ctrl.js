@@ -49,7 +49,17 @@ angular.module('arethusa.core').controller('RelationToolsCtrl', [
     }
 
     function saveLocalFile() {
-      console.log($scope.list.toJSON());
+      var data = {
+        relations: {
+          labels: $scope.list.toJSON().nested
+        }
+      };
+
+      fileHandler.download(
+        $scope.currentFile.name,
+        JSON.stringify(data, null, 2),
+        'application/json'
+      );
     }
 
     function ListItem(abbr, full, style, list) {
