@@ -1,0 +1,195 @@
+﻿{
+  "date": "дата",
+  "preview": "Преглед",
+  "download": "Сваляне",
+  "submit": "Изпращане",
+  "search_documents": "Търсене на документи",
+  "loadInProgress": "Зареждане...",
+  "loadComplete": "Зареждане завършено!",
+  "language": "Български",
+  "help": "Помощ",
+  "contactUs": "Пишете ни",
+  "messages": "Съобщения",
+  "menu": "Меню",
+  "deselectAll": "Отмяна избор на всички",
+  "settings": "Настройки",
+  "save": "Запази",
+  "reset": "Пренастройване",
+  "items": "Елементи",
+  "useCases": "Сценарии на употреба",
+  "gettingStarted": "Въведение",
+  "development": "Развитие",
+  "depTrees": "Дървета на зависимост",
+  "review": "Преглед",
+  "Treebanking": "Treebanking",
+  "markdownEnabled": "Активиран markdown!",
+  "apply": "Прилагане",
+  "create": "Създаване",
+  "list": "Списък",
+  "delete": "Изтриване",
+  "sidepanel": {
+    "fold": "Отваряне на панела",
+    "show": "Затваряне на панела"
+  },
+  "history": {
+    "redoSuccess": "Възстановено",
+    "undoSuccess": "Отменено",
+    "undo": "Отмяна",
+    "redo": "Възстановяване",
+    "noRecords": "Няма записи.",
+    "fromTo": "От {{ from }} до {{ to }}",
+    "add": {
+      "start": "Начало добавяне",
+      "end": "Край добавяне"
+    },
+    "remove": {
+      "start": "Начало премахване",
+      "end": "Край премахване"
+    },
+    "change": {
+      "start": "Начало промяна на <strong>{{ настройка }}</strong> на",
+      "end": "Край промяна"
+    }
+  },
+  "search": {
+    "foundTokens": "Намерени маркери",
+    "searchByToken": "Търсене по маркер"
+  },
+  "saver": {
+    "previewAndDownload": "Преглед и сваляне",
+    "success": "Документ свален!",
+    "error": "Грешка",
+    "inProgress": "Сваля се...",
+    "nothingToSave": "Нищо за запазване!",
+    "confirmNote": "Имате незапазени промени!",
+    "confirmQuestion": "Потвърждавате ли навигация?"
+  },
+  "landing": {
+    "awards": "Награди",
+    "description": "Независима от backend среда за анотация от страна на клиента",
+    "modularNature": "Благодарянеие.",
+    "moreScreencasts": "Още screencasts",
+    "devDescription": "Arethusa е софтуерна рамка за уеб апликации, изградена на основата на <a href=\"https://angularjs.org/angular.js\">AngularJS</a> javascript и предлагаща plugin инфраструктура, независима от back-end, за достъп до текстове, анотации и лингвистични операции от редица източници. Водещ принцип при проектирането ѝ е разширяемостта:  Arethusa обхваща инструменти за автоматично генериране на нови plugin скелети (<a href=\"https://github.com/latin-language-toolkit/arethusa-cli\">Arethusa::CLI</a>) и понастоящем се разработва подробно <a href=\"http://github.com/latin-language-toolkit/arethusa/blob/docs/docs/content/plugin_guide.md\">упътване за девелопъри</a> с надеждата, че и други ще могат да използват и надграждат платформата с оглед поддържането на други типове анотация, езици,  back-end репозитории и workflow програми.",
+    "partners": "Партньори",
+    "funders": "Спомоществователи",
+    "fundersDescription": "Този проект се осъществява с подкрепата на <a href=\"http://www.mellon.org/\">Andrew W. Mellon Foundation</a>, на <a href=\"http://imls.gov/\">Institute of Museum and Library Services</a> и на <a href=\"http://ec.europa.eu/esf/home.jsp\">European Social Fund</a>.",
+    "tryYourself": "Опитайте!"
+  },
+  "auth": {
+    "notLoggedIn": "Не сте се вписали!"
+  },
+  "uth": {
+    "count": "{{ count }} от {{ total }} неизползвани",
+    "tooltip": "Клик с ляв бутон за маркиране <br>Два клика за избиране"
+  },
+  "selector": {
+    "selection": "избиране",
+    "selectionTooltip": "Използвайте бутоните вдясно за промяна на избора и маркирането",
+    "all": "избор на всичко",
+    "none": "избор на нищо",
+    "noneTooltip": "Клик с ляв бутон за отмяна на избора",
+    "unused": "{{ count }} неизползвани",
+    "unusedTooltip": "Клик с ляв бутон за избор на всички неизползвани маркери",
+    "highlightUnused": "Маркиране на неизползваните",
+    "highlightUnusedTooltip": "Клик с ляв бутон за маркиране на всички неизползвани маркери"
+  },
+  "tree": {
+    "changeDir": "Смяна на посоката",
+    "focusRoot": "Фокус върху Root",
+    "focusSel": "Фокус върху избраното",
+    "centerTree": "Центриране на дървото",
+    "perfectWidth": "Напасване по ширина",
+    "compact": "Компактно дърво",
+    "widen": "Разширено дърво"
+  },
+  "grid": {
+    "dragging": "Влачене",
+    "pushing": "Тласкане",
+    "resizing": "Промяна на мащаба",
+    "floating": "Приспособяване"
+  },
+  "depTree": {
+    "errorAcrossSentences": "Heads können nicht über Satzgrenzen hinweg verändert werden"
+  },
+  "helpPanel": {
+    "about": "За проекта",
+    "revision": "Преглед",
+    "keyboardShortcuts": "Бързи клавиши",
+    "colorLegends": "Легенда цветове"
+  },
+  "relation": {
+    "changeAll": "Промени всички",
+    "searchByLabel": "търси по етикет"
+  },
+  "comments": {
+    "newComment": "Нов коментар",
+    "fullTextSearch": "Търсене по цял текст",
+    "filterSelected": "Филтриране на избраните",
+    "successMessage": "Коментар създаден!",
+    "errorMessage": "Коментар неуспешен",
+    "selectFirst": "Първо изберете маркер",
+    "count": "{{ count }} от {{ total }} коментирани",
+    "docLevelComm": "Коментари на ниво документ",
+    "on": "върху"
+  },
+  "editors": {
+    "noEditorsPresent": "Няма въведени сътрудници",
+    "title": "Сътрудник"
+  },
+  "plugins": {
+    "alreadyLoaded": "{{ name }} вече е зареден!",
+    "failed": "Неуспешно зареждане",
+    "added": "{{ name }} plugin зареден!"
+  },
+  "aT": {
+    "insertInFront": "Поставяне отпред",
+    "insertBehind": "Поставяне отзад",
+    "addToken": "Добавяне на маркер",
+    "visualRepresentation": "Визуална репрезентация на нов маркер (незадължително)",
+    "noArtTokensPresent": "Няма налични изкуствени маркери",
+    "insertionPoint": "Място на въвеждане",
+    "insertBehindHint": "Постави маркер отзад (Клик за превключване)",
+    "insertInFrontHint": "Постави маркер отпред (Клик за превключване)"
+  },
+  "globalSettings": {
+    "layoutLoaded": "{{ layout }} Оформление заредено!",
+    "persistSettings": "Запазване на настройки",
+    "title": "Гобални астройки",
+    "alwaysDeselect": "Отмяна на маркиране след всяко анотиране",
+    "disableKeyboardMappings": "Изключване на клавиатурната настройка за полета на въвеждане",
+    "colorizer": "Оцветяване на маркерите",
+    "layout": "Оформление",
+    "clickAction": "Действия при клик",
+    "chunkMode": "Режим фрагменти",
+    "pluginSettings": "Plugin настройки"
+  },
+  "navigator": {
+    "goToFirst": "Иди на първи фрагмент",
+    "goToLast": "Иди на последен фрагмент",
+    "goToPrev": "Иди на предишен фрагмент {{ prevChunkKey }}",
+    "goToNext": "Иди на следващ фрагмент {{ nextChunkKey }}",
+    "chunkSizeError": "Понастоящем се поддържат фрагменти само между 1 и {{ max }}"
+  },
+  "morph": {
+    "createSuccess": "Добавена форма за {{ form }}",
+    "lemmaTranslation": "Превод на лема",
+    "lemmaHint": "Тази лема беше добавена автоматично!\nПроверете я прези запазване!",
+    "createError": "Не може да се запази непълна форма",
+    "createNewForm": "Създаване на нова форма",
+    "searchByForm": "По форма",
+    "matchAll": "Всички"
+  },
+  "exitHandler": {
+    "exitTo": "Изход към {{ title }}"
+  },
+  "errorDialog": {
+    "close" : "Затвяране"
+  },
+  "relocateHandler": {
+    "title" : "Алтернативни наименования",
+    "noLocations" : "Няма налично"
+  },
+  "tabs" : {
+    "helpText" : "Click to enable/disable a tab, or drag and drop to change the order or tabs."
+  }
+}
