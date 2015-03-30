@@ -105,6 +105,13 @@
           }
         }
       },
+      "COORD" : {
+        "short" : "COORD",
+        "long" : "coordinator",
+        "style" : {
+          "color" : "rgb(154, 130, 206)"
+        }
+      },
       "ATV" : {
         "short" : "ATV",
         "long" : "complement",
@@ -131,13 +138,6 @@
         "long" : "object complement",
         "style" : {
           "color" : "rgb(92, 201, 83)"
-        }
-      },
-      "COORD" : {
-        "short" : "COORD",
-        "long" : "coordinator",
-        "style" : {
-          "color" : "rgb(154, 130, 206)"
         }
       },
       "APOS" : {
