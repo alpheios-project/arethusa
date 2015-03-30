@@ -423,6 +423,7 @@ module.exports = function(grunt) {
             "./bower_components/angular-local-storage/dist/angular-local-storage.min.js",
             "./bower_components/lodash/dist/lodash.min.js",
             "./bower_components/stacktrace-js/dist/stacktrace.min.js",
+            "./bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js",
             // Some source files we'll need to include manually, otherwise
             // the load order is wrong
             'app/js/*.js',
