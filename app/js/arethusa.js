@@ -27,13 +27,14 @@ angular.module('arethusa').config([
   'LOCALES',
   'MAIN_ROUTE',
   'MORPH_TOOLS',
+  'RELATION_TOOLS',
   'LANDING',
   function ($routeProvider, $translateProvider, localStorageServiceProvider,
-            LOCALES, MAIN_ROUTE, MORPH_TOOLS, LANDING) {
+            LOCALES, MAIN_ROUTE, MORPH_TOOLS, RELATION_TOOLS, LANDING) {
     if (aU.isArethusaMainApplication()) {
       $routeProvider.when('/', LANDING);
       $routeProvider.when('/morph_tools', MORPH_TOOLS);
-      //$routeProvider.when('/conf_editor', CONF_ROUTE);
+      $routeProvider.when('/relation_tools', RELATION_TOOLS);
       $routeProvider.when('/:conf', MAIN_ROUTE);
       //$routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
     }
