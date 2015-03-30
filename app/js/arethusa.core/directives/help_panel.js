@@ -25,7 +25,7 @@ angular.module('arethusa.core').directive('helpPanel', [
           {
             label: 'Import/Export your morphological data',
             hint: 'Vla',
-            href: '#/morph_import'
+            href: '#/morph_tools'
           }
         ];
 
