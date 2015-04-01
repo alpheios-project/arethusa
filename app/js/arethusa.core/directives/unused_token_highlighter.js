@@ -12,7 +12,8 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
       scope: {
         highlightMode: '@unusedTokenHighlighter',
         style: '=unusedTokenStyle',
-        uthCheckProperty: '@'
+        uthCheckProperty: '@',
+        uthAuxiliaryProperty: '@'
       },
       link: function(scope, element, attrs) {
         var style = scope.style || { "background-color": "rgb(255, 216, 216)" }; // a very light red
@@ -32,7 +33,10 @@ angular.module('arethusa.core').directive('unusedTokenHighlighter', [
           }
         };
         var stateChangeWatcher = new StateChangeWatcher(
-          scope.uthCheckProperty, callbacks);
+          scope.uthCheckProperty,
+          callbacks,
+          scope.uthAuxiliaryProperty
+        );
         stateChangeWatcher.initCount();
 
         var highlighter = new Highlighter(stateChangeWatcher, style);
