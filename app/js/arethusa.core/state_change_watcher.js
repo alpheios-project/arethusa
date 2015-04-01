@@ -22,9 +22,10 @@
 angular.module('arethusa.core').factory('StateChangeWatcher', [
   'state', '$parse',
   function (state, $parse) {
-    return function(propertyToWatch, callbacks) {
+    return function(propertyToWatch, callbacks, auxiliaryProperty) {
       var self = this;
-      this.checkFunction = $parse(propertyToWatch);
+      this.checkFunction = getCheckFunction(propertyToWatch, auxiliaryProperty);
+      this.auxiliaryProperty = auxiliaryProperty;
 
       this.initCount = function() {
         self.count = 0;
@@ -40,9 +41,9 @@ angular.module('arethusa.core').factory('StateChangeWatcher', [
 
       this.watchChange = function(newVal, oldVal, event) {
         var id = event.token.id;
-        if (newVal) {
+        if (parseValue(newVal)) {
           // Check if the token was used before!
-          if (!oldVal) {
+          if (!parseValue(oldVal)) {
             self.count--;
             delete self.matchingTokens[id];
             callbacks.lostMatch(event.token);
@@ -83,6 +84,23 @@ angular.module('arethusa.core').factory('StateChangeWatcher', [
           callbacks.changedCount(self.count);
         }
       });
+
+      function getCheckFunction(main, aux) {
+        var mainCheck = $parse(main);
+        if (aux) {
+          return function(token) {
+            var m = mainCheck(token);
+            return m && m[aux];
+          };
+        } else {
+          return mainCheck;
+        }
+      }
+
+      function parseValue(val) {
+        var auxProp = self.auxiliaryProperty;
+        return auxProp ? val && val[auxProp] : val;
+      }
     };
   }
 ]);
