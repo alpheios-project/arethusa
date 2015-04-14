@@ -93,6 +93,12 @@ angular.module('arethusa.relation').service('relation', [
           var nested = v.nested;
           if (nested) {
             result = findLabel(key, nested);
+            // if we have a nested result break out of the top
+            // loop so that we don't lose the match on subsequent
+            // nested menus
+            if (result) {
+              break;
+            }
           }
         }
       }
