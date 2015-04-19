@@ -4,7 +4,8 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
   'state',
   'configurator',
   'idHandler',
-  function(state, configurator, idHandler) {
+  'commons',
+  function(state, configurator, idHandler, commons) {
     var self = this;
     this.name = "artificialToken";
 
@@ -24,19 +25,19 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
       resetModel();
     }
 
-    this.addDefaultInsertionPoint = function() {
+    function addDefaultInsertionPoint() {
       if (!self.model.insertionPoint) {
         var lastId = aU.last(Object.keys(state.tokens).sort());
         var unextended = idHandler.stripExtension(lastId);
         self.model.insertionPoint = state.getToken(unextended);
         self.insertBehind = true;
       }
-    };
+    }
 
 
     function resetModel() {
       self.model = new ArtificialToken();
-      if (self.defaultInsertionPoint) self.addDefaultInsertionPoint();
+      if (self.defaultInsertionPoint) addDefaultInsertionPoint();
     }
 
     function ArtificialToken (string, type) {
@@ -171,7 +172,11 @@ angular.module('arethusa.artificialToken').service('artificialToken', [
 
     this.settings = [
       { directive: 'artificial-token-toggle' },
-      { directive: 'artificial-token-default-ip' }
+      commons.setting(
+        'Activate default insertion point',
+        'defaultInsertionPoint',
+        addDefaultInsertionPoint
+      )
     ];
 
 
