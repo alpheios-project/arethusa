@@ -312,7 +312,10 @@ angular.module('arethusa.morph').service('morph', [
           var newForms = makeUnique(res);
           arethusaUtil.pushAll(forms, newForms);
 
-          sortByPreference(str, forms);
+
+          if (self.storePreferences) {
+            sortByPreference(str, forms);
+          }
 
           if (self.preselect) {
             preselectForm(forms[0], id);
