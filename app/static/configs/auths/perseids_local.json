@@ -1,0 +1,12 @@
+{
+  "perseidsAuth" : {
+    "type": "CSRF",
+    "cookie": "csrftoken",
+    "header": "X-CSRF-Token",
+    "crossDomain" : true,
+    "ping" : "http://localhost/dmm_api/ping",
+    "skipModes" : [
+      "viewer"
+    ]
+  }
+}
