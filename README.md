@@ -25,6 +25,8 @@ grunt install
 
 If you want to run the e2e tests also execute `grunt e2e:setup`.
 
+If you want to install example data execute `grunt import`.
+
 ## Usage
 
 To display a rough demo start a webserver with
