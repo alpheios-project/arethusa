@@ -62,7 +62,7 @@ example data and explore it in a web-browser based file browser at
 
 ## Funders
 
-This project has received support from the [Andrew W. Mellon Foundation](http://www.mellon.org/) and the [Institute of Museum and Library Services](http://imls.gov/).
+This project has received support from the [Andrew W. Mellon Foundation](http://www.mellon.org/) and the [Institute of Museum and Library Services](http://imls.gov/) and [the Humboldt Chair of Digital Humanities at Leipzig](http://www.dh.uni-leipzig.de/wo/)
 
 ## Varia
 
