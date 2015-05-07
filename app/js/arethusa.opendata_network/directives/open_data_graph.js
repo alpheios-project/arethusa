@@ -102,7 +102,8 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
           var token = state.getToken(tokenId)
           scope.nodes[token.id] = {
             name: token.string,
-            token: token
+            token: token,
+            id: token.id
           }
           return;
         }
@@ -147,15 +148,15 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
         }
 
         var render = function(graph) {
+          sortLinks(graph);
           var g,
               svg;
-
           self.svg = d3.select(element[0]);
           svg = self.g = self.svg.select('g');
 
           var force = d3.layout.force()
               .charge(-200)
-              .linkDistance(70)
+              .linkDistance(100)
               .size([tree.width(), tree.height()]);
 
           force
@@ -163,9 +164,10 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
             .links(graph.links)
             .start();
 
+          var mLinkNum = setLinkIndexAndNum(graph);
           var link = svg.selectAll(".link")
               .data(graph.links)
-            .enter().append("line")
+            .enter().append("path")
               .attr("class", "link")
               .style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
@@ -186,13 +188,65 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
               .text(function(d) { return d.name });
 
           force.on("tick", function() {
-            link.attr("x1", function(d) { return d.source.x; })
-                .attr("y1", function(d) { return d.source.y; })
-                .attr("x2", function(d) { return d.target.x; })
-                .attr("y2", function(d) { return d.target.y; });
+            link.attr("d", function(d) {
+                var dx = d.target.x - d.source.x,
+                    dy = d.target.y - d.source.y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
+                // get the total link numbers between source and target node
+                var lTotalLinkNum = mLinkNum[d.source.id + "," + d.target.id] || mLinkNum[d.target.id + "," + d.source.id];
+                if(lTotalLinkNum > 1) {
+                    // if there are multiple links between these two nodes, we need generate different dr for each path
+                    dr = dr/(1 + (1/lTotalLinkNum) * (d.linkindex - 1));
+                }     
+                // generate svg path
+                return "M" + d.source.x + "," + d.source.y + 
+                    "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + 
+                    "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y;  
+            });
 
             node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
           });
+        }
+
+        /**
+         * Sort the graph data
+         * @param  {[type]} data [description]
+         * @return {[type]}      [description]
+         */
+        var sortLinks = function (data) {
+          data.links.sort(function(a,b) {
+            if (a.source > b.source) {
+                return 1;
+            } else if (a.source < b.source) {
+                return -1;
+            } else {
+              if (a.target > b.target) {
+                  return 1;
+              } else if (a.target < b.target) {
+                  return -1;
+              } else {
+                  return 0;
+              }
+            }
+          });
+        }
+
+        var setLinkIndexAndNum = function(data) {
+          var mLinkNum = {};
+          for (var i = 0; i < data.links.length; i++) {
+            if (i != 0 && data.links[i].source == data.links[i-1].source && data.links[i].target == data.links[i-1].target) {
+                data.links[i].linkindex = data.links[i-1].linkindex + 1;
+            } else {
+                data.links[i].linkindex = 1;
+            }
+            // save the total number of links between two nodes
+            if(mLinkNum[data.links[i].target.id + "," + data.links[i].source.id] !== undefined) {
+                mLinkNum[data.links[i].target.id + "," + data.links[i].source.id] = data.links[i].linkindex;
+            } else {
+                mLinkNum[data.links[i].source.id + "," + data.links[i].target.id] = data.links[i].linkindex;
+            }
+          }
+          return mLinkNum;
         }
 
         /**
