@@ -154,8 +154,8 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
           svg = self.g = self.svg.select('g');
 
           var force = d3.layout.force()
-              .charge(-120)
-              .linkDistance(30)
+              .charge(-200)
+              .linkDistance(70)
               .size([tree.width(), tree.height()]);
 
           force
@@ -171,14 +171,19 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
 
           var node = svg.selectAll(".node")
               .data(graph.nodes)
-            .enter().append("circle")
+            .enter().append("g")
               .attr("class", "node")
-              .attr("r", 5)
-              .style("fill", function(d) { return color(d.group); })
               .call(force.drag);
 
-          node.append("title")
-              .text(function(d) { return d.name; });
+          var circles = node.append("circle")
+              .attr("class", "circle")
+              .attr("r", 5)
+              .style("fill", function(d) { return color(d.group); })
+
+          var texts = node.append("text")
+              .attr("dx", 12)
+              .attr("dy", ".35em")
+              .text(function(d) { return d.name });
 
           force.on("tick", function() {
             link.attr("x1", function(d) { return d.source.x; })
@@ -186,8 +191,7 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
                 .attr("x2", function(d) { return d.target.x; })
                 .attr("y2", function(d) { return d.target.y; });
 
-            node.attr("cx", function(d) { return d.x; })
-                .attr("cy", function(d) { return d.y; });
+            node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
           });
         }
 
