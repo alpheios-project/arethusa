@@ -57,7 +57,6 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
           if(!nodeExists(token)) createToken(token.id);
 
           for (var i = newVal.length - 1; i >= 0; i--) {
-            console.log(token.id)
             createLink(token.id, newVal[i]);
           };
 
@@ -76,7 +75,6 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
               l.push(links[i]); 
             }
           };
-          console.log(l)
           scope.links = l;
         }
 
@@ -121,7 +119,7 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
               },
               links = scope.links.slice();
           for (var y = links.length - 1; y >= 0; y--) {
-            var link = scope.links[y],
+            var link = angular.copy(scope.links[y]),
                 s = link.source,
                 t = link.target;
             if(typeof n[s] === "undefined") {
