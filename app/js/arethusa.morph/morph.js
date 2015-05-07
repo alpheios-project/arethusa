@@ -734,7 +734,8 @@ angular.module('arethusa.morph').service('morph', [
     this.settings = [
       commons.setting('Expand Selected', 'expandSelection'),
       commons.setting('Store Preferences', 'storePreferences'),
-      commons.setting('Preselect', 'preselect', this.preselectToggled)
+      commons.setting('Preselect', 'preselect', this.preselectToggled),
+      commons.setting('Local Storage', 'localStorage')
     ];
 
     var shouldSavePreference;
