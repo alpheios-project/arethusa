@@ -10,8 +10,7 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
 
     this.externalDependencies = {
       ordered: [
-        "bower_components/d3/d3.min.js",
-        "vendor/dagre-d3/dagre-d3.min.js"
+        "bower_components/d3/d3.min.js"
       ]
     };
     
@@ -32,7 +31,8 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
       return {
         target: target.id,
         weight: 1,
-        type : null
+        type : null,
+        group : 0
       };
     }
 
@@ -44,6 +44,7 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
     var changeLink = function (source, target) {
       var graph = source.graph,
           link = linkTemplate(target);
+
       graph.push(link);
       state.change(source, 'graph', graph);
     }
