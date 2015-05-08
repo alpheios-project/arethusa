@@ -6,14 +6,14 @@
     "chunkParam" : "chunk",
     "retrievers" : {
       "ConstituentTreebankRetriever" : {
-        "resource" : "fakePerseids",
+        "resource" : "arethusaServerTreebank",
         "docIdentifier" : "treebank",
         "preselector" : "w"
       }
     },
     "persisters" : {
       "TreebankPersister" : {
-        "resource" : "fakePerseids",
+        "resource" : "arethusaServerTreebank",
         "docIdentifier" : "treebank"
       }
     },
@@ -103,7 +103,7 @@
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
-          "resource" : "fakeGold"
+          "resource" : "arethusaServerTreebankGold"
         }
       }
     },
@@ -120,7 +120,7 @@
     "comments" : {
       "retriever" : {
         "CommentsRetriever" : {
-          "resource" : "fakePerseidsComments"
+          "resource" : "arethusaServerComments"
         }
       }
     },
