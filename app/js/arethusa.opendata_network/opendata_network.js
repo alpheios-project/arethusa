@@ -8,6 +8,7 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
     var self = this;
     this.name = 'opendataNetwork';
 
+    console.log(configurator)
     this.externalDependencies = {
       ordered: [
         "bower_components/d3/d3.min.js"
@@ -15,11 +16,13 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
     };
     
     this.defaultConf = {
-      template: 'templates/arethusa.opendata_network/opendata_network.html'
+      template: 'templates/arethusa.opendata_network/opendata_network.html',
+      multipleLinks: false
     };
 
     var configure = function() {
       configurator.getConfAndDelegate(self);
+      console.log(self)
     }
 
     /**

@@ -1,0 +1,78 @@
+{
+  "main" : {
+    "debug" : true,
+    "showKeys" : true,
+    "@include" : "layouts/snapdrgn.js.json",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "demoXml",
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
+      }
+    },
+    "outputters" : {
+      "TreebankPersister" : {
+        "docIdentifier" : "treebank"
+      }
+    },
+    "plugins" : [
+      "text",
+      "relation",
+      "artificialToken",
+      "opendataNetwork"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "resources" : {
+    "@include" : "resources/dev.json"
+  },
+
+  "plugins" : {
+    "text" : {
+      "main" : true,
+      "template"  : "templates/text2.html"
+    },
+
+    "opendataNetwork" : {
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.opendataNetwork/context_menu.html",
+      "template" : "templates/arethusa.opendata_network/opendata_network.html",
+      "multipleLinks" : true
+    },
+
+
+    "relation" : {
+      "template" : "templates/relation.html",
+      "advancedMode" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
+      "@include" : "relation/relations.json"
+    },
+
+
+    "artificialToken" : {
+      "template" : "templates/arethusa.artificial_token/artificial_token.html"
+    }
+  },
+
+  "exitHandler" : {
+    "title" : "somewhere",
+    "route" : "http://sosol.perseids.org/tools/arethusa"
+  },
+
+  "keyCapture" : {
+    "@include" : "keyboard/key_map.json"
+  }
+}
