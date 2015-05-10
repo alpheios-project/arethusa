@@ -1,32 +1,5 @@
 {
   "layouts" : [
-    {
-      "name" : "Grid",
-      "template" : "templates/main_grid.html",
-      "grid" : [
-        {
-          "plugin" : "text",
-          "size" : [35, 3],
-          "position" : [0, 0]
-        },
-        {
-          "plugin" : "opendataNetwork",
-          "size" : [23, 25],
-          "position" : [4, 0],
-          "style" : { "overflow": "hidden"}
-        },
-        {
-          "plugin" : "relation",
-          "size" : [13, 9],
-          "position" : [7, 36]
-        },
-        {
-          "plugin" : "artificialToken",
-          "size" : [13, 13],
-          "position" : [16, 36]
-        }
-      ]
-    },
 
     {
       "name" : "Sidepanel",
@@ -35,11 +8,8 @@
     },
 
     {
-      "name" : "Text Grid",
+      "name" : "Grid",
       "template" : "templates/main_grid.html",
-      "navigator" : {
-        "chunkSize" : 2
-      },
       "grid" : [
         {
           "plugin" : "text",

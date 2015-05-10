@@ -187,6 +187,10 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
               .attr("dy", ".35em")
               .text(function(d) { return d.name });
 
+          texts.on("click", function(d) {
+            console.log(d);
+          })
+
           force.on("tick", function() {
             link.attr("d", function(d) {
                 var dx = d.target.x - d.source.x,

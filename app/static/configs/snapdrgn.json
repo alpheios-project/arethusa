@@ -2,7 +2,7 @@
   "main" : {
     "debug" : true,
     "showKeys" : true,
-    "@include" : "layouts/snapdrgn.js.json",
+    "@include" : "layouts/snapdrgn.json",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "demoXml",
