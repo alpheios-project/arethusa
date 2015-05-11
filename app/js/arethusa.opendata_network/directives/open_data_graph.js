@@ -1,14 +1,18 @@
 "use strict";
 
 angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
-  'state',
-  function(state) {
+  'state', '$compile',
+  function(state, $compile) {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
 
         var self = {};
         
+        function apply(fn) {
+          scope.$apply(fn());
+        }
+
         // General margin value so that trees don't touch the canvas border.
         var treeMargin = 15;
         var treeTemplate = '\
@@ -182,14 +186,45 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
               .attr("r", 5)
               .style("fill", function(d) { return color(d.group); })
 
-          var texts = node.append("text")
+          var tokenHtml = '\
+              <text token="token"\
+                style="white-space: nowrap"\
+                colorize="STYLE"\
+                click="true"\
+                hover="true" />\
+            ';
+
+          var compiledToken = function (token) {
+            var childScope = scope.$new();
+            self.childScopes.push(childScope);
+            childScope.token = token;
+            // Ugly but working...
+            // We replace the colorize value in our token template string.
+            // If custom styles are given, we check if one is available for
+            // this token. If yes, we use it, otherwise we just pass one
+            // undefined which leaves the token unstyled.
+            //
+            // Without custom styles we let the token itself decide what color
+            // it has.
+            var style;
+            if (scope.styles) {
+              if (tokenHasCustomStyling(token)) {
+                applyTokenStyling(childScope, token);
+              }
+              // else we just stay undefined
+              style = 'style';
+            } else {
+              style = 'true';
+            }
+            return $compile(tokenHtml.replace('STYLE', style))(childScope)[0];
+          }
+
+          var texts = node.append(function(d) {
+                return compiledToken(d.token.id);
+              })
               .attr("dx", 12)
               .attr("dy", ".35em")
-              .text(function(d) { return d.name });
-
-          texts.on("click", function(d) {
-            console.log(d);
-          })
+              .text(function(d) { return d.name })
 
           force.on("tick", function() {
             link.attr("d", function(d) {
@@ -268,6 +303,7 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
         }
 
         draw();
+        self.childScopes = [];
 
       },
       templateUrl: 'templates/arethusa.opendata_network/opendata_network_graph.html'
