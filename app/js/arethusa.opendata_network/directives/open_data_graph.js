@@ -8,10 +8,57 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
       link: function(scope, element, attrs) {
 
         var self = {};
-        
-        function apply(fn) {
-          scope.$apply(fn());
+
+        var getForeignObject = function() {
+          return self.svg.selectAll(function () {
+            return this.getElementsByTagName('foreignObject');
+          });
         }
+
+        var tokenHtml = '\
+              <span token="token"\
+                style="white-space: nowrap;"\
+                colorize="STYLE"\
+                click="true"\
+                hover="true"\
+                />\
+          ';
+
+        var updateWidth = function() {
+            var foreigns = getForeignObject()[0];
+            for (var i = foreigns.length - 1; i >= 0; i--) {
+              var f = foreigns[i],
+                  s = f.childNodes[0];
+              f.setAttribute("width", s.offsetWidth);
+              f.setAttribute("height", s.offsetHeight);
+            };
+          }
+
+        var compiledToken = function (token) {
+          var childScope = scope.$new();
+          self.childScopes.push(childScope);
+          childScope.token = token;
+          // Ugly but working...
+          // We replace the colorize value in our token template string.
+          // If custom styles are given, we check if one is available for
+          // this token. If yes, we use it, otherwise we just pass one
+          // undefined which leaves the token unstyled.
+          //
+          // Without custom styles we let the token itself decide what color
+          // it has.
+          var style;
+          if (scope.styles) {
+            if (tokenHasCustomStyling(token)) {
+              applyTokenStyling(childScope, token);
+            }
+            // else we just stay undefined
+            style = 'style';
+          } else {
+            style = 'true';
+          }
+          return $compile(tokenHtml.replace('STYLE', style))(childScope)[0];
+        }
+
 
         // General margin value so that trees don't touch the canvas border.
         var treeMargin = 15;
@@ -181,59 +228,19 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
               .attr("class", "node")
               .call(force.drag);
 
-          var circles = node.append("circle")
-              .attr("class", "circle")
-              .attr("r", 5)
-              .style("fill", function(d) { return color(d.group); })
-
-          var tokenHtml = '\
-              <span token="token"\
-                style="white-space: nowrap"\
-                colorize="STYLE"\
-                click="true"\
-                hover="true"\
-                xmlns="http://www.w3.org/1999/xhtml"
-                />\
-            ';
-
-          var compiledToken = function (token) {
-            var childScope = scope.$new();
-            self.childScopes.push(childScope);
-            childScope.token = token;
-            // Ugly but working...
-            // We replace the colorize value in our token template string.
-            // If custom styles are given, we check if one is available for
-            // this token. If yes, we use it, otherwise we just pass one
-            // undefined which leaves the token unstyled.
-            //
-            // Without custom styles we let the token itself decide what color
-            // it has.
-            var style;
-            if (scope.styles) {
-              if (tokenHasCustomStyling(token)) {
-                applyTokenStyling(childScope, token);
-              }
-              // else we just stay undefined
-              style = 'style';
-            } else {
-              style = 'true';
-            }
-            return $compile(tokenHtml.replace('STYLE', style))(childScope)[0];
-          }
-
           var texts = node
               .append("foreignObject")
               .attr("dx", 12)
               .attr("dy", ".35em")
-              .attr("width", "100%")
-              .attr("height", "100%")
+              .attr("width", 500)
+              .attr("height", 500)
               .attr("requiredExtensions", "http://www.w3.org/1999/xhtml");
 
           texts
             .append(function(d) {
               this.textContent = '';
               var c = compiledToken(d.token.id);
-              //c.textContent = '';
+              console.log(c);
               return c;
             });
 
@@ -310,6 +317,7 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
           if(graph.nodes.length >= 2) {
             cleanSVG();
             render(graph);
+            //updateWidth();
           }
         }
 
