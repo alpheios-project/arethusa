@@ -16,12 +16,12 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
         }
 
         var tokenHtml = '\
-              <span token="token"\
-                style="white-space: nowrap;"\
-                colorize="STYLE"\
-                click="true"\
-                hover="true"\
-                />\
+                <span token="token"\
+                  style="white-space: nowrap;"\
+                  colorize="STYLE"\
+                  click="true"\
+                  hover="true"\
+                  />\
           ';
 
         var updateWidth = function() {
@@ -226,22 +226,19 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
               .data(graph.nodes)
             .enter().append("g")
               .attr("class", "node")
+              .attr("overflow", "visible")
               .call(force.drag);
 
           var texts = node
               .append("foreignObject")
-              .attr("dx", 12)
-              .attr("dy", ".35em")
-              .attr("width", 500)
-              .attr("height", 500)
-              .attr("requiredExtensions", "http://www.w3.org/1999/xhtml");
+              .attr("overflow", "visible");
 
           texts
+            //.append("xhtml:div")
+            //.attr("overflow", "visible")
             .append(function(d) {
               this.textContent = '';
-              var c = compiledToken(d.token.id);
-              console.log(c);
-              return c;
+              return compiledToken(d.token.id);
             });
 
           force.on("tick", function() {
@@ -317,7 +314,7 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
           if(graph.nodes.length >= 2) {
             cleanSVG();
             render(graph);
-            //updateWidth();
+            updateWidth();
           }
         }
 
