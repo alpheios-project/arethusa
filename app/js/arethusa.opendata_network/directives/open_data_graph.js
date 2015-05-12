@@ -187,11 +187,13 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
               .style("fill", function(d) { return color(d.group); })
 
           var tokenHtml = '\
-              <text token="token"\
+              <span token="token"\
                 style="white-space: nowrap"\
                 colorize="STYLE"\
                 click="true"\
-                hover="true" />\
+                hover="true"\
+                xmlns="http://www.w3.org/1999/xhtml"
+                />\
             ';
 
           var compiledToken = function (token) {
@@ -219,12 +221,21 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
             return $compile(tokenHtml.replace('STYLE', style))(childScope)[0];
           }
 
-          var texts = node.append(function(d) {
-                return compiledToken(d.token.id);
-              })
+          var texts = node
+              .append("foreignObject")
               .attr("dx", 12)
               .attr("dy", ".35em")
-              .text(function(d) { return d.name })
+              .attr("width", "100%")
+              .attr("height", "100%")
+              .attr("requiredExtensions", "http://www.w3.org/1999/xhtml");
+
+          texts
+            .append(function(d) {
+              this.textContent = '';
+              var c = compiledToken(d.token.id);
+              //c.textContent = '';
+              return c;
+            });
 
           force.on("tick", function() {
             link.attr("d", function(d) {

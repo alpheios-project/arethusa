@@ -17,7 +17,55 @@
 angular.module('arethusa.core').directive('token', [
   'state',
   'globalSettings',
-  function (state, globalSettings) {
+  '$compile',
+  function (state, globalSettings, $compile) {
+    var templates = {
+      spanToken : '<span\
+          ng-class="selectionClass()"\
+          context-menu\
+          menu-trigger="rightclick"\
+          menu-id="tcm{{ token.id }}"\
+          menu-position="bottom"\
+          menu-obj="token">{{ token.string }}</span>\
+        ',
+      svgToken : '<svg:text\
+          ng-class="selectionClass()"\
+          context-menu\
+          menu-trigger="rightclick"\
+          menu-id="tcm{{ token.id }}"\
+          menu-position="bottom"\
+          menu-obj="token">{{ token.string }}</svg:text>\
+        '
+      }
+
+
+    /**
+     * [makeNode description]
+     * @param  {[type]} markup [description]
+     * @return {[type]}        [description]
+     */
+    var makeNode = function(markup) {
+      // 1. Remove all children
+      while (this.firstChild) {
+        this.removeChild(this.firstChild);
+      }
+      console.log(this);
+
+      // 2. Parse the SVG
+      var doc = new DOMParser().parseFromString(
+          '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'
+          + markup
+          + '</svg>',
+          'application/xml'
+      );
+
+      console.log(doc);
+      return doc;
+  }
+
+    var getTemplate = function(key) {
+      return ( typeof key === "undefined" || key === "span") ? "spanToken" : "svgToken";
+    }
     return {
       restrict: 'AE',
       scope: {
@@ -25,7 +73,8 @@ angular.module('arethusa.core').directive('token', [
         colorize: '=',
         click: '@',
         hover: '@',
-        highlight: '@'
+        highlight: '@',
+        template: '='
       },
       link: function (scope, element, attrs) {
         if (!scope.token) return;
@@ -152,10 +201,19 @@ angular.module('arethusa.core').directive('token', [
         }
 
         element.addClass('token');
-
         addBindings();
-      },
-      templateUrl: 'templates/token.html'
+
+        var t = getTemplate(scope.template);
+        if(t === "spanToken") {
+          element.html(templates["spanToken"]).show();
+          $compile(element.contents())(scope);
+        }
+        /*else {
+          $compile(makeNode.call(element, templates["svgToken"]))(scope);
+        }*/
+
+      }/*,
+      templateUrl: (function() { return 'templates/token.html'; })()*/
     };
   }
 ]);
