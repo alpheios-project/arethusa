@@ -234,8 +234,6 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
               .attr("overflow", "visible");
 
           texts
-            //.append("xhtml:div")
-            //.attr("overflow", "visible")
             .append(function(d) {
               this.textContent = '';
               return compiledToken(d.token.id);
