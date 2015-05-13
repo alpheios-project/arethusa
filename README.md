@@ -25,7 +25,9 @@ grunt install
 
 If you want to run the e2e tests also execute `grunt e2e:setup`.
 
-If you want to install example data execute `grunt import`.
+If you want to install example data execute `grunt import`. 
+
+(N.B. you need to have sshkeys enabled for GitHub to run this task as it uses the Github ssh urls to clone the repository of example data)
 
 ## Usage
 
