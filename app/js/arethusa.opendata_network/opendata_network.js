@@ -22,17 +22,24 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
 
     var configure = function() {
       configurator.getConfAndDelegate(self);
-      console.log(self)
+    }
+
+
+    var makeLinkId = function(source, targetId) {
+      return source.linkCounter + "_" + source.id + "_" + targetId;
     }
 
     /**
      * Create a link template
+     * @param  {token} source  Source token
      * @param  {token} target  Target token
      * @return {Object} 
      */
-    var linkTemplate = function(target) {
+    var linkTemplate = function(source, target) {
       return {
+        id: makeLinkId(source, target.id),
         target: target.id,
+        source: source.id,
         weight: 1,
         type : null,
         group : 0
@@ -46,9 +53,10 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
      */
     var changeLink = function (source, target) {
       var graph = source.graph,
-          link = linkTemplate(target);
+          link = linkTemplate(source, target);
 
       graph.push(link);
+      source.linkCounter = source.linkCounter + 1;
       state.change(source, 'graph', graph);
     }
 
@@ -104,12 +112,13 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
     }
 
     /**
-     * Add a @graph property if required
+     * Add @graph and @linkCounter properties if required
      * @param  {<Object>}  token  Text token
      */
     var addLink = function(token) {
       if(!hasLink(token)) {
         token.graph = [];
+        token.linkCounter = 0;
       }
     }
 

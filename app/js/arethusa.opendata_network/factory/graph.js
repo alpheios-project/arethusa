@@ -35,6 +35,13 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             hover="true"\
             />\
         ';
+      var edgeHtml = '\
+          <span edge="edge"\
+            style="white-space: nowrap;"\
+            click="true"\
+            hover="true"\
+            />\
+        ';
 
 
       /**
@@ -52,16 +59,26 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       var getTokenPlaceholders = function() {
         return self.svg.selectAll("div.node.token-node")
       }
+      /**
+       * Get Edge placeholders
+       */
+      var getEdgePlaceholders = function() {
+        return self.svg.selectAll("div.edge.edge-node")
+      }
 
       /**
        * Update the width of foreignObjects
+       * @param {string} class Class to be retrieved
        */
-      var updateWidth = function() {
+      var updateWidth = function(class) {
           var foreigns = getForeignObject();
           foreigns.each(function(element, data, index) {
-            var tph = this.getElementsByClassName("token-node")[0];
-            this.setAttribute("width", tph.offsetWidth);
-            this.setAttribute("height", tph.offsetHeight);
+            var tph = this.getElementsByClassName(class);
+            if(tph.length === 1) { // We have selected all foreigns objects, we need to filter that.
+              tph = tph[0];
+              this.setAttribute("width", tph.offsetWidth);
+              this.setAttribute("height", tph.offsetHeight);
+            }
           });
         }
 
@@ -129,7 +146,6 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           createToken(target);
         }
 
-        link.source = sourceId;
         scope.links.push(link);
       }
 
@@ -146,6 +162,35 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           id: token.id
         }
         return;
+      }
+
+      /**
+       * Insert nodes into the graph
+       * @param  {D3JSObject} node [description]
+       */
+      var insertNodes = function(node) {
+        var foreignObjects = node
+            .append("foreignObject")
+            .attr("overflow", "visible")
+            .attr("width", 10000) //We need to do that so divs take the right size
+            .attr("height", 10000);
+
+        // Because directives are compiled after, we play with a directive !
+        var placeholders  = foreignObjects
+          .append("xhtml:div")
+          .html(function(d) {
+            // Ids : Graph Token PlaceHolder
+              return '<div class="node token-node placeholder" id="gtph' + d.token.id + '" style="display:inline;">' + d.token.string + '</div>';
+          });
+
+        updateWidth("token-node");
+
+        var tokenDirectives = getTokenPlaceholders()
+          .append(function() {
+            // As we compiled html, we don't have any data inside this node.
+            this.textContent = '';
+            return compiledToken(scope.nodes[this.id.slice(4)].token);
+          });
       }
 
       /**
@@ -225,30 +270,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             .attr("overflow", "visible")
             .call(force.drag);
 
-        var foreignObjects = node
-            .append("foreignObject")
-            .attr("overflow", "visible")
-            .attr("width", 10000) //We need to do that so divs take the right size
-            .attr("height", 10000);
-
-        // Because directives are compiled after, we play with a directive !
-        var placeholders  = foreignObjects
-          .append("xhtml:div")
-          .html(function(d) {
-            // Ids : Graph Token PlaceHolder
-              return '<div class="node token-node" id="gtph' + d.token.id + '" style="display:inline;">' + d.token.string + '</div>';
-          });
-
-        updateWidth();
-
-        var tokenDirectives = getTokenPlaceholders()
-          .append(function() {
-            // As we compiled html, we don't have any data inside this node.
-            this.textContent = '';
-            console.log(scope.nodes)
-            console.log(this.id.slice(4))
-            return compiledToken(scope.nodes[this.id.slice(4)].token);
-          });
+        insertNodes(node);
 
         force.on("tick", function() {
           link.attr("d", function(d) {
