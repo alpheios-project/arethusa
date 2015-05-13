@@ -9,58 +9,6 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
 
       var self = this;
 
-      var getForeignObject = function() {
-        return self.svg.selectAll(function () {
-          return this.getElementsByTagName('foreignObject');
-        });
-      }
-
-      var tokenHtml = '\
-              <span token="token"\
-                style="white-space: nowrap;"\
-                colorize="STYLE"\
-                click="true"\
-                hover="true"\
-                />\
-        ';
-
-      var updateWidth = function() {
-          var foreigns = getForeignObject()[0];
-          for (var i = foreigns.length - 1; i >= 0; i--) {
-            var f = foreigns[i],
-                s = f.childNodes[0];
-            f.setAttribute("width", s.offsetWidth);
-            f.setAttribute("height", s.offsetHeight);
-          };
-        }
-
-      var compiledToken = function (token) {
-        var childScope = scope.$new();
-        self.childScopes.push(childScope);
-        childScope.token = token;
-        // Ugly but working...
-        // We replace the colorize value in our token template string.
-        // If custom styles are given, we check if one is available for
-        // this token. If yes, we use it, otherwise we just pass one
-        // undefined which leaves the token unstyled.
-        //
-        // Without custom styles we let the token itself decide what color
-        // it has.
-        var style;
-        if (scope.styles) {
-          if (tokenHasCustomStyling(token)) {
-            applyTokenStyling(childScope, token);
-          }
-          // else we just stay undefined
-          style = 'style';
-        } else {
-          style = 'true';
-        }
-        console.log(childScope, self.childScopes)
-        return $compile(tokenHtml.replace('STYLE', style))(childScope)[0];
-      }
-
-
       // General margin value so that trees don't touch the canvas border.
       var treeMargin = 15;
       var treeTemplate = '\
@@ -71,15 +19,6 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       var tree = angular.element(treeTemplate);
       var color = d3.scale.category20();
 
-      // Will contain the dagreD3 graph, including all nodes, edges and label.
-      self.g = undefined;
-
-      // The g element contained in the svg canvas.
-      self.vis = undefined;
-
-      // Introspective variables about the tree canvas
-      var height, width, xCenter, yCenter;
-
       //Scope informations
       scope.nodes = {}
       scope.links = []
@@ -87,6 +26,55 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       scope.graph = {
         nodes : [],
         links : []
+      }
+
+      var tokenHtml = '\
+          <span token="token"\
+            style="white-space: nowrap;"\
+            click="true"\
+            hover="true"\
+            />\
+        ';
+
+
+      /**
+       * Retrieve foreignObject elements
+       * @return {HTMLCollection} Collection of foreignObject elements
+       */
+      var getForeignObject = function() {
+        return self.svg.selectAll(function () {
+          return this.getElementsByTagName('foreignObject');
+        });
+      }
+      /**
+       * Get Token placeholders
+       */
+      var getTokenPlaceholders = function() {
+        return self.svg.selectAll("div.node.token-node")
+      }
+
+      /**
+       * Update the width of foreignObjects
+       */
+      var updateWidth = function() {
+          var foreigns = getForeignObject();
+          foreigns.each(function(element, data, index) {
+            var tph = this.getElementsByClassName("token-node")[0];
+            this.setAttribute("width", tph.offsetWidth);
+            this.setAttribute("height", tph.offsetHeight);
+          });
+        }
+
+      /**
+       * Compile a token
+       * @param  {Object} token A token object
+       * @return {[type]}       [description]
+       */
+      var compiledToken = function (token) {
+        var childScope = scope.$new();
+        self.childScopes.push(childScope);
+        childScope.token = token;
+        return $compile(tokenHtml)(childScope)[0];
       }
 
       /**
@@ -195,10 +183,17 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         return graph;
       }
 
+      /**
+       * Remove everything from the svg root
+       */
       var cleanSVG = function() {
         if (self.g) self.g.selectAll('*').remove();
       }
 
+      /**
+       * Add nodes and edges to the graph
+       * @param  {Object} graph Object representing the nodes and edges
+       */
       var render = function(graph) {
         sortLinks(graph);
         var g,
@@ -230,14 +225,29 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             .attr("overflow", "visible")
             .call(force.drag);
 
-        var texts = node
+        var foreignObjects = node
             .append("foreignObject")
-            .attr("overflow", "visible");
+            .attr("overflow", "visible")
+            .attr("width", 10000) //We need to do that so divs take the right size
+            .attr("height", 10000);
 
-        texts
-          .append(function(d) {
+        // Because directives are compiled after, we play with a directive !
+        var placeholders  = foreignObjects
+          .append("xhtml:div")
+          .html(function(d) {
+            // Ids : Graph Token PlaceHolder
+              return '<div class="node token-node" id="gtph' + d.token.id + '" style="display:inline;">' + d.token.string + '</div>';
+          });
+
+        updateWidth();
+
+        var tokenDirectives = getTokenPlaceholders()
+          .append(function() {
+            // As we compiled html, we don't have any data inside this node.
             this.textContent = '';
-            return compiledToken(d.token.id);
+            console.log(scope.nodes)
+            console.log(this.id.slice(4))
+            return compiledToken(scope.nodes[this.id.slice(4)].token);
           });
 
         force.on("tick", function() {
@@ -284,6 +294,10 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         });
       }
 
+      /**
+       * Create link index
+       * @param {Object} data Graph
+       */
       var setLinkIndexAndNum = function(data) {
         var mLinkNum = {};
         for (var i = 0; i < data.links.length; i++) {
@@ -313,7 +327,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         if(graph.nodes.length >= 2) {
           cleanSVG();
           render(graph);
-          updateWidth();
+          //updateWidth();
         }
       }
 
