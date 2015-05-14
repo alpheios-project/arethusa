@@ -17,8 +17,6 @@
     },
     "plugins" : [
       "text",
-      "relation",
-      "artificialToken",
       "opendataNetwork"
     ]
   },
@@ -50,20 +48,6 @@
       "contextMenuTemplate": "templates/arethusa.opendataNetwork/context_menu.html",
       "template" : "templates/arethusa.opendata_network/opendata_network.html",
       "multipleLinks" : true
-    },
-
-
-    "relation" : {
-      "template" : "templates/relation.html",
-      "advancedMode" : true,
-      "contextMenu" : true,
-      "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
-      "@include" : "relation/relations.json"
-    },
-
-
-    "artificialToken" : {
-      "template" : "templates/arethusa.artificial_token/artificial_token.html"
     }
   },
 

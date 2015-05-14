@@ -7,139 +7,8 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
   function ($compile, state, $timeout) {
     return function(scope, element, conf) {
 
-      var self = this;
-
-      var toRadians = function(angle) {
-        return angle * (Math.PI / 180);
-      };
-      var mod = function(x, m) {
-          return (x%m + m)%m;
-      };
-
-      var angleBetween = function(v0, v1) {
-        var p = v0.x*v1.x + v0.y*v1.y;
-        var n = Math.sqrt((Math.pow(v0.x, 2)+Math.pow(v0.y, 2)) * (Math.pow(v1.x, 2)+Math.pow(v1.y, 2)));
-        var sign = v0.x*v1.y - v0.y*v1.x < 0 ? -1 : 1;
-        var angle = sign*Math.acos(p/n);
-        
-        //var angle = Math.atan2(v0.y, v0.x) - Math.atan2(v1.y,  v1.x);
-        
-        return angle;
-      };
-      /**
-       * [pointOnEllipticalArc description]
-       * @url https://github.com/MadLittleMods/svg-curve-lib/blob/master/src/js/svg-curve-lib.js#L84-L187
-       * @param  {[type]} p0            [description]
-       * @param  {[type]} rx            [description]
-       * @param  {[type]} ry            [description]
-       * @param  {[type]} xAxisRotation [description]
-       * @param  {[type]} largeArcFlag  [description]
-       * @param  {[type]} sweepFlag     [description]
-       * @param  {[type]} p1            [description]
-       * @param  {[type]} t             [description]
-       * @return {[type]}               [description]
-       */
-      var pointOnEllipticalArc = function(p0, rx, ry, xAxisRotation, largeArcFlag, sweepFlag, p1, t) {
-        // In accordance to: http://www.w3.org/TR/SVG/implnote.html#ArcOutOfRangeParameters
-        rx = Math.abs(rx);
-        ry = Math.abs(ry);
-        xAxisRotation = mod(xAxisRotation, 360);
-        var xAxisRotationRadians = toRadians(xAxisRotation);
-        // If the endpoints are identical, then this is equivalent to omitting the elliptical arc segment entirely.
-        if(p0.x === p1.x && p0.y === p1.y) {
-          return p0;
-        }
-        
-        // If rx = 0 or ry = 0 then this arc is treated as a straight line segment joining the endpoints.    
-        if(rx === 0 || ry === 0) {
-          return this.pointOnLine(p0, p1, t);
-        }
-
-        
-        // Following "Conversion from endpoint to center parameterization"
-        // http://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter
-        
-        // Step #1: Compute transformedPoint
-        var dx = (p0.x-p1.x)/2;
-        var dy = (p0.y-p1.y)/2;
-        var transformedPoint = {
-          x: Math.cos(xAxisRotationRadians)*dx + Math.sin(xAxisRotationRadians)*dy,
-          y: -Math.sin(xAxisRotationRadians)*dx + Math.cos(xAxisRotationRadians)*dy
-        };
-        // Ensure radii are large enough
-        var radiiCheck = Math.pow(transformedPoint.x, 2)/Math.pow(rx, 2) + Math.pow(transformedPoint.y, 2)/Math.pow(ry, 2);
-        if(radiiCheck > 1) {
-          rx = Math.sqrt(radiiCheck)*rx;
-          ry = Math.sqrt(radiiCheck)*ry;
-        }
-
-        // Step #2: Compute transformedCenter
-        var cSquareNumerator = Math.pow(rx, 2)*Math.pow(ry, 2) - Math.pow(rx, 2)*Math.pow(transformedPoint.y, 2) - Math.pow(ry, 2)*Math.pow(transformedPoint.x, 2);
-        var cSquareRootDenom = Math.pow(rx, 2)*Math.pow(transformedPoint.y, 2) + Math.pow(ry, 2)*Math.pow(transformedPoint.x, 2);
-        var cRadicand = cSquareNumerator/cSquareRootDenom;
-        // Make sure this never drops below zero because of precision
-        cRadicand = cRadicand < 0 ? 0 : cRadicand;
-        var cCoef = (largeArcFlag !== sweepFlag ? 1 : -1) * Math.sqrt(cRadicand);
-        var transformedCenter = {
-          x: cCoef*((rx*transformedPoint.y)/ry),
-          y: cCoef*(-(ry*transformedPoint.x)/rx)
-        };
-
-        // Step #3: Compute center
-        var center = {
-          x: Math.cos(xAxisRotationRadians)*transformedCenter.x - Math.sin(xAxisRotationRadians)*transformedCenter.y + ((p0.x+p1.x)/2),
-          y: Math.sin(xAxisRotationRadians)*transformedCenter.x + Math.cos(xAxisRotationRadians)*transformedCenter.y + ((p0.y+p1.y)/2)
-        };
-
-        
-        // Step #4: Compute start/sweep angles
-        // Start angle of the elliptical arc prior to the stretch and rotate operations.
-        // Difference between the start and end angles
-        var startVector = {
-          x: (transformedPoint.x-transformedCenter.x)/rx,
-          y: (transformedPoint.y-transformedCenter.y)/ry
-        };
-        var startAngle = angleBetween({
-          x: 1,
-          y: 0
-        }, startVector);
-        
-        var endVector = {
-          x: (-transformedPoint.x-transformedCenter.x)/rx,
-          y: (-transformedPoint.y-transformedCenter.y)/ry
-        };
-        var sweepAngle = angleBetween(startVector, endVector);
-        
-        if(!sweepFlag && sweepAngle > 0) {
-          sweepAngle -= 2*Math.PI;
-        }
-        else if(sweepFlag && sweepAngle < 0) {
-          sweepAngle += 2*Math.PI;
-        }
-        // We use % instead of `mod(..)` because we want it to be -360deg to 360deg(but actually in radians)
-        sweepAngle %= 2*Math.PI;
-        
-        // From http://www.w3.org/TR/SVG/implnote.html#ArcParameterizationAlternatives
-        var angle = startAngle+(sweepAngle*t);
-        var ellipseComponentX = rx*Math.cos(angle);
-        var ellipseComponentY = ry*Math.sin(angle);
-        
-        var point = {
-          x: Math.cos(xAxisRotationRadians)*ellipseComponentX - Math.sin(xAxisRotationRadians)*ellipseComponentY + center.x,
-          y: Math.sin(xAxisRotationRadians)*ellipseComponentX + Math.cos(xAxisRotationRadians)*ellipseComponentY + center.y
-        };
-
-        // Attach some extra info to use
-        point.ellipticalArcStartAngle = startAngle;
-        point.ellipticalArcEndAngle = startAngle+sweepAngle;
-        point.ellipticalArcAngle = angle;
-
-        point.ellipticalArcCenter = center;
-        point.resultantRx = rx;
-        point.resultantRy = ry;
-
-        return point;
-      }
+      var self = this,
+          defaultEdgeLabel = "+";
 
       // General margin value so that trees don't touch the canvas border.
       var treeMargin = 15;
@@ -152,13 +21,14 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       var color = d3.scale.category20();
 
       //Scope informations
-      scope.nodes = {}
-      scope.links = []
+      scope.nodes = {};
+      scope.links = [];
+      scope.annotations = {};
 
       scope.graph = {
         nodes : [],
         links : []
-      }
+      };
 
       var tokenHtml = '\
           <span token="token"\
@@ -168,7 +38,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             />\
         ';
       var edgeHtml = '\
-          <span edge="edge"\
+          <span open-data-edge="edge"\
             style="white-space: nowrap;"\
             click="true"\
             hover="true"\
@@ -184,19 +54,36 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         return self.svg.selectAll(function () {
           return this.getElementsByTagName('foreignObject');
         });
-      }
+      };
       /**
        * Get Token placeholders
        */
       var getTokenPlaceholders = function() {
-        return self.svg.selectAll("div.node.token-node")
+        ;return self.svg.selectAll("div.node.token-node")
       }
       /**
        * Get Edge placeholders
        */
       var getEdgePlaceholders = function() {
         return self.svg.selectAll("div.edge.edge-node")
-      }
+      };
+
+      /**
+       * Return the translate string for the middle of one rectangle
+       * @param  {Object} point   Representation of a point
+       * @param  {[type]} element [description]
+       * @return {[type]}         [description]
+       */
+      var translateMiddle = function(point, element) {
+        try {
+          var w = element.children[0].width.baseVal.value,
+              h = element.children[0].height.baseVal.value;
+        } catch(e) {
+          var w = 0,
+              h = 0;
+        }
+        return "translate(" + (point.x - w/2)  + "," + (point.y - h/2) + ")";
+      };
 
       /**
        * Update the width of foreignObjects
@@ -224,7 +111,19 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         self.childScopes.push(childScope);
         childScope.token = token;
         return $compile(tokenHtml)(childScope)[0];
-      }
+      };
+
+      /**
+       * Compile an edge directive
+       * @param  {Object} token A token object
+       * @return {[type]}       [description]
+       */
+      var compiledEdge = function (annotation) {
+        var childScope = scope.$new();
+        self.childScopes.push(childScope);
+        childScope.edge = annotation;
+        return $compile(edgeHtml)(childScope)[0];
+      };
 
       /**
        * Check if a node representing the token exists
@@ -234,7 +133,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       var nodeExists = function(token) {
         var id = (typeof token === "string") ? token : token.id;
         return (typeof scope.nodes[id] !== "undefined")
-      }
+      };
 
       /*
         Watching tokens graph properties
@@ -265,7 +164,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           }
         };
         scope.links = l;
-      }
+      };
 
       /**
        * Create a link from source using link dictionary
@@ -279,7 +178,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         }
 
         scope.links.push(link);
-      }
+      };
 
       /**
        * Create a token in our dictionary
@@ -294,7 +193,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           id: token.id
         }
         return;
-      }
+      };
 
       /**
        * Insert nodes into the graph
@@ -323,11 +222,12 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             this.textContent = '';
             return compiledToken(scope.nodes[this.id.slice(4)].token);
           });
-      }
+      };
 
       /**
        * Insert nodes into the graph
-       * @param  {D3JSObject} node [description]
+       * @param  {D3JSObject} root  Root of the graph
+       * @param  {Object}     graph Graph object
        */
       var insertEdges = function(root, graph) {
         var g = root.selectAll(".edgesLabels")
@@ -345,23 +245,22 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         // Because directives are compiled after, we play with a directive !
         var placeholders  = foreignObjects
           .append("xhtml:div")
+          .style("display", "inline")
           .html(function(d) {
             // Ids : Graph Token PlaceHolder
-              return '<div class="edge edge-node placeholder" id="geph' + d.id + '" style="display:inline;">' + d.id + '</div>';
+              return '<div class="edge edge-node placeholder" id="geph' + d.id + '" style="display:inline;">' + defaultEdgeLabel + '</div>';
           });
 
         updateWidth("edge-node");
 
-        /**
-        var tokenDirectives = getTokenPlaceholders()
+        var tokenDirectives = getEdgePlaceholders()
           .append(function() {
             // As we compiled html, we don't have any data inside this node.
             this.textContent = '';
-            return compiledToken(scope.nodes[this.id.slice(4)].token);
+            return compiledEdge(scope.annotations[this.id.slice(4)].token);
           });
-        */
         return g;
-      }
+      };
 
       /**
        * Update the scope.graph for D3
@@ -374,10 +273,13 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
               links : []
             },
             links = scope.links.slice();
+            scope.annotations = {};
         for (var y = links.length - 1; y >= 0; y--) {
           var link = angular.copy(scope.links[y]),
               s = link.source,
               t = link.target;
+
+          scope.annotations[link.id] = link;
           if(typeof n[s] === "undefined") {
             graph.nodes.push(scope.nodes[s]);
             n[s] = graph.nodes.length - 1;
@@ -396,14 +298,14 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         };
 
         return graph;
-      }
+      };
 
       /**
        * Remove everything from the svg root
        */
       var cleanSVG = function() {
         if (self.g) self.g.selectAll('*').remove();
-      }
+      };
 
       /**
        * Add nodes and edges to the graph
@@ -453,7 +355,8 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
               if(lTotalLinkNum > 1) {
                   // if there are multiple links between these two nodes, we need generate different dr for each path
                   dr = dr/(1 + (1/lTotalLinkNum) * (d.linkindex - 1));
-              }     
+              }
+
               // generate svg path
               return "M" + d.source.x + "," + d.source.y + 
                   "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + 
@@ -473,7 +376,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
 
               //(p0, rx, ry, xAxisRotation, largeArcFlag, sweepFlag, p1, t)
               // @t represents where, from 0 to 1, the point your are looking for is. 0.5 would be the center of the curve. 
-              var point = pointOnEllipticalArc(
+              var point = SVGCurveLib.pointOnEllipticalArc(
                 {x : d.source.x, y : d.source.y},
                 dr,
                 dr,
@@ -482,14 +385,15 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
                 1,
                 {x : d.target.x, y:d.target.y},
                 0.5
-              )
-              console.log(point)
-              return "translate(" + point.x + "," + point.y + ")";
+              );
+              return translateMiddle(point, this);
           });
 
-          node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+          node.attr("transform", function(d) { 
+            return translateMiddle(d, this);
+          });
         });
-      }
+      };
 
       /**
        * Sort the graph data

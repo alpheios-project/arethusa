@@ -11,7 +11,8 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
     console.log(configurator)
     this.externalDependencies = {
       ordered: [
-        "bower_components/d3/d3.min.js"
+        "bower_components/d3/d3.min.js",
+        "bower_components/svg-curve-lib/src/js/svg-curve-lib.js"
       ]
     };
     
