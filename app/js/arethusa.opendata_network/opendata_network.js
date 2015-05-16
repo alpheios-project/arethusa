@@ -52,20 +52,22 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
      * @param  {token} target  Target token
      */
     var changeLink = function (source, target) {
-      var graph = source.graph,
-          link = linkTemplate(source, target);
+      var link = linkTemplate(source, target);
+      console.log(angular.copy(source))
 
-      graph.push(link);
       source.linkCounter = source.linkCounter + 1;
+      source.graph.push(link);
+      var graph = source.graph;
+      console.log(angular.copy(source))
       state.change(source, 'graph', graph);
     }
 
+    /**
+     * Action trigger while clicking on a target node
+     * @type {function}
+     */
     function changeLinkAction(id) {
-      /**
-       * Action trigger while clicking on a target node
-       * @type {function}
-       */
-      var linkHasChanged = self.changeLink(id);
+      self.changeLink(id);
     }
 
     /**
@@ -143,6 +145,7 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
       var id  = token.id;
       var notAllowed;
       var res = [];
+      console.log(state.clickedTokens)
       for (var otherId in state.clickedTokens) {
         var otherToken = state.getToken(otherId);
         if (otherToken.sentenceId !== sentenceId) {
@@ -165,6 +168,7 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
     this.changeLink = function(idOrToken) {
       var token = angular.isString(idOrToken) ? state.getToken(idOrToken) : idOrToken;
       var linksToChange = getLinksToChange(token);
+
       if (linksToChange) {
         if (linksToChange === 'err') {
           notifier.error(translations.errorAcrossSentences);

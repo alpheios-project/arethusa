@@ -140,6 +140,10 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
        */
       state.watch("graph", function(newVal, oldVal, event) {
         var token = event.token;
+        initiateGraph();
+        /*
+        //The following part remove somehow the links where event.token is the target...
+        // There is an issue with how we upgrade the graph in the end !
         cleanLinks(token.id);
 
         if(!nodeExists(token)) createToken(token.id);
@@ -147,6 +151,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         for (var i = newVal.length - 1; i >= 0; i--) {
           createLink(token.id, newVal[i]);
         };
+        */
 
         draw();
       });
@@ -159,7 +164,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         var links = scope.links,
             l = [];
         for (var i = links.length - 1; i >= 0; i--) {
-          if(links[i].source != tokenId) {
+          if(links[i].source !== tokenId) {
             l.push(links[i]); 
           }
         };
@@ -281,7 +286,6 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           scope.annotations[link.id] = link;
           if(typeof n[s] === "undefined") {
             if(typeof scope.nodes[s] === "undefined") {
-              console.log(s, n, scope.nodes, state.getToken(s))
               throw "";
             }
             graph.nodes.push(scope.nodes[s]);
@@ -311,6 +315,30 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       };
 
       /**
+       * Insert navigators helper
+       * @param  {SVG} root [description]
+       * @return {[type]}      [description]
+       */
+      var insertNavigators = function(root) {
+        var nav = root
+          .append("g")
+          .attr("class", "navigator");
+
+        var w = 60,
+            h = 60;
+        var up = nav
+          .append("g")
+          .attr("class", "navigator-up")
+          .attr("transform", "translate(" + 60/3 +", 0)");
+        up
+          .append("rect")
+          .style("fill", "grey")
+          .attr("width", 60/3)
+          .attr("height", 60/3);
+
+      };
+
+      /**
        * Add nodes and edges to the graph
        * @param  {Object} graph Object representing the nodes and edges
        */
@@ -319,7 +347,26 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         var g,
             svg;
         self.svg = d3.select(element[0]);
+
         svg = self.g = self.svg.select('g');
+        insertNavigators(self.g);
+
+        var graphContainer = svg
+          .append("g")
+          .attr("class", "graphContainer");
+
+        var nodeContainers = graphContainer
+          .append("g")
+          .attr("class", "nodes");
+
+        var linkContainers = graphContainer
+          .append("g")
+          .attr("class", "links");
+
+        var edgeLabelsContainers = graphContainer
+          .append("g")
+          .attr("class", "edge-labels");
+
 
         var force = d3.layout.force()
             .charge(-200)
@@ -332,13 +379,13 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           .start();
 
         var mLinkNum = setLinkIndexAndNum(graph);
-        var link = svg.selectAll(".link")
+        var link = linkContainers.selectAll(".link")
             .data(graph.links)
           .enter().append("path")
             .attr("class", "link")
             .style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
-        var node = svg.selectAll(".node")
+        var node = nodeContainers.selectAll(".node")
             .data(graph.nodes)
           .enter().append("g")
             .attr("class", "node")
@@ -346,7 +393,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             .call(force.drag);
 
         insertNodes(node);
-        var edgesLabels = insertEdges(svg, graph);
+        var edgesLabels = insertEdges(edgeLabelsContainers, graph);
 
         force.on("tick", function() {
           link.attr("d", function(d) {
@@ -444,6 +491,15 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       }
 
       var initiateGraph = function() {
+        //We reset our stuff
+        scope.nodes = {};
+        scope.links = [];
+        scope.annotations = {};
+
+        scope.graph = {
+          nodes : [],
+          links : []
+        };
         angular.forEach(scope.tokens, function(token, tokenId) {
           //if(token.graph.length > 0) {
             if(!nodeExists(token)) createToken(token.id);
