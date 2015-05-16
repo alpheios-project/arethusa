@@ -8,7 +8,6 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
     var self = this;
     this.name = 'opendataNetwork';
 
-    console.log(state);
     this.externalDependencies = {
       ordered: [
         "bower_components/d3/d3.min.js",
@@ -119,6 +118,7 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
     var addLink = function(token) {
       if(!hasLink(token)) {
         token.graph = [];
+        token.linkCounter = token.graph.length;
       }
       if(typeof token.linkCounter === "undefined" ) {
         token.linkCounter = token.graph.length;

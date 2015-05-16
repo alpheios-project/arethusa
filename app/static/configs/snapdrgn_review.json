@@ -1,0 +1,50 @@
+{
+  "main" : {
+    "debug" : true,
+    "showKeys" : true,
+    "@include" : "layouts/snapdrgn_review.json",
+    "retrievers" : {
+      "SnapdrgnRetriever" : {
+        "resource" : "fakeJoth"
+      }
+    },
+    "plugins" : [
+      "opendataNetwork"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "resources" : {
+    "@include" : "resources/dev.json"
+  },
+
+  "plugins" : {
+
+    "opendataNetwork" : {
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "templates/arethusa.opendataNetwork/context_menu.html",
+      "template" : "templates/arethusa.opendata_network/opendata_network.html",
+      "multipleLinks" : true
+    }
+  },
+
+  "exitHandler" : {
+    "title" : "somewhere",
+    "route" : "http://sosol.perseids.org/tools/arethusa"
+  },
+
+  "keyCapture" : {
+    "@include" : "keyboard/key_map.json"
+  }
+}

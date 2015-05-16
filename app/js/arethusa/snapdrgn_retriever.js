@@ -103,6 +103,8 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
                   id : bond.id,
                   target : realTarget,
                   source : otherTarget,
+                  weight: 1,
+                  group: 0,
                   graph : [{
                     source : bond.id,
                     target : targetPage,

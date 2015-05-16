@@ -176,7 +176,6 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         if(!nodeExists(target)) {
           createToken(target);
         }
-
         scope.links.push(link);
       };
 
@@ -281,6 +280,10 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
 
           scope.annotations[link.id] = link;
           if(typeof n[s] === "undefined") {
+            if(typeof scope.nodes[s] === "undefined") {
+              console.log(s, n, scope.nodes, state.getToken(s))
+              throw "";
+            }
             graph.nodes.push(scope.nodes[s]);
             n[s] = graph.nodes.length - 1;
           }
@@ -440,6 +443,18 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         return mLinkNum;
       }
 
+      var initiateGraph = function() {
+        angular.forEach(scope.tokens, function(token, tokenId) {
+          //if(token.graph.length > 0) {
+            if(!nodeExists(token)) createToken(token.id);
+
+            for (var i = token.graph.length - 1; i >= 0; i--) {
+              createLink(token.id, token.graph[i]);
+            };
+          //}
+        });
+      };
+
       /**
        * Draw a D3JS Graph like structure
        */
@@ -462,6 +477,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       function gridReady() { return grid().hasClass('gridster-loaded'); }
 
       this.launch = function() {
+        initiateGraph();
         if (isPartOfGrid() && !gridReady()) {
           $timeout(draw, 130);
         } else {
