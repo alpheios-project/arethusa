@@ -20,6 +20,8 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       var tree = angular.element(treeTemplate);
       var color = d3.scale.category20();
 
+      var translateRegexp = new RegExp("([\-0-9]+), ([\-0-9]+)");
+
       //Scope informations
       scope.nodes = {};
       scope.links = [];
@@ -326,17 +328,83 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
 
         var w = 60,
             h = 60;
+
         var up = nav
           .append("g")
-          .attr("class", "navigator-up")
-          .attr("transform", "translate(" + 60/3 +", 0)");
+          .attr("class", "navigator-up");
         up
-          .append("rect")
+          .append("path")
           .style("fill", "grey")
-          .attr("width", 60/3)
-          .attr("height", 60/3);
+          .attr("d", "M " + w/2 + " 0, L " + w/3 + " " + h/3 + ", L " + w/3*2 + " " + h/3);
+        up.on("click", function() {
+          graphMove(0, 20);
+        });
 
+        var down = nav
+          .append("g")
+          .attr("class", "navigator-down");
+        down
+          .append("path")
+          .style("fill", "grey")
+          .attr("d", "M " + w/2 + " "+ h + ", L " + w/3 + " " + h/3*2 + ", L " + w/3*2 + " " + h/3*2);
+        down.on("click", function() {
+          graphMove(0, -20);
+        });
+
+
+        var left = nav
+          .append("g")
+          .attr("class", "navigator-left");
+        left
+          .append("path")
+          .style("fill", "grey")
+          .attr("d", "M " + 0 + " "+ h/2 +", L " + w/3 + " " + h/3 + ", L " + w/3 + " " + h/3*2);
+        left.on("click", function() {
+          graphMove(-20, 0);
+        });
+
+
+        var right = nav
+          .append("g")
+          .attr("class", "navigator-right");
+        right
+          .append("path")
+          .style("fill", "grey")
+          .attr("d", "M " + w/3*2 + " "+ h/3 +", L " + w + " " + h/2 + ", L " + w/3*2 + " " + h/3*2);
+        right.on("click", function() {
+          graphMove(+20, 0);
+        });
+
+        var centerContainer = nav
+          .append("g")
+          .attr("class", "navigator-center");
+        var center = centerContainer
+          .append("foreignObject")
+          .attr("width", w/3)
+          .attr("height", h/3)
+          .attr("transform", "translate("+ w/3+", "+h/3+")")
+          .append("xhtml:div")
+          .html(function(d) {
+            // Ids : Graph Token PlaceHolder
+              return '<div style="line-height: '+w/3+'px; text-align:center;"><i class="fa fa-crosshairs"></i></div>';
+          });
+        center.on("click", function() {
+          graphMove();
+        });
       };
+
+      var graphMove = function(w, h) {
+        var graphContainer = self.g.select("g.graphContainer");
+
+        if(typeof w !== "undefined") {
+          var xy = (graphContainer.attr("transform") || "0, 0").match(translateRegexp);
+          graphContainer.attr("transform", "translate(" + (parseInt(xy[1]) + w) + ", " + (parseInt(xy[2]) + h) + ")");
+        } else {
+           graphContainer.attr("transform", "translate(0, 0)");
+        }
+      };
+
+
 
       /**
        * Add nodes and edges to the graph
@@ -345,7 +413,8 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       var render = function(graph) {
         sortLinks(graph);
         var g,
-            svg;
+            svg,
+            force;
         self.svg = d3.select(element[0]);
 
         svg = self.g = self.svg.select('g');
@@ -368,7 +437,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           .attr("class", "edge-labels");
 
 
-        var force = d3.layout.force()
+        force = self.force = d3.layout.force()
             .charge(-200)
             .linkDistance(100)
             .size([tree.width(), tree.height()]);
