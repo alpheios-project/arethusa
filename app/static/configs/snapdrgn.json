@@ -4,8 +4,15 @@
     "showKeys" : true,
     "@include" : "layouts/snapdrgn.json",
     "retrievers" : {
-      "SnapdrgnRetriever" : {
-        "resource" : "fakeJoth"
+      "TreebankRetriever" : {
+        "resource" : "demoXml",
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
+      }
+    },
+    "outputters" : {
+      "TreebankPersister" : {
+        "docIdentifier" : "treebank"
       }
     },
     "plugins" : [
