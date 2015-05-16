@@ -14,6 +14,13 @@
     ]
   },
 
+  "fakeJoth" : {
+    "route" : "/examples/snapdrgn/:doc",
+    "params" : [
+      "doc"
+    ]
+  },
+
   "localPerseids" : {
     "route" : "http://localhost:8085/xml_server/:doc",
     "params" : [

@@ -62,6 +62,7 @@ var exampleFileRoutes = {
   'translations': 'json',
   'tei' : 'xml',
   'oa' : 'json',
+  'snapdrgn' : 'json',
 
   'treebanks/phaidra': 'json',
   'translations/phaidra': 'json'

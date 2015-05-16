@@ -14,6 +14,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
   'editors',
   function (configurator, documentStore, retrieverHelper,
             idHandler, commons, editors) {
+
     function parseDocument(json, docId) {
       var annotators = arethusaUtil.toAry(json.treebank.annotator || []);
       parseEditors(annotators, docId);
@@ -208,6 +209,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
 
       this.parse = function(xml, callback) {
         var json = arethusaUtil.xml2json(xml);
+        console.log(json);
         var moreConf = findAdditionalConfInfo(json);
         var doc = commons.doc(xml, json, moreConf);
 
