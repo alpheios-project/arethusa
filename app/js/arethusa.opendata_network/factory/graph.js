@@ -4,7 +4,8 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
   '$compile',
   'state',
   '$timeout',
-  function ($compile, state, $timeout) {
+  'keyCapture',
+  function ($compile, state, $timeout, keyCapture) {
     return function(scope, element, conf) {
 
       var self = this,
@@ -609,6 +610,27 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           draw();
         }
       };
+
+      function keyBindings(kC) {
+        return {
+          tree: [
+            kC.create('graphLeft', function() { graphMove(-20, 0); }, 'q'),
+            kC.create('graphCenter', function() { graphMove(); }, 's'),
+            kC.create('graphRight', function() { graphMove(20, 0); }, 'd'),
+            kC.create('graphTop', function() { graphMove(0, 20); }, 'z'),
+            kC.create('graphBottom', function() { graphMove(0, -20); }, 'x'),
+          ]
+        };
+      }
+
+      var keys = keyCapture.initCaptures(keyBindings);
+
+      scope.keyHints = arethusaUtil.inject({}, keys.tree, function(memo, name, key) {
+        memo[name] = arethusaUtil.formatKeyHint(key);
+      });
+
+      scope.$on('$destroy', keys.$destroy);
+
     }
   }
 ]);
