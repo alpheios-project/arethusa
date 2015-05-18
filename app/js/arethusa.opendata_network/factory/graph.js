@@ -33,6 +33,20 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         links : []
       };
 
+      scope.D3Params = {
+        charge : -200,
+        linkDistance : 100,
+        running : false
+      }
+
+      var linkDistance = function(link, index) {
+        return scope.D3Params.linkDistance * link.weight;
+      }
+
+      var linkCharge = function(link, index) {
+        return scope.D3Params.charge * link.weight;
+      }
+
       var tokenHtml = '\
           <span token="token"\
             style="white-space: nowrap;"\
@@ -41,7 +55,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             />\
         ';
       var edgeHtml = '\
-          <span open-data-edge="edge"\
+          <span open-data-edge edge="edge"\
             style="white-space: nowrap;"\
             click="true"\
             hover="true"\
@@ -264,7 +278,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           .append(function() {
             // As we compiled html, we don't have any data inside this node.
             this.textContent = '';
-            return compiledEdge(scope.annotations[this.id.slice(4)].token);
+            return compiledEdge(scope.annotations[this.id.slice(4)]);
           });
         return g;
       };
@@ -318,82 +332,11 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       };
 
       /**
-       * Insert navigators helper
-       * @param  {SVG} root [description]
-       * @return {[type]}      [description]
+       * [graphMove description]
+       * @param  {[type]} w [description]
+       * @param  {[type]} h [description]
+       * @return {[type]}   [description]
        */
-      var insertNavigators = function(root) {
-        var nav = root
-          .append("g")
-          .attr("class", "navigator");
-
-        var w = 60,
-            h = 60;
-
-        var up = nav
-          .append("g")
-          .attr("class", "navigator-up");
-        up
-          .append("path")
-          .style("fill", "grey")
-          .attr("d", "M " + w/2 + " 0, L " + w/3 + " " + h/3 + ", L " + w/3*2 + " " + h/3);
-        up.on("click", function() {
-          graphMove(0, 20);
-        });
-
-        var down = nav
-          .append("g")
-          .attr("class", "navigator-down");
-        down
-          .append("path")
-          .style("fill", "grey")
-          .attr("d", "M " + w/2 + " "+ h + ", L " + w/3 + " " + h/3*2 + ", L " + w/3*2 + " " + h/3*2);
-        down.on("click", function() {
-          graphMove(0, -20);
-        });
-
-
-        var left = nav
-          .append("g")
-          .attr("class", "navigator-left");
-        left
-          .append("path")
-          .style("fill", "grey")
-          .attr("d", "M " + 0 + " "+ h/2 +", L " + w/3 + " " + h/3 + ", L " + w/3 + " " + h/3*2);
-        left.on("click", function() {
-          graphMove(-20, 0);
-        });
-
-
-        var right = nav
-          .append("g")
-          .attr("class", "navigator-right");
-        right
-          .append("path")
-          .style("fill", "grey")
-          .attr("d", "M " + w/3*2 + " "+ h/3 +", L " + w + " " + h/2 + ", L " + w/3*2 + " " + h/3*2);
-        right.on("click", function() {
-          graphMove(+20, 0);
-        });
-
-        var centerContainer = nav
-          .append("g")
-          .attr("class", "navigator-center");
-        var center = centerContainer
-          .append("foreignObject")
-          .attr("width", w/3)
-          .attr("height", h/3)
-          .attr("transform", "translate("+ w/3+", "+h/3+")")
-          .append("xhtml:div")
-          .html(function(d) {
-            // Ids : Graph Token PlaceHolder
-              return '<div style="line-height: '+w/3+'px; text-align:center;"><i class="fa fa-crosshairs"></i></div>';
-          });
-        center.on("click", function() {
-          graphMove();
-        });
-      };
-
       var graphMove = function(w, h) {
         var graphContainer = self.g.select("g.graphContainer");
 
@@ -404,6 +347,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
            graphContainer.attr("transform", "translate(0, 0)");
         }
       };
+      scope.graphMove = graphMove;
 
 
 
@@ -419,7 +363,6 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         self.svg = d3.select(element[0]);
 
         svg = self.g = self.svg.select('g');
-        insertNavigators(self.g);
 
         var graphContainer = svg
           .append("g")
@@ -439,14 +382,16 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
 
 
         force = self.force = d3.layout.force()
-            .charge(-200)
-            .linkDistance(100)
+            .charge(linkCharge)
+            .linkDistance(linkDistance)
             .size([tree.width(), tree.height()]);
 
         force
           .nodes(graph.nodes)
           .links(graph.links)
           .start();
+
+        scope.D3Params.running = true;
 
         var mLinkNum = setLinkIndexAndNum(graph);
         var link = linkContainers.selectAll(".link")
@@ -560,6 +505,10 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         return mLinkNum;
       }
 
+      /**
+       * [initiateGraph description]
+       * @return {[type]} [description]
+       */
       var initiateGraph = function() {
         //We reset our stuff
         scope.nodes = {};
@@ -581,12 +530,35 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         });
       };
 
+
+      /**
+       * [templatePath description]
+       * @param  {[type]} name [description]
+       * @return {[type]}      [description]
+       */
+      function templatePath(name) {
+        return "templates/arethusa.opendata_network/" + name + ".html";
+      }
+
+      /**
+       * [prependTemplate description]
+       * @param  {[type]} template [description]
+       * @return {[type]}          [description]
+       */
+      function prependTemplate(template) {
+        var el = '<span class="right" ng-include="' + template + '"/>';
+        angular.element(element[0].previousElementSibling).append($compile(el)(scope));
+      }
+
+      scope.panelTemplate = templatePath('opendata_settings');
       /**
        * Draw a D3JS Graph like structure
        */
       var draw = function() {
         if(!self.svg) {
           element.append(tree);
+          prependTemplate('panelTemplate');
+          //element.prepend($compile('<div dep-tree-navigator/>')(scope));
         }
         var graph = upgradeGraph();
         if(graph.nodes.length >= 2) {
@@ -602,6 +574,10 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       function isPartOfGrid() { return grid().length; }
       function gridReady() { return grid().hasClass('gridster-loaded'); }
 
+      /**
+       * [launch description]
+       * @return {[type]} [description]
+       */
       this.launch = function() {
         initiateGraph();
         if (isPartOfGrid() && !gridReady()) {
@@ -611,6 +587,57 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         }
       };
 
+      /**
+       * Augment the charge coefficient of the force graph drawer
+       * @param  {[type]} coefficient [description]
+       * @return {[type]}             [description]
+       */
+      var forceCharge = function(coefficient) {
+        var coeff = parseInt(coefficient);
+        scope.D3Params.charge = scope.D3Params.charge + coefficient;
+      }
+
+      /**
+       * [linkDistanceChanger description]
+       * @param  {[type]} coefficient [description]
+       * @return {[type]}             [description]
+       */
+      var linkDistanceChanger = function(coefficient) {
+        var coeff = parseInt(coefficient);
+        scope.D3Params.linkDistance = scope.D3Params.linkDistance + coefficient;
+      }
+
+      /**
+       * [forceToggle description]
+       * @return {[type]} [description]
+       */
+      var forceToggle = function() {
+        scope.D3Params.running = !scope.D3Params.running;
+        if(scope.D3Params.running === true) {
+          self.force.resume();
+        } else {
+          self.force.stop();
+        }
+      }
+      scope.forceToggle = forceToggle;
+
+      scope.$watch("D3Params.linkDistance", function(newVal, oldVal, event) {
+        if(newVal !== oldVal) {
+          self.force.stop().linkDistance(linkDistance).start();
+        }
+      });
+
+      scope.$watch("D3Params.charge", function(newVal, oldVal, event) {
+        if(newVal !== oldVal) {
+          self.force.stop().charge(linkCharge).start();
+        }
+      });
+
+      /**
+       * [keyBindings description]
+       * @param  {[type]} kC [description]
+       * @return {[type]}    [description]
+       */
       function keyBindings(kC) {
         return {
           tree: [
@@ -619,6 +646,11 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             kC.create('graphRight', function() { graphMove(20, 0); }, 'd'),
             kC.create('graphTop', function() { graphMove(0, 20); }, 'z'),
             kC.create('graphBottom', function() { graphMove(0, -20); }, 'x'),
+            kC.create('forceChargePlus', function() { forceCharge(+10); }, 'f'),
+            kC.create('forceChargeMinus', function() { forceCharge(-10); }, 'c'),
+            kC.create('linkDistancePlus', function() { linkDistanceChanger(+10); }, 'g'),
+            kC.create('linkDistanceMinus', function() { linkDistanceChanger(-10); }, 'v'),
+            kC.create('forceToggle', function() { forceToggle(); }, 'p'),
           ]
         };
       }

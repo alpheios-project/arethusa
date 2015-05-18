@@ -17,11 +17,11 @@ angular.module('arethusa.opendataNetwork').directive('openDataEdge', [
         scope.label = "+";
       },
       template : '\
-        <span 
+        <span \
           menu-trigger="rightclick" \
           menu-position="bottom"  \
           menu-obj="edge"
-          title="{{ scope.edge.id }}" \
+          title="{{ edge.type }}" \
           >{{ label }} \
         </span> \
       '

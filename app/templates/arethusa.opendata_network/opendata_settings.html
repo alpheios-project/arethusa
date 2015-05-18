@@ -1,0 +1,33 @@
+<span
+  title="Move to left"
+  class="settings-span-button"
+  ng-click="graphMove(-20, 0)">
+  <i class="fa fa-arrow-circle-left"></i>
+</span><span
+  title="Move to left"
+  class="settings-span-button"
+  ng-click="graphMove(20, 0)">
+  <i class="fa fa-arrow-circle-right"></i>
+</span><span
+  title="Move to left"
+  class="settings-span-button"
+  ng-click="graphMove(0, 20)">
+  <i class="fa fa-arrow-circle-up"></i>
+</span><span
+  title="Move to left"
+  class="settings-span-button"
+  ng-click="graphMove(0, -20)">
+  <i class="fa fa-arrow-circle-down"></i>
+</span>
+<span
+  title="Centrer l'arbre"
+  class="settings-span-button"
+  ng-click="graphMove()">
+  <i class="fa fa-dot-circle-o"></i>
+</span>
+<span
+  title="Pause"
+  class="settings-span-button"
+  ng-click="forceToggle()">
+  <i class="fa" ng-class="{'fa-pause':D3Params.running, 'fa-play':D3Params.running===false}"></i>
+</span>
