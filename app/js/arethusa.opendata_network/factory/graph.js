@@ -11,6 +11,10 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       var self = this,
           defaultEdgeLabel = "+";
 
+      self.configuration = {
+        mergeLinks : true
+      };
+
       // General margin value so that trees don't touch the canvas border.
       var treeMargin = 15;
       var treeTemplate = '\
@@ -293,13 +297,29 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
               nodes : [],
               links : []
             },
-            links = scope.links.slice();
-            scope.annotations = {};
+            links = scope.links.slice(),
+            existing = {};
+
+        scope.annotations = {};
+
         for (var y = links.length - 1; y >= 0; y--) {
           var link = angular.copy(scope.links[y]),
               s = link.source,
               t = link.target;
 
+            if(self.configuration.mergeLinks === true) {
+
+              var recorded = [s, t, (link.type || link.id)].join("-");
+              if(typeof existing[recorded] === "undefined") {
+                existing[recorded] = link.id;
+              } else {
+                if(typeof scope.annotations[existing[recorded]].alternativeIds === "undefined") {
+                  scope.annotations[existing[recorded]].alternativeIds = [];
+                }
+                scope.annotations[existing[recorded]].alternativeIds.push(link.id);
+                continue;
+              }
+            }
           scope.annotations[link.id] = link;
           if(typeof n[s] === "undefined") {
             if(typeof scope.nodes[s] === "undefined") {

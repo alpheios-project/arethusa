@@ -14,7 +14,6 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
       }
       var PerseusNameMatcher = new RegExp("^http://data\.perseus\.org/people/smith:([a-zA-Z]+)")
       
-
       /**
        * Return a parsed document
        * @param  {Array}  json  [description]

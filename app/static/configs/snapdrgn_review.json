@@ -5,7 +5,8 @@
     "@include" : "layouts/snapdrgn_review.json",
     "retrievers" : {
       "SnapdrgnRetriever" : {
-        "resource" : "fakeJoth"
+        "resource" : "fakeJoth",
+        "mergeLinks" : true
       }
     },
     "plugins" : [
