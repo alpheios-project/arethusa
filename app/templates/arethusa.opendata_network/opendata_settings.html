@@ -1,4 +1,19 @@
 <span
+  title="Zoom Out"
+  class="settings-span-button"
+  ng-click="graphZoom(0.9)">
+  <i class="fa fa-search-minus"></i>
+</span><span
+  title="Zoom In"
+  class="settings-span-button"
+  ng-click="graphZoom(1.1)">
+  <i class="fa fa-search-plus"></i>
+</span><span
+  title="Original Zoom"
+  class="settings-span-button"
+  ng-click="graphZoom()">
+  <i class="fa fa-search"></i>
+</span><span
   title="Move to left"
   class="settings-span-button"
   ng-click="graphMove(-20, 0)">

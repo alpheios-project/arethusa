@@ -40,7 +40,12 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       scope.D3Params = {
         charge : -200,
         linkDistance : 100,
-        running : false
+        running : false,
+        translate : {
+          x : 0,
+          y : 0
+        },
+        scale : 1
       }
 
       var linkDistance = function(link, index) {
@@ -357,17 +362,42 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
        * @param  {[type]} h [description]
        * @return {[type]}   [description]
        */
-      var graphMove = function(w, h) {
-        var graphContainer = self.g.select("g.graphContainer");
-
-        if(typeof w !== "undefined") {
-          var xy = (graphContainer.attr("transform") || "0, 0").match(translateRegexp);
-          graphContainer.attr("transform", "translate(" + (parseInt(xy[1]) + w) + ", " + (parseInt(xy[2]) + h) + ")");
+      var graphMove = function(x ,y) {
+        if(typeof x !== "undefined") {
+          scope.D3Params.translate.x = scope.D3Params.translate.x + parseInt(x);
+          scope.D3Params.translate.y = scope.D3Params.translate.y + parseInt(y);
         } else {
-           graphContainer.attr("transform", "translate(0, 0)");
+          scope.D3Params.translate.x = 0;
+          scope.D3Params.translate.y = 0;
         }
+        scale();
       };
       scope.graphMove = graphMove;
+
+      var graphZoom = function(coeff) {
+        if(typeof coeff === "undefined") {
+          scope.D3Params.scale = 1;
+        } else {
+          scope.D3Params.scale = scope.D3Params.scale * parseFloat(coeff);
+        }
+        scale();
+      };
+      scope.graphZoom = graphZoom;
+
+      /**
+       * [scale description]
+       * @return {[type]} [description]
+       */
+      var scale = function() {
+        if(d3.event && d3.event.scale !== null) {
+          scope.D3Params.scale = d3.event.scale;
+        }
+        var graphContainer = self.g.select("g.graphContainer");
+        graphContainer.attr("transform", 
+          "translate(" + scope.D3Params.translate.x + ", " + scope.D3Params.translate.y + ")" +
+          "scale(" + scope.D3Params.scale + ")"
+        );
+      }
 
 
 
@@ -387,6 +417,9 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         var graphContainer = svg
           .append("g")
           .attr("class", "graphContainer");
+
+        graphContainer
+          .call(d3.behavior.zoom().on("zoom", scale))
 
         var nodeContainers = graphContainer
           .append("g")
