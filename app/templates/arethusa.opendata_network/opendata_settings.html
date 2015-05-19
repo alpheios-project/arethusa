@@ -51,3 +51,9 @@
   ng-click="forceToggle()">
   <i class="fa" ng-class="{'fa-pause':D3Params.running, 'fa-play':D3Params.running===false}"></i>
 </span>
+<span
+  title="{{ translations.focusSel() }} {{ keyHints.focusSelection}}"
+  class="settings-span-button"
+  ng-click="focusSelection()">
+  <i class="fi-target-two rotate-on-hover"></i>
+</span>

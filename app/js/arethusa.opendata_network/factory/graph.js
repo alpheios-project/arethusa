@@ -90,14 +90,19 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
        * Get Token placeholders
        */
       var getTokenPlaceholders = function() {
-        ;return self.svg.selectAll("div.node.token-node")
+        return self.svg.selectAll("div.node.token-node");
       }
       /**
        * Get Edge placeholders
        */
       var getEdgePlaceholders = function() {
-        return self.svg.selectAll("div.edge.edge-node")
+        return self.svg.selectAll("div.edge.edge-node");
       };
+
+
+      var getNodeById = function(id) {
+        return self.svg.select('[data-node-id="' + id + '"]');
+      }
 
       /**
        * Return the translate string for the middle of one rectangle
@@ -393,6 +398,66 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         console.log(data, event);
       }
 
+
+      /**
+       * [focusNode description]
+       * @param  {[type]} node [description]
+       * @return {[type]}      [description]
+       */
+      function focusNode(node) {
+        if(node) {
+          var point = parseTransformTranslate(node);
+          var graph = calculateSvgHotspots();
+          var translate = {
+            x : graph.realCenter.x - point.x,
+            y : graph.realCenter.y - point.y
+          }
+          console.log(translate)
+          graphMove(translate.x, translate.y);
+        }
+      }
+
+      /**
+       * [calculateSvgHotspots description]
+       * @return {[type]} [description]
+       */
+      function calculateSvgHotspots() {
+        var w = tree.width(),
+            h = tree.height();
+        return {
+          width   : w,
+          height  : h,
+          center : {
+            x : w  / 2,
+            y: h / 2
+          },
+          realCenter : {
+            x : w  / 2 - scope.D3Params.translate.x,
+            y: h / 2 - scope.D3Params.translate.y
+          }
+        }
+      }
+
+      /**
+       * [parseTransformTranslate description]
+       * @param  {[type]} node [description]
+       * @return {[type]}      [description]
+       */
+      function parseTransformTranslate(node) {
+        var translate = node.attr('transform');
+        var match = /translate\((.*),(.*?)\)/.exec(translate);
+        return {x : match[1], y : match[2]};
+      }
+
+      /**
+       * [focusSelection description]
+       * @return {[type]} [description]
+       */
+      scope.focusSelection = function() {
+        var node = state.firstSelected();
+        focusNode(angular.element(getNodeById(node)[0][0]))
+      }
+
       /**
        * [scale description]
        * @return {[type]} [description]
@@ -489,6 +554,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           .enter().append("g")
             .attr("class", "node")
             .attr("overflow", "visible")
+            .attr("data-node-id", function(d) { return d.id; })
             .call(force.drag);
 
         insertNodes(node);
@@ -735,6 +801,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             kC.create('linkDistancePlus', function() { linkDistanceChanger(+10); }, 'g'),
             kC.create('linkDistanceMinus', function() { linkDistanceChanger(-10); }, 'v'),
             kC.create('forceToggle', function() { forceToggle(); }, 'p'),
+            kC.create('focusNode', function() { scope.focusSelection(); }, 'a'),
           ]
         };
       }

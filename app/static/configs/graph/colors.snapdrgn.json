@@ -37,5 +37,6 @@
     "perseusrdf:EnemyOf" : "#030303",
     "perseusrdf:WifeOf" : "#F70505",
     "perseusrdf:HusbandOf" : "#F70505",
-    "snap:ProtegeOf" : "#3505F7"
+    "snap:ProtegeOf" : "#3505F7",
+    "snap:IntimateRelationship" : "#F70505"
 }
