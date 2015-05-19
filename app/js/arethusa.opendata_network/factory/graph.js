@@ -11,9 +11,14 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       var self = this,
           defaultEdgeLabel = "+";
 
-      self.configuration = {
-        mergeLinks : true
-      };
+      self.configuration = conf || {};
+
+      var computeMaxWeight = function() {
+        var maxWeight = Object.keys(self.configuration.weight).map(function (key) {
+            return self.configuration.weight[key];
+        });
+        self.configuration.maxWeight = Math.max.apply(null, maxWeight);
+      }
 
       // General margin value so that trees don't touch the canvas border.
       var treeMargin = 15;
@@ -384,6 +389,10 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       };
       scope.graphZoom = graphZoom;
 
+      var draggingGraph = function(data, event) {
+        console.log(data, event);
+      }
+
       /**
        * [scale description]
        * @return {[type]} [description]
@@ -419,7 +428,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           .attr("class", "graphContainer");
 
         graphContainer
-          .call(d3.behavior.zoom().on("zoom", scale))
+          .call(d3.behavior.zoom().on("zoom", scale));
 
         var nodeContainers = graphContainer
           .append("g")
@@ -451,7 +460,29 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             .data(graph.links)
           .enter().append("path")
             .attr("class", "link")
-            .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+            .style("stroke-width", function(d) { 
+              if(typeof self.configuration.weight !== "undefined") {
+                if(typeof self.configuration.maxWeight === "undefined") {
+                  computeMaxWeight();
+                }
+                var t = d.type;
+                if(typeof self.configuration.weight[t] !== "undefined") {
+                  return self.configuration.maxWeight * 1 / self.configuration.weight[t];
+                }
+              }
+              return Math.sqrt(d.value);
+            });
+        if(typeof self.configuration.colors !== "undefined") {
+          link.style("stroke", function(d) {
+              var t = d.type;
+              if(typeof self.configuration.colors[t] !== "undefined") {
+                return self.configuration.colors[t];
+              } else {
+                return "#999";
+              }
+            });
+        }
+
 
         var node = nodeContainers.selectAll(".node")
             .data(graph.nodes)

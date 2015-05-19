@@ -6,7 +6,7 @@
     "retrievers" : {
       "SnapdrgnRetriever" : {
         "resource" : "fakeJoth",
-        "mergeLinks" : true
+        "docIdentifier" : "graph"
       }
     },
     "plugins" : [
@@ -36,7 +36,10 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.opendataNetwork/context_menu.html",
       "template" : "templates/arethusa.opendata_network/opendata_network.html",
-      "multipleLinks" : true
+      "multipleLinks" : true,
+      "mergeLinks" : true,
+      "weight" : { "@include" : "graph/weight.snapdrgn.json" },
+      "colors" : { "@include" : "graph/colors.snapdrgn.json" }
     }
   },
 

@@ -17,11 +17,21 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
     
     this.defaultConf = {
       template: 'templates/arethusa.opendata_network/opendata_network.html',
-      multipleLinks: false
+      multipleLinks: false,
+      mergeLinks : false,
+      color: {},
+      weight : {}
     };
 
     var configure = function() {
       configurator.getConfAndDelegate(self);
+      /*
+      scope.conf = {
+        mergeLinks : self.conf.mergeLinks,
+        colors : self.conf.colors,
+        weight : self.conf.weight
+      }
+      */
     }
 
 
@@ -53,12 +63,10 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
      */
     var changeLink = function (source, target) {
       var link = linkTemplate(source, target);
-      console.log(angular.copy(source))
 
       source.linkCounter = source.linkCounter + 1;
       source.graph.push(link);
       var graph = source.graph;
-      console.log(angular.copy(source))
       state.change(source, 'graph', graph);
     }
 

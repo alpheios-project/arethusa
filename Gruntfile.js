@@ -81,7 +81,7 @@ function arethusaSourceFiles() {
     "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
     "./bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js",
     "./vendor/highlight/highlight.pack.js",
-    "./bower_components/svg-curve-lib/src/js/svg-curve-lib.js",
+    "./bower_components/svg-curve-lib/src/js/svg-curve-lib.js"
   ];
 
   // Of some components there are no non-minified version available

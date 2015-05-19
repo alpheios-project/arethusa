@@ -14,6 +14,11 @@
   ng-click="graphZoom()">
   <i class="fa fa-search"></i>
 </span><span
+  title="Move"
+  class="settings-span-button"
+  jqyoui-draggable="{onDrag:'draggingGraph()'}">
+  <i class="fa fa-arrows"></i>
+</span><span
   title="Move to left"
   class="settings-span-button"
   ng-click="graphMove(-20, 0)">
