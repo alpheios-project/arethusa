@@ -19,19 +19,15 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
       template: 'templates/arethusa.opendata_network/opendata_network.html',
       multipleLinks: false,
       mergeLinks : false,
+      edgeLabel : false,
+      ontologyLabel : false,
+      defaultEdgeLabel : "+",
       color: {},
       weight : {}
     };
 
     var configure = function() {
       configurator.getConfAndDelegate(self);
-      /*
-      scope.conf = {
-        mergeLinks : self.conf.mergeLinks,
-        colors : self.conf.colors,
-        weight : self.conf.weight
-      }
-      */
     }
 
 

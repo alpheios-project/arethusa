@@ -7,16 +7,10 @@ angular.module('arethusa.opendataNetwork').directive('openDataGraph', [
       restrict: 'A',
       scope: {
         tokens: '=',
-        colors: '=',
-        weight: '=',
-        mergeLinks: '='
+        conf: '='
       },
       link: function (scope, element, attrs) {
-        var tree = new Graph(scope, element, {
-          colors : scope.colors,
-          weight : scope.weight,
-          mergeLinks : scope.mergeLinks
-        });
+        var tree = new Graph(scope, element, scope.conf);
         tree.launch();
       },
     };

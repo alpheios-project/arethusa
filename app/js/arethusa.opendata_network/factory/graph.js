@@ -6,14 +6,22 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
   '$timeout',
   'keyCapture',
   function ($compile, state, $timeout, keyCapture) {
+    /**
+     * [description]
+     * @param  {Object}  conf                      The configuration object for the graph
+     * @param  {Object}  conf.colors               A key-value dictionary where the value represents the color to use for edges and the key the type value of an edge
+     * @param  {Object}  conf.weight               A decreasing weight factor key-value dictionary where key represents edge's type and smallest numbers represents strongest connections 
+     * @param  {Boolean} conf.edgeLabel            Show edges labels text by default
+     * @param  {Boolean} conf.ontologyLabel        Split ontology edges labels around the colon.
+     * @param  {Boolean} conf.mergeLinks           Merge together on the graph links between same nodes with same type
+     * @param  {Boolean} conf.defaultEdgeLabel     The default edge label to display for editing or while edge labels are not displayed.
+     * @return {function}         [description]
+     */
     return function(scope, element, conf) {
 
-      var self = this,
-          defaultEdgeLabel = "+";
+      var self = this;
 
       self.configuration = conf || {};
-      self.configuration.edgeLabel = true;
-      self.configuration.ontologyLabel = true;
 
       var computeMaxWeight = function() {
         var maxWeight = Object.keys(self.configuration.weight).map(function (key) {
@@ -313,7 +321,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             .style("display", "inline")
             .html(function(d) {
               // Ids : Graph Token PlaceHolder
-                return '<div class="edge edge-node placeholder" id="geph' + d.id + '" style="display:inline;">' + defaultEdgeLabel + '</div>';
+                return '<div class="edge edge-node placeholder" id="geph' + d.id + '" style="display:inline;">' + self.configuration.defaultEdgeLabel + '</div>';
             });
 
           updateWidth("edge-node");
@@ -546,7 +554,6 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
 
         scope.D3Params.running = true;
 
-        var mLinkNum = setLinkIndexAndNum(graph);
         var link = linkContainers.selectAll(".link")
             .data(graph.links)
           .enter().append("path")
@@ -584,8 +591,9 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             .attr("data-node-id", function(d) { return d.id; })
             .call(force.drag);
 
-        insertNodes(node);
+        var nodesLabel  = insertNodes(node);
         var edgesLabels = insertEdges(edgeLabelsContainers, graph);
+        var mLinkNum    = setLinkIndexAndNum(graph);
 
         force.on("tick", function() {
           var ticks = {};
@@ -632,9 +640,6 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       };
 
       var computeDR = function(d, cache, mLinkNum) {
-        if(cache[d.id]) {
-          return cache[d.id];
-        }
         var dx = d.target.x - d.source.x,
             dy = d.target.y - d.source.y,
             dr = Math.sqrt(dx * dx + dy * dy);
