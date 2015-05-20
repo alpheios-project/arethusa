@@ -12,6 +12,8 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           defaultEdgeLabel = "+";
 
       self.configuration = conf || {};
+      self.configuration.edgeLabel = true;
+      self.configuration.ontologyLabel = true;
 
       var computeMaxWeight = function() {
         var maxWeight = Object.keys(self.configuration.weight).map(function (key) {
@@ -276,30 +278,54 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             .attr("dy", ".35em")
             .attr("text-anchor", "middle");
 
-        var foreignObjects = g
-            .append("foreignObject")
-            .attr("overflow", "visible")
-            .attr("width", 10000) //We need to do that so divs take the right size
-            .attr("height", 10000);
+        if(self.configuration.edgeLabel) {
+          //In non editor mode, we show the label of each edge.
+          var texts = g
+            .append("text")
+            .attr('text-anchor', 'middle');
 
-        // Because directives are compiled after, we play with a directive !
-        var placeholders  = foreignObjects
-          .append("xhtml:div")
-          .style("display", "inline")
-          .html(function(d) {
-            // Ids : Graph Token PlaceHolder
-              return '<div class="edge edge-node placeholder" id="geph' + d.id + '" style="display:inline;">' + defaultEdgeLabel + '</div>';
-          });
+          var textPath = texts
+            .append("textPath")
+            .attr("class", "edge edge-node placeholder")
+            .attr("xlink:href", function(d) { return "#geph-path-" + d.id; })
+            .attr("id", function(d) { return "geph" + d.id; })
+            .style('font-size', '0.7em')
+            .attr("startOffset", "25%")
+            .text(function(d) {
+              if(self.configuration.ontologyLabel) {
+                var s = d.type.split(":");
+                return (s.length == 2) ? s[1] : s;
+              } else {
+                return d.type;
+              }
+            });
+            return textPath;
+        } else {
+          var foreignObjects = g
+              .append("foreignObject")
+              .attr("overflow", "visible")
+              .attr("width", 10000) //We need to do that so divs take the right size
+              .attr("height", 10000);
 
-        updateWidth("edge-node");
+          // Because directives are compiled after, we play with a directive !
+          var placeholders  = foreignObjects
+            .append("xhtml:div")
+            .style("display", "inline")
+            .html(function(d) {
+              // Ids : Graph Token PlaceHolder
+                return '<div class="edge edge-node placeholder" id="geph' + d.id + '" style="display:inline;">' + defaultEdgeLabel + '</div>';
+            });
 
-        var tokenDirectives = getEdgePlaceholders()
-          .append(function() {
-            // As we compiled html, we don't have any data inside this node.
-            this.textContent = '';
-            return compiledEdge(scope.annotations[this.id.slice(4)]);
-          });
-        return g;
+          updateWidth("edge-node");
+
+          var tokens = getEdgePlaceholders()
+            .append(function() {
+              // As we compiled html, we don't have any data inside this node.
+              this.textContent = '';
+              return compiledEdge(scope.annotations[this.id.slice(4)]);
+            });
+          return g;
+        }
       };
 
       /**
@@ -525,6 +551,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             .data(graph.links)
           .enter().append("path")
             .attr("class", "link")
+            .attr("id", function(d) { return "geph-path-" + d.id; })
             .style("stroke-width", function(d) { 
               if(typeof self.configuration.weight !== "undefined") {
                 if(typeof self.configuration.maxWeight === "undefined") {
@@ -563,16 +590,24 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         force.on("tick", function() {
           var ticks = {};
           link.attr("d", function(d) {
+            var dr = computeDR(d, ticks, mLinkNum);
+            // generate svg path
+            return "M" + d.source.x + "," + d.source.y + 
+                "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + 
+                "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y;  
+          });
+
+          if(self.configuration.edgeLabel) {
+            edgesLabels.attr("d", function(d) {
               var dr = computeDR(d, ticks, mLinkNum);
               // generate svg path
               return "M" + d.source.x + "," + d.source.y + 
                   "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + 
                   "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y;  
-          });
-
-          edgesLabels.attr("transform", function(d) {
+            });
+          } else {
+            edgesLabels.attr("transform", function(d) {
               var dr = computeDR(d, ticks, mLinkNum);
-
               //(p0, rx, ry, xAxisRotation, largeArcFlag, sweepFlag, p1, t)
               // @t represents where, from 0 to 1, the point your are looking for is. 0.5 would be the center of the curve. 
               var point = SVGCurveLib.pointOnEllipticalArc(
@@ -586,7 +621,9 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
                 0.5
               );
               return translateMiddle(point, this);
-          });
+            });
+          }
+          
 
           node.attr("transform", function(d) { 
             return translateMiddle(d, this);

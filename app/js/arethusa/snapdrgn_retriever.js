@@ -99,7 +99,7 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
               }
               var edge = {
                   type : bond.type,
-                  id : bond.id,
+                  id : bond.id.split("#")[0],
                   target : realTarget,
                   source : otherTarget,
                   weight: 1,
