@@ -235,8 +235,9 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
     return function(conf) {
       var self = this;
       var resource = configurator.provideResource(conf.resource);
+      var docId = conf.docIdentifier;
 
-      this.parse = function(json, docId, callback) {
+      this.parse = function(json, callback) {
         var arethusaJson = SnapToArethusa(json);
         var parsedDoc = parseDocument(arethusaJson, docId);
         var doc = commons.doc(undefined, arethusaJson);
@@ -248,12 +249,12 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
       this.get = function (params, callback) {
         if (!callback) {
           callback = params;
-          params = {doc : "persons"};
+          params = {};
         }
         //Params are not given, don't know what going on. See with @LFDM and @BALMAS
         resource.get(params).then(function(res) {
           var data = res.data;
-          self.parse(data, params.doc, callback);
+          self.parse(data, callback);
         });
       };
     };
