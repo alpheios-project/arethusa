@@ -561,17 +561,9 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         var edgesLabels = insertEdges(edgeLabelsContainers, graph);
 
         force.on("tick", function() {
+          var ticks = {};
           link.attr("d", function(d) {
-              var dx = d.target.x - d.source.x,
-                  dy = d.target.y - d.source.y,
-                  dr = Math.sqrt(dx * dx + dy * dy);
-              // get the total link numbers between source and target node
-              var lTotalLinkNum = mLinkNum[d.source.id + "," + d.target.id] || mLinkNum[d.target.id + "," + d.source.id];
-              if(lTotalLinkNum > 1) {
-                  // if there are multiple links between these two nodes, we need generate different dr for each path
-                  dr = dr/(1 + (1/lTotalLinkNum) * (d.linkindex - 1));
-              }
-
+              var dr = computeDR(d, ticks, mLinkNum);
               // generate svg path
               return "M" + d.source.x + "," + d.source.y + 
                   "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + 
@@ -579,15 +571,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           });
 
           edgesLabels.attr("transform", function(d) {
-              var dx = d.target.x - d.source.x,
-                  dy = d.target.y - d.source.y,
-                  dr = Math.sqrt(dx * dx + dy * dy);
-              // get the total link numbers between source and target node
-              var lTotalLinkNum = mLinkNum[d.source.id + "," + d.target.id] || mLinkNum[d.target.id + "," + d.source.id];
-              if(lTotalLinkNum > 1) {
-                  // if there are multiple links between these two nodes, we need generate different dr for each path
-                  dr = dr/(1 + (1/lTotalLinkNum) * (d.linkindex - 1));
-              }
+              var dr = computeDR(d, ticks, mLinkNum);
 
               //(p0, rx, ry, xAxisRotation, largeArcFlag, sweepFlag, p1, t)
               // @t represents where, from 0 to 1, the point your are looking for is. 0.5 would be the center of the curve. 
@@ -609,6 +593,24 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
           });
         });
       };
+
+      var computeDR = function(d, cache, mLinkNum) {
+        if(cache[d.id]) {
+          return cache[d.id];
+        }
+        var dx = d.target.x - d.source.x,
+            dy = d.target.y - d.source.y,
+            dr = Math.sqrt(dx * dx + dy * dy);
+        // get the total link numbers between source and target node
+        var lTotalLinkNum = mLinkNum[d.source.id + "," + d.target.id] || mLinkNum[d.target.id + "," + d.source.id];
+        if(lTotalLinkNum > 1) {
+            // if there are multiple links between these two nodes, we need generate different dr for each path
+            dr = dr/(1 + (1/lTotalLinkNum) * (d.linkindex - 1));
+        }
+        cache[d.id] = dr;
+        return dr;
+      }
+
 
       /**
        * Sort the graph data
