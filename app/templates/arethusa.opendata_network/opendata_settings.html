@@ -57,3 +57,9 @@
   ng-click="focusSelection()">
   <i class="fi-target-two rotate-on-hover"></i>
 </span>
+<span
+  title="{{ translations.focusSel() }} {{ keyHints.focusSelection}}"
+  class="settings-span-button"
+  ng-click="toggleLabels()">
+  <i class="fa" ng-class="{'fa-eye':!D3Params.displayLabels,'fa-eye-slash':D3Params.displayLabels}"></i>
+</span>

@@ -30,6 +30,8 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         self.configuration.maxWeight = Math.max.apply(null, maxWeight);
       }
 
+      self.configuration.defaultColor = self.configuration.defaultColor || "#999";
+
       // General margin value so that trees don't touch the canvas border.
       var treeMargin = 15;
       var treeTemplate = '\
@@ -280,13 +282,14 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
        * @param  {Object}     graph Graph object
        */
       var insertEdges = function(root, graph) {
+        var r = [];
         var g = root.selectAll(".edgesLabels")
             .data(graph.links).enter()
             .append("g")
-            .attr("dy", ".35em")
+            //.attr("dy", ".35em")
             .attr("text-anchor", "middle");
 
-        if(self.configuration.edgeLabel) {
+        r.push(g);
           //In non editor mode, we show the label of each edge.
           var texts = g
             .append("text")
@@ -307,8 +310,8 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
                 return d.type;
               }
             });
-            return textPath;
-        } else {
+        r.push(textPath);
+        if(!self.configuration.viewer) {
           var foreignObjects = g
               .append("foreignObject")
               .attr("overflow", "visible")
@@ -332,8 +335,9 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
               this.textContent = '';
               return compiledEdge(scope.annotations[this.id.slice(4)]);
             });
-          return g;
+          r.push(foreignObjects);
         }
+        return r;
       };
 
       /**
@@ -507,6 +511,22 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
         );
       }
 
+      /**
+       * Toggle the visibility of labels for links 
+       * @return {[type]} [description]
+       */
+      var toggleLabels = function() {
+        scope.D3Params.displayLabels = (!scope.D3Params.displayLabels);
+        if(scope.D3Params.displayLabels) {
+          self.edgeLabels.label.attr("opacity", "1");
+          self.edgeLabels.links.attr("opacity", "0");
+        } else {
+          self.edgeLabels.label.attr("opacity", "0");
+          self.edgeLabels.links.attr("opacity", "1");
+        }
+        return scope.D3Params.displayLabels;
+      }
+      scope.toggleLabels = toggleLabels;
 
 
       /**
@@ -577,7 +597,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
               if(typeof self.configuration.colors[t] !== "undefined") {
                 return self.configuration.colors[t];
               } else {
-                return "#999";
+                return self.configuration.defaultColor;
               }
             });
         }
@@ -592,7 +612,15 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             .call(force.drag);
 
         var nodesLabel  = insertNodes(node);
-        var edgesLabels = insertEdges(edgeLabelsContainers, graph);
+        var insertedEdges = insertEdges(edgeLabelsContainers, graph);
+        self.edgeLabels = {
+          container : insertedEdges[0],
+          label : insertedEdges[1],
+          links : insertedEdges[2]
+        }
+        if(!self.configuration.viewer) {
+          self.edgeLabels.label.attr("opacity", "0");
+        }
         var mLinkNum    = setLinkIndexAndNum(graph);
 
         force.on("tick", function() {
@@ -605,16 +633,8 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
                 "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y;  
           });
 
-          if(self.configuration.edgeLabel) {
-            edgesLabels.attr("d", function(d) {
-              var dr = computeDR(d, ticks, mLinkNum);
-              // generate svg path
-              return "M" + d.source.x + "," + d.source.y + 
-                  "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + 
-                  "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y;  
-            });
-          } else {
-            edgesLabels.attr("transform", function(d) {
+          if(!self.configuration.viewer) {
+            self.edgeLabels.links.attr("transform", function(d) {
               var dr = computeDR(d, ticks, mLinkNum);
               //(p0, rx, ry, xAxisRotation, largeArcFlag, sweepFlag, p1, t)
               // @t represents where, from 0 to 1, the point your are looking for is. 0.5 would be the center of the curve. 
@@ -640,6 +660,9 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       };
 
       var computeDR = function(d, cache, mLinkNum) {
+        if(cache[d.id]) {
+          return cache[d.id];
+        }
         var dx = d.target.x - d.source.x,
             dy = d.target.y - d.source.y,
             dr = Math.sqrt(dx * dx + dy * dy);
