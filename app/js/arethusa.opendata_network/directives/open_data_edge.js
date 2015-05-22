@@ -20,7 +20,7 @@ angular.module('arethusa.opendataNetwork').directive('openDataEdge', [
         <span \
           menu-trigger="rightclick" \
           menu-position="bottom"  \
-          menu-obj="edge"
+          menu-obj="edge" \
           title="{{ edge.type }}" \
           >{{ label }} \
         </span> \
