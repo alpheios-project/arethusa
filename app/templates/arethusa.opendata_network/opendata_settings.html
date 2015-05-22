@@ -63,5 +63,10 @@
   ng-click="toggleLabels()">
   <i class="fa" ng-class="{'fa-eye':!D3Params.displayLabels,'fa-eye-slash':D3Params.displayLabels}"></i>
 </span>
-<span graph-setting is-int="true" value="D3Params.charge" title="Charge"></span>
-<span graph-setting is-int="true" value="D3Params.linkDistance" title="Link Distance"></span>
+<span ng-click="advancedSettings = !advancedSettings"><i class="fa fa-gear rotate-on-hover"></i></span>
+<div ng-show="advancedSettings">
+  <div class="right" style="text-align: right;">
+    <div><span graph-setting is-int="true" value="D3Params.charge" title="Charge"></span></div>
+    <div><span graph-setting is-int="true" value="D3Params.linkDistance" title="Link Distance"></span></div>
+  </div>
+</div>
