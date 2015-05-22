@@ -450,7 +450,6 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             x : graph.realCenter.x - point.x,
             y : graph.realCenter.y - point.y
           }
-          console.log(translate)
           graphMove(translate.x, translate.y);
         }
       }
@@ -470,7 +469,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
             y: h / 2
           },
           realCenter : {
-            x : w  / 2 - scope.D3Params.translate.x,
+            x : w / 2 - scope.D3Params.translate.x,
             y: h / 2 - scope.D3Params.translate.y
           }
         }
@@ -493,7 +492,9 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
        */
       scope.focusSelection = function() {
         var node = state.firstSelected();
-        focusNode(angular.element(getNodeById(node)[0][0]))
+        if(node) {
+          focusNode(angular.element(getNodeById(node)[0][0]));
+        }
       }
 
       /**
