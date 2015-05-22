@@ -4,7 +4,9 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
   'state',
   'configurator',
   'globalSettings',
-  function(state, configurator, globalSettings) {
+  'notifier',
+  'translator',
+  function(state, configurator, globalSettings, notifier, translator) {
     var self = this;
     this.name = 'opendataNetwork';
 
@@ -25,15 +27,26 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
       color: {},
       weight : {}
     };
+    
+    var translations = {};
 
+    /**
+     * [configure description]
+     * @return {[type]} [description]
+     */
     var configure = function() {
       configurator.getConfAndDelegate(self);
-    }
+    };
 
-
+    /**
+     * [makeLinkId description]
+     * @param  {[type]} source   [description]
+     * @param  {[type]} targetId [description]
+     * @return {[type]}          [description]
+     */
     var makeLinkId = function(source, targetId) {
       return source.linkCounter + "_" + source.id + "_" + targetId;
-    }
+    };
 
     /**
      * Create a link template
@@ -50,7 +63,7 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
         type : null,
         group : 0
       };
-    }
+    };
 
     /**
      * Create a link between two tokens
@@ -64,15 +77,15 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
       source.graph.push(link);
       var graph = source.graph;
       state.change(source, 'graph', graph);
-    }
+    };
 
     /**
      * Action trigger while clicking on a target node
      * @type {function}
      */
-    function changeLinkAction(id) {
+    var changeLinkAction = function(id) {
       self.changeLink(id);
-    }
+    };
 
     /**
      * Returns the current status of target selection
@@ -82,7 +95,7 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
      */
     var awaitingLinkChange = function (id, event) {
       return !state.isSelected(id) && state.hasClickSelections() && !event.ctrlKey;
-    }
+    };
 
     /**
      * Action run on click, until a linkChange is made, to add a class
@@ -99,14 +112,14 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
           element.removeClass('copy-cursor');
         }
       };
-    }
+    };
 
     /**
      * Add the link property for each token if not there
      */
     var addMissingLinksToState = function () {
       angular.forEach(state.tokens, addLink);
-    }
+    };
 
     /**
      * Check whether given token has a graph property
@@ -115,7 +128,7 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
      */
     var hasLink = function(token) {
       return (typeof token.graph !== "undefined" && token.graph.length > 0);
-    }
+    };
 
     /**
      * Add @graph and @linkCounter properties if required
@@ -129,15 +142,15 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
       if(typeof token.linkCounter === "undefined" ) {
         token.linkCounter = token.graph.length;
       }
-    }
+    };
 
     /**
      * Disconnect a token in the graph
      * @param  {<Object>}  token  Text token
      */
     self.disconnect = function(token) {
-      console.log("disconnect", token);
-    }
+      return;
+    };
 
     /**
      * [getLinksToChange description]
@@ -149,7 +162,6 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
       var id  = token.id;
       var notAllowed;
       var res = [];
-      console.log(state.clickedTokens)
       for (var otherId in state.clickedTokens) {
         var otherToken = state.getToken(otherId);
         if (otherToken.sentenceId !== sentenceId) {
@@ -161,7 +173,7 @@ angular.module('arethusa.opendataNetwork').service('opendataNetwork', [
         }
       }
       return notAllowed ? 'err': (res.length ? res : false);
-    }
+    };
 
 
     /**
