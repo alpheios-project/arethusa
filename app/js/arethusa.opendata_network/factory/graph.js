@@ -1,5 +1,6 @@
 "use strict";
 
+/* global SVGCurveLib */
 angular.module('arethusa.opendataNetwork').factory('graph', [
   '$compile',
   'state',
@@ -22,7 +23,7 @@ angular.module('arethusa.opendataNetwork').factory('graph', [
       var self = this;
 
       self.configuration = conf || {};
-      if(!SVGCurveLib) { var SVGCurveLib; throw "SVG Curve Lib is not loaded"; }
+      //if(!SVGCurveLib) { var SVGCurveLib; throw "SVG Curve Lib is not loaded"; }
 
       var computeMaxWeight = function() {
         var maxWeight = Object.keys(self.configuration.weight).map(function (key) {
