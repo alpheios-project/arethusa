@@ -118,7 +118,7 @@ function ArethusaMocks() {
         },
         morphology: {
           lemma: 'lemma1',
-          postag: 'n-'
+          postag: 'n'
         }
       },
       '02': {
