@@ -118,7 +118,7 @@ function ArethusaMocks() {
         },
         morphology: {
           lemma: 'lemma1',
-          postag: 'n-'
+          postag: 'n-' // explicitly using an empty postag component here to test behavior
         }
       },
       '02': {
