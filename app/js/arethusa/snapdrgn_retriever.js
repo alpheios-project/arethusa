@@ -48,83 +48,100 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
 
       var annoToPersons = function (annotations) {
         var persons = {};
+        var bonds = {};
+        console.log(annotations)
         angular.forEach(annotations, function(annotation, index) {
-            var bonds = {};
-            //For each annotation, we have a source !
+            // We have two types of annotations :
+            // The one who identify people 
+            // The ones who identify bonds
             var targetPage = annotation.hasTarget.hasSource["@id"];
 
             // We have a body
             //The body has two elements normally, one being the source of the bond, the other
-            
-            angular.forEach(annotation.hasBody["@graph"], function(body, subindex){
-                var id, bondId, direction, type;
-                //If we have the source of the bond
-                if("snap:has-bond" in body) {
-                    id = body["@id"].toLowerCase();
-                    bondId = body["snap:has-bond"]["@id"];
-                    direction = "source";
-                    type = false;
-                //If we have the direction of the bond
-                } else if ("snap:bond-with" in body) {
-                    id = body["snap:bond-with"]["@id"].toLowerCase();
-                    bondId = body["@id"];
-                    direction = "target";
-                    type = body["@type"];
-                } else {
-                    return;
-                }
-                if(!(bondId in bonds)) {
-                    bonds[bondId] = {
-                        source : null,
-                        target : null
-                    };
-                }
-                bonds[bondId][direction] = {
-                    id : id,
-                    name : capitalize(id.match(PerseusNameMatcher)[1])
-                };
-                if(type !== false) {
-                    bonds[bondId].type = type;
-                    bonds[bondId].id = bondId;
-                }
-            });
-          //  Normaly, there should be only one bond, but just in case...
-          angular.forEach(bonds, function(bond, bondId) {
-              // !!!! Temp fix 
-              // Right now, the target is always what is recognized as the person
-              // Through, this should not be the case, we should have a way to tell what represents 
-              //  really the selected text
-              var realTarget = bond.target.id,
-                  otherTarget = bond.source.id;
+            if(annotation.hasBody[0] && annotation.hasBody[0]["@id"]) {
+              persons[annotation.hasBody[0]["@id"]] = {
+                id : annotation.hasBody[0]["@id"],
+                name : annotation.hasTarget.hasSelector.exact
+              }
+            } else if(annotation.hasBody["@graph"] && !annotation.hasBody["@graph"][0]["http://lawd.info/ontology/hasAttestation"]){
+              angular.forEach(annotation.hasBody["@graph"], function(body, subindex){
+                  var id, bondId, direction, type;
+                  //If we have the source of the bond
+                  if("snap:has-bond" in body) {
+                      id = body["@id"];
+                      bondId = body["snap:has-bond"][0];
+                      direction = "source";
+                      type = false;
+                  //If we have the direction of the bond
+                  } else if ("snap:bond-with" in body) {
+                      id = body["snap:bond-with"]["@id"];
+                      bondId = body["@id"];
+                      direction = "target";
+                      type = body["@type"];
+                  } else {
+                      return;
+                  }
+                  if(!(bondId in bonds)) {
+                      bonds[bondId] = {
+                          source : null,
+                          target : null
+                      };
+                  }
+                  bonds[bondId][direction] = {
+                      id : id
+                  };
+                  if(type !== false) {
+                      bonds[bondId].type = type;
+                      bonds[bondId].id = bondId;
+                  }
 
-              // Now we register found bounds !
-              if (typeof persons[bond.target.id] === "undefined") {
-                persons[bond.target.id] = bond.target;
-              }
-              if (typeof persons[bond.source.id] === "undefined") {
-                persons[bond.source.id] = bond.source;
-              }
-              var edge = {
-                  type : bond.type,
-                  id : bond.id.replace(/([\.\[\]\(\)\#\/:])/g,"\\$1"),
-                  target : realTarget,
-                  source : otherTarget,
-                  weight: 1,
-                  group: 0,
-                  graph : [{
-                    source : bond.id,
-                    target : targetPage,
-                    selector : annotation.hasTarget.hasSelector,
-                    type : "attestation"
-                  }]
-              };
-              if(typeof persons[realTarget].graph === "undefined") {
-                persons[realTarget].graph = [];
-              }
-              persons[realTarget].graph.push(edge);
-          });
+                  bonds[bondId].targetPage = targetPage;
+                  bonds[bondId].selector = annotation.hasTarget.hasSelector;
+              });
+            }
         });
-       
+        console.log(angular.copy(persons));
+        //  Normaly, there should be only one bond, but just in case...
+        angular.forEach(bonds, function(bond, bondId) {
+            // !!!! Temp fix 
+            // Right now, the target is always what is recognized as the person
+            // Through, this should not be the case, we should have a way to tell what represents 
+            //  really the selected text
+            var realTarget = bond.target.id,
+                otherTarget = bond.source.id;
+            console.log(bond.target.id, bond.source.id, persons[bond.target.id], persons[bond.source.id])
+            // Now we register found bounds !
+            if (typeof persons[bond.target.id] === "undefined") {
+              persons[bond.target.id] ={
+                id : bond.target.id,
+                name : bond.target.id
+              };
+            }
+            if (typeof persons[bond.source.id] === "undefined") {
+              persons[bond.source.id] = {
+                id : bond.source.id,
+                name : bond.source.id
+              };
+            }
+            var edge = {
+                type : bond.type,
+                id : bond.id.replace(/([\.\[\]\(\)\#\/:])/g,"\\$1"),
+                target : realTarget,
+                source : otherTarget,
+                weight: 1,
+                group: 0,
+                graph : [{
+                  source : bond.id,
+                  target : bond.targetPage,
+                  selector : bond.selector,
+                  type : "attestation"
+                }]
+            };
+            if(typeof persons[realTarget].graph === "undefined") {
+              persons[realTarget].graph = [];
+            }
+            persons[realTarget].graph.push(edge);
+        });
         return persons;
       };
 
