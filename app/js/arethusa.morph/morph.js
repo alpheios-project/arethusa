@@ -450,7 +450,8 @@ angular.module('arethusa.morph').service('morph', [
     this.concatenatedAttributes = function (form) {
       var res = [];
       angular.forEach(form.attributes, function (value, key) {
-        res.push(self.abbrevAttributeValue(key, value));
+        if(!(self.abbrevAttributeValue(key, value)=='---'))
+          res.push(self.abbrevAttributeValue(key, value));
       });
       return res.join('.');
     };
