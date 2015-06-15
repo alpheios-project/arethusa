@@ -110,7 +110,7 @@ angular.module('arethusa.morph').service('morph', [
     var emptyAttribute = {
       long: '---',
       short: '---',
-      postag: '_' // the use of "_" instead of "-" is to distinguish validly empty from not known
+      postag: '-' 
     };
 
     function addSpecialEmptyAttribute(attrObj, name) {
