@@ -575,7 +575,7 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     this.setState = function (id, form) {
-      self.updateGloss(id);
+      self.updateGloss(id,form);
       state.change(id, 'morphology', form, undoFn(id), preExecFn(id, form));
     };
 
