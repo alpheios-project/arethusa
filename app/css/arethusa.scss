@@ -641,6 +641,7 @@ div.citbibl {
 }
 
 .postag-selector {
+  -moz-transform: scale(1.6); /* FF */
   $size: 1.3rem;
   width: $size;
   height: $size;
