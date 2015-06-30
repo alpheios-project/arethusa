@@ -122,6 +122,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
           if (valid) {
             cleanUpAttributes();
             addOrigin();
+            scope.form.postag = morph.attributesToPostag(scope.form.attributes);
             addForm();
             scope.reset();
           } else {
