@@ -150,7 +150,7 @@ angular.module('arethusa.comments').service('comments', [
         // Could be that this chunk had no comments before,
         // so we need to get the just newly created object
         // from the retriever and build up all our indices.
-        if (self.comments.length != 0) {
+        if (self.comments.length !== 0) {
           addToIndex(commentContainer);
         } else {
           retrieveComments();
