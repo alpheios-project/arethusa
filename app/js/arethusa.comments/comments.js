@@ -57,6 +57,7 @@ angular.module('arethusa.comments').service('comments', [
     function addToIndex(commentContainer) {
       var ids = commentContainer.ids;
       var id = ids.join('|'); // using a . would interfere with aU.setProperty
+      
       commentIndex[id] = commentContainer;
       fullTextIndex.add({ id: id, body: fullText(commentContainer) });
 
@@ -149,7 +150,7 @@ angular.module('arethusa.comments').service('comments', [
         // Could be that this chunk had no comments before,
         // so we need to get the just newly created object
         // from the retriever and build up all our indices.
-        if (self.comments) {
+        if (self.comments.length !== 0) {
           addToIndex(commentContainer);
         } else {
           retrieveComments();

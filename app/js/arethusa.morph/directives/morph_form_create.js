@@ -136,6 +136,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
             memo[attr] = scope.form.attributes[attr];
           });
           scope.form.attributes = cleanAttrs;
+          scope.form.postag = morph.attributesToPostag(scope.form.attributes);
         }
 
         function addOrigin() {
