@@ -100,7 +100,10 @@
     "centerTree": "Center Tree",
     "perfectWidth": "Perfect Width",
     "compact": "Compact tree",
-    "widen": "Widen tree"
+    "widen": "Widen tree",
+    "disconnect": "disconnect",
+    "toRoot": "to root",
+    "makeHead": "set as head"
   },
   "grid": {
     "dragging": "Dragging",
