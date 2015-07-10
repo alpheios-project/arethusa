@@ -66,14 +66,15 @@
   },
   "landing": {
     "awards": "Awards",
-    "description": "A backend-independent client-side annotation framework",
+    "description": "A backend-independent client-side annotation framework designed to:",
     "modularNature": "Through its modular nature Arethusa can be configured to solve different use cases.",
     "moreScreencasts": "More Screencasts",
     "devDescription": "Arethusa is built on the <a href=\"https://angularjs.org/angular.js\">AngularJS</a> javascript web application framework and provides a back-end independent plugin infrastructure for accessing texts, annotations and linguistic services from a variety of sources. Extensibility is a guiding design goal - Arethusa includes tools for automatic generation of new plugin skeletons (<a href=\"https://github.com/latin-language-toolkit/arethusa-cli\">Arethusa::CLI</a>) and detailed <a href=\"http://github.com/latin-language-toolkit/arethusa/blob/docs/docs/content/plugin_guide.md\">development guides</a> are currently in progress, with the hopes that others will be able to reuse and build upon the platform to add support for other annotation types, languages and back-end repositories and workflow engines.",
     "partners": "Partners",
     "funders": "Funders",
     "fundersDescription": "This project has received support from the <a href=\"http://www.mellon.org/\">Andrew W. Mellon Foundation</a>, the <a href=\"http://imls.gov/\">Institute of Museum and Library Services</a> and the <a href=\"http://ec.europa.eu/esf/home.jsp\">European Social Fund</a>.",
-    "tryYourself": "Try it yourself!"
+    "tryYourself": "Try it yourself!",
+    "goalsDescription": "<ul><li>Make annotating accessible and enjoyable, lowering the entry barrier for the user by providing access to related resources and services at the point of annotation.</li><li>Make the developer's job easier, by giving her tools and a framework for adding new functionality in a modular fashion and for binding diverse resources together in new ways.</li><li>Be fully open and have the ability to participate in external workflows that route digital content, together with its provenance, to and from diverse destinations.</li></ul>"
   },
   "auth": {
     "notLoggedIn": "You aren't logged in!"
