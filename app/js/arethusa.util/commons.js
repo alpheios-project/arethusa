@@ -18,6 +18,10 @@ angular.module('arethusa.util').service('commons', [
       if (angular.isFunction(changeOrDirective)) {
         this.change = changeOrDirective;
       } else {
+        // comment from @balmas: I'm not sure but I think this 
+        // leverages the {@link arethusa.core.directives#dynamicDirective}
+        // functionality to create a dumb directive which just sets the 
+        // new value on the model.
         this.directive = changeOrDirective;
       }
     }
@@ -29,8 +33,12 @@ angular.module('arethusa.util').service('commons', [
      * @methodOf arethusa.util.commons
      *
      * @description
-     * TODO
+     * Creates a new {@link arethusa.util.commons.Setting} object
      *
+     * @param {String} l the name of the seeting
+     * @param {String} m the name of the model object
+     * @param {Function} c optional callback function to be called when 
+     *   the setting is changed.
      */
     this.setting = function(l, m, c) { return new Setting(l, m, c); };
 
