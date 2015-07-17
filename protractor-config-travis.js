@@ -14,8 +14,8 @@ function createCapabality(browser, version, platform) {
 
 /* global exports */
 exports.config = {
-  sauceUser: 'arethusa',
-  sauceKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
+  sauceUser: 'balmas',
+  sauceKey: 'ae469ad7-eaf1-4c87-b165-c3f32d27d64a'
   specs: [specE2eFiles],
   multiCapabilities: [
     createCapabality('chrome', '37', 'Linux'),
