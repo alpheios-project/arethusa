@@ -3,7 +3,7 @@
   "version": "0.2.5",
   "repository": {
     "type": "git",
-    "url": "git@github.com:latin-language-toolkit/arethusa.git"
+    "url": "git@github.com:alpheios-project/arethusa.git"
   },
   "dependencies": {
     "body-parser": "^1.10.0",

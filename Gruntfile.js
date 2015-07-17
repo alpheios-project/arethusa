@@ -478,8 +478,8 @@ module.exports = function(grunt) {
     sauce_connect: {
       your_target: {
         options: {
-          username: 'arethusa',
-          accessKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
+          username: 'balmas',
+          accessKey: 'ae469ad7-eaf1-4c87-b165-c3f32d27d64a',
           verbose: true
         }
       }
