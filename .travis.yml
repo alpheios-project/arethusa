@@ -1,8 +1,8 @@
 language: node_js
 addons:
   sauce_connect:
-    username: "arethusa"
-    access_key: "8e76fe91-f0f5-4e47-b839-0b04305a5a5c"
+    username: "balmas"
+    access_key: "ae469ad7-eaf1-4c87-b165-c3f32d27d64a"
 before_install: npm install -g grunt-cli
 before_script:
   - grunt server &
