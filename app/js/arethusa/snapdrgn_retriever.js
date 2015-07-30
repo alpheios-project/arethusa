@@ -49,7 +49,30 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
       var annoToPersons = function (annotations) {
         var persons = {};
         var bonds = {};
-        console.log(annotations)
+        // sourceMap maps target source identifiers to the selected name text (with prefix and suffix)
+        // nameMap maps target source identifiers' exact names to their stable identifiers
+        var sourceMap = {};
+        var nameMap = {};
+        console.log(annotations);
+        angular.forEach(annotations, function(annotation, index) {
+          if (annotation['dcterms:title'].match(/as person/)) {
+            var source = annotation.hasTarget.hasSource['@id'];
+            var selector = annotation.hasTarget.hasSelector;
+            var nametext = selector.prefix + "-"+  selector.exact + "-" + selector.suffix;
+            if (! sourceMap[source]) {
+              sourceMap[source] = {};
+            }
+            if (! nameMap[source]) {
+              nameMap[source] = {};
+            }
+            if (!nameMap[source][selector.exact]) {
+              nameMap[source][selector.exact] = [];
+            }
+            sourceMap[source][nametext] = annotation.hasBody[0]['@id'];
+            nameMap[source][selector.exact].push(annotation.hasBody[0]['@id']);
+          }
+
+        });
         angular.forEach(annotations, function(annotation, index) {
             // We have two types of annotations :
             // The one who identify people 
@@ -58,11 +81,11 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
 
             // We have a body
             //The body has two elements normally, one being the source of the bond, the other
-            if(annotation.hasBody[0] && annotation.hasBody[0]["@id"]) {
+            if (annotation.hasBody[0] && annotation.hasBody[0]["@id"]) {
               persons[annotation.hasBody[0]["@id"]] = {
                 id : annotation.hasBody[0]["@id"],
                 name : annotation.hasTarget.hasSelector.exact
-              }
+              };
             } else if(annotation.hasBody["@graph"] && !annotation.hasBody["@graph"][0]["http://lawd.info/ontology/hasAttestation"]){
               angular.forEach(annotation.hasBody["@graph"], function(body, subindex){
                   var id, bondId, direction, type;
@@ -75,6 +98,26 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
                   //If we have the direction of the bond
                   } else if ("snap:bond-with" in body) {
                       id = body["snap:bond-with"]["@id"];
+                      if (id.match(/#rel-target/)) {
+                        // if we don't have an id, try to look up from the source mappings
+                        var source = annotation.hasTarget.hasSource['@id'];
+                        var selector = annotation.hasTarget.hasSelector;
+                        var nametext = selector.prefix + "-"+  selector.exact + "-" + selector.suffix;
+                        // first look for the exact selector (with suffix and prefix) from the targeted source
+                        var person = sourceMap[source][nametext];
+                        if (!person) {
+                          // but the selectors weren't consistent, so if that didn't work look for 
+                          // the ids for the selected name
+                          if (! nameMap[source][selector.exact])  {
+                            // if no id found, just use the name itself
+                            person = selector.exact;
+                          } else {
+                            // otherwise we can guess it's id of the first person mapped
+                            person = nameMap[source][selector.exact][0];
+                          }
+                        }
+                        id = person;
+                      }
                       bondId = body["@id"];
                       direction = "target";
                       type = body["@type"];
@@ -107,23 +150,24 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
             // Right now, the target is always what is recognized as the person
             // Through, this should not be the case, we should have a way to tell what represents 
             //  really the selected text
-            var realTarget = bond.target.id,
+            if (bond.target) {
+              var realTarget = bond.target.id,
                 otherTarget = bond.source.id;
-            console.log(bond.target.id, bond.source.id, persons[bond.target.id], persons[bond.source.id])
-            // Now we register found bounds !
-            if (typeof persons[bond.target.id] === "undefined") {
-              persons[bond.target.id] ={
-                id : bond.target.id,
-                name : bond.target.id
-              };
-            }
-            if (typeof persons[bond.source.id] === "undefined") {
-              persons[bond.source.id] = {
-                id : bond.source.id,
-                name : bond.source.id
-              };
-            }
-            var edge = {
+                console.log(bond.target.id, bond.source.id, persons[bond.target.id], persons[bond.source.id]);
+              // Now we register found bounds !
+              if (typeof persons[bond.target.id] === "undefined") {
+                persons[bond.target.id] ={
+                  id : bond.target.id,
+                  name : bond.target.id
+                };
+              }
+              if (typeof persons[bond.source.id] === "undefined") {
+                persons[bond.source.id] = {
+                  id : bond.source.id,
+                  name : bond.source.id
+                };
+              }
+              var edge = {
                 type : bond.type,
                 id : bond.id.replace(/([\.\[\]\(\)\#\/:])/g,"\\$1"),
                 target : realTarget,
@@ -136,11 +180,12 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
                   selector : bond.selector,
                   type : "attestation"
                 }]
-            };
-            if(typeof persons[realTarget].graph === "undefined") {
-              persons[realTarget].graph = [];
-            }
-            persons[realTarget].graph.push(edge);
+              };
+              if(typeof persons[realTarget].graph === "undefined") {
+                persons[realTarget].graph = [];
+              }
+              persons[realTarget].graph.push(edge);
+          }
         });
         return persons;
       };
