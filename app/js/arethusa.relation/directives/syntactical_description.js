@@ -218,8 +218,22 @@ angular.module('arethusa.relation').directive('syntacticalDescription', [
             token = undefined;
           } else {
             var relObj = relation.getLabelObj(token);
-            label = relObj.long;
-            style = relObj.style;
+            // @balmas there are probably various circumstances
+            // where the relObj is undefined here - most
+            // obvious is when the loaded document has labels
+            // which don't match the current set, but other
+            // situations may be possible. We shouldn't
+            // crash if this is the case but just gracefully
+            // try not to read attributes from it. This is a
+            // workaround -- a better solution might be to 
+            // code a default relation object for this situation
+            if (relObj) {
+              label = relObj.long;
+              style = relObj.style;
+            } else {
+              label = "[]";
+              style = "";
+            }
             string = token.string;
           }
           return {
