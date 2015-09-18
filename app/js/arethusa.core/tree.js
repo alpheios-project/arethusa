@@ -213,13 +213,15 @@ angular.module('arethusa.core').factory('Tree', [
         angular.forEach(scope.styles, function (style, id) {
           var labelStyle = style.label;
           var edgeStyle = style.edge;
-          if (labelStyle) {
-            saveOldStyles(id, label(id), labelStyle, labelStyleResets);
-            label(id).style(labelStyle);
+          var oldLabel = label(id);
+          var oldEdge = edge(id);
+          if (labelStyle && oldLabel[0][0]) {
+            saveOldStyles(id, oldLabel, labelStyle, labelStyleResets);
+            oldLabel.style(labelStyle);
           }
-          if (edgeStyle) {
-            saveOldStyles(id, edge(id), edgeStyle, edgeStyleResets);
-            edge(id).style(edgeStyle);
+          if (edgeStyle && oldEdge[0][0]) {
+            saveOldStyles(id, oldEdge, edgeStyle, edgeStyleResets);
+            oldEdge.style(edgeStyle);
           }
         });
       }

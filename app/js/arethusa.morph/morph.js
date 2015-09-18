@@ -312,10 +312,14 @@ angular.module('arethusa.morph').service('morph', [
           var newForms = makeUnique(res);
           arethusaUtil.pushAll(forms, newForms);
 
+          // @balmas we need to comment this out for
+          // now - because we don't always want to override
+          // the user's selection to the most frequent, only when
+          // they haven't chose something else
 
-          if (self.storePreferences) {
-            sortByPreference(str, forms);
-          }
+          //if (self.storePreferences) {
+          //  sortByPreference(str, forms);
+          //}
 
           if (self.preselect) {
             preselectForm(forms[0], id);
