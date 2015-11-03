@@ -56,6 +56,7 @@ angular.module('arethusa.core').controller('NavigatorCtrl', [
       }).join(', ');
     }
 
+   
     $scope.$watchCollection('navStat.currentIds', function(newVal, oldVal) {
       if (newVal) {
         $scope.ids = formatIds(newVal);

@@ -629,10 +629,11 @@ div.citbibl {
   white-space: nowrap;
 }
 
-ul.collapsed li a.nav-citation {
+ul.navbar-navigation.collapsed a.nav-citation {
   overflow-y: hidden;
   overflow-x: scroll;
-  max-width: 200px;
+  max-width: 150px;
+  direction: rtl;
 }
 
 .nav-link {

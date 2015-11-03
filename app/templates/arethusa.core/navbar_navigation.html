@@ -1,5 +1,8 @@
 <ul ng-show="showNavigation()" class="navbar-navigation">
   <li>
+    <!-- navStat is updated in the NavigatorCtrl in a watch on -->
+    <!-- nav.status which is in turn set by the navigator plugin -->
+    <!-- whenever the user navigates to a new chunk -->
     <a class="nav-citation">{{ navStat.citation }}</a>
   </li>
   <!--The wrapping divs around the a elements are only there for styling - the-->
