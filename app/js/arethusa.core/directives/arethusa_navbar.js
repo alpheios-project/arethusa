@@ -65,9 +65,9 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
       
         scope.$watch('windowWidth', function(newVal, oldVal) {
           if (newVal > 1150) {
-            element.removeClass("collapsed")
+            element.removeClass("collapsed");
           } else {
-            element.addClass("collapsed")
+            element.addClass("collapsed");
           }
         });
 
