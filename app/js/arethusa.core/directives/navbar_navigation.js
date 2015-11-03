@@ -14,7 +14,6 @@ angular.module('arethusa.core').directive('navbarNavigation', [
           scope.collapseCitation();
         });
         scope.$watch('nav.status.citation', function(newVal, oldVal) {
-          debugger;
           scope.collapseCitation();
         });
         // function to determine if the navbar should be flagged as collapsed, based upon
@@ -33,7 +32,7 @@ angular.module('arethusa.core').directive('navbarNavigation', [
           } else {
             element.removeClass("collapsed");
           }
-        }
+        };
       },
 
       templateUrl: 'templates/arethusa.core/navbar_navigation.html'
