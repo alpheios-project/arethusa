@@ -625,6 +625,16 @@ div.citbibl {
   opacity: 0.4;
 }
 
+.nav-citation {
+  white-space: nowrap;
+}
+
+ul.collapsed li a.nav-citation {
+  overflow-y: hidden;
+  overflow-x: scroll;
+  max-width: 200px;
+}
+
 .nav-link {
   padding: 0 10px !important;
 }
