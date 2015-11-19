@@ -1,0 +1,49 @@
+{
+  "greekGh" : {
+    "route" : "https://raw.githubusercontent.com/PerseusDL/treebank_data/master/v1.6/greek/data/:doc.tb.xml",
+    "params" : [ "doc" ]
+  },
+  "latinGh" : {
+    "route" : "https://raw.githubusercontent.com/PerseusDL/treebank_data/master/v1.6/latin/data/:doc.tb.xml",
+    "params" : [ "doc" ]
+  },
+  "arethusaServerTreebank" : {
+    "route" : "/examples/treebanks/:doc",
+    "params" : [ "doc" ]
+  },
+  "lexInvFusekiEndpoint" : {
+    "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
+  },
+
+  "morphologyServiceLat" : {
+    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+  },
+
+  "morphologyServiceGrc" : {
+    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+  },
+
+  "sgGrammar" : {
+    "route" : "http://services.perseids.org/sg/:doc.html"
+  },
+
+  "citeMapper" : {
+    "route" : "http://services.perseids.org/cite_mapper/find_cite"
+  },
+
+  "demoXml" : {
+    "route" : "../dist/examples/:doc.xml",
+    "params" : [ "doc" ]
+  },
+  "demoReviewXml" : {
+    "route" : "../dist/examples/:gold.xml",
+    "params" : [ "gold" ]
+  },
+  "perseidsComments" : {
+    "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/comments",
+    "params" : [
+      "doc"
+    ],
+    "auth": "perseidsAuth"
+  }
+}
