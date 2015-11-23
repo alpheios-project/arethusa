@@ -7,6 +7,12 @@
         "docIdentifier" : "treebank"
       }
     },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "latinGh",
+        "docIdentifier" : "treebank"
+      }
+    },
     "plugins" : [
       "text",
       "morph",
