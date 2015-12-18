@@ -104,17 +104,16 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
                         var selector = annotation.hasTarget.hasSelector;
                         var nametext = selector.prefix + "-"+  selector.exact + "-" + selector.suffix;
                         // first look for the exact selector (with suffix and prefix) from the targeted source
-                        var person = sourceMap[source][nametext];
-                        if (!person) {
-                          // but the selectors weren't consistent, so if that didn't work look for 
-                          // the ids for the selected name
-                          if (! nameMap[source][selector.exact])  {
+                        var person;
+                        if (sourceMap[source] && sourceMap[source][nametext]) {
+                          person = sourceMap[source][nametext];
+                        } else if (nameMap[source] && nameMap[source][selector.exact]) {
+                          // but the selectors weren't consistent, 
+                          // so we can guess it's id of the first person mapped
+                            person = nameMap[source][selector.exact][0];
+                        } else {
                             // if no id found, just use the name itself
                             person = selector.exact;
-                          } else {
-                            // otherwise we can guess it's id of the first person mapped
-                            person = nameMap[source][selector.exact][0];
-                          }
                         }
                         id = person;
                       }
@@ -150,7 +149,7 @@ angular.module('arethusa').factory('SnapdrgnRetriever', [
             // Right now, the target is always what is recognized as the person
             // Through, this should not be the case, we should have a way to tell what represents 
             //  really the selected text
-            if (bond.target) {
+            if (bond.target && bond.source) {
               var realTarget = bond.target.id,
                 otherTarget = bond.source.id;
                 console.log(bond.target.id, bond.source.id, persons[bond.target.id], persons[bond.source.id]);
