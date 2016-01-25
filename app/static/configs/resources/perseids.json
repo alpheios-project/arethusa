@@ -27,6 +27,10 @@
     "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
   },
 
+  "morphologyServicePer" : {
+    "route" : "http://www.perseids.org/svc/morphologyservice/analysis/word?lang=per&engine=hazm"
+  },
+
   "sgGrammar" : {
     "route" : "http://services.perseids.org/sg/:doc.html"
   },
