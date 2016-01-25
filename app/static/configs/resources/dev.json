@@ -66,6 +66,9 @@
   "morphologyServiceGrc" : {
     "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
   },
+  "morphologyServicePer" : {
+    "route" : "http://localhost/extapi/morphologyservice/analysis/word?lang=per&engine=hazm"
+  },
 
   "citeMapper" : {
     "route" : "http://74.70.97.104:8086/find_cite"
