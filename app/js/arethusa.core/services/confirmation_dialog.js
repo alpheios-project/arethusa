@@ -8,7 +8,7 @@ angular.module('arethusa.core').service('confirmationDialog', [
       var scope = $rootScope.$new();
       scope.message = message;
       var promise = $modal.open({
-        templateUrl: 'templates/arethusa.core/confirmation_dialog.html',
+        templateUrl: 'js/arethusa.core/templates/confirmation_dialog.html',
         windowClass: 'confirmation-modal',
         scope: scope
       }).result;

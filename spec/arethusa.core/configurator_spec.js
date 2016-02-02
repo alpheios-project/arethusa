@@ -20,7 +20,7 @@ describe('configurator', function() {
   // as we might mangle with these values.
   beforeEach(function() {
     mainConf = {
-      template: 'templates/main.html',
+      template: 'js/templates/main.html',
       retrievers: {
         'treebankRetriever': {
           resource: perseidsConf
@@ -34,7 +34,7 @@ describe('configurator', function() {
 
     morphConf = {
       name: 'morph',
-      template: 'templates/morph.html',
+      template: 'js/templates/morph.html',
       retrievers: {
         'fakeMorphRetriever' : morphRetrieverConf,
         'bspMorphRetriever' : {}
@@ -63,14 +63,14 @@ describe('configurator', function() {
       main: mainConf,
 
       navbar: {
-        template: 'templates/navbar.html'
+        template: 'js/templates/navbar.html'
       },
 
       plugins: {
         text: {
           name: 'text',
           main: true,
-          template: 'templates/text2.html'
+          template: 'js/templates/text2.html'
         },
         morph: morphConf
       },

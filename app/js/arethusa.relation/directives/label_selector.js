@@ -29,7 +29,7 @@ angular.module('arethusa.relation').directive('labelSelector', [
           }
         });
       },
-      templateUrl: 'templates/arethusa.relation/label_selector.html'
+      templateUrl: 'js/arethusa.relation/templates/label_selector.html'
     };
   }
 ]);

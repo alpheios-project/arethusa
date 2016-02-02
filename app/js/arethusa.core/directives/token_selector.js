@@ -132,7 +132,7 @@ angular.module('arethusa.core').directive('tokenSelector', [
           unusedWatcher.initCount();
         });
       },
-      templateUrl: 'templates/arethusa.core/token_selector.html'
+      templateUrl: 'js/arethusa.core/templates/token_selector.html'
     };
   }
 ]);

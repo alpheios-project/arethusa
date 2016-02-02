@@ -27,7 +27,7 @@
   },
 
   "navbar" : {
-    "template" : "templates/navbar1.html",
+    "template" : "js/templates/navbar1.html",
     "search" : true,
     "navigation" : true,
     "notifier" : true
@@ -45,18 +45,18 @@
   "plugins" : {
     "text" : {
       "main" : true,
-      "template"  : "templates/text2.html"
+      "template"  : "js/templates/text2.html"
     },
 
     "depTree" : {
       "main" : true,
       "contextMenu" : true,
-      "contextMenuTemplate": "templates/arethusa.dep_tree/context_menu.html",
-      "template" : "templates/dep_tree.html"
+      "contextMenuTemplate": "js/arethusa.dep_tree/templates/context_menu.html",
+      "template" : "js/templates/dep_tree.html"
     },
 
     "search" : {
-      "template" : "templates/search.html",
+      "template" : "js/templates/search.html",
       "regex" : true,
       "@include" : "keyboard/greek_regex.json"
     },
@@ -67,9 +67,9 @@
           "resource" : "morphologyService"
         }
       },
-      "template"  : "templates/morph3.html",
+      "template"  : "js/templates/morph3.html",
       "contextMenu" : true,
-      "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
+      "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
       "noRetrieval" : "online",
       "lexicalInventory" : {
         "retriever" : {
@@ -82,15 +82,15 @@
     },
 
     "relation" : {
-      "template" : "templates/relation.html",
+      "template" : "js/templates/relation.html",
       "contextMenu" : true,
-      "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
+      "contextMenuTemplate": "js/arethusa.relation/templates/context_menu.html",
       "@include" : "relation/relations.json"
     },
 
     "review" : {
       "autoDiff" : true,
-      "template" : "templates/arethusa.review/review.html",
+      "template" : "js/arethusa.review/templates/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
           "resource" : "arethusaServerTreebankGold"
@@ -99,7 +99,7 @@
     },
 
     "artificialToken" : {
-      "template" : "templates/arethusa.artificial_token/artificial_token.html"
+      "template" : "js/arethusa.artificial_token/templates/artificial_token.html"
     },
 
     "comments" : {

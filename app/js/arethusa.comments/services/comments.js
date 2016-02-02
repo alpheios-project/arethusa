@@ -26,9 +26,9 @@ angular.module('arethusa.comments').service('comments', [
     this.reverseIndex = {};
 
     this.defaultConf = {
-      template: "templates/arethusa.comments/comments.html",
+      template: "js/arethusa.comments/templates/comments.html",
       contextMenu: true,
-      contextMenuTemplate: "templates/arethusa.comments/context_menu.html"
+      contextMenuTemplate: "js/arethusa.comments/templates/context_menu.html"
     };
 
     function configure() {

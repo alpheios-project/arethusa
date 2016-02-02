@@ -13,7 +13,7 @@
  *   "navbar" : {
  *     "search" : true,
  *     "navigation" : true,
- *     "template" : "templates/navbar.html"
+ *     "template" : "js/templates/navbar.html"
  *   }
  *
  */

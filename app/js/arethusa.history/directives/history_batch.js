@@ -9,6 +9,6 @@ angular.module('arethusa.history').directive('historyBatch', function() {
     link: function(scope, element, attrs) {
       scope.events = scope.batch.events;
     },
-    templateUrl: 'templates/arethusa.history/history_batch.html'
+    templateUrl: 'js/arethusa.history/templates/history_batch.html'
   };
 });

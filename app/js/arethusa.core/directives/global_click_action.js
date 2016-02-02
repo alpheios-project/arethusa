@@ -10,7 +10,7 @@ angular.module('arethusa.core').directive('globalClickAction', [
         scope.gS = globalSettings;
         scope.setting = globalSettings.settings.clickAction;
       },
-      templateUrl: 'templates/arethusa.core/global_click_action.html'
+      templateUrl: 'js/arethusa.core/templates/global_click_action.html'
     };
   }
 ]);

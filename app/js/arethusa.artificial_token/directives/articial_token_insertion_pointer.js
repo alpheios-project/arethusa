@@ -83,7 +83,7 @@ angular.module('arethusa.artificialToken').directive('artificialTokenInsertionPo
 
         setInsertDirText();
       },
-      templateUrl: 'templates/arethusa.artificial_token/artificial_token_insertion_pointer.html'
+      templateUrl: 'js/arethusa.artificial_token/templates/artificial_token_insertion_pointer.html'
     };
   }
 ]);

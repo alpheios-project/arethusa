@@ -13,7 +13,7 @@ angular.module('arethusa.artificialToken').directive('artificialTokenList', [
           return idHandler.formatId(id, '%s-%w');
         };
       },
-      templateUrl: 'templates/arethusa.artificial_token/artificial_token_list.html'
+      templateUrl: 'js/arethusa.artificial_token/templates/artificial_token_list.html'
     };
   }
 ]);

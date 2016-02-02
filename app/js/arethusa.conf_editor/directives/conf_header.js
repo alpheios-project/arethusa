@@ -6,6 +6,6 @@ angular.module('arethusa.confEditor').directive('confHeader', function () {
       name: '=',
       remover: '&'
     },
-    templateUrl: 'templates/conf_editor/conf_header.html'
+    templateUrl: 'js/conf_editor/templates/conf_header.html'
   };
 });

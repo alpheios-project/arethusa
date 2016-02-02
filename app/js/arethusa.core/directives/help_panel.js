@@ -45,7 +45,7 @@ angular.module('arethusa.core').directive('helpPanel', [
           });
         });
       },
-      templateUrl: 'templates/arethusa.core/help_panel.html'
+      templateUrl: 'js/arethusa.core/templates/help_panel.html'
     };
   }
 ]);

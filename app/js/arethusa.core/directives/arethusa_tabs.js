@@ -130,7 +130,7 @@ angular.module('arethusa.core').directive('arethusaTabs', [
           arethusaLocalStorage.set(LOCAL_STORAGE_KEY, tabConf);
         }
       },
-      templateUrl: 'templates/arethusa.core/arethusa_tabs.html'
+      templateUrl: 'js/arethusa.core/templates/arethusa_tabs.html'
     };
   }
 ]);

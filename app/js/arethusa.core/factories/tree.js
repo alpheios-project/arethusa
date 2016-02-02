@@ -125,7 +125,7 @@ angular.module('arethusa.core').factory('Tree', [
 
       // Templates driven out to their own files
       function templatePath(name) {
-        return "templates/arethusa.dep_tree/" + name + ".html";
+        return "js/arethusa.dep_tree/templates/" + name + ".html";
       }
 
       function prependTemplate(template) {

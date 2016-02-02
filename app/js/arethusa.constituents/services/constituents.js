@@ -8,7 +8,7 @@ angular.module('arethusa.constituents').service('constituents', [
     this.name = 'constituents';
 
     this.defaultConf = {
-      template: 'templates/arethusa.constituents/constituents.html'
+      template: 'js/arethusa.constituents/templates/constituents.html'
     };
 
     function configure() {

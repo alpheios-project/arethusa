@@ -28,7 +28,7 @@ angular.module('arethusa.core').directive('globalSettingsPanel', [
           scope.pluginSettingsVisible = !scope.pluginSettingsVisible;
         }
       },
-      templateUrl: 'templates/arethusa.core/global_settings_panel.html'
+      templateUrl: 'js/arethusa.core/templates/global_settings_panel.html'
     };
   }
 ]);

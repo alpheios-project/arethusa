@@ -9,7 +9,7 @@ angular.module('arethusa.core').directive('editors', [
       link: function(scope, element, attrs) {
         scope.editors = editors;
       },
-      templateUrl: 'templates/arethusa.core/editors.html'
+      templateUrl: 'js/arethusa.core/templates/editors.html'
     };
   }
 ]);

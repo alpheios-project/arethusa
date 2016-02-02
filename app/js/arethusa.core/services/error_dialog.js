@@ -21,7 +21,7 @@ angular.module('arethusa.core').service('errorDialog', [
       scope.message = message;
       scope.trace = trace;
       var promise = $modal.open({
-        templateUrl: 'templates/arethusa.core/error_dialog.html',
+        templateUrl: 'js/arethusa.core/templates/error_dialog.html',
         windowClass: 'error-modal',
         scope: scope
       }).result;

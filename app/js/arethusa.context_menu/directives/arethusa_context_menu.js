@@ -9,7 +9,7 @@ angular.module('arethusa.contextMenu').directive('arethusaContextMenu', [
       },
       link: function (scope, element, attrs) {
       },
-      templateUrl: 'templates/arethusa.context_menu/arethusa_context_menu.html'
+      templateUrl: 'js/arethusa.context_menu/templates/arethusa_context_menu.html'
     };
   }
 ]);

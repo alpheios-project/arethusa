@@ -31,7 +31,7 @@ angular.module('arethusa.core').directive('arethusaGrid', [
 
         scope.$on('$destroy', removeSettings);
       },
-      templateUrl: 'templates/arethusa.core/arethusa_grid.html'
+      templateUrl: 'js/arethusa.core/templates/arethusa_grid.html'
     };
   }
 ]);

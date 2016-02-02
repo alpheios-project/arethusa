@@ -29,7 +29,7 @@ angular.module('arethusa.core').directive('relocate', [
             };
         } 
       },
-      templateUrl: 'templates/arethusa.core/relocate.html'
+      templateUrl: 'js/arethusa.core/templates/relocate.html'
     };
   }
 ]);

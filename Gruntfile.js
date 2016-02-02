@@ -144,7 +144,7 @@ function arethusaUglify() {
     dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
-    templates: { files: { "dist/templates.min.js": "app/templates/compiled/*.js"} },
+    templates: { files: { "dist/templates.min.js": "app/js/templates/compiled/*.js"} },
     app: { files: { "dist/arethusa.min.js": "dist/arethusa.concat.js"} }
   };
 
@@ -153,6 +153,7 @@ function arethusaUglify() {
     target[toMinPath(module)] = toConcatPath(module);
     obj[toTaskScript(module)] = { files: target };
   });
+  //console.log(obj)
   return obj;
 }
 
@@ -215,8 +216,8 @@ function arethusaTemplates() {
   var obj = {
     arethusa: {
       cwd: "app",
-      src: "templates/*.html",
-      dest: "app/templates/compiled/arethusa.templates.js"
+      src: "js/templates/*.html",
+      dest: "app/js/templates/compiled/arethusa.templates.js"
     }
   };
 
@@ -233,8 +234,8 @@ function arethusaTemplates() {
 function templateObj(module) {
   return {
     cwd: "app",
-    src: 'templates/' + module + '/**/*.html',
-    dest: "app/templates/compiled/" + module + '.templates.js'
+    src: 'js/' + module + '/templates/**/*.html',
+    dest: "app/js/templates/compiled/" + module + '.templates.js'
   };
 }
 
@@ -276,7 +277,7 @@ function pluginFiles(name, destName, concat) {
   var distName = pathFn(destName || name);
   var mainFile = 'app/js/' + name + '.js';
   var others = '<%= "app/js/' + name + '/**/*.js" %>';
-  var templates = '<%= "app/templates/compiled/' + name + '.templates.js" %>';
+  var templates = '<%= "app/js/templates/compiled/' + name + '.templates.js" %>';
   var targets = [mainFile, others, templates];
   var dependencies = additionalDependencies[name];
   if (dependencies) {

@@ -8,8 +8,8 @@ angular.module('arethusa.confEditor').directive('pluginConf', function () {
       // folder. This will be much more dynamic in the future.
       scope.name = scope.$eval(attrs.name);
       scope.conf = scope.pluginConf(scope.name);
-      scope.template = 'templates/configs/' + scope.name + '.html';
+      scope.template = 'js/templates/configs/' + scope.name + '.html';
     },
-    templateUrl: 'templates/conf_editor/plugin_conf.html'
+    templateUrl: 'js/conf_editor/templates/plugin_conf.html'
   };
 });

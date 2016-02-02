@@ -3,7 +3,7 @@
     "layouts" : [
       {
         "name" : "Demo",
-        "template"  : "templates/exercise_demo.html"
+        "template"  : "js/templates/exercise_demo.html"
       }
     ],
     "retrievers" : {
@@ -19,7 +19,7 @@
   },
 
   "navbar" : {
-    "template" : "templates/navbar1.html"
+    "template" : "js/templates/navbar1.html"
   },
 
   "resources" : {
@@ -29,10 +29,10 @@
   "plugins" : {
     "fillInTheBlank" : {
       "main" : true,
-      "template" : "templates/arethusa.exercise/fill_in_the_blank.html"
+      "template" : "js/arethusa.exercise/templates/fill_in_the_blank.html"
     },
     "instructor" : {
-      "template" : "templates/arethusa.exercise/instructor.html"
+      "template" : "js/arethusa.exercise/templates/instructor.html"
     },
     "morph" : {
       "retrievers" : {
@@ -41,7 +41,7 @@
         }
       },
       "noView" : true,
-      "template"  : "templates/morph2.html",
+      "template"  : "js/templates/morph2.html",
       "@include" : "morph/lat_attributes.json"
     }
   }

@@ -23,7 +23,7 @@ angular.module('arethusa.comments').directive('commentInputForm', [
 
         translator('markdownEnabled', markdownPlaceholder);
       },
-      templateUrl: 'templates/arethusa.comments/comment_input_form.html'
+      templateUrl: 'js/arethusa.comments/templates/comment_input_form.html'
     };
   }
 ]);

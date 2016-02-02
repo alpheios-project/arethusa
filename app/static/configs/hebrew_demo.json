@@ -21,7 +21,7 @@
   },
 
   "navbar" : {
-    "template" : "templates/navbar1.html",
+    "template" : "js/templates/navbar1.html",
     "search" : true,
     "navigation" : true,
     "notifier" : true
@@ -39,14 +39,14 @@
   "plugins" : {
     "text" : {
       "main" : true,
-      "template"  : "templates/text2.html"
+      "template"  : "js/templates/text2.html"
     },
     "search" : {
-      "template" : "templates/search.html",
+      "template" : "js/templates/search.html",
       "regex" : true
     },
     "hebrewMorph" : {
-      "template" : "templates/arethusa.hebrew_morph/hebrew_morph.html",
+      "template" : "js/arethusa.hebrew_morph/templates/hebrew_morph.html",
       "@include" : "morph/heb_attributes.json"
     }
   },
