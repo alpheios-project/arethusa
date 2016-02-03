@@ -1,145 +1,204 @@
 "use strict";
 var shell = require('shelljs');
 
-var srcFiles = 'app/**/*.js';
-var htmlFiles = 'app/**/*.html';
-var cssFiles = 'app/**/*.scss';
-var specFiles = 'spec/**/*.js';
-var specE2eFiles = 'spec-e2e/**/*.js';
-var devServerPort = 8081;
-var reloadPort = 35279;
-var confPath = 'app/static/configs';
-var docPath  = 'docs';
-var docCustom = docPath + '/custom';
-var versionInfoFilename = 'app/js/arethusa/version.json';
-
-var expressFiles = ['server/**/*', '!server/browser/**/*'];
-var browserAppFiles = ['server/browser/js/**/*'];
-
-var devMode = process.env.DEV;
-
-var arethusaModules = [
-  "arethusa.constituents",
-  'arethusa.morph',
-  'arethusa.artificial_token',
-  'arethusa.core',
-  'arethusa.util',
-  'arethusa.tools',
-  'arethusa.comments',
-  'arethusa.hebrew_morph',
-  'arethusa.context_menu',
-  //'arethusa.conf_editor',
-  'arethusa.review',
-  'arethusa.search',
-  'arethusa.history',
-  'arethusa.dep_tree',
-  'arethusa.relation',
-  'arethusa.exercise',
-  'arethusa.sg',
-  'arethusa.text'
-];
-
-var additionalDependencies = {
-  'arethusa.comments' : [
-    "./bower_components/marked/lib/marked.js",
-    "./bower_components/angular-md/dist/angular-md.min.js",
-  ]
+// Z keeps constants and utility functions in an object
+// Currently 4 modules:
+// strings manipulates strings
+// paths creates file paths
+// modules provides functions on the list of modules
+// files provides dynamic lists of different kinds of files
+// misc is everything else that would pollute the Gruntfile namespace
+var Z = {};
+Z.var = {
+  files:{
+    src: 'app/**/*.js',
+    html: 'app/**/*.html',
+    css: 'app/**/*.scss',
+    spec: 'spec/**/*.js',
+    specE2e: 'spec-e2e/**/*.js',
+    express: ['server/**/*', '!server/browser/**/*'],
+    browserApp: ['server/browser/js/**/*'],
+    versionInfo: 'app/js/arethusa/version.json'
+  },
+  modules: [
+    "arethusa.constituents",
+    'arethusa.morph',
+    'arethusa.artificial_token',
+    'arethusa.core',
+    'arethusa.util',
+    'arethusa.tools',
+    'arethusa.comments',
+    'arethusa.hebrew_morph',
+    'arethusa.context_menu',
+    //'arethusa.conf_editor',
+    'arethusa.review',
+    'arethusa.search',
+    'arethusa.history',
+    'arethusa.dep_tree',
+    'arethusa.relation',
+    'arethusa.exercise',
+    'arethusa.sg',
+    'arethusa.text'
+  ],
+  paths: {
+    conf: 'app/static/configs',
+    doc: 'docs',
+    docCustom: 'docs/custom'
+  },
+  misc: {
+    devMode: process.env.DEV,
+    additionalDependencies: {
+      'arethusa.comments' : [
+        "./bower_components/marked/lib/marked.js",
+        "./bower_components/angular-md/dist/angular-md.min.js",
+      ]
+    },
+    ports: {
+      dev: 8081,
+      reload: 35279
+    },
+    banner: [
+      '/*',
+      ' * Arethusa - a backend-independent client-side annotation framework',
+      ' * http://github.com/latin-language-toolkit/arethusa',
+      ' *',
+      ' * Version <%= versionInfo.version %>',
+      ' * built from branch <%= versionInfo.branch %>',
+      ' * at <%= versionInfo.sha %>',
+      ' * on <%= versionInfo.date %>',
+      ' *',
+      ' * Published under the MIT license',
+      ' */',
+      ''
+    ].join('\n')
+  }
 };
-
-function shellOneLineOutput(command) {
-  var output = shell.exec(command, { silent: true }).output;
-  return output.replace(/(\r\n|\n|\r)/gm, '');
-}
-
-function eachModule(fn) {
-  for (var i = arethusaModules.length - 1; i >= 0; i--){
-    fn(arethusaModules[i]);
-  }
-}
-
-function arethusaSourceFiles() {
-  var sources = [
-    "./bower_components/jquery/dist/jquery.min.js",
-    "./bower_components/angular/angular.min.js",
-    "./bower_components/angular-route/angular-route.min.js",
-    "./vendor/angular-resource/angular-resource.min.js",
-    "./bower_components/angular-cookies/angular-cookies.min.js",
-    "./bower_components/angular-animate/angular-animate.min.js",
-    "./bower_components/angular-scroll/angular-scroll.min.js",
-    "./bower_components/angular-translate/angular-translate.min.js",
-    "./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
-    "./bower_components/x2js/xml2json.min.js",
-    "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
-    "./bower_components/angular-local-storage/dist/angular-local-storage.min.js",
-    "./bower_components/lodash/dist/lodash.min.js",
-    "./bower_components/stacktrace-js/dist/stacktrace.min.js",
-    "./bower_components/angular-uuid2/dist/angular-uuid2.min.js",
-    //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
-    "./vendor/uservoice/uservoice.min.js",
-    "./vendor/angularJS-toaster/toaster.min.js",
-    "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
-    "./bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js",
-    "./vendor/highlight/highlight.pack.js",
-  ];
-
-  // Of some components there are no non-minified version available
-  var alwaysMinifified = [
-    "./bower_components/angulartics/dist/angulartics.min.js",
-    "./bower_components/angulartics/dist/angulartics-ga.min.js",
-    "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
-    "./bower_components/angular-gridster/dist/angular-gridster.min.js",
-  ];
-
-  var result;
-  if (devMode) {
-    result = [];
-    for (var i=0; i < sources.length; i++) {
-      result.push(sources[i].replace(/min.js$/, 'js'));
+Z.fun = {
+  strings: {
+    capitalize: function(str) { return str[0].toUpperCase() + str.slice(1); },
+    // Remove '_' and capitalize first letter of sub-strings to get script name
+    toJsScript: function(str) {
+      var parts = str.split('_');
+      var res = [], part;
+      for (var i = 0; i  < parts.length; i ++) {
+        part = parts[i];
+        if (i !== 0) part = Z.fun.strings.capitalize(part);
+        res.push(part);
+      }
+      return res.join('');
+    },
+    // Remove leading 'arethusa.' from module name to get task name
+    toTaskScript: function(str) { return Z.fun.strings.toJsScript(str.replace(/^arethusa\./, '')); }
+  },
+  paths: {
+    toConcatPath: function(module) { return 'dist/' + module + '.concat.js'; },
+    toMinPath: function(module) { return 'dist/' + module + '.min.js'; }
+  },
+  modules:{
+    each: function(fn) {
+      for (var i = Z.var.modules.length - 1; i >= 0; i--) { fn(Z.var.modules[i]); }
     }
-  } else {
-    result = sources;
+  },
+  files: {
+    pluginFiles: function(name, destName, concat) {
+      var pathFn = concat ? Z.fun.paths.toConcatPath : Z.fun.paths.toMinPath;
+      var distName = pathFn(destName || name);
+      var mainFile = 'app/js/' + name + '.js';
+      var others = '<%= "app/js/' + name + '/**/*.js" %>';
+      var templates = '<%= "app/js/templates/compiled/' + name + '.templates.js" %>';
+      var targets = [mainFile, others, templates];
+      var dependencies = Z.var.misc.additionalDependencies[name];
+      if (dependencies) {
+        targets = dependencies.concat(targets);
+      }
+      if (concat) {
+        return {
+          src: targets,
+          dest: distName
+        };
+      } else {
+        var obj = {};
+        obj[distName] = targets;
+        return obj;
+      }
+    },
+    arethusaSourceFiles: function() {
+      var sources = [
+        "./bower_components/jquery/dist/jquery.min.js",
+        "./bower_components/angular/angular.min.js",
+        "./bower_components/angular-route/angular-route.min.js",
+        "./vendor/angular-resource/angular-resource.min.js",
+        "./bower_components/angular-cookies/angular-cookies.min.js",
+        "./bower_components/angular-animate/angular-animate.min.js",
+        "./bower_components/angular-scroll/angular-scroll.min.js",
+        "./bower_components/angular-translate/angular-translate.min.js",
+        "./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
+        "./bower_components/x2js/xml2json.min.js",
+        "./bower_components/oclazyload/dist/ocLazyLoad.min.js",
+        "./bower_components/angular-local-storage/dist/angular-local-storage.min.js",
+        "./bower_components/lodash/dist/lodash.min.js",
+        "./bower_components/stacktrace-js/dist/stacktrace.min.js",
+        "./bower_components/angular-uuid2/dist/angular-uuid2.min.js",
+        //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
+        "./vendor/uservoice/uservoice.min.js",
+        "./vendor/angularJS-toaster/toaster.min.js",
+        "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
+        "./bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js",
+        "./vendor/highlight/highlight.pack.js"
+      ];
+
+      // Of some components there are no non-minified version available
+      var alwaysMinified = [
+        "./bower_components/angulartics/dist/angulartics.min.js",
+        "./bower_components/angulartics/dist/angulartics-ga.min.js",
+        "./vendor/mm-foundation/mm-foundation-tpls-0.2.2.custom.min.js",
+        "./bower_components/angular-gridster/dist/angular-gridster.min.js"
+      ];
+
+      var result;
+      if (Z.var.misc.devMode) {
+        result = [];
+        for (var i=0; i < sources.length; i++) {
+          result.push(sources[i].replace(/min.js$/, 'js'));
+        }
+      } else {
+        result = sources;
+      }
+
+      return result.concat(alwaysMinified);
+    },
+    arethusaMainFiles: function() {
+      var files = [
+        "arethusa.util",
+        "arethusa.core",
+        "arethusa.tools",
+        "arethusa.context_menu",
+        "arethusa.history",
+        "arethusa.main"
+      ];
+      var res = [];
+      for (var i=0; i < files.length; i++) { res.push(Z.fun.paths.toConcatPath(files[i])); }
+      return res;
+    },
+    confFiles: function(grunt) { return grunt.file.expand(Z.var.paths.conf + '/*.json'); }
+  },
+  misc: {
+    createVersionInfo: function() {
+      function shellOneLineOutput(command) { return shell.exec(command, { silent: true }).output.replace(/(\r\n|\n|\r)/gm, ''); }
+      var sha    = shellOneLineOutput('git rev-parse HEAD');
+      var branch = shellOneLineOutput('git rev-parse --abbrev-ref HEAD');
+      var date = new Date().toJSON();
+      return { sha: sha, branch: branch, date: date };
+    },
+    getReloadPort: function () { return ++Z.var.misc.ports.reload; }
   }
-
-  return result.concat(alwaysMinifified);
-}
-
-function arethusaMainFiles() {
-  var files = [
-    "arethusa.util",
-    "arethusa.core",
-    "arethusa.tools",
-    "arethusa.context_menu",
-    "arethusa.history",
-    "arethusa.main"
-  ];
-
-  var res = [];
-  for (var i=0; i < files.length; i++) {
-    res.push(toConcatPath(files[i]));
-  }
-  return res;
-}
-
-var banner = [
-  '/*',
-  ' * Arethusa - a backend-independent client-side annotation framework',
-  ' * http://github.com/latin-language-toolkit/arethusa',
-  ' *',
-  ' * Version <%= versionInfo.version %>',
-  ' * built from branch <%= versionInfo.branch %>',
-  ' * at <%= versionInfo.sha %>',
-  ' * on <%= versionInfo.date %>',
-  ' *',
-  ' * Published under the MIT license',
-  ' */',
-  ''
-].join('\n');
+};
 
 function arethusaUglify() {
   var obj = {
     options: {
       sourceMap: true,
-      banner: banner
+      banner: Z.var.misc.banner
     },
     dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
@@ -148,64 +207,45 @@ function arethusaUglify() {
     app: { files: { "dist/arethusa.min.js": "dist/arethusa.concat.js"} }
   };
 
-  eachModule(function(module) {
+  Z.fun.modules.each(function(module) {
     var target = {};
-    target[toMinPath(module)] = toConcatPath(module);
-    obj[toTaskScript(module)] = { files: target };
+    target[Z.fun.paths.toMinPath(module)] = Z.fun.paths.toConcatPath(module);
+    obj[Z.fun.strings.toTaskScript(module)] = { files: target };
   });
-  //console.log(obj)
   return obj;
 }
 
 function arethusaConcat() {
   var obj = {};
-  var sourceFiles = arethusaSourceFiles();
-  var mainFiles = arethusaMainFiles();
-
-  eachModule(function(module) {
-    obj[toTaskScript(module)] = pluginFiles(module, null, true);
-  });
-
-  obj.packages = { src: sourceFiles, dest: toConcatPath('arethusa_packages') };
-  obj.main = pluginFiles('arethusa', 'arethusa.main', true);
-  obj.app = { src: mainFiles, dest: toConcatPath('arethusa') };
-
-  obj.browserApp = {
-    src: browserAppFiles, dest: 'dist/file_browser_app.concat.js'
-  };
-
+  Z.fun.modules.each(function(module) { obj[Z.fun.strings.toTaskScript(module)] = Z.fun.files.pluginFiles(module, null, true); });
+  obj.packages = { src: Z.fun.files.arethusaSourceFiles(), dest: Z.fun.paths.toConcatPath('arethusa_packages') };
+  obj.main = Z.fun.files.pluginFiles('arethusa', 'arethusa.main', true);
+  obj.app = { src: Z.fun.files.arethusaMainFiles(), dest: Z.fun.paths.toConcatPath('arethusa') };
+  obj.browserApp = { src: Z.var.files.browserApp, dest: 'dist/file_browser_app.concat.js' };
   return obj;
-}
-
-function toCopyObject(name) {
-  return { src: toConcatPath(name), dest: toMinPath(name) };
 }
 
 function arethusaCopy() {
+  function toCopyObject(name) { return { src: Z.fun.paths.toConcatPath(name), dest: Z.fun.paths.toMinPath(name) }; }
   var obj = {};
   obj.app   = toCopyObject('arethusa');
   obj.packages = toCopyObject('arethusa_packages');
-
-  eachModule(function(module) {
-    obj[toTaskScript(module)] = toCopyObject(module);
-  });
-
+  Z.fun.modules.each(function(module) { obj[Z.fun.strings.toTaskScript(module)] = toCopyObject(module); });
   return obj;
 }
 
+/**
+ * Build task names for uglify process
+ */
 function uglifyTasks() {
   var res = [
     'newer:ngtemplates',
-    'newer:concat',
+    'newer:concat'
   ];
 
-  // We don't need newer for copy - the overhead of asking
-  // if it should run is more than just doing it.
-  var task = devMode ? 'copy' : 'newer:uglify';
-  eachModule(function(module) {
-    res.push([task, toTaskScript(module)].join(':'));
-  });
-
+  // We don't need newer for copy - the overhead of asking if it should run is more than just doing it.
+  var task = Z.var.misc.devMode ? 'copy' : 'newer:uglify';
+  Z.fun.modules.each(function(module) { res.push([task, Z.fun.strings.toTaskScript(module)].join(':')); });
   res.push(task + ':app');
   res.push('copy:packages');
 
@@ -220,14 +260,8 @@ function arethusaTemplates() {
       dest: "app/js/templates/compiled/arethusa.templates.js"
     }
   };
-
-  eachModule(function(module) {
-    // arethusa.util does not come with templates
-    if (module != 'arethusa.util') {
-      obj[toJsScript(module)] = templateObj(module);
-    }
-  });
-
+  // arethusa.util does not come with templates
+  Z.fun.modules.each(function(module) { if (module != 'arethusa.util') { obj[Z.fun.strings.toJsScript(module)] = templateObj(module); } });
   return obj;
 }
 
@@ -239,122 +273,61 @@ function templateObj(module) {
   };
 }
 
-function capitalize(str) {
-  return str[0].toUpperCase() + str.slice(1);
-}
-
-function toJsScript(str) {
-  var parts = str.split('_');
-  var res = [], part;
-  for (var i = 0; i  < parts.length; i ++) {
-    part = parts[i];
-    if (i !== 0) part = capitalize(part);
-    res.push(part);
-  }
-  return res.join('');
-}
-
-function toTaskScript(str) {
-  return toJsScript(str.replace(/^arethusa\./, ''));
-}
-
-function toConcatPath(module) {
-  return 'dist/' + module + '.concat.js';
-}
-
-function toMinPath(module) {
-  return 'dist/' + module + '.min.js';
-}
-
-
-function getReloadPort() {
-  reloadPort++;
-  return reloadPort;
-}
-
-function pluginFiles(name, destName, concat) {
-  var pathFn = concat ? toConcatPath : toMinPath;
-  var distName = pathFn(destName || name);
-  var mainFile = 'app/js/' + name + '.js';
-  var others = '<%= "app/js/' + name + '/**/*.js" %>';
-  var templates = '<%= "app/js/templates/compiled/' + name + '.templates.js" %>';
-  var targets = [mainFile, others, templates];
-  var dependencies = additionalDependencies[name];
-  if (dependencies) {
-    targets = dependencies.concat(targets);
-  }
-
-  if (concat) {
-    return {
-      src: targets,
-      dest: distName
-    };
-  } else {
-    var obj = {};
-    obj[distName] = targets;
-    return obj;
-  }
-}
-
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
-  function confFiles() {
-    return grunt.file.expand(confPath + '/*.json');
-  }
-
   function confMergeCommands() {
     var file, target, cmd, cmds = [];
-    var files = confFiles();
+    var files = Z.fun.files.confFiles(grunt);
     for (var i = files.length - 1; i >= 0; i--){
       file = files[i];
-      target = file.replace(confPath, 'dist/configs');
+      target = file.replace(Z.var.paths.conf, 'dist/configs');
       cmd = 'arethusa merge ' + file + ' -m > ' + target;
       cmds.push(cmd);
     }
     return cmds;
   }
 
-  devServerPort = grunt.option('port') || devServerPort;
+  Z.var.misc.dev = grunt.option('port') || Z.var.misc.dev;
   var packageJson = grunt.file.readJSON('package.json');
 
   grunt.initConfig({
     pkg: packageJson,
-    versionInfo: grunt.file.exists(versionInfoFilename) ? grunt.file.readJSON(versionInfoFilename) : {},
+    versionInfo: grunt.file.exists(Z.var.files.versionInfo) ? grunt.file.readJSON(Z.var.files.versionInfo) : {},
     jasmine: {
-      src: srcFiles,
+      src: Z.var.files.src,
       options: {
-        specs: specFiles,
+        specs: Z.var.files.spec
         // helpers: 'spec/*Helper.js',
         // template: 'custom.tmpl'
       }
     },
     watch: {
       default: {
-        files: [srcFiles, specFiles],
+        files: [Z.var.files.src, Z.var.files.spec],
         tasks: 'default'
       },
       spec: {
-        files: [srcFiles, specFiles],
+        files: [Z.var.files.src, Z.var.files.spec],
         tasks: 'spec'
       },
       server: {
-        files: [srcFiles, htmlFiles, cssFiles],
+        files: [Z.var.files.src, Z.var.files.html, Z.var.files.css],
         tasks: 'minify:all',
         options: {
-          livereload: reloadPort
+          livereload: Z.var.misc.ports.reload
         }
       },
       serverNoCss: {
-        files: [srcFiles, htmlFiles],
+        files: [Z.var.files.src, Z.var.files.html],
         tasks: 'minify',
         options: {
-          livereload: reloadPort,
+          livereload: Z.var.misc.ports.reload,
           spawn: false
         }
       },
       serverCss: {
-        files: cssFiles,
+        files: Z.var.files.css,
         tasks: 'minify:css',
         options: {
           spawn: false
@@ -368,27 +341,27 @@ module.exports = function(grunt) {
         }
       },
       e2e: {
-        files: [srcFiles, specE2eFiles],
+        files: [Z.var.files.src, Z.var.files.specE2e],
         tasks: 'protractor:all'
       },
       doc: {
-        files: [ srcFiles, docCustom + '/ngdoc/**/*.ngdoc', docCustom + '/css/*.css' ],
+        files: [Z.var.files.src, Z.var.paths.docCustom + '/ngdoc/**/*.ngdoc', Z.var.paths.docCustom + '/css/*.css' ],
         tasks: ['plato', 'ngdocs'],
         options: {
-          livereload: reloadPort,
+          livereload: Z.var.misc.ports.reload,
           spawn: false
         }
       },
       browserApp: {
-        files: browserAppFiles,
+        files: Z.var.files.browserApp,
         tasks: ['concat:browserApp']
       }
     },
     jshint: {
       options: {
-        jshintrc: true,
+        jshintrc: true
       },
-      all: ['*.js', srcFiles, specFiles, './dist/i18n/*.json']
+      all: ['*.js', Z.var.files.src, Z.var.files.spec, './dist/i18n/*.json']
     },
     karma: {
       spec: {
@@ -430,7 +403,7 @@ module.exports = function(grunt) {
             'app/js/*.js',
             'app/js/arethusa*/**/*.js',
             'dist/templates.min.js',
-            specFiles
+            Z.var.files.spec
           ],
           frameworks: ['jasmine'],
           browsers : ['PhantomJS'],
@@ -448,11 +421,11 @@ module.exports = function(grunt) {
           coverageReporter: {
             reporters: [
               {type: 'html', dir:'coverage/'},
-              {type: 'lcov'},
+              {type: 'lcov'}
             ]
           }
         }
-      },
+      }
     },
     coveralls: {
       src: 'coverage/**/lcov.info'
@@ -460,19 +433,19 @@ module.exports = function(grunt) {
     protractor: {
       options: {
         keepAlive: false, // If false, the grunt process stops when the test fails.
-        noColor: false, // If true, protractor will not use colors in its output.
+        noColor: false // If true, protractor will not use colors in its output.
       },
       all: {
         options: {
           configFile: './protractor-config.js'
-        },
+        }
       }
     },
     express: {
       options: {
         script: 'server/app.js',
         background: false,
-        port: devServerPort
+        port: Z.var.misc.ports.dev
       },
       server: {}
     },
@@ -541,8 +514,8 @@ module.exports = function(grunt) {
       },
       plato: {
         command: [
-          'rm -rf ' + docCustom + '/plato',
-          'node_modules/.bin/plato -d ' + docCustom + '/plato -l .jshintrc -r -t "Arethusa JS Source Analysis" app/js/**/* > /dev/null'
+          'rm -rf ' + Z.var.paths.docCustom + '/plato',
+          'node_modules/.bin/plato -d ' + Z.var.paths.docCustom + '/plato -l .jshintrc -r -t "Arethusa JS Source Analysis" app/js/**/* > /dev/null'
         ].join(';')
       },
       cloneExampleRepo: {
@@ -595,56 +568,44 @@ module.exports = function(grunt) {
     },
     clean: {
       dist: ['dist/*.js', 'dist/*.map'],
-      docs: [ 'css', 'font', 'grunt-scripts', 'index.html', 'js', 'partials'].map(function(file) {
-        return docPath + '/' + file;
-      })
+      docs: [ 'css', 'font', 'grunt-scripts', 'index.html', 'js', 'partials'].map(function(file) { return Z.var.paths.doc + '/' + file; })
     },
     ngdocs: {
       options: {
-        dest: docPath,
+        dest: Z.var.paths.doc,
         scripts: [
           './dist/arethusa_packages.min.js',
           './dist/arethusa.min.js'],
         html5Mode: false,
         title: 'Arethusa',
         titleLink: 'http://arethusa.latin-language-toolkit.net',
-        navTemplate: docCustom + '/html/nav.html',
+        navTemplate: Z.var.paths.docCustom + '/html/nav.html',
         sourcePath: 'http://github.com/latin-language-toolkit/arethusa/tree/doc',
-        styles: [ docCustom + '/css/styles.css' ]
+        styles: [ Z.var.paths.docCustom + '/css/styles.css' ]
       },
       api: {
         src: [
-          srcFiles,
-          docCustom + '/ngdoc/api/*.ngdoc'
+          Z.var.files.src,
+          Z.var.paths.docCustom + '/ngdoc/api/*.ngdoc'
         ],
         title: 'API Documentation'
       },
       core_guide: {
-        src: docCustom + '/ngdoc/core_guide/*.ngdoc',
+        src: Z.var.paths.docCustom + '/ngdoc/core_guide/*.ngdoc',
         title: 'Core Guide'
       },
       plugin_guide: {
-        src: docCustom + '/ngdoc/plugin_guide/*.ngdoc',
+        src: Z.var.paths.docCustom + '/ngdoc/plugin_guide/*.ngdoc',
         title: 'Plugin Guide'
       }
     }
   });
 
-
-  function createVersionInfo() {
-    var sha    = shellOneLineOutput('git rev-parse HEAD');
-    var branch = shellOneLineOutput('git rev-parse --abbrev-ref HEAD');
-    var date = new Date().toJSON();
-
-    return { sha: sha, branch: branch, date: date };
-  }
-
-
   grunt.registerTask('version', function() {
     var template = grunt.file.read('./app/js/arethusa/.version_template.js');
-    var versionInfo = createVersionInfo();
+    var versionInfo = Z.fun.misc.createVersionInfo();
     versionInfo.version = packageJson.version;
-    grunt.file.write(versionInfoFilename, JSON.stringify(versionInfo));
+    grunt.file.write(Z.var.files.versionInfo, JSON.stringify(versionInfo));
     var result = grunt.template.process(template, { data: versionInfo });
     grunt.file.write('./app/js/arethusa/version.js', result);
   });
