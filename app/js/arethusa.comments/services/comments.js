@@ -18,6 +18,12 @@ angular.module('arethusa.comments').service('comments', [
     var commentIndex;
     var fullTextIndex;
 
+    var translations = translator({
+      'comments.successMessage': 'success',
+      'comments.errorMessage': 'error',
+      'comments.selectFirst': 'selectFirst'
+    });
+
     this.externalDependencies = [
       "bower_components/lunr.js/lunr.min.js"
     ];
@@ -30,6 +36,13 @@ angular.module('arethusa.comments').service('comments', [
       contextMenu: true,
       contextMenuTemplate: "js/arethusa.comments/templates/context_menu.html"
     };
+
+    this.init = function() {
+      configure();
+      retrieveComments();
+    };
+
+    ////////// Backend Calls
 
     function configure() {
       configurator.getConfAndDelegate(self);
@@ -48,22 +61,11 @@ angular.module('arethusa.comments').service('comments', [
       });
     }
 
-    function fullText(commentContainer) {
-      return arethusaUtil.map(commentContainer.comments, function(el) {
-        return el.comment;
-      }).join(' ');
-    }
-
-    function addToIndex(commentContainer) {
-      var ids = commentContainer.ids;
-      var id = ids.join('|'); // using a . would interfere with aU.setProperty
-      
-      commentIndex[id] = commentContainer;
-      fullTextIndex.add({ id: id, body: fullText(commentContainer) });
-
-      angular.forEach(ids, function(tId) {
-        arethusaUtil.setProperty(self.reverseIndex, tId + '.' + id, true);
-      });
+    function createIndices() {
+      commentIndex = {};
+      self.reverseIndex = {};
+      fullTextIndex = lunrIndex();
+      angular.forEach(self.comments, addToIndex);
     }
 
     function lunrIndex() {
@@ -73,17 +75,60 @@ angular.module('arethusa.comments').service('comments', [
       });
     }
 
-    function createIndices() {
-      commentIndex = {};
-      self.reverseIndex = {};
-      fullTextIndex = lunrIndex();
-      angular.forEach(self.comments, addToIndex);
+    function addToIndex(commentContainer) {
+      var ids = commentContainer.ids;
+      var id = ids.join('|'); // using a . would interfere with aU.setProperty
+
+      commentIndex[id] = commentContainer;
+      fullTextIndex.add({ id: id, body: fullText(commentContainer) });
+
+      angular.forEach(ids, function(tId) {
+        arethusaUtil.setProperty(self.reverseIndex, tId + '.' + id, true);
+      });
     }
 
-    function getFromIndex(ids) {
-      return arethusaUtil.map(ids, function(el) {
-        return commentIndex[el];
-      });
+    function fullText(commentContainer) {
+      return arethusaUtil.map(commentContainer.comments, function(el) {
+        return el.comment;
+      }).join(' ');
+    }
+
+    ///////// Frontend Calls
+
+    this.commentCountFor = function(token) {
+      var count = 0;
+      var commentIds = self.reverseIndex[token.id];
+      if (commentIds) {
+        var idArr = Object.keys(commentIds);
+        angular.forEach(getFromIndex(idArr), function(commentObj) {
+          count = count + commentObj.comments.length;
+        });
+      }
+      return count;
+    };
+
+    this.goToComments = function(tId) {
+      state.deselectAll();
+      state.selectToken(tId);
+      self.filter.selection = true;
+      self.filter.fullText = '';
+      plugins.setActive(self);
+    };
+
+    this.currentComments = function() {
+      return filteredComments() || self.comments;
+    };
+
+    function filteredComments() {
+      var sel = self.filter.selection;
+      var txt = self.filter.fullText;
+
+      if (sel || txt) {
+        var ids;
+        if (sel) { ids = selectionFilter(); }
+        if (txt) { ids = searchText(txt, ids); }
+        return getFromIndex(ids);
+      }
     }
 
     function selectionFilter() {
@@ -105,32 +150,16 @@ angular.module('arethusa.comments').service('comments', [
       return otherIds ? arethusaUtil.intersect(ids, otherIds) : ids;
     }
 
-    function filteredComments() {
-      var sel = self.filter.selection;
-      var txt = self.filter.fullText;
-
-      if (sel || txt) {
-        var ids;
-        if (sel) { ids = selectionFilter(); }
-        if (txt) { ids = searchText(txt, ids); }
-        return getFromIndex(ids);
-      }
+    function getFromIndex(ids) {
+      return arethusaUtil.map(ids, function(el) {
+        return commentIndex[el];
+      });
     }
 
-    this.currentComments = function() {
-      return filteredComments() || self.comments;
-    };
-
-    this.commentCountFor = function(token) {
-      var count = 0;
-      var commentIds = self.reverseIndex[token.id];
-      if (commentIds) {
-        var idArr = Object.keys(commentIds);
-        angular.forEach(getFromIndex(idArr), function(commentObj) {
-          count = count + commentObj.comments.length;
-        });
-      }
-      return count;
+    // Bad system - not compatible with multi sentences
+    this.createNewComment = function(ids, comment, successFn) {
+      var newComment = new Comment(ids, navigator.status.currentIds[0], comment);
+      persister.saveData(newComment, saveSuccess(successFn), saveError);
     };
 
     function Comment(ids, sentenceId, comment, type) {
@@ -138,12 +167,6 @@ angular.module('arethusa.comments').service('comments', [
       this.sentenceId = sentenceId;
       this.comment = comment;
     }
-
-    var translations = translator({
-      'comments.successMessage': 'success',
-      'comments.errorMessage': 'error',
-      'comments.selectFirst': 'selectFirst'
-    });
 
     function saveSuccess(fn) {
       return function(commentContainer) {
@@ -164,19 +187,15 @@ angular.module('arethusa.comments').service('comments', [
       notifier.error(translations.error());
     }
 
-    // Bad system - not compatible with multi sentences
-    this.createNewComment = function(ids, comment, successFn) {
-      var newComment = new Comment(ids, navigator.status.currentIds[0], comment);
-      persister.saveData(newComment, saveSuccess(successFn), saveError);
-    };
+    /////////// Register plugin keymaps
 
-    this.goToComments = function(tId) {
-      state.deselectAll();
-      state.selectToken(tId);
-      self.filter.selection = true;
-      self.filter.fullText = '';
-      plugins.setActive(self);
-    };
+    keyCapture.initCaptures(function(kC) {
+      return {
+        comments: [
+          kC.create('create', openCommentField, 'ctrl-K')
+        ]
+      };
+    });
 
     function openCommentField() {
       if (state.hasClickSelections()) {
@@ -187,17 +206,5 @@ angular.module('arethusa.comments').service('comments', [
       }
     }
 
-    keyCapture.initCaptures(function(kC) {
-      return {
-        comments: [
-          kC.create('create', openCommentField, 'ctrl-K')
-        ]
-      };
-    });
-
-    this.init = function() {
-      configure();
-      retrieveComments();
-    };
   }
 ]);
