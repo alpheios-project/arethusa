@@ -21,50 +21,25 @@ angular.module('arethusa.core').service('plugins', [
       'plugins.alreadyLoaded': 'alreadyLoaded'
     });
 
-    function partitionPlugins() {
-      self.main = [];
-      self.sub  = [];
-      self.withMenu = [];
-
-      angular.forEach(self.all, self.registerPlugin);
-    }
-
-    function hasView(plugin) {
-      return !(!plugin.template || plugin.noView);
-    }
-
-    this.registerPlugin = function(plugin, name) {
-      if (hasView(plugin)) {
-        if (plugin.main) {
-          self.main.push(plugin);
-        } else {
-          self.sub.push(plugin);
-        }
-      }
-      if (plugin.contextMenu) {
-        self.withMenu.push(plugin);
-      }
-    };
-
-    function toSnakeCase(str) {
-      return str.replace(/([A-Z])/g, '_$1').toLowerCase();
-    }
-
-    function LoadRequest(name, location) {
-      var self = this;
-      function getName(name, location) {
-        return location ? name : 'arethusa.' + name;
-      }
-
-      function getLocation(location) {
-        return (location || 'dist/' + toSnakeCase(self.name) + '.min.js');
-      }
-
-      this.name = getName(name, location);
-      this.files = [getLocation(location)];
-    }
-
     function loadPlugin(name) {
+
+      function LoadRequest(name, location) {
+
+        function toSnakeCase(str) { return str.replace(/([A-Z])/g, '_$1').toLowerCase(); }
+
+        var self = this;
+        function getName(name, location) {
+          return location ? name : 'arethusa.' + name;
+        }
+
+        function getLocation(location) {
+          return (location || 'dist/' + toSnakeCase(self.name) + '.min.js');
+        }
+
+        this.name = getName(name, location);
+        this.files = [getLocation(location)];
+      }
+
       // The history plugin is special - as it's is always part of the
       // application, just not always as visible plugin.
       // We therefore don't need to retrieve it again - the Arethusa
@@ -80,21 +55,14 @@ angular.module('arethusa.core').service('plugins', [
       }
     }
 
-    function resolveWhenReady(names, loader) {
-      if (loadComplete(names)) loader.resolve();
-    }
-
-    function loadComplete(pluginNames) {
-      return Object.keys(self.loader).length === pluginNames.length;
-    }
-
-    function wrapInPromise(callback) {
-      var deferred = $q.defer();
-      callback()['finally'](aU.resolveFn(deferred));
-      return deferred.promise;
-    }
-
     function loadExtDep(extDep) {
+
+      function wrapInPromise(callback) {
+        var deferred = $q.defer();
+        callback()['finally'](aU.resolveFn(deferred));
+        return deferred.promise;
+      }
+
       if (angular.isArray(extDep)) {
         return dependencyLoader.load(extDep);
       } else {
@@ -121,6 +89,12 @@ angular.module('arethusa.core').service('plugins', [
     }
 
     function loadPlugins(pluginNames) {
+
+      function resolveWhenReady(names, loader) {
+        function loadComplete(pluginNames) { return Object.keys(self.loader).length === pluginNames.length; }
+        if (loadComplete(names)) loader.resolve();
+      }
+
       var loader = $q.defer();
 
       angular.forEach(pluginNames, function(name, i) {
@@ -155,51 +129,12 @@ angular.module('arethusa.core').service('plugins', [
       return loader.promise;
     }
 
-    function sortPlugins(names) {
-      angular.forEach(names, function(name, i) {
-        var plugin = self.loader[name];
-        if (plugin) self.all[name] = plugin;
-      });
-    }
-
-    this.start = function(pluginNames) {
-      self.loaded = false;
-      self.loader = {};
-      self.all = {};
-      var result = $q.defer();
-
-      loadPlugins(pluginNames).then(function() {
-        sortPlugins(pluginNames);
-        self.init();
-        partitionPlugins();
-        declareFirstActive();
-        notifyListeners();
-        self.loader = {};
-        self.loaded = true;
-        $rootScope.$broadcast('pluginsLoaded');
-        result.resolve();
-      });
-
-      return result.promise;
-    };
-
     function notify(plugin, name) {
       $timeout(function() {
         $rootScope.$broadcast('pluginAdded', name, plugin);
       });
     }
 
-    function notifyListeners() {
-      angular.forEach(self.all, notify);
-    }
-
-    function initPlugin(plugin) {
-      if (angular.isFunction(plugin.init)) plugin.init();
-    }
-
-    function declareFirstActive() {
-      self.setActive(self.sub[0]);
-    }
 
     // Working on the assumptions that plugins will generally be grouped
     // in something like a tabset - impossible to show them all at the same
@@ -222,6 +157,7 @@ angular.module('arethusa.core').service('plugins', [
     // Generally this shouldn't be the case, because all business logic
     // should be out of the DOM anyway. If a plugin still needs this, it can
     // do so by setting its alwaysActiveproperty to true.
+
     this.setActive = function(plugin) {
       self.active = plugin;
     };
@@ -244,25 +180,9 @@ angular.module('arethusa.core').service('plugins', [
       initCallbacks.resolve('after', name);
     };
 
-    function InitCallbacks() {
-      var self = this;
-      var cl   = InitCallbacks;
-      this.after  = {};
-      this.before = {};
-
-      cl.prototype.resolve = function(timing, pluginName) {
-        var cbs = self[timing][pluginName] || [];
-        angular.forEach(cbs, function(cb, i) { cb(); });
-      };
-
-      cl.prototype.add = function(timing, pluginName, fn) {
-        var t = self[timing];
-        var cbs = t[pluginName];
-        if (!cbs) cbs = t[pluginName] = [];
-        cbs.push(fn);
-        if (readyPlugins[pluginName]) fn();
-      };
-    }
+    this.get = function(name) {
+      return (self.all || {})[name] || {};
+    };
 
     this.addPlugin = function(name, conf) {
       if (self.all[name]) {
@@ -304,14 +224,79 @@ angular.module('arethusa.core').service('plugins', [
       return promise;
     };
 
-    this.get = function(name) {
-      return (self.all || {})[name] || {};
+    this.registerPlugin = function(plugin, name) {
+
+      function hasView(plugin) { return !(!plugin.template || plugin.noView); }
+
+      if (hasView(plugin)) {
+        if (plugin.main) {
+          self.main.push(plugin);
+        } else {
+          self.sub.push(plugin);
+        }
+      }
+      if (plugin.contextMenu) {
+        self.withMenu.push(plugin);
+      }
     };
 
     this.init = function() {
+      function InitCallbacks() {
+        var self = this;
+        var cl   = InitCallbacks;
+        this.after  = {};
+        this.before = {};
+
+        cl.prototype.resolve = function(timing, pluginName) {
+          var cbs = self[timing][pluginName] || [];
+          angular.forEach(cbs, function(cb, i) { cb(); });
+        };
+
+        cl.prototype.add = function(timing, pluginName, fn) {
+          var t = self[timing];
+          var cbs = t[pluginName];
+          if (!cbs) cbs = t[pluginName] = [];
+          cbs.push(fn);
+          if (readyPlugins[pluginName]) fn();
+        };
+      }
+      function initPlugin(plugin) { if (angular.isFunction(plugin.init)) plugin.init(); }
       readyPlugins = {};
       initCallbacks = new InitCallbacks();
       angular.forEach(self.all, initPlugin);
+    };
+
+    this.start = function(pluginNames) {
+      function sortPlugins(names) { angular.forEach(names, function(name, i) {
+        var plugin = self.loader[name];
+        if (plugin) self.all[name] = plugin;
+      }); }
+      function partitionPlugins() {
+        self.main = [];
+        self.sub  = [];
+        self.withMenu = [];
+        angular.forEach(self.all, self.registerPlugin);
+      }
+      function declareFirstActive() { self.setActive(self.sub[0]); }
+      function notifyListeners() { angular.forEach(self.all, notify); }
+      self.loaded = false;
+      self.loader = {};
+      self.all = {};
+      var result = $q.defer();
+
+      loadPlugins(pluginNames).then(function() {
+        sortPlugins(pluginNames);
+        self.init();
+        partitionPlugins();
+        declareFirstActive();
+        notifyListeners();
+        self.loader = {};
+        self.loaded = true;
+        $rootScope.$broadcast('pluginsLoaded');
+        result.resolve();
+      });
+
+      return result.promise;
     };
   }
 ]);
