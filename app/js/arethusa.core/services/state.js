@@ -52,42 +52,6 @@ angular.module('arethusa.core').service('state', [
       return documentStore.store;
     };
 
-    function configure() {
-      self.conf = configurator.configurationFor('main');
-      tokenRetrievers = configurator.getRetrievers(self.conf.retrievers);
-
-      // We start silent - during init we don't want to track events
-      self.silent = true;
-
-      // Listeners to changes might be interested in recording several
-      // little changes as one single step. Plugins can look at this var
-      // so that they can adjust accordingly.
-      self.batchChange = false;
-
-      // Cheap way of defining a debug mode
-      self.debug = self.conf.debug;
-
-      self.initServices();
-
-      self.activeKeys = {};
-      var keys = keyCapture.initCaptures(function(kC) {
-        return {
-          selections: [
-            kC.create('nextToken', function() { kC.doRepeated(self.selectNextToken); }, 'w'),
-            kC.create('prevToken', function() { kC.doRepeated(self.selectPrevToken); }, 'e'),
-            kC.create('deselect', self.deselectAll, 'esc'),
-            kC.create('deselect-alternative', self.deselectAll, '↵')
-          ]
-        };
-      });
-      angular.extend(self.activeKeys, keys.selections);
-    }
-
-    // Exposed for easier testing
-    this.initServices = function() {
-      navigator.init();
-      globalSettings.init();
-    };
 
     // We hold tokens locally during retrieval phase.
     // Once we are done, they will be exposed through
@@ -113,13 +77,8 @@ angular.module('arethusa.core').service('state', [
       //});
     //};
 
-    function noRetrievers() {
-      return Object.keys(tokenRetrievers).length === 0;
-    }
-
     this.retrieveDocuments = retrieveDocuments;
     this.retrieveTokens    = retrieveTokens;
-
     function retrieveDocuments(resolverConf) {
       if (resolverConf) {
         resolver = new DocumentResolver(resolverConf);
@@ -127,6 +86,65 @@ angular.module('arethusa.core').service('state', [
       } else {
         retrieveTokens();
       }
+    }
+    function onSuccessfulRetrievalFn(retriever) {
+      return function onSuccessfulRetrieval(data) {
+          navigator.addSentences(data);
+          moveToSentence();
+          // Check comment for saveTokens
+          //saveTokens(container, navigator.currentChunk());
+          tokens = navigator.currentChunk();
+
+          declarePreselections(retriever.preselections);
+          declareLoaded(retriever);
+      };
+    }
+    var declareLoaded = function (retriever) {
+      retriever.loaded = true;
+      self.checkLoadStatus();
+    };
+    this.checkLoadStatus = function () {
+      var loaded = true;
+      angular.forEach(tokenRetrievers, function (el, name) {
+        loaded = loaded && el.loaded;
+      });
+      if (loaded) {
+        var launch = function() { self.launched = true; self.replaceState(tokens, true); };
+
+        if (documentStore.hasAdditionalConfs()) {
+          // launch when the promise is resolved OR rejected
+          configurator.loadAdditionalConf(documentStore.confs)['finally'](launch);
+        } else {
+          launch();
+        }
+      }
+    };
+    function noRetrievers() {
+      return Object.keys(tokenRetrievers).length === 0;
+    }
+
+    function declarePreselections(ids) {
+      var chunkId = getChunkParam();
+      if (chunkId) {
+        var paddedIds = arethusaUtil.map(ids, function(id) {
+          return idHandler.padIdWithSId(id, chunkId);
+        });
+        selectMultipleTokens(paddedIds);
+      }
+    }
+    function moveToSentence() {
+      var id = getChunkParam();
+      if (id) {
+        if (navigator.goTo(id)) {
+          return;
+        }
+      }
+      // If goTo failed, we just update the id with the starting value 0
+      navigator.updateId();
+    }
+    function getChunkParam() {
+      var param = self.conf.chunkParam;
+      if (param) return locator.get(param);
     }
 
     /**
@@ -154,68 +172,6 @@ angular.module('arethusa.core').service('state', [
       });
       //tokens = container;
     }
-
-    function onSuccessfulRetrievalFn(retriever) {
-      return function onSuccessfulRetrieval(data) {
-          navigator.addSentences(data);
-          moveToSentence();
-          // Check comment for saveTokens
-          //saveTokens(container, navigator.currentChunk());
-          tokens = navigator.currentChunk();
-
-          declarePreselections(retriever.preselections);
-          declareLoaded(retriever);
-      };
-    }
-
-    function getChunkParam() {
-      var param = self.conf.chunkParam;
-      if (param) return locator.get(param);
-    }
-
-    function moveToSentence() {
-      var id = getChunkParam();
-      if (id) {
-        if (navigator.goTo(id)) {
-          return;
-        }
-      }
-      // If goTo failed, we just update the id with the starting value 0
-      navigator.updateId();
-    }
-
-    this.checkLoadStatus = function () {
-      var loaded = true;
-      angular.forEach(tokenRetrievers, function (el, name) {
-        loaded = loaded && el.loaded;
-      });
-      if (loaded) {
-        var launch = function() { self.launched = true; self.replaceState(tokens, true); };
-
-        if (documentStore.hasAdditionalConfs()) {
-          // launch when the promise is resolved OR rejected
-          configurator.loadAdditionalConf(documentStore.confs)['finally'](launch);
-        } else {
-          launch();
-        }
-      }
-    };
-
-    function declarePreselections(ids) {
-      var chunkId = getChunkParam();
-      if (chunkId) {
-        var paddedIds = arethusaUtil.map(ids, function(id) {
-          return idHandler.padIdWithSId(id, chunkId);
-        });
-        selectMultipleTokens(paddedIds);
-      }
-    }
-
-    var declareLoaded = function (retriever) {
-      retriever.loaded = true;
-      self.checkLoadStatus();
-    };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#asString
@@ -230,7 +186,6 @@ angular.module('arethusa.core').service('state', [
     this.asString = function (id) {
       return (self.getToken(id) || {}).string;
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#getToken
@@ -247,6 +202,7 @@ angular.module('arethusa.core').service('state', [
       return self.tokens[id] || {};
     };
 
+// selection stuff
     /**
      * @ngdoc property
      * @name selectedTokens
@@ -260,7 +216,6 @@ angular.module('arethusa.core').service('state', [
      * indicates a multi-selection).
      */
     this.selectedTokens = {};
-
     /**
      * @ngdoc property
      * @name clickedTokens
@@ -276,7 +231,6 @@ angular.module('arethusa.core').service('state', [
      * this behavior then.
      */
     this.clickedTokens  = {};
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#hasSelections
@@ -289,7 +243,6 @@ angular.module('arethusa.core').service('state', [
     this.hasSelections = function() {
       return Object.keys(self.selectedTokens).length !== 0;
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#hasClickSelections
@@ -301,7 +254,6 @@ angular.module('arethusa.core').service('state', [
     this.hasClickSelections = function() {
       return Object.keys(self.clickedTokens).length;
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#isSelected
@@ -313,7 +265,6 @@ angular.module('arethusa.core').service('state', [
     this.isSelected = function(id) {
       return id in this.selectedTokens;
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#isClicked
@@ -325,7 +276,6 @@ angular.module('arethusa.core').service('state', [
     this.isClicked = function(id) {
       return id in this.clickedTokens;
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#multiSelect
@@ -340,20 +290,17 @@ angular.module('arethusa.core').service('state', [
       self.deselectAll();
       selectMultipleTokens(ids);
     };
-
     function selectMultipleTokens(ids) {
       angular.forEach(ids, function (id, i) {
         self.selectToken(id, 'ctrl-click');
       });
     }
-
     function isSelectable(oldVal, newVal) {
       // if an element was hovered, we only select it when another
       // selection type is present (such as 'click'), if there was
       // no selection at all (oldVal === undefined), we select too
       return oldVal === 'hover' && newVal !== 'hover' || !oldVal;
     }
-
     // type should be either 'click', 'ctrl-click' or 'hover'
     var simpleToMultiSelect;
     /**
@@ -393,7 +340,6 @@ angular.module('arethusa.core').service('state', [
         }
       }
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#selectionType
@@ -407,7 +353,6 @@ angular.module('arethusa.core').service('state', [
     this.selectionType = function (id) {
       return self.selectedTokens[id];
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#deselectToken
@@ -431,7 +376,6 @@ angular.module('arethusa.core').service('state', [
         delete self.clickedTokens[id];
       }
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#toggleSelection
@@ -455,7 +399,6 @@ angular.module('arethusa.core').service('state', [
         this.selectToken(id, type);
       }
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#deselectAll
@@ -471,7 +414,6 @@ angular.module('arethusa.core').service('state', [
         delete self.clickedTokens[el];
       }
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#firstSelected
@@ -483,7 +425,6 @@ angular.module('arethusa.core').service('state', [
     this.firstSelected = function() {
       return Object.keys(self.selectedTokens)[0];
     };
-
     function selectSurroundingToken(direction) {
       // take the first current selection
       var firstId = self.firstSelected();
@@ -504,7 +445,6 @@ angular.module('arethusa.core').service('state', [
       // and select the new one
       self.selectToken(newId, 'click');
     }
-
     this.selectNextToken = function () {
       selectSurroundingToken('next');
     };
@@ -512,6 +452,7 @@ angular.module('arethusa.core').service('state', [
       selectSurroundingToken('prev');
     };
 
+// tokens stuff
     this.toTokenStrings = function(ids) {
       var nonSequentials = idHandler.nonSequentialIds(ids);
       var res = [];
@@ -521,7 +462,67 @@ angular.module('arethusa.core').service('state', [
       });
       return res.join(' ');
     };
-
+    this.addToken = function(token, id) {
+      self.tokens[id] = token;
+      addStatus(token);
+      navigator.addToken(token);
+      self.countTotalTokens();
+      self.broadcast('tokenAdded', token);
+    };
+    this.removeToken = function(id) {
+      var token = self.getToken(id);
+      // We translate this a little later - waiting for a pending
+      // change in the translator which allows to give context.
+      var msg = 'Do you really want to remove ' + token.string + '?';
+      confirmationDialog.ask(msg).then((function() {
+        // broadcast before we actually delete, in case a plugin needs access
+        // during the cleanup process
+        self.doBatched(function() {
+          self.broadcast('tokenRemoved', token);
+          delete self.tokens[id];
+        });
+        navigator.removeToken(token);
+        idHandler.unassignSourceId(token);
+        notifier.success(token.string + ' removed!');
+        self.deselectAll();
+        self.countTotalTokens();
+      }));
+    };
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#countTotalTokens
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Counts the total number of currently present tokens
+     *
+     * @returns {Integer} Number of tokens
+     */
+    this.countTotalTokens = function () {
+      self.totalTokens = Object.keys(self.tokens).length;
+    };
+    /**
+     * @ngdoc function
+     * @name arethusa.core.state#countTokens
+     * @methodOf arethusa.core.state
+     *
+     * @description
+     * Counts the number of currently present tokens, for which
+     * a given function returns a truthy value.
+     *
+     * @param {Function} condition A function that takes a token. Has to
+     *   return a truthy or falsy value
+     * @returns {Integer} Number of tokens for which the condition is truthy
+     */
+    this.countTokens = function (conditionFn) {
+      var count = 0;
+      angular.forEach(self.tokens, function (token, id) {
+        if (conditionFn(token)) {
+          count++;
+        }
+      });
+      return count;
+    };
 
     // DEPRECATED
     this.setState = function (id, category, val) {
@@ -533,13 +534,11 @@ angular.module('arethusa.core').service('state', [
       var oldVal = token[category];
       token[category] = val;
     };
-
     this.unsetState = function (id, category) {
       var token = self.tokens[id];
       var oldVal = token[category];
       delete token[category];
     };
-
     this.replaceState = function (tokens, keepSelections) {
       // We have to wrap this as there might be watchers on allLoaded,
       // such as the MainCtrl which has to reinit all plugins when the
@@ -549,6 +548,7 @@ angular.module('arethusa.core').service('state', [
       if (self.launched) self.broadcast('stateLoaded');
     };
 
+// style stuff
     /**
      * @ngdoc function
      * @name arethusa.core.state#setStyle
@@ -565,7 +565,6 @@ angular.module('arethusa.core').service('state', [
     this.setStyle = function (id, style) {
       self.getToken(id).style = style;
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#unsetStyle
@@ -579,7 +578,6 @@ angular.module('arethusa.core').service('state', [
     this.unsetStyle = function (id) {
       self.getToken(id).style = {};
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#addStyle
@@ -627,7 +625,6 @@ angular.module('arethusa.core').service('state', [
       }
       angular.extend(token.style, style);
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#removeStyle
@@ -649,7 +646,6 @@ angular.module('arethusa.core').service('state', [
         delete tokenStyle[style];
       });
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#unapplyStylings
@@ -665,86 +661,19 @@ angular.module('arethusa.core').service('state', [
       });
     };
 
-
     this.addStatusObjects = function () {
       angular.forEach(self.tokens, addStatus);
     };
-
     function addStatus(token) {
       if (! token.status) {
         token.status = {};
       }
     }
 
-    /**
-     * @ngdoc function
-     * @name arethusa.core.state#countTotalTokens
-     * @methodOf arethusa.core.state
-     *
-     * @description
-     * Counts the total number of currently present tokens
-     *
-     * @returns {Integer} Number of tokens
-     */
-    this.countTotalTokens = function () {
-      self.totalTokens = Object.keys(self.tokens).length;
-    };
-
-    /**
-     * @ngdoc function
-     * @name arethusa.core.state#countTokens
-     * @methodOf arethusa.core.state
-     *
-     * @description
-     * Counts the number of currently present tokens, for which
-     * a given function returns a truthy value.
-     *
-     * @param {Function} condition A function that takes a token. Has to
-     *   return a truthy or falsy value
-     * @returns {Integer} Number of tokens for which the condition is truthy
-     */
-    this.countTokens = function (conditionFn) {
-      var count = 0;
-      angular.forEach(self.tokens, function (token, id) {
-        if (conditionFn(token)) {
-          count++;
-        }
-      });
-      return count;
-    };
-
-    this.addToken = function(token, id) {
-      self.tokens[id] = token;
-      addStatus(token);
-      navigator.addToken(token);
-      self.countTotalTokens();
-      self.broadcast('tokenAdded', token);
-    };
-
-    this.removeToken = function(id) {
-      var token = self.getToken(id);
-      // We translate this a little later - waiting for a pending
-      // change in the translator which allows to give context.
-      var msg = 'Do you really want to remove ' + token.string + '?';
-      confirmationDialog.ask(msg).then((function() {
-        // broadcast before we actually delete, in case a plugin needs access
-        // during the cleanup process
-        self.doBatched(function() {
-          self.broadcast('tokenRemoved', token);
-          delete self.tokens[id];
-        });
-        navigator.removeToken(token);
-        idHandler.unassignSourceId(token);
-        notifier.success(token.string + ' removed!');
-        self.deselectAll();
-        self.countTotalTokens();
-      }));
-    };
-
+    //
     this.lazyChange = function(tokenOrId, property, newVal, undoFn, preExecFn) {
       return new StateChange(self, tokenOrId, property, newVal, undoFn, preExecFn);
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#change
@@ -787,6 +716,9 @@ angular.module('arethusa.core').service('state', [
       return event.exec();
     };
 
+
+// event stuff
+    var changeWatchers = { '*' : [] };
     /**
      * @ngdoc function
      * @name arethusa.core.state#notifyWatchers
@@ -813,10 +745,6 @@ angular.module('arethusa.core').service('state', [
       angular.forEach(watchers, execWatch);
       angular.forEach(changeWatchers['*'], execWatch);
     };
-
-
-    var changeWatchers = { '*' : [] };
-
     function EventWatch(event, fn, destroyFn, watchers) {
       var self = this;
       this.event = event;
@@ -826,7 +754,6 @@ angular.module('arethusa.core').service('state', [
         watchers.splice(watchers.indexOf(self), 1);
       };
     }
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#watch
@@ -863,7 +790,6 @@ angular.module('arethusa.core').service('state', [
       watchers.push(watch);
       return watch.destroy;
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#on
@@ -881,7 +807,6 @@ angular.module('arethusa.core').service('state', [
     this.on = function(event, fn) {
       $rootScope.$on(event, fn);
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#broadcast
@@ -899,6 +824,7 @@ angular.module('arethusa.core').service('state', [
       $rootScope.$broadcast(event, arg);
     };
 
+// do stuff
     /**
      * @ngdoc function
      * @name arethusa.core.state#doSilent
@@ -917,7 +843,6 @@ angular.module('arethusa.core').service('state', [
       fn();
       self.silent = false;
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#doBatched
@@ -939,7 +864,6 @@ angular.module('arethusa.core').service('state', [
       fn();
       self.batchChangeStop();
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#batchChangeStart
@@ -954,7 +878,6 @@ angular.module('arethusa.core').service('state', [
     this.batchChangeStart = function() {
       self.batchChange = true;
     };
-
     /**
      * @ngdoc function
      * @name arethusa.core.state#batchChangeStop
@@ -971,11 +894,42 @@ angular.module('arethusa.core').service('state', [
       self.broadcast('batchChangeStop');
     };
 
-    this.postInit = function () {
-      self.addStatusObjects();
-      self.countTotalTokens();
-    };
+// init stuff
+    function configure() {
+      self.conf = configurator.configurationFor('main');
+      tokenRetrievers = configurator.getRetrievers(self.conf.retrievers);
 
+      // We start silent - during init we don't want to track events
+      self.silent = true;
+
+      // Listeners to changes might be interested in recording several
+      // little changes as one single step. Plugins can look at this var
+      // so that they can adjust accordingly.
+      self.batchChange = false;
+
+      // Cheap way of defining a debug mode
+      self.debug = self.conf.debug;
+
+      self.initServices();
+
+      self.activeKeys = {};
+      var keys = keyCapture.initCaptures(function(kC) {
+        return {
+          selections: [
+            kC.create('nextToken', function() { kC.doRepeated(self.selectNextToken); }, 'w'),
+            kC.create('prevToken', function() { kC.doRepeated(self.selectPrevToken); }, 'e'),
+            kC.create('deselect', self.deselectAll, 'esc'),
+            kC.create('deselect-alternative', self.deselectAll, '↵')
+          ]
+        };
+      });
+      angular.extend(self.activeKeys, keys.selections);
+    }
+    // Exposed for easier testing
+    this.initServices = function() {
+      navigator.init();
+      globalSettings.init();
+    };
     /**
      * @ngdoc function
      * @name arethusa.core.state#init
@@ -988,6 +942,10 @@ angular.module('arethusa.core').service('state', [
     this.init = function () {
       configure();
       retrieveDocuments(self.conf.resolver);
+    };
+    this.postInit = function () {
+      self.addStatusObjects();
+      self.countTotalTokens();
     };
   }
 ]);
