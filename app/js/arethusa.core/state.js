@@ -896,6 +896,10 @@ angular.module('arethusa.core').service('state', [
      * @param {*} [arg] Optional argument transmitted alongside the event
      */
     this.broadcast = function(event, arg) {
+       // broadcast here iterates through all 
+       // handlers which have registered a listener
+       // on the broadcasted event and executes them
+       // before returning
       $rootScope.$broadcast(event, arg);
     };
 
