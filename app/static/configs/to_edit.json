@@ -3,7 +3,7 @@
     "@include" : "layouts/main.json",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "fakePerseids"
+        "resource" : "arethusaServer"
       }
     },
     "plugins" : [
@@ -25,25 +25,7 @@
   },
 
   "resources" : {
-    "fakePerseids" : {
-      "route" : "http://74.70.97.104:8085/xml_server/:doc",
-      "params" : [
-        "doc",
-        "s"
-      ]
-    },
-
-    "fakeGold" : {
-      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
-      "params" : [
-        "gold",
-        "s"
-      ]
-    },
-
-    "morphologyService" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
-    }
+    "@include" : "resources/dev.json"
   },
 
   "plugins" : {
@@ -73,7 +55,7 @@
       "template" : "templates/arethusa.review/review.html",
       "retrievers" : {
         "TreebankRetriever" : {
-          "resource" : "fakeGold"
+          "resource" : "arethusaServerTreebankGold"
         }
       }
     },

@@ -1,53 +1,45 @@
 {
   "main" : {
-    "debug" : true,
-    "showKeys" : true,
     "@include" : "layouts/perseids.json",
-    "chunkParam" : "chunk",
-    "auxConfPath": "http://services.perseids.org/arethusa-configs", 
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "arethusaServerTreebank",
-        "docIdentifier" : "treebank",
-        "preselector" : "w"
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
       }
     },
     "persisters" : {
       "TreebankPersister" : {
-        "resource" : "arethusaServerTreebank",
+        "resource" : "perseidsResource",
         "docIdentifier" : "treebank"
       }
     },
     "plugins" : [
       "text",
-      "artificialToken",
-      "search",
       "morph",
       "relation",
-      "depTree",
-      "review",
+      "artificialToken",
+      "search",
       "history",
-      "comments"
-    ]
+      "comments",
+      "depTree"
+    ],
+    "chunkParam" : "chunk",
+    "showKeys" : true
+  },
+
+  "auths": {
+    "@include" : "auths/perseids_local.json"
   },
 
   "navbar" : {
     "template" : "templates/navbar1.html",
     "search" : true,
+    "notifier" : true,
     "navigation" : true
   },
 
-  "notifier" : {
-    "duration" : "5000",
-    "maxMessages" : 7
-  },
-
-  "navigator" : {
-    "chunkSize" : 1
-  },
-
   "resources" : {
-    "@include" : "resources/dev.json"
+    "@include" : "resources/perseids_local.json"
   },
 
   "plugins" : {
@@ -64,7 +56,8 @@
     },
 
     "search" : {
-      "template" : "templates/search.html"
+      "template" : "templates/search.html",
+      "regex" : true
     },
 
     "morph" : {
@@ -83,29 +76,18 @@
           }
         }
       },
-      "gloss" : true,
+      "matchAll" : true,
       "@include" : "morph/lat_attributes.json"
     },
 
     "relation" : {
       "template" : "templates/relation.html",
-      "advancedMode" : true,
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
       "@include" : "relation/relations.json"
     },
 
-    "review" : {
-      "template" : "templates/arethusa.review/review.html",
-      "retrievers" : {
-        "TreebankRetriever" : {
-          "resource" : "arethusaServerTreebankGold"
-        }
-      }
-    },
-
     "history" : {
-      "maxSize" : 5,
       "template" : "templates/history.html"
     },
 
@@ -116,7 +98,19 @@
     "comments" : {
       "retriever" : {
         "CommentsRetriever" : {
-          "resource" : "arethusaServerComments"
+          "resource" : "perseidsComments"
+        }
+      }
+    },
+
+    "review" : {
+      "autoDiff" : true,
+      "template" : "templates/arethusa.review/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "perseidsResource",
+          "docIdentifier" : "treebankReview",
+          "preselector" : "w"
         }
       }
     },
@@ -135,12 +129,16 @@
   },
 
   "exitHandler" : {
-    "title" : "LLT",
-    "route" : "http://latin-languge-toolkit.net"
+    "@include" : "exit_handler/perseids_local.json"
+  },
+
+  "relocateHandler" : {
+    "production" :  {
+      "baseUrl" : "http://www.perseids.org/tools/arethusa/app/#"
+     }
   },
 
   "keyCapture" : {
     "@include" : "keyboard/key_map.json"
   }
 }
-

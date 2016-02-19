@@ -3,13 +3,13 @@
     "@include" : "layouts/main.json",
     "retrievers" : {
       "HebrewRetriever" : {
-        "resource" : "fakePerseids",
+        "resource" : "hebrewTreebanks",
         "docIdentifier" : "hebrewMorph"
       }
     },
     "persisters" : {
       "HebrewPersister" : {
-        "resource" : "fakePerseids",
+        "resource" : "hebrewTreebanks",
         "docIdentifier" : "hebrewMorph"
       }
     },
@@ -33,13 +33,7 @@
   },
 
   "resources" : {
-    "fakePerseids" : {
-      "route" : "http://74.70.97.104:8085/xml_server/:doc",
-      "params" : [
-        "doc",
-        "s"
-      ]
-    }
+    "@include" : "resources/dev.json"
   },
 
   "plugins" : {

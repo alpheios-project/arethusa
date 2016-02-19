@@ -1,0 +1,54 @@
+<div class="row">
+  <h3>Arethusa Morph Tools</h3>
+
+  <div class="morph-tools-form-import">
+    <div class="fade" ng-if="ready">
+      <ul>
+        <li ng-repeat="file in files">
+          <a ng-click="loadCsvFile(file)">{{ file.name }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <button class="small rounded" ng-click="importFile()">
+        Import forms from file
+      </button>
+      <button class="small rounded" ng-click="exportFile()">
+        Export forms to file
+      </button>
+    </div>
+
+    <div ng-if="status.importForms.count">
+      {{ status.importForms.count}} forms successfully imported!
+    </div>
+
+    <div ng-if="status.exportForms.count">
+      {{ status.exportForms.count}} forms successfully exported!
+    </div>
+
+    <div ng-if="importStarted" style="color: green">
+      Processing import...
+    </div>
+  </div>
+
+  <div class="morph-tools-frequency-import">
+    <div>
+      <button class="small rounded" ng-click="importFrequencyFile()">
+        Import frequency data from file
+      </button>
+      <button class="small rounded" ng-click="exportFrequencyFile()">
+        Export frequency data to file
+      </button>
+    </div>
+
+    <div ng-if="status.importFrequency.count">
+      {{ status.importFrequency.count}} forms successfully imported!
+    </div>
+
+    <div ng-if="status.exportFrequency.count">
+      {{ status.exportFrequency.count}} forms successfully exported!
+    </div>
+
+  </div>
+</div>

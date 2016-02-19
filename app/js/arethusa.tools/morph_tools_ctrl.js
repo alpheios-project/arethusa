@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').controller('MorphImportCtrl', [
+angular.module('arethusa.tools').controller('MorphToolsCtrl', [
   '$scope',
   'plugins',
   'latinAttrs',
@@ -25,7 +25,8 @@ angular.module('arethusa').controller('MorphImportCtrl', [
     fileHandler,
     _
   ) {
-    var EXPORT_FILE_NAME   = 'arethusa_morph_forms.json';
+    var EXPORT_FORMS_NAME     = 'arethusa_morph_forms.json';
+    var EXPORT_FREQUENCY_NAME = 'arethusa_morph_frequency.json';
     var EXPORT_FILE_ENDING = 'application/json';
 
     var ATTRS = {
@@ -48,6 +49,9 @@ angular.module('arethusa').controller('MorphImportCtrl', [
 
     $scope.importFile = importFile;
     $scope.exportFile = exportFile;
+
+    $scope.importFrequencyFile = importFrequencyFile;
+    $scope.exportFrequencyFile = exportFrequencyFile;
 
     init();
 
@@ -120,10 +124,17 @@ angular.module('arethusa').controller('MorphImportCtrl', [
     }
 
     function resetStatus() {
-      $scope.status = {
-        import: { count: 0 },
-        export: { count: 0 }
-      };
+      var fields = [
+        'importForms',
+        'exportForms',
+        'importFrequency',
+        'exportFrequency'
+      ];
+
+      $scope.status = _.inject(fields, function(memo, field) {
+        memo[field] = { count: 0 };
+        return memo;
+      }, {});
     }
 
     function loadCsvFile(fileObj) {
@@ -135,49 +146,77 @@ angular.module('arethusa').controller('MorphImportCtrl', [
       });
     }
 
-    function loadFile(file) {
-
-    }
-
-    function importFile() {
+    function doImport(setter, cb) {
       resetStatus();
       fileHandler.upload(function(data) {
-        _.forEach(data, function(forms, str) {
-          localStorage.addForms(str, forms);
+        _.forEach(data, function(datum, str) {
+          localStorage[setter](str, datum);
         });
-        setImportCount(data);
+        cb(data);
         $scope.$digest(); // so that the count can update
       });
+
     }
 
-    function exportFile() {
+    function doExport(fileName, getter, cb) {
       resetStatus();
-
-      var forms = localStorage.getForms();
+      var forms = localStorage[getter]();
       fileHandler.download(
-        EXPORT_FILE_NAME,
+        fileName,
         JSON.stringify(forms, null, 2),
         EXPORT_FILE_ENDING
       );
 
-      setExportCount(forms);
+      cb(forms);
     }
 
-    function setExportCount(forms) {
-      setCount('export', forms);
+    function importFile() {
+      doImport('addForms', setFormImportCount);
     }
 
-    function setImportCount(forms) {
-      setCount('import', forms);
+    function exportFile() {
+      doExport(EXPORT_FORMS_NAME, 'getForms', setFormExportCount);
     }
 
-    function setCount(type, forms) {
-      $scope.status[type].count = countForms(forms);
+    function exportFrequencyFile() {
+      doExport(EXPORT_FREQUENCY_NAME, 'getPreferences', setFrequencyExportCount);
+    }
+
+    function importFrequencyFile() {
+      doImport('addPreferences', setFrequencyImportCount);
+
+    }
+
+    function setFormExportCount(forms) {
+      setCount('exportForms', countForms(forms));
+    }
+
+    function setFormImportCount(forms) {
+      setCount('importForms', countForms(forms));
+    }
+
+    function setFrequencyExportCount(data) {
+      setCount('exportFrequency', countFrequencyForms(data));
+    }
+
+    function setFrequencyImportCount(data) {
+      setCount('importFrequency', countFrequencyForms(data));
+    }
+
+    function setCount(type, count) {
+      $scope.status[type].count = count;
     }
 
     function countForms(forms) {
       return _.inject(forms, function(memo, f) {
         memo += f.length;
+        return memo;
+      }, 0);
+    }
+
+    function countFrequencyForms(data) {
+      return _.inject(data, function(memo, v, _) {
+        memo += v.split(localStorage.delimiters.preference).length;
         return memo;
       }, 0);
     }

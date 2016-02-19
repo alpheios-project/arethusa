@@ -12,7 +12,7 @@
     </ul>
   </li>
 </ul>
-<ul class="nested-dropdown">
+<ul class="nested-dropdown" ng-if="plugin.relationValues.suffixes">
   <li class="first-item">{{ plugin.suffixOrPlaceholder(obj) }}
     <ul
       ng-if="showMenu"

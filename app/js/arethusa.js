@@ -14,7 +14,8 @@ angular.module('arethusa', [
   'ngRoute',
   'arethusa.core',
   'arethusa.contextMenu',
-  'arethusa.history'
+  'arethusa.history',
+  'arethusa.tools',
 ]);
 
 angular.module('arethusa').constant('_', window._);
@@ -25,13 +26,13 @@ angular.module('arethusa').config([
   'localStorageServiceProvider',
   'LOCALES',
   'MAIN_ROUTE',
-  'MORPH_IMPORT',
+  'MORPH_TOOLS',
   'LANDING',
   function ($routeProvider, $translateProvider, localStorageServiceProvider,
-            LOCALES, MAIN_ROUTE, MORPH_IMPORT, LANDING) {
+            LOCALES, MAIN_ROUTE, MORPH_TOOLS, LANDING) {
     if (aU.isArethusaMainApplication()) {
       $routeProvider.when('/', LANDING);
-      $routeProvider.when('/morph_import', MORPH_IMPORT);
+      $routeProvider.when('/morph_tools', MORPH_TOOLS);
       //$routeProvider.when('/conf_editor', CONF_ROUTE);
       $routeProvider.when('/:conf', MAIN_ROUTE);
       //$routeProvider.when('/conf_editor/:conf', CONF_ROUTE);

@@ -25,6 +25,10 @@ grunt install
 
 If you want to run the e2e tests also execute `grunt e2e:setup`.
 
+If you want to install example data execute `grunt import`. 
+
+(N.B. you need to have sshkeys enabled for GitHub to run this task as it uses the Github ssh urls to clone the repository of example data)
+
 ## Usage
 
 To display a rough demo start a webserver with
@@ -60,7 +64,7 @@ example data and explore it in a web-browser based file browser at
 
 ## Funders
 
-This project has received support from the [Andrew W. Mellon Foundation](http://www.mellon.org/) and the [Institute of Museum and Library Services](http://imls.gov/).
+This project has received support from the [Andrew W. Mellon Foundation](http://www.mellon.org/) and the [Institute of Museum and Library Services](http://imls.gov/) and [the Humboldt Chair of Digital Humanities at Leipzig](http://www.dh.uni-leipzig.de/wo/)
 
 ## Varia
 

@@ -1,6 +1,6 @@
-<tabset>
+<tabset class="arethusa-tabs">
   <tab
-    ng-repeat="pl in tabs"
+    ng-repeat="pl in visibleTabs"
     select="plugins.setActive(pl)"
     heading="{{ pl.displayName }}"
     active="plugins.isSelected(pl)">
@@ -9,6 +9,26 @@
       with-settings="true"
       ng-if="plugins.isActive(pl)">
     </plugin>
+  </tab>
+  <tab ng-if="showSettingsTab">
+    <tab-heading>
+      <i class="fi-widget rotate-on-hover"></i>
+    </tab-heading>
+
+    <div class="arethusa-tabs-settings-tab">
+      <p translate="tabs.helpText"></p>
+
+      <ul dnd-list="list">
+        <li ng-repeat="item in list"
+          dnd-draggable="item"
+          dnd-moved="moveTab($index, event)"
+          dnd-effect-allowed="move"
+          dnd-selected="toggleTab(item)"
+          ng-class="{ deactivated: !isActive(item) }">
+          {{ item.label }}
+        </li>
+      </ul>
+    </div>
   </tab>
 </tabset>
 

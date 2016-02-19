@@ -4,15 +4,14 @@
     "@include" : "layouts/main.json",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "fakePerseids",
+        "resource" : "arethusaServerTreebank",
         "docIdentifier" : "treebank",
-        "preselector" : "w",
-        "chunkParam" : "c"
+        "preselector" : "w"
       }
     },
     "persisters" : {
       "TreebankPersister" : {
-        "resource" : "fakePerseids",
+        "resource" : "arethusaServerTreebank",
         "docIdentifier" : "treebank"
       }
     },
@@ -37,44 +36,7 @@
   },
 
   "resources" : {
-    "fakePerseids" : {
-      "route" : "http://74.70.97.104:8085/xml_server/:doc",
-      "params" : [
-        "doc",
-        "s"
-      ]
-    },
-
-    "fakePerseidsComments" : {
-      "route" : "http://74.70.97.104:8085/comments/:doc",
-      "params" : [
-        "doc"
-      ]
-    },
-
-    "fakeGold" : {
-      "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
-      "params" : [
-        "gold",
-        "s"
-      ]
-    },
-
-    "lexInvFusekiEndpoint" : {
-      "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
-    },
-
-    "morphologyService" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
-    },
-
-    "sgGrammar" : {
-      "route" : "http://74.70.97.104:8085/smyth/:doc.html"
-    },
-
-    "citeMapper" : {
-      "route" : "http://74.70.97.104:8086/find_cite"
-    }
+    "@include" : "resources/dev.json"
   },
 
   "plugins" : {
@@ -147,7 +109,7 @@
     "comments" : {
       "retriever" : {
         "CommentsRetriever" : {
-          "resource" : "fakePerseidsComments"
+          "resource" : "arethusaServerComments"
         }
       }
     }

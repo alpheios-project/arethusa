@@ -1,32 +1,8 @@
 {
-  "fakePerseids" : {
-    "route" : "http://74.70.97.104:8085/xml_server/:doc",
-    "params" : [
-      "doc",
-      "s"
-    ]
-  },
-
-  "localPerseids" : {
-    "route" : "http://localhost:8085/xml_server/:doc",
-    "params" : [
-      "doc",
-      "s"
-    ]
-  },
-
-  "fakeGold" : {
-    "route" : "http://74.70.97.104:8085/xml_server/gold:gold",
-    "params" : [
-      "gold",
-      "s"
-    ]
-  },
-
-  "fakePerseidsComments" : {
-    "route" : "http://74.70.97.104:8085/comments/:doc",
-    "params" : [
-      "doc"
+  "fakeResolver" : {
+    "route" : "/resolve/:urn",
+    "params": [
+      "urn"
     ]
   },
 
@@ -45,13 +21,18 @@
     "params" : [ "gold" ]
   },
 
+  "hebrewTreebanks" : {
+    "route" : "/examples/hebrew/:doc",
+    "params" : [ "doc" ]
+  },
+
   "phaidraTreebanks" : {
-    "route" : "http://localhost:8081/examples/treebanks/phaidra/:doc",
+    "route" : "/examples/phaidra/:doc",
     "params" : [ "doc" ]
   },
 
   "phaidraTranslations" : {
-    "route" : "http://localhost:8081/examples/translations/phaidra/:doc",
+    "route" : "/examples/phaidra/translations/:doc",
     "params" : [ "doc" ]
   },
 
@@ -71,11 +52,11 @@
   },
 
   "citeMapper" : {
-    "route" : "http://74.70.97.104:8086/find_cite"
+    "route" : "http://services.perseids.org/cite_mapper/find_cite"
   },
 
   "sgGrammar" : {
-    "route" : "http://74.70.97.104:8085/smyth/:doc.html"
+    "route" : "http://services.perseids.org/sg/:doc.html"
   },
 
   "demoXml" : {
