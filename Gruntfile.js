@@ -24,6 +24,7 @@ var arethusaModules = [
   'arethusa.artificial_token',
   'arethusa.core',
   'arethusa.util',
+  'arethusa.tools',
   'arethusa.comments',
   'arethusa.hebrew_morph',
   'arethusa.context_menu',
@@ -77,6 +78,7 @@ function arethusaSourceFiles() {
     "./vendor/uservoice/uservoice.min.js",
     "./vendor/angularJS-toaster/toaster.min.js",
     "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
+    "./bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js",
     "./vendor/highlight/highlight.pack.js",
   ];
 
@@ -105,6 +107,7 @@ function arethusaMainFiles() {
   var files = [
     "arethusa.util",
     "arethusa.core",
+    "arethusa.tools",
     "arethusa.context_menu",
     "arethusa.history",
     "arethusa.main"
@@ -420,6 +423,7 @@ module.exports = function(grunt) {
             "./bower_components/angular-local-storage/dist/angular-local-storage.min.js",
             "./bower_components/lodash/dist/lodash.min.js",
             "./bower_components/stacktrace-js/dist/stacktrace.min.js",
+            "./bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js",
             // Some source files we'll need to include manually, otherwise
             // the load order is wrong
             'app/js/*.js',
@@ -474,8 +478,8 @@ module.exports = function(grunt) {
     sauce_connect: {
       your_target: {
         options: {
-          username: 'arethusa',
-          accessKey: '8e76fe91-f0f5-4e47-b839-0b04305a5a5c',
+          username: 'balmas',
+          accessKey: 'ae469ad7-eaf1-4c87-b165-c3f32d27d64a',
           verbose: true
         }
       }

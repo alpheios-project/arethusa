@@ -110,7 +110,7 @@ angular.module('arethusa.morph').service('morph', [
     var emptyAttribute = {
       long: '---',
       short: '---',
-      postag: '_'
+      postag: '-' 
     };
 
     function addSpecialEmptyAttribute(attrObj, name) {
@@ -316,7 +316,10 @@ angular.module('arethusa.morph').service('morph', [
           // now - because we don't always want to override
           // the user's selection to the most frequent, only when
           // they haven't chose something else
-          //sortByPreference(str, forms);
+
+          //if (self.storePreferences) {
+          //  sortByPreference(str, forms);
+          //}
 
           if (self.preselect) {
             preselectForm(forms[0], id);

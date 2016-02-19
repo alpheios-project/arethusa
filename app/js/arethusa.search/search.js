@@ -9,6 +9,7 @@ angular.module('arethusa.search').service('search', [
     this.name = 'search';
 
     this.defaultConf = {
+      displayName: 'selector',
       queryByRegex: true
     };
 

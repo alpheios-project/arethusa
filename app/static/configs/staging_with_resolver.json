@@ -4,7 +4,13 @@
     "showKeys" : true,
     "@include" : "layouts/perseids.json",
     "chunkParam" : "chunk",
-    "auxConfPath": "http://services.perseids.org/arethusa-configs", 
+    "auxConfPath": "/data/aux_configs/dist",
+    "resolver" : {
+      "resource" : "fakeResolver",
+      "map" : {
+        "treebank" : "TreebankRetriever"
+      }
+    },
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "arethusaServerTreebank",
@@ -20,6 +26,7 @@
     },
     "plugins" : [
       "text",
+      "query",
       "artificialToken",
       "search",
       "morph",
@@ -63,6 +70,14 @@
       "template" : "templates/dep_tree.html"
     },
 
+    "query" : {
+      "retriever" : {
+        "AhabRetriever": {
+          "resource" : "capitanAhabEndpoint"
+        }
+      }
+    },
+
     "search" : {
       "template" : "templates/search.html"
     },
@@ -83,7 +98,6 @@
           }
         }
       },
-      "gloss" : true,
       "@include" : "morph/lat_attributes.json"
     },
 
@@ -143,4 +157,5 @@
     "@include" : "keyboard/key_map.json"
   }
 }
+
 

@@ -100,7 +100,10 @@
     "centerTree": "Baum zentrieren",
     "perfectWidth": "Breite anpassen",
     "compact": "Baum verdichten",
-    "widen": "Baum ausdehnen"
+    "widen": "Baum ausdehnen",
+    "disconnect": "trennen",
+    "toRoot": "zum Root",
+    "makeHead": "als Head setzen"
   },
   "grid": {
     "dragging": "Ziehen",

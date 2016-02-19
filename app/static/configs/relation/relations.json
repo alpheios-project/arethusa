@@ -36,48 +36,6 @@
           "color" : "darkorange"
         }
       },
-      "ATV" : {
-        "short" : "ATV",
-        "long" : "complement",
-        "style" : {
-          "color" : "rgb(131, 11, 16)"
-        }
-      },
-      "AtvV" : {
-        "short" : "AtvV",
-        "long" : "complement",
-        "style" : {
-          "color" : "rgb(131, 11, 16)"
-        }
-      },
-      "PNOM" : {
-        "short" : "PNOM",
-        "long" : "predicate nominal",
-        "style" : {
-          "color" : "rgb(87, 160, 119)"
-        }
-      },
-      "OCOMP" : {
-        "short" : "OCOMP",
-        "long" : "object complement",
-        "style" : {
-          "color" : "rgb(92, 201, 83)"
-        }
-      },
-      "COORD" : {
-        "short" : "COORD",
-        "long" : "coordinator",
-        "style" : {
-          "color" : "rgb(154, 130, 206)"
-        }
-      },
-      "APOS" : {
-        "short" : "APOS",
-        "long" : "apposing element",
-        "style" : {
-          "color" : "rgb(7, 95, 39)"
-        }
-      },
       "Aux" : {
         "short" : "Aux",
         "long" : "auxiliary",
@@ -145,6 +103,48 @@
               "color" : "black"
             }
           }
+        }
+      },
+      "COORD" : {
+        "short" : "COORD",
+        "long" : "coordinator",
+        "style" : {
+          "color" : "rgb(154, 130, 206)"
+        }
+      },
+      "ATV" : {
+        "short" : "ATV",
+        "long" : "complement",
+        "style" : {
+          "color" : "rgb(131, 11, 16)"
+        }
+      },
+      "AtvV" : {
+        "short" : "AtvV",
+        "long" : "complement",
+        "style" : {
+          "color" : "rgb(131, 11, 16)"
+        }
+      },
+      "PNOM" : {
+        "short" : "PNOM",
+        "long" : "predicate nominal",
+        "style" : {
+          "color" : "rgb(87, 160, 119)"
+        }
+      },
+      "OCOMP" : {
+        "short" : "OCOMP",
+        "long" : "object complement",
+        "style" : {
+          "color" : "rgb(92, 201, 83)"
+        }
+      },
+      "APOS" : {
+        "short" : "APOS",
+        "long" : "apposing element",
+        "style" : {
+          "color" : "rgb(7, 95, 39)"
         }
       },
       "ExD" : {

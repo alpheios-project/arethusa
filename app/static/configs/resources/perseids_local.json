@@ -1,6 +1,6 @@
 {
   "perseidsResource" : {
-    "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
+    "route" : "http://localhost/dmm_api/item/TreebankCite/:doc",
     "params" : [
       "doc"
     ],
@@ -8,7 +8,7 @@
   },
 
   "perseidsComments" : {
-    "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/comments",
+    "route" : "http://localhost/dmm_api/item/TreebankCite/:doc/comments",
     "params" : [
       "doc"
     ],
@@ -25,10 +25,6 @@
 
   "morphologyServiceGrc" : {
     "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
-  },
-
-  "morphologyServicePer" : {
-    "route" : "http://www.perseids.org/svc/morphologyservice/analysis/word?lang=per&engine=hazm"
   },
 
   "sgGrammar" : {

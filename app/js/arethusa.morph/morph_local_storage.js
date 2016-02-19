@@ -7,10 +7,17 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
   function(plugins, arethusaLocalStorage, _) {
     var PREFERENCE_DELIMITER = ';;';
     var PREFERENCE_COUNT_DELIMITER = '@@';
+    var LEMMA_POSTAG_DELIMITER = '|-|';
     var self = this;
 
     this.localStorageKey = 'morph.forms';
     this.preferenceKey = 'morph.prefs';
+
+    this.delimiters = {
+      preference: PREFERENCE_DELIMITER,
+      count: PREFERENCE_COUNT_DELIMITER,
+      lemmaToPostag: LEMMA_POSTAG_DELIMITER
+    };
 
     this.retriever = {
       getData: getData,
@@ -22,10 +29,11 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
     this.removeForm = removeForm;
 
     this.addPreference = addPreference;
+    this.addPreferences = addPreferences;
     this.sortByPreference = sortByPreference;
 
     this.getForms = getForms;
-    this.gePreferences = getPreferences;
+    this.getPreferences = getPreferences;
 
     function key(k) {
       return self.localStorageKey + '.' + k;
@@ -95,11 +103,12 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       }
     }
 
-    function addPreference(string, form) {
+    function addPreference(string, form, additor) {
+      additor = parseInt(additor) || 1;
       var key = formToKey(form);
       var counts = preferencesToCounts(string, key);
       var counter = counts[key];
-      var newCount = counter ? counter + 1 : 1;
+      var newCount = counter ? counter + additor : 1;
       counts[key] = newCount;
       var sortedCounts = toSortedArray(counts);
       var toStore = _.map(sortedCounts, function(countArr) {
@@ -107,6 +116,18 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       }).join(PREFERENCE_COUNT_DELIMITER);
 
       persistPreference(string, toStore);
+    }
+
+    function addPreferences(string, frequencies) {
+      var data = frequencies.split(PREFERENCE_DELIMITER);
+      return _.forEach(data, function(datum) {
+        var formAndCount = datum.split(PREFERENCE_COUNT_DELIMITER);
+        var lemmaAndPostag = formAndCount[0].split(LEMMA_POSTAG_DELIMITER);
+        var count = formAndCount[1];
+        var lemma = lemmaAndPostag[0];
+        var postag  = lemmaAndPostag[1];
+        addPreference(string, { lemma: lemma, postag: postag }, count);
+      });
     }
 
     function toSortedArray(counts) {
@@ -145,7 +166,7 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
     }
 
     function formToKey(form) {
-      return form.lemma + '|-|' + form.postag;
+      return form.lemma + LEMMA_POSTAG_DELIMITER + form.postag;
     }
 
     function getForms() {

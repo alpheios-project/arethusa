@@ -20,6 +20,15 @@ angular.module('arethusa.core').directive('helpPanel', [
 
         scope.visible = {};
 
+        // Extract to a service
+        scope.tools = [
+          {
+            label: 'Import/Export your morphological data',
+            hint: 'Vla',
+            href: '#/morph_tools'
+          }
+        ];
+
         scope.toggle = function(param) {
           scope.visible[param] = !scope.visible[param];
         };

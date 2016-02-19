@@ -56,6 +56,14 @@
       </ul>
     </div>
 
+    <div help-panel-item toggler="tools" heading="helpPanel.tools" height="50px">
+      <ul class="no-list">
+        <li ng-repeat="tool in tools">
+          <a ng-href="{{ tool.href }}">{{ tool.label }}</a>
+        </li>
+      </ul>
+    </div>
+
     <div help-panel-item toggler="about" heading="helpPanel.about" height="160px">
       <ul class="no-list">
         <li>

@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('arethusa').constant('MORPH_IMPORTS', [
+angular.module('arethusa.tools').constant('MORPH_IMPORTS', [
   {
     name: 'Latin Morphology',
     language: 'lat',

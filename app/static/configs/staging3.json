@@ -12,7 +12,7 @@
     },
     "persisters" : {
       "TreebankPersister" : {
-        "resource" : "fakePerseids",
+        "resource" : "arethusaServerTreebank",
         "docIdentifier" : "treebank"
       }
     },
@@ -109,7 +109,7 @@
     "comments" : {
       "retriever" : {
         "CommentsRetriever" : {
-          "resource" : "fakePerseidsComments"
+          "resource" : "arethusaServerComments"
         }
       }
     },
