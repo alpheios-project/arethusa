@@ -1,0 +1,6 @@
+{
+  "main" : true,
+  "contextMenu" : true,
+  "contextMenuTemplate": "js/arethusa.dep_tree/templates/context_menu.html",
+  "template" : "js/templates/dep_tree.html"
+}

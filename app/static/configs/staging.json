@@ -2,9 +2,9 @@
   "main" : {
     "debug" : true,
     "showKeys" : true,
-    "@include" : "layouts/perseids.json",
+    "@include" : "static/configs/layouts/perseids.json",
     "chunkParam" : "chunk",
-    "auxConfPath": "http://services.perseids.org/arethusa-configs", 
+    "auxConfPath": "http://services.perseids.org/arethusa-configs",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "arethusaServerTreebank",
@@ -32,9 +32,9 @@
   },
 
   "navbar" : {
-    "template" : "js/templates/navbar1.html",
-    "search" : false,
-    "navigation" : false
+    "template" : "templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
   },
 
   "notifier" : {
@@ -47,91 +47,29 @@
   },
 
   "resources" : {
-    "@include" : "resources/dev.json"
+    "@include" : "static/configs/resources/dev.json"
   },
 
   "plugins" : {
-    "text" : {
-      "main" : true,
-      "template"  : "js/templates/text_with_context.html"
-    },
+    "text" : { "@include":"js/arethusa.text/configs/conf.json" },
 
-    "depTree" : {
-      "main" : true,
-      "contextMenu" : true,
-      "contextMenuTemplate": "js/arethusa.dep_tree/templates/context_menu.html",
-      "template" : "js/templates/dep_tree.html"
-    },
+    "depTree" : { "@include":"js/arethusa.dep_tree/configs/conf.json" },
 
-    "search" : {
-      "template" : "js/templates/search.html"
-    },
+    "search" : { "@include":"js/arethusa.search/configs/conf.json" },
 
-    "morph" : {
-      "retrievers" : {
-        "BspMorphRetriever" : {
-          "resource" : "morphologyServiceLat"
-        }
-      },
-      "template"  : "js/templates/morph3.html",
-      "contextMenu" : true,
-      "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
-      "lexicalInventory" : {
-        "retriever" : {
-          "LexicalInventoryRetriever" : {
-            "resource" : "lexInvFusekiEndpoint"
-          }
-        }
-      },
-      "gloss" : true,
-      "@include" : "morph/lat_attributes.json"
-    },
+    "morph" : { "@include":"js/arethusa.morph/configs/conf.json" },
 
-    "relation" : {
-      "template" : "js/templates/relation.html",
-      "advancedMode" : true,
-      "contextMenu" : true,
-      "contextMenuTemplate": "js/arethusa.relation/templates/context_menu.html",
-      "@include" : "relation/relations.json"
-    },
+    "relation" : { "@include":"js/arethusa.relation/configs/conf.json" },
 
-    "review" : {
-      "template" : "js/arethusa.review/templates/review.html",
-      "retrievers" : {
-        "TreebankRetriever" : {
-          "resource" : "arethusaServerTreebankGold"
-        }
-      }
-    },
+    "review" : { "@include":"js/arethusa.review/configs/conf.json" },
 
-    "history" : {
-      "maxSize" : 5,
-      "template" : "js/templates/history.html"
-    },
+    "history" : { "@include":"js/arethusa.history/configs/conf.json" },
 
-    "artificialToken" : {
-      "template" : "js/arethusa.artificial_token/templates/artificial_token.html"
-    },
+    "artificialToken" : { "@include":"js/arethusa.artificial_token/configs/conf.json" },
 
-    "comments" : {
-      "retriever" : {
-        "CommentsRetriever" : {
-          "resource" : "arethusaServerComments"
-        }
-      }
-    },
+    "comments" : { "@include":"js/arethusa.comments/configs/conf.json" },
 
-    "sg" : {
-      "retriever" : {
-        "SgGrammarRetriever" : {
-          "resource" : "sgGrammar"
-        }
-      },
-      "template" : "js/templates/sg.html",
-      "contextMenu" : true,
-      "contextMenuTemplate": "js/arethusa.sg/templates/context_menu.html",
-      "@include" : "sg2/sg_labels.json"
-    }
+    "sg" : { "@include":"js/arethusa.sg/configs/conf.json" }
   },
 
   "exitHandler" : {
@@ -140,7 +78,6 @@
   },
 
   "keyCapture" : {
-    "@include" : "keyboard/key_map.json"
+    "@include" : "static/configs/keyboard/key_map.json"
   }
 }
-

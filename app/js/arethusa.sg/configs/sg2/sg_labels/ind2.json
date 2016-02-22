@@ -3,22 +3,22 @@
     "IND" : {
       "short" : "IND",
       "long" : "in indirect speech",
-      "@include" : "sg2/sg_labels/cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/cases.json"
     },
     "NOT_IND" : {
       "short" : "NOT_IND",
       "long" : "not in indirect speech",
-      "@include" : "sg2/sg_labels/cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/cases.json"
     },
     "NAB" : {
       "short" : "NAB",
       "long" : "none of the above",
-      "@include" : "sg2/sg_labels/cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/cases.json"
     },
     "IDK" : {
       "short" : "IDK",
       "long" : "I do not know",
-      "@include" : "sg2/sg_labels/cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/cases.json"
     } 
   }
 }

@@ -3,12 +3,12 @@
     "ADJ_PRT" : {
       "short" : "ADJ_PRT",
       "long" : "adjective participle",
-      "@include" : "sg2/sg_labels/adj_prt.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/adj_prt.json"
     },
     "SBS_PRT" : {
       "short" : "SBS_PRT",
       "long" : "substantive participle",
-      "@include" : "sg2/sg_labels/cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/cases.json"
     },
     "PRT_NAB" : {
       "short" : "PRT_NAB",

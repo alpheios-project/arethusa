@@ -1,6 +1,6 @@
 {
   "regex" : {
-    "@include" : "keyboard/greek_regex.json"
+    "@include" : "static/configs/keyboard/greek_regex.json"
   },
   "keys" : {
     "he" : {

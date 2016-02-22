@@ -1,0 +1,11 @@
+{
+  "retriever": {
+    "SgGrammar": {
+      "resource": "sgGrammar"
+    }
+  },
+  "template": "js/template/sg.html",
+  "contextMenu": true,
+  "contextMenuTemplate": "js/arethusa.sg/templates/context_menu.html",
+  "@include": "js/arethusa.sg/configs/sg2/sg_labels.json"
+}

@@ -8,7 +8,7 @@
       "short" : "SBS_ADJ",
       "long" : "substantive",
       "sections" : "1021-1029",
-      "@include" : "sg2/sg_labels/cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/cases.json"
     },
     "VRB_ADJ" : {
       "short" : "VRB_ADJ",
@@ -17,7 +17,7 @@
     "SVR_ADJ" : {
       "short" : "SVR_ADJ",
       "long" : "sub. vbl adjective in τος/τεος",
-      "@include" : "sg2/sg_labels/cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/cases.json"
     },
     "ADJ_NAB" : {
       "short" : "ADJ_NAB",

@@ -4,43 +4,43 @@
       "short" : "PRP",
       "long" : "purpose clause",
       "sections" : "2193-2206",
-      "@include" : "sg2/sg_labels/ind.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
     },
     "CAU" : {
       "short" : "CAU",
       "long" : "causal clause",
       "sections" : "2240-2248",
-      "@include" : "sg2/sg_labels/ind.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
     },
     "RSL" : {
       "short" : "RSL",
       "long" : "result clause",
       "sections" : "2249-2278",
-      "@include" : "sg2/sg_labels/ind.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
     },
     "CND" : {
       "short" : "CND",
       "long" : "conditional clause",
       "sections" : "2280-2368",
-      "@include" : "sg2/sg_labels/ind.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
     },
     "CNC" : {
       "short" : "CNC",
       "long" : "concessive clause",
       "sections" : "2369-2382",
-      "@include" : "sg2/sg_labels/ind.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
     },
     "TMP" : {
       "short" : "TMP",
       "long" : "temporal clause",
       "sections" : "2383-2461",
-      "@include" : "sg2/sg_labels/ind.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
     },
     "CMP" : {
       "short" : "CMP",
       "long" : "clause of comparison",
       "sections" : "2462-2487",
-      "@include" : "sg2/sg_labels/ind.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
     },
     "NAB" : {
       "short" : "NAB",

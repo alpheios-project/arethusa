@@ -3,17 +3,17 @@
     "SBS_CLS" : {
       "short" : "SBS_CLS",
       "long" : "substantive clause",
-      "@include" : "sg2/sg_labels/sbs_cl.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/sbs_cl.json"
     },
     "ADJ_CLS" : {
       "short" : "ADJ_CLS",
       "long" : "adjective clause",
-      "@include" : "sg2/sg_labels/adj_cl.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/adj_cl.json"
     },
     "ADV_CLS" : {
       "short" : "ADV_CLS",
       "long" : "adverb clause",
-      "@include" : "sg2/sg_labels/adv_cl.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/adv_cl.json"
     },
     "CLS_NAB" : {
       "short" : "CLS_NAB",

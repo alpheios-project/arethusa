@@ -282,7 +282,7 @@ module.exports = function(grunt) {
     for (var i = files.length - 1; i >= 0; i--){
       file = files[i];
       target = file.replace(Z.var.paths.conf, 'dist/configs');
-      cmd = 'arethusa merge ' + file + ' -m > ' + target;
+      cmd = 'arethusa merge ' + file + ' -mb app > ' + target;
       cmds.push(cmd);
     }
     return cmds;

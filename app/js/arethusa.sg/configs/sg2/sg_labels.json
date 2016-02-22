@@ -7,7 +7,7 @@
       "dependency" : {
         "pos" : "adj"
       },
-      "@include" : "sg2/sg_labels/adjectives.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/adjectives.json"
     },
     "ART" : {
       "short" : "ART",
@@ -24,7 +24,7 @@
       "dependency" : {
         "pos" : "pron"
       },
-      "@include" : "sg2/sg_labels/pronouns.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/pronouns.json"
     },
     "ADP" : {
       "short" : "ADP",
@@ -41,7 +41,7 @@
       "dependency" : {
         "pos" : "noun"
       },
-      "@include" : "sg2/sg_labels/cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/cases.json"
     },
     "VERB" : {
       "short" : "VERB",
@@ -49,7 +49,7 @@
       "dependency" : {
         "pos" : "verb"
       },
-      "@include" : "sg2/sg_labels/verbs.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/verbs.json"
     },
     "ADV" : {
       "short" : "ADV",
@@ -58,12 +58,12 @@
       "dependency" : {
         "pos" : "adv"
       },
-      "@include" : "sg2/sg_labels/adverbs.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/adverbs.json"
     },
     "CLS" : {
       "short" : "CLS",
       "long" : "clause",
-      "@include" : "sg2/sg_labels/clauses.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/clauses.json"
     }
   }
 }

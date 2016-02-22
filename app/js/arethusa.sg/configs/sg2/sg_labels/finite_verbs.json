@@ -3,7 +3,7 @@
     "FNT_MOO_DPN" : {
       "short" : "FNT_MOO_DPN",
       "long" : "dependent",
-      "@include" : "sg2/sg_labels/fnt_moo_vrb_dpn_cls.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/fnt_moo_vrb_dpn_cls.json"
     },
     "FNT_MOO_IND" : {
       "short" : "FNT_MOO_IND",

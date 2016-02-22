@@ -12,25 +12,25 @@
               "short" : "INF_NMN",
               "sections" : "2031",
               "long" : "nominative",
-              "@include" : "sg2/sg_labels/nominative_cases.json"
+              "@include" : "js/arethusa.sg/configs/sg2/sg_labels/nominative_cases.json"
             },
             "INF_GNT" : {
               "short" : "INF_GNT",
               "sections" : "2032",
               "long" : "genitive",
-              "@include" : "sg2/sg_labels/genetive_cases.json"
+              "@include" : "js/arethusa.sg/configs/sg2/sg_labels/genetive_cases.json"
             },
             "INF_DTV" : {
               "short" : "INF_DTV",
               "sections" : "2033",
               "long" : "dative",
-              "@include" : "sg2/sg_labels/dative_cases.json"
+              "@include" : "js/arethusa.sg/configs/sg2/sg_labels/dative_cases.json"
             },
             "INF_ACC" : {
               "short" : "INF_ACC",
               "sections" : "2034",
               "long" : "accusative",
-              "@include" : "sg2/sg_labels/accusative_cases.json"
+              "@include" : "js/arethusa.sg/configs/sg2/sg_labels/accusative_cases.json"
             },
             "ART_NAB" : {
               "short" : "ART_NAB",
@@ -49,12 +49,12 @@
             "INF_NMN" : {
               "short" : "INF_NMN",
               "long" : "with function of nominative",
-	      "@include" : "sg2/sg_labels/ind.json"
+	      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
             },
             "INF_ACC" : {
               "short" : "INF_ACC",
               "long" : "with function of accusative",
-	      "@include" : "sg2/sg_labels/ind.json"
+	      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
             },
             "INF_PRP" : {
               "short" : "INF_PRP",

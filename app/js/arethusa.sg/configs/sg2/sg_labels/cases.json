@@ -5,28 +5,28 @@
       "long" : "nominative",
       "sections" : "938-943",
       "dependency" : {},
-      "@include" : "sg2/sg_labels/nominative_cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/nominative_cases.json"
     },
     "GNT" : {
       "short" : "GNT",
       "long" : "genitive",
       "sections" : "1289-1449",
       "dependency" : {},
-      "@include" : "sg2/sg_labels/genetive_cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/genetive_cases.json"
     },
     "DTV" : {
       "short" : "DTV",
       "long" : "dative",
       "sections" : "1450-1550",
       "dependency" : {},
-      "@include" : "sg2/sg_labels/dative_cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/dative_cases.json"
     },
     "ACC" : {
       "short" : "ACC",
       "long" : "accusative",
       "sections" : "1551-1635",
       "dependency" : {},
-      "@include" : "sg2/sg_labels/accusative_cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/accusative_cases.json"
     },
     "VOC" : {
       "short" : "VOC",

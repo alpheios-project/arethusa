@@ -3,12 +3,12 @@
     "ADJ_CL_PRP" : {
       "short" : "ADJ_CL_PRP",
       "long" : "adjective clause proper",
-      "@include" : "sg2/sg_labels/adj_cl_prp.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/adj_cl_prp.json"
     },
     "SBS_ADJ_CL" : {
       "short" : "SBS_ADJ_CL",
       "long" : "substantivized adjective clause",
-      "@include" : "sg2/sg_labels/sbs_adj_cl.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/sbs_adj_cl.json"
     },
     "ADJ_CL_NAB" : {
       "short" : "ADJ_CL_NAB",

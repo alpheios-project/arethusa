@@ -4,31 +4,31 @@
       "short" : "ORD",
       "long" : "ordinary relative clause",
       "sections" : "2553",
-      "@include" : "sg2/sg_labels/ind2.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind2.json"
     },
     "FNL" : {
       "short" : "FNL",
       "long" : "final relative clause",
       "sections" : "2554",
-      "@include" : "sg2/sg_labels/ind2.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind2.json"
     },
     "CAU" : {
       "short" : "CAU",
       "long" : "cause relative clause",
       "sections" : "2555",
-      "@include" : "sg2/sg_labels/ind2.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind2.json"
     },
     "CNS" : {
       "short" : "CNS",
       "long" : "consecutive relative clause",
       "sections" : "2556-2559",
-      "@include" : "sg2/sg_labels/ind2.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind2.json"
     },
     "CND" : {
       "short" : "CND",
       "long" : "conditional relative clause",
       "sections" : "2560-2573",
-      "@include" : "sg2/sg_labels/ind2.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind2.json"
     },
     "NAB" : {
       "short" : "NAB",

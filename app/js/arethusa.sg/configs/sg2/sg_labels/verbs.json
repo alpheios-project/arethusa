@@ -6,7 +6,7 @@
       "dependency" : {
         "pers" : "*"
       },
-      "@include" : "sg2/sg_labels/finite_verbs.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/finite_verbs.json"
     },
     "VRB_PRT" : {
       "short" : "VRB_PRT",
@@ -14,7 +14,7 @@
       "dependency" : {
         "mood" : "part"
       },
-      "@include" : "sg2/sg_labels/participles.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/participles.json"
     },
     "VRB_INF" : {
       "short" : "VRB_INF",
@@ -22,7 +22,7 @@
       "dependency" : {
         "mood" : "inf"
       },
-      "@include" : "sg2/sg_labels/infinitives.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/infinitives.json"
     },
     "VRB_NAB" : {
       "short" : "VRB_NAB",

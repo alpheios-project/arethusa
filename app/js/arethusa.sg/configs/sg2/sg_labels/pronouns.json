@@ -3,7 +3,7 @@
     "SBS_PRN" : {
       "short" : "SBS_PRN",
       "long" : "substantive",
-      "@include" : "sg2/sg_labels/cases.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/cases.json"
     },
     "ADJ_PRN" : {
       "short" : "ADJ_PRN",
