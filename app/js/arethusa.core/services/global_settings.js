@@ -320,8 +320,7 @@ angular.module('arethusa.core').service('globalSettings', [
     function cycleLayouts() {
       if (self.layouts.length < 2) return;
 
-      var next = self.layouts.indexOf(self.layout) + 1;
-      if (next == self.layouts.length) next = 0;
+      var next = ( self.layouts.indexOf(self.layout) + 1) % self.layouts.length
       self.layout = self.layouts[next];
       self.broadcastLayoutChange();
     }
