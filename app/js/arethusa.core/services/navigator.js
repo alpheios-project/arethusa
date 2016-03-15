@@ -102,6 +102,7 @@ angular.module('arethusa.core').service('navigator', [
       angular.forEach(sentences, function(sentence, i) {
         self.sentencesById[sentence.id] = sentence;
       });
+      updateNextAndPrev();
       updateChunks();
     };
     function updatePosition(pos) {
@@ -183,6 +184,10 @@ angular.module('arethusa.core').service('navigator', [
 
       self.currentPosition = newPos;
       updateState();
+    }
+    function updateNextAndPrev() {
+      self.status.hasNext = hasNext();
+      self.status.hasPrev = hasPrev();
     }
     function updateChunks() {
       self.currentSentences = undefined;
@@ -304,13 +309,9 @@ angular.module('arethusa.core').service('navigator', [
       triggerMoveEvent();
       state().replaceState(self.currentChunk());
     };
+
+
     this.updateId = function () {
-
-      function updateNextAndPrev() {
-        self.status.hasNext = hasNext();
-        self.status.hasPrev = hasPrev();
-      }
-
       updateNextAndPrev();
       updateChunks();
       self.status.currentPos = self.currentPosition;
