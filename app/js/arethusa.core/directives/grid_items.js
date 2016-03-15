@@ -11,7 +11,7 @@ angular.module('arethusa.core').directive('gridItems', [
         scope.grid = arethusaGrid;
         scope.plugins = plugins;
       },
-      templateUrl: 'templates/arethusa.core/grid_items.html'
+      templateUrl: 'js/arethusa.core/templates/grid_items.html'
     };
   }
 ]);

@@ -9,7 +9,7 @@ angular.module('arethusa.text').directive('artificialTokenToggle', [
       link: function(scope, element, attrs) {
         scope.text = text;
       },
-      templateUrl: 'templates/arethusa.text/artificial_token_toggle.html'
+      templateUrl: 'js/arethusa.text/templates/artificial_token_toggle.html'
     };
   }
 ]);

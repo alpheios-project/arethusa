@@ -34,7 +34,7 @@ angular.module('arethusa.morph').directive('morphFormAttributes', [
           notifier.success('Removed form of ' + state.asString(id));
         };
       },
-      templateUrl: 'templates/arethusa.morph/morph_form_attributes.html'
+      templateUrl: 'js/arethusa.morph/templates/morph_form_attributes.html'
     };
   }
 ]);

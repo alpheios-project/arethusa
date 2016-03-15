@@ -155,7 +155,7 @@ angular.module('arethusa.core').directive('token', [
 
         addBindings();
       },
-      templateUrl: 'templates/token.html'
+      templateUrl: 'js/templates/token.html'
     };
   }
 ]);

@@ -1,0 +1,36 @@
+{
+  "nested" : {
+    "SBS_CLS_STT" : {
+      "short" : "SBS_CLS_STT",
+      "long" : "statement",
+      "sections" : "2576-2588",
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
+    },
+    "SBS_CLS_WLL" : {
+      "short" : "SBS_CLS_WLL",
+      "long" : "will or desire",
+      "sections" : "2207-2239",
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
+    },
+    "SBS_CLS_QUS" : {
+      "short" : "SBS_CLS_QUS",
+      "long" : "question",
+      "sections" : "2663-2680",
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
+    },
+    "SBS_CLS_EXC" : {
+      "short" : "SBS_CLS_EXC",
+      "long" : "exclamation",
+      "sections" : "2681-2687",
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/ind.json"
+    },
+    "SBS_CLS_NAB" : {
+      "short" : "SBS_CLS_NAB",
+      "long" : "none of the above"
+    },
+    "SBS_CLS_IDK" : {
+      "short" : "SBS_CLS_IDK",
+      "long" : "I do not know"
+    } 
+  }
+}

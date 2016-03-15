@@ -191,7 +191,7 @@ angular.module('arethusa.morph').directive('morphFormCreate', [
 
         addLemmaHint();
       },
-      templateUrl: 'templates/morph_form_create.html'
+      templateUrl: 'js/templates/morph_form_create.html'
     };
   }
 ]);

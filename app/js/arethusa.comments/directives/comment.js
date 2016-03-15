@@ -10,7 +10,7 @@ angular.module('arethusa.comments').directive('comment', [
       },
       link: function(scope, element, attrs) {
       },
-      templateUrl: 'templates/arethusa.comments/comment.html'
+      templateUrl: 'js/arethusa.comments/templates/comment.html'
     };
   }
 ]);

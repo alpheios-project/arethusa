@@ -16,7 +16,7 @@ angular.module('arethusa.core').constant('LANDING', {
     conf: ['configurator', function(configurator) {
       configurator.defineConfiguration({
         navbar: {
-          template: 'templates/navbar_landing.html'
+          template: 'js/templates/navbar_landing.html'
         }
       });
     }]

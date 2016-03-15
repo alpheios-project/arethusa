@@ -1,0 +1,84 @@
+{
+  "main" : {
+    "@include" : "layouts/main.json",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "arethusaServer"
+      }
+    },
+    "plugins" : [
+      "text",
+      "depTree",
+      "review",
+      "morph",
+      "history",
+      "relation",
+      "external_history",
+      "comment"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "js/templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "resources" : {
+    "@include" : "resources/dev.json"
+  },
+
+  "plugins" : {
+    "text" : {
+      "main" : true,
+      "template"  : "js/templates/text2.html"
+    },
+
+    "depTree" : {
+      "main" : true,
+      "template" : "js/templates/dep_tree.html"
+    },
+
+    "morph" : {
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
+      "template"  : "js/templates/morph2.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
+      "@include" : "morph/lat_attributes.json"
+    },
+
+    "review" : {
+      "template" : "js/arethusa.review/templates/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "arethusaServerTreebankGold"
+        }
+      }
+    },
+
+    "relation" : {
+      "template" : "js/templates/relation.html",
+      "@include" : "relation/relations.json"
+    },
+
+    "history" : {
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "js/templates/history.html"
+    },
+
+    "external_history" : {
+      "listener" : true,
+      "external" : true,
+      "template" : "js/templates/external_history.html"
+    },
+
+    "comment" : {
+      "template" : "js/templates/comment2.html"
+    }
+  }
+}

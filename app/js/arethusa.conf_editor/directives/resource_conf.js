@@ -16,6 +16,6 @@ angular.module('arethusa.confEditor').directive('resourceConf', function () {
         params.splice(params.indexOf(param), 1);
       };
     },
-    templateUrl: 'templates/conf_editor/resource_conf.html'
+    templateUrl: 'js/conf_editor/templates/resource_conf.html'
   };
 });

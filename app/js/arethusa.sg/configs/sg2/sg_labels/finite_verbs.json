@@ -1,0 +1,61 @@
+{
+  "nested" : {
+    "FNT_MOO_DPN" : {
+      "short" : "FNT_MOO_DPN",
+      "long" : "dependent",
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels/fnt_moo_vrb_dpn_cls.json"
+    },
+    "FNT_MOO_IND" : {
+      "short" : "FNT_MOO_IND",
+      "long" : "independent",
+      "nested" : {
+        "FNT_MOO_STM" : {
+          "short" : "FNT_MOO_STM",
+          "long" : "statement",
+          "sections" : "2153"
+        },
+        "FNT_MOO_ASS" : {
+          "short" : "FNT_MOO_ASS",
+          "long" : "assumption",
+          "sections" : "2154"
+        },
+        "FNT_MOO_COM" : {
+          "short" : "FNT_MOO_COM",
+          "long" : "command",
+          "sections" : "2155"
+        },
+        "FNT_MOO_WSH" : {
+          "short" : "FNT_MOO_WSH",
+          "long" : "wish",
+          "sections" : "2156"
+        },
+        "FNT_MOO_QST" : {
+          "short" : "FNT_MOO_QST",
+          "long" : "question",
+          "sections" : "2157"
+        },
+        "FNT_MOO_EXC" : {
+          "short" : "FNT_MOO_EXC",
+          "long" : "exclamation",
+          "sections" : "2158"
+        },
+        "FNT_MOO_NAB" : {
+          "short" : "FNT_MOO_NAB",
+          "long" : "none of the above"
+        },
+        "FNT_MOO_IDK" : {
+          "short" : "FNT_MOO_IDK",
+          "long" : "I don't know"
+        }
+      }
+    },
+    "FNT_MOO_NAB" : {
+      "short" : "FNT_MOO_NAB",
+      "long" : "none of the above"
+    },
+    "FNT_MOO_IDK" : {
+      "short" : "FNT_MOO_IDK",
+      "long" : "I do not know"
+    }
+  }
+}

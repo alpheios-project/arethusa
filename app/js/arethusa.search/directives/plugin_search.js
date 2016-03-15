@@ -7,7 +7,7 @@ angular.module('arethusa.search').directive('pluginSearch', function() {
     replace: true,
     link: function(scope, element, attrs) {
       scope.plugin = scope.$eval(attrs.pluginSearch);
-      scope.template = 'templates/arethusa.' + scope.plugin.name + '/search.html';
+      scope.template = 'js/arethusa.' + scope.plugin.name + '/templates/search.html';
     },
     template: '<div ng-include="template"></div>'
   };

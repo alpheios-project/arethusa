@@ -23,7 +23,7 @@ angular.module('arethusa.sg').directive('sgContextMenuSelector', [
             ancestorChain(newVal);
         });
       },
-      templateUrl: 'templates/arethusa.sg/sg_context_menu_selector.html'
+      templateUrl: 'js/arethusa.sg/templates/sg_context_menu_selector.html'
     };
   }
 ]);

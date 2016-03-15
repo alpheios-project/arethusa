@@ -1,0 +1,138 @@
+{
+  "main" : {
+    "@include" : "layouts/main.json",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "arethusaServerTreebank",
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "arethusaServerTreebank",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "plugins" : [
+      "text",
+      "artificialToken",
+      "search",
+      "morph",
+      "relation",
+      "depTree",
+      "history"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "js/templates/navbar1.html",
+    "search" : true,
+    "navigation" : true,
+    "notifier" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "resources" : {
+    "@include" : "resources/dev.json"
+  },
+
+  "plugins" : {
+    "text" : {
+      "main" : true,
+      "template"  : "js/templates/text2.html"
+    },
+
+    "depTree" : {
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.dep_tree/templates/context_menu.html",
+      "template" : "js/templates/dep_tree.html"
+    },
+
+    "search" : {
+      "template" : "js/templates/search.html",
+      "regex" : true,
+      "@include" : "keyboard/greek_regex.json"
+    },
+
+    "morph" : {
+      "noRetrieval" : "online",
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
+      "template"  : "js/templates/morph3.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
+      "matchAll" : true,
+      "@include" : "morph/lat_attributes.json"
+    },
+
+    "relation" : {
+      "template" : "js/templates/relation.html",
+      "advancedMode" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.relation/templates/context_menu.html",
+      "@include" : "relation/relations.json"
+    },
+
+    "review" : {
+      "template" : "js/arethusa.review/templates/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "arethusaServerTreebankGold"
+        }
+      }
+    },
+
+    "history" : {
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "js/templates/history.html"
+    },
+
+    "artificialToken" : {
+      "template" : "js/arethusa.artificial_token/templates/artificial_token.html"
+    },
+
+    "comment" : {
+      "template" : "js/templates/comment2.html"
+    }
+  },
+
+  "keyCapture" : {
+    "sidepanel" : {
+      "nextTab" : "W",
+      "prevTab" : "E",
+      "toggle"  : "q"
+    },
+    "selections" : {
+      "nextToken" : "w",
+      "prevToken" : "e"
+    },
+    "navigation" : {
+      "nextSentence" : "u",
+      "prevSentence" : "i",
+      "list" : "L"
+    },
+    "tree" : {
+      "directionChange" : "c",
+      "focusSelection"  : "a",
+      "centerTree" : "s",
+      "perfectWidth" : "d"
+    },
+    "saver" : {
+      "save" : "ctrl-S"
+    },
+    "search" : {
+      "focus" : "A"
+    },
+    "@include" : "keyboard/key_map.json"
+  }
+}

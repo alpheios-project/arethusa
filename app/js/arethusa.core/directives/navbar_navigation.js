@@ -5,6 +5,6 @@ angular.module('arethusa.core').directive('navbarNavigation', function() {
     restrict: 'A',
     replace: true,
     controller: 'NavigatorCtrl',
-    templateUrl: 'templates/arethusa.core/navbar_navigation.html'
+    templateUrl: 'js/arethusa.core/templates/navbar_navigation.html'
   };
 });

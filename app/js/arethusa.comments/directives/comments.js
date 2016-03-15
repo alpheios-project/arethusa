@@ -28,7 +28,7 @@ angular.module('arethusa.comments').directive('commentsX', [
           }
         };
       },
-      templateUrl: 'templates/arethusa.comments/comments.directive.html'
+      templateUrl: 'js/arethusa.comments/templates/comments.directive.html'
     };
   }
 ]);

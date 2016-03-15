@@ -14,7 +14,7 @@ angular.module('arethusa.review').directive('reviewDiffReport', [
           }
         };
       },
-      templateUrl: 'templates/arethusa.review/review_diff_report.html'
+      templateUrl: 'js/arethusa.review/templates/review_diff_report.html'
     };
   }
 ]);

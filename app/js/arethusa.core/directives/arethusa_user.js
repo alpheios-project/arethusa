@@ -28,7 +28,7 @@ angular.module('arethusa.core').directive('arethusaUser', [
         // likely not going to change, so we don't for now.
         nameToString();
       },
-      templateUrl: 'templates/arethusa.core/arethusa_user.html'
+      templateUrl: 'js/arethusa.core/templates/arethusa_user.html'
     };
   }
 ]);

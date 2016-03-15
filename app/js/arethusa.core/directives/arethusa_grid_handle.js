@@ -36,7 +36,7 @@ angular.module('arethusa.core').directive('arethusaGridHandle', [
           if (!newVal) scope.settingsOn = false;
         });
       },
-      templateUrl: 'templates/arethusa.core/arethusa_grid_handle.html'
+      templateUrl: 'js/arethusa.core/templates/arethusa_grid_handle.html'
     };
   }
 ]);

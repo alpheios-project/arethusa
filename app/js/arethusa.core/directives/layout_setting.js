@@ -10,7 +10,7 @@ angular.module('arethusa.core').directive('layoutSetting', [
         scope.gS = globalSettings;
         scope.setting = globalSettings.settings.layout;
       },
-      templateUrl: 'templates/arethusa.core/layout_setting.html'
+      templateUrl: 'js/arethusa.core/templates/layout_setting.html'
     };
   }
 ]);

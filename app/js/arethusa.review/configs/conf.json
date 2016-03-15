@@ -1,0 +1,8 @@
+{
+  "template" : "js/arethusa.review/templates/review.html",
+  "retrievers" : {
+    "TreebankRetriever" : {
+      "resource" : "arethusaServerTreebankGold"
+    }
+  }
+}

@@ -13,7 +13,7 @@ angular.module('arethusa.core').directive('colorizerSetting', [
           scope.setting = newVal;
         });
       },
-      templateUrl: 'templates/arethusa.core/colorizer_setting.html'
+      templateUrl: 'js/arethusa.core/templates/colorizer_setting.html'
     };
   }
 ]);

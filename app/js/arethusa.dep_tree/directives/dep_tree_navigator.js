@@ -24,7 +24,7 @@ angular.module('arethusa.depTree').directive('depTreeNavigator', [
           scope.currentFocus = focus;
         };
       },
-      templateUrl: 'templates/arethusa.dep_tree/dep_tree_navigator.html'
+      templateUrl: 'js/arethusa.dep_tree/templates/dep_tree_navigator.html'
     };
   }
 ]);

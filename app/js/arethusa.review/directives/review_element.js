@@ -39,7 +39,7 @@ angular.module('arethusa.review').directive('reviewElement', [
           if (scope.cat === 'relation')   initRelationDiff();
           if (scope.cat === 'morphology') initMorphDiff();
 
-          scope.template = 'templates/arethusa.review/review_element_' + scope.cat + '.html';
+          scope.template = 'js/arethusa.review/templates/review_element_' + scope.cat + '.html';
         }
 
         scope.$watch('cat', init);

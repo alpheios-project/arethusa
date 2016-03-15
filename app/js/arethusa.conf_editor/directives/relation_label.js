@@ -15,7 +15,7 @@ angular.module('arethusa.confEditor').directive('relationLabel', [
           element.append($compile(nestedLabels)(scope));
         }
       },
-      templateUrl: 'templates/configs/relation_label.html'
+      templateUrl: 'js/configs/templates/relation_label.html'
     };
   }
 ]);

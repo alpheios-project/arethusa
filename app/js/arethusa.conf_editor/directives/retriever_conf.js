@@ -16,6 +16,6 @@ angular.module('arethusa.confEditor').directive('retrieverConf', function () {
         retr.splice(retr.indexOf(name), 1);
       };
     },
-    templateUrl: 'templates/conf_editor/retriever_conf.html'
+    templateUrl: 'js/conf_editor/templates/retriever_conf.html'
   };
 });

@@ -19,7 +19,7 @@ angular.module('arethusa.core').directive('settingsTrigger', [
           element.attr('title', translation());
         });
       },
-      templateUrl: 'templates/arethusa.core/settings_trigger.html'
+      templateUrl: 'js/arethusa.core/templates/settings_trigger.html'
     };
   }
 ]);
