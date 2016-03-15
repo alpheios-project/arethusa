@@ -88,10 +88,10 @@ angular.module('arethusa.core').service('navigator', [
         self.currentSentences = self.sentences.slice(pos, pos + self.chunkSize) || [];
       }
       return self.currentSentences;
-    };
+    }
     function currentIds () {
       return arethusaUtil.map(currentSentenceObjs(), 'id');
-    };
+    }
     this.sentenceToString = function(sentence) {
       return arethusaUtil.inject([], sentence.tokens, function(memo, id, token) {
         memo.push(token.string);
@@ -238,16 +238,16 @@ angular.module('arethusa.core').service('navigator', [
       return angular.element(document.getElementById('arethusa-sentence-list'));
     };
     this.switchView = function() {
-      function editor () { return angular.element(document.getElementById('arethusa-editor')) };
+      function editor () { return angular.element(document.getElementById('arethusa-editor')); }
       $rootScope.$broadcast('viewModeSwitched');
-      var editor = editor();
+      var myEditor = editor();
       var list   = self.list();
       if (self.listMode) {
-        editor.removeClass('hide');
+        myEditor.removeClass('hide');
         list.addClass('hide');
         self.listMode = false;
       } else {
-        editor.addClass('hide');
+        myEditor.addClass('hide');
         list.removeClass('hide');
         self.listMode = true;
       }
@@ -308,7 +308,7 @@ angular.module('arethusa.core').service('navigator', [
       self.updateId();
       triggerMoveEvent();
       state().replaceState(self.currentChunk());
-    };
+    }
 
 
     this.updateId = function () {
