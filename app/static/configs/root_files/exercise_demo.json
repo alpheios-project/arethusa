@@ -1,0 +1,48 @@
+{
+  "main" : {
+    "layouts" : [
+      {
+        "name" : "Demo",
+        "template"  : "js/templates/exercise_demo.html"
+      }
+    ],
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "arethusaServerTreebank"
+      }
+    },
+    "plugins" : [
+      "instructor",
+      "morph",
+      "fillInTheBlank"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "js/templates/navbar1.html"
+  },
+
+  "resources" : {
+    "@include" : "resources/dev.json"
+  },
+
+  "plugins" : {
+    "fillInTheBlank" : {
+      "main" : true,
+      "template" : "js/arethusa.exercise/templates/fill_in_the_blank.html"
+    },
+    "instructor" : {
+      "template" : "js/arethusa.exercise/templates/instructor.html"
+    },
+    "morph" : {
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
+      "noView" : true,
+      "template"  : "js/templates/morph2.html",
+      "@include" : "morph/lat_attributes.json"
+    }
+  }
+}

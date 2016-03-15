@@ -13,7 +13,7 @@ angular.module('arethusa.comments').directive('commentsOnDocLevel', [
           return comments.docLevelComments.length;
         };
       },
-      templateUrl: 'templates/arethusa.comments/comments_on_doc_level.html'
+      templateUrl: 'js/arethusa.comments/templates/comments_on_doc_level.html'
     };
   }
 ]);

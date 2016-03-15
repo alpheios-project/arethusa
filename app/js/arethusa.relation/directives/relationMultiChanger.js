@@ -18,7 +18,7 @@ angular.module('arethusa.relation').directive('relationMultiChanger', [
           }
         });
       },
-      templateUrl: 'templates/arethusa.relation/relation_multi_changer.html'
+      templateUrl: 'js/arethusa.relation/templates/relation_multi_changer.html'
     };
   }
 ]);

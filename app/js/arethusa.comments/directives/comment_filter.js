@@ -53,7 +53,7 @@ angular.module('arethusa.comments').directive('commentFilter', [
           scope.tooltip = trsl();
         });
       },
-      templateUrl: 'templates/arethusa.comments/comment_filter.html'
+      templateUrl: 'js/arethusa.comments/templates/comment_filter.html'
     };
   }
 ]);

@@ -75,7 +75,7 @@ angular.module('arethusa.core').directive('keysToScreen', [
         }
 
       },
-      templateUrl: 'templates/arethusa.core/keys_to_screen.html'
+      templateUrl: 'js/arethusa.core/templates/keys_to_screen.html'
     };
   }
 ]);

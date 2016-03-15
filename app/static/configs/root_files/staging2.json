@@ -1,0 +1,148 @@
+{
+  "main" : {
+    "debug" : true,
+    "showKeys" : true,
+    "@include" : "layouts/main.json",
+    "chunkParam" : "chunk",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "arethusaServerTreebank",
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "arethusaServerTreebank",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "plugins" : [
+      "text",
+      "artificialToken",
+      "search",
+      "morph",
+      "relation",
+      "depTree",
+      "review",
+      "history",
+      "comments"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "js/templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "navigator" : {
+    "chunkSize" : 1
+  },
+
+  "resources" : {
+    "@include" : "resources/dev.json"
+  },
+
+  "plugins" : {
+    "perseids.translations" : {
+      "location" : "http://localhost:8082/dist/perseids.translations.min.js"
+    },
+
+    "text" : {
+      "main" : true,
+      "template"  : "js/templates/text2.html"
+    },
+
+    "depTree" : {
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.dep_tree/templates/context_menu.html",
+      "template" : "js/templates/dep_tree.html"
+    },
+
+    "search" : {
+      "template" : "js/templates/search.html"
+    },
+
+    "morph" : {
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyServiceLat"
+        }
+      },
+      "template"  : "js/templates/morph3.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
+      "lexicalInventory" : {
+        "retriever" : {
+          "LexicalInventoryRetriever" : {
+            "resource" : "lexInvFusekiEndpoint"
+          }
+        }
+      },
+      "@include" : "morph/lat_attributes.json"
+    },
+
+    "relation" : {
+      "template" : "js/templates/relation.html",
+      "advancedMode" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.relation/templates/context_menu.html",
+      "@include" : "relation/relations.json"
+    },
+
+    "review" : {
+      "template" : "js/arethusa.review/templates/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "arethusaServerTreebankGold"
+        }
+      }
+    },
+
+    "history" : {
+      "maxSize" : 5,
+      "template" : "js/templates/history.html"
+    },
+
+    "artificialToken" : {
+      "template" : "js/arethusa.artificial_token/templates/artificial_token.html"
+    },
+
+    "comments" : {
+      "retriever" : {
+        "CommentsRetriever" : {
+          "resource" : "arethusaServerComments"
+        }
+      }
+    },
+
+    "sg" : {
+      "retriever" : {
+        "SgGrammarRetriever" : {
+          "resource" : "sgGrammar"
+        }
+      },
+      "template" : "js/templates/sg.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.sg/templates/context_menu.html",
+      "@include" : "sg2/sg_labels.json"
+    }
+  },
+
+  "exitHandler" : {
+    "title" : "somewhere",
+    "route" : "http://www.:x.com",
+    "params" : ["x", "q"]
+  },
+
+  "keyCapture" : {
+    "@include" : "keyboard/key_map.json"
+  }
+}

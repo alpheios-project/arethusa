@@ -480,7 +480,7 @@ angular.module('perseids.translations').service('translations', [
     this.name = 'perseids.translations';
 
     this.defaultConf = {
-      template: 'templates/perseids.translations/translations.html'
+      template: 'js/perseids.translations/templates/translations.html'
     };
 
     function configure() {

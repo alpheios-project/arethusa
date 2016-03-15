@@ -35,7 +35,7 @@ angular.module('arethusa.sg').directive('sgGrammarReader', [
           }
         });
       },
-      templateUrl: 'templates/arethusa.sg/sg_grammar_reader.html'
+      templateUrl: 'js/arethusa.sg/templates/sg_grammar_reader.html'
     };
   }
 ]);

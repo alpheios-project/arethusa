@@ -31,7 +31,7 @@ angular.module('arethusa.core').directive('chunkModeSwitcher', [
           }
         };
       },
-      templateUrl: 'templates/arethusa.core/chunk_mode_switcher.html'
+      templateUrl: 'js/arethusa.core/templates/chunk_mode_switcher.html'
     };
   }
 ]);

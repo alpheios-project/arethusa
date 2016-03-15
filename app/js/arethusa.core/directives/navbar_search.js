@@ -5,6 +5,6 @@ angular.module('arethusa.core').directive('navbarSearch', function() {
     restrict: 'A',
     replace: true,
     controller: 'SearchCtrl',
-    templateUrl: 'templates/arethusa.core/navbar_search.html'
+    templateUrl: 'js/arethusa.core/templates/navbar_search.html'
   };
 });

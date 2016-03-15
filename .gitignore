@@ -9,6 +9,7 @@ docs/*
 docs/custom/plato
 data/
 dist/
+.idea/
 deployment/
 .sass-cache
 app/css/*.css*

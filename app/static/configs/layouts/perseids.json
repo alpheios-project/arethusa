@@ -2,11 +2,11 @@
   "layouts" : [
     {
       "name" : "Sidepanel",
-      "template" : "templates/main_with_sidepanel.html"
+      "template" : "js/templates/main_with_sidepanel.html"
     },
     {
       "name" : "Grid",
-      "template" : "templates/main_grid.html",
+      "template" : "js/templates/main_grid.html",
       "grid" : [
 
         {

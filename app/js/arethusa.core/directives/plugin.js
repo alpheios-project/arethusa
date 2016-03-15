@@ -43,7 +43,7 @@ angular.module('arethusa.core').directive('plugin', [
           }
         });
       },
-      templateUrl: 'templates/arethusa.core/plugin.html'
+      templateUrl: 'js/arethusa.core/templates/plugin.html'
     };
   }
 ]);

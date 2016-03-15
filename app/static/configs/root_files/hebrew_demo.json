@@ -1,0 +1,76 @@
+{
+  "main" : {
+    "@include" : "layouts/main.json",
+    "retrievers" : {
+      "HebrewRetriever" : {
+        "resource" : "hebrewTreebanks",
+        "docIdentifier" : "hebrewMorph"
+      }
+    },
+    "persisters" : {
+      "HebrewPersister" : {
+        "resource" : "hebrewTreebanks",
+        "docIdentifier" : "hebrewMorph"
+      }
+    },
+    "plugins" : [
+      "text",
+      "hebrewMorph",
+      "search"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "js/templates/navbar1.html",
+    "search" : true,
+    "navigation" : true,
+    "notifier" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "resources" : {
+    "@include" : "resources/dev.json"
+  },
+
+  "plugins" : {
+    "text" : {
+      "main" : true,
+      "template"  : "js/templates/text2.html"
+    },
+    "search" : {
+      "template" : "js/templates/search.html",
+      "regex" : true
+    },
+    "hebrewMorph" : {
+      "template" : "js/arethusa.hebrew_morph/templates/hebrew_morph.html",
+      "@include" : "morph/heb_attributes.json"
+    }
+  },
+  "keyCapture" : {
+    "sidepanel" : {
+      "nextTab" : "W",
+      "prevTab" : "E",
+      "toggle"  : "q"
+    },
+    "selections" : {
+      "nextToken" : "w",
+      "prevToken" : "e"
+    },
+    "navigation" : {
+      "nextSentence" : "u",
+      "prevSentence" : "i",
+      "list" : "L"
+    },
+    "saver" : {
+      "save" : "ctrl-S"
+    },
+    "search" : {
+      "focus" : "A"
+    },
+    "@include" : "keyboard/key_map.json"
+  }
+}

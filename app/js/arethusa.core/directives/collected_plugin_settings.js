@@ -9,7 +9,7 @@ angular.module('arethusa.core').directive('collectedPluginSettings', [
       link: function(scope, element, attrs) {
         scope.plugins = plugins;
       },
-      templateUrl: 'templates/arethusa.core/collected_plugin_settings.html'
+      templateUrl: 'js/arethusa.core/templates/collected_plugin_settings.html'
     };
   }
 ]);

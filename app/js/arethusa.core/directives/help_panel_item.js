@@ -11,7 +11,7 @@ angular.module('arethusa.core').directive('helpPanelItem', [
         scope.heading = attrs.heading;
         scope.height  = attrs.height;
       },
-      templateUrl: 'templates/arethusa.core/help_panel_item.html'
+      templateUrl: 'js/arethusa.core/templates/help_panel_item.html'
     };
   }
 ]);

@@ -14,7 +14,7 @@ angular.module('arethusa.core').directive('pluginSetting', [
           if (angular.isFunction(change)) change();
         };
       },
-      templateUrl: 'templates/arethusa.core/plugin_setting.html'
+      templateUrl: 'js/arethusa.core/templates/plugin_setting.html'
     };
   }
 ]);

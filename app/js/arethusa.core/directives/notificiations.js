@@ -8,7 +8,7 @@ angular.module('arethusa.core').directive('notifications', [
       scope: {},
       link: function(scope, element, attrs) {
       },
-      templateUrl: 'templates/arethusa.core/notifications.html'
+      templateUrl: 'js/arethusa.core/templates/notifications.html'
     };
   }
 ]);

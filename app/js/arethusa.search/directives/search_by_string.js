@@ -64,7 +64,7 @@ angular.module('arethusa.search').directive('searchByString', [
           }
         });
       },
-      templateUrl: 'templates/arethusa.search/search_by_string.html'
+      templateUrl: 'js/arethusa.search/templates/search_by_string.html'
     };
   }
 ]);

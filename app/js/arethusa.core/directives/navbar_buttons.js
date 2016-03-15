@@ -9,7 +9,7 @@ angular.module('arethusa.core').directive('navbarButtons', [
       link: function(scope, element, attrs) {
         scope.$watch('windowWidth', function(newVal, oldVal) {
           var coll = newVal > 1150 ? '' : '_collapsed';
-          scope.bTemplate = 'templates/arethusa.core/navbar_buttons' + coll + '.html';
+          scope.bTemplate = 'js/arethusa.core/templates/navbar_buttons' + coll + '.html';
         });
 
         translator('menu', function(trsl) {

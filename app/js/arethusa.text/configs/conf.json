@@ -1,0 +1,4 @@
+{
+  "main" : true,
+  "template"  : "js/templates/text_with_context.html"
+}

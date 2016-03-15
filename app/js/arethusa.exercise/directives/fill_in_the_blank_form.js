@@ -15,6 +15,6 @@ angular.module('arethusa.exercise').directive('fillInTheBlankForm', function () 
         }
       };
     },
-    templateUrl: 'templates/arethusa.exercise/fill_in_the_blank_form.html'
+    templateUrl: 'js/arethusa.exercise/templates/fill_in_the_blank_form.html'
   };
 });

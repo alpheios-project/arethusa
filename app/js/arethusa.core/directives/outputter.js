@@ -12,7 +12,7 @@ angular.module('arethusa.core').directive('outputter', [
         scope.saver = saver;
         element.bind('click', function() {
           $modal.open({
-            templateUrl: 'templates/arethusa.core/outputter.html',
+            templateUrl: 'js/arethusa.core/templates/outputter.html',
             windowClass: 'full-modal',
             scope: scope
           });
@@ -55,7 +55,7 @@ angular.module('arethusa.core').directive('outputterItem', [
           fileHandler.download(fileName, scope.data(), mime);
         };
       },
-      templateUrl: 'templates/arethusa.core/outputter_item.html',
+      templateUrl: 'js/arethusa.core/templates/outputter_item.html',
     };
   }
 ]);

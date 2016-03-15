@@ -19,7 +19,7 @@ angular.module('arethusa.text').directive('textContext', [
           }
         };
       },
-      templateUrl: 'templates/arethusa.text/text_context.html'
+      templateUrl: 'js/arethusa.text/templates/text_context.html'
     };
   }
 ]);

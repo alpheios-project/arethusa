@@ -14,6 +14,6 @@ angular.module('arethusa.confEditor').directive('confAdder', function () {
         scope.input = '';
       };
     },
-    templateUrl: 'templates/conf_editor/conf_adder.html'
+    templateUrl: 'js/conf_editor/templates/conf_adder.html'
   };
 });

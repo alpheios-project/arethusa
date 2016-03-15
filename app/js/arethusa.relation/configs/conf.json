@@ -1,0 +1,7 @@
+{
+  "template" : "js/templates/relation.html",
+  "advancedMode" : true,
+  "contextMenu" : true,
+  "contextMenuTemplate": "js/arethusa.relation/templates/context_menu.html",
+  "@include": "js/arethusa.relation/configs/relation/relations.json"
+}

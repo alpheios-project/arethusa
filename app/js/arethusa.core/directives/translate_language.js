@@ -35,7 +35,7 @@ angular.module('arethusa.core').directive('translateLanguage', [
 
         useKey();
       },
-      templateUrl: 'templates/arethusa.core/translate_language.html'
+      templateUrl: 'js/arethusa.core/templates/translate_language.html'
     };
   }
 ]);

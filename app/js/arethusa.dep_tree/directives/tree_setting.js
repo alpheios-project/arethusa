@@ -15,7 +15,7 @@ angular.module('arethusa.depTree').directive('treeSetting', function() {
         scope.val--;
       };
     },
-    templateUrl: 'templates/arethusa.dep_tree/tree_setting.html'
+    templateUrl: 'js/arethusa.dep_tree/templates/tree_setting.html'
   };
 
 });

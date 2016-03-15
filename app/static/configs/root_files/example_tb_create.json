@@ -1,0 +1,136 @@
+{
+  "main" : {
+    "debug" : true,
+    "showKeys" : true,
+    "@include" : "layouts/perseids.json",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "demoXml",
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
+      }
+    },
+    "outputters" : {
+      "TreebankPersister" : {
+        "docIdentifier" : "treebank"
+      }
+    },
+    "plugins" : [
+      "text",
+      "search",
+      "morph",
+      "relation",
+      "artificialToken",
+      "depTree",
+      "history",
+      "comments"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "js/templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "resources" : {
+    "@include" : "resources/dev.json"
+  },
+
+  "plugins" : {
+    "text" : {
+      "main" : true,
+      "template"  : "js/templates/text2.html"
+    },
+
+    "depTree" : {
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.dep_tree/templates/context_menu.html",
+      "template" : "js/templates/dep_tree.html"
+    },
+
+    "search" : {
+      "template" : "js/templates/search.html"
+    },
+
+    "morph" : {
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyServiceLat"
+        }
+      },
+      "template"  : "js/templates/morph3.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
+      "lexicalInventory" : {
+        "retriever" : {
+          "LexicalInventoryRetriever" : {
+            "resource" : "lexInvFusekiEndpoint"
+          }
+        }
+      },
+      "@include" : "morph/lat_attributes.json"
+    },
+
+    "relation" : {
+      "template" : "js/templates/relation.html",
+      "advancedMode" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.relation/templates/context_menu.html",
+      "@include" : "relation/relations.json"
+    },
+
+    "review" : {
+      "template" : "js/arethusa.review/templates/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "arethusaServerTreebankGold"
+        }
+      }
+    },
+
+    "history" : {
+      "maxSize" : 5,
+      "template" : "js/templates/history.html"
+    },
+
+    "artificialToken" : {
+      "template" : "js/arethusa.artificial_token/templates/artificial_token.html"
+    },
+
+    "comments" : {
+      "retriever" : {
+        "CommentsRetriever" : {
+          "resource" : "arethusaServerComments"
+        }
+      }
+    },
+
+    "sg" : {
+      "retriever" : {
+        "SgGrammarRetriever" : {
+          "resource" : "sgGrammar"
+        }
+      },
+      "template" : "js/templates/sg.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.sg/templates/context_menu.html",
+      "@include" : "sg2/sg_labels.json"
+    }
+  },
+
+  "exitHandler" : {
+    "title" : "somewhere",
+    "route" : "http://sosol.perseids.org/tools/arethusa"
+  },
+
+  "keyCapture" : {
+    "@include" : "keyboard/key_map.json"
+  }
+}

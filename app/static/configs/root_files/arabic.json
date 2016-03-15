@@ -1,0 +1,105 @@
+{
+  "main" : {
+    "@include" : "layouts/main.json",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "plugins" : [
+      "text",
+      "search",
+      "morph",
+      "relation",
+      "depTree",
+      "history"
+    ]
+  },
+
+  "auths": {
+    "perseidsAuth" : {
+      "type": "CSRF",
+      "cookie": "csrftoken",
+      "header": "X-CSRF-Token",
+      "ping" : "http://sosol.perseids.org/sosol/dmm_api/ping"
+
+    }
+  },
+
+  "navbar" : {
+    "template" : "js/templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "resources" : {
+    "perseidsResource" : {
+      "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
+      "params" : [
+        "doc"
+      ],
+      "auth": "perseidsAuth"
+    },
+
+    "morphologyService" : {
+      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=ara&engine=aramorph"
+    }
+  },
+
+  "plugins" : {
+    "text" : {
+      "main" : true,
+      "template"  : "js/templates/text2.html"
+    },
+
+    "depTree" : {
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.dep_tree/templates/context_menu.html",
+      "template" : "js/templates/dep_tree.html"
+    },
+
+    "search" : {
+      "template" : "js/templates/search.html",
+      "regex" : true
+    },
+
+    "morph" : {
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyService"
+        }
+      },
+      "template"  : "js/templates/morph3.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
+      "matchAll" : true,
+      "@include" : "morph/lat_attributes.json"
+    },
+
+    "relation" : {
+      "template" : "js/templates/relation.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.relation/templates/context_menu.html",
+      "@include" : "relation/relations.json"
+    },
+
+    "history" : {
+      "listener" : true,
+      "maxSize" : 5,
+      "template" : "js/templates/history.html"
+    },
+
+    "comment" : {
+      "template" : "js/templates/comment2.html"
+    }
+  }
+}
+

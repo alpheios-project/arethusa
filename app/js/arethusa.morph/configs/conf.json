@@ -1,0 +1,19 @@
+{
+  "retrievers" : {
+    "BspMorphRetriever" : {
+      "resource" : "morphologyServiceLat"
+    }
+  },
+  "template"  : "js/templates/morph3.html",
+  "contextMenu" : true,
+  "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
+  "lexicalInventory" : {
+    "retriever" : {
+      "LexicalInventoryRetriever" : {
+        "resource" : "lexInvFusekiEndpoint"
+      }
+    }
+  },
+  "gloss" : true,
+  "@include" : "js/arethusa.morph/configs/morph/lat_attributes.json"
+}

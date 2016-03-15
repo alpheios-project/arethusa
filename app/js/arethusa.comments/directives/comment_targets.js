@@ -18,7 +18,7 @@ angular.module('arethusa.comments').directive('commentTargets', [
 
         scope.nonSequential = idHandler.nonSequentialIds(ids());
       },
-      templateUrl: 'templates/arethusa.comments/comment_targets.html'
+      templateUrl: 'js/arethusa.comments/templates/comment_targets.html'
 
     };
   }

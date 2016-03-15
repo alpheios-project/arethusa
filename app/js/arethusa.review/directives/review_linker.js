@@ -35,7 +35,7 @@ angular.module('arethusa.review').directive('reviewLinker', [
           setTitle();
         });
       },
-      templateUrl: 'templates/arethusa.review/review_linker.html'
+      templateUrl: 'js/arethusa.review/templates/review_linker.html'
     };
   }
 ]);

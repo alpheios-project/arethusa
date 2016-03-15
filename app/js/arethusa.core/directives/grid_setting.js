@@ -19,7 +19,7 @@ angular.module('arethusa.core').directive('gridSetting', [
           });
         });
       },
-      templateUrl: 'templates/arethusa.core/grid_setting.html'
+      templateUrl: 'js/arethusa.core/templates/grid_setting.html'
     };
   }
 ]);

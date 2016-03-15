@@ -25,7 +25,7 @@ angular.module('arethusa.core').directive('sentence', [
 
         getCitation();
       },
-      templateUrl: 'templates/arethusa.core/sentence.html'
+      templateUrl: 'js/arethusa.core/templates/sentence.html'
     };
   }
 ]);
