@@ -299,8 +299,11 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     this.getExternalAnalyses = function (analysisObj, id) {
+      var loadedExternalAnalyses = {};
       angular.forEach(morphRetrievers, function (retriever, name) {
+        loadedExternalAnalyses[name] = {};
         retriever.getData(analysisObj.string, function (res) {
+          loadedExternalAnalyses[name][analysisObj.string] = true;
           res.forEach(function (el) {
             // need to parse the attributes now
             el.attributes = mapAttributes(el.attributes);
@@ -320,20 +323,26 @@ angular.module('arethusa.morph').service('morph', [
           var newForms = makeUnique(res);
           arethusaUtil.pushAll(forms, newForms);
 
-          // @balmas we need to comment this out for
-          // now - because we don't always want to override
-          // the user's selection to the most frequent, only when
-          // they haven't chose something else
+          // wait until the last retriever finishes before handling
+          // preselections
+          var allDone = true;
+          angular.forEach(loadedExternalAnalyses, function (retrieved, name) {
+             if (! retrieved[analysisObj.string]) {
+               allDone = false;
+             }
+          });
+          if (allDone) {
+            if (self.storePreferences) {
+              sortByPreference(str, forms);
+            }
 
-          //if (self.storePreferences) {
-          //  sortByPreference(str, forms);
-          //}
+            if (self.preselect) {
+              preselectForm(forms[0], id);
+            }
 
-          if (self.preselect) {
-            preselectForm(forms[0], id);
+            unsetStyleWithoutAnalyses(forms, id);
+          } else {
           }
-
-          unsetStyleWithoutAnalyses(forms, id);
         });
       });
     };
@@ -400,7 +409,9 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     function preselectForm(form, id) {
-      if (form && selectedForm(id) !== form) {
+      // we should only preselect a form
+      // if one isn't already selected
+      if (form && ! self.hasSelection(self.analyses[id])) {
         state.doSilent(function() {
           self.setState(id, form);
         });
