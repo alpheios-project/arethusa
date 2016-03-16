@@ -42,7 +42,7 @@
       },
       "noView" : true,
       "template"  : "js/templates/morph2.html",
-      "@include" : "morph/lat_attributes.json"
+      "@include" : "js/arethusa.morph/configs/morph/lat_attributes.json"
     }
   }
 }

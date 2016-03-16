@@ -41,7 +41,7 @@ Z.var = {
     'arethusa.text'
   ],
   paths: {
-    conf: 'app/static/configs',
+    conf: 'app/static/configs/root_files',
     doc: 'docs',
     docCustom: 'docs/custom'
   },

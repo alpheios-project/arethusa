@@ -3,7 +3,7 @@
     "@include" : "layouts/perseids.json",
     "retrievers" : {
       "TreebankRetriever" : {
-        "resource" : "latinGh",
+        "resource" : "greekGh",
         "docIdentifier" : "treebank"
       }
     },
@@ -55,11 +55,6 @@
 
     "morph" : {
       "noRetrieval" : "online",
-      "retrievers" : {
-        "BspMorphRetriever" : {
-          "resource" : "morphologyServiceLat"
-        }
-      },
       "template"  : "templates/morph3.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.morph/context_menu.html",
@@ -71,14 +66,14 @@
         }
       },
       "matchAll" : true,
-      "@include" : "morph/lat_attributes.json"
+      "@include" : "js/arethusa.morph/configs/morph/grc_attributes.json"
     },
 
     "relation" : {
       "template" : "templates/relation.html",
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.relation/context_menu.html",
-      "@include" : "relation/relations.json"
+      "@include" : "js/arethusa.relation/configs/relation/relations.json"
     },
 
     "history" : {
@@ -95,13 +90,6 @@
       "contextMenu" : true,
       "contextMenuTemplate": "templates/arethusa.sg/context_menu.html",
       "@include" : "sg2/sg_labels.json"
-    },
-    "comments" : {
-      "retriever" : {
-        "CommentsRetriever" : {
-          "resource" : "perseidsComments"
-        }
-      }
     }
   },
 
