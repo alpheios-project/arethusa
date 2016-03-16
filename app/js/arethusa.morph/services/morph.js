@@ -315,7 +315,7 @@ angular.module('arethusa.morph').service('morph', [
           // has already been populated with any forms - only
           // merge duplicates if we have any to begin with
           if (forms.length > 0) {
-            mergeDuplicateForms(forms[0], res);
+            self.mergeDuplicateForms(forms[0], res);
           }
           var newForms = makeUnique(res);
           arethusaUtil.pushAll(forms, newForms);
@@ -379,7 +379,7 @@ angular.module('arethusa.morph').service('morph', [
           otherForms.splice(otherForms.indexOf(duplicate), 1);
         }
       }
-    }
+    };
 
     /**
      * @ngdoc function
