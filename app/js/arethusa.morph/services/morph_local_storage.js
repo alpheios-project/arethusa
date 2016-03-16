@@ -106,14 +106,14 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
     function addPreference(string, form, additor) {
       additor = parseInt(additor) || 1;
       var key = formToKey(form);
-      var counts = preferencesToCounts(string, key);
+      var counts = preferencesToCounts(string);
       var counter = counts[key];
       var newCount = counter ? counter + additor : 1;
       counts[key] = newCount;
       var sortedCounts = toSortedArray(counts);
       var toStore = _.map(sortedCounts, function(countArr) {
         return countArr[0] + PREFERENCE_COUNT_DELIMITER + countArr[1];
-      }).join(PREFERENCE_COUNT_DELIMITER);
+      }).join(PREFERENCE_DELIMITER);
 
       persistPreference(string, toStore);
     }
