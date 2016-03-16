@@ -118,7 +118,8 @@ function ArethusaMocks() {
         },
         morphology: {
           lemma: 'lemma1',
-          postag: 'n-' // explicitly using an empty postag component here to test behavior
+          postag: 'n-', // explicitly using an empty postag component here to test behavior
+          origin: 'document'
         }
       },
       '02': {
@@ -132,7 +133,8 @@ function ArethusaMocks() {
         },
         morphology: {
           lemma: 'lemma2',
-          postag: 'a1'
+          postag: 'a1',
+          origin: 'document'
         }
       },
       '03': {
@@ -154,6 +156,17 @@ function ArethusaMocks() {
         relation: {
           label: "PRED"
         }
+      }
+    };
+  };
+
+  this.localForms = function() {
+    return { 
+      '02': {
+        lemma: 'lemma2',
+        postag: 'a1',
+        origin: 'you',
+        sg: 'extra'
       }
     };
   };

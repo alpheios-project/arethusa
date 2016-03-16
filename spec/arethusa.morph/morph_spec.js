@@ -273,4 +273,23 @@ describe("morph", function() {
       expect(morph.analyses['01'].forms).toEqual([]);
     });
   });
+
+  describe('this.loadInitalAnalyses',function() {
+    it('retains the origin', function() {
+        var f1 = state.getToken('01').morphology;
+        expect(f1.origin === 'document');
+    });
+  });
+
+  describe('this.mergeDuplicateForms',function() {
+    it('merges duplicates properly',function() {    
+      var f1 = state.getToken('02').morphology;
+      var otherForms = [ arethusaMocks.localForms()['02'] ];
+      expect(otherForms[0].sg).toEqual('extra');
+      morph.mergeDuplicateForms(f1,otherForms);
+      expect(f1.origin).toEqual('document');
+      expect(f1.sg).toEqual('extra');
+      expect(otherForms.length).toEqual(0);
+    });
+  });
 });
