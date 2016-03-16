@@ -48,7 +48,7 @@
       "template"  : "js/templates/morph2.html",
       "contextMenu" : true,
       "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
-      "@include" : "morph/lat_attributes.json"
+      "@include" : "js/arethusa.morph/configs/morph/lat_attributes.json"
     },
 
     "review" : {
@@ -62,7 +62,7 @@
 
     "relation" : {
       "template" : "js/templates/relation.html",
-      "@include" : "relation/relations.json"
+      "@include" : "js/arethusa.relation/configs/relation/relations.json"
     },
 
     "history" : {

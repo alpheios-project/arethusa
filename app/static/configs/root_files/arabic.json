@@ -81,14 +81,14 @@
       "contextMenu" : true,
       "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
       "matchAll" : true,
-      "@include" : "morph/lat_attributes.json"
+      "@include" : "js/arethusa.morph/configs/morph/lat_attributes.json"
     },
 
     "relation" : {
       "template" : "js/templates/relation.html",
       "contextMenu" : true,
       "contextMenuTemplate": "js/arethusa.relation/templates/context_menu.html",
-      "@include" : "relation/relations.json"
+      "@include" : "js/arethusa.relation/configs/relation/relations.json"
     },
 
     "history" : {
