@@ -99,12 +99,6 @@ describe("navigator", function() {
     });
   });
 
-  describe('this.state()', function() {
-    it('returns the state object', function() {
-      expect(navigator.state()).toBe(state);
-    });
-  });
-
   describe('this.updateId()', function() {
     it('updates the internal status obj with the id of the current sentence', function() {
       navigator.addSentences(sentences);
@@ -308,14 +302,14 @@ describe("navigator", function() {
     });
   });
 
-  describe('this.hasNext()', function() {
+  describe('this.status.hasNext', function() {
     it('determines if a next sentence is available', function() {
       navigator.addSentences(sentences);
 
-      expect(navigator.hasNext()).toBeTruthy();
+      expect(navigator.status.hasNext).toBeTruthy();
 
       navigator.goTo('5');
-      expect(navigator.hasNext()).toBeFalsy();
+      expect(navigator.status.hasNext).toBeFalsy();
     });
 
     describe('with a larger chunk size', function() {
@@ -323,19 +317,19 @@ describe("navigator", function() {
         navigator.addSentences(sentences);
         navigator.changeChunkSize(3);
 
-        expect(navigator.hasNext()).toBeFalsy();
+        expect(navigator.status.hasNext).toBeFalsy();
       });
     });
   });
 
-  describe('navigator.hasPrev()', function() {
+  describe('navigator.status.hasPrev)', function() {
     it('determines if a previous sentence is available', function() {
       navigator.addSentences(sentences);
 
-      expect(navigator.hasPrev()).toBeFalsy();
+      expect(navigator.status.hasPrev).toBeFalsy();
 
       navigator.goTo('3');
-      expect(navigator.hasPrev()).toBeTruthy();
+      expect(navigator.status.hasPrev).toBeTruthy();
     });
   });
 

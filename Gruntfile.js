@@ -41,7 +41,7 @@ Z.var = {
     'arethusa.text'
   ],
   paths: {
-    conf: 'app/static/configs',
+    conf: 'app/static/configs/root_files',
     doc: 'docs',
     docCustom: 'docs/custom'
   },
@@ -503,7 +503,7 @@ module.exports = function(grunt) {
         command: [
           'bower install',
           'gem install sass -v 3.3.14',
-          'gem install arethusa-cli'
+          'gem install arethusa-client -v 0.1.17'
         ].join('&&')
       },
       e2eSetup: {

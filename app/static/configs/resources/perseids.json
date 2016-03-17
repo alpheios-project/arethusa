@@ -28,7 +28,7 @@
   },
 
   "morphologyServicePer" : {
-    "route" : "http://www.perseids.org/svc/morphologyservice/analysis/word?lang=per&engine=hazm"
+    "route" : "http://services.perseids.org/pysvc/morphologyservice/analysis/word?lang=per&engine=hazm"
   },
 
   "sgGrammar" : {
