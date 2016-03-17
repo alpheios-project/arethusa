@@ -166,6 +166,12 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       if (forms) {
         // find element and remove it, when it's present
         var stored = aU.find(forms, function (otherForm) {
+          // @balmas this is a little weird -- the comparator
+          // is set in arethusa.morph.configure - not sure
+          // if this was intentional to make it possible for
+          // the calling code to be able to use its own comparator
+          // or if it was because we don't have a formal 
+          // class to hold a form and its functions
           return self.comparator(form, otherForm);
         });
         if (stored) {
@@ -195,13 +201,12 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       var key = formToKey(form);
       var counts = preferencesToCounts(string);
       var counter = counts[key];
-      var newCount = counter ? counter + additor : 1;
+      var newCount = counter ? counter + additor : additor;
       counts[key] = newCount;
       var sortedCounts = toSortedArray(counts);
       var toStore = _.map(sortedCounts, function(countArr) {
         return countArr[0] + PREFERENCE_COUNT_DELIMITER + countArr[1];
       }).join(PREFERENCE_DELIMITER);
-
       persistPreference(string, toStore);
     }
 
@@ -286,7 +291,7 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
     }
 
     // forms morphological properties as a string for storage
-    // in the format <lemma>@@<postag>
+    // in the format <lemma>|-|<postag>
     function formToKey(form) {
       return form.lemma + LEMMA_POSTAG_DELIMITER + form.postag;
     }

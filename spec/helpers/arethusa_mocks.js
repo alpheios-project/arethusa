@@ -105,6 +105,17 @@ function ArethusaMocks() {
     });
   };
 
+  this.arethusaLocalStorage = function(customizations) {
+    var data = {
+    };
+    return withCustomizations({
+      init: mockFn,
+      get: function(key) { return data[key]; },
+      set: function(key,value) { data[key] = value; },
+      keys:function() { return Object.keys(data); }
+    });
+  };
+
   this.tokens = function() {
     return {
       '01': {
@@ -170,6 +181,7 @@ function ArethusaMocks() {
       }
     };
   };
+
 }
 
 var arethusaMocks = new ArethusaMocks();
