@@ -37,29 +37,7 @@ angular.module('arethusa.morph').service('morph', [
 
     this.canSearch = true;
 
-    // When a user is moving fast between chunks, a lot of outstanding
-    // requests can build up in the retrievers. As they are all asynchronous
-    // their callbacks fire when we have already moved away from the chunk which
-    // started the calls.
-    // This can lead to quite a bit of confusion and is generally not a very
-    // good solution.
-    // We therefore use the new abort() API of Resource to cancel all requests
-    // we don't need anymore. All morph retrievers need to provide an abort()
-    // function now (usually just a delegator to Resource.abort).
-    //
-    // On init, we check if morphRetrievers were already defined and if they
-    // are we abort all outstanding requests.
-    function abortOutstandingRequests() {
-      if (morphRetrievers) {
-        angular.forEach(morphRetrievers, abortRetriever);
-      }
-    }
-
-    function abortRetriever(retriever) {
-      var fn = retriever.abort;
-      if (angular.isFunction(fn)) fn();
-    }
-
+    // WHATEVER THIS MEANS
 
     this.defaultConf = {
       mappings: {},
@@ -69,43 +47,6 @@ angular.module('arethusa.morph').service('morph', [
       localStorage: true,
       storePreferences: true
     };
-
-    function configure() {
-      var props = [
-        'postagSchema',
-        'attributes',
-        'mappings',
-        'noRetrieval',
-        'gloss',
-        'localStorage',
-        'storePreferences'
-      ];
-
-      configurator.getConfAndDelegate(self, props);
-      configurator.getStickyConf(self, ['preselect', 'matchAll']);
-
-      self.analyses = {};
-      morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
-      propagateMappings(morphRetrievers);
-
-      if (self.localStorage) {
-        morphRetrievers.localStorage = morphLocalStorage.retriever;
-        morphLocalStorage.comparator = isSameForm;
-      }
-
-      // This is useful for the creation of new forms. Usually we want to
-      // validate if all attributes are set properly - the inclusion of
-      // special empty attributes allows to say specifically that something
-      // should be left unannotated/unknown. Useful for elliptic nodes etc.
-      addSpecialEmptyAttributes();
-
-      if (self.conf.lexicalInventory) {
-        inventory = configurator.getRetriever(self.conf.lexicalInventory.retriever);
-      }
-
-      colorMap = undefined;
-      searchIndex = {};
-    }
 
     var emptyAttribute = {
       long: '---',
@@ -120,6 +61,8 @@ angular.module('arethusa.morph').service('morph', [
     function addSpecialEmptyAttributes() {
       angular.forEach(self.attributes, addSpecialEmptyAttribute);
     }
+
+    // WHATEVER THIS MEANS
 
     function mappingFor(name) {
       // this exists so that mapping instances can refer to each
@@ -147,6 +90,8 @@ angular.module('arethusa.morph').service('morph', [
       }
     }
 
+    // ANALYSES - FORMS - BEGIN
+
     function Forms(string) {
       this.string = string;
       this.forms  = [];
@@ -158,6 +103,17 @@ angular.module('arethusa.morph').service('morph', [
         obj[id] = new Forms(token.string);
       });
     }
+
+    this.emptyForm = function(string) {
+      return {
+        lemma: string,
+        postag: self.emptyPostag,
+        attributes: emptyAttributes()
+      };
+    };
+
+    // ANALYSES - FORMS - END
+    // ANALYSES - POSTAGS - BEGIN
 
     this.postagToAttributes = function (form) {
       var attrs = {};
@@ -174,12 +130,6 @@ angular.module('arethusa.morph').service('morph', [
       });
       form.attributes = attrs;
     };
-
-    function createEmptyPostag() {
-      return arethusaUtil.map(self.postagSchema, function (el) {
-        return '-';
-      }).join('');
-    }
 
     this.updatePostag = function (form, attr, val) {
       var index = self.postagSchema.indexOf(attr);
@@ -198,14 +148,6 @@ angular.module('arethusa.morph').service('morph', [
           return valObj ? valObj.postag : '-';
         });
       return postagArr.join('');
-    };
-
-    this.emptyForm = function(string) {
-      return {
-        lemma: string,
-        postag: self.emptyPostag,
-        attributes: emptyAttributes()
-      };
     };
 
     function emptyAttributes() {
@@ -275,6 +217,8 @@ angular.module('arethusa.morph').service('morph', [
       });
     }
 
+
+    // STYLE !!!
     // When we find no form even after retrieving, we need to unset
     // the token style. This is important when we move from chunk
     // to chunk, as token might still have style from a former chunk.
@@ -330,6 +274,8 @@ angular.module('arethusa.morph').service('morph', [
       });
     };
 
+    // MORE FORMS WHATEVER !!!
+
     function mergeDuplicateForms(firstForm, otherForms) {
       if (firstForm && firstForm.origin === 'document') {
         var duplicate;
@@ -366,6 +312,9 @@ angular.module('arethusa.morph').service('morph', [
       }
     }
 
+    // MORE FORMS END !!!
+    // LOAD WHATEVER !!!
+
     function loadInitalAnalyses() {
       if (self.noRetrieval !== "all") {
         angular.forEach(self.analyses, loadToken);
@@ -386,6 +335,8 @@ angular.module('arethusa.morph').service('morph', [
       val.analyzed = true;
       self.resetCustomForm(val, id);
     }
+
+    // PRESELECTIONS WHATEVER !!!
 
     self.preselectToggled = function() {
       if (self.preselect) applyPreselections();
@@ -414,6 +365,8 @@ angular.module('arethusa.morph').service('morph', [
       angular.forEach(self.analyses, applyPreselection);
     }
 
+    // MORE FORMS AND ANALYSES WHATEVER !!!
+
     self.resetCustomForm = function(val, id) {
       var string = state.asString(id);
       val.customForm = self.emptyForm(string);
@@ -428,6 +381,8 @@ angular.module('arethusa.morph').service('morph', [
         }
       });
     };
+
+    // ATTRIBUTES - BEGIN
 
     this.selectAttribute = function (attr) {
       return self.attributes[attr] || {};
@@ -472,6 +427,8 @@ angular.module('arethusa.morph').service('morph', [
       });
     };
 
+    // ATTRIBUTES - END
+    // STYLE - BEGIN
 
     function createColorMap() {
       var keys = ['long', 'postag'];
@@ -517,6 +474,9 @@ angular.module('arethusa.morph').service('morph', [
       return fullStyle;
     };
 
+    // STYLE - END
+    // LOCAL STORAGE - BEGIN
+
     this.removeForm = function(id, form) {
       var forms = self.analyses[id].forms;
       var i = forms.indexOf(form);
@@ -535,6 +495,8 @@ angular.module('arethusa.morph').service('morph', [
         morphLocalStorage.removeForm(string, form);
       }
     };
+
+    // LOCAL STORAGE - END
 
     function deselectAll(id) {
       angular.forEach(self.analyses[id].forms, function(form, i) {
@@ -608,6 +570,8 @@ angular.module('arethusa.morph').service('morph', [
       return self.selectAttribute(attr).rules;
     };
 
+    // SEARCH INDEX - BEGIN
+
     function findThroughOr(keywords) {
       return arethusaUtil.inject({}, keywords, function(memo, keyword) {
         var hits = searchIndex[keyword] || [];
@@ -672,23 +636,12 @@ angular.module('arethusa.morph').service('morph', [
       });
     }
 
+    // SEARCH INDEX - END
+
     this.canEdit = function() {
       return self.mode === "editor";
     };
-
-    state.on('tokenAdded', function(event, token) {
-      var id = token.id;
-      var forms = new Forms(token.string);
-      self.analyses[id] = forms;
-      token.morphology = {};
-      loadToken(forms, id);
-    });
-
-    state.on('tokenRemoved', function(event, token) {
-      var id = token.id;
-      deleteFromIndex(id);
-      delete self.analyses[id];
-    });
+    // SELECTION - BEGIN
 
     function guardSelection(fn) {
       if (plugins.isSelected(self)) {
@@ -735,6 +688,9 @@ angular.module('arethusa.morph').service('morph', [
 
     angular.extend(self.activeKeys, keys.selections);
 
+    // SELECTION - END
+    // PREFERENCES - BEGIN
+
     this.settings = [
       commons.setting('Expand Selected', 'expandSelection'),
       commons.setting('Store Preferences', 'storePreferences'),
@@ -768,9 +724,89 @@ angular.module('arethusa.morph').service('morph', [
     navigator.onMove(savePreferences);
     exitHandler.onLeave(savePreferences);
 
+    // PREFERENCES - END
+
+    state.on('tokenAdded', function(event, token) {
+      var id = token.id;
+      var forms = new Forms(token.string);
+      self.analyses[id] = forms;
+      token.morphology = {};
+      loadToken(forms, id);
+    });
+
+    state.on('tokenRemoved', function(event, token) {
+      var id = token.id;
+      deleteFromIndex(id);
+      delete self.analyses[id];
+    });
+
+    function configure() {
+      var props = [
+        'postagSchema',
+        'attributes',
+        'mappings',
+        'noRetrieval',
+        'gloss',
+        'localStorage',
+        'storePreferences'
+      ];
+
+      configurator.getConfAndDelegate(self, props);
+      configurator.getStickyConf(self, ['preselect', 'matchAll']);
+
+      self.analyses = {};
+      morphRetrievers = configurator.getRetrievers(self.conf.retrievers);
+      propagateMappings(morphRetrievers);
+
+      if (self.localStorage) {
+        morphRetrievers.localStorage = morphLocalStorage.retriever;
+        morphLocalStorage.comparator = isSameForm;
+      }
+
+      // This is useful for the creation of new forms. Usually we want to
+      // validate if all attributes are set properly - the inclusion of
+      // special empty attributes allows to say specifically that something
+      // should be left unannotated/unknown. Useful for elliptic nodes etc.
+      addSpecialEmptyAttributes();
+
+      if (self.conf.lexicalInventory) {
+        inventory = configurator.getRetriever(self.conf.lexicalInventory.retriever);
+      }
+
+      colorMap = undefined;
+      searchIndex = {};
+    }
+
     this.init = function () {
+      // When a user is moving fast between chunks, a lot of outstanding
+      // requests can build up in the retrievers. As they are all asynchronous
+      // their callbacks fire when we have already moved away from the chunk which
+      // started the calls.
+      // This can lead to quite a bit of confusion and is generally not a very
+      // good solution.
+      // We therefore use the new abort() API of Resource to cancel all requests
+      // we don't need anymore. All morph retrievers need to provide an abort()
+      // function now (usually just a delegator to Resource.abort).
+      //
+      // On init, we check if morphRetrievers were already defined and if they
+      // are we abort all outstanding requests.
+      function abortOutstandingRequests() {
+        function abortRetriever(retriever) {
+          var fn = retriever.abort;
+          if (angular.isFunction(fn)) fn();
+        }
+
+        if (morphRetrievers) {
+          angular.forEach(morphRetrievers, abortRetriever);
+        }
+      }
       abortOutstandingRequests();
       configure();
+      function createEmptyPostag() {
+        return arethusaUtil.map(self.postagSchema, function (el) {
+          return '-';
+        }).join('');
+      }
       self.emptyPostag = createEmptyPostag();
       self.analyses = seedAnalyses();
       loadInitalAnalyses();
