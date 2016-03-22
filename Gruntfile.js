@@ -38,7 +38,8 @@ Z.var = {
     'arethusa.relation',
     'arethusa.exercise',
     'arethusa.sg',
-    'arethusa.text'
+    'arethusa.text',
+    'arethusa.table'
   ],
   paths: {
     conf: 'app/static/configs/root_files',

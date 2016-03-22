@@ -1,0 +1,26 @@
+<table lang-specific>
+    <tr>
+        <th>ID</th>
+        <th>Word</th>
+        <th>Head</th>
+        <th>Relation</th>
+        <th>Lemma</th>
+        <th>Postag</th>
+    </tr>
+  <tr ng-repeat="token in plugin.tokens">
+      <td>{{token.id}}</td>
+      <td>
+        <span
+            token="token"
+            colorize="true"
+            click="true"
+            hover="true"
+            highlight="true">
+        </span>
+      </td>
+      <td>{{token.head.id}}</td>
+      <td>{{token.relation.label}}</td>
+      <td>{{token.morphology.lemma}}</td>
+      <td>{{token.morphology.postag}}</td>
+  </tr>
+</table>
