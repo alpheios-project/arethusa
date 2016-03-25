@@ -88,35 +88,35 @@ describe("morphLocalStorage", function() {
       var form = { lemma: 'ma', postag: 'a1' };
       morphLocalStorage.addPreference('mare',form);
       var retrieved = morphLocalStorage.getPreferences();
-      expect(retrieved.mare).toEqual('ma|-|a1@@1');
+      expect(retrieved.mare).toEqual('1$$ma|-|a1@@1');
     });
 
     it('adds to a list of form preferences',function(){
       var form = { lemma: 'ma', postag: 'a1' };
       morphLocalStorage.addPreference('mare',form);
       var retrieved = morphLocalStorage.getPreferences();
-      expect(retrieved.mare).toEqual('ma|-|a1@@1');
+      expect(retrieved.mare).toEqual('1$$ma|-|a1@@1');
       var form2 = { lemma: 'mas', postag: 'b---------' };
       morphLocalStorage.addPreference('mare',form2);
       retrieved = morphLocalStorage.getPreferences();
-      expect(retrieved.mare).toEqual('ma|-|a1@@1;;mas|-|b---------@@1');
+      expect(retrieved.mare).toEqual('1$$ma|-|a1@@1;;mas|-|b---------@@1');
     });
     it('updates the count of a preference',function(){
       var form = { lemma: 'ma', postag: 'a1' };
       morphLocalStorage.addPreference('mare',form);
       var retrieved = morphLocalStorage.getPreferences();
-      expect(retrieved.mare).toEqual('ma|-|a1@@1');
+      expect(retrieved.mare).toEqual('1$$ma|-|a1@@1');
       morphLocalStorage.addPreference('mare',form);
       retrieved = morphLocalStorage.getPreferences();
-      expect(retrieved.mare).toEqual('ma|-|a1@@2');
+      expect(retrieved.mare).toEqual('1$$ma|-|a1@@2');
       var form2 = { lemma: 'mas', postag: 'b---------' };
       morphLocalStorage.addPreference('mare',form2);
       morphLocalStorage.addPreference('mare',form);
       retrieved = morphLocalStorage.getPreferences();
-      expect(retrieved.mare).toEqual('ma|-|a1@@3;;mas|-|b---------@@1');
+      expect(retrieved.mare).toEqual('1$$ma|-|a1@@3;;mas|-|b---------@@1');
       morphLocalStorage.addPreference('mare',form2);
       retrieved = morphLocalStorage.getPreferences();
-      expect(retrieved.mare).toEqual('ma|-|a1@@3;;mas|-|b---------@@2');
+      expect(retrieved.mare).toEqual('1$$ma|-|a1@@3;;mas|-|b---------@@2');
     });
   });
 
@@ -124,22 +124,22 @@ describe("morphLocalStorage", function() {
     it('imports and updates a preference', function() {
       var form = { lemma: 'ma', postag: 'a1' };
       morphLocalStorage.addPreference('mare',form);
-      var imported = 'ma|-|a1@@3;;mas|-|b---------@@2';
+      var imported = '1$$ma|-|a1@@3;;mas|-|b---------@@2';
       morphLocalStorage.addPreferences('mare',imported);
       var retrieved = morphLocalStorage.getPreferences();
-      expect(retrieved.mare).toEqual('ma|-|a1@@4;;mas|-|b---------@@2');
+      expect(retrieved.mare).toEqual('1$$ma|-|a1@@4;;mas|-|b---------@@2');
     });
     it('imports a new preference',function() {
-      var imported = 'ma|-|a1@@3;;mas|-|b---------@@2';
+      var imported = '1$$ma|-|a1@@3;;mas|-|b---------@@2';
       morphLocalStorage.addPreferences('mare',imported);
       var retrieved = morphLocalStorage.getPreferences();
-      expect(retrieved.mare).toEqual('ma|-|a1@@3;;mas|-|b---------@@2');
+      expect(retrieved.mare).toEqual('1$$ma|-|a1@@3;;mas|-|b---------@@2');
     });
   });
 
   describe('this.sortByPreference', function() {
     it('sorts form preferences', function() {
-      var imported = 'ma|-|a1@@3;;mas|-|b1@@2';
+      var imported = '1$$ma|-|a1@@3;;mas|-|b1@@2';
       morphLocalStorage.addPreferences('mare',imported);
       var formsToSort =  [ { lemma: 'mas', postag: 'b1' }, {lemma: 'ma', postag: 'a1'}, {lemma: 'mas', postag: 'c1'} ];
       var sorted = morphLocalStorage.sortByPreference('mare',formsToSort);
@@ -159,7 +159,7 @@ describe("morphLocalStorage", function() {
       var form = { lemma: 'ma', postag: 'a1' };
       morphLocalStorage.addPreference('mare',form);
       retrieved = morphLocalStorage.getPreferences();
-      expect(retrieved).toEqual({mare: 'ma|-|a1@@1'});
+      expect(retrieved).toEqual({mare: '1$$ma|-|a1@@1'});
     });
   });
 
@@ -172,6 +172,26 @@ describe("morphLocalStorage", function() {
       retrieved = morphLocalStorage.getForms();
       expect(retrieved).toEqual({mare: [ { lemma: 'ma', postag: 'a1', selected: false} ]});
     });
+  });
+
+  describe('this.readPreference', function() {
+    it('reads a properly versioned preference', function() {
+      var read = morphLocalStorage.readPreference('1$$ma|-|aa@@1');
+      expect(read).toEqual([{form: { lemma: 'ma', postag: 'aa' }, count: 1}]);
+      read = morphLocalStorage.readPreference('1$$ma|-|aa@@1;;xx|-|bb@@2');
+      expect(read).toEqual([{form: { lemma: 'ma', postag: 'aa' }, count: 1}, {form: { lemma: 'xx', postag: 'bb'}, count: 2 }]);
+    });
+    it('ignores unsupported versioned preferences', function() {
+      var read = morphLocalStorage.readPreference('2$$ma|-|aa@@1');
+      expect(read).toEqual([]);
+      read = morphLocalStorage.readPreference('0$$ma|-|aa@@1');
+      expect(read).toEqual([]);
+    });
+    it('ignores an unversioned preference', function() {
+      var read = morphLocalStorage.readPreference('ma|-|aa@@1');
+      expect(read).toEqual([]);
+    });
+
   });
 
 });

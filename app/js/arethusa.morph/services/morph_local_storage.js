@@ -19,6 +19,10 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
   'arethusaLocalStorage',
   '_',
   function(plugins, arethusaLocalStorage, _) {
+    var MAX_PREFS_VERSION = '1';
+    var MIN_PREFS_VERSION = '1';
+    var CURRENT_PREFS_VERSION = '1';
+    var VERSION_DELIMITER = '$$';
     var PREFERENCE_DELIMITER = ';;';
     var PREFERENCE_COUNT_DELIMITER = '@@';
     var LEMMA_POSTAG_DELIMITER = '|-|';
@@ -30,7 +34,8 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
     this.delimiters = {
       preference: PREFERENCE_DELIMITER,
       count: PREFERENCE_COUNT_DELIMITER,
-      lemmaToPostag: LEMMA_POSTAG_DELIMITER
+      lemmaToPostag: LEMMA_POSTAG_DELIMITER,
+      version: VERSION_DELIMITER
     };
 
     /**
@@ -57,6 +62,7 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
 
     this.getForms = getForms;
     this.getPreferences = getPreferences;
+    this.readPreference = readPreference;
 
     // formats a key for local storage of forms
     function key(k) {
@@ -96,7 +102,8 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
 
     // persist form preference data to local storage
     function persistPreference(string, value) {
-      return arethusaLocalStorage.set(preferenceKey(string), value);
+      var versionedValue = CURRENT_PREFS_VERSION + VERSION_DELIMITER + value;
+      return arethusaLocalStorage.set(preferenceKey(string), versionedValue);
 
     }
 
@@ -225,14 +232,9 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
      *                  
      */
     function addPreferences(string, frequencies) {
-      var data = frequencies.split(PREFERENCE_DELIMITER);
+      var data = readPreference(frequencies);
       return _.forEach(data, function(datum) {
-        var formAndCount = datum.split(PREFERENCE_COUNT_DELIMITER);
-        var lemmaAndPostag = formAndCount[0].split(LEMMA_POSTAG_DELIMITER);
-        var count = formAndCount[1];
-        var lemma = lemmaAndPostag[0];
-        var postag  = lemmaAndPostag[1];
-        addPreference(string, { lemma: lemma, postag: postag }, count);
+        addPreference(string, datum.form, datum.count);
       });
     }
 
@@ -249,10 +251,9 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
 
     // maps morphology properties (string form) to the frequency count
     function preferencesToCounts(string) {
-      var prefs = retrievePreference(string).split(PREFERENCE_DELIMITER);
+      var prefs = readPreference(retrievePreference(string));
       return _.inject(_.filter(prefs), function(memo, pref) {
-        var parts = pref.split(PREFERENCE_COUNT_DELIMITER);
-        memo[parts[0]] = parseInt(parts[1]);
+        memo[formToKey(pref.form)] = parseInt(pref.count);
         return memo;
       }, {});
     }
@@ -337,6 +338,35 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
         }
         return memo;
       }, {});
+    }
+
+    function prefVersionIsSupported(ver) {
+      return ver >= MIN_PREFS_VERSION && ver <= MAX_PREFS_VERSION;
+    }
+
+    function readPreference(prefString) {
+      var prefs,version;
+      var validPrefs = [];
+      var parts = prefString.split(VERSION_DELIMITER);
+      if (parts.length == 2) {
+          version = parts[0];
+          prefs = parts[1].split(PREFERENCE_DELIMITER);
+      }
+      if (prefVersionIsSupported(version)) {
+        for (var i=0; i<prefs.length; i++) {
+          var formAndCount = prefs[i].split(PREFERENCE_COUNT_DELIMITER);
+          if (formAndCount.length == 2) {
+            var count = parseInt(formAndCount[1]);
+            var lemmaAndPostag = formAndCount[0].split(LEMMA_POSTAG_DELIMITER);
+            if (lemmaAndPostag.length == 2) {
+              var lemma = lemmaAndPostag[0];
+              var postag  = lemmaAndPostag[1];
+              validPrefs.push({ 'form' : { 'lemma': lemma, 'postag': postag }, 'count' :count });
+            }
+          }
+        }
+      }
+      return validPrefs;    
     }
   }
 ]);
