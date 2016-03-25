@@ -99,6 +99,10 @@ angular.module('arethusa').factory('TreebankRetriever', [
         postag: word._postag
       };
 
+      // if we have any morphology info from the document
+      // mark the origin as such
+      token.morphology.origin = 'document';
+
       var gloss = word._gloss;
       if (gloss) {
         token.morphology.gloss = gloss;

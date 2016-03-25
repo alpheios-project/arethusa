@@ -18,14 +18,14 @@ exports.config = {
   sauceKey: 'ae469ad7-eaf1-4c87-b165-c3f32d27d64a',
   specs: [specE2eFiles],
   multiCapabilities: [
-    createCapabality('chrome', '37', 'Linux'),
-    createCapabality('chrome', '38', 'Linux'),
-    createCapabality('chrome', '37', 'Windows 7'),
-    createCapabality('chrome', '38', 'Windows 7'),
-    createCapabality('firefox', '25', 'Windows 7'),
-    createCapabality('firefox', '33', 'OS X 10.9'),
-    createCapabality('firefox', '33', 'Windows 7'),
-    createCapabality('safari', '7', 'OS X 10.9')
+    createCapabality('chrome', '47', 'Linux'),
+    createCapabality('chrome', '48', 'Linux'),
+    createCapabality('chrome', '47', 'Windows 7'),
+    createCapabality('chrome', '48', 'Windows 7'),
+    createCapabality('firefox', '44', 'Windows 7'),
+    createCapabality('firefox', '44', 'OS X 10.9'),
+    createCapabality('firefox', '44', 'Windows 7'),
+    //createCapabality('safari', '7', 'OS X 10.9')
     // createCapabality('internet explorer', '11', 'Windows 8.1')
   ],
   baseUrl: 'http://localhost:' + devServerPort

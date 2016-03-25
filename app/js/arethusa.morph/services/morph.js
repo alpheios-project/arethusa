@@ -240,8 +240,11 @@ angular.module('arethusa.morph').service('morph', [
         } else {
           return;
         }
-
-        analysis.origin = 'document';
+        // a good retriever should set the origin of an analysis
+        // for those that don't we will mark simply as 'state'
+        if (!analysis.origin) {
+          analysis.origin = 'state';
+        }
         analysis.selected = true;
         setGloss(id, analysis);
         val.forms.push(analysis);
@@ -296,8 +299,11 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     this.getExternalAnalyses = function (analysisObj, id) {
+      var loadedExternalAnalyses = {};
       angular.forEach(morphRetrievers, function (retriever, name) {
+        loadedExternalAnalyses[name] = {};
         retriever.getData(analysisObj.string, function (res) {
+          loadedExternalAnalyses[name][analysisObj.string] = true;
           res.forEach(function (el) {
             // need to parse the attributes now
             el.attributes = mapAttributes(el.attributes);
@@ -308,30 +314,58 @@ angular.module('arethusa.morph').service('morph', [
           });
           var str = analysisObj.string;
           var forms = analysisObj.forms;
-          mergeDuplicateForms(forms[0], res);
+          // we should not assume that an analysisObj (i.e. token)
+          // has already been populated with any forms - only
+          // merge duplicates if we have any to begin with
+          if (forms.length > 0) {
+            self.mergeDuplicateForms(forms[0], res);
+          }
           var newForms = makeUnique(res);
           arethusaUtil.pushAll(forms, newForms);
 
-          // @balmas we need to comment this out for
-          // now - because we don't always want to override
-          // the user's selection to the most frequent, only when
-          // they haven't chose something else
+          // wait until the last retriever finishes before handling
+          // preselections
+          var allDone = true;
+          angular.forEach(loadedExternalAnalyses, function (retrieved, name) {
+             if (! retrieved[analysisObj.string]) {
+               allDone = false;
+             }
+          });
+          if (allDone) {
+            if (self.storePreferences) {
+              sortByPreference(str, forms);
+            }
 
-          //if (self.storePreferences) {
-          //  sortByPreference(str, forms);
-          //}
+            if (self.preselect) {
+              preselectForm(forms[0], id);
+            }
 
-          if (self.preselect) {
-            preselectForm(forms[0], id);
+            unsetStyleWithoutAnalyses(forms, id);
+          } else {
           }
-
-          unsetStyleWithoutAnalyses(forms, id);
         });
       });
     };
 
-    function mergeDuplicateForms(firstForm, otherForms) {
-      if (firstForm && firstForm.origin === 'document') {
+    /**
+     * @ngdoc function
+     * @name arethusa.morph.morph#mergeDuplicateForms
+     * @methodOf arethusa.morph.morph
+     *
+     * @description
+     * Compares the firstForm supplied with a list of
+     * potential duplicate objects. If a duplicate is found
+     * it extends the original form with any additional information
+     * and removes the duplicate from the passed in list.
+     * N.B. the only reason this function is public is so that
+     * we can write a unit test for it.
+     *
+     * @param {Object} the morphology analysis object of original form
+     * @param {Array} a list of other potentially duplicate form analyses
+     *
+     */
+    this.mergeDuplicateForms = function(firstForm, otherForms) {
+      if (firstForm) {
         var duplicate;
         for (var i = otherForms.length - 1; i >= 0; i--){
           var el = otherForms[i];
@@ -342,15 +376,31 @@ angular.module('arethusa.morph').service('morph', [
         }
         if (duplicate) {
           var oldSelectionState = firstForm.selected;
+          // we extend the original form with data from the
+          // duplicate because morph info from one source, such
+          // as the document, might only be a subset of that from
+          // another (such as a morph service)
+          // we retain the original origin of the first form kept
+          var firstFormOrigin = firstForm.origin;
           angular.extend(firstForm, duplicate);
-          firstForm.origin = 'document';
+          firstForm.origin = firstFormOrigin;
           firstForm.selected = oldSelectionState;
           otherForms.splice(otherForms.indexOf(duplicate), 1);
         }
       }
-    }
+    };
 
-    function isSameForm(a, b) {
+    /**
+     * @ngdoc function
+     * @name arethusa.morph.morph#isSameForm
+     * @methodOf arethusa.morph.morph
+     *
+     * @description
+     * Tests if two forms are the same by comparing
+     * the lemma and the postag
+     *
+     */
+    function isSameForm(a,b) {
       return a.lemma === b.lemma && a.postag === b.postag;
     }
 
@@ -359,7 +409,9 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     function preselectForm(form, id) {
-      if (form && selectedForm(id) !== form) {
+      // we should only preselect a form
+      // if one isn't already selected
+      if (form && ! self.hasSelection(self.analyses[id])) {
         state.doSilent(function() {
           self.setState(id, form);
         });
