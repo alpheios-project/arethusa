@@ -292,4 +292,62 @@ describe("morph", function() {
       expect(otherForms.length).toEqual(0);
     });
   });
+
+  describe('this.canRetrieveFrom',function() {
+    it("returns false for 'document'",function() {
+      morph.noRetrieval = 'all';
+      expect(morph.canRetrieveFrom('document')).toBe(false);
+    });
+    it("returns true for 'document'",function() {
+      morph.noRetrieval = 'online';
+      expect(morph.canRetrieveFrom('document')).toBe(true);
+      morph.noRetrieval = 'BspMorphRetriever';
+      expect(morph.canRetrieveFrom('document')).toBe(true);
+      morph.noRetrieval = 'localStorage';
+      expect(morph.canRetrieveFrom('document')).toBe(true);
+      morph.noRetrieval = '';
+      expect(morph.canRetrieveFrom('document')).toBe(true);
+      morph.noRetrieval = null;
+      expect(morph.canRetrieveFrom('document')).toBe(true);
+    });
+    it("returns false for 'external'",function() {
+      morph.noRetrieval = 'all';
+      expect(morph.canRetrieveFrom('external')).toBe(false);
+      morph.noRetrieval = 'online';
+      expect(morph.canRetrieveFrom('external')).toBe(false);
+    });
+    it("returns true for 'external'",function() {
+      morph.noRetrieval = 'BspMorphRetriever';
+      expect(morph.canRetrieveFrom('external')).toBe(true);
+      morph.noRetrieval = 'localStorage';
+      expect(morph.canRetrieveFrom('external')).toBe(true);
+      morph.noRetrieval = '';
+      expect(morph.canRetrieveFrom('external')).toBe(true);
+      morph.noRetrieval = null;
+      expect(morph.canRetrieveFrom('external')).toBe(true);
+    });
+    it("returns false for 'BspMorphRetriever'",function() {
+      morph.noRetrieval = 'BspMorphRetriever';
+      expect(morph.canRetrieveFrom('BspMorphRetriever')).toBe(false);
+      morph.noRetrieval = 'BspMorphRetriever,SomeOtherMorphRetriever';
+      expect(morph.canRetrieveFrom('BspMorphRetriever')).toBe(false);
+    });
+    it("returns true for 'BspMorphRetriever'",function() {
+      morph.noRetrieval = 'localStorage';
+      expect(morph.canRetrieveFrom('BspMorphRetriever')).toBe(true);
+      morph.noRetrieval = 'localStorage,SomeOtherMorphRetriever';
+      expect(morph.canRetrieveFrom('BspMorphRetriever')).toBe(true);
+    });
+    it("returns false for 'localStorage'",function() {
+      morph.noRetrieval = 'localStorage';
+      expect(morph.canRetrieveFrom('localStorage')).toBe(false);
+      morph.noRetrieval = 'localStorage,BspMorphRetriever';
+      expect(morph.canRetrieveFrom('localStorage')).toBe(false);
+    });
+    it("returns true for 'localStorage'",function() {
+      morph.noRetrieval = 'BspMorphRetriever';
+      expect(morph.canRetrieveFrom('localStorage')).toBe(true);
+    });
+
+  });
 });

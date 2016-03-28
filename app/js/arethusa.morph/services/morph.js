@@ -1,4 +1,24 @@
 'use strict';
+
+/**
+ * @ngdoc service
+ * @name arethusa.morph.morph
+ *
+ * @description
+ * Morphology Plugin Service
+ *
+ *
+ * @requires arethusa.core.state
+ * @requires arethusa.core.configurator
+ * @requires arethusa.core.plugins
+ * @requires arethusa.core.globalSettings
+ * @requires arethusa.core.keyCapture
+ * @requires arethusa.core.saver
+ * @requires arethusa.core.navigator
+ * @requires arethusa.core.exitHandler
+ * @requires arethusa.morph.morphLocalStorage
+ * @requires arethusa.util.commons
+ */
 angular.module('arethusa.morph').service('morph', [
   'state',
   'configurator',
@@ -208,6 +228,42 @@ angular.module('arethusa.morph').service('morph', [
       };
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.morph.morph.canRetrieveFrom
+     * @methodOf arethusa.morph.morph
+     *
+     * @description
+     * Checks to see if the plugin is enabled to 
+     * retrieve from the named morph retriever
+     *
+     * @param {String} string the name of the retriever
+     *        for backwards compatibility, in addition to 
+     *        named retrievers, the following special values
+     *        are supported: 'document','external'
+     *
+     * @return {Boolean} 
+     *
+     */
+    this.canRetrieveFrom = function(a_retriever) {
+      var canRetrieve = false;
+      // if it hasn't been configured at all, default is to retrieve from anything
+      if (! self.noRetrieval) {
+        canRetrieve = true;
+      }
+      // the only way to disable retrieval from the document is to turn off all retrieving
+      else if (a_retriever === 'document') {
+        canRetrieve = self.noRetrieval !== "all";
+      // for backwards compatibility, 'external' means everything except the documen itself
+      } else if (a_retriever === 'external') {
+        canRetrieve = self.noRetrieval !== "online" && self.noRetrieval !== 'all';
+      } else {
+        var matchString = new RegExp("\\b" + a_retriever + "\\b");
+        canRetrieve = self.noRetrieval !== "online" && self.noRetrieval !== 'all' && ! self.noRetrieval.match(matchString); 
+      }
+      return canRetrieve;
+    } 
+
     function emptyAttributes() {
       return arethusaUtil.inject({}, self.postagSchema, function(memo, el) {
         memo[el] = undefined;
@@ -301,49 +357,50 @@ angular.module('arethusa.morph').service('morph', [
     this.getExternalAnalyses = function (analysisObj, id) {
       var loadedExternalAnalyses = {};
       angular.forEach(morphRetrievers, function (retriever, name) {
-        loadedExternalAnalyses[name] = {};
-        retriever.getData(analysisObj.string, function (res) {
-          loadedExternalAnalyses[name][analysisObj.string] = true;
-          res.forEach(function (el) {
-            // need to parse the attributes now
-            el.attributes = mapAttributes(el.attributes);
-            // and build a postag
-            el.postag = self.attributesToPostag(el.attributes);
-            // try to obtain additional info from the inventory
-            getDataFromInventory(el);
-          });
-          var str = analysisObj.string;
-          var forms = analysisObj.forms;
-          // we should not assume that an analysisObj (i.e. token)
-          // has already been populated with any forms - only
-          // merge duplicates if we have any to begin with
-          if (forms.length > 0) {
-            self.mergeDuplicateForms(forms[0], res);
-          }
-          var newForms = makeUnique(res);
-          arethusaUtil.pushAll(forms, newForms);
-
-          // wait until the last retriever finishes before handling
-          // preselections
-          var allDone = true;
-          angular.forEach(loadedExternalAnalyses, function (retrieved, name) {
-             if (! retrieved[analysisObj.string]) {
-               allDone = false;
-             }
-          });
-          if (allDone) {
-            if (self.storePreferences) {
-              sortByPreference(str, forms);
+        if (self.canRetrieveFrom(name)) {
+          loadedExternalAnalyses[name] = {};
+          retriever.getData(analysisObj.string, function (res) {
+            loadedExternalAnalyses[name][analysisObj.string] = true;
+            res.forEach(function (el) {
+              // need to parse the attributes now
+              el.attributes = mapAttributes(el.attributes);
+              // and build a postag
+              el.postag = self.attributesToPostag(el.attributes);
+              // try to obtain additional info from the inventory
+              getDataFromInventory(el);
+            });
+            var str = analysisObj.string;
+            var forms = analysisObj.forms;
+            // we should not assume that an analysisObj (i.e. token)
+            // has already been populated with any forms - only
+            // merge duplicates if we have any to begin with
+            if (forms.length > 0) {
+              self.mergeDuplicateForms(forms[0], res);
             }
+            var newForms = makeUnique(res);
+            arethusaUtil.pushAll(forms, newForms);
 
-            if (self.preselect) {
-              preselectForm(forms[0], id);
-            }
+            // wait until the last retriever finishes before handling
+            // preselections
+            var allDone = true;
+            angular.forEach(loadedExternalAnalyses, function (retrieved, name) {
+              if (! retrieved[analysisObj.string]) {
+                allDone = false;
+              }
+            });
+            if (allDone) {
+              if (self.storePreferences) {
+                sortByPreference(str, forms);
+              }
 
-            unsetStyleWithoutAnalyses(forms, id);
-          } else {
-          }
-        });
+              if (self.preselect) {
+                preselectForm(forms[0], id);
+              }
+
+              unsetStyleWithoutAnalyses(forms, id);
+            } 
+          });
+        }
       });
     };
 
@@ -419,14 +476,14 @@ angular.module('arethusa.morph').service('morph', [
     }
 
     function loadInitalAnalyses() {
-      if (self.noRetrieval !== "all") {
+      if (self.canRetrieveFrom('document')) {
         angular.forEach(self.analyses, loadToken);
       }
     }
 
     function loadToken(val, id) {
       getAnalysisFromState(val, id);
-      if (self.noRetrieval !== "online") {
+      if (self.canRetrieveFrom('external')) {
         self.getExternalAnalyses(val, id);
       } else {
         // We only need to do this when we don't
