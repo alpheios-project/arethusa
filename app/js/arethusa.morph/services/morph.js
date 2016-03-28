@@ -262,7 +262,7 @@ angular.module('arethusa.morph').service('morph', [
         canRetrieve = self.noRetrieval !== "online" && self.noRetrieval !== 'all' && ! self.noRetrieval.match(matchString); 
       }
       return canRetrieve;
-    } 
+    };
 
     function emptyAttributes() {
       return arethusaUtil.inject({}, self.postagSchema, function(memo, el) {
