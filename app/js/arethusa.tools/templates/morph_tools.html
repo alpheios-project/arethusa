@@ -19,7 +19,7 @@
       </button>
     </div>
 
-    <div ng-if="status.importForms.count">
+    <div ng-if="status.importForms.count != null">
       {{ status.importForms.count}} forms successfully imported!
     </div>
 
@@ -42,7 +42,7 @@
       </button>
     </div>
 
-    <div ng-if="status.importFrequency.count">
+    <div ng-if="status.importFrequency.count != null">
       {{ status.importFrequency.count}} forms successfully imported!
     </div>
 

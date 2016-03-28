@@ -6,13 +6,13 @@ angular.module('arethusa.core').constant('MORPH_TOOLS', {
     latinAttrs: [
       '$http',
       function($http) {
-        return $http.get('static/configs/morph/lat_attributes.json');
+        return $http.get('js/arethusa.morph/configs/morph/lat_attributes.json');
       }
     ],
     greekAttrs: [
       '$http',
       function($http) {
-        return $http.get('static/configs/morph/gr_attributes2.json');
+        return $http.get('js/arethusa.morph/configs/morph/gr_attributes2.json');
       }
     ]
   }

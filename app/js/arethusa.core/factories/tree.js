@@ -421,6 +421,15 @@ angular.module('arethusa.core').factory('Tree', [
 
         var foreignObjs = foreignObjects();
         foreignObjs.each(function () {
+
+          // We sometimes encounter bugs with hyphenated strings that outgrow
+          // their bounding box by one pixel and therefore make the rest of
+          // the string disappear.
+          var el = angular.element(this);
+          if (el.find('.node').length) {
+            var width = el.attr('width');
+            el.attr('width', width + 1);
+          }
           angular.element(this.children[0]).attr('style', 'float: center;');
 
           // The content of the foreignObject element can overflow its bounding
