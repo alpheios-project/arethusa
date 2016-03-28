@@ -118,6 +118,7 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
      * @param {String} string the form as a string
      * @param {Object} form the morphological form properties 
      *
+     * @returns {int} the number of forms added (1 or 0)
      */
     function addForm(string, form) {
       // Check if we already stored info about this word,
@@ -125,10 +126,15 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       var forms = retrieve(string) || [];
 
       // Store a copy and set the selected property to false!
-      var newForm = angular.copy(form);
-      newForm.selected = false;
-      forms.push(newForm);
-      persist(string, forms);
+      if (isValidForm(form)) {
+        var newForm = angular.copy(form);
+        newForm.selected = false;
+        forms.push(newForm);
+        persist(string, forms);
+        return 1;
+      } else {
+        return 0;
+      }
     }
 
     /**
@@ -143,16 +149,20 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
      * @param {Array} forms a list of objects containing
      *                the morphological form properties 
      *
+     * @returns {int} the number of forms added
      */
     function addForms(string, newForms) {
       var forms = retrieve(string) || [];
+      var added = 0;
       var keys = _.map(forms, formToKey);
       _.forEach(newForms, function(form) {
-        if (!_.contains(keys, formToKey(form))) {
+        if (isValidForm(form) && !_.contains(keys, formToKey(form))) {
           forms.push(form);
+          added++;
         }
       });
       persist(string, forms);
+      return added;
     }
 
     /**
@@ -202,19 +212,26 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
      * @param {Object} form the selected morphological properties
      * @param {int} additor Optional - an amount to increment by 
      *             (if more than the default count of 1)
+     *
+     * @return {int} the number of preferences added
      */
     function addPreference(string, form, additor) {
       additor = parseInt(additor) || 1;
-      var key = formToKey(form);
-      var counts = preferencesToCounts(string);
-      var counter = counts[key];
-      var newCount = counter ? counter + additor : additor;
-      counts[key] = newCount;
-      var sortedCounts = toSortedArray(counts);
-      var toStore = _.map(sortedCounts, function(countArr) {
-        return countArr[0] + PREFERENCE_COUNT_DELIMITER + countArr[1];
-      }).join(PREFERENCE_DELIMITER);
-      persistPreference(string, toStore);
+      if (isValidForm(form)) {
+        var key = formToKey(form);
+        var counts = preferencesToCounts(string);
+        var counter = counts[key];
+        var newCount = counter ? counter + additor : additor;
+        counts[key] = newCount;
+        var sortedCounts = toSortedArray(counts);
+        var toStore = _.map(sortedCounts, function(countArr) {
+          return countArr[0] + PREFERENCE_COUNT_DELIMITER + countArr[1];
+        }).join(PREFERENCE_DELIMITER);
+        persistPreference(string, toStore);
+        return 1;
+      } else {
+        return 0;
+      }
     }
 
     /**
@@ -233,9 +250,10 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
      */
     function addPreferences(string, frequencies) {
       var data = readPreference(frequencies);
-      return _.forEach(data, function(datum) {
+      _.forEach(data, function(datum) {
         addPreference(string, datum.form, datum.count);
       });
+      return data.length;
     }
 
     // Sorts frequency data for a form by the counts (most counts first)
@@ -340,10 +358,14 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       }, {});
     }
 
+    // checks to see if the preference version is supported
     function prefVersionIsSupported(ver) {
       return ver >= MIN_PREFS_VERSION && ver <= MAX_PREFS_VERSION;
     }
 
+    // reads a preference string and converts it into its internal
+    // representation - will ignore invalid strings or those with
+    // an unsupported version 
     function readPreference(prefString) {
       var prefs,version;
       var validPrefs = [];
@@ -367,6 +389,11 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
         }
       }
       return validPrefs;    
+    }
+
+    // checks to see that the supplied object is a valid, preservable morph form
+    function isValidForm(form) {
+      return form.lemma && form.postag && typeof form.lemma === 'string' && typeof form.postag === 'string';
     }
   }
 ]);
