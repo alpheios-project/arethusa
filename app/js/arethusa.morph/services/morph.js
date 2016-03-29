@@ -242,7 +242,7 @@ angular.module('arethusa.morph').service('morph', [
      *        named retrievers, the following special values
      *        are supported: 'document','external'
      *
-     * @returns {Boolean} true if the retrieve is active otherwise false
+     * @return {Boolean} 
      *
      */
     this.canRetrieveFrom = function(a_retriever) {
