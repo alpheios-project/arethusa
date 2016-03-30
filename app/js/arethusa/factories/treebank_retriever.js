@@ -72,6 +72,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
       parseSg(token, word);
       parseArtificial(token, word);
       parseHead(token, word, artificials);
+      parseComment(token,word);
 
       var internalId = generateInternalId(word, sentenceId);
       var sourceId   = word._id;
@@ -128,7 +129,12 @@ angular.module('arethusa').factory('TreebankRetriever', [
       }
     }
 
-
+    function parseComment(token, word) {
+      var comment = word._comment;
+      if (comment) {
+        token.comment = comment;
+      }
+    }
     // Helpers
 
 
