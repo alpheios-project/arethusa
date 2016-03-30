@@ -19,6 +19,11 @@
       }
     },
     "plugins" : [
+      "text",
+      "morph",
+      "relation",
+      "depTree",
+      "inlineComments",
       "table"
     ]
   },
@@ -43,6 +48,11 @@
   },
 
   "plugins" : {
+    "text" : { "@include":"js/arethusa.text/configs/headless.json" },
+    "morph" : { "@include":"js/arethusa.morph/configs/headless.json" },
+    "relation" : { "@include":"js/arethusa.relation/configs/headless.json" },
+    "depTree" : { "@include":"js/arethusa.dep_tree/configs/headless.json" },
+    "inlineComments" : { "@include":"js/arethusa.inline_comments/configs/headless.json" },
     "table" : { "@include":"js/arethusa.table/configs/conf.json" }
   },
 

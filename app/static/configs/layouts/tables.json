@@ -6,7 +6,7 @@
       "grid" : [
         {
           "plugin" : "table",
-          "size" : [35, 3],
+          "size" : [35, 35],
           "position" : [0, 0]
         }
       ]
