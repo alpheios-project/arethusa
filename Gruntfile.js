@@ -39,7 +39,8 @@ Z.var = {
     'arethusa.exercise',
     'arethusa.sg',
     'arethusa.text',
-    'arethusa.table'
+    'arethusa.table',
+    'arethusa.inline_comments'
   ],
   paths: {
     conf: 'app/static/configs/root_files',
