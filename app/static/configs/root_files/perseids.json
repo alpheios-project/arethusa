@@ -1,6 +1,6 @@
 {
   "main" : {
-    "@include" : "layouts/perseids.json",
+    "@include" : "static/configs/layouts/perseids.json",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "perseidsResource",
@@ -28,7 +28,7 @@
   },
 
   "auths": {
-    "@include" : "auths/perseids.json"
+    "@include" : "static/configs/auths/perseids.json"
   },
 
   "navbar" : {
@@ -39,7 +39,7 @@
   },
 
   "resources" : {
-    "@include" : "resources/perseids.json"
+    "@include" : "static/configs/resources/perseids.json"
   },
 
   "plugins" : {
@@ -124,12 +124,12 @@
       "template" : "js/templates/sg.html",
       "contextMenu" : true,
       "contextMenuTemplate": "js/arethusa.sg/templates/context_menu.html",
-      "@include" : "sg2/sg_labels.json"
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels.json"
     }
   },
 
   "exitHandler" : {
-    "@include" : "exit_handler/perseids.json"
+    "@include" : "static/configs/exit_handler/perseids.json"
   },
 
   "relocateHandler" : {
@@ -139,6 +139,6 @@
   },
 
   "keyCapture" : {
-    "@include" : "keyboard/key_map.json"
+    "@include" : "static/configs/keyboard/key_map.json"
   }
 }
