@@ -4,10 +4,10 @@
         <th>Word</th>
         <th>Head</th>
         <th>Relation</th>
-        <th>Lemma</th>
-        <th>Postag</th>
+        <th>Morphology</th>
+        <th>New Form</th>
     </tr>
-  <tr ng-repeat="token in plugin.tokens">
+  <tr ng-repeat="token in plugin.state.tokens">
       <td>{{token.id}}</td>
       <td>
         <span
@@ -19,8 +19,15 @@
         </span>
       </td>
       <td>{{token.head.id}}</td>
-      <td>{{token.relation.label}}</td>
-      <td>{{token.morphology.lemma}}</td>
-      <td>{{token.morphology.postag}}</td>
+      <td><div label-selector obj="token.relation"/></td>
+      <td>
+          <div morph-selector morph-token="token"></div>
+      </td>
+      <td>
+          <morph-form-create morph-token="plugin.morph.analyses[token.id]" morph-id="token.id"></morph-form-create>
+      </td>
+      <td>
+          <div inline-comment comment-token="token"></div>
+      </td>
   </tr>
 </table>

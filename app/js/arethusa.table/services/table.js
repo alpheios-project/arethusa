@@ -6,77 +6,40 @@ angular.module('arethusa.table').service('table', [
     'keyCapture',
     'commons',
     'userPreferences',
-    function (state, configurator, navigator, keyCapture, commons, userPreferences) {
+    'text',
+    'morph',
+    'relation',
+    'inlineComments',
+    function (state, configurator, navigator, keyCapture, commons, userPreferences, text, morph, relation, inlineComments) {
         var self = this;
         this.name = "table";
 
         var props = [
-            'showContext'
         ];
 
         function configure() {
             configurator.getConfAndDelegate(self, props);
-            self.hideArtificialTokens = false;
         }
 
-        function addRealToken(container, id, token) {
-            if (!token.artificial) {
-                container[id] = token;
+        this.flattenRelationValues = function() {
+            function flatten(obj, acc) {
+                for (var key in obj) {
+                    acc.push(obj[key]);
+                    if (obj[key].nested) {
+                        flatten(obj[key].nested, acc)
+                    }
+                }
+                return acc;
             }
-        }
-
-        function removeRealToken(container, id, token) {
-            if (!token.artificial) {
-                delete container[id];
-            }
-        }
-
-        function selectRealTokens() {
-            return arethusaUtil.inject({}, state.tokens, addRealToken);
-        }
-
-        this.setTokens = function() {
-            self.tokens = self.hideArtificialTokens ? selectRealTokens() : state.tokens;
+            return flatten(relation.relationValues.labels,[]);
         };
 
-        // tokenAdded and tokenRemoved only have to do something, when
-        // artificial tokens are hidden. Otherwise self.tokens is the
-        // same as state.tokens anyway.
-        state.on('tokenAdded', function(event, token) {
-            if (self.hideArtificialTokens) {
-                addRealToken(self.tokens, token.id, token);
-            }
-        });
-
-        state.on('tokenRemoved', function(event, token) {
-            if (self.hideArtificialTokens) {
-                removeRealToken(self.tokens, token.id, token);
-            }
-        });
-
-        this.context = navigator.status.context;
-
-        this.settings = [
-            commons.setting('Show Context', 'showContext')
-        ];
-
-        function toggleContext() {
-            var newVal = !self.showContext;
-            userPreferences.set(self.name, 'showContext', newVal);
-            self.showContext = newVal;
-        }
-
-        keyCapture.initCaptures(function(kC) {
-            return {
-                table: [
-                    kC.create('toggleContext', toggleContext, 'k')
-                ]
-            };
-        });
+        this.text = text;
+        this.morph = morph;
+        this.state = state;
 
         this.init = function() {
             configure();
-            self.setTokens();
         };
     }
 ]);
