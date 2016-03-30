@@ -1,0 +1,17 @@
+{
+  "layouts" : [
+    {
+      "name" : "Grid",
+      "template" : "js/templates/main_grid.html",
+      "grid" : [
+        {
+          "plugin" : "table",
+          "size" : [35, 35],
+          "position" : [0, 0]
+        }
+      ]
+    }
+  ]
+}
+
+

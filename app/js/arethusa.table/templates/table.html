@@ -1,0 +1,33 @@
+<table lang-specific>
+    <tr>
+        <th>ID</th>
+        <th>Word</th>
+        <th>Head</th>
+        <th>Relation</th>
+        <th>Morphology</th>
+        <th>New Form</th>
+    </tr>
+  <tr ng-repeat="token in plugin.state.tokens">
+      <td>{{token.id}}</td>
+      <td>
+        <span
+            token="token"
+            colorize="true"
+            click="true"
+            hover="true"
+            highlight="true">
+        </span>
+      </td>
+      <td>{{token.head.id}}</td>
+      <td><div label-selector obj="token.relation"/></td>
+      <td>
+          <div morph-selector morph-token="token"></div>
+      </td>
+      <td>
+          <morph-form-create morph-token="plugin.morph.analyses[token.id]" morph-id="token.id"></morph-form-create>
+      </td>
+      <td>
+          <div inline-comment comment-token="token"></div>
+      </td>
+  </tr>
+</table>

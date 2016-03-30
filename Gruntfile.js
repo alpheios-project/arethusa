@@ -38,7 +38,9 @@ Z.var = {
     'arethusa.relation',
     'arethusa.exercise',
     'arethusa.sg',
-    'arethusa.text'
+    'arethusa.text',
+    'arethusa.table',
+    'arethusa.inline_comments'
   ],
   paths: {
     conf: 'app/static/configs/root_files',
@@ -156,7 +158,7 @@ Z.fun = {
       ];
 
       var result;
-      if (Z.var.misc.devMode) {
+      if (false) { // we used devmode here, but got 404 on some files in sources
         result = [];
         for (var i=0; i < sources.length; i++) {
           result.push(sources[i].replace(/min.js$/, 'js'));
