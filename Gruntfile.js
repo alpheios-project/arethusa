@@ -158,7 +158,7 @@ Z.fun = {
       ];
 
       var result;
-      if (Z.var.misc.devMode) {
+      if (false) { // we used devmode here, but got 404 on some files in sources
         result = [];
         for (var i=0; i < sources.length; i++) {
           result.push(sources[i].replace(/min.js$/, 'js'));
