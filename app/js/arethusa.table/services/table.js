@@ -6,11 +6,8 @@ angular.module('arethusa.table').service('table', [
     'keyCapture',
     'commons',
     'userPreferences',
-    'text',
     'morph',
-    'relation',
-    'inlineComments',
-    function (state, configurator, navigator, keyCapture, commons, userPreferences, text, morph, relation, inlineComments) {
+    function (state, configurator, navigator, keyCapture, commons, userPreferences, morph) {
         var self = this;
         this.name = "table";
 
@@ -21,22 +18,13 @@ angular.module('arethusa.table').service('table', [
             configurator.getConfAndDelegate(self, props);
         }
 
-        this.flattenRelationValues = function() {
-            function flatten(obj, acc) {
-                for (var key in obj) {
-                    acc.push(obj[key]);
-                    if (obj[key].nested) {
-                        flatten(obj[key].nested, acc)
-                    }
-                }
-                return acc;
-            }
-            return flatten(relation.relationValues.labels,[]);
+        this.getTokens = function() {
+            return state.tokens;
         };
 
-        this.text = text;
-        this.morph = morph;
-        this.state = state;
+        this.getAnalyses = function(id) {
+            return morph.analyses[id];
+        };
 
         this.init = function() {
             configure();
