@@ -9,7 +9,7 @@ angular.module('arethusa.table').directive('morphSelector',[
                 token: "=morphToken"
             },
             link: function(scope, element, attrs) {
-                scope.morph = morph;
+                scope.analyses = morph.analyses[scope.token.id].forms;
                 scope.form = scope.token.morphology;
 
                 function undoFn(tkn, frm) {
@@ -33,6 +33,6 @@ angular.module('arethusa.table').directive('morphSelector',[
                 }
 
             },
-            template: '<select ng-model="form" ng-options="form as form.lemma+\':\'+form.postag for form in morph.analyses[token.id].forms" ng-change="onChange()"></select>'
+            template: '<select ng-model="form" ng-options="analysis as analysis.lemma+\':\'+analysis.postag for analysis in analyses" ng-change="onChange()"></select>'
         };
 }]);
