@@ -11,11 +11,6 @@ angular.module('arethusa.inlineComments').directive('inlineComment', [
             link: function(scope, element, attrs) {
                 scope.comment = scope.token.comment? scope.token.comment : '';
 
-                //TODO: undo function
-                // - set state to previous value
-                // - set scope.comment to previous value
-                // - how does redo work?
-
                 function undoFn(tkn, cmt) {
                     var token = tkn;
                     var comment = cmt;
