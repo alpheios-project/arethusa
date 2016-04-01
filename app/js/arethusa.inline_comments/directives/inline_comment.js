@@ -28,7 +28,9 @@ angular.module('arethusa.inlineComments').directive('inlineComment', [
                 }
 
                 scope.updateState = function() {
-                    state.change(scope.token,'comment',scope.comment,undoFn(scope.token,scope.token.comment),preExecFn(scope.comment));
+                    if (scope.comment!=scope.token.comment) {
+                        state.change(scope.token,'comment',scope.comment,undoFn(scope.token,scope.token.comment),preExecFn(scope.comment));
+                    }
                 };
             },
             templateUrl: 'js/arethusa.inline_comments/templates/inline_comment.html'
