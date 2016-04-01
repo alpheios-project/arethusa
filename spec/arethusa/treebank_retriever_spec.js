@@ -67,7 +67,7 @@ describe('TreebankRetriever', function() {
       retriever.parse(tb, callback);
       expect(result[0].tokens['0001-0001'].comment).not.toBeDefined();
       expect(result[0].tokens['0001-0002'].comment).toBeDefined();
-    })
+    });
 
     it('does not fail when a treebank consists of a single sentence', function() {
       var tb = toTreebank([[1, [[1, 'a'], [2, 'b']]]]);

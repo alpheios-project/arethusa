@@ -76,7 +76,7 @@ describe('table', function() {
 
     it('succeds to load the plugin', function() {
         expect(table).toBeDefined();
-    })
+    });
 
     describe('this.getTokens', function() {
         var tokens, token;
@@ -84,7 +84,7 @@ describe('table', function() {
         beforeEach(function() {
             tokens = table.getTokens();
             token = tokens['02'];
-        })
+        });
 
         it('returns the state\'s tokens', function() {
             expect(tokens).toEqual(state.tokens);

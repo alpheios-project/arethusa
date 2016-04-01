@@ -433,7 +433,7 @@ angular.module('arethusa.core').factory('Tree', [
           angular.element(this.children[0]).attr('style', 'float: center;');
           // The content of the foreignObject element can overflow its bounding
           // box, which would lead to clipped display.
-          angular.element(this).attr('overflow', 'visible')
+          angular.element(this).attr('overflow', 'visible');
 
         });
 
