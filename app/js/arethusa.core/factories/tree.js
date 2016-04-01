@@ -425,15 +425,15 @@ angular.module('arethusa.core').factory('Tree', [
           // We sometimes encounter bugs with hyphenated strings that outgrow
           // their bounding box by one pixel and therefore make the rest of
           // the string disappear.
-          //another approach, that of setting the overlow to visible, was 
-          // tried but it caused overlapping boxes in the tree
-          // see https://github.com/alpheios-project/arethusa/issues/688
           var el = angular.element(this);
           if (el.find('.node').length) {
             var width = el.attr('width');
-            el.attr('width', width + 1);
+            el.attr('width', parseInt(width) + 1);
           }
           angular.element(this.children[0]).attr('style', 'float: center;');
+          // The content of the foreignObject element can overflow its bounding
+          // box, which would lead to clipped display.
+          angular.element(this).attr('overflow', 'visible')
 
         });
 
