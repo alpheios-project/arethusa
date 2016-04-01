@@ -20,7 +20,8 @@ describe('TreebankRetriever', function() {
   }
 
   function toWord(idAndForm, pfx) {
-    return '<' + makePrefix(pfx) + 'word id="' + idAndForm[0] + '" form="' + idAndForm[1] + '"/>';
+    var xml = idAndForm.length==3? '<' + makePrefix(pfx) + 'word id="' + idAndForm[0] + '" form="' + idAndForm[1] + '" comment="' + idAndForm[2] + '"/>' : '<' + makePrefix(pfx) + 'word id="' + idAndForm[0] + '" form="' + idAndForm[1] + '"/>';
+    return xml;
   }
 
   function toSentence(idAndWords, pfx) {
@@ -60,6 +61,13 @@ describe('TreebankRetriever', function() {
       expect(tokenIds.length).toEqual(2); // 2 tokens
       expect(s1.tokens[tokenIds[0]].string).toEqual('a');
     });
+
+    it('parses comments in treebank data', function() {
+      var tb = toTreebank([[1, [[1, 'a'], [2, 'b','c']]]]);
+      retriever.parse(tb, callback);
+      expect(result[0].tokens['0001-0001'].comment).not.toBeDefined();
+      expect(result[0].tokens['0001-0002'].comment).toBeDefined();
+    })
 
     it('does not fail when a treebank consists of a single sentence', function() {
       var tb = toTreebank([[1, [[1, 'a'], [2, 'b']]]]);

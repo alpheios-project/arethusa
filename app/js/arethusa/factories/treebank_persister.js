@@ -69,6 +69,11 @@ angular.module('arethusa').factory('TreebankPersister', [
           if (word._sg) word._sg = '';
         }
 
+        var comment = stateWord.comment;
+        if (comment) {
+          word._comment = stateWord.comment;
+        }
+
         word._form = stateWord.string;
       }
 

@@ -1,0 +1,16 @@
+{
+  "retrievers" : {
+    "BspMorphRetriever" : {
+      "resource" : "morphologyServiceLat"
+    }
+  },
+  "lexicalInventory" : {
+    "retriever" : {
+      "LexicalInventoryRetriever" : {
+        "resource" : "lexInvFusekiEndpoint"
+      }
+    }
+  },
+  "gloss" : true,
+  "@include" : "js/arethusa.morph/configs/morph/lat_attributes.json"
+}
