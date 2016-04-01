@@ -1,6 +1,6 @@
 'use strict';
 
-describe('table', function() {
+describe('inlineComments', function() {
 
     function morphConf(obj) {
         obj.attributes = {
@@ -50,8 +50,8 @@ describe('table', function() {
         obj.conf = {};
     }
 
-    var table, state, morph;
-    
+    var inlineComments;
+
     beforeEach( function() {
 
         module("arethusa.core", function($provide) {
@@ -60,48 +60,15 @@ describe('table', function() {
             $provide.value('plugins', arethusaMocks.plugins());
         });
 
-        module("arethusa.morph");
-        module("arethusa.table");
+        module("arethusa.inlineComments");
 
-        inject(function(_state_, _morph_, _table_) {
-            state = _state_;
-            state.initServices();
-            state.replaceState(arethusaMocks.tokens());
-            morph = _morph_;
-            morph.init();
-            table = _table_;
-            table.init();
+        inject(function(_inlineComments_) {
+            inlineComments = _inlineComments_;
+            inlineComments.init();
         });
     });
 
     it('succeds to load the plugin', function() {
-        expect(table).toBeDefined();
+        expect(inlineComments).toBeDefined();
     })
-
-    describe('this.getTokens', function() {
-        var tokens, token;
-
-        beforeEach(function() {
-            tokens = table.getTokens();
-            token = tokens['02'];
-        })
-
-        it('returns the state\'s tokens', function() {
-            expect(tokens).toEqual(state.tokens);
-        });
-
-        xit('fully loaded with head, relation and morphology properties', function() {
-            expect(token).toBeDefined();
-            expect(token.head).toBeDefined();
-            expect(token.relation).toBeDefined();
-            expect(token.morphology).toBeDefined();
-        });
-
-    });
-
-    describe('this.getAnalyses', function() {
-        it('returns the morph plugin\'s analyses for a given token ID', function() {
-            expect(table.getAnalyses('02')).toEqual(morph.analyses['02']);
-        });
-    });
 });
