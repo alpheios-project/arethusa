@@ -1,11 +1,12 @@
 <table lang-specific>
     <tr>
-        <th>ID</th>
-        <th>Word</th>
-        <th>Head</th>
-        <th>Relation</th>
-        <th>Morphology</th>
-        <th>New Form</th>
+        <th translate="table.id"></th>
+        <th translate="table.word"/>
+        <th translate="table.head"/>
+        <th translate="table.relation"/>
+        <th translate="table.morph"/>
+        <th translate="table.new"/>
+        <th translate="table.comment"/>
     </tr>
   <tr ng-repeat="token in plugin.getTokens()">
       <td>{{token.id}}</td>
