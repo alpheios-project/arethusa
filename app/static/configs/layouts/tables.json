@@ -5,8 +5,13 @@
       "template" : "js/templates/main_grid.html",
       "grid" : [
         {
+          "plugin" : "text",
+          "size" : [35, 3],
+          "position" : [0, 0]
+        },
+        {
           "plugin" : "table",
-          "size" : [35, 35],
+          "size" : [35, 32],
           "position" : [0, 0]
         }
       ]

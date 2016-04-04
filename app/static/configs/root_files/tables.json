@@ -48,7 +48,7 @@
   },
 
   "plugins" : {
-    "text" : { "@include":"js/arethusa.text/configs/headless.json" },
+    "text" : { "@include":"js/arethusa.text/configs/conf.json" },
     "morph" : { "@include":"js/arethusa.morph/configs/headless.json" },
     "relation" : { "@include":"js/arethusa.relation/configs/headless.json" },
     "depTree" : { "@include":"js/arethusa.dep_tree/configs/headless.json" },
