@@ -428,14 +428,13 @@ angular.module('arethusa.core').factory('Tree', [
           var el = angular.element(this);
           if (el.find('.node').length) {
             var width = el.attr('width');
-            el.attr('width', width + 1);
+            el.attr('width', parseInt(width) + 1);
           }
           angular.element(this.children[0]).attr('style', 'float: center;');
-
           // The content of the foreignObject element can overflow its bounding
           // box, which would lead to clipped display.
-          // its SVG box.
           angular.element(this).attr('overflow', 'visible');
+
         });
 
         // Reactivate Transitions - as we recompile the token directives during

@@ -70,5 +70,5 @@ describe('inlineComments', function() {
 
     it('succeds to load the plugin', function() {
         expect(inlineComments).toBeDefined();
-    })
+    });
 });

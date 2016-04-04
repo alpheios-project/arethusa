@@ -92,7 +92,7 @@ angular.module('arethusa.core').directive('foreignKeysHelp', [
 
         generateKeys();
       },
-      templateUrl: './templates/arethusa.core/foreign_keys_help.html'
+      templateUrl: './js/arethusa.core/templates/foreign_keys_help.html'
     };
   }
 ]);

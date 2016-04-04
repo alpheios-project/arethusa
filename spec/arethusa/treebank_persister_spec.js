@@ -113,7 +113,7 @@ describe('treebank persister', function() {
       expect(persister).toBeDefined();
 
       state.change('0001', 'head.id', '0002');
-      state.change('0001', 'comment', 'meter:hx')
+      state.change('0001', 'comment', 'meter:hx');
 
       var updatedDoc = documentStore.store[docId];
       persister.saveData(function() {});
