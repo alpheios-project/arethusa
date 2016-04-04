@@ -13,11 +13,11 @@ angular.module('arethusa.table').directive('morphSelector',[
                 scope.form = scope.token.morphology;
 
                 scope.longForm = function(form) {
-                    var longPostag = Object.keys(form.attributes).filter(function(k) {
+                    var longPostag = morph.concatenatedAttributes(form);/*Object.keys(form.attributes).filter(function(k) {
                         return /[A-Za-z0-9]/.test(form.attributes[k]);
                     }).map(function(k) {
                         return morph.longAttributeValue(k,form.attributes[k]);
-                    }).join('-');
+                    }).join('-');*/
                     var lemma = form.lemma;
                     return lemma + ':' + longPostag;
                 }
