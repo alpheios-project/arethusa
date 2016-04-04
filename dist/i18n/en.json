@@ -58,7 +58,8 @@
     "relation": "Relation",
     "morph": "Analyses",
     "new": "New Form",
-    "comment": "Comment"
+    "comment": "Comment",
+    "add": "Add"
   },
   "search": {
     "foundTokens": "Found tokens",

@@ -25,7 +25,8 @@
           <div morph-selector morph-token="token"></div>
       </td>
       <td>
-          <morph-form-create morph-token="plugin.getAnalyses(token.id)" morph-id="token.id"></morph-form-create>
+          <button ng-click="plugin.openCreate(token.id)" class="tiny no-margin" translate="table.add"></button>
+          <!--morph-form-create morph-token="plugin.getAnalyses(token.id)" morph-id="token.id"></morph-form-create-->
       </td>
       <td>
           <div inline-comment comment-token="token"></div>
