@@ -33,6 +33,6 @@ angular.module('arethusa.table').directive('morphSelector',[
                 }
 
             },
-            template: '<select ng-model="form" ng-options="analysis as analysis.lemma+\':\'+analysis.postag for analysis in analyses" ng-change="onChange()"></select>'
+            template: '<select class="no-margin compact" ng-model="form" ng-options="analysis as analysis.lemma+\':\'+analysis.postag for analysis in analyses" ng-change="onChange()"></select>'
         };
 }]);
