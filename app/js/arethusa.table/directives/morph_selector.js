@@ -27,20 +27,20 @@ angular.module('arethusa.table').directive('morphSelector',[
                     var form = frm;
                     return function() {
                         scope.form = form;
-                        state.change(token.id,'morphology',form)
-                    }
+                        state.change(token.id,'morphology',form);
+                    };
                 }
 
                 function preExecFn(frm) {
                     var form = frm;
                     return function() {
                         scope.form = form;
-                    }
+                    };
                 }
                 
                 scope.onChange = function() {
                     state.change(scope.token.id, 'morphology', scope.form, undoFn(scope.token,scope.token.morphology), preExecFn(scope.form));
-                }
+                };
 
             },
             template: '<select class="no-margin compact" ng-model="form" ng-options="analysis as longForm(analysis) for analysis in analyses" ng-change="onChange()"></select>'

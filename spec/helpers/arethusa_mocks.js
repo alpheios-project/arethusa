@@ -105,6 +105,17 @@ function ArethusaMocks() {
     });
   };
 
+  this.arethusaLocalStorage = function(customizations) {
+    var data = {
+    };
+    return withCustomizations({
+      init: mockFn,
+      get: function(key) { return data[key]; },
+      set: function(key,value) { data[key] = value; },
+      keys:function() { return Object.keys(data); }
+    });
+  };
+
   this.tokens = function() {
     return {
       '01': {
@@ -118,7 +129,8 @@ function ArethusaMocks() {
         },
         morphology: {
           lemma: 'lemma1',
-          postag: 'n-' // explicitly using an empty postag component here to test behavior
+          postag: 'n-', // explicitly using an empty postag component here to test behavior
+          origin: 'document'
         }
       },
       '02': {
@@ -132,7 +144,8 @@ function ArethusaMocks() {
         },
         morphology: {
           lemma: 'lemma2',
-          postag: 'a1'
+          postag: 'a1',
+          origin: 'document'
         }
       },
       '03': {
@@ -157,6 +170,18 @@ function ArethusaMocks() {
       }
     };
   };
+
+  this.localForms = function() {
+    return { 
+      '02': {
+        lemma: 'lemma2',
+        postag: 'a1',
+        origin: 'you',
+        sg: 'extra'
+      }
+    };
+  };
+
 }
 
 var arethusaMocks = new ArethusaMocks();

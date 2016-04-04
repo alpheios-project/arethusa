@@ -16,15 +16,15 @@ angular.module('arethusa.inlineComments').directive('inlineComment', [
                     var comment = cmt;
                     return function() {
                         scope.comment = comment;
-                        state.change(token,'comment',comment)
-                    }
+                        state.change(token,'comment',comment);
+                    };
                 }
 
                 function preExecFn(cmt) {
                     var comment = cmt;
                     return function() {
                         scope.comment = comment;
-                    }
+                    };
                 }
 
                 scope.updateState = function() {
