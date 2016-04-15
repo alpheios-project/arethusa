@@ -41,6 +41,22 @@
           "position" : [16, 36]
         }
       ]
+    },
+    {
+      "name" : "Table",
+      "template" : "js/templates/main_grid.html",
+      "grid" : [
+        {
+          "plugin" : "text",
+          "size" : [35, 3],
+          "position" : [0, 0]
+        },
+        {
+          "plugin" : "table",
+          "size" : [35, 32],
+          "position" : [0, 0]
+        }
+      ]
     }
   ]
 }

@@ -27,7 +27,9 @@
       "depTree",
       "review",
       "history",
-      "comments"
+      "comments",
+      "inlineComments",
+      "table"
     ]
   },
 
@@ -69,7 +71,12 @@
 
     "comments" : { "@include":"js/arethusa.comments/configs/conf.json" },
 
-    "sg" : { "@include":"js/arethusa.sg/configs/conf.json" }
+    "sg" : { "@include":"js/arethusa.sg/configs/conf.json" },
+
+    "inlineComments" : { "@include":"js/arethusa.inline_comments/configs/headless.json" },
+
+    "table" : { "@include":"js/arethusa.table/configs/conf.json" }
+
   },
 
   "exitHandler" : {

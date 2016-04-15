@@ -409,43 +409,46 @@ angular.module('arethusa.core').factory('Tree', [
 
       function render() {
         self.vis = svg.select('g');
-        renderer.layout(scope.layout).run(self.g, self.vis);
-        customizeGraph();
+        // it's possible a config has the tree plugin but isn't displaying a vis
+        if (self.g) {
+          renderer.layout(scope.layout).run(self.g, self.vis);
+          customizeGraph();
 
-        // Not very elegant, but we don't want marker-end arrowheads right now
-        // We also place an token edge path (tep) id on these elements, so that
-        // we can access them more easily later on.
-        edges().each(function (id) {
-          angular.element(this).attr('id', edgeId(id));
-        }).attr('marker-end', '');
+          // Not very elegant, but we don't want marker-end arrowheads right now
+          // We also place an token edge path (tep) id on these elements, so that
+          // we can access them more easily later on.
+          edges().each(function (id) {
+            angular.element(this).attr('id', edgeId(id));
+          }).attr('marker-end', '');
 
-        var foreignObjs = foreignObjects();
-        foreignObjs.each(function () {
+          var foreignObjs = foreignObjects();
+          foreignObjs.each(function () {
 
-          // We sometimes encounter bugs with hyphenated strings that outgrow
-          // their bounding box by one pixel and therefore make the rest of
-          // the string disappear.
-          var el = angular.element(this);
-          if (el.find('.node').length) {
-            var width = el.attr('width');
-            el.attr('width', parseInt(width) + 1);
-          }
-          angular.element(this.children[0]).attr('style', 'float: center;');
-          // The content of the foreignObject element can overflow its bounding
-          // box, which would lead to clipped display.
-          angular.element(this).attr('overflow', 'visible');
+            // We sometimes encounter bugs with hyphenated strings that outgrow
+            // their bounding box by one pixel and therefore make the rest of
+            // the string disappear.
+            var el = angular.element(this);
+            if (el.find('.node').length) {
+              var width = el.attr('width');
+              el.attr('width', parseInt(width) + 1);
+            }
+            angular.element(this.children[0]).attr('style', 'float: center;');
+            // The content of the foreignObject element can overflow its bounding
+            // box, which would lead to clipped display.
+            angular.element(this).attr('overflow', 'visible');
 
-        });
+          });
 
-        // Reactivate Transitions - as we recompile the token directives during
-        // render, we deactivated the color transition temporarily to avoid
-        // color flickering.
-        // Has to be timeouted (which means running after the current $digest),
-        // as otherwise we wouldn't be able to find the freshly appended tokens
-        // through a selector.
-        $timeout(function() {
-          element.find('.token').removeClass('no-transition');
-        });
+          // Reactivate Transitions - as we recompile the token directives during
+          // render, we deactivated the color transition temporarily to avoid
+          // color flickering.
+          // Has to be timeouted (which means running after the current $digest),
+          // as otherwise we wouldn't be able to find the freshly appended tokens
+          // through a selector.
+          $timeout(function() {
+            element.find('.token').removeClass('no-transition');
+          });
+        }
       }
 
       function insertRootDirective() {
