@@ -6,7 +6,9 @@
 ![Code Climate](https://codeclimate.com/github/alpheios-project/arethusa/badges/gpa.svg)
 ![codeship](https://www.codeship.io/projects/1fbcf7f0-b01d-0131-a029-52deea7632c1/status)
 
-Be sure to check out our [wiki](https://github.com/alpheios-project/llt-annotation_environment/wiki) for conceptual notes.
+Be sure to check out our [wiki](https://github.com/alpheios-project/arethusa/wiki) for design documentation.
+
+Code documentation is in progress - to build the docs run the `grunt ngdocs` task. 
 
 ## Install
 
@@ -58,6 +60,9 @@ server`.
 To set up a completely local environment run `grunt import` to import
 example data and explore it in a web-browser based file browser at
 [http://localhost:8081/browse](http://localhost:8081/browse).
+
+To build the docs, run `grunt ngdocs` and then load them 
+in the browser at [http://localhost:8081/docs/#/api](http://localhost:8081/docs/#/api).
 
 ## Funders
 
