@@ -70,3 +70,4 @@ This project has received support from the [Andrew W. Mellon Foundation](http://
 
 Be sure to check out the following Arethusa-related projects:
 - [Arethusa CLI tools](http://github.com/alpheios-project/arethusa-cli)
+- [Vagrant Setup](http://github.com/alpheios-project/arethusa-vagrant) for an Apache-based Arethusa installation
