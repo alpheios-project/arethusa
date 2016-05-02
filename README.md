@@ -1,13 +1,10 @@
 # Arethusa: Annotation Environment
 
-[![Dependencies](http://allthebadges.io/alpheios-project/arethusa/gemnasium.png)](http://allthebadges.io/alpheios-project/arethusa/gemnasium)
-[![Build Status](http://allthebadges.io/alpheios-project/arethusa/travis.png)](http://allthebadges.io/alpheios-project/arethusa/travis)
-[![Coverage](http://allthebadges.io/alpheios-project/arethusa/coveralls.png)](http://allthebadges.io/alpheios-project/arethusa/coveralls)
-[![Code Climate](http://allthebadges.io/alpheios-project/arethusa/code_climate.png)](http://allthebadges.io/alpheios-project/arethusa/code_climate)
+![Dependencies](https://gemnasium.com/alpheios-project/arethusa.svg)
+![Build Status](https://travis-ci.org/alpheios-project/arethusa.svg?branch=master)
+![Coverage](https://coveralls.io/repos/alpheios-project/arethusa/badge.svg?branch=master)
+![Code Climate](https://codeclimate.com/github/alpheios-project/arethusa/badges/gpa.svg)
 ![codeship](https://www.codeship.io/projects/1fbcf7f0-b01d-0131-a029-52deea7632c1/status)
-
-
-[![Selenium Test Status](https://saucelabs.com/browser-matrix/arethusa.svg)](https://saucelabs.com/u/arethusa)
 
 Be sure to check out our [wiki](https://github.com/alpheios-project/llt-annotation_environment/wiki) for conceptual notes.
 
