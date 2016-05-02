@@ -1,0 +1,83 @@
+{
+  "main" : {
+    "debug" : true,
+    "showKeys" : true,
+    "@include" : "static/configs/layouts/perseids.json",
+    "chunkParam" : "chunk",
+    "auxConfPath": "/arethusa-configs/dist",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "vagrantApacheTreebank",
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "vagrantApacheTreebank",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "plugins" : [
+      "text",
+      "artificialToken",
+      "search",
+      "morph",
+      "relation",
+      "depTree",
+      "review",
+      "history",
+      "comments"
+    ]
+  },
+
+  "navbar" : {
+    "template" : "js/templates/navbar1.html",
+    "search" : true,
+    "navigation" : true
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "navigator" : {
+    "chunkSize" : 1
+  },
+
+  "resources" : {
+    "@include" : "static/configs/resources/dev.json"
+  },
+
+  "plugins" : {
+    "text" : { "@include":"js/arethusa.text/configs/conf.json" },
+
+    "depTree" : { "@include":"js/arethusa.dep_tree/configs/conf.json" },
+
+    "search" : { "@include":"js/arethusa.search/configs/conf.json" },
+
+    "morph" : { "@include":"js/arethusa.morph/configs/conf.json" },
+
+    "relation" : { "@include":"js/arethusa.relation/configs/conf.json" },
+
+    "review" : { "@include":"js/arethusa.review/configs/conf.json" },
+
+    "history" : { "@include":"js/arethusa.history/configs/conf.json" },
+
+    "artificialToken" : { "@include":"js/arethusa.artificial_token/configs/conf.json" },
+
+    "comments" : { "@include":"js/arethusa.comments/configs/conf.json" },
+
+    "sg" : { "@include":"js/arethusa.sg/configs/conf.json" }
+  },
+
+  "exitHandler" : {
+    "title" : "LLT",
+    "route" : "http://localhost/arethusa/app"
+  },
+
+  "keyCapture" : {
+    "@include" : "static/configs/keyboard/key_map.json"
+  }
+}
