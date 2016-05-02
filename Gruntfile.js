@@ -521,10 +521,10 @@ module.exports = function(grunt) {
         ].join(';')
       },
       cloneExampleRepo: {
-        command: 'git clone git@github.com:latin-language-toolkit/arethusa-example-data.git data/examples'
+        command: 'git clone https://github.com/alpheios-project/arethusa-example-data.git data/examples'
       },
       cloneAuxConfigs: {
-        command: 'git clone git@github.com:latin-language-toolkit/arethusa-configs.git data/aux_configs'
+        command: 'git clone https://github.com/alpheios-project/arethusa-configs.git data/aux_configs'
       }
     },
     concurrent: {

@@ -1,15 +1,15 @@
 # Arethusa: Annotation Environment
 
-[![Dependencies](http://allthebadges.io/latin-language-toolkit/arethusa/gemnasium.png)](http://allthebadges.io/latin-language-toolkit/arethusa/gemnasium)
-[![Build Status](http://allthebadges.io/latin-language-toolkit/arethusa/travis.png)](http://allthebadges.io/latin-language-toolkit/arethusa/travis)
-[![Coverage](http://allthebadges.io/latin-language-toolkit/arethusa/coveralls.png)](http://allthebadges.io/latin-language-toolkit/arethusa/coveralls)
-[![Code Climate](http://allthebadges.io/latin-language-toolkit/arethusa/code_climate.png)](http://allthebadges.io/latin-language-toolkit/arethusa/code_climate)
+[![Dependencies](http://allthebadges.io/alpheios-project/arethusa/gemnasium.png)](http://allthebadges.io/alpheios-project/arethusa/gemnasium)
+[![Build Status](http://allthebadges.io/alpheios-project/arethusa/travis.png)](http://allthebadges.io/alpheios-project/arethusa/travis)
+[![Coverage](http://allthebadges.io/alpheios-project/arethusa/coveralls.png)](http://allthebadges.io/alpheios-project/arethusa/coveralls)
+[![Code Climate](http://allthebadges.io/alpheios-project/arethusa/code_climate.png)](http://allthebadges.io/alpheios-project/arethusa/code_climate)
 ![codeship](https://www.codeship.io/projects/1fbcf7f0-b01d-0131-a029-52deea7632c1/status)
 
 
 [![Selenium Test Status](https://saucelabs.com/browser-matrix/arethusa.svg)](https://saucelabs.com/u/arethusa)
 
-Be sure to check out our [wiki](https://github.com/latin-language-toolkit/llt-annotation_environment/wiki) for conceptual notes.
+Be sure to check out our [wiki](https://github.com/alpheios-project/llt-annotation_environment/wiki) for conceptual notes.
 
 ## Install
 
@@ -69,4 +69,4 @@ This project has received support from the [Andrew W. Mellon Foundation](http://
 ## Varia
 
 Be sure to check out the following Arethusa-related projects:
-- [Arethusa CLI tools](http://github.com/latin-language-toolkit/arethusa-cli)
+- [Arethusa CLI tools](http://github.com/alpheios-project/arethusa-cli)
