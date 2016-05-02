@@ -20,7 +20,7 @@ angular.module('arethusa.table').directive('morphSelector',[
                     }).join('-');*/
                     var lemma = form.lemma;
                     return lemma + ':' + longPostag;
-                }
+                };
 
                 function undoFn(tkn, frm) {
                     var token = tkn;
