@@ -12,9 +12,8 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
   'translator',
   '$timeout',
   'globalSettings',
-  'routeChangeWatcher',
   function (GlobalErrorHandler, $scope, configurator, state, documentStore, notifier,
-            saver, history, plugins, translator, $timeout, globalSettings, routeChangeWatcher) {
+            saver, history, plugins, translator, $timeout, globalSettings) {
     // This is the entry point to the application.
 
     var translations = translator(['loadInProgress', 'loadComplete']);

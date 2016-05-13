@@ -21,22 +21,11 @@ angular.module('arethusa', [
 angular.module('arethusa').constant('_', window._);
 
 angular.module('arethusa').config([
-  '$routeProvider',
   '$translateProvider',
   'localStorageServiceProvider',
   'LOCALES',
-  'MAIN_ROUTE',
-  'MORPH_TOOLS',
-  'LANDING',
-  function ($routeProvider, $translateProvider, localStorageServiceProvider,
-            LOCALES, MAIN_ROUTE, MORPH_TOOLS, LANDING) {
-    if (aU.isArethusaMainApplication()) {
-      $routeProvider.when('/', LANDING);
-      $routeProvider.when('/morph_tools', MORPH_TOOLS);
-      //$routeProvider.when('/conf_editor', CONF_ROUTE);
-      $routeProvider.when('/:conf', MAIN_ROUTE);
-      //$routeProvider.when('/conf_editor/:conf', CONF_ROUTE);
-    }
+  function ($translateProvider, localStorageServiceProvider,
+            LOCALES) {
 
     var localesMap = {};
     for (var i = LOCALES.length - 1; i >= 0; i--){
@@ -46,7 +35,7 @@ angular.module('arethusa').config([
 
     $translateProvider
       .useStaticFilesLoader({
-        prefix: arethusa.basePath + '/dist/i18n/',
+        prefix: 'http://localhost:8090/i18n/',
         suffix: '.json'
       })
 
@@ -59,74 +48,42 @@ angular.module('arethusa').config([
   },
 ]);
 
-angular.module('arethusa').value('CONF_PATH', '../dist/configs');
+angular.module('arethusa').value('CONF_PATH', '/configs');
 
 function Arethusa() {
+
   var self = this;
 
-  self.basePath = '..';
-
-  function Api(injector) {
-    var api = this;
-    var $compile = injector.get('$compile');
-
-    this.configurator = injector.get('configurator');
-
-    this.configure = function(conf) {
-      api.configurator.defineConfiguration(conf);
-    };
-
-    this.watchUrl = function(bool) {
-      injector.get('locator').watchUrl(bool);
-    };
-
-    this.setBasePath = function(path) {
-      injector.get('basePath').set(path);
-    };
-
-    this.setParams = function(a, b) {
-      injector.get('locator').set(a, b);
-    };
-
-    this.compile = function(element) {
-      var html = element[0].innerHTML;
-      element.html($compile(html)(element.scope()));
-    };
-
-    this.state = injector.get('state');
-
-    //this.setBasePath(self.basePath);
-  }
-
-  this.setConfPath = function(path) {
-    angular.module('arethusa').value('CONF_PATH', path);
+  this.on = function(id) {
+    self.id = id.match(/^#/) ? id : '#' + id;
+    var template = document.createElement("div");
+    template.setAttribute("ng-include",'gS.layout.template');
+    template.setAttribute("class",'fade slow');
+    document.getElementById(self.id.slice(1)).appendChild(template);
+    var target = angular.element(self.id);
+    target.attr('ng-controller','ArethusaCtrl');
+    return self;
   };
 
-  this.setBasePath = function(path) {
-    self.basePath = path;
-    angular.module('arethusa.core').value('BASE_PATH', path);
+  this.from = function(url) {
+    var arethusa = angular.module('arethusa');
+    var arethusa_core = angular.module('arethusa.core');
+    arethusa.value('CONF_PATH',url+"/configs");
+    arethusa.value('BASE_PATH',url);
+    arethusa_core.value('BASE_PATH',url);
+    return self;
   };
-
-  this.start = function(id, conf, params) {
-    var res = {};
-    id = id.match(/^#/) ? id : '#' + id;
-    var target = angular.element(id);
-    target.attr('ng-controller', 'ArethusaCtrl');
-    target.ready(function() {
-      var injector = angular.bootstrap(id, ['arethusa']);
-      var api = new Api(injector);
-
-      api.watchUrl(false);
-      api.setParams(params);
-      api.configure(conf);
-
-      api.compile(target);
-
-      angular.extend(res, api);
+  this.with = function(conf) {
+    self.conf = conf.main ? $.when(conf) : $.getJSON(conf) ;
+    return self;
+  };
+  this.start = function() {
+    self.conf.then(function(conf) {
+      console.log(conf)
+      var injector = angular.bootstrap(self.id,['arethusa']);
+      var configurator = injector.get('configurator');
+      configurator.defineConfiguration(conf);
     });
-
-    return res;
   };
-}
 
-var arethusa =  new Arethusa();
+}
