@@ -66,5 +66,9 @@
   "demoReviewXml" : {
     "route" : "../dist/examples/:gold.xml",
     "params" : [ "gold" ]
+  },
+  "vagrantApacheTreebank" : {
+    "route" : "/arethusa-example-data/data/treebanks/:doc.xml",
+    "params" : [ "doc" ]
   }
 }

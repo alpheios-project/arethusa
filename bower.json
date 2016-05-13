@@ -12,7 +12,7 @@
     "annotation"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/latin-language-toolkit/arethusa",
+  "homepage": "https://github.com/alpheios-project/arethusa",
   "main": [
     "dist/arethusa_packages.min.js",
     "dist/arethusa.min.js"
@@ -46,7 +46,7 @@
     "lunr.js": "~0.5.4",
     "bourbon": "~4.0.2",
     "jsondiffpatch": "~0.1.8",
-    "oclazyload": "LFDM/ocLazyLoad#master",
+    "oclazyload": "alpheios-project/ocLazyLoad#master",
     "angular-gridster": "0.10.7",
     "angular-md": "~1.0.0",
     "angular-highlightjs": "~0.3.2",

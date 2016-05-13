@@ -62,7 +62,7 @@ Z.var = {
     banner: [
       '/*',
       ' * Arethusa - a backend-independent client-side annotation framework',
-      ' * http://github.com/latin-language-toolkit/arethusa',
+      ' * http://github.com/alpheios-project/arethusa',
       ' *',
       ' * Version <%= versionInfo.version %>',
       ' * built from branch <%= versionInfo.branch %>',
@@ -521,10 +521,10 @@ module.exports = function(grunt) {
         ].join(';')
       },
       cloneExampleRepo: {
-        command: 'git clone git@github.com:latin-language-toolkit/arethusa-example-data.git data/examples'
+        command: 'git clone https://github.com/alpheios-project/arethusa-example-data.git data/examples'
       },
       cloneAuxConfigs: {
-        command: 'git clone git@github.com:latin-language-toolkit/arethusa-configs.git data/aux_configs'
+        command: 'git clone https://github.com/alpheios-project/arethusa-configs.git data/aux_configs'
       }
     },
     concurrent: {
@@ -580,9 +580,9 @@ module.exports = function(grunt) {
           './dist/arethusa.min.js'],
         html5Mode: false,
         title: 'Arethusa',
-        titleLink: 'http://arethusa.latin-language-toolkit.net',
+        titleLink: 'https://github.com/alpheios-project/arethusa',
         navTemplate: Z.var.paths.docCustom + '/html/nav.html',
-        sourcePath: 'http://github.com/latin-language-toolkit/arethusa/tree/doc',
+        sourcePath: 'http://github.com/alpheios-project/arethusa/tree/doc',
         styles: [ Z.var.paths.docCustom + '/css/styles.css' ]
       },
       api: {
