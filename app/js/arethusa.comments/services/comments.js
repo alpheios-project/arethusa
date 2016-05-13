@@ -25,7 +25,7 @@ angular.module('arethusa.comments').service('comments', [
     });
 
     this.externalDependencies = [
-      "bower_components/lunr.js/lunr.min.js"
+      "https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.12/lunr.min.js"
     ];
 
     this.filter = {};

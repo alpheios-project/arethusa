@@ -16,7 +16,7 @@ angular.module('arethusa.review').service('review', [
     var doc;
 
     this.externalDependencies = [
-      "bower_components/jsondiffpatch/public/build/jsondiffpatch.min.js"
+      "https://cdnjs.cloudflare.com/ajax/libs/jsondiffpatch/0.1.43/jsondiffpatch.min.js"
     ];
 
     self.goldTokens = {};
