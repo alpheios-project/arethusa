@@ -1,0 +1,44 @@
+<treebank xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:treebank="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" version="1.5" xsi:schemaLocation="http://nlp.perseus.tufts.edu/syntax/treebank/1.5 treebank-1.5.xsd">
+  <sentence id="3" document_id="Perseus:text:1999.02.0002" subdoc="Book=2:chapter=1" span="deinde0:studebant0">
+    <word id="1" form="deinde" lemma="deinde1" postag="d--------" head="2" relation="AuxY"/>
+    <word id="2" form="quod" lemma="quod1" postag="c--------" head="0" relation="AuxC"/>
+    <word id="3" form="ab" lemma="ab1" postag="r--------" head="7" relation="AuxP"/>
+    <word id="4" form="non" lemma="non1" postag="d--------" head="5" relation="AuxZ"/>
+    <word id="5" form="nullis" lemma="nullus1" postag="a-p---mb-" head="6" relation="ATR"/>
+    <word id="6" form="Gallis" lemma="Gallus2" postag="n-p---mb-" head="3" relation="OBJ"/>
+    <word id="7" form="sollicitarentur" lemma="sollicito1" postag="v3pisp---" head="2" relation="ExD"/>
+    <word id="8" form="," lemma="comma1" postag="u--------" head="30" relation="AuxX"/>
+    <word id="9" form="partim" lemma="pars1" postag="d--------" head="30" relation="ADV"/>
+    <word id="10" form="qui" lemma="qui1" postag="p-p---mn-" head="30" relation="SBJ"/>
+    <word id="11" form="," lemma="comma1" postag="u--------" head="18" relation="AuxX"/>
+    <word id="12" form="ut" lemma="ut1" postag="c--------" head="30" relation="AuxC"/>
+    <word id="13" form="Germanos" lemma="Germani1" postag="n-p---ma-" head="17" relation="SBJ"/>
+    <word id="14" form="diutius" lemma="diu1" postag="d--------" head="17" relation="ADV"/>
+    <word id="15" form="in" lemma="in1" postag="r--------" head="17" relation="AuxP"/>
+    <word id="16" form="Gallia" lemma="Gallia1" postag="n-s---fb-" head="15" relation="ADV"/>
+    <word id="17" form="versari" lemma="verso1" postag="v--pnp---" head="18" relation="OBJ"/>
+    <word id="18" form="noluerant" lemma="nolo1" postag="v3plia---" head="12" relation="ADV"/>
+    <word id="19" form="," lemma="comma1" postag="u--------" head="18" relation="AuxX"/>
+    <word id="20" form="ita" lemma="ita1" postag="d--------" head="30" relation="ADV"/>
+    <word id="21" form="populi" lemma="populus1" postag="n-s---mg-" head="23" relation="ATR"/>
+    <word id="22" form="Romani" lemma="Romanus1" postag="a-s---mg-" head="23" relation="ATR"/>
+    <word id="23" form="exercitum" lemma="exercitus2" postag="n-s---ma-" head="25" relation="SBJ"/>
+    <word id="24" form="hiemare" lemma="hiemo1" postag="v--pna---" head="25" relation="OBJ_CO"/>
+    <word id="25" form="atque" lemma="atque1" postag="c--------" head="30" relation="COORD"/>
+    <word id="26" form="inveterascere" lemma="inveterasco1" postag="v--pna---" head="25" relation="OBJ_CO"/>
+    <word id="27" form="in" lemma="in1" postag="r--------" head="26" relation="AuxP"/>
+    <word id="28" form="Gallia" lemma="Gallia1" postag="n-s---fb-" head="27" relation="ADV"/>
+    <word id="29" form="moleste" lemma="molestus1" postag="d--------" head="30" relation="OBJ"/>
+    <word id="30" form="ferebant" lemma="fero1" postag="v3piia---" head="31" relation="ATR_CO"/>
+    <word id="31" form="," lemma="comma1" postag="u--------" head="6" relation="COORD/PA"/>
+    <word id="32" form="partim" lemma="pars1" postag="d--------" head="40" relation="ADV"/>
+    <word id="33" form="qui" lemma="qui1" postag="p-p---mn-" head="40" relation="SBJ"/>
+    <word id="34" form="mobilitate" lemma="mobilitas1" postag="n-s---fb-" head="35" relation="ADV_CO"/>
+    <word id="35" form="et" lemma="et1" postag="c--------" head="40" relation="COORD"/>
+    <word id="36" form="levitate" lemma="levitas1" postag="n-s---fb-" head="35" relation="ADV_CO"/>
+    <word id="37" form="animi" lemma="animus1" postag="n-s---mg-" head="35" relation="ATR"/>
+    <word id="38" form="novis" lemma="novus1" postag="a-p---nd-" head="39" relation="ATR"/>
+    <word id="39" form="imperiis" lemma="imperium1" postag="n-p---nd-" head="40" relation="OBJ"/>
+    <word id="40" form="studebant" lemma="studeo1" postag="v3piia---" head="31" relation="ATR_CO"/>
+  </sentence>
+</treebank>

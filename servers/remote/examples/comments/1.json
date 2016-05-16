@@ -1,0 +1,26 @@
+[
+  {
+    "comment_id": 1,
+    "user": "Gernot Höflechner",
+    "reason": "general",
+    "comment": "##1.22##\n\nCould also be an AuxY to fiebat.",
+    "created_at": "2014-07-30T20:53:07.941Z",
+    "updated_at": "2014-07-30T20:54:07.941Z"
+  },
+  {
+    "comment": "##1.32##\n\n#!# Galliae #!#\n\nTested and approved.",
+    "comment_id": 2,
+    "reason": "general",
+    "user": "you",
+    "updated_at": "2016-02-08T17:28:12.006Z",
+    "created_at": "2016-02-08T17:28:12.006Z"
+  },
+  {
+    "comment": "##1.22##\n\n#!# item #!#\n\nNew comment.",
+    "comment_id": 3,
+    "reason": "general",
+    "user": "you",
+    "updated_at": "2016-02-16T23:18:12.043Z",
+    "created_at": "2016-02-16T23:18:12.043Z"
+  }
+]

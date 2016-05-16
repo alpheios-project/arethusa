@@ -1,0 +1,39 @@
+{
+  "name": "rdfstore",
+  "version": "0.9.7",
+  "homepage": "https://github.com/antoniogarrote/rdfstore-js",
+  "authors": [
+    "Antonio Garrote <antoniogarrote@gmail.com>"
+  ],
+  "description": "RDF store with SPARQL/Update support.",
+  "main": "dist/rdfstore_min.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "rdf",
+    "sparql",
+    "n3",
+    "json-ld",
+    "store",
+    "database"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {},
+  "_release": "0.9.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.9.7",
+    "commit": "0412d999829bc4eb5b87ba9567d2f0ca8b2ad4dd"
+  },
+  "_source": "https://github.com/antoniogarrote/rdfstore-js.git",
+  "_target": "~0.9.7",
+  "_originalSource": "rdfstore"
+}

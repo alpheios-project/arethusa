@@ -1,0 +1,22 @@
+<treebank xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:treebank="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" version="1.5" xsi:schemaLocation="http://nlp.perseus.tufts.edu/syntax/treebank/1.5 treebank-1.5.xsd">
+  <sentence id="2" document_id="Perseus:text:1999.02.0002" subdoc="Book=2:chapter=1" span="Coniurandi0:adduceretur0">
+    <word id="1" form="Coniurandi" lemma="conjuro1" postag="t-spdang-" head="4" relation="ATR"/>
+    <word id="2" form="has" lemma="hic1" postag="p-p---fa-" head="3" relation="OBJ"/>
+    <word id="3" form="esse" lemma="sum1" postag="v--pna---" head="0" relation="ExD"/>
+    <word id="4" form="causas" lemma="causa1" postag="n-p---fa-" head="3" relation="SBJ"/>
+    <word id="5" form="primum" lemma="primus1" postag="a-s---nv-" head="7" relation="AuxY"/>
+    <word id="6" form="quod" lemma="quod1" postag="c--------" head="0" relation="AuxC"/>
+    <word id="7" form="vererentur" lemma="vereor1" postag="v3pisp---" head="6" relation="ExD"/>
+    <word id="8" form="ne" lemma="ne1" postag="c--------" head="7" relation="AuxC"/>
+    <word id="9" form="," lemma="comma1" postag="u--------" head="11" relation="AuxX"/>
+    <word id="10" form="omni" lemma="omnis1" postag="a-s---fb-" head="12" relation="ATR"/>
+    <word id="11" form="pacata" lemma="paco1" postag="t-srppfb-" head="16" relation="ADV"/>
+    <word id="12" form="Gallia" lemma="Gallia1" postag="n-s---fb-" head="11" relation="SBJ"/>
+    <word id="13" form="," lemma="comma1" postag="u--------" head="11" relation="AuxX"/>
+    <word id="14" form="ad" lemma="ad1" postag="r--------" head="18" relation="AuxP"/>
+    <word id="15" form="eos" lemma="is1" postag="p-p---ma-" head="14" relation="OBJ"/>
+    <word id="16" form="exercitus" lemma="exerceo" postag="t-srppmn-" head="18" relation="OBJ"/>
+    <word id="17" form="noster" lemma="noster1" postag="a-s---mn-" head="16" relation="SBJ"/>
+    <word id="18" form="adduceretur" lemma="adduco1" postag="v3sisp---" head="8" relation="OBJ"/>
+  </sentence>
+</treebank>

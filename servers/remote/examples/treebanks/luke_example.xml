@@ -1,0 +1,132 @@
+<book>
+  <sentence ID="Luk1:6:1-1:6:17">
+    <wg nodeId="420010060020170" class="cl" role="s">
+      <w morphId="42001006002"
+        class="conj"
+        role="conj"
+        lemma="δέ"
+        discontinuous="true">δὲ</w>
+      <wg nodeId="420010060010160" class="cl" role="cl">
+        <w morphId="42001006001"
+          class="verb"
+          role="vc"
+          lemma="εἰμί"
+          person="third"
+          number="plural"
+          tense="imperfect"
+          voice="active"
+          mood="indicative">ἦσαν</w>
+        <w morphId="42001006003"
+          class="adj"
+          role="p"
+          lemma="δίκαιος"
+          case="nominative"
+          gender="masculine"
+          number="plural">δίκαιοι</w>
+        <w morphId="42001006004"
+          class="adj"
+          role="s"
+          lemma="ἀμφότεροι"
+          case="nominative"
+          gender="masculine"
+          number="plural">ἀμφότεροι</w>
+        <wg nodeId="420010060050030" class="pp" role="adv">
+          <w morphId="42001006005" class="prep" role="prep" lemma="ἐναντίον">ἐναντίον</w>
+          <wg nodeId="420010060060020" class="np" role="np">
+            <w morphId="42001006006"
+              class="det"
+              role="det"
+              lemma="ὁ"
+              case="genitive"
+              gender="masculine"
+              number="singular">τοῦ</w>
+            <w morphId="42001006007"
+              class="noun"
+              role="np"
+              lemma="θεός"
+              case="genitive"
+              gender="masculine"
+              number="singular">θεοῦ</w>
+            <pu>,</pu>
+          </wg>
+        </wg>
+        <wg nodeId="420010060080100" class="cl" role="adv">
+          <w morphId="42001006008"
+            class="verb"
+            role="v"
+            lemma="πορεύομαι"
+            tense="present"
+            voice="middle"
+            mood="participle"
+            case="nominative"
+            gender="masculine"
+            number="plural">πορευόμενοι</w>
+          <wg nodeId="420010060090080" class="pp" role="adv">
+            <w morphId="42001006009" class="prep" role="prep" lemma="ἐν">ἐν</w>
+            <wg nodeId="420010060100070" class="np" role="np">
+              <w morphId="42001006010"
+                class="adj"
+                role="adjp"
+                lemma="πᾶς"
+                case="dative"
+                gender="feminine"
+                number="plural">πάσαις</w>
+              <wg nodeId="420010060110060" class="np" role="np">
+                <w morphId="42001006011"
+                  class="det"
+                  role="det"
+                  lemma="ὁ"
+                  case="dative"
+                  gender="feminine"
+                  number="plural">ταῖς</w>
+                <wg nodeId="420010060120050" class="np" role="np">
+                  <wg nodeId="420010060120030" class="np" role="np">
+                    <w morphId="42001006012"
+                      class="noun"
+                      role="np"
+                      lemma="ἐντολή"
+                      case="dative"
+                      gender="feminine"
+                      number="plural">ἐντολαῖς</w>
+                    <w morphId="42001006013" class="conj" role="conj" lemma="καί">καὶ</w>
+                    <w morphId="42001006014"
+                      class="noun"
+                      role="np"
+                      lemma="δικαίωμα"
+                      case="dative"
+                      gender="neuter"
+                      number="plural">δικαιώμασιν</w>
+                  </wg>
+                  <wg nodeId="420010060150020" class="np" role="np">
+                    <w morphId="42001006015"
+                      class="det"
+                      role="det"
+                      lemma="ὁ"
+                      case="genitive"
+                      gender="masculine"
+                      number="singular">τοῦ</w>
+                    <w morphId="42001006016"
+                      class="noun"
+                      role="np"
+                      lemma="κύριος"
+                      case="genitive"
+                      gender="masculine"
+                      number="singular">κυρίου</w>
+                  </wg>
+                </wg>
+              </wg>
+            </wg>
+          </wg>
+          <w morphId="42001006017"
+            class="adj"
+            role="adv"
+            lemma="ἄμεμπτος"
+            case="nominative"
+            gender="masculine"
+            number="plural">ἄμεμπτοι</w>
+          <pu>.</pu>
+        </wg>
+      </wg>
+    </wg>
+  </sentence>
+</book>

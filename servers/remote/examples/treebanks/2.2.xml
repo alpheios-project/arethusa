@@ -1,0 +1,7 @@
+<treebank xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:treebank="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" version="1.5" xsi:schemaLocation="http://nlp.perseus.tufts.edu/syntax/treebank/1.5 treebank-1.5.xsd">
+  <sentence id="2" document_id="Perseus:text:1999.02.0055" subdoc="Book=6:card=1" span="obvertunt0:proras0">
+    <word id="1" form="Obvertunt" lemma="obverto1" postag="v3ppia---" head="0" relation="PRED"/>
+    <word id="2" form="pelago" lemma="pelagus1" postag="n-s---nd-" head="1" relation="OBJ"/>
+    <word id="3" form="proras" lemma="prora1" postag="n-p---fa-" head="1" relation="OBJ"/>
+  </sentence>
+</treebank>

@@ -1,0 +1,124 @@
+{
+  "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1",
+  "document_resource_uri": "/api/v1/document/2/",
+  "length": 16,
+  "resource_uri": "/api/v1/sentence/11549/",
+  "sentence": "In this way the Athenians came to the circumstances under which they grew in power . ",
+  "translations": {
+    "grc": "/api/v1/sentence/4/"
+  },
+  "words": [
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:1",
+      "lang": "en",
+      "length": 2,
+      "resource_uri": "/api/v1/word/11550/",
+      "value": "In"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:2",
+      "lang": "en",
+      "length": 4,
+      "resource_uri": "/api/v1/word/11551/",
+      "value": "this"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:3",
+      "lang": "en",
+      "length": 3,
+      "resource_uri": "/api/v1/word/11552/",
+      "value": "way"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:4",
+      "lang": "en",
+      "length": 3,
+      "resource_uri": "/api/v1/word/11553/",
+      "value": "the"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:5",
+      "lang": "en",
+      "length": 9,
+      "resource_uri": "/api/v1/word/11554/",
+      "value": "Athenians"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:6",
+      "lang": "en",
+      "length": 4,
+      "resource_uri": "/api/v1/word/11555/",
+      "value": "came"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:7",
+      "lang": "en",
+      "length": 2,
+      "resource_uri": "/api/v1/word/11556/",
+      "value": "to"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:8",
+      "lang": "en",
+      "length": 3,
+      "resource_uri": "/api/v1/word/11557/",
+      "value": "the"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:9",
+      "lang": "en",
+      "length": 13,
+      "resource_uri": "/api/v1/word/11558/",
+      "value": "circumstances"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:10",
+      "lang": "en",
+      "length": 5,
+      "resource_uri": "/api/v1/word/11559/",
+      "value": "under"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:11",
+      "lang": "en",
+      "length": 5,
+      "resource_uri": "/api/v1/word/11560/",
+      "value": "which"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:12",
+      "lang": "en",
+      "length": 4,
+      "resource_uri": "/api/v1/word/11561/",
+      "value": "they"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:13",
+      "lang": "en",
+      "length": 4,
+      "resource_uri": "/api/v1/word/11562/",
+      "value": "grew"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:14",
+      "lang": "en",
+      "length": 2,
+      "resource_uri": "/api/v1/word/11563/",
+      "value": "in"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:15",
+      "lang": "en",
+      "length": 5,
+      "resource_uri": "/api/v1/word/11564/",
+      "value": "power"
+    },
+    {
+      "CTS": "urn:cts:greekLit:tlg0003.tlg001.perseus-en:1.89.1:16",
+      "lang": "en",
+      "length": 1,
+      "resource_uri": "/api/v1/word/11565/",
+      "value": "."
+    }
+  ]
+}

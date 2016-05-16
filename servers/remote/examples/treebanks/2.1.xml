@@ -1,0 +1,19 @@
+<treebank xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:treebank="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" version="1.5" xsi:schemaLocation="http://nlp.perseus.tufts.edu/syntax/treebank/1.5 treebank-1.5.xsd">
+  <sentence id="1" document/id="Perseus:text:1999.02.0055" subdoc="Book=6:card=1" span="sic0:oris0">
+    <word id="1" form="Sic" lemma="sic1" postag="d--------" head="2" relation="AuxY"/>
+    <word id="2" form="fatur" lemma="for1" postag="v3spip---" head="10" relation="PRED_CO"/>
+    <word id="3" form="lacrimans" lemma="lacrimo1" postag="t-sppamn-" head="2" relation="ADV"/>
+    <word id="4" form="," lemma="comma1" postag="u--------" head="10" relation="AuxX"/>
+    <word id="5" form="que" lemma="que1" postag="c--------" head="10" relation="AuxY"/>
+    <word id="6" form="classi" lemma="classis1" postag="n-s---fd-" head="7" relation="OBJ"/>
+    <word id="7" form="immittit" lemma="immitto1" postag="v3spia---" head="10" relation="PRED/CO"/>
+    <word id="8" form="habenas" lemma="habena1" postag="n-p---fa-" head="7" relation="OBJ"/>
+    <word id="9" form="," lemma="comma1" postag="u--------" head="10" relation="AuxX"/>
+    <word id="10" form="et" lemma="et1" postag="c--------" head="0" relation="COORD"/>
+    <word id="11" form="tandem" lemma="tandem1" postag="d--------" head="14" relation="AuxY"/>
+    <word id="12" form="Euboicis" lemma="Euboicus1" postag="a-p---fd-" head="15" relation="ATR"/>
+    <word id="13" form="Cumarum" lemma="Cumae1" postag="n-p---fg-" head="15" relation="ATR"/>
+    <word id="14" form="adlabitur" lemma="allabor1" postag="v3spip---" head="10" relation="PRED_CO"/>
+    <word id="15" form="oris" lemma="ora1" postag="n-p---fd-" head="14" relation="OBJ"/>
+  </sentence>
+</treebank>

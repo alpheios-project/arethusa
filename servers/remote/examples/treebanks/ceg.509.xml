@@ -1,0 +1,50 @@
+<treebank xml:lang='grc' format='aldt' version='1.5'>
+  <date>Fri Dec 19 19:33:33 +0000 2014</date>
+  <annotator>
+    <short/>
+    <name/>
+    <address/>
+    <uri>http:&#x2F;&#x2F;services2.perseids.org&#x2F;llt&#x2F;segtok</uri>
+  </annotator>
+  <annotator>
+    <short/>
+    <name/>
+    <address/>
+    <uri>http:&#x2F;&#x2F;github.com&#x2F;latin-language-toolkit&#x2F;arethusa</uri>
+  </annotator>
+  <annotator>
+    <short>Marie-Claire B</short>
+    <name>Marie-Claire Beaulieu</name>
+    <address>Marie-Claire.Beaulieu@Tufts.edu</address>
+    <uri>http:&#x2F;&#x2F;data.perseus.org&#x2F;sosol&#x2F;users&#x2F;Marie-Claire%20B</uri>
+  </annotator>
+  <sentence id='1' document_id='ceg.509' subdoc='1-5' span=''>
+    <word id='1' form='Ἑλλὰς' lemma='' postag='' relation='SBJ' cite='urn:cts:ceg:ceg.509:1@Ἑλλὰς[1]' head='6'/>
+    <word id='2' form='μὲν' lemma='' postag='' relation='AuxY' cite='urn:cts:ceg:ceg.509:1@μὲν[1]' head='6'/>
+    <word id='3' form='πρωτεῖα' lemma='' postag='' relation='OBJ' cite='urn:cts:ceg:ceg.509:1@πρωτεῖα[1]' head='6'/>
+    <word id='4' form='τέχνης' lemma='' postag='' relation='ATR' cite='urn:cts:ceg:ceg.509:1@τέχνης[1]' head='3'/>
+    <word id='5' form='αὐλῶν' lemma='' postag='' relation='ATR' cite='urn:cts:ceg:ceg.509:1@αὐλῶν[1]' head='4'/>
+    <word id='6' form='ἀπένειμεν' lemma='' postag='' relation='PRED_CO' cite='urn:cts:ceg:ceg.509:1@ἀπένειμεν[1]' head='11'/>
+    <word id='7' form='Θηβαίωι' lemma='' postag='' relation='ATR' cite='urn:cts:ceg:ceg.509:2@Θηβαίωι[1]' head='8'/>
+    <word id='8' form='Ποτάμωνι' lemma='' postag='' relation='OBJ' cite='urn:cts:ceg:ceg.509:2@Ποτάμωνι[1]' head='6'/>
+    <word id='9' form=',' lemma='punc1' postag='u--------' relation='AuxX' cite='urn:cts:ceg:ceg.509:2@,[1]' head='13'/>
+    <word id='10' form='τάφος' lemma='' postag='' relation='SBJ' cite='urn:cts:ceg:ceg.509:2@τάφος[1]' head='13'/>
+    <word id='11' form='δ’' lemma='' postag='' relation='COORD' cite='urn:cts:ceg:ceg.509:2@δ’[1]' head='16'/>
+    <word id='12' form='ὅδε' lemma='' postag='' relation='ATR' cite='urn:cts:ceg:ceg.509:2@ὅδε[1]' head='14'/>
+    <word id='13' form='δέξατο' lemma='' postag='' relation='PRED_CO' cite='urn:cts:ceg:ceg.509:2@δέξατο[1]' head='11'/>
+    <word id='14' form='σῶμα' lemma='' postag='' relation='OBJ_CO' cite='urn:cts:ceg:ceg.509:2@σῶμα[1]' head='13'/>
+    <word id='15' form='πατρὸς' lemma='' postag='' relation='ATR' cite='urn:cts:ceg:ceg.509:3@πατρὸς[1]' head='20'/>
+    <word id='16' form='δὲ' lemma='' postag='' relation='COORD' cite='urn:cts:ceg:ceg.509:3@δὲ[1]' head='0'/>
+    <word id='17' form='μνήμαισιν' lemma='' postag='' relation='ADV' cite='urn:cts:ceg:ceg.509:3@μνήμαισιν[1]' head='19'/>
+    <word id='18' form='Ὀλυνπίχου' lemma='' postag='' relation='ATR' cite='urn:cts:ceg:ceg.509:3@Ὀλυνπίχου[1]' head='20'/>
+    <word id='19' form='αὔξετ’' lemma='' postag='' relation='PRED_CO' cite='urn:cts:ceg:ceg.509:3@αὔξετ’[1]' head='21'/>
+    <word id='20' form='ἔπαινος' lemma='' postag='' relation='SBJ' cite='urn:cts:ceg:ceg.509:3@ἔπαινος[1]' head='19'/>
+    <word id='21' form=',' lemma='punc1' postag='u--------' relation='COORD' cite='urn:cts:ceg:ceg.509:3@,[1]' head='16'/>
+    <word id='22' form='οἷον' lemma='' postag='' relation='ATR' cite='urn:cts:ceg:ceg.509:4@οἷον[1]' head='24'/>
+    <word id='23' form='ἐτέκνωσεμ' lemma='' postag='' relation='PRED_CO' cite='urn:cts:ceg:ceg.509:4@ἐτέκνωσεμ[1]' head='21'/>
+    <word id='24' form='παῖδα' lemma='' postag='' relation='OBJ' cite='urn:cts:ceg:ceg.509:4@παῖδα[1]' head='23'/>
+    <word id='25' form='σοφοῖς' lemma='' postag='' relation='ATR' cite='urn:cts:ceg:ceg.509:5@σοφοῖς[1]' head='26'/>
+    <word id='26' form='βάσανον' lemma='' postag='' relation='OCOMP' cite='urn:cts:ceg:ceg.509:5@βάσανον[1]' head='23'/>
+    <word id='27' form='.' lemma='punc1' postag='u--------' relation='AuxK' cite='urn:cts:ceg:ceg.509:4@.[1]' head='0'/>
+  </sentence>
+</treebank>

@@ -1,0 +1,17 @@
+<treebank xmlns:treebank="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" format="catib" xml:lang="ara">
+    <sentence id="1">
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="1" form="تروي" postag="v" head="0" relation="---"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="2" form="ملحمة" postag="n" head="1" relation="SBJ"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="3" form="جلجاميش" postag="n" head="2" relation="IDF"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="4" form="ل" postag="g" head="1" relation="MOD"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="5" form="+نا" postag="n" head="4" relation="OBJ"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="6" form="قصة" postag="n" head="1" relation="OBJ"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="7" form="الملك" postag="n" head="6" relation="IDF"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="8" form="جلجاميش" postag="n" head="7" relation="MOD"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="9" form="أحد" postag="n" head="8" relation="IDF"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="10" form="ملوك" postag="n" head="9" relation="IDF"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="11" form="سومر" postag="p" head="10" relation="IDF"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="12" form="الأسطوريين" postag="n" head="10" relation="MOD"/>
+        <word xmlns="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" id="13" form="." postag="u" head="1" relation="MOD"/>
+    </sentence>
+</treebank>

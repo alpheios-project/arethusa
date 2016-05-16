@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>urn:cts:ceg:ceg.509.TempTexts-ed-2013-3</title>
+                <author role="editor">Marie-Claire Beaulieu</author>
+            </titleStmt>
+            <publicationStmt>
+                <authority>Perseus Project</authority>
+                <idno type="urn:cts">urn_cts_ceg_ceg.509.TempTexts-ed-2013-3</idno>
+                <availability>
+                    <p>This work is licensed under a <ref type="license"
+                            target="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons
+                            Attribution-ShareAlike 3.0 License</ref>.</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <p/>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="en">English</language>
+                <language ident="grc">Greek</language>
+            </langUsage>
+        </profileDesc>
+        <revisionDesc>
+            <change when="2014-12-19T19:57:50.12Z"
+                who="http://data.perseus.org/sosol/users/Marie-Claire%20B">from me to me</change>
+            <change when="2013-12-02T13:34:54+00:00" who="http://papyri.info/editor">Automated
+                creation from template</change>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div xml:lang="grc" type="edition" xml:space="preserve">
+      	    <lg met="mixed">
+			    <l met="hexameter" n="1"><w s_n="1" n="1" facs="urn:cite:perseus:epifacsimg.80@0.0581,0.6176,0.1311,0.0272">Ἑλλὰς</w>
+ <w s_n="1" n="2" facs="urn:cite:perseus:epifacsimg.80@0.1872,0.6236,0.0781,0.0199">μὲν</w>
+ <w s_n="1" n="3" facs="urn:cite:perseus:epifacsimg.80@0.2623,0.6236,0.1481,0.0239">πρωτεῖα</w>
+ <w s_n="1" n="4" facs="urn:cite:perseus:epifacsimg.80@0.4094,0.6236,0.1281,0.0232">τέχνης</w>
+ <w s_n="1" n="5" facs="urn:cite:perseus:epifacsimg.80@0.5365,0.6249,0.1141,0.0232">αὐλῶν</w>
+ <w s_n="1" n="6" facs="urn:cite:perseus:epifacsimg.80@0.6496,0.6249,0.2072,0.0245">ἀπένειμεν</w>
+<lb n="1"/></l>
+                <l n="2" met="hexameter"><w s_n="1" n="7" facs="urn:cite:perseus:epifacsimg.80@0.0681,0.6435,0.1411,0.0239">Θηβαίωι</w>
+ <w s_n="1" n="8" facs="urn:cite:perseus:epifacsimg.80@0.2122,0.6435,0.1732,0.0292"><choice><corr>Ποτάμωνι</corr><sic>Πουάμωνι</sic></choice></w>
+ <w s_n="1" n="10" facs="urn:cite:perseus:epifacsimg.80@0.3814,0.6468,0.1131,0.0225">τάφος</w>
+ <w s_n="1" n="11" facs="urn:cite:perseus:epifacsimg.80@0.4975,0.6488,0.02,0.0186">δ'</w>
+ <w s_n="1" n="12" facs="urn:cite:perseus:epifacsimg.80@0.5175,0.6494,0.0661,0.0212">ὅδε</w>
+ <w s_n="1" n="13" facs="urn:cite:perseus:epifacsimg.80@0.5856,0.6494,0.1291,0.0205">δέξατο</w>
+ <w s_n="1" n="14" facs="urn:cite:perseus:epifacsimg.80@0.7247,0.6474,0.0951,0.0258">σῶμα</w>
+΄ <lb n="2"/></l>
+                <l n="3" met="hexameter"><w s_n="1" n="15" facs="urn:cite:perseus:epifacsimg.80@0.0711,0.6687,0.1211,0.0305">πατρὸς</w>
+ <w s_n="1" n="16" facs="urn:cite:perseus:epifacsimg.80@0.1902,0.6706,0.044,0.0192">δὲ</w>
+ <w s_n="1" n="17" facs="urn:cite:perseus:epifacsimg.80@0.2352,0.672,0.1982,0.0225">μνήμαισιν</w>
+ <w s_n="1" n="18" facs="urn:cite:perseus:epifacsimg.80@0.4304,0.672,0.1962,0.0219">Ὀλυνπίχου</w>
+ <w s_n="1" n="19" facs="urn:cite:perseus:epifacsimg.80@0.6246,0.6726,0.1121,0.0212">αὔξετ'</w>
+ <w s_n="1" n="20" facs="urn:cite:perseus:epifacsimg.80@0.7367,0.6693,0.1481,0.0292">ἔπαινος</w>
+<lb n="3"/></l>
+                <l n="4" met="pentameter"><w s_n="1" n="22" facs="urn:cite:perseus:epifacsimg.80@0.0731,0.6912,0.0801,0.0285">οἷον</w>
+ <w s_n="1" n="23" facs="urn:cite:perseus:epifacsimg.80@0.1491,0.6952,0.2192,0.0245">ἐτέκνωσεμ</w>
+ <w s_n="1" n="24" facs="urn:cite:perseus:epifacsimg.80@0.3634,0.6965,0.1141,0.0245">παῖδα</w>
+ <w s_n="1" n="25" facs="urn:cite:perseus:epifacsimg.80@0.4745,0.6965,0.1251,0.0239">σοφοῖς</w>
+ <w s_n="1" n="26" facs="urn:cite:perseus:epifacsimg.80@0.5926,0.6972,0.1682,0.0245">βάσανον</w>
+<lb n="4"/></l>
+                <l n="5" met="prose"><hi rend="large"><w s_n="1" n="28" facs="urn:cite:perseus:epifacsimg.80@0.0571,0.7409,0.3013,0.0358">Πατρόκλεια</w>
+ <w s_n="1" n="29" facs="urn:cite:perseus:epifacsimg.80@0.3624,0.7376,0.3053,0.0437">Ποτάμωνος</w>
+ <w s_n="1" n="30" facs="urn:cite:perseus:epifacsimg.81@0.6769,0.7106,0.1204,0.0569">γυνή</w>
+</hi><lb n="5"/></l>
+		</lg>
+      </div>
+        </body>
+    </text>
+</TEI>

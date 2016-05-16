@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<treebank version="1.5"
+  xml:lang="lat" format="aldt"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:treebank="http://nlp.perseus.tufts.edu/syntax/treebank/1.5"
+	xsi:schemaLocation="http://nlp.perseus.tufts.edu/syntax/treebank/1.5 treebank-1.5.xsd">
+  <annotator>
+    <short>LFDM</short>
+    <name>Gernot Höflechner</name>
+    <address>1986gh@gmail.com</address>
+    <url>http://data.perserus.org/sosol/users/LFDM</url>
+  </annotator>
+  <sentence id="1" cite="urn:cts:latinLit:phi0448.phi001.perseus-grc1:2.1">
+		<word id="1" form="Cum"     />
+		<word id="2" form="esset"     />
+		<word id="3" form="Caesar"     />
+		<word id="4" form="in"     />
+		<word id="5" form="citeriore"     />
+		<word id="6" form="Gallia"     />
+		<word id="7" form="in"     />
+		<word id="8" form="hibernis"     />
+		<word id="9" form=","     />
+		<word id="10" form="ita"     />
+		<word id="11" form="uti"     />
+		<word id="12" form="supra"     />
+		<word id="13" form="demonstravimus"     />
+		<word id="14" form=","     />
+		<word id="15" form="crebri"     />
+		<word id="16" form="ad"     />
+		<word id="17" form="eum"     />
+		<word id="18" form="rumores"     />
+		<word id="19" form="adferebantur"     />
+		<word id="20" form="que"     />
+		<word id="21" form="litteris"     />
+		<word id="22" form="item"     />
+		<word id="23" form="Labieni"     />
+		<word id="24" form="certior"     />
+		<word id="25" form="fiebat"     />
+		<word id="26" form="omnes"     />
+		<word id="27" form="Belgas"     />
+		<word id="28" form=","     />
+		<word id="29" form="quam"     />
+		<word id="30" form="tertiam"     />
+		<word id="31" form="esse"     />
+		<word id="32" form="Galliae"     />
+		<word id="33" form="partem"     />
+		<word id="34" form="dixeramus"     />
+		<word id="35" form=","     />
+		<word id="36" form="contra"     />
+		<word id="37" form="populum"     />
+		<word id="38" form="Romanum"     />
+		<word id="39" form="coniurare"     />
+		<word id="40" form="que"     />
+		<word id="41" form="obsides"     />
+		<word id="42" form="inter"     />
+		<word id="43" form="se"     />
+		<word id="44" form="dare"     />
+	</sentence>
+  <sentence id="2" cite="urn:cts:latinLit:phi0448.phi001.perseus-grc1:2.1">
+    <word id="1" form="Coniurandi"    />
+    <word id="2" form="has"    />
+    <word id="3" form="esse"    />
+    <word id="4" form="causas"    />
+    <word id="5" form="primum"    />
+    <word id="6" form="quod"    />
+    <word id="7" form="vererentur"    />
+    <word id="8" form="ne"    />
+    <word id="9" form=","    />
+    <word id="10" form="omni"    />
+    <word id="11" form="pacata"    />
+    <word id="12" form="Gallia"    />
+    <word id="13" form=","    />
+    <word id="14" form="ad"    />
+    <word id="15" form="eos"    />
+    <word id="16" form="exercitus"    />
+    <word id="17" form="noster"    />
+    <word id="18" form="adduceretur"    />
+  </sentence>
+</treebank>
+

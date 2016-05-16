@@ -12,6 +12,7 @@
 })(jQuery);
 
 function loadArethusaWidget (id,url,conf,deps) {
+    widget = {};
     $.when(
         $.getStylesheet(deps.css.arethusa), //arethusa.min.css
         $.getStylesheet(deps.css.foundation), //vendor/foundation-icons/foundation-icons.css
@@ -20,8 +21,9 @@ function loadArethusaWidget (id,url,conf,deps) {
         $.getScript(deps.js.packages, function(){$.when(
             $.getScript(deps.js.arethusa) //arethusa.min.js
         ).then(function () {
-            var widget = new Arethusa();
-            widget.on(id).from(url).with(conf).start();
+            widget = new Arethusa();
+            widget.on(id).from(url).with(conf);//.start();
         })}) //arethusa_packages.min.js
     )
+    return widget;
 }

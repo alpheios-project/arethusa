@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<treebank xml:lang="grc" format="aldt" version="1.5">
+   <date>Sat Aug 23 17:59:33 +0000 2014</date>
+   <annotator>
+      <short/>
+      <name/>
+      <address/>
+      <uri>http://services.perseids.org/llt/segtok</uri>
+  </annotator>
+   <annotator>
+      <short/>
+      <name/>
+      <address/>
+      <uri>http://github.com/latin-language-toolkit/arethusa</uri>
+  </annotator>
+   <annotator>
+      <short>LFDM</short>
+      <name>Gernot Höflechner</name>
+      <address>1986gh@gmail.com</address>
+      <uri>http://data.perseus.org/sosol/users/LFDM</uri>
+  </annotator>
+   <sentence id="1" document_id="" subdoc="" span="">
+      <word id="1" form="τίς" lemma="" postag="" head="" relation="nil"/>
+      <word id="2" form="τί" lemma="" postag="" head="" relation="nil"/>
+      <word id="3" form="τίνα" lemma="" postag="" head="" relation="nil"/>
+      <word id="4" form="τίνος" lemma="" postag="" head="" relation="nil"/>
+      <word id="5" form="τίνι" lemma="" postag="" head="" relation="nil"/>
+      <word id="6" form="τίνες" lemma="" postag="" head="" relation="nil"/>
+      <word id="7" form="τίνας" lemma="" postag="" head="" relation="nil"/>
+      <word id="8" form="τίνων" lemma="" postag="" head="" relation="nil"/>
+      <word id="9" form="τίσι" lemma="" postag="" head="" relation="nil"/>
+      <word id="10" form="τίσιν" lemma="" postag="" head="" relation="nil"/>
+      <word id="11" form="." lemma="punc1" postag="u--------" head="0" relation="AuxX"/>
+      <word id="12" form="τις" lemma="" postag="" head="" relation="nil"/>
+      <word id="13" form="τι" lemma="" postag="" head="" relation="nil"/>
+      <word id="14" form="τινα" lemma="" postag="" head="" relation="nil"/>
+      <word id="15" form="τινά" lemma="" postag="" head="" relation="nil"/>
+      <word id="16" form="τινὰ" lemma="" postag="" head="" relation="nil"/>
+      <word id="17" form="τινός" lemma="" postag="" head="" relation="nil"/>
+      <word id="18" form="τινὸς" lemma="" postag="" head="" relation="nil"/>
+      <word id="19" form="τινος" lemma="" postag="" head="" relation="nil"/>
+      <word id="20" form="τινι" lemma="" postag="" head="" relation="nil"/>
+      <word id="21" form="τινί" lemma="" postag="" head="" relation="nil"/>
+      <word id="22" form="τινὶ" lemma="" postag="" head="" relation="nil"/>
+      <word id="23" form="τινες" lemma="" postag="" head="" relation="nil"/>
+      <word id="24" form="τινές" lemma="" postag="" head="" relation="nil"/>
+      <word id="25" form="τινὲς" lemma="" postag="" head="" relation="nil"/>
+      <word id="26" form="τινῶν" lemma="" postag="" head="" relation="nil"/>
+      <word id="27" form="τισίν" lemma="" postag="" head="" relation="nil"/>
+      <word id="28" form="τισὶν" lemma="" postag="" head="" relation="nil"/>
+      <word id="29" form="τισὶ" lemma="" postag="" head="" relation="nil"/>
+      <word id="30" form="τισί" lemma="" postag="" head="" relation="nil"/>
+      <word id="31" form="." lemma="punc1" postag="u--------" head="0" relation="AuxX"/>
+      <word id="32" form="τοῦ" lemma="" postag="" head="" relation="nil"/>
+      <word id="33" form="του" lemma="" postag="" head="" relation="nil"/>
+      <word id="34" form="τῷ" lemma="" postag="" head="" relation="nil"/>
+      <word id="35" form="τῳ" lemma="" postag="" head="" relation="nil"/>
+      <word id="36" form="." lemma="punc1" postag="u--------" head="0" relation="AuxK"/>
+   </sentence>
+</treebank>

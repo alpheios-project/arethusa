@@ -1,0 +1,196 @@
+<treebank>
+  <sentence id="25" span="" document_id="urn:cts:greekLit:tlg0543.tlg001.perseus-grc1"
+    subdoc="1.3">
+    <word id="1" form="ἐπεὶ" lemma="ἐπεί" head="25" relation="AuxC"/>
+    <word id="2" form="δ᾽" lemma="δέ" head="25" relation="AuxY"/>
+    <word id="3" form="οὔτε" lemma="οὔτε" head="6"
+      relation="AuxY"/>
+    <word id="4" form="τοῦ" lemma="ὁ" head="9" relation="ATR"/>
+    <word id="5" form="Ῥωμαίων" lemma="Ῥωμαῖος" head="6"
+      relation="ATR_CO"/>
+    <word id="6" form="οὔτε" lemma="οὔτε" head="9"
+      relation="COORD"/>
+    <word id="7" form="τοῦ" lemma="ὁ" head="9" relation="ATR"/>
+    <word id="8" form="Καρχηδονίων" lemma="Καρχηδόνιος" head="6"
+      relation="ATR_CO"/>
+    <word id="9" form="πολιτεύματος" lemma="πολίτευμα" head="18"
+      relation="ATR"/>
+    <word id="10" form="πρόχειρός" lemma="πρόχειρος" head="11"
+      relation="PNOM"/>
+    <word id="11" form="ἐστι" lemma="εἰμί" head="1" relation="ADV"/>
+    <word id="12" form="τοῖς" lemma="ὁ" head="13" relation="ATR"/>
+    <word id="13" form="πολλοῖς" lemma="πολύς" head="10"
+      relation="ADV"/>
+    <word id="14" form="τῶν" lemma="ὁ" head="15" relation="ATR"/>
+    <word id="15" form="Ἑλλήνων" lemma="Ἕλλην" head="13"
+      relation="ATR"/>
+    <word id="16" form="ἡ" lemma="ὁ" head="18" relation="ATR"/>
+    <word id="17" form="προγεγενημένη" lemma="προγίγνομαι"
+      head="18"
+      relation="ATR"/>
+    <word id="18" form="δύναμις" lemma="δύναμις" head="19"
+      relation="SBJ_CO"/>
+    <word id="19" form="οὐδ᾽" lemma="οὐδέ" head="11"
+      relation="COORD"/>
+    <word id="20" form="αἱ" lemma="ὁ" head="21" relation="ATR"/>
+    <word id="21" form="πράξεις" lemma="πρᾶξις" head="19"
+      relation="SBJ_CO"/>
+    <word id="22" form="αὐτῶν" lemma="αὐτός" head="21"
+      relation="ATR"/>
+    <word id="23" form="," lemma="punc1" head="1" relation="AuxX"/>
+    <word id="24" form="ἀναγκαῖον" lemma="ἀναγκαῖον" head="26"
+      relation="PNOM"/>
+    <word id="25" form="ὑπελάβομεν" lemma="ὑπολαμβάνω" head="0"
+      relation="PRED"/>
+    <word id="26" form="εἶναι" lemma="εἰμί" head="25" relation="OBJ"/>
+    <word id="27" form="συντάξασθαι" lemma="συντάσσω" head="26"
+      relation="SBJ"/>
+    <word id="28" form="ταύτην" lemma="οὗτος" head="29"
+      relation="ATR_CO"/>
+    <word id="29" form="καὶ" lemma="καί" head="32" relation="COORD"/>
+    <word id="30" form="τὴν" lemma="ὁ" head="29" relation="ATR_CO"/>
+    <word id="31" form="ἑξῆς" lemma="ἑξῆς" head="30" relation="ATR"/>
+    <word id="32" form="βύβλον" lemma="βύβλος" head="27"
+      relation="OBJ"/>
+    <word id="33" form="πρὸ" head="31"
+      relation="AuxP"/>
+    <word id="34" form="τῆς" lemma="ὁ" head="35" relation="ATR"/>
+    <word id="35" form="ἱστορίας" lemma="ἱστορία" head="33"
+      relation="ADV"/>
+    <word id="36" form="," lemma="punc1" head="37" relation="AuxX"/>
+    <word id="37" form="ἵνα" lemma="ἵνα" head="27"
+      relation="AuxC"/>
+    <word id="38" form="μηδεὶς" lemma="μηδείς" head="48"
+      relation="SBJ"/>
+    <word id="39" form="ἐπιστὰς" lemma="ἐφίστημι" head="48"
+      relation="ADV"/>
+    <word id="40" form="ἐπ᾽" lemma="ἐπί" head="39" relation="AuxP"/>
+    <word id="41" form="αὐτὴν" lemma="αὐτός" head="45"
+      relation="ATR"/>
+    <word id="42" form="τὴν" lemma="ὁ" head="45" relation="ATR"/>
+    <word id="43" form="τῶν" lemma="ὁ" head="44" relation="ATR"/>
+    <word id="44" form="πραγμάτων" lemma="πρᾶγμα" head="45"
+      relation="ATR"/>
+    <word id="45" form="ἐξήγησιν" lemma="ἐξήγησις" head="40"
+      relation="OBJ"/>
+    <word id="46" form="τότε" lemma="τότε" head="48" relation="ADV"/>
+    <word id="47" form="διαπορῇ" lemma="διαπορέω" head="48"
+      relation="ADV_CO"/>
+    <word id="48" form="καὶ" lemma="καί" head="80" relation="COORD"/>
+    <word id="49" form="ζητῇ" lemma="ζητέω" head="48"
+      relation="ADV_CO"/>
+    <word id="50" form="ποίοις" lemma="ποῖος" head="51"
+      relation="ATR"/>
+    <word id="51" form="διαβουλίοις" lemma="διαβούλιον" head="52"
+      relation="OBJ_CO"/>
+    <word id="52" form="ἢ" lemma="ἤ1" head="57" relation="COORD"/>
+    <word id="53" form="ποίαις" lemma="ποῖος" head="55" relation="ATR"/>
+    <word id="54" form="δυνάμεσι" lemma="δύναμις" head="55"
+      relation="OBJ_CO"/>
+    <word id="55" form="καὶ" lemma="καί" head="52" relation="COORD"/>
+    <word id="56" form="χορηγίαις" lemma="χορηγία" head="55"
+      relation="OBJ_CO"/>
+    <word id="57" form="χρησάμενοι" lemma="χράω2" head="61"
+      relation="ADV"/>
+    <word id="58" form="Ῥωμαῖοι" lemma="Ῥωμαῖος" head="61"
+      relation="SBJ"/>
+    <word id="59" form="πρὸς" lemma="πρός" head="61" relation="AuxP"/>
+    <word id="60" form="ταύτας" lemma="οὗτος" head="63"
+      relation="ATR"/>
+    <word id="61" form="ὥρμησαν" lemma="ὁρμέω" head="49"
+      relation="OBJ"/>
+    <word id="62" form="τὰς" lemma="ὁ" head="63" relation="ATR"/>
+    <word id="63" form="ἐπιβολάς" lemma="ἐπιβολή" head="59"
+      relation="OBJ"/>
+    <word id="64" form="," lemma="punc1" head="76" relation="AuxX"/>
+    <word id="65" form="δι᾽" lemma="διά" head="76"
+      relation="AuxP"/>
+    <word id="66" form="ὧν" lemma="ὅς" head="65" relation="ADV"/>
+    <word id="67" form="καὶ" lemma="καί" head="70"
+      relation="AuxY"/>
+    <word id="68" form="τῆς" lemma="ὁ" head="69" relation="ATR"/>
+    <word id="69" form="γῆς" lemma="Γαῖα" head="70" relation="ATR_CO"/>
+    <word id="70" form="καὶ" lemma="καί" head="78" relation="COORD"/>
+    <word id="71" form="τῆς" lemma="ὁ" head="72" relation="ATR"/>
+    <word id="72" form="θαλάττης" lemma="θάλασσα" head="70"
+      relation="ATR_CO"/>
+    <word id="73" form="τῆς" lemma="ὁ" head="70" relation="ATR"/>
+    <word id="74" form="καθ᾽" lemma="κατά" head="77"
+      relation="AuxP"/>
+    <word id="75" form="ἡμᾶς" lemma="ἐγώ" head="74"
+      relation="ADV"/>
+    <word id="76" form="ἐγένοντο" lemma="γίγνομαι" head="63"
+      relation="ATR"/>
+    <word id="77" form="πάσης" lemma="πᾶς" head="70" relation="ATR"/>
+    <word id="78" form="ἐγκρατεῖς" lemma="ἐγκρατής" head="76"
+      relation="PNOM"/>
+    <word id="79" form="," lemma="punc1" head="76" relation="AuxX"/>
+    <word id="80" form="ἀλλ᾽" lemma="ἀλλά" head="37"
+      relation="COORD"/>
+    <word id="81" form="ἐκ" lemma="ἐκ" head="91" relation="AuxP"/>
+    <word id="82" form="τούτων" lemma="οὗτος" head="84"
+      relation="ATR"/>
+    <word id="83" form="τῶν" lemma="ὁ" head="84" relation="ATR"/>
+    <word id="84" form="βύβλων" lemma="βύβλος" head="85"
+      relation="ADV_CO"/>
+    <word id="85" form="καὶ" lemma="καί" head="81" relation="COORD"/>
+    <word id="86" form="τῆς" lemma="ὁ" head="89" relation="ATR"/>
+    <word id="87" form="ἐν" lemma="εἰς" head="89" relation="AuxP"/>
+    <word id="88" form="ταύταις" lemma="οὗτος" head="87"
+      relation="ATR"/>
+    <word id="89" form="προκατασκευῆς" lemma="προκατασκευή"
+      head="85"
+      relation="ADV_CO"/>
+    <word id="90" form="δῆλον" lemma="δῆλος" head="91"
+      relation="PNOM"/>
+    <word id="91" form="ᾖ" lemma="εἰμί" head="80"
+      relation="ADV_CO"/>
+    <word id="92" form="τοῖς" lemma="ὁ" head="93" relation="ATR"/>
+    <word id="93" form="ἐντυγχάνουσιν" lemma="ἐντυγχάνω"
+      head="90"
+      relation="ADV"/>
+    <word id="94" form="ὅτι" lemma="ὅτι" head="91"
+      relation="AuxC"/>
+    <word id="95" form="καὶ" lemma="καί" head="96"
+      relation="AuxZ"/>
+    <word id="96" form="λίαν" lemma="λίαν" head="97" relation="ADV"/>
+    <word id="97" form="εὐλόγοις" lemma="εὔλογος" head="98"
+      relation="ATR"/>
+    <word id="98" form="ἀφορμαῖς" lemma="ἀφορμή" head="99"
+      relation="OBJ"/>
+    <word id="99" form="χρησάμενοι" lemma="χράω2" head="104"
+      relation="ADV"/>
+    <word id="100" form="πρός" lemma="πρός" head="104" relation="AuxP"/>
+    <word id="101" form="τε" lemma="τε" head="105" relation="AuxY"/>
+    <word id="102" form="τὴν" lemma="ὁ" head="103" relation="ATR"/>
+    <word id="103" form="ἐπίνοιαν" lemma="ἐπίνοια" head="100"
+      relation="OBJ"/>
+    <word id="104" form="ὥρμησαν" lemma="ὁρμέω" head="105"
+      relation="SBJ_CO"/>
+    <word id="105" form="καὶ" lemma="καί" head="94" relation="COORD"/>
+    <word id="106" form="πρὸς" lemma="πρός" head="109" relation="AuxP"/>
+    <word id="107" form="τὴν" lemma="ὁ" head="108" relation="ATR"/>
+    <word id="108" form="συντέλειαν" lemma="συντέλεια" head="106"
+      relation="OBJ"/>
+    <word id="109" form="ἐξίκοντο" lemma="ἐξικνέομαι"
+      head="105"
+      relation="SBJ_CO"/>
+    <word id="110" form="τῆς" lemma="ὁ" head="113" relation="ATR"/>
+    <word id="111" form="τῶν" lemma="ὁ" head="112" relation="ATR"/>
+    <word id="112" form="ὅλων" lemma="ὅλος" head="114"
+      relation="ATR"/>
+    <word id="113" form="ἀρχῆς" lemma="ἀρχή" head="114"
+      relation="ATR_CO"/>
+    <word id="114" form="καὶ" lemma="καί" head="108" relation="COORD"/>
+    <word id="115" form="δυναστείας" lemma="δυναστεία" head="114"
+      relation="ATR_CO"/>
+    <word id="116" form="." lemma="punc1" head="0" relation="AuxK"/>
+  </sentence>
+  <sentence id="25" span="" document_id="urn:cts:greekLit:tlg0543.tlg001.perseus-grc1"
+    subdoc="1.3">
+    <word id="1" form="ἐπεὶ" lemma="ἐπεί" relation="AuxC"/>
+    <word id="2" form="δ᾽" lemma="δέ" relation="AuxY"/>
+    <word id="3" form="οὔτε" lemma="οὔτε"/>
+  </sentence>
+</treebank>
+

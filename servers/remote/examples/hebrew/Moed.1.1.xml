@@ -1,0 +1,2797 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<corpus name="Analysis Results" version="0.0" maintainer="Meni Adler" email="adlerm@cs.bgu.ac.il">
+  <article id = "ref.2.1" name = "Shabbat">
+    <paragraph id = "ref.2.1.1">
+      <sentence id = "ref.2.1.1.1">
+        <token surface = "יציאות" id = "ref.2.1.1.1.1">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "יציאה"><noun gender = "feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "יציאה"><noun gender = "feminine" number = "plural" status = "construct"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "השבת" id = "ref.2.1.1.1.2">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "השבת"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "שבת"><noun definiteness="true" gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "השבה"><noun gender = "feminine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "השבית"><verb gender = "masculine" number = "singular" person = "2" tense = "past" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "השיב"><verb gender = "masculine" number = "singular" person = "2" tense = "past" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <base lexiconItem = "השבית"><verb gender = "feminine" number = "singular" person = "2" tense = "past" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <base lexiconItem = "השיב"><verb gender = "feminine" number = "singular" person = "2" tense = "past" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <base lexiconItem = "השבית"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <base lexiconItem = "שבת"><properName definiteness="true" gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "שתים" id = "ref.2.1.1.1.3">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "שתים"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><adverb type = "verb" definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "שתים"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><preposition type = "verb" definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "שתים"><properName/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <base lexiconItem = "שתים"><properName gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><properName type = "verb" definiteness="true" gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <base lexiconItem = "שתים"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><adjective type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "10" score="0.0">
+            <base lexiconItem = "שתים"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "11" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "12" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><noun type = "verb" definiteness="true" gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "13" score="0.0">
+            <base lexiconItem = "שתים"><adjective gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "14" score="0.0">
+            <base lexiconItem = "שתים"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "15" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><noun type = "verb" definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "16" score="0.0">
+            <base lexiconItem = "שתים"><noun gender = "feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "17" score="0.0">
+            <base lexiconItem = "שתים"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "18" score="0.0">
+            <base lexiconItem = "שתים"><participle type = "noun/adjective" gender = "masculine" number = "plural" person = "any" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "19" score="0.0">
+            <base lexiconItem = "שתים"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "20" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><adjective type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "21" score="0.0">
+            <base lexiconItem = "שתים"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "22" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "23" score="0.0">
+            <base lexiconItem = "שתים"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "24" score="0.0">
+            <base lexiconItem = "שתים"><verb gender = "masculine" number = "singular" person = "3" tense = "past"/>
+            </base>
+          </analysis>
+          <analysis id = "25" score="0.0">
+            <base lexiconItem = "שתים"><participle type = "verb" gender = "masculine" number = "singular" person = "any" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "26" score="0.0">
+            <base lexiconItem = "שתים"><participle type = "verb" gender = "masculine" number = "plural" person = "any" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "27" score="0.0">
+            <base lexiconItem = "שתים"><verb gender = "masculine and feminine" number = "plural" person = "1" tense = "future"/>
+            </base>
+          </analysis>
+          <analysis id = "28" score="0.0">
+            <base lexiconItem = "שתים"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative"/>
+            </base>
+          </analysis>
+          <analysis id = "29" score="0.0">
+            <base lexiconItem = "שתי"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+          <analysis id = "30" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תי"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+          <analysis id = "31" score="0.0">
+            <base lexiconItem = "שתי"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+          <analysis id = "32" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תי"><noun type = "verb" definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+          <analysis id = "33" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תי"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "34" score="0.0">
+            <base lexiconItem = "שתי"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "35" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תי"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+        </token>
+        <token surface = "שהן" id = "ref.2.1.1.1.4">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "הן"><adverb type = "verb" definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "הוא"><copula type = "verb" definiteness="true" gender = "feminine" number = "plural" person = "3" tense = "beinoni" polarity = "positive"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "הן"><conjunction type = "verb" definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "הוא"><pronoun type = "verb" definiteness="true" gender = "feminine" number = "plural" person = "3"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ארבע" id = "ref.2.1.1.1.5">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "CARD4"><numeral type = "numeral cardinal" gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "CARD4"><numeral type = "numeral cardinal" gender = "feminine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "ריבע"><verb gender = "masculine and feminine" number = "singular" person = "1" tense = "future" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "בפנים" id = "ref.2.1.1.1.6">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "בפנים"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פנים"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פן"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פני"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פן"><noun definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פני"><noun definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine and feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פנים"><noun definiteness="true" gender = "masculine and feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "10" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ושתים" id = "ref.2.1.1.1.7">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "ושתים"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתים"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><adverb type = "verb" definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתים"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><preposition type = "verb" definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <base lexiconItem = "ושתים"><properName gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתים"><properName gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <base lexiconItem = "ושתים"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתים"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "10" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><adjective type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "11" score="0.0">
+            <base lexiconItem = "ושתים"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "12" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתים"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "13" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "14" score="0.0">
+            <base lexiconItem = "ושתים"><adjective gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "15" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><noun type = "verb" definiteness="true" gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "16" score="0.0">
+            <base lexiconItem = "ושתים"><adjective gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "17" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתים"><adjective gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "18" score="0.0">
+            <base lexiconItem = "ושתים"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "19" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתים"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "20" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><noun type = "verb" definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "21" score="0.0">
+            <base lexiconItem = "ושתים"><noun gender = "feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "22" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתים"><noun gender = "feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "23" score="0.0">
+            <base lexiconItem = "ושתים"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "24" score="0.0">
+            <base lexiconItem = "ושתים"><participle type = "noun/adjective" gender = "feminine" number = "singular" person = "any" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "25" score="0.0">
+            <base lexiconItem = "ושתים"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "26" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתים"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "27" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><adjective type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "28" score="0.0">
+            <base lexiconItem = "ושתים"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "29" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתים"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "30" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תים"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "31" score="0.0">
+            <base lexiconItem = "ושתים"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "32" score="0.0">
+            <base lexiconItem = "ושתים"><verb gender = "masculine" number = "singular" person = "3" tense = "past"/>
+            </base>
+          </analysis>
+          <analysis id = "33" score="0.0">
+            <base lexiconItem = "ושתים"><participle type = "verb" gender = "masculine" number = "singular" person = "any" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "34" score="0.0">
+            <base lexiconItem = "ושתים"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative"/>
+            </base>
+          </analysis>
+          <analysis id = "35" score="0.0">
+            <base lexiconItem = "ושתים"><verb tense = "infinitive"/>
+            </base>
+          </analysis>
+          <analysis id = "36" score="0.0">
+            <base lexiconItem = "ושתי"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+          <analysis id = "37" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתי"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+          <analysis id = "38" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תי"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+          <analysis id = "39" score="0.0">
+            <base lexiconItem = "ושתי"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+          <analysis id = "40" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתי"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+          <analysis id = "41" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תי"><noun type = "verb" definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+          <analysis id = "42" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תי"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "43" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "שתי"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "44" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "תי"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+        </token>
+        <token surface = "שהן" id = "ref.2.1.1.1.8">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "הן"><adverb type = "verb" definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "הוא"><copula type = "verb" definiteness="true" gender = "feminine" number = "plural" person = "3" tense = "beinoni" polarity = "positive"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "הן"><conjunction type = "verb" definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "הוא"><pronoun type = "verb" definiteness="true" gender = "feminine" number = "plural" person = "3"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ארבע" id = "ref.2.1.1.1.9">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "CARD4"><numeral type = "numeral cardinal" gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "CARD4"><numeral type = "numeral cardinal" gender = "feminine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "ריבע"><verb gender = "masculine and feminine" number = "singular" person = "1" tense = "future" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "בחוץ" id = "ref.2.1.1.1.10">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "בחוץ"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "חוץ"><wPrefix/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "חוץ"><wPrefix definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "חוץ"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "חוץ"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "חוץ"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "כיצד" id = "ref.2.1.1.1.11">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "כיצד"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "כיצד"><interrogative type = "yesno"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "העני" id = "ref.2.1.1.1.12">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "עני"><adjective definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "עני"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "עומד" id = "ref.2.1.1.1.13">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "עומד"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "עומד"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "עמד"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "עמד"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <base lexiconItem = "עמד"><participle type = "verb" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "בחוץ" id = "ref.2.1.1.1.14">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "בחוץ"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "חוץ"><wPrefix/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "חוץ"><wPrefix definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "חוץ"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "חוץ"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "חוץ"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ובעל" id = "ref.2.1.1.1.15">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "על"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "הבית" id = "ref.2.1.1.1.16">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "בית"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "בית"><properName definiteness="true" gender = "feminine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "בפנים" id = "ref.2.1.1.1.17">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "בפנים"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פנים"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פן"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פני"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פן"><noun definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פני"><noun definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine and feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פנים"><noun definiteness="true" gender = "masculine and feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "10" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "פשט" id = "ref.2.1.1.1.18">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "פשט"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "פשט"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "פשט"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <base lexiconItem = "פישט"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "פישט"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "העני" id = "ref.2.1.1.1.19">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "עני"><adjective definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "עני"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "את" id = "ref.2.1.1.1.20">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "את"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "הוא"><pronoun type = "personal" gender = "feminine" number = "singular" person = "2"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ידו" id = "ref.2.1.1.1.21">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "יד"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לפנים" id = "ref.2.1.1.1.22">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "לפנים"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פן"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פני"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פן"><noun definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פני"><noun definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine and feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun definiteness="true" gender = "masculine and feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "10" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ונתן" id = "ref.2.1.1.1.23">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "נתן"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניתן"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניתן"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניתן"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניתן"><participle type = "verb" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "נתן"><properName gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לתוך" id = "ref.2.1.1.1.24">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "לתוך"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><wPrefix/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><wPrefix definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="1.0">
+            <base lexiconItem = "תיווך"><verb tense = "infinitive" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ידו" id = "ref.2.1.1.1.25">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "יד"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "של" id = "ref.2.1.1.1.26">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "של"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "נשל"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "בעל" id = "ref.2.1.1.1.27">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "על"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "הבית" id = "ref.2.1.1.1.28">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "בית"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "בית"><properName definiteness="true" gender = "feminine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "או" id = "ref.2.1.1.1.29">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "או"><conjunction type = "coordinating"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "שנטל" id = "ref.2.1.1.1.30">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "נטל"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "נטל"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "נטל"><verb type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניטל"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניטל"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניטל"><verb type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניטל"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "מתוכה" id = "ref.2.1.1.1.31">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "מ"/>
+            <base lexiconItem = "תוך"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "מתוך"><preposition/>
+            </base>
+            <suffix function = "pronomial" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "תיווך"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" binyan = "Pi'el"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+        </token>
+        <token surface = "והוציא" id = "ref.2.1.1.1.32">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "הוציא"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "העני" id = "ref.2.1.1.1.33">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "עני"><adjective definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "עני"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "חייב" id = "ref.2.1.1.1.34">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "חייב"><modal gender = "masculine" number = "singular" person = "any"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "חייב"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "חייב"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "חייב"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "חייב"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <base lexiconItem = "חייב"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <base lexiconItem = "חייב"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ובעל" id = "ref.2.1.1.1.35">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <prefix id = "2" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "על"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "הבית" id = "ref.2.1.1.1.36">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "בית"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "בית"><properName definiteness="true" gender = "feminine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "פטור" id = "ref.2.1.1.1.37">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "פטור"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "פטור"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "פטור"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <base lexiconItem = "פטור"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "פטר"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <base lexiconItem = "פטר"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <base lexiconItem = "פטר"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "פשט" id = "ref.2.1.1.1.38">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "פשט"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "פשט"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "פשט"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <base lexiconItem = "פישט"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "פישט"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "בעל" id = "ref.2.1.1.1.39">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "על"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "הבית" id = "ref.2.1.1.1.40">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "בית"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "בית"><properName definiteness="true" gender = "feminine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "את" id = "ref.2.1.1.1.41">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "את"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "הוא"><pronoun type = "personal" gender = "feminine" number = "singular" person = "2"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ידו" id = "ref.2.1.1.1.42">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "יד"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לחוץ" id = "ref.2.1.1.1.43">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "חוץ"><wPrefix/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "חוץ"><wPrefix definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "לחוץ"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "חוץ"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "חוץ"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <base lexiconItem = "לחוץ"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "חוץ"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="1.0">
+            <base lexiconItem = "לחץ"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <base lexiconItem = "לחץ"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ונתן" id = "ref.2.1.1.1.44">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "נתן"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניתן"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניתן"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניתן"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניתן"><participle type = "verb" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "נתן"><properName gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לתוך" id = "ref.2.1.1.1.45">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "לתוך"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><wPrefix/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><wPrefix definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="1.0">
+            <base lexiconItem = "תיווך"><verb tense = "infinitive" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ידו" id = "ref.2.1.1.1.46">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "יד"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "של" id = "ref.2.1.1.1.47">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "של"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "נשל"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "עני" id = "ref.2.1.1.1.48">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "עני"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "עני"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "עני"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <base lexiconItem = "ענה"><verb gender = "feminine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <base lexiconItem = "עינה"><verb gender = "feminine" number = "singular" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "או" id = "ref.2.1.1.1.49">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "או"><conjunction type = "coordinating"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "שנטל" id = "ref.2.1.1.1.50">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "נטל"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "נטל"><noun type = "verb" definiteness="true" gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "נטל"><verb type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניטל"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניטל"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניטל"><verb type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניטל"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "מתוכה" id = "ref.2.1.1.1.51">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "מ"/>
+            <base lexiconItem = "תוך"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "מתוך"><preposition/>
+            </base>
+            <suffix function = "pronomial" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "תיווך"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" binyan = "Pi'el"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+        </token>
+        <token surface = "והכניס" id = "ref.2.1.1.1.52">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "הכניס"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "בעל" id = "ref.2.1.1.1.53">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "על"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "הבית" id = "ref.2.1.1.1.54">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "בית"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "בית"><properName definiteness="true" gender = "feminine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "חייב" id = "ref.2.1.1.1.55">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "חייב"><modal gender = "masculine" number = "singular" person = "any"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "חייב"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "חייב"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "חייב"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "חייב"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <base lexiconItem = "חייב"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <base lexiconItem = "חייב"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "והעני" id = "ref.2.1.1.1.56">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "עני"><adjective definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "עני"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "פטור" id = "ref.2.1.1.1.57">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "פטור"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "פטור"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "פטור"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <base lexiconItem = "פטור"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "פטר"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <base lexiconItem = "פטר"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <base lexiconItem = "פטר"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "פשט" id = "ref.2.1.1.1.58">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "פשט"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "פשט"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "פשט"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <base lexiconItem = "פישט"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "פישט"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "העני" id = "ref.2.1.1.1.59">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "עני"><adjective definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "עני"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "את" id = "ref.2.1.1.1.60">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "את"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "הוא"><pronoun type = "personal" gender = "feminine" number = "singular" person = "2"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ידו" id = "ref.2.1.1.1.61">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "יד"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לפנים" id = "ref.2.1.1.1.62">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "לפנים"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פן"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פני"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פן"><noun definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פני"><noun definiteness="true" gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine and feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun definiteness="true" gender = "masculine and feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "10" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ונטל" id = "ref.2.1.1.1.63">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "נטל"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "נטל"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "נטל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניטל"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניטל"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניטל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניטל"><participle type = "verb" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "בעל" id = "ref.2.1.1.1.64">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "על"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "הבית" id = "ref.2.1.1.1.65">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "בית"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "בית"><properName definiteness="true" gender = "feminine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "מתוכה" id = "ref.2.1.1.1.66">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "מ"/>
+            <base lexiconItem = "תוך"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "מתוך"><preposition/>
+            </base>
+            <suffix function = "pronomial" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "תיווך"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" binyan = "Pi'el"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+        </token>
+        <token surface = "או" id = "ref.2.1.1.1.67">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "או"><conjunction type = "coordinating"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "שנתן" id = "ref.2.1.1.1.68">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "שינה"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "plural" gender = "feminine"/>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "שנה"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "plural" gender = "feminine"/>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "נתן"><verb type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניתן"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניתן"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניתן"><verb type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניתן"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "נתן"><properName type = "verb" definiteness="true" gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לתוכה" id = "ref.2.1.1.1.69">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "לתוך"><preposition/>
+            </base>
+            <suffix function = "pronomial" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "תיווך"><verb tense = "infinitive" binyan = "Pi'el"/>
+            </base>
+            <suffix function = "accusative or nominative" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+        </token>
+        <token surface = "והוציא" id = "ref.2.1.1.1.70">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "הוציא"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "שניהן" id = "ref.2.1.1.1.71">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "שניים"><pronoun type = "personal"/>
+            </base>
+            <suffix function = "pronomial" person = "3" number = "plural" gender = "masculine"/>
+          </analysis>
+        </token>
+        <token surface = "פטורין" id = "ref.2.1.1.1.72">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "פטור"><adjective gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "פטור"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "פטר"><participle type = "noun/adjective" gender = "masculine" number = "plural" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "פשט" id = "ref.2.1.1.1.73">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "פשט"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "פשט"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "פשט"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <base lexiconItem = "פישט"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "פישט"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "בעל" id = "ref.2.1.1.1.74">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ב"/>
+            <base lexiconItem = "על"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "בעל"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <base lexiconItem = "בעל"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "הבית" id = "ref.2.1.1.1.75">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "בית"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "בית"><properName definiteness="true" gender = "feminine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "את" id = "ref.2.1.1.1.76">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "את"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "הוא"><pronoun type = "personal" gender = "feminine" number = "singular" person = "2"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ידו" id = "ref.2.1.1.1.77">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "יד"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "יידה"><verb gender = "masculine and feminine" number = "plural" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לחוץ" id = "ref.2.1.1.1.78">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "חוץ"><wPrefix/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "חוץ"><wPrefix definiteness="true"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "לחוץ"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "חוץ"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "חוץ"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <base lexiconItem = "לחוץ"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "חוץ"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="1.0">
+            <base lexiconItem = "לחץ"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <base lexiconItem = "לחץ"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ונטל" id = "ref.2.1.1.1.79">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "נטל"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "נטל"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "נטל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניטל"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניטל"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניטל"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "ניטל"><participle type = "verb" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "העני" id = "ref.2.1.1.1.80">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "עני"><adjective definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "עני"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "מתוכה" id = "ref.2.1.1.1.81">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "מ"/>
+            <base lexiconItem = "תוך"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "מתוך"><preposition/>
+            </base>
+            <suffix function = "pronomial" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "תיווך"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" binyan = "Pi'el"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+        </token>
+        <token surface = "או" id = "ref.2.1.1.1.82">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "או"><conjunction type = "coordinating"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "שנתן" id = "ref.2.1.1.1.83">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "שינה"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "plural" gender = "feminine"/>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "שנה"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "plural" gender = "feminine"/>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "נתן"><verb type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניתן"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניתן"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניתן"><verb type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "ניתן"><participle type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "נתן"><properName type = "verb" definiteness="true" gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לתוכה" id = "ref.2.1.1.1.84">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תוך"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "לתוך"><preposition/>
+            </base>
+            <suffix function = "pronomial" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "תיווך"><verb tense = "infinitive" binyan = "Pi'el"/>
+            </base>
+            <suffix function = "accusative or nominative" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+        </token>
+        <token surface = "והכניס" id = "ref.2.1.1.1.85">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "הכניס"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "שניהם" id = "ref.2.1.1.1.86">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "שניים"><pronoun type = "personal"/>
+            </base>
+            <suffix function = "pronomial" person = "3" number = "plural" gender = "masculine"/>
+          </analysis>
+        </token>
+        <token surface = "פטורין" id = "ref.2.1.1.1.87">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "פטור"><adjective gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "פטור"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "פטר"><participle type = "noun/adjective" gender = "masculine" number = "plural" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+      </sentence>
+      <sentence id = "ref.2.1.1.2">
+        ref.2.1.1.2" name = "">
+        <token surface = "לא" id = "ref.2.1.1.2.1">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "לא"><negation/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ישב" id = "ref.2.1.1.2.2">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "ישב"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "ישב"><verb gender = "masculine" number = "singular" person = "3" tense = "future" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "יישב"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "יישב"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "אדם" id = "ref.2.1.1.2.3">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "אדם"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "אדם"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "אד"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "plural" gender = "masculine"/>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "אדם"><properName gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לפני" id = "ref.2.1.1.2.4">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "לפני"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פני"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פני"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine and feminine" number = "plural" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "פנים"><noun gender = "masculine and feminine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "1" number = "singular" gender = "masculine and feminine"/>
+          </analysis>
+        </token>
+        <token surface = "הספר" id = "ref.2.1.1.2.5">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "ספר"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "סמוך" id = "ref.2.1.1.2.6">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "סמוך"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "סמוך"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "סמך"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "סמך"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "סמך"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "למנחה" id = "ref.2.1.1.2.7">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "מנחה"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "מנחה"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "מנחה"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "מנחה"><noun definiteness="true" gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "מנחה"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "מנח"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "מנחה"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "הנחה"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "הנחה"><participle type = "noun/adjective" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "10" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "הנחה"><participle type = "noun/adjective" gender = "feminine" number = "singular" person = "any" status = "absolute" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "11" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "הנחה"><participle type = "noun/adjective" definiteness="true" gender = "feminine" number = "singular" person = "any" status = "absolute" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "12" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "הנחה"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "13" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "הנחה"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" binyan = "Hif'il"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+        </token>
+        <token surface = "עד" id = "ref.2.1.1.2.8">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "עד"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "עד"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "עד"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "שיתפלל" id = "ref.2.1.1.2.9">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "relativizer/subordinatingConjunction" surface = "ש"/>
+            <base lexiconItem = "התפלל"><verb type = "verb" definiteness="true" gender = "masculine" number = "singular" person = "3" tense = "future" binyan = "Hitpa'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לא" id = "ref.2.1.1.2.10">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "לא"><negation/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "יכנס" id = "ref.2.1.1.2.11">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "נכנס"><verb gender = "masculine" number = "singular" person = "3" tense = "future" binyan = "Nif'al"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "כינס"><verb gender = "masculine" number = "singular" person = "3" tense = "future" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "אדם" id = "ref.2.1.1.2.12">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "אדם"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "אדם"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "אד"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "plural" gender = "masculine"/>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "אדם"><properName gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "למרחץ" id = "ref.2.1.1.2.13">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "מרחץ"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "מרחץ"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "מרחץ"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ולא" id = "ref.2.1.1.2.14">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "לא"><negation/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לבורסקי" id = "ref.2.1.1.2.15">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "לבורסקי"><adverb/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "לבורסקי"><preposition/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "לבורסקי"><properName/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <base lexiconItem = "לבורסקי"><properName/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "בורסקי"><adjective gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "בורסקי"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "בורסקי"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "בורסקי"><noun gender = "feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "9" score="0.0">
+            <base lexiconItem = "לבורסקי"><participle type = "noun/adjective" gender = "masculine" number = "plural" person = "any" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "10" score="0.0">
+            <base lexiconItem = "לבורסקי"><adjective gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "11" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "בורסקי"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "12" score="0.0">
+            <base lexiconItem = "לבורסקי"><noun gender = "masculine" number = "plural" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "13" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "בורסקי"><noun gender = "masculine" number = "plural" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "14" score="0.0">
+            <base lexiconItem = "לבורסקי"><participle type = "verb" gender = "masculine" number = "plural" person = "any" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "15" score="0.0">
+            <base lexiconItem = "לבורסקי"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative"/>
+            </base>
+          </analysis>
+          <analysis id = "16" score="0.0">
+            <base lexiconItem = "לבורסקי"><verb tense = "infinitive"/>
+            </base>
+          </analysis>
+          <analysis id = "17" score="0.0">
+            <base lexiconItem = "לבורסקי"><preposition/>
+            </base>
+            <suffix function = "pronomial" person = "2" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "18" score="0.0">
+            <base lexiconItem = "לבורסק"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "19" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "בורסק"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "20" score="0.0">
+            <base lexiconItem = "לבורסקי"><preposition/>
+            </base>
+            <suffix function = "pronomial" person = "3" number = "singular" gender = "masculine"/>
+          </analysis>
+          <analysis id = "21" score="0.0">
+            <base lexiconItem = "לבורסק"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "22" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "בורסק"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "23" score="0.0">
+            <base lexiconItem = "לבורסקי"><preposition/>
+            </base>
+            <suffix function = "pronomial" person = "3" number = "singular" gender = "feminine"/>
+          </analysis>
+          <analysis id = "24" score="0.0">
+            <base lexiconItem = "לבורס"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "plural" gender = "masculine"/>
+          </analysis>
+          <analysis id = "25" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "בורס"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+            <suffix function = "possessive" person = "3" number = "plural" gender = "masculine"/>
+          </analysis>
+        </token>
+        <token surface = "ולא" id = "ref.2.1.1.2.16">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "לא"><negation/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לאכול" id = "ref.2.1.1.2.17">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "אכל"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "אכל"><participle type = "noun/adjective" definiteness="true" gender = "masculine" number = "singular" person = "any" status = "absolute" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "אכל"><participle type = "noun/adjective" gender = "masculine" number = "singular" person = "any" status = "construct" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="1.0">
+            <base lexiconItem = "אכל"><verb tense = "infinitive" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ולא" id = "ref.2.1.1.2.18">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "לא"><negation/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לדין" id = "ref.2.1.1.2.19">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "דין"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "דין"><noun definiteness="true" gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "דין"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "דין"><properName gender = "masculine" number = "singular"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ואם" id = "ref.2.1.1.2.20">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "אם"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "אם"><noun gender = "feminine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "אם"><conjunction type = "coordinating"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "התחילו" id = "ref.2.1.1.2.21">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "התחיל"><verb gender = "masculine and feminine" number = "plural" person = "3" tense = "past" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "התחיל"><verb gender = "masculine and feminine" number = "plural" person = "2" tense = "imperative" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "התחייל"><verb gender = "masculine and feminine" number = "plural" person = "3" tense = "past" binyan = "Hitpa'el"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "התחייל"><verb gender = "masculine and feminine" number = "plural" person = "2" tense = "imperative" binyan = "Hitpa'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "אין" id = "ref.2.1.1.2.22">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "אין"><negation/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "אין"><modal/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "אין"><wPrefix/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "אין"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <base lexiconItem = "יש"><existential polarity = "negative"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "מפסיקים" id = "ref.2.1.1.2.23">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "מ"/>
+            <base lexiconItem = "פסיק"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "הפסיק"><participle type = "noun/adjective" gender = "masculine" number = "plural" person = "any" status = "absolute" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "הפסיק"><participle type = "verb" gender = "masculine" number = "plural" person = "any" status = "absolute" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "מפסיקים" id = "ref.2.1.1.2.24">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "מ"/>
+            <base lexiconItem = "פסיק"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "הפסיק"><participle type = "noun/adjective" gender = "masculine" number = "plural" person = "any" status = "absolute" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "הפסיק"><participle type = "verb" gender = "masculine" number = "plural" person = "any" status = "absolute" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לקרות" id = "ref.2.1.1.2.25">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "קר"><adjective gender = "feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "קר"><adjective definiteness="true" gender = "feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "קרה"><noun gender = "feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "קרה"><noun definiteness="true" gender = "feminine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "קר"><adjective gender = "feminine" number = "plural" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "6" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "קרה"><noun gender = "feminine" number = "plural" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "7" score="1.0">
+            <base lexiconItem = "קרה"><verb tense = "infinitive" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "8" score="0.0">
+            <base lexiconItem = "קירה"><verb tense = "infinitive" binyan = "Pi'el"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "קריאת" id = "ref.2.1.1.2.26">
+          <analysis id = "1" score="0.0">
+            <base lexiconItem = "קריא"><adjective gender = "feminine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="1.0">
+            <base lexiconItem = "קריאה"><noun gender = "feminine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "שמע" id = "ref.2.1.1.2.27">
+          <analysis id = "1" score="1.0">
+            <base lexiconItem = "שמע"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "שמע"><noun gender = "masculine" number = "singular" status = "construct"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <base lexiconItem = "שמע"><verb gender = "masculine" number = "singular" person = "3" tense = "past" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <base lexiconItem = "שמע"><verb gender = "masculine" number = "singular" person = "2" tense = "imperative" binyan = "Pa'al"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "ואין" id = "ref.2.1.1.2.28">
+          <analysis id = "1" score="1.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "אין"><negation/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "אין"><modal/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "אין"><wPrefix/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "אין"><noun gender = "masculine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "5" score="0.0">
+            <prefix id = "1" function = "conjunction" surface = "ו"/>
+            <base lexiconItem = "יש"><existential polarity = "negative"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "מפסיקין" id = "ref.2.1.1.2.29">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "מ"/>
+            <base lexiconItem = "פסיק"><noun gender = "masculine" number = "plural" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <base lexiconItem = "הפסיק"><participle type = "noun/adjective" gender = "masculine" number = "plural" person = "any" status = "absolute" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <base lexiconItem = "הפסיק"><participle type = "verb" gender = "masculine" number = "plural" person = "any" status = "absolute" binyan = "Hif'il"/>
+            </base>
+          </analysis>
+        </token>
+        <token surface = "לתפלה" id = "ref.2.1.1.2.30">
+          <analysis id = "1" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תפל"><adjective gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "2" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תפל"><adjective definiteness="true" gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "3" score="1.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תפלה"><noun gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+          <analysis id = "4" score="0.0">
+            <prefix id = "1" function = "preposition" surface = "ל"/>
+            <base lexiconItem = "תפלה"><noun definiteness="true" gender = "feminine" number = "singular" status = "absolute"/>
+            </base>
+          </analysis>
+        </token>
+      </sentence>
+    </paragraph>
+  </article>
+</corpus>

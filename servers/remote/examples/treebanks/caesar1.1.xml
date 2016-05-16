@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<treebank version="1.5"	>
+	<sentence>
+    <word id="1" form="unam"/>
+    <word id="2" form="incolunt"/>
+    <word id="3" form="Belgae"/>
+    <word id="4" form="aliam"/>
+    <word id="5" form="Aquitani"/>
+	</sentence>
+</treebank>

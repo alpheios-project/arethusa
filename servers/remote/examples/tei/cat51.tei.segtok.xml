@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI.2>
+  <text lang="la">
+    <body>
+      <div1 type="Lyrics" org="uniform" sample="complete">
+        <div2 type="Poem" n="51" met="Lesser Sapphic" org="uniform" sample="complete">
+          <lg org="uniform" sample="complete">
+            <l>
+              <w s_n="1" n="1">Ille</w>
+              <w s_n="1" n="2">mi</w>
+              <w s_n="1" n="3">par</w>
+              <w s_n="1" n="4">esse</w>
+              <w s_n="1" n="5">deo</w>
+              <w s_n="1" n="6">videtur</w>
+              <pc s_n="1" n="7">,</pc>
+            </l>
+            <l>
+              <w s_n="1" n="8">ille</w>
+              <pc s_n="1" n="9">,</pc>
+              <w s_n="1" n="10">si</w>
+              <w s_n="1" n="11">fas</w>
+              <w s_n="1" n="12">est</w>
+              <pc s_n="1" n="13">,</pc>
+              <w s_n="1" n="14">superare</w>
+              <w s_n="1" n="15">divos</w>
+              <pc s_n="1" n="16">,</pc>
+            </l>
+            <l>
+              <w s_n="1" n="17">qui</w>
+              <w s_n="1" n="18">sedens</w>
+              <w s_n="1" n="19">adversus</w>
+              <w s_n="1" n="20">identidem</w>
+              <w s_n="1" n="21">te</w>
+            </l>
+            <l>
+              <w s_n="1" n="22">spectat</w>
+              <w s_n="1" n="23">et</w>
+              <w s_n="1" n="24">audit</w>
+            </l>
+          </lg>
+          <lg org="uniform" sample="complete">
+            <l>
+              <w s_n="1" n="25">dulce</w>
+              <w s_n="1" n="26">ridentem</w>
+              <pc s_n="1" n="27">,</pc>
+              <w s_n="1" n="28">misero</w>
+              <w s_n="1" n="29">quod</w>
+              <w s_n="1" n="30">omnis</w>
+            </l>
+            <l>
+              <w s_n="1" n="31">eripit</w>
+              <w s_n="1" n="32">sensus</w>
+              <w s_n="1" n="33">mihi</w>
+              <pc s_n="1" n="34">:</pc>
+              <w s_n="2" n="1">nam</w>
+              <w s_n="2" n="2">simul</w>
+              <w s_n="2" n="3">te</w>
+              <pc s_n="2" n="4">,</pc>
+            </l>
+            <l>
+              <w s_n="2" n="5">Lesbia</w>
+              <pc s_n="2" n="6">,</pc>
+              <w s_n="2" n="7">adspexi</w>
+              <pc s_n="2" n="8">,</pc>
+              <w s_n="2" n="9">nihil</w>
+              <w s_n="2" n="10">est</w>
+              <w s_n="2" n="11">super</w>
+              <w s_n="2" n="12">mi</w>
+            </l>
+            <l>
+              <gap desc="deest v. 1"/>
+            </l>
+          </lg>
+          <lg org="uniform" sample="complete">
+            <l>
+              <w s_n="2" n="13">lingua</w>
+              <w s_n="2" n="14">sed</w>
+              <w s_n="2" n="15">torpet</w>
+              <pc s_n="2" n="16">,</pc>
+              <w s_n="2" n="17">tenuis</w>
+              <w s_n="2" n="18">sub</w>
+              <w s_n="2" n="19">artus</w>
+            </l>
+            <l>
+              <w s_n="2" n="20">flamma</w>
+              <w s_n="2" n="21">demanat</w>
+              <pc s_n="2" n="22">,</pc>
+              <w s_n="2" n="23">sonitu</w>
+              <w s_n="2" n="24">suopte</w>
+            </l>
+            <l>
+              <w s_n="2" n="25">tintinant</w>
+              <w s_n="2" n="26">aures</w>
+              <w s_n="2" n="27">gemina</w>
+              <pc s_n="2" n="28">,</pc>
+              <w s_n="2" n="29">teguntur</w>
+            </l>
+            <l>
+              <w s_n="2" n="30">lumina</w>
+              <w s_n="2" n="31">nocte</w>
+              <pc s_n="2" n="32">.</pc>
+            </l>
+          </lg>
+          <lg org="uniform" sample="complete">
+            <l>
+              <w s_n="3" n="1">otium</w>
+              <pc s_n="3" n="2">,</pc>
+              <w s_n="3" n="3">Catulle</w>
+              <pc s_n="3" n="4">,</pc>
+              <w s_n="3" n="5">tibi</w>
+              <w s_n="3" n="6">molestum</w>
+              <w s_n="3" n="7">est</w>
+              <pc s_n="3" n="8">:</pc>
+            </l>
+            <l>
+              <w s_n="4" n="1">otio</w>
+              <w s_n="4" n="2">exsultas</w>
+              <w s_n="4" n="3">-que</w>
+              <w s_n="4" n="4">nimium</w>
+              <w s_n="4" n="5">gestis</w>
+              <pc s_n="4" n="6">.</pc>
+            </l>
+            <l>
+              <w s_n="5" n="1">otium</w>
+              <w s_n="5" n="2">et</w>
+              <w s_n="5" n="3">reges</w>
+              <w s_n="5" n="4">prius</w>
+              <w s_n="5" n="5">et</w>
+              <w s_n="5" n="6">beatas</w>
+            </l>
+            <l>
+              <w s_n="5" n="7">perdidit</w>
+              <w s_n="5" n="8">urbes</w>
+              <pc s_n="5" n="9">.</pc>
+            </l>
+          </lg>
+        </div2>
+      </div1>
+    </body>
+  </text>
+</TEI.2>

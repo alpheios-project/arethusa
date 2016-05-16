@@ -1,0 +1,32 @@
+<treebank xmlns:treebank="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" format="celano2" xml:lang="grc">
+    <sentence id="1">
+        <word id="1" form="ἐμβὰς" lemma="ἐμβαίνω" head="0" relation=""/>
+        <word id="2" form="δὲ" lemma="δέ" head="0" relation=""/>
+        <word id="3" form="εἰς" lemma="εἰς" head="0" relation=""/>
+        <word id="4" form="ἓν" lemma="ἵημι" head="0" relation=""/>
+        <word id="5" form="τῶν" lemma="ὁ" head="0" relation=""/>
+        <word id="6" form="πλοίων" lemma="πλοῖον" head="0" relation=""/>
+        <word id="7" form="," lemma="punc1" head="0" relation="AuxX"/>
+        <word id="8" form="ὃ" lemma="ὅς" head="0" relation=""/>
+        <word id="9" form="ἦν" lemma="εἰμί" head="0" relation=""/>
+        <word id="10" form="Σίμωνος" lemma="Σίμων" head="0" relation=""/>
+        <word id="11" form="," lemma="punc1" head="0" relation="AuxX"/>
+        <word id="12" form="ἠρώτησεν" lemma="ἐρωτάω" head="0" relation=""/>
+        <word id="13" form="αὐτὸν" lemma="αὐτός" head="0" relation=""/>
+        <word id="14" form="ἀπὸ" lemma="ἀπό" head="0" relation=""/>
+        <word id="15" form="τῆς" lemma="ὁ" head="0" relation=""/>
+        <word id="16" form="γῆς" lemma="Γαῖα" head="0" relation=""/>
+        <word id="17" form="ἐπαναγαγεῖν" lemma="ἐπανάγω" head="0" relation=""/>
+        <word id="18" form="ὀλίγον" lemma="ὀλίγος" head="0" relation=""/>
+        <word id="19" form="," lemma="punc1" head="0" relation="AuxX"/>
+        <word id="20" form="καθίσας" lemma="καθίζω" head="0" relation=""/>
+        <word id="21" form="δὲ" lemma="δέ" head="0" relation=""/>
+        <word id="22" form="ἐκ" lemma="ἐκ" head="0" relation=""/>
+        <word id="23" form="τοῦ" lemma="τις" head="0" relation=""/>
+        <word id="24" form="πλοίου" lemma="πλοῖον" head="0" relation=""/>
+        <word id="25" form="ἐδίδασκεν" lemma="διδάσκω" head="0" relation=""/>
+        <word id="26" form="τοὺς" lemma="ὁ" head="0" relation=""/>
+        <word id="27" form="ὄχλους" lemma="ὄχλος" head="0" relation=""/>
+        <word id="28" form="." lemma="punc1" head="0" relation="AuxK"/>
+    </sentence>
+</treebank>

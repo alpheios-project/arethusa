@@ -1,0 +1,24 @@
+{
+  "name": "n3",
+  "version": "0.4.3",
+  "description": "Lightning fast, asynchronous, streaming Turtle / N3 / RDF library.",
+  "author": {
+    "name": "Ruben Verborgh",
+    "email": "ruben.verborgh@gmail.com"
+  },
+  "keywords": [
+    "turtle",
+    "rdf",
+    "n3",
+    "streaming",
+    "asynchronous"
+  ],
+  "license": "MIT",
+  "main": "./n3-browser.js",
+  "ignore": [],
+  "homepage": "https://github.com/RubenVerborgh/N3.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RubenVerborgh/N3-Bower.git"
+  }
+}

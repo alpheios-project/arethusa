@@ -1,0 +1,22 @@
+{
+  "name": "angular-sparql-service",
+  "version": "1.0.1",
+  "authors": [
+    "Eetu Mäkelä <eetu.makela@iki.fi>"
+  ],
+  "description": "Angular service for querying SPARQL endpoints",
+  "main": "dist/sparql-service.js",
+  "license": "MIT",
+  "homepage": "https://github.com/jiemakel/angular-sparql-service",
+  "dependencies": {
+    "angular": "~1.4.8"
+  },
+  "ignore": [
+    "**/.*",
+    "tsconfig.json",
+    "tsd.json",
+    "tslint.json",
+    "package.json",
+    "gulpfile.js"
+  ]
+}

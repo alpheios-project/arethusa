@@ -1,0 +1,24 @@
+<treebank xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:treebank="http://nlp.perseus.tufts.edu/syntax/treebank/1.5" version="1.5" xsi:schemaLocation="http://nlp.perseus.tufts.edu/syntax/treebank/1.5 treebank-1.5.xsd">
+  <sentence id="4" document_id="Perseus:text:1999.02.0002" subdoc="Book=2:chapter=1" span="ab1:occupabantur0">
+    <word id="1" form="ab" lemma="ab1" postag="r--------" head="0" relation="AuxP"/>
+    <word id="2" form="non" lemma="non1" postag="d--------" head="3" relation="AuxZ"/>
+    <word id="3" form="nullis" lemma="nullus1" postag="a-p---mb-" head="1" relation="ExD"/>
+    <word id="4" form="etiam" lemma="etiam1" postag="d--------" head="0" relation="ExD"/>
+    <word id="5" form="quod" lemma="quod1" postag="c--------" head="0" relation="AuxC"/>
+    <word id="6" form="in" lemma="in1" postag="r--------" head="20" relation="AuxP"/>
+    <word id="7" form="Gallia" lemma="Gallia1" postag="n-s---fb-" head="6" relation="ADV"/>
+    <word id="8" form="a" lemma="ab1" postag="r--------" head="20" relation="AuxP"/>
+    <word id="9" form="potentioribus" lemma="potens1" postag="a-p---mbc" head="10" relation="ADV_CO"/>
+    <word id="10" form="atque" lemma="atque1" postag="c--------" head="8" relation="COORD"/>
+    <word id="11" form="iis" lemma="is1" postag="p-p---mb-" head="10" relation="ADV_CO"/>
+    <word id="12" form="qui" lemma="qui1" postag="p-p---mn-" head="17" relation="SBJ"/>
+    <word id="13" form="ad" lemma="ad1" postag="r--------" head="16" relation="AuxP"/>
+    <word id="14" form="conducendos" lemma="conduco1" postag="t-ppgpma-" head="13" relation="ATR"/>
+    <word id="15" form="homines" lemma="homo1" postag="n-p---ma-" head="14" relation="SBJ"/>
+    <word id="16" form="facultates" lemma="facultas1" postag="n-p---fa-" head="17" relation="OBJ"/>
+    <word id="17" form="habebant" lemma="habeo1" postag="v3piia---" head="11" relation="ATR"/>
+    <word id="18" form="vulgo" lemma="vulgo1" postag="d--------" head="20" relation="ADV"/>
+    <word id="19" form="regna" lemma="regnum1" postag="n-p---nn-" head="20" relation="SBJ"/>
+    <word id="20" form="occupabantur" lemma="occupo1" postag="v3piip---" head="5" relation="ADV_ExD0_PRED"/>
+  </sentence>
+</treebank>

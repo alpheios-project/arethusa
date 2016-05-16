@@ -1,0 +1,14 @@
+{
+  "name": "Angular.uuid2",
+  "main": "dist/angular-uuid2.min.js",
+  "homepage": "https://github.com/MBehtemam/angular-uuid",
+  "_release": "ce080dc0c2",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "ce080dc0c27ccd13adfa37ed132f5957a651a0a7"
+  },
+  "_source": "git://github.com/MBehtemam/angular-uuid.git",
+  "_target": "*",
+  "_originalSource": "angular-uuid2"
+}
