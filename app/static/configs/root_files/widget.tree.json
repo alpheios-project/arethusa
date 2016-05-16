@@ -1,0 +1,62 @@
+{
+  "main" : {
+    "debug" : false,
+    "showKeys" : false,
+    "@include" : "static/configs/layouts/widget.tree.json",
+    "chunkParam" : "chunk",
+    "auxConfPath": "http://services.perseids.org/arethusa-configs",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "arethusaServerTreebank",
+        "docIdentifier" : "treebank",
+        "preselector" : "w"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "arethusaServerTreebank",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "plugins" : [
+      //"artificialToken",
+      "morph",
+      "relation",
+      "depTree"
+    ]
+  },
+
+  "notifier" : {
+    "duration" : "5000",
+    "maxMessages" : 7
+  },
+
+  "navigator" : {
+    "chunkSize" : 1
+  },
+
+  "resources" : {
+    "@include" : "static/configs/resources/widget.tree.json"
+  },
+
+  "plugins" : {
+    "depTree" : { "@include":"js/arethusa.dep_tree/configs/conf.json" },
+
+    "morph" : { "@include":"js/arethusa.morph/configs/headless.json" },
+
+    "relation" : { "@include":"js/arethusa.relation/configs/headless.json" }
+
+    //"artificialToken" : { "@include":"js/arethusa.artificial_token/configs/conf.json" },
+
+    //"sg" : { "@include":"js/arethusa.sg/configs/headless.json" }
+  },
+
+  "exitHandler" : {
+    "title" : "LLT",
+    "route" : "http://latin-languge-toolkit.net"
+  },
+
+  "keyCapture" : {
+    "@include" : "static/configs/keyboard/key_map.json"
+  }
+}

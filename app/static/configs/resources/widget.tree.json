@@ -1,0 +1,35 @@
+{
+  "fakeResolver" : {
+    "route" : "http://localhost:8090/resolve/:urn",
+    "params": [
+      "urn"
+    ]
+  },
+
+  "arethusaServerTreebank" : {
+    "route" : "http://localhost:8090/examples/treebanks/1.xml"
+  },
+
+  "lexInvFusekiEndpoint" : {
+    "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
+  },
+
+  "morphologyServiceLat" : {
+    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+  },
+
+  "morphologyServiceGrc" : {
+    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+  },
+  "morphologyServicePer" : {
+    "route" : "http://localhost/extapi/morphologyservice/analysis/word?lang=per&engine=hazm"
+  },
+
+  "citeMapper" : {
+    "route" : "http://services.perseids.org/cite_mapper/find_cite"
+  },
+
+  "sgGrammar" : {
+    "route" : "http://services.perseids.org/sg/:doc.html"
+  }
+}
