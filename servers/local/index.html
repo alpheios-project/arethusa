@@ -8,5 +8,18 @@
 <body>
     <div id="arethusa"></div>
 </body>
-<script type="application/javascript" src="http://localhost:8090/js/widget.loader.js"></script>
+<script type="application/javascript" src="http://localhost:8090/js/arethusa.widget.loader.js"></script>
+<script type="text/javascript">
+    
+    var deps = {css:{},js:{}};
+    deps.css.arethusa = "http://localhost:8090/css/arethusa.min.css";
+    deps.css.foundation = "http://localhost:8090/vendor/foundation-icons/foundation-icons.css";
+    deps.css.font_awesome = "http://localhost:8090/vendor/font-awesome-4.1.0/css/font-awesome.min.css";
+    deps.css.colorpicker = "http://localhost:8090/vendor/angular-foundation-colorpicker/css/colorpicker.css";
+    deps.js.packages = "http://localhost:8090/js/arethusa.packages.min.js";
+    deps.js.arethusa = "http://localhost:8090/js/arethusa.min.js";
+
+    loadArethusaWidget("arethusa","http://localhost:8090","http://localhost:8090/configs/widget.tree.json",deps);
+
+</script>
 </html>
