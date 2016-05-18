@@ -1,6 +1,6 @@
 {
   "main" : {
-    "@include" : "layouts/perseids.json",
+    "@include" : "static/configs/layouts/perseids.json",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "perseidsResource",
@@ -28,7 +28,7 @@
   },
 
   "auths": {
-    "@include" : "auths/perseids_local.json"
+    "@include" : "static/configs/auths/perseids_local.json"
   },
 
   "navbar" : {
@@ -39,7 +39,7 @@
   },
 
   "resources" : {
-    "@include" : "resources/perseids_local.json"
+    "@include" : "static/configs/resources/perseids_local.json"
   },
 
   "plugins" : {
@@ -129,7 +129,7 @@
   },
 
   "exitHandler" : {
-    "@include" : "exit_handler/perseids_local.json"
+    "@include" : "static/configs/exit_handler/perseids_local.json"
   },
 
   "relocateHandler" : {
@@ -139,6 +139,6 @@
   },
 
   "keyCapture" : {
-    "@include" : "keyboard/key_map.json"
+    "@include" : "static/configs/keyboard/key_map.json"
   }
 }
