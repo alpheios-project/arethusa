@@ -72,6 +72,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
       parseSg(token, word);
       parseArtificial(token, word);
       parseHead(token, word, artificials);
+      parseComment(token,word);
 
       var internalId = generateInternalId(word, sentenceId);
       var sourceId   = word._id;
@@ -98,6 +99,10 @@ angular.module('arethusa').factory('TreebankRetriever', [
         lemma: word._lemma,
         postag: word._postag
       };
+
+      // if we have any morphology info from the document
+      // mark the origin as such
+      token.morphology.origin = 'document';
 
       var gloss = word._gloss;
       if (gloss) {
@@ -128,7 +133,12 @@ angular.module('arethusa').factory('TreebankRetriever', [
       }
     }
 
-
+    function parseComment(token, word) {
+      var comment = word._comment;
+      if (comment) {
+        token.comment = comment;
+      }
+    }
     // Helpers
 
 

@@ -296,7 +296,7 @@ var arethusaUtil = {
     },
 
     isUrl: function(str) {
-      return str.match(/^http:\/\//);
+      return str.match(/^https?:\/\//);
     },
 
     capitalize: function(str) {

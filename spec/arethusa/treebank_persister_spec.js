@@ -113,12 +113,14 @@ describe('treebank persister', function() {
       expect(persister).toBeDefined();
 
       state.change('0001', 'head.id', '0002');
+      state.change('0001', 'comment', 'meter:hx');
 
       var updatedDoc = documentStore.store[docId];
       persister.saveData(function() {});
 
       expect(updatedDoc).toBeDefined();
       expect(updatedDoc.json.treebank.sentence.word[0]._head).toBe('2');
+      expect(updatedDoc.json.treebank.sentence.word[0]._comment).toBe('meter:hx');
     });
 
     it('does not update when chunk is not marked as changed', function() {

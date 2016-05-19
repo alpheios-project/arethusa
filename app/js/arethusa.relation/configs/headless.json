@@ -1,0 +1,4 @@
+{
+  "advancedMode" : true,
+  "@include": "js/arethusa.relation/configs/relation/relations.json"
+}

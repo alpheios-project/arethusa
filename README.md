@@ -1,15 +1,14 @@
 # Arethusa: Annotation Environment
 
-[![Dependencies](http://allthebadges.io/latin-language-toolkit/arethusa/gemnasium.png)](http://allthebadges.io/latin-language-toolkit/arethusa/gemnasium)
-[![Build Status](http://allthebadges.io/latin-language-toolkit/arethusa/travis.png)](http://allthebadges.io/latin-language-toolkit/arethusa/travis)
-[![Coverage](http://allthebadges.io/latin-language-toolkit/arethusa/coveralls.png)](http://allthebadges.io/latin-language-toolkit/arethusa/coveralls)
-[![Code Climate](http://allthebadges.io/latin-language-toolkit/arethusa/code_climate.png)](http://allthebadges.io/latin-language-toolkit/arethusa/code_climate)
+![Dependencies](https://gemnasium.com/alpheios-project/arethusa.svg)
+![Build Status](https://travis-ci.org/alpheios-project/arethusa.svg?branch=master)
+![Coverage](https://coveralls.io/repos/alpheios-project/arethusa/badge.svg?branch=master)
+![Code Climate](https://codeclimate.com/github/alpheios-project/arethusa/badges/gpa.svg)
 ![codeship](https://www.codeship.io/projects/1fbcf7f0-b01d-0131-a029-52deea7632c1/status)
 
+Be sure to check out our [wiki](https://github.com/alpheios-project/arethusa/wiki) for design documentation.
 
-[![Selenium Test Status](https://saucelabs.com/browser-matrix/arethusa.svg)](https://saucelabs.com/u/arethusa)
-
-Be sure to check out our [wiki](https://github.com/latin-language-toolkit/llt-annotation_environment/wiki) for conceptual notes.
+Code documentation is in progress - to build the docs run the `grunt ngdocs` task. 
 
 ## Install
 
@@ -26,8 +25,6 @@ grunt install
 If you want to run the e2e tests also execute `grunt e2e:setup`.
 
 If you want to install example data execute `grunt import`. 
-
-(N.B. you need to have sshkeys enabled for GitHub to run this task as it uses the Github ssh urls to clone the repository of example data)
 
 ## Usage
 
@@ -62,6 +59,9 @@ To set up a completely local environment run `grunt import` to import
 example data and explore it in a web-browser based file browser at
 [http://localhost:8081/browse](http://localhost:8081/browse).
 
+To build the docs, run `grunt ngdocs` and then load them 
+in the browser at [http://localhost:8081/docs/#/api](http://localhost:8081/docs/#/api).
+
 ## Funders
 
 This project has received support from the [Andrew W. Mellon Foundation](http://www.mellon.org/) and the [Institute of Museum and Library Services](http://imls.gov/) and [the Humboldt Chair of Digital Humanities at Leipzig](http://www.dh.uni-leipzig.de/wo/)
@@ -69,4 +69,5 @@ This project has received support from the [Andrew W. Mellon Foundation](http://
 ## Varia
 
 Be sure to check out the following Arethusa-related projects:
-- [Arethusa CLI tools](http://github.com/latin-language-toolkit/arethusa-cli)
+- [Arethusa CLI tools](http://github.com/alpheios-project/arethusa-cli)
+- [Vagrant Setup](http://github.com/alpheios-project/arethusa-vagrant) for an Apache-based Arethusa installation

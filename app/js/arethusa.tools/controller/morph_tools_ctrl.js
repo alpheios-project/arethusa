@@ -132,7 +132,7 @@ angular.module('arethusa.tools').controller('MorphToolsCtrl', [
       ];
 
       $scope.status = _.inject(fields, function(memo, field) {
-        memo[field] = { count: 0 };
+        memo[field] = { count: null };
         return memo;
       }, {});
     }
@@ -148,11 +148,12 @@ angular.module('arethusa.tools').controller('MorphToolsCtrl', [
 
     function doImport(setter, cb) {
       resetStatus();
+      var imported = 0;
       fileHandler.upload(function(data) {
         _.forEach(data, function(datum, str) {
-          localStorage[setter](str, datum);
+          imported += localStorage[setter](str, datum);
         });
-        cb(data);
+        cb(data,imported);
         $scope.$digest(); // so that the count can update
       });
 
@@ -191,20 +192,20 @@ angular.module('arethusa.tools').controller('MorphToolsCtrl', [
       setCount('exportForms', countForms(forms));
     }
 
-    function setFormImportCount(forms) {
-      setCount('importForms', countForms(forms));
+    function setFormImportCount(forms,imported) {
+      setCount('importForms', countForms(forms),imported);
     }
 
     function setFrequencyExportCount(data) {
       setCount('exportFrequency', countFrequencyForms(data));
     }
 
-    function setFrequencyImportCount(data) {
-      setCount('importFrequency', countFrequencyForms(data));
+    function setFrequencyImportCount(data,imported) {
+      setCount('importFrequency', countFrequencyForms(data),imported);
     }
 
-    function setCount(type, count) {
-      $scope.status[type].count = count;
+    function setCount(type, expected, actual) {
+      $scope.status[type].count = actual !== null ? actual : expected;
     }
 
     function countForms(forms) {

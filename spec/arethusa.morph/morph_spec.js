@@ -273,4 +273,81 @@ describe("morph", function() {
       expect(morph.analyses['01'].forms).toEqual([]);
     });
   });
+
+  describe('this.loadInitalAnalyses',function() {
+    it('retains the origin', function() {
+        var f1 = state.getToken('01').morphology;
+        expect(f1.origin === 'document');
+    });
+  });
+
+  describe('this.mergeDuplicateForms',function() {
+    it('merges duplicates properly',function() {    
+      var f1 = state.getToken('02').morphology;
+      var otherForms = [ arethusaMocks.localForms()['02'] ];
+      expect(otherForms[0].sg).toEqual('extra');
+      morph.mergeDuplicateForms(f1,otherForms);
+      expect(f1.origin).toEqual('document');
+      expect(f1.sg).toEqual('extra');
+      expect(otherForms.length).toEqual(0);
+    });
+  });
+
+  describe('this.canRetrieveFrom',function() {
+    it("returns false for 'document'",function() {
+      morph.noRetrieval = 'all';
+      expect(morph.canRetrieveFrom('document')).toBe(false);
+    });
+    it("returns true for 'document'",function() {
+      morph.noRetrieval = 'online';
+      expect(morph.canRetrieveFrom('document')).toBe(true);
+      morph.noRetrieval = 'BspMorphRetriever';
+      expect(morph.canRetrieveFrom('document')).toBe(true);
+      morph.noRetrieval = 'localStorage';
+      expect(morph.canRetrieveFrom('document')).toBe(true);
+      morph.noRetrieval = '';
+      expect(morph.canRetrieveFrom('document')).toBe(true);
+      morph.noRetrieval = null;
+      expect(morph.canRetrieveFrom('document')).toBe(true);
+    });
+    it("returns false for 'external'",function() {
+      morph.noRetrieval = 'all';
+      expect(morph.canRetrieveFrom('external')).toBe(false);
+      morph.noRetrieval = 'online';
+      expect(morph.canRetrieveFrom('external')).toBe(false);
+    });
+    it("returns true for 'external'",function() {
+      morph.noRetrieval = 'BspMorphRetriever';
+      expect(morph.canRetrieveFrom('external')).toBe(true);
+      morph.noRetrieval = 'localStorage';
+      expect(morph.canRetrieveFrom('external')).toBe(true);
+      morph.noRetrieval = '';
+      expect(morph.canRetrieveFrom('external')).toBe(true);
+      morph.noRetrieval = null;
+      expect(morph.canRetrieveFrom('external')).toBe(true);
+    });
+    it("returns false for 'BspMorphRetriever'",function() {
+      morph.noRetrieval = 'BspMorphRetriever';
+      expect(morph.canRetrieveFrom('BspMorphRetriever')).toBe(false);
+      morph.noRetrieval = 'BspMorphRetriever,SomeOtherMorphRetriever';
+      expect(morph.canRetrieveFrom('BspMorphRetriever')).toBe(false);
+    });
+    it("returns true for 'BspMorphRetriever'",function() {
+      morph.noRetrieval = 'localStorage';
+      expect(morph.canRetrieveFrom('BspMorphRetriever')).toBe(true);
+      morph.noRetrieval = 'localStorage,SomeOtherMorphRetriever';
+      expect(morph.canRetrieveFrom('BspMorphRetriever')).toBe(true);
+    });
+    it("returns false for 'localStorage'",function() {
+      morph.noRetrieval = 'localStorage';
+      expect(morph.canRetrieveFrom('localStorage')).toBe(false);
+      morph.noRetrieval = 'localStorage,BspMorphRetriever';
+      expect(morph.canRetrieveFrom('localStorage')).toBe(false);
+    });
+    it("returns true for 'localStorage'",function() {
+      morph.noRetrieval = 'BspMorphRetriever';
+      expect(morph.canRetrieveFrom('localStorage')).toBe(true);
+    });
+
+  });
 });

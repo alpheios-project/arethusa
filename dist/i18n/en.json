@@ -51,6 +51,16 @@
       "end": ""
     }
   },
+  "table": {
+    "id":"ID",
+    "word":"Word",
+    "head":"Head",
+    "relation": "Relation",
+    "morph": "Analyses",
+    "new": "New Form",
+    "comment": "Comment",
+    "add": "Add"
+  },
   "search": {
     "foundTokens": "Found tokens",
     "searchByToken": "by token"
