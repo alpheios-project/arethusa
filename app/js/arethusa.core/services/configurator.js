@@ -43,6 +43,9 @@ angular.module('arethusa.core').service('configurator', [
     var self = this;
     var includeParam = 'fileUrl';
 
+    // SET AND RETRIEVE CONFIGURATIONS
+    // -------------------------------
+    
     /**
      * @ngdoc property
      * @name configuration
@@ -58,43 +61,34 @@ angular.module('arethusa.core').service('configurator', [
      * {@link arethusa.core.configurator#methods_defineConfiguration defineConfiguration}
      * instead.
      */
-    this.configuration = new Template();
-
-    function notifier() {
-      return $injector.get('notifier');
-    }
-
-    var uPCached;
-    function userPreferences() {
-      if (!uPCached) uPCached = $injector.get('userPreferences');
-      return uPCached;
-    }
-
-    /**
-     * @ngdoc event
-     * @name arethusa.core.configurator#confLoaded
-     * @eventOf arethusa.core.configurator
-     *
-     * @description
-     * Broadcasted through {@link $rootScope} when the application's
-     * configuration is ready to use. Before this event is launched, it is
-     * **not** safe to instantiate services and/or plugins!
-     *
-     * Typically broadcased by {@link arethusa.core.configurator#methods_defineConfiguration defineConfiguration}.
-     */
+    this.configuration = getConfTemplate();
 
     /**
      * @ngdoc function
      * @name arethusa.core.configurator#defineConfiguration
      * @methodOf arethusa.core.configurator
      *
-     * @description
-     * TODO
+     * @description Apply new configuration and broadcast confLoaded event
+     *
+     *
+     * @params
      */
     this.defineConfiguration = function (confFile, location) {
-      this.configuration = angular.extend(new Template(), confFile);
+      this.configuration = angular.extend(getConfTemplate(), confFile);
       this.confFileLocation = location;
 
+      /**
+       * @ngdoc event
+       * @name arethusa.core.configurator#confLoaded
+       * @eventOf arethusa.core.configurator
+       *
+       * @description
+       * Broadcasted through {@link $rootScope} when the application's
+       * configuration is ready to use. Before this event is launched, it is
+       * **not** safe to instantiate services and/or plugins!
+       *
+       * Typically broadcased by {@link arethusa.core.configurator#methods_defineConfiguration defineConfiguration}.
+       */
       // As this could be called from a resolve event through
       // $routeProvider, we $timeout to call, so that we are
       // guaranteed to see it in the ArethusaCtrl
@@ -102,20 +96,7 @@ angular.module('arethusa.core').service('configurator', [
         $rootScope.$broadcast('confLoaded');
       });
     };
-
-    function auxConfPath() {
-      return self.configuration.main.auxConfPath ||
-        'http://services.perseids.org/arethusa-configs';
-    }
-
-    function parseConfUrl(url) {
-      if (url.match('^http:\/\/')) {
-        return url;
-      } else {
-        return auxConfPath() + '/' + url + '.json';
-      }
-    }
-
+    
     /**
      * @ngdoc function
      * @name arethusa.core.configurator#loadAdditionalConf
@@ -147,146 +128,21 @@ angular.module('arethusa.core').service('configurator', [
         memo.push(promise);
       });
       return $q.all(proms);
-    };
 
-    function Template() {
-      this.main = {};
-      this.plugins = {};
-      this.resources = {};
-    }
-
-    // Returns an empty configuration files with all sections
-    // as empty object properties.
-    // Useful for the configuration editor.
-    this.getConfTemplate = function () {
-      return new Template();
-    };
-
-    // Merges two configuration objects.
-    // There is a clear contract that has to be fulfilled to make this work:
-    //
-    // The datatypes of individual properties need to be static.
-    // E.g.
-    //
-    // {
-    //   plugins: {
-    //     morph: {
-    //       retrievers: ['x']
-    //     }
-    //   }
-    // }
-    //
-    // If plugins.morph.retrievers is an Array, it can only be an Array and nothing
-    // else. The same goes for Objects, Strings, and Numbers.
-    //
-    // Objects call the function recursively.
-    // Arrays are flat-pushed.
-    // Strings and Numbers are overwritten.
-    // a is extended with properties in b, that are not present in a.
-    //
-    // Currently unused after the events in
-    //    http://github.com/latin-language-toolkit/arethusa/pull/365
-    this.mergeConfigurations = function (a, b) {
-      var that = this;
-      angular.forEach(b, function (value, key) {
-        var origVal = a[key];
-        if (origVal) {
-          // Every Array is an Object, but not every Object is an Array!
-          // This defines the order of the if-else conditional.
-          if (angular.isArray(origVal)) {
-            arethusaUtil.pushAll(origVal, value);
-          } else if (angular.isObject(origVal)) {
-            that.mergeConfigurations(origVal, value);
-          } else {
-            a[key] = value;
-          }
+      function parseConfUrl(url) {
+        if (url.match('^http:\/\/')) {
+          return url;
         } else {
-          a[key] = value;
+          return auxConfPath() + '/' + url + '.json';
         }
-      });
-      return a;
-    };
 
-    // this.shallowMerge(a, b)
-    //
-    // Merges two configuration files
-    //
-    // The markup of Arethusa config files needs special handling for merging.
-    // The main sections can plainly merged through angular.extend, while
-    // subSections can only be merged one level deeper.
-    //
-    var mainSections = ['main', 'navbar', 'notifier'];
-    var subSections = ['plugins'];
-
-    function mergeMainSections(a, b) {
-      angular.forEach(mainSections, function(section, i) {
-        var sectionA = a[section];
-        var sectionB = b[section];
-        if (!sectionB) return;
-
-        mergeOrAdd(section, sectionA, sectionB, a);
-      });
-      var mainA = a.main;
-      var mainB = b.main;
-      if (!mainB) return;
-
-      angular.extend(mainA, mainB);
-    }
-
-    function mergeSubSections(a, b) {
-      var pluginsA = a.plugins;
-      var pluginsB = b.plugins;
-      if (!pluginsB) return;
-
-      angular.forEach(pluginsB, function(conf, plugin) {
-        var origConf = pluginsA[plugin];
-        mergeOrAdd(plugin, origConf, conf, a);
-      });
-    }
-
-    function mergeOrAdd(key, a, b, target) {
-      if (a) {
-        angular.extend(a, b);
-      } else {
-        target[key] = b;
+        function auxConfPath() {
+          return self.configuration.main.auxConfPath ||
+              'http://services.perseids.org/arethusa-configs';
+        }
       }
-    }
-
-    this.shallowMerge = function(a, b) {
-      mergeMainSections(a, b);
-      mergeSubSections(a, b);
-      return a;
-    };
-
-    /**
-     * @ngdoc function
-     * @name arethusa.core.configurator#getService
-     * @methodOf arethusa.core.configurator
-     *
-     * @description
-     * TODO
-     */
-    this.getService = function (serviceName) {
-      return $injector.get(serviceName);
-    };
-
-    /**
-     * @ngdoc function
-     * @name arethusa.core.configurator#getServices
-     * @methodOf arethusa.core.configurator
-     *
-     * @description
-     * TODO
-     */
-    this.getServices = function (serviceNames) {
-      if (serviceNames) {
-        var that = this;
-        // inject to an object, we want the names as well
-        return arethusaUtil.inject({}, serviceNames, function (obj, name) {
-          obj[name] = that.getService(name);
-        });
-      } else {
-        return {};
+      function notifier() {
+        return $injector.get('notifier');
       }
     };
 
@@ -309,6 +165,128 @@ angular.module('arethusa.core').service('configurator', [
       return conf[plugin] || conf.plugins[plugin] || conf.resources[plugin] || {};
     };
 
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#addPluginConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Adds a plugin configuration.
+     *
+     * @param {String} name The name of the plugin
+     * @param {Object} conf Configuration of the plugin
+     */
+    this.addPluginConf = function(name, conf) {
+      self.configuration.plugins[name] = conf;
+    };
+
+    // CONF UTILITY FUNCTIONS
+    // ----------------------
+    
+    /** Returns an empty configuration files with all sections
+    /* as empty object properties.
+    /* Useful for the configuration editor.
+     */
+    this.getConfTemplate = function () {
+      return new Template();
+
+      function Template() {
+        this.main = {};
+        this.plugins = {};
+        this.resources = {};
+      }
+    };
+
+    this.mergeConfigurations = function (a, b) {
+      // Merges two configuration objects.
+      // There is a clear contract that has to be fulfilled to make this work:
+      //
+      // The datatypes of individual properties need to be static.
+      // E.g.
+      //
+      // {
+      //   plugins: {
+      //     morph: {
+      //       retrievers: ['x']
+      //     }
+      //   }
+      // }
+      //
+      // If plugins.morph.retrievers is an Array, it can only be an Array and nothing
+      // else. The same goes for Objects, Strings, and Numbers.
+      //
+      // Objects call the function recursively.
+      // Arrays are flat-pushed.
+      // Strings and Numbers are overwritten.
+      // a is extended with properties in b, that are not present in a.
+      //
+      // Currently unused after the events in
+      //    http://github.com/latin-language-toolkit/arethusa/pull/365
+      var that = this;
+      angular.forEach(b, function (value, key) {
+        var origVal = a[key];
+        if (origVal) {
+          // Every Array is an Object, but not every Object is an Array!
+          // This defines the order of the if-else conditional.
+          if (angular.isArray(origVal)) {
+            arethusaUtil.pushAll(origVal, value);
+          } else if (angular.isObject(origVal)) {
+            that.mergeConfigurations(origVal, value);
+          } else {
+            a[key] = value;
+          }
+        } else {
+          a[key] = value;
+        }
+      });
+      return a;
+    };
+
+    this.shallowMerge = function(a, b) {
+      // Merges two configuration files
+      //
+      // The markup of Arethusa config files needs special handling for merging.
+      // The main sections can plainly merged through angular.extend, while
+      // subSections can only be merged one level deeper.
+      mergeMainSections(a, b);
+      mergeSubSections(a, b);
+      return a;
+
+      var mainSections = ['main', 'navbar', 'notifier'];
+      var subSections = ['plugins'];
+      function mergeMainSections(a, b) {
+        angular.forEach(mainSections, function(section, i) {
+          var sectionA = a[section];
+          var sectionB = b[section];
+          if (!sectionB) return;
+
+          mergeOrAdd(section, sectionA, sectionB, a);
+        });
+        var mainA = a.main;
+        var mainB = b.main;
+        if (!mainB) return;
+
+        angular.extend(mainA, mainB);
+      }
+      function mergeSubSections(a, b) {
+        var pluginsA = a.plugins;
+        var pluginsB = b.plugins;
+        if (!pluginsB) return;
+
+        angular.forEach(pluginsB, function(conf, plugin) {
+          var origConf = pluginsA[plugin];
+          mergeOrAdd(plugin, origConf, conf, a);
+        });
+      }
+      function mergeOrAdd(key, a, b, target) {
+        if (a) {
+          angular.extend(a, b);
+        } else {
+          target[key] = b;
+        }
+      }
+    };
+    
     /**
      * @ngdoc function
      * @name arethusa.core.configurator#delegateConf
@@ -346,19 +324,17 @@ angular.module('arethusa.core').service('configurator', [
      *   addition to the standard ones
      * @param {Boolean} [sticky=false] Whether or not delegation should be done sticky
      */
-
-    var standardProperties =  [
-      'displayName',
-      'main',
-      'template',
-      'external',
-      'contextMenu',
-      'contextMenuTemplate',
-      'noView',
-      'mode'
-    ];
-
     this.delegateConf = function (obj, otherKeys, sticky) {
+      var standardProperties =  [
+        'displayName',
+        'main',
+        'template',
+        'external',
+        'contextMenu',
+        'contextMenuTemplate',
+        'noView',
+        'mode'
+      ];
       var props = sticky ? otherKeys : arethusaUtil.pushAll(standardProperties, otherKeys);
       var defConf = obj.defaultConf || {};
       var isDef = function(arg) { return arg !== undefined && arg !== null; };
@@ -380,51 +356,20 @@ angular.module('arethusa.core').service('configurator', [
       }
 
       setGlobalDefaults(obj);
-    };
-
-    function setGlobalDefaults(obj) {
-      angular.forEach(getGlobalDefaults(), function(value, key) {
-        // Explicitly ask for undefined, as a false value can be a
-        // valid configuration seting!
-        if (obj[key] === undefined) {
-          obj[key] = value;
-        }
-      });
-    }
-
-    var globalDefaults = {
-      'mode' : 'editor'
-    };
-    function getGlobalDefaults() {
-      var customDefaults = getGlobalCustomDefaults();
-      var routeDefaults  = getGlobalDefaultsFromRoute();
-      return angular.extend({}, globalDefaults, customDefaults, routeDefaults);
-    }
-
-    function getGlobalCustomDefaults() {
-      return self.configuration.main.globalDefaults || {};
-    }
-
-    var routeParams = ['mode'];
-    function getGlobalDefaultsFromRoute() {
-      return arethusaUtil.inject({}, routeParams, function(memo, param) {
-        var value = $location.search()[param];
-        if (value) memo[param] = value;
-      });
-    }
-
-    /**
-     * @ngdoc function
-     * @name arethusa.core.configurator#mode
-     * @methodOf arethusa.core.configurator
-     *
-     * @description
-     * Getter to read the current global mode of the application.
-     *
-     * @returns {String} The current mode, e.g. `'editor'` or `'viewer'`.
-     */
-    this.mode = function() {
-      return getGlobalDefaults().mode;
+      var uPCached;
+      function userPreferences() {
+        if (!uPCached) uPCached = $injector.get('userPreferences');
+        return uPCached;
+      }
+      function setGlobalDefaults(obj) {
+        angular.forEach(getGlobalDefaults(), function(value, key) {
+          // Explicitly ask for undefined, as a false value can be a
+          // valid configuration seting!
+          if (obj[key] === undefined) {
+            obj[key] = value;
+          }
+        });
+      }
     };
 
     /**
@@ -468,6 +413,9 @@ angular.module('arethusa.core').service('configurator', [
       self.delegateConf(obj, keys, true);
       return obj;
     };
+
+    // GET SERVICES AND RETRIEVERS/PERSISTERS
+    // --------------------------------------
 
     /**
      * @ngdoc function
@@ -529,6 +477,41 @@ angular.module('arethusa.core').service('configurator', [
 
     /**
      * @ngdoc function
+     * @name arethusa.core.configurator#getService
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
+    this.getService = function (serviceName) {
+      return $injector.get(serviceName);
+    };
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getServices
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * TODO
+     */
+    this.getServices = function (serviceNames) {
+      if (serviceNames) {
+        var that = this;
+        // inject to an object, we want the names as well
+        return arethusaUtil.inject({}, serviceNames, function (obj, name) {
+          obj[name] = that.getService(name);
+        });
+      } else {
+        return {};
+      }
+    };
+
+    // UTILITIES FOR ACCESSING REMOTE RESOURCES
+    // ----------------------------------------
+
+    /**
+     * @ngdoc function
      * @name arethusa.core.configurator#provideResource
      * @methodOf arethusa.core.configurator
      *
@@ -547,27 +530,52 @@ angular.module('arethusa.core').service('configurator', [
       return new Resource(conf, self.provideAuth(conf.auth));
     };
 
-    function auths() {
-      return self.configuration.auths || {};
-    }
-
+    /**
+     * Creates an Auth instance for name if available
+     * @param name of Auth configuration to instantiate
+     * @returns {*} Auth object
+       */
     this.provideAuth = function(name) {
       return new Auth(auths()[name] || {}, self.mode);
+
+      function auths() {
+        return self.configuration.auths || {};
+      }
     };
+
+    // GLOBAL DEFAULT CONFIG
+    // ---------------------
 
     /**
      * @ngdoc function
-     * @name arethusa.core.configurator#addPluginConf
+     * @name arethusa.core.configurator#mode
      * @methodOf arethusa.core.configurator
      *
      * @description
-     * Adds a plugin configuration.
+     * Getter to read the current global mode of the application.
      *
-     * @param {String} name The name of the plugin
-     * @param {Object} conf Configuration of the plugin
+     * @returns {String} The current mode, e.g. `'editor'` or `'viewer'`.
      */
-    this.addPluginConf = function(name, conf) {
-      self.configuration.plugins[name] = conf;
+    this.mode = function() {
+      return getGlobalDefaults().mode;
     };
+
+    function getGlobalDefaults() {
+      var globalDefaults = { 'mode' : 'editor' };
+      var customDefaults = getGlobalCustomDefaults();
+      var routeDefaults  = getGlobalDefaultsFromRoute();
+      return angular.extend({}, globalDefaults, customDefaults, routeDefaults);
+
+      function getGlobalCustomDefaults() {
+        return self.configuration.main.globalDefaults || {};
+      }
+      function getGlobalDefaultsFromRoute() {
+        var routeParams = ['mode'];
+        return arethusaUtil.inject({}, routeParams, function(memo, param) {
+          var value = $location.search()[param];
+          if (value) memo[param] = value;
+        });
+      }
+    }
   }
 ]);
