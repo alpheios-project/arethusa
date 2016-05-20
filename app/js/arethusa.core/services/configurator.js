@@ -42,6 +42,7 @@ angular.module('arethusa.core').service('configurator', [
             $timeout, $location, $q) {
     var self = this;
     var includeParam = 'fileUrl';
+    var uPCached;
 
     // SET AND RETRIEVE CONFIGURATIONS
     // -------------------------------
@@ -356,7 +357,6 @@ angular.module('arethusa.core').service('configurator', [
       }
 
       setGlobalDefaults(obj);
-      var uPCached;
       function userPreferences() {
         if (!uPCached) uPCached = $injector.get('userPreferences');
         return uPCached;

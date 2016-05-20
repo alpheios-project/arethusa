@@ -71,10 +71,6 @@ angular.module('arethusa.core').service('idHandler', [
         res = sentenceId ? res.replace('%s', sentenceId) : res.replace('%s-', '');
       }
       return res;
-      
-      function parseId(id) {
-        return id.split('-');
-      }
     };
     
     /**
@@ -126,6 +122,10 @@ angular.module('arethusa.core').service('idHandler', [
 
     function wIdParts(wId) {
       return /(\d*)(\w*)?/.exec(wId);
+    }
+
+    function parseId(id) {
+      return id.split('-');
     }
     
     this.Map = function() {
