@@ -51,6 +51,6 @@
     "grunt-bump": "0.0.16"
   },
   "scripts": {
-    "test": "grunt karma:spec coveralls jshint && protractor protractor-config-travis.js"
+    "test": "grunt karma:spec coveralls jshint"
   }
 }
