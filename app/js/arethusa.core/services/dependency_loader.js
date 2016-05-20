@@ -9,6 +9,8 @@ angular.module('arethusa.core').service('dependencyLoader', [
   'BASE_PATH',
   function($ocLazyLoad, $q, BASE_PATH) {
 
+    var self = this;
+
     /**
      * Use $ocLazyLoad after assuring paths are URLs
      * @param args
@@ -63,7 +65,7 @@ angular.module('arethusa.core').service('dependencyLoader', [
         var deferred = $q.defer();
         promises.push(deferred.promise);
         promises[i].then(function() {
-          $ocLazyLoad.load(expandPath(el))['finally'](aU.resolveFn(deferred));
+          self.load(el)['finally'](aU.resolveFn(deferred));
         });
       });
       start.resolve();
