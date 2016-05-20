@@ -43,6 +43,239 @@ angular.module('arethusa.core').service('configurator', [
     var self = this;
     var includeParam = 'fileUrl';
     var uPCached;
+    
+    // CONF UTILITY FUNCTIONS
+    // ----------------------
+
+    /** Returns an empty configuration files with all sections
+     /* as empty object properties.
+     /* Useful for the configuration editor.
+     */
+    this.getConfTemplate = function () {
+      return new Template();
+
+      function Template() {
+        this.main = {};
+        this.plugins = {};
+        this.resources = {};
+      }
+    };
+
+    this.mergeConfigurations = function (a, b) {
+      // Merges two configuration objects.
+      // There is a clear contract that has to be fulfilled to make this work:
+      //
+      // The datatypes of individual properties need to be static.
+      // E.g.
+      //
+      // {
+      //   plugins: {
+      //     morph: {
+      //       retrievers: ['x']
+      //     }
+      //   }
+      // }
+      //
+      // If plugins.morph.retrievers is an Array, it can only be an Array and nothing
+      // else. The same goes for Objects, Strings, and Numbers.
+      //
+      // Objects call the function recursively.
+      // Arrays are flat-pushed.
+      // Strings and Numbers are overwritten.
+      // a is extended with properties in b, that are not present in a.
+      //
+      // Currently unused after the events in
+      //    http://github.com/latin-language-toolkit/arethusa/pull/365
+      var that = this;
+      angular.forEach(b, function (value, key) {
+        var origVal = a[key];
+        if (origVal) {
+          // Every Array is an Object, but not every Object is an Array!
+          // This defines the order of the if-else conditional.
+          if (angular.isArray(origVal)) {
+            arethusaUtil.pushAll(origVal, value);
+          } else if (angular.isObject(origVal)) {
+            that.mergeConfigurations(origVal, value);
+          } else {
+            a[key] = value;
+          }
+        } else {
+          a[key] = value;
+        }
+      });
+      return a;
+    };
+
+    this.shallowMerge = function(a, b) {
+      // Merges two configuration files
+      //
+      // The markup of Arethusa config files needs special handling for merging.
+      // The main sections can plainly merged through angular.extend, while
+      // subSections can only be merged one level deeper.
+      mergeMainSections(a, b);
+      mergeSubSections(a, b);
+      return a;
+
+      var mainSections = ['main', 'navbar', 'notifier'];
+      var subSections = ['plugins'];
+      function mergeMainSections(a, b) {
+        angular.forEach(mainSections, function(section, i) {
+          var sectionA = a[section];
+          var sectionB = b[section];
+          if (!sectionB) return;
+
+          mergeOrAdd(section, sectionA, sectionB, a);
+        });
+        var mainA = a.main;
+        var mainB = b.main;
+        if (!mainB) return;
+
+        angular.extend(mainA, mainB);
+      }
+      function mergeSubSections(a, b) {
+        var pluginsA = a.plugins;
+        var pluginsB = b.plugins;
+        if (!pluginsB) return;
+
+        angular.forEach(pluginsB, function(conf, plugin) {
+          var origConf = pluginsA[plugin];
+          mergeOrAdd(plugin, origConf, conf, a);
+        });
+      }
+      function mergeOrAdd(key, a, b, target) {
+        if (a) {
+          angular.extend(a, b);
+        } else {
+          target[key] = b;
+        }
+      }
+    };
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#delegateConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Delegates configuration properties to an object, frequently a plugin,
+     * for easier access.
+     *
+     * The object needs to come with his configuration file attached in a `conf`
+     * property.
+     *
+     * A set of standard properties is always delegated to the object (view the source
+     * code to see which), but `additionalProperties` can be given as an
+     * Array of Strings.
+     *
+     * The configuration value to is determined according to the following order
+     * of precedence:
+     *
+     * 1. {@link arethusa.core.userPreferences userPreferences} stored in a category
+     *      determined by `object.name`
+     * 2. The attached configuration in `object.conf`
+     * 3. An objects optional default configuration in `object.defaultConf`
+     * 4. globalDefaults specified in the ``main` section of the configuration file
+     *
+     * The optional `sticky` param determines what happens if an already configured
+     * object is passed to this function.
+     *
+     * When `sticky` is true and a property is already set (this means it is not
+     * `undefined`), it will not be overridden - the configuration will be 'sticky'.
+     *
+     *
+     * @param {Object} object Object to delegate to
+     * @param {Array} additionalProperties Additional properties to delegate in
+     *   addition to the standard ones
+     * @param {Boolean} [sticky=false] Whether or not delegation should be done sticky
+     */
+    this.delegateConf = function (obj, otherKeys, sticky) {
+      var standardProperties =  [
+        'displayName',
+        'main',
+        'template',
+        'external',
+        'contextMenu',
+        'contextMenuTemplate',
+        'noView',
+        'mode'
+      ];
+      var props = sticky ? otherKeys : arethusaUtil.pushAll(standardProperties, otherKeys);
+      var defConf = obj.defaultConf || {};
+      var isDef = function(arg) { return arg !== undefined && arg !== null; };
+      angular.forEach(props, function (property, i) {
+        if (sticky && isDef(obj[property])) return;
+
+        var userProp = userPreferences().get(obj.name, property);
+        var confProp = obj.conf[property];
+
+        var val = isDef(userProp) ?
+            userProp :
+            isDef(confProp) ? confProp : defConf[property];
+
+        obj[property] = val;
+      });
+
+      if (!obj.displayName) {
+        obj.displayName = obj.name;
+      }
+
+      setGlobalDefaults(obj);
+      function userPreferences() {
+        if (!uPCached) uPCached = $injector.get('userPreferences');
+        return uPCached;
+      }
+      function setGlobalDefaults(obj) {
+        angular.forEach(getGlobalDefaults(), function(value, key) {
+          // Explicitly ask for undefined, as a false value can be a
+          // valid configuration seting!
+          if (obj[key] === undefined) {
+            obj[key] = value;
+          }
+        });
+      }
+    };
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getConfAndDelegate
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Retrieves an objects configuration defined by its `name` property and delegates
+     * configuration properties to the object.
+     *
+     * Cf. {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
+     *
+     * @param {Object} object Object to add configuration to. Frequently a plugin.
+     * @param {Array} additionalProperties Additional properties passed to
+     *   {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
+     * @returns {Object} The updated `object`.
+     */
+    this.getConfAndDelegate = function (obj, keys) {
+      obj.conf = self.configurationFor(obj.name);
+      self.delegateConf(obj, keys);
+      return obj;
+    };
+
+    /**
+     * @ngdoc function
+     * @name arethusa.core.configurator#getStickyConf
+     * @methodOf arethusa.core.configurator
+     *
+     * @description
+     * Works the same as {@link arethusa.core.configurator#methods_getConfAndDelegate getConfAndDelegate},
+     * but with activated `sticky` mode (cf. {@link arethusa.core.configurator#methods_delegateConf delegateConf}).
+     *
+     * @param {Object} object Object to add configuration to. Frequently a plugin.
+     * @param {Array} additionalProperties Additional properties passed to
+     *   {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
+     * @returns {Object} The updated `object`.
+     */
+    this.getStickyConf = function(obj, keys) {
+      obj.conf = self.configurationFor(obj.name);
+      self.delegateConf(obj, keys, true);
+      return obj;
+    };
 
     // SET AND RETRIEVE CONFIGURATIONS
     // -------------------------------
@@ -62,7 +295,7 @@ angular.module('arethusa.core').service('configurator', [
      * {@link arethusa.core.configurator#methods_defineConfiguration defineConfiguration}
      * instead.
      */
-    this.configuration = getConfTemplate();
+    this.configuration = this.getConfTemplate();
 
     /**
      * @ngdoc function
@@ -75,7 +308,7 @@ angular.module('arethusa.core').service('configurator', [
      * @params
      */
     this.defineConfiguration = function (confFile, location) {
-      this.configuration = angular.extend(getConfTemplate(), confFile);
+      this.configuration = angular.extend(self.getConfTemplate(), confFile);
       this.confFileLocation = location;
 
       /**
@@ -179,239 +412,6 @@ angular.module('arethusa.core').service('configurator', [
      */
     this.addPluginConf = function(name, conf) {
       self.configuration.plugins[name] = conf;
-    };
-
-    // CONF UTILITY FUNCTIONS
-    // ----------------------
-    
-    /** Returns an empty configuration files with all sections
-    /* as empty object properties.
-    /* Useful for the configuration editor.
-     */
-    this.getConfTemplate = function () {
-      return new Template();
-
-      function Template() {
-        this.main = {};
-        this.plugins = {};
-        this.resources = {};
-      }
-    };
-
-    this.mergeConfigurations = function (a, b) {
-      // Merges two configuration objects.
-      // There is a clear contract that has to be fulfilled to make this work:
-      //
-      // The datatypes of individual properties need to be static.
-      // E.g.
-      //
-      // {
-      //   plugins: {
-      //     morph: {
-      //       retrievers: ['x']
-      //     }
-      //   }
-      // }
-      //
-      // If plugins.morph.retrievers is an Array, it can only be an Array and nothing
-      // else. The same goes for Objects, Strings, and Numbers.
-      //
-      // Objects call the function recursively.
-      // Arrays are flat-pushed.
-      // Strings and Numbers are overwritten.
-      // a is extended with properties in b, that are not present in a.
-      //
-      // Currently unused after the events in
-      //    http://github.com/latin-language-toolkit/arethusa/pull/365
-      var that = this;
-      angular.forEach(b, function (value, key) {
-        var origVal = a[key];
-        if (origVal) {
-          // Every Array is an Object, but not every Object is an Array!
-          // This defines the order of the if-else conditional.
-          if (angular.isArray(origVal)) {
-            arethusaUtil.pushAll(origVal, value);
-          } else if (angular.isObject(origVal)) {
-            that.mergeConfigurations(origVal, value);
-          } else {
-            a[key] = value;
-          }
-        } else {
-          a[key] = value;
-        }
-      });
-      return a;
-    };
-
-    this.shallowMerge = function(a, b) {
-      // Merges two configuration files
-      //
-      // The markup of Arethusa config files needs special handling for merging.
-      // The main sections can plainly merged through angular.extend, while
-      // subSections can only be merged one level deeper.
-      mergeMainSections(a, b);
-      mergeSubSections(a, b);
-      return a;
-
-      var mainSections = ['main', 'navbar', 'notifier'];
-      var subSections = ['plugins'];
-      function mergeMainSections(a, b) {
-        angular.forEach(mainSections, function(section, i) {
-          var sectionA = a[section];
-          var sectionB = b[section];
-          if (!sectionB) return;
-
-          mergeOrAdd(section, sectionA, sectionB, a);
-        });
-        var mainA = a.main;
-        var mainB = b.main;
-        if (!mainB) return;
-
-        angular.extend(mainA, mainB);
-      }
-      function mergeSubSections(a, b) {
-        var pluginsA = a.plugins;
-        var pluginsB = b.plugins;
-        if (!pluginsB) return;
-
-        angular.forEach(pluginsB, function(conf, plugin) {
-          var origConf = pluginsA[plugin];
-          mergeOrAdd(plugin, origConf, conf, a);
-        });
-      }
-      function mergeOrAdd(key, a, b, target) {
-        if (a) {
-          angular.extend(a, b);
-        } else {
-          target[key] = b;
-        }
-      }
-    };
-    
-    /**
-     * @ngdoc function
-     * @name arethusa.core.configurator#delegateConf
-     * @methodOf arethusa.core.configurator
-     *
-     * @description
-     * Delegates configuration properties to an object, frequently a plugin,
-     * for easier access.
-     *
-     * The object needs to come with his configuration file attached in a `conf`
-     * property.
-     *
-     * A set of standard properties is always delegated to the object (view the source
-     * code to see which), but `additionalProperties` can be given as an
-     * Array of Strings.
-     *
-     * The configuration value to is determined according to the following order
-     * of precedence:
-     *
-     * 1. {@link arethusa.core.userPreferences userPreferences} stored in a category
-     *      determined by `object.name`
-     * 2. The attached configuration in `object.conf`
-     * 3. An objects optional default configuration in `object.defaultConf`
-     * 4. globalDefaults specified in the ``main` section of the configuration file
-     *
-     * The optional `sticky` param determines what happens if an already configured
-     * object is passed to this function.
-     *
-     * When `sticky` is true and a property is already set (this means it is not
-     * `undefined`), it will not be overridden - the configuration will be 'sticky'.
-     *
-     *
-     * @param {Object} object Object to delegate to
-     * @param {Array} additionalProperties Additional properties to delegate in
-     *   addition to the standard ones
-     * @param {Boolean} [sticky=false] Whether or not delegation should be done sticky
-     */
-    this.delegateConf = function (obj, otherKeys, sticky) {
-      var standardProperties =  [
-        'displayName',
-        'main',
-        'template',
-        'external',
-        'contextMenu',
-        'contextMenuTemplate',
-        'noView',
-        'mode'
-      ];
-      var props = sticky ? otherKeys : arethusaUtil.pushAll(standardProperties, otherKeys);
-      var defConf = obj.defaultConf || {};
-      var isDef = function(arg) { return arg !== undefined && arg !== null; };
-      angular.forEach(props, function (property, i) {
-        if (sticky && isDef(obj[property])) return;
-
-        var userProp = userPreferences().get(obj.name, property);
-        var confProp = obj.conf[property];
-
-        var val = isDef(userProp) ?
-          userProp :
-          isDef(confProp) ? confProp : defConf[property];
-
-        obj[property] = val;
-      });
-
-      if (!obj.displayName) {
-        obj.displayName = obj.name;
-      }
-
-      setGlobalDefaults(obj);
-      function userPreferences() {
-        if (!uPCached) uPCached = $injector.get('userPreferences');
-        return uPCached;
-      }
-      function setGlobalDefaults(obj) {
-        angular.forEach(getGlobalDefaults(), function(value, key) {
-          // Explicitly ask for undefined, as a false value can be a
-          // valid configuration seting!
-          if (obj[key] === undefined) {
-            obj[key] = value;
-          }
-        });
-      }
-    };
-
-    /**
-     * @ngdoc function
-     * @name arethusa.core.configurator#getConfAndDelegate
-     * @methodOf arethusa.core.configurator
-     *
-     * @description
-     * Retrieves an objects configuration defined by its `name` property and delegates
-     * configuration properties to the object.
-     *
-     * Cf. {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
-     *
-     * @param {Object} object Object to add configuration to. Frequently a plugin.
-     * @param {Array} additionalProperties Additional properties passed to
-     *   {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
-     * @returns {Object} The updated `object`.
-     */
-    this.getConfAndDelegate = function (obj, keys) {
-      obj.conf = self.configurationFor(obj.name);
-      self.delegateConf(obj, keys);
-      return obj;
-    };
-
-    /**
-     * @ngdoc function
-     * @name arethusa.core.configurator#getStickyConf
-     * @methodOf arethusa.core.configurator
-     *
-     * @description
-     * Works the same as {@link arethusa.core.configurator#methods_getConfAndDelegate getConfAndDelegate},
-     * but with activated `sticky` mode (cf. {@link arethusa.core.configurator#methods_delegateConf delegateConf}).
-     *
-     * @param {Object} object Object to add configuration to. Frequently a plugin.
-     * @param {Array} additionalProperties Additional properties passed to
-     *   {@link arethusa.core.configurator#methods_delegateConf delegateConf}.
-     * @returns {Object} The updated `object`.
-     */
-    this.getStickyConf = function(obj, keys) {
-      obj.conf = self.configurationFor(obj.name);
-      self.delegateConf(obj, keys, true);
-      return obj;
     };
 
     // GET SERVICES AND RETRIEVERS/PERSISTERS
