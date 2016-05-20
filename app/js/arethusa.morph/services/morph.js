@@ -52,17 +52,11 @@ angular.module('arethusa.morph').service('morph', [
     // -------------------------
     this.name = 'morph';
     // Shows a need to define the plugins name upfront - would also spare a first configure round when the service is injected for the first time. Part of a larger change though to be done a little later.
-    globalSettings.addColorizer(this.name);
+    globalSettings.addColorizer(self.name);
     this.canSearch = true;
     this.canEdit = function() {
       return self.mode === "editor";
     };
-    this.settings = [
-      commons.setting('Expand Selected', 'expandSelection'),
-      commons.setting('Store Preferences', 'storePreferences'),
-      commons.setting('Preselect', 'preselect', this.preselectToggled),
-      commons.setting('Local Storage', 'localStorage')
-    ];
 
     this.defaultConf = {
       mappings: {},
@@ -420,6 +414,12 @@ angular.module('arethusa.morph').service('morph', [
         }
       }
     };
+    this.settings = [
+      commons.setting('Expand Selected', 'expandSelection'),
+      commons.setting('Store Preferences', 'storePreferences'),
+      commons.setting('Preselect', 'preselect', this.preselectToggled),
+      commons.setting('Local Storage', 'localStorage')
+    ];
 
     // MORE FORMS AND ANALYSES WHATEVER !!!
 
@@ -537,7 +537,7 @@ angular.module('arethusa.morph').service('morph', [
       }
     }
     function isColorizer() {
-      return globalSettings.isColorizer(this.name);
+      return globalSettings.isColorizer(self.name);
     }
 
     // LOCAL STORAGE
