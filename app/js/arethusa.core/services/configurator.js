@@ -43,6 +43,8 @@ angular.module('arethusa.core').service('configurator', [
     var self = this;
     var includeParam = 'fileUrl';
     var uPCached;
+    var mainSections = ['main', 'navbar', 'notifier'];
+    var subSections = ['plugins'];
     
     // CONF UTILITY FUNCTIONS
     // ----------------------
@@ -115,9 +117,6 @@ angular.module('arethusa.core').service('configurator', [
       mergeMainSections(a, b);
       mergeSubSections(a, b);
       return a;
-
-      var mainSections = ['main', 'navbar', 'notifier'];
-      var subSections = ['plugins'];
       function mergeMainSections(a, b) {
         angular.forEach(mainSections, function(section, i) {
           var sectionA = a[section];
