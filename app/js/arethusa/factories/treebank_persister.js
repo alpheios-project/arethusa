@@ -110,7 +110,7 @@ angular.module('arethusa').factory('TreebankPersister', [
         // postprocessing on them (such as adding artificialToken information)
         lastId = wordsInXml[wordsInXml.length - 1]._id;
 
-        var tokens = idHandler.transformToSoureIds(updated.tokens, identifier, idCreator);
+        var tokens = idHandler.transformToSourceIds(updated.tokens, identifier, idCreator);
         var withMappings = tokens.mapped;
         var fullMap = tokens.fullMap;
         var toDelete = [];

@@ -5,7 +5,7 @@
  * @name arethusa.core.idHandler
  *
  * @description
- * TODO
+ * Translates, formats, increments token IDs.
  *
  */
 angular.module('arethusa.core').service('idHandler', [
@@ -23,6 +23,12 @@ angular.module('arethusa.core').service('idHandler', [
     */
     var assigned = {};
 
+    /**
+     * Returns either padded id or padded sentenceId and id
+     * @param id
+     * @param sentenceId
+     * @returns {string}
+       */
     this.getId = function(id, sentenceId) {
       var s = sentenceId ? arethusaUtil.formatNumber(sentenceId, 4) : '';
       var w = arethusaUtil.formatNumber(id, 4);
@@ -32,11 +38,23 @@ angular.module('arethusa.core').service('idHandler', [
     // Backwards compatibility function for TreebankRetriever -
     // can be removed at a later stage. Check the function
     // padWithSentenceId there.
+    /**
+     * Returns a formatted string of padded sentenceId and id
+     * @param id
+     * @param sentenceId
+     * @returns {string}
+       */
     this.padIdWithSId = function(id, sentenceId) {
       var s = aU.formatNumber(sentenceId, 4);
       return s + '-' + id;
     };
 
+    /**
+     * 
+     * @param id
+     * @param format
+     * @returns {string|*}
+       */
     this.formatId = function(id, format) {
       if (!id) return;
 
@@ -54,8 +72,7 @@ angular.module('arethusa.core').service('idHandler', [
       }
       return res;
     };
-
-
+    
     /**
      * @ngdoc function
      * @name arethusa.core.idHandler#unassignSourceId
@@ -107,13 +124,10 @@ angular.module('arethusa.core').service('idHandler', [
       return /(\d*)(\w*)?/.exec(wId);
     }
 
-    function IdMapping(internalId, sourceId) {
-      // We don't need the internalId here strictly speaking, but who knows...
-      this.internalId = internalId;
-      this.sourceId   = sourceId;
+    function parseId(id) {
+      return id.split('-');
     }
-
-
+    
     this.Map = function() {
       var self = this;
       this.mappings = {};
@@ -128,6 +142,12 @@ angular.module('arethusa.core').service('idHandler', [
           self.mappings[identifier] = new IdMapping(internalId, sourceId);
         }
         return self.mappings[identifier];
+
+        function IdMapping(internalId, sourceId) {
+          // We don't need the internalId here strictly speaking, but who knows...
+          this.internalId = internalId;
+          this.sourceId   = sourceId;
+        }
       };
 
       this.sourceId = function(identifier) {
@@ -142,35 +162,42 @@ angular.module('arethusa.core').service('idHandler', [
       };
     };
 
-    function Transformation() {
-      var self = this;
-      this.mapped = {};
-      this.unmapped = [];
-      this.fullMap = {};
-      this.add = function(token, identifier, idCreator) {
-        var sourceId = token.idMap.sourceId(identifier);
-        var internalId = token.id;
-        if (sourceId) {
-          self.mapped[sourceId] = token;
-          self.fullMap[internalId] = sourceId;
-        } else {
-          self.unmapped.push(token);
-          sourceId = idCreator();
-          if (angular.isDefined(token.idMap.add(identifier, internalId, sourceId, token.sentenceId))) {
-            // only add the sourceId to the fullMap if we actually were able to assign it
-            // currently we silently fail if we can't but we may want to eventually throw an error notification
-            // here
-            self.fullMap[internalId] = sourceId;
-          }
-        }
-      };
-    }
-
-    this.transformToSoureIds = function(tokens, docIdentifier, idCreator) {
+      /**
+       * Revert internal Ids to sourceIds for exporting and persisting
+       * @param tokens
+       * @param docIdentifier
+       * @param idCreator
+       * @returns {*}
+       */
+    this.transformToSourceIds = function(tokens, docIdentifier, idCreator) {
       var transformation = new Transformation();
       return arethusaUtil.inject(transformation, tokens, function(memo, id, token) {
         memo.add(token, docIdentifier, idCreator);
       });
+      
+      function Transformation() {
+        var self = this;
+        this.mapped = {};
+        this.unmapped = [];
+        this.fullMap = {};
+        this.add = function(token, identifier, idCreator) {
+          var sourceId = token.idMap.sourceId(identifier);
+          var internalId = token.id;
+          if (sourceId) {
+            self.mapped[sourceId] = token;
+            self.fullMap[internalId] = sourceId;
+          } else {
+            self.unmapped.push(token);
+            sourceId = idCreator();
+            if (angular.isDefined(token.idMap.add(identifier, internalId, sourceId, token.sentenceId))) {
+              // only add the sourceId to the fullMap if we actually were able to assign it
+              // currently we silently fail if we can't but we may want to eventually throw an error notification
+              // here
+              self.fullMap[internalId] = sourceId;
+            }
+          }
+        };
+      }
     };
 
     var alphabet = [];
@@ -178,30 +205,42 @@ angular.module('arethusa.core').service('idHandler', [
       alphabet.push(String.fromCharCode(i));
     }
 
-    function letterInFront(letter) {
-      var i = alphabet.indexOf(letter) - 1;
-      return alphabet[i];
-    }
-
-    function letterAfter(letter) {
-      var i = alphabet.indexOf(letter) + 1;
-      return alphabet[i];
-    }
-
+    /**
+     * Has the Id a letter at the last position?
+     * @param id
+     * @returns {*}
+       */
     this.isExtendedId = function(id) {
       return id.match(/.*[a-z]$/);
     };
 
     var extender = 'e';
+    /**
+     * Append the character in 'extender' to the Id
+     * @param id
+     * @returns {string}
+       */
     this.extendId = function(id) {
       return id + extender;
     };
 
+    /**
+     * Remove the letter in the last position if there is one
+     * @param id
+     * @returns {*}
+       */
     this.stripExtension = function(id) {
       return self.isExtendedId(id) ? id.slice(0, -1) : id;
     };
 
+    /**
+     * Increment or decrement a wordId
+     * @param id
+     * @param increment
+     * @returns {string}
+       */
     function incDec(id, increment) {
+
       var idParts = parseId(id);
       var wId = idParts.pop();
       var sentenceId = idParts.pop();
@@ -215,8 +254,17 @@ angular.module('arethusa.core').service('idHandler', [
         if (increment) newId++; else newId--;
       }
       return self.getId(newId, sentenceId) + letter;
-    }
 
+      function letterInFront(letter) {
+        var i = alphabet.indexOf(letter) - 1;
+        return alphabet[i];
+      }
+      function letterAfter(letter) {
+        var i = alphabet.indexOf(letter) + 1;
+        return alphabet[i];
+      }
+
+    }
 
     this.decrement = function(id) {
       return incDec(id, false);
@@ -225,11 +273,7 @@ angular.module('arethusa.core').service('idHandler', [
     this.increment = function(id) {
       return incDec(id, true);
     };
-
-    function parseId(id) {
-      return id.split('-');
-    }
-
+    
     this.nonSequentialIds = function(ids) {
       var nonSequential = {};
       angular.forEach(ids, function(id, i) {
