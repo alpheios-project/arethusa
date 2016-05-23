@@ -77,11 +77,16 @@ function Arethusa() {
     self.conf = conf.main ? $.when(conf) : $.getJSON(conf) ;
     return self;
   };
-  this.start = function() {
+  this.start = function(resourceConf) {
     self.conf.then(function(conf) {
-      console.log(conf)
       var injector = angular.bootstrap(self.id,['arethusa']);
       var configurator = injector.get('configurator');
+
+      for (var k in resourceConf) {
+        var locator = injector.get('locator');
+        locator.watchUrl(false);
+        locator.set(k, resourceConf[k]);
+      }
       configurator.defineConfiguration(conf);
     });
   };

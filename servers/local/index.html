@@ -17,9 +17,9 @@
     deps.css.font_awesome = "http://localhost:8090/vendor/font-awesome-4.1.0/css/font-awesome.min.css";
     deps.css.colorpicker = "http://localhost:8090/vendor/angular-foundation-colorpicker/css/colorpicker.css";
     deps.js.packages = "http://localhost:8090/js/arethusa.packages.min.js";
-    deps.js.arethusa = "http://localhost:8090/js/arethusa.min.js";
+    deps.js.arethusa = "http://localhost:8090/js/arethusa.concat.js";
 
-    loadArethusaWidget("arethusa","http://localhost:8090","http://localhost:8090/configs/widget.tree.json",deps);
+    loadArethusaWidget("arethusa","http://localhost:8090","http://localhost:8090/configs/widget.tree.json",{doc:"1.xml"},deps);
 
 </script>
 </html>
