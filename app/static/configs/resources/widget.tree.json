@@ -7,7 +7,10 @@
   },
 
   "arethusaServerTreebank" : {
-    "route" : "http://localhost:8090/examples/treebanks/1.xml"
+    "route" : "http://localhost:8090/examples/treebanks/:doc",
+    "params": [
+      "doc"
+    ]
   },
 
   "lexInvFusekiEndpoint" : {
