@@ -6,20 +6,22 @@
     <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
 </head>
 <body>
-    <div id="arethusa"></div>
+    <div id="arethusa" class="__artsa"></div>
 </body>
-<script type="application/javascript" src="http://localhost:8090/js/arethusa.widget.loader.js"></script>
+<script type="application/javascript" src="http://localhost/widget/js/arethusa.widget.loader.js"></script>
 <script type="text/javascript">
-    
-    var deps = {css:{},js:{}};
-    deps.css.arethusa = "http://localhost:8090/css/arethusa.min.css";
-    deps.css.foundation = "http://localhost:8090/vendor/foundation-icons/foundation-icons.css";
-    deps.css.font_awesome = "http://localhost:8090/vendor/font-awesome-4.1.0/css/font-awesome.min.css";
-    deps.css.colorpicker = "http://localhost:8090/vendor/angular-foundation-colorpicker/css/colorpicker.css";
-    deps.js.packages = "http://localhost:8090/js/arethusa.packages.min.js";
-    deps.js.arethusa = "http://localhost:8090/js/arethusa.concat.js";
 
-    loadArethusaWidget("arethusa","http://localhost:8090","http://localhost:8090/configs/widget.tree.json",{doc:"1.xml"},deps);
+    window.dagre3path = 'http://localhost/widget/vendor/dagre-d3/dagre-d3.min.js';
+    window.i18npath = 'http://localhost/widget/i18n/';
+    var deps = {css:{},js:{}};
+    deps.css.arethusa = "http://localhost/widget/css/arethusa.min.css";
+    deps.css.foundation = "http://localhost/widget/vendor/foundation-icons/foundation-icons.css";
+    deps.css.font_awesome = "http://localhost/widget/vendor/font-awesome-4.1.0/css/font-awesome.min.css";
+    deps.css.colorpicker = "http://localhost/widget/vendor/angular-foundation-colorpicker/css/colorpicker.css";
+    deps.js.packages = "http://localhost/widget/js/arethusa.packages.min.js";
+    deps.js.arethusa = "http://localhost/widget/js/arethusa.min.js";
+
+    loadArethusaWidget("arethusa","http://localhost/widget","http://localhost/widget/configs/widget.tree.json",deps);
 
 </script>
 </html>
