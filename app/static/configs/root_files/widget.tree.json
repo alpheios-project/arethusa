@@ -34,6 +34,12 @@
   "navigator" : {
     "chunkSize" : 1
   },
+  "navbar" : {
+    "template" : "js/templates/navbar1.html",
+    "search" : true,
+    "notifier" : true,
+    "navigation" : true
+  },
 
   "resources" : {
     "@include" : "static/configs/resources/widget.tree.json"

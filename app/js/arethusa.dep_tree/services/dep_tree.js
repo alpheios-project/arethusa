@@ -32,7 +32,7 @@ angular.module('arethusa.depTree').service('depTree', [
     this.externalDependencies = {
       ordered: [
         "https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.js",
-        "http://localhost:8090/vendor/dagre-d3/dagre-d3.min.js"
+        window.dagred3path
       ]
     };
 

@@ -35,7 +35,7 @@ angular.module('arethusa').config([
 
     $translateProvider
       .useStaticFilesLoader({
-        prefix: 'http://localhost:8090/i18n/',
+        prefix: window.i18npath, 
         suffix: '.json'
       })
 
@@ -59,6 +59,7 @@ function Arethusa() {
     var template = document.createElement("div");
     template.setAttribute("ng-include",'gS.layout.template');
     template.setAttribute("class",'fade slow');
+    template.setAttribute("key-capture",'');
     document.getElementById(self.id.slice(1)).appendChild(template);
     var target = angular.element(self.id);
     target.attr('ng-controller','ArethusaCtrl');

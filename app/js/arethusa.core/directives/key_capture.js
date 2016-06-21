@@ -17,6 +17,10 @@ angular.module('arethusa.core').directive('keyCapture', [
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
+        // hack for widget mode, see issue #121
+        if (! element.is("body")) {
+          element = angular.element(document).find('body');
+        }
         element.on('keydown', function (event) {
           keyCapture.keydown(event);
         });
