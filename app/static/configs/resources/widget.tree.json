@@ -7,10 +7,12 @@
   },
 
   "arethusaServerTreebank" : {
-    "route" : "http://localhost:8090/examples/treebanks/:doc",
-    "params": [
-      "doc"
-    ]
+    "route" : "http://localhost/widget/examples/treebanks/1.xml"
+  },
+
+  "nemoAnnotationsApi" : {
+    "route": "{{ url_for('.r_annotation_body', sha=':doc') }}",
+    "params" : [ "doc" ]
   },
 
   "lexInvFusekiEndpoint" : {
