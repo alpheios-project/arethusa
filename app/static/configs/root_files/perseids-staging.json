@@ -1,0 +1,144 @@
+{
+  "main" : {
+    "@include" : "static/configs/layouts/perseids.json",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "perseidsResource",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "plugins" : [
+      "text",
+      "morph",
+      "relation",
+      "artificialToken",
+      "search",
+      "history",
+      "comments",
+      "depTree"
+    ],
+    "chunkParam" : "chunk",
+    "showKeys" : true
+  },
+
+  "auths": {
+    "@include" : "static/configs/auths/perseids-staging.json"
+  },
+
+  "navbar" : {
+    "template" : "js/templates/navbar1.html",
+    "search" : true,
+    "notifier" : true,
+    "navigation" : true
+  },
+
+  "resources" : {
+    "@include" : "static/configs/resources/perseids-staging.json"
+  },
+
+  "plugins" : {
+    "text" : {
+      "main" : true,
+      "template"  : "js/templates/text_with_context.html"
+    },
+
+    "depTree" : {
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.dep_tree/templates/context_menu.html",
+      "template" : "js/templates/dep_tree.html"
+    },
+
+    "search" : {
+      "template" : "js/templates/search.html",
+      "regex" : true
+    },
+
+    "morph" : {
+      "retrievers" : {
+        "BspMorphRetriever" : {
+          "resource" : "morphologyServiceLat"
+        }
+      },
+      "template"  : "js/templates/morph3.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
+      "lexicalInventory" : {
+        "retriever" : {
+          "LexicalInventoryRetriever" : {
+            "resource" : "lexInvFusekiEndpoint"
+          }
+        }
+      },
+      "matchAll" : true,
+      "@include" : "js/arethusa.morph/configs/morph/lat_attributes.json"
+    },
+
+    "relation" : {
+      "template" : "js/templates/relation.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.relation/templates/context_menu.html",
+      "@include" : "js/arethusa.relation/configs/relation/relations.json"
+    },
+
+    "history" : {
+      "template" : "js/templates/history.html"
+    },
+
+    "artificialToken" : {
+      "template" : "js/arethusa.artificial_token/templates/artificial_token.html"
+    },
+
+    "comments" : {
+      "retriever" : {
+        "CommentsRetriever" : {
+          "resource" : "perseidsComments"
+        }
+      }
+    },
+
+    "review" : {
+      "autoDiff" : true,
+      "template" : "js/arethusa.review/templates/review.html",
+      "retrievers" : {
+        "TreebankRetriever" : {
+          "resource" : "perseidsResource",
+          "docIdentifier" : "treebankReview",
+          "preselector" : "w"
+        }
+      }
+    },
+
+    "sg" : {
+      "retriever" : {
+        "SgGrammarRetriever" : {
+          "resource" : "sgGrammar"
+        }
+      },
+      "template" : "js/templates/sg.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/arethusa.sg/templates/context_menu.html",
+      "@include" : "js/arethusa.sg/configs/sg2/sg_labels.json"
+    }
+  },
+
+  "exitHandler" : {
+    "@include" : "static/configs/exit_handler/perseids-staging.json"
+  },
+
+  "relocateHandler" : {
+    "production" :  {
+      "baseUrl" : "http://www.perseids.org/tools/arethusa/app/#"
+     }
+  },
+
+  "keyCapture" : {
+    "@include" : "static/configs/keyboard/key_map.json"
+  }
+}
