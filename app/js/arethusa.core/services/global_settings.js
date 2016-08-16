@@ -302,11 +302,6 @@ angular.module('arethusa.core').service('globalSettings', [
     $rootScope.$on('confLoaded', loadLayouts);
 
     this.broadcastLayoutChange = function() {
-      if (self.layout.grid) {
-        $timeout(function() {
-          notifier.warning('The grid layout is an experimental feature and WILL contain bugs!', 'WARNING');
-        }, 1200);
-      }
       // Postpone this a bit, so that it doesn't show up as first message - also
       // fixes a little bug with the notification window disappearing too fast on
       // a layout change (as the main html is reloaded with it, the container that
