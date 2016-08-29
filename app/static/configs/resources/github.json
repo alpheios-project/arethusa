@@ -7,6 +7,10 @@
     "route" : "https://raw.githubusercontent.com/PerseusDL/treebank_data/master/v1.6/latin/data/:doc.tb.xml",
     "params" : [ "doc" ]
   },
+  "jmhGh" : {
+    "route" : "https://raw.githubusercontent.com/perseids-project/harrington_trees/master/CITE_TREEBANK_XML/perseus/:collid/:objid/:doc.tb.xml",
+    "params" : [ "collid","objid","doc" ]
+  },
   "arethusaServerTreebank" : {
     "route" : "/examples/treebanks/:doc",
     "params" : [ "doc" ]

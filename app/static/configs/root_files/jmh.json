@@ -1,0 +1,96 @@
+{
+  "main" : {
+    "@include" : "static/configs/layouts/perseids.json",
+    "retrievers" : {
+      "TreebankRetriever" : {
+        "resource" : "jmhGh",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "persisters" : {
+      "TreebankPersister" : {
+        "resource" : "jmhGh",
+        "docIdentifier" : "treebank"
+      }
+    },
+    "plugins" : [
+      "text",
+      "morph",
+      "relation",
+      "search",
+      "depTree"
+    ],
+    "chunkParam" : "chunk",
+    "showKeys" : true
+  },
+
+  "navbar" : {
+    "template" : "js/templates/navbar1.html",
+    "search" : true,
+    "notifier" : true,
+    "navigation" : true
+  },
+
+  "resources" : {
+    "@include" : "static/configs/resources/github.json"
+  },
+
+  "plugins" : {
+    "text" : {
+      "main" : true,
+      "template"  : "js/templates/text_with_context.html"
+    },
+
+    "depTree" : {
+      "main" : true,
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/templates/arethusa.dep_tree/context_menu.html",
+      "template" : "js/templates/dep_tree.html"
+    },
+
+    "search" : {
+      "template" : "js/templates/search.html",
+      "regex" : true
+    },
+
+    "morph" : {
+      "noRetrieval" : "online",
+      "template"  : "js/templates/morph3.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/templates/arethusa.morph/context_menu.html",
+      "lexicalInventory" : {
+        "retriever" : {
+          "LexicalInventoryRetriever" : {
+            "resource" : "lexInvFusekiEndpoint"
+          }
+        }
+      },
+      "matchAll" : true
+    },
+
+    "relation" : {
+      "template" : "js/templates/relation.html",
+      "contextMenu" : true,
+      "contextMenuTemplate": "js/templates/arethusa.relation/context_menu.html",
+      "@include" : "js/arethusa.relation/configs/relation/relations.json"
+    },
+
+    "history" : {
+      "template" : "js/templates/history.html"
+    }
+  },
+
+  "exitHandler" : {
+    "@include" : "static/configs/exit_handler/github.json"
+  },
+
+  "relocateHandler" : {
+    "staging" :  {
+      "baseUrl" : "http://www.perseids.org/tools/arethusa-staging/app/#"
+     }
+  },
+
+  "keyCapture" : {
+    "@include" : "static/configs/keyboard/key_map.json"
+  }
+}
