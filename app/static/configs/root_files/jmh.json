@@ -81,7 +81,7 @@
   },
 
   "exitHandler" : {
-    "@include" : "static/configs/exit_handler/github.json"
+    "@include" : "static/configs/exit_handler/jmh.json"
   },
 
   "relocateHandler" : {
