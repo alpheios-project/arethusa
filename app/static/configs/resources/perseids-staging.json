@@ -16,7 +16,7 @@
   },
 
   "lexInvFusekiEndpoint" : {
-    "route" : "http://sosol.perseus.tufts.edu/fuseki/ds/query?format=json"
+    "route" : "http://services.perseids.org/fuseki/ds/query?format=json"
   },
 
   "morphologyServiceLat" : {
