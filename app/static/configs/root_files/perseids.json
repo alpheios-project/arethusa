@@ -131,10 +131,9 @@
   "exitHandler" : {
     "@include" : "static/configs/exit_handler/perseids.json"
   },
-
   "relocateHandler" : {
-    "production" :  {
-      "baseUrl" : "http://www.perseids.org/tools/arethusa/app/#"
+    "staging" :  {
+      "baseUrl" : "http://www.perseids.org/tools/arethusa-staging/app/#"
      }
   },
 
