@@ -370,8 +370,7 @@ angular.module('arethusa.core').service('configurator', [
         }
 
         function auxConfPath() {
-          return self.configuration.main.auxConfPath ||
-              'http://services.perseids.org/arethusa-configs';
+          return self.configuration.main.auxConfPath;
         }
       }
       function notifier() {

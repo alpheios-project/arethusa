@@ -3,6 +3,7 @@
     "debug" : true,
     "showKeys" : true,
     "@include" : "layouts/main.json",
+    "auxConfPath": "http://www.perseids.org/tools/arethusa-configs",
     "chunkParam" : "chunk",
     "retrievers" : {
       "TreebankRetriever" : {

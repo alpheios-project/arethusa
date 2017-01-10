@@ -2,6 +2,7 @@
   "main" : {
     "debug" : true,
     "showKeys" : true,
+    "auxConfPath": "http://www.perseids.org/tools/arethusa-configs",
     "@include" : "layouts/perseids.json",
     "retrievers" : {
       "TreebankRetriever" : {

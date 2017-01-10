@@ -2,6 +2,7 @@
   "main" : {
     "showKeys" : true,
     "@include" : "layouts/main.json",
+    "auxConfPath": "http://www.perseids.org/tools/arethusa-configs",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "arethusaServerTreebank",

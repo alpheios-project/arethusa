@@ -1,6 +1,7 @@
 {
   "main" : {
     "debug" : true,
+    "auxConfPath": "http://www.perseids.org/tools/arethusa-configs",
     "showKeys" : true,
     "@include" : "layouts/perseids.json",
     "chunkParam" : "chunk",

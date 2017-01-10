@@ -4,7 +4,7 @@
     "showKeys" : true,
     "@include" : "static/configs/layouts/tables.json",
     "chunkParam" : "chunk",
-    "auxConfPath": "http://services.perseids.org/arethusa-configs",
+    "auxConfPath": "http://www.perseids.org/tools/arethusa-configs",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "arethusaServerTreebank",
