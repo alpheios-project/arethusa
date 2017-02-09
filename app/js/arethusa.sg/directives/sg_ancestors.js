@@ -38,7 +38,7 @@ angular.module('arethusa.sg').directive('sgAncestors', [
           updateHierarchy();
         });
       },
-      templateUrl: './templates/arethusa.sg/ancestors.html'
+      templateUrl: 'js/arethusa.sg/templates/ancestors.html'
     };
   }
 ]);
