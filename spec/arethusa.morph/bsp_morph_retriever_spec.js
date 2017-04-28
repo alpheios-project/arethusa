@@ -38,8 +38,8 @@ describe('BspMorphRetriever', function() {
                  }];
       arethusaUtil.toAry(infl).forEach(function (form) {
         retriever.flattenAttributes(form);
-        expect(form['pofs']).toEqual('noun');
-        expect(form['decl']).toEqual('1st');
+        expect(form.pofs).toEqual('noun');
+        expect(form.decl).toEqual('1st');
       });
     });
     it('does not fail if attributes are already flat', function() {
@@ -63,8 +63,8 @@ describe('BspMorphRetriever', function() {
                  }];
       arethusaUtil.toAry(infl).forEach(function (form) {
         retriever.flattenAttributes(form);
-        expect(form['pofs']).toEqual('noun');
-        expect(form['decl']).toEqual('1st');
+        expect(form.pofs).toEqual('noun');
+        expect(form.decl).toEqual('1st');
       });
     });
   });

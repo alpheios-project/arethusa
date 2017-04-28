@@ -16,8 +16,8 @@ angular.module('arethusa.morph').factory('BspMorphRetriever', [
 
     function flattenAttributes(form) {
       for (var el in form) { 
-        if (form[el]['$']) {
-          var flat = form[el]['$'];
+        if (form[el].$) {
+          var flat = form[el].$;
           form[el] = flat;
         }
       }
