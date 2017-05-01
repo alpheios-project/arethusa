@@ -40,7 +40,7 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
 
         function setLogo() {
           var icon = scope.windowWidth > 1300 ? '' : 'icon-';
-          scope.logo = "images/arethusa-" + icon + "small.png";
+          scope.logo = conf.logo;
         }
 
         function isVisible(threshold, defaultVal) {

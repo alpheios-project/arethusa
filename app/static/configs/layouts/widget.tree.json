@@ -2,14 +2,19 @@
   "layouts" : [
     {
       "name" : "Grid",
-      "template" : "js/templates/main_grid.html",
+      "template" : "js/templates/main_grid_widget.html",
       "grid" : [
         {
           "plugin" : "depTree",
-          "size" : [35, 55],
+          "size" : [24, 55],
           "position" : [0, 0],
           "style" : { "overflow": "hidden"}
         }
+        //{
+        //  "plugin" : "morph",
+        //  "size" : [12, 25],
+        //  "position" : [0, 25]
+        //}
       ]
     }
   ]

@@ -35,7 +35,8 @@
     "chunkSize" : 1
   },
   "navbar" : {
-    "template" : "js/templates/navbar1.html",
+    "template" : "js/templates/navbar.widget.html",
+    "logo" : "../remote/images/arethusa-icon-small.png",
     "search" : true,
     "notifier" : true,
     "navigation" : true

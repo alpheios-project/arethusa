@@ -60,6 +60,8 @@ function Arethusa() {
     template.setAttribute("ng-include",'gS.layout.template');
     template.setAttribute("class",'fade slow');
     template.setAttribute("key-capture",'');
+    var navbar = document.createElement("arethusa-navbar");
+    template.appendChild(navbar);
     document.getElementById(self.id.slice(1)).appendChild(template);
     var target = angular.element(self.id);
     target.attr('ng-controller','ArethusaCtrl');
