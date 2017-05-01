@@ -1,1 +1,1 @@
-/Users/fbaumgardt/xyz/arethusa/dist/arethusa.morph.concat.js
+../../dist/arethusa.morph.concat.js

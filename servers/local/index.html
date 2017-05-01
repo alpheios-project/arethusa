@@ -18,10 +18,12 @@
     deps.css.foundation = "http://localhost/widget/vendor/foundation-icons/foundation-icons.css";
     deps.css.font_awesome = "http://localhost/widget/vendor/font-awesome-4.1.0/css/font-awesome.min.css";
     deps.css.colorpicker = "http://localhost/widget/vendor/angular-foundation-colorpicker/css/colorpicker.css";
-    deps.js.packages = "http://localhost/widget/js/arethusa.packages.min.js";
+    deps.js.packages = "http://localhost/widget/js/arethusa_packages.min.js";
     deps.js.arethusa = "http://localhost/widget/js/arethusa.min.js";
 
-    loadArethusaWidget("arethusa","http://localhost/widget","http://localhost/widget/configs/widget.tree.json",deps);
+    var resource = { };
+
+    loadArethusaWidget("arethusa","http://localhost/widget","http://localhost/widget/configs/widget.tree.json",resource,deps);
 
 </script>
 </html>

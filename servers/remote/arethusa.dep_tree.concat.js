@@ -1,1 +1,1 @@
-/Users/fbaumgardt/xyz/arethusa/dist/arethusa.dep_tree.concat.js
+../../dist/arethusa.dep_tree.concat.js
