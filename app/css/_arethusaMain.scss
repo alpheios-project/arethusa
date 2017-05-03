@@ -52,6 +52,11 @@ html, body {
   float: left;
 }
 
+#main-body.widget {
+  width: 95%;
+  float: left;
+}
+
 .canvas-border {
   height: 20px;
 }
@@ -1148,5 +1153,5 @@ syntactical-description {
 .absolute_top {
   position: absolute;
   top: 0;
-  width: 90%;
+  width: 100%;
 }

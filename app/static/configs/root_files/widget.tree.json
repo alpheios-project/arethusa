@@ -47,7 +47,7 @@
   },
 
   "plugins" : {
-    "depTree" : { "@include":"js/arethusa.dep_tree/configs/conf.json" },
+    "depTree" : { "@include":"js/arethusa.dep_tree/configs/widget.json" },
 
     "morph" : { "@include":"js/arethusa.morph/configs/headless.json" },
 

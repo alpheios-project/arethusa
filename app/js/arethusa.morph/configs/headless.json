@@ -4,6 +4,9 @@
       "resource" : "morphologyServiceLat"
     }
   },
+  "noRetrieval": "online",
+  "contextMenu" : true,
+  "contextMenuTemplate": "js/arethusa.morph/templates/context_menu.html",
   "lexicalInventory" : {
     "retriever" : {
       "LexicalInventoryRetriever" : {
