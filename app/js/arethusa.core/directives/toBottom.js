@@ -37,7 +37,9 @@ angular.module('arethusa.core').directive('toBottom', [
             if (svg[0]) {
               var elBottom = element[0].getBoundingClientRect().bottom;
               var svgTop = svg.offset().top;
-              svg.height(elBottom - svgTop);
+              // explicitly setting the svg height causes truncation of the
+              // tree in the widget display
+              //svg.height(elBottom - svgTop);
             }
           });
         }
