@@ -27,8 +27,16 @@
     "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=whitakerLat"
   },
 
+  "newMorphologyServiceLat" : {
+    "route" : "http://morph.perseids.org/analysis/word?lang=lat&engine=morpheuslat"
+  },
+
   "morphologyServiceGrc" : {
     "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+  },
+
+  "newMorphologyServiceGrc" : {
+    "route" : "http://morph.perseids.org/analysis/word?lang=grc&engine=morpheusgrc"
   },
 
   "morphologyServicePer" : {
