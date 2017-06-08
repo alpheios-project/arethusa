@@ -187,11 +187,11 @@ html, body {
   display: none;
 
   &:before {
-    @include css-triangle(6px, -12px, 10px, $bgcol, 99);
+    /*@include css-triangle(6px, -12px, 10px, $bgcol, 99);*/
   }
 
   &:after {
-    @include css-triangle(7px, -14px,  9px, $bocol, 98);
+    /*@include css-triangle(7px, -14px,  9px, $bocol, 98);*/
   }
 }
 
