@@ -4,11 +4,11 @@
 
     <div id="canvas" class="row panel full-height" full-height>
       <div id="main-body" class="widget" to-bottom>
+        <div arethusa-context-menus tokens="state.tokens" plugins="plugins.withMenu"/>
         <div ng-repeat="pl in plugins.main" plugin name="{{ pl.name }}"/>
         <div keys-to-screen/>
       </div>
     </div>
-    <div arethusa-context-menus tokens="state.tokens" plugins="plugins.withMenu"/>
   </div>
   <div notifications/>
   <arethusa-navbar/>
