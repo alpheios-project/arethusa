@@ -50,7 +50,7 @@
     },
 
     "morphologyService" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=ara&engine=aramorph"
+      "route" : "http://morph.perseids.org/analysis/word?lang=ara&engine=aramorph"
     }
   },
 

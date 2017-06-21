@@ -20,11 +20,11 @@
   },
 
   "morphologyServiceLat" : {
-    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    "route" : "http://morph.perseids.org/analysis/word?lang=lat&engine=morpheuslat"
   },
 
   "morphologyServiceLat2" : {
-    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=whitakerLat"
+    "route" : "http://morph.perseids.org/analysis/word?lang=lat&engine=whitakerLat"
   },
 
   "newMorphologyServiceLat" : {
@@ -32,7 +32,7 @@
   },
 
   "morphologyServiceGrc" : {
-    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+    "route" : "http://morph.perseids.org/analysis/word?lang=grc&engine=morpheusgrc"
   },
 
   "newMorphologyServiceGrc" : {
