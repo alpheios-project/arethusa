@@ -23,7 +23,15 @@
     "route" : "http://morph.perseids.org/analysis/word?lang=lat&engine=morpheuslat"
   },
 
+  "newMorphologyServiceLat" : {
+    "route" : "http://morph.perseids.org/analysis/word?lang=lat&engine=morpheuslat"
+  },
+
   "morphologyServiceGrc" : {
+    "route" : "http://morph.perseids.org/analysis/word?lang=grc&engine=morpheusgrc"
+  },
+
+  "newMorphologyServiceGrc" : {
     "route" : "http://morph.perseids.org/analysis/word?lang=grc&engine=morpheusgrc"
   },
 
