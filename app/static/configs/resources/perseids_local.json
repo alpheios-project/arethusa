@@ -1,6 +1,6 @@
 {
   "perseidsResource" : {
-    "route" : "http://localhost/dmm_api/item/TreebankCite/:doc",
+    "route" : "http://localhost:8080/dmm_api/item/TreebankCite/:doc",
     "params" : [
       "doc"
     ],
@@ -8,7 +8,7 @@
   },
 
   "perseidsComments" : {
-    "route" : "http://localhost/dmm_api/item/TreebankCite/:doc/comments",
+    "route" : "http://localhost:8080/dmm_api/item/TreebankCite/:doc/comments",
     "params" : [
       "doc"
     ],
