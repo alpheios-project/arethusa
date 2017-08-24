@@ -569,7 +569,7 @@ module.exports = function(grunt) {
       }
     },
     clean: {
-      dist: ['dist/*.js', 'dist/*.map'],
+      dist: ['dist/*.js', 'dist/*.map', 'dist/*.json'],
       docs: [ 'css', 'font', 'grunt-scripts', 'index.html', 'js', 'partials'].map(function(file) { return Z.var.paths.doc + '/' + file; })
     },
     ngdocs: {
