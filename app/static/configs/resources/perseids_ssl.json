@@ -1,0 +1,53 @@
+{
+  "perseidsResource" : {
+    "route" : "https://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc",
+    "params" : [
+      "doc"
+    ],
+    "auth": "perseidsAuth"
+  },
+
+  "perseidsComments" : {
+    "route" : "https://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:doc/comments",
+    "params" : [
+      "doc"
+    ],
+    "auth": "perseidsAuth"
+  },
+
+  "lexInvFusekiEndpoint" : {
+    "route" : "https://services.perseids.org/fuseki/ds/query?format=json"
+  },
+
+  "morphologyServiceLat" : {
+    "route" : "https://morph.perseids.org/analysis/word?lang=lat&engine=morpheuslat"
+  },
+
+  "morphologyServiceLat2" : {
+    "route" : "https://morph.perseids.org/analysis/word?lang=lat&engine=whitakerLat"
+  },
+
+  "newMorphologyServiceLat" : {
+    "route" : "https://morph.perseids.org/analysis/word?lang=lat&engine=morpheuslat"
+  },
+
+  "morphologyServiceGrc" : {
+    "route" : "https://morph.perseids.org/analysis/word?lang=grc&engine=morpheusgrc"
+  },
+
+  "newMorphologyServiceGrc" : {
+    "route" : "https://morph.perseids.org/analysis/word?lang=grc&engine=morpheusgrc"
+  },
+
+  "morphologyServicePer" : {
+    "route" : "https://morph.perseids.org/analysis/word?lang=per&engine=hazm"
+  },
+
+  "sgGrammar" : {
+    "route" : "https://services.perseids.org/sg/:doc.html"
+  },
+
+  "citeMapper" : {
+    "route" : "https://services.perseids.org/cite_mapper/find_cite"
+  }
+}

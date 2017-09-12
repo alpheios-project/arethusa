@@ -1,0 +1,12 @@
+{
+  "perseidsAuth" : {
+    "type": "CSRF",
+    "cookie": "csrftoken",
+    "header": "X-CSRF-Token",
+    "crossDomain" : true,
+    "ping" : "https://sosol.perseids.org/sosol/dmm_api/ping",
+    "skipModes" : [
+      "viewer"
+    ]
+  }
+}
