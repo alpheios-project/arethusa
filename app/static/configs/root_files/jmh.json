@@ -1,7 +1,7 @@
 {
   "main" : {
     "@include" : "static/configs/layouts/perseids.json",
-    "auxConfPath": "http://www.perseids.org/tools/arethusa-configs",
+    "auxConfPath": "https://www.perseids.org/tools/arethusa-configs",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "jmhGh",
@@ -87,7 +87,7 @@
 
   "relocateHandler" : {
     "staging" :  {
-      "baseUrl" : "http://www.perseids.org/tools/arethusa-staging/app/#"
+      "baseUrl" : "https://www.perseids.org/tools/arethusa-staging/app/#"
      }
   },
 

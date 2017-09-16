@@ -1,7 +1,7 @@
 {
   "main" : {
     "@include" : "static/configs/layouts/perseids.json",
-    "auxConfPath": "http://www.perseids.org/tools/arethusa-configs",
+    "auxConfPath": "https://www.perseids.org/tools/arethusa-configs",
     "retrievers" : {
       "TreebankRetriever" : {
         "resource" : "perseidsResource",
@@ -29,7 +29,7 @@
   },
 
   "auths": {
-    "@include" : "static/configs/auths/perseids.json"
+    "@include" : "static/configs/auths/perseids_ssl.json"
   },
 
   "navbar" : {
@@ -41,13 +41,13 @@
 
   "resources" : {
     "perseidsReviewResource" : {
-      "route" : "http://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:gold",
+      "route" : "https://sosol.perseids.org/sosol/dmm_api/item/TreebankCite/:gold",
       "params" : [
         "gold"
       ],
       "auth": "perseidsAuth"
     },
-    "@include" : "static/configs/resources/perseids.json"
+    "@include" : "static/configs/resources/perseids_ssl.json"
   },
 
   "plugins" : {
@@ -137,7 +137,7 @@
   },
 
   "exitHandler" : {
-    "@include" : "static/configs/exit_handler/perseids.json"
+    "@include" : "static/configs/exit_handler/perseids_ssl.json"
   },
 
   "keyCapture" : {
