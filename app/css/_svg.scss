@@ -1,0 +1,41 @@
+@import 
+	'../../bower_components/foundation/scss/foundation/functions';
+$panel-bg: scale-color(#fff, $lightness: -5%) !default;
+
+svg {
+  overflow: hidden;
+}
+
+.node rect {
+  stroke: $panel-bg;
+  stroke-width : 1.5px;
+  /* The following color needs to be taken from a foundation variable */
+  /* once we start to use scss. It's the panels background color */
+  fill: $panel-bg;
+}
+
+.selected text {
+  fill: white;
+}
+
+.selected rect {
+  fill: #cc0000;
+}
+
+.edgeLabel rect {
+  fill: $panel-bg;
+}
+
+.tree-label {
+  font-size: 0.7em;
+}
+
+.edgePath {
+  stroke: #333; // #ADADAD; This color is better for const trees.
+  stroke-width : 0.5px;
+  fill: none;
+}
+
+.constituent-node {
+  font-size: .6rem
+}
