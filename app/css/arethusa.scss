@@ -13,12 +13,15 @@ html, body {
 }
 
 #canvas {
-  overflow: hidden;
   width: 100%;
 }
 
 .scrollable {
   overflow: auto;
+}
+
+.not-scrollable {
+  overflow: hidden;
 }
 
 #sidepanel {
