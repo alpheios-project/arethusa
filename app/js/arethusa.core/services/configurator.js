@@ -559,7 +559,7 @@ angular.module('arethusa.core').service('configurator', [
     };
 
     function getGlobalDefaults() {
-      var globalDefaults = { 'mode' : 'editor' };
+      var globalDefaults = { 'mode' : 'viewer' };
       var customDefaults = getGlobalCustomDefaults();
       var routeDefaults  = getGlobalDefaultsFromRoute();
       return angular.extend({}, globalDefaults, customDefaults, routeDefaults);
