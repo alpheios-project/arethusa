@@ -30,6 +30,15 @@ If you want to install example data execute `grunt import`.
 
 To display a rough demo start a webserver with
 
+### With Docker and Docker Compose
+
+```
+docker-compose build
+docker-compose up
+```
+
+### Running locally
+
 ```
 grunt server
 ```
@@ -45,6 +54,8 @@ your browser when needed.
 
 (Optionally pass `--port=PORT` to these server tasks to start them on a
 custom port instead of the default, which is 8081)
+
+### Testing out the application
 
 A good place to navigate your browser to would be Arethusa's
 [landing page](http://localhost:8081/app/#/), which you can also visit
