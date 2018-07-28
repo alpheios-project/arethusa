@@ -503,7 +503,7 @@ module.exports = function(grunt) {
       },
       install: {
         command: [
-          'bower install',
+          'bower --allow-root install',
           'gem install sass -v 3.3.14',
           'gem install arethusa-client -v 0.1.17'
         ].join('&&')
