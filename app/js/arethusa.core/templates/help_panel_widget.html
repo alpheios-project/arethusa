@@ -1,0 +1,67 @@
+<div ng-if="active" class="fade small-12-columns">
+  <div class="small-12 large-12 columns">
+    <div help-panel-item toggler="editors" heading="editors.title" height="200px">
+      <div editors/>
+    </div>
+    <div help-panel-item toggler="colors" heading="helpPanel.colorLegends" height="400px">
+      <ul class="no-list" ng-repeat="(name, values) in gS.colorMaps()">
+        <li
+          ng-class="{ 'active-colorizer': name === gS.colorizer }">
+          {{ name }}
+        </li>
+        <ul class="no-list" ng-repeat="map in values.maps">
+          <li>
+            {{ map.label }}
+            <table class="small">
+              <tr>
+                <th ng-repeat="header in values.header">
+                  <strong>{{ header }}</strong>
+                </th>
+              </tr>
+              <tr ng-repeat="(k, col) in map.colors">
+                <td
+                  ng-style="col"
+                  ng-repeat="val in k.split(' || ') track by $index">
+                  {{ val }}
+                </td>
+              </tr>
+            </table>
+          </li>
+        </ul>
+      </ul>
+    </div>
+    <div help-panel-item toggler="about" heading="helpPanel.about" height="160px">
+      <ul class="no-list">
+        <li>
+          <table class="small">
+            <tr>
+              <td translate="helpPanel.revision"/>
+              <td>
+                <a ng-href="{{ vers.commitUrl }}" target="_blank">
+                  {{ vers.revision }}
+                </a>
+              </td>
+            <tr>
+            <tr>
+              <!--This is untranslated on purpose!-->
+              <td>Branch</td>
+              <td>
+                <a ng-href="{{ vers.branchUrl }}" target="_blank">
+                  {{ vers.branch }}
+                </a>
+              </td>
+            <tr>
+            <tr>
+              <td translate="date"/>
+              <td>{{ vers.date | date: 'medium' }}</td>
+            </tr>
+            <tr>
+              <td translate="relocateHandler.title"/>
+              <td relocate/>
+            </tr>
+          </table>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

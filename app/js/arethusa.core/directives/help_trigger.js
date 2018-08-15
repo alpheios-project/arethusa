@@ -9,13 +9,8 @@ angular.module('arethusa.core').directive('helpTrigger', [
     return generator.panelTrigger({
       service: help,
       trsl: translator,
-      trslKey: 'help',
-      template: '<i class="fa fa-question"/>',
-      kC: keyCapture,
-      mapping: {
-        name: 'help',
-        key: 'H'
-      }
+      trslKey: 'credits',
+      template: '<i class="fa" translate="credits"></i>'
     });
   }
 ]);
