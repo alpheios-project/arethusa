@@ -2,6 +2,8 @@ version: '3'
 services:
   web:
     build: .
+    volumes:
+      - ./app:/arethusa/app
     command: ["grunt", "reloading-server", "--port=$${PORT}"]
     ports:
       - "8081:8081"
