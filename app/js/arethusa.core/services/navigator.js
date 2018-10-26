@@ -31,10 +31,12 @@ angular.module('arethusa.core').service('navigator', [
       var sec = citeSplit[1];
       citation = citationCache.get(doc);
       if (! citation) {
-        citeMapper.get({ cite: doc}).then(function(res) {
+        citeMapper.get({ cite: doc }).then(function(res) {
           citation = res.data;
           citationCache.put(doc, citation);
           callback(citationToString(citation, sec));
+        }).catch(function() {
+          callback(cite);
         });
       } else {
         callback(citationToString(citation, sec));
