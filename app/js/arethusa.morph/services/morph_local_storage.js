@@ -263,7 +263,7 @@ angular.module('arethusa.morph').service('morphLocalStorage', [
       return _.map(counts, function(v, k) {
         return [k, v];
       }).sort(function(a, b) {
-        return a[1] < b[1];
+        return b[1] - a[1];
       });
     }
 
