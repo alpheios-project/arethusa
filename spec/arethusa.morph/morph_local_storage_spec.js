@@ -174,7 +174,7 @@ describe("morphLocalStorage", function() {
 
   describe('this.sortByPreference', function() {
     it('sorts form preferences', function() {
-      var imported = '1$$ma|-|a1@@3;;mas|-|b1@@2';
+      var imported = '1$$mas|-|b1@@2;;ma|-|a1@@3';
       morphLocalStorage.addPreferences('mare',imported);
       var formsToSort =  [ { lemma: 'mas', postag: 'b1' }, {lemma: 'ma', postag: 'a1'}, {lemma: 'mas', postag: 'c1'} ];
       var sorted = morphLocalStorage.sortByPreference('mare',formsToSort);
