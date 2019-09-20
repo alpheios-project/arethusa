@@ -104,10 +104,15 @@ angular.module('arethusa').factory('TreebankRetriever', [
       // mark the origin as such
       token.morphology.origin = 'document';
 
-      var gloss = word._gloss;
-      if (gloss) {
-        token.morphology.gloss = gloss;
-      }
+      var fields = ['gloss', 'alternateGloss', 'semanticRole', 'include', 'notes'];
+
+      angular.forEach(fields, function (field) {
+        var value = word['_' + field];
+
+        if (value) {
+          token.morphology[field] = value;
+        }
+      });
     }
 
     function parseRelation(token, word) {

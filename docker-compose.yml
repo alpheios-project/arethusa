@@ -4,6 +4,8 @@ services:
     build: .
     volumes:
       - ./app:/arethusa/app
+      - ./dist:/arethusa/dist
+      - ./spec:/arethusa/spec
     command: ["grunt", "reloading-server", "--port=$${PORT}"]
     ports:
       - "8081:8081"
