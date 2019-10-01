@@ -104,7 +104,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
       // mark the origin as such
       token.morphology.origin = 'document';
 
-      var fields = ['gloss', 'alternateGloss', 'semanticRole', 'include', 'notes'];
+      var fields = ['gloss', 'alternateGloss', 'semanticRole', 'include', 'multiword', 'notes'];
 
       angular.forEach(fields, function (field) {
         var value = word['_' + field];

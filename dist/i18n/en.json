@@ -196,6 +196,7 @@
     "alternateGloss": "Alternate gloss",
     "semanticRole": "Semantic role",
     "include": "Include",
+    "multiword": "Multiword",
     "notes": "Notes"
   },
   "exitHandler": {

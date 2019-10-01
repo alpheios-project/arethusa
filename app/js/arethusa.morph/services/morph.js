@@ -369,6 +369,7 @@ angular.module('arethusa.morph').service('morph', [
           setAlternateGloss(id, analysis);
           setSemanticRole(id, analysis);
           setInclude(id, analysis);
+          setMultiword(id, analysis);
           setNotes(id, analysis);
           val.forms.push(analysis);
 
@@ -389,6 +390,9 @@ angular.module('arethusa.morph').service('morph', [
         }
         function setInclude(id, form) {
           if (self.additionalFields) self.analyses[id].include = form.include;
+        }
+        function setMultiword(id, form) {
+          if (self.additionalFields) self.analyses[id].multiword = form.multiword;
         }
         function setNotes(id, form) {
           if (self.additionalFields) self.analyses[id].notes = form.notes;
@@ -594,6 +598,7 @@ angular.module('arethusa.morph').service('morph', [
     this.updateAlternateGloss = _updateFieldFunction('alternateGloss', 'additionalFields');
     this.updateSemanticRole = _updateFieldFunction('semanticRole', 'additionalFields');
     this.updateInclude = _updateFieldFunction('include', 'additionalFields');
+    this.updateMultiword = _updateFieldFunction('multiword', 'additionalFields');
     this.updateNotes = _updateFieldFunction('notes', 'additionalFields');
 
     this.setState = function (id, form) {
@@ -601,6 +606,7 @@ angular.module('arethusa.morph').service('morph', [
       self.updateAlternateGloss(id,form);
       self.updateSemanticRole(id,form);
       self.updateInclude(id,form);
+      self.updateMultiword(id,form);
       self.updateNotes(id,form);
 
       state.change(id, 'morphology', form, undoFn(id), preExecFn(id, form));
@@ -872,7 +878,7 @@ angular.module('arethusa.morph').service('morph', [
       }
       self.emptyPostag = createEmptyPostag();
       self.analyses = seedAnalyses();
-      loadInitalAnalyses();
+      loadInitialAnalyses();
       loadSearchIndex();
       plugins.declareReady(self);
 
@@ -881,7 +887,7 @@ angular.module('arethusa.morph').service('morph', [
           obj[id] = new Forms(token.string);
         });
       }
-      function loadInitalAnalyses() {
+      function loadInitialAnalyses() {
         if (self.canRetrieveFrom('document')) {
           angular.forEach(self.analyses, loadToken);
         }
