@@ -54,6 +54,11 @@ angular.module('arethusa').factory('TreebankPersister', [
           if (angular.isDefined(morph.lemma))  word._lemma = morph.lemma;
           if (angular.isDefined(morph.postag)) word._postag= morph.postag;
           if (angular.isDefined(morph.gloss))  word._gloss = morph.gloss;
+          if (angular.isDefined(morph.alternateGloss))  word._alternateGloss = morph.alternateGloss;
+          if (angular.isDefined(morph.semanticRole))  word._semanticRole = morph.semanticRole;
+          if (angular.isDefined(morph.include))  word._include = morph.include;
+          if (angular.isDefined(morph.multiword))  word._multiword = morph.multiword;
+          if (angular.isDefined(morph.notes))  word._notes = morph.notes;
         } else {
           if (word._lemma || word._postag) {
             word._lemma = word._postag = '';

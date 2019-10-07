@@ -19,6 +19,48 @@
         </input>
       </label>
     </p>
+    <p ng-if="plugin.additionalFields">
+      <label>
+        <span translate="morph.alternateGloss"/>
+        <input class="compact"
+          type="text"
+          ng-change="plugin.updateAlternateGloss(id)"
+          ng-model="analysis.alternateGloss">
+        </input>
+      </label>
+      <label>
+        <span translate="morph.semanticRole"/>
+        <input class="compact"
+          type="text"
+          ng-change="plugin.updateSemanticRole(id)"
+          ng-model="analysis.semanticRole">
+        </input>
+      </label>
+      <label>
+        <span translate="morph.include"/>
+        <input class="compact"
+          type="text"
+          ng-change="plugin.updateInclude(id)"
+          ng-model="analysis.include">
+        </input>
+      </label>
+      <label>
+        <span translate="morph.multiword"/>
+        <input class="compact"
+          type="text"
+          ng-change="plugin.updateMultiword(id)"
+          ng-model="analysis.multiword">
+        </input>
+      </label>
+      <label>
+        <span translate="morph.notes"/>
+        <input class="compact"
+          type="text"
+          ng-change="plugin.updateNotes(id)"
+          ng-model="analysis.notes">
+        </input>
+      </label>
+    </p>
     <accordion close-others="oneAtATime">
       <accordion-group
         ng-repeat="form in analysis.forms"

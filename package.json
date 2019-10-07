@@ -51,6 +51,9 @@
     "grunt-bump": "0.0.16"
   },
   "scripts": {
-    "test": "grunt --stack karma:spec coveralls jshint"
+    "spec": "grunt --stack karma:spec",
+    "coveralls": "grunt --stack coveralls",
+    "jshint": "grunt --stack jshint",
+    "test": "npm run spec && npm run coveralls && npm run jshint"
   }
 }
