@@ -61,6 +61,7 @@ angular.module('arethusa.morph').service('morph', [
     this.defaultConf = {
       mappings: {},
       gloss: false,
+      additionalFields: false,
       matchAll: true,
       preselect: false,
       localStorage: true,
@@ -362,8 +363,14 @@ angular.module('arethusa.morph').service('morph', [
           if (!analysis.origin) {
             analysis.origin = 'state';
           }
+
           analysis.selected = true;
           setGloss(id, analysis);
+          setAlternateGloss(id, analysis);
+          setSemanticRole(id, analysis);
+          setInclude(id, analysis);
+          setMultiword(id, analysis);
+          setNotes(id, analysis);
           val.forms.push(analysis);
 
           if (isColorizer()) state.addStyle(id, self.styleOf(analysis));
@@ -374,6 +381,21 @@ angular.module('arethusa.morph').service('morph', [
         }
         function setGloss(id, form) {
           if (self.gloss) self.analyses[id].gloss = form.gloss;
+        }
+        function setAlternateGloss(id, form) {
+          if (self.additionalFields) self.analyses[id].alternateGloss = form.alternateGloss;
+        }
+        function setSemanticRole(id, form) {
+          if (self.additionalFields) self.analyses[id].semanticRole = form.semanticRole;
+        }
+        function setInclude(id, form) {
+          if (self.additionalFields) self.analyses[id].include = form.include;
+        }
+        function setMultiword(id, form) {
+          if (self.additionalFields) self.analyses[id].multiword = form.multiword;
+        }
+        function setNotes(id, form) {
+          if (self.additionalFields) self.analyses[id].notes = form.notes;
         }
 
       }
@@ -561,17 +583,32 @@ angular.module('arethusa.morph').service('morph', [
 
     // LOCAL STORAGE - END
 
-    this.updateGloss = function(id, form) {
-      if (self.gloss) {
-        state.broadcast('tokenChange');
-        var gloss = self.analyses[id].gloss || '';
-        form = form || selectedForm(id);
-        form.gloss = gloss;
-      }
-    };
+    function _updateFieldFunction(field, config) {
+      return function(id, form) {
+        if (self[config]) {
+          state.broadcast('tokenChange');
+          var value = self.analyses[id][field] || '';
+          form = form || selectedForm(id);
+          form[field] = value;
+        }
+      };
+    }
+
+    this.updateGloss = _updateFieldFunction('gloss', 'gloss');
+    this.updateAlternateGloss = _updateFieldFunction('alternateGloss', 'additionalFields');
+    this.updateSemanticRole = _updateFieldFunction('semanticRole', 'additionalFields');
+    this.updateInclude = _updateFieldFunction('include', 'additionalFields');
+    this.updateMultiword = _updateFieldFunction('multiword', 'additionalFields');
+    this.updateNotes = _updateFieldFunction('notes', 'additionalFields');
 
     this.setState = function (id, form) {
       self.updateGloss(id,form);
+      self.updateAlternateGloss(id,form);
+      self.updateSemanticRole(id,form);
+      self.updateInclude(id,form);
+      self.updateMultiword(id,form);
+      self.updateNotes(id,form);
+
       state.change(id, 'morphology', form, undoFn(id), preExecFn(id, form));
 
       function undoFn(id) {
@@ -754,6 +791,7 @@ angular.module('arethusa.morph').service('morph', [
         'mappings',
         'noRetrieval',
         'gloss',
+        'additionalFields',
         'localStorage',
         'storePreferences'
       ];
@@ -840,7 +878,7 @@ angular.module('arethusa.morph').service('morph', [
       }
       self.emptyPostag = createEmptyPostag();
       self.analyses = seedAnalyses();
-      loadInitalAnalyses();
+      loadInitialAnalyses();
       loadSearchIndex();
       plugins.declareReady(self);
 
@@ -849,7 +887,7 @@ angular.module('arethusa.morph').service('morph', [
           obj[id] = new Forms(token.string);
         });
       }
-      function loadInitalAnalyses() {
+      function loadInitialAnalyses() {
         if (self.canRetrieveFrom('document')) {
           angular.forEach(self.analyses, loadToken);
         }

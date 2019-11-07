@@ -4,7 +4,7 @@
     "cookie": "csrftoken",
     "header": "X-CSRF-Token",
     "crossDomain" : true,
-    "ping" : "http://localhost:8080/dmm_api/ping",
+    "ping" : "https://sosol.perseids.org/sosol/dmm_api/ping",
     "skipModes" : [
       "viewer"
     ]

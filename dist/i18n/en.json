@@ -193,7 +193,12 @@
     "createError": "Cannot save an incomplete form",
     "createNewForm": "Create new form",
     "searchByForm": "by form",
-    "matchAll": "all"
+    "matchAll": "all",
+    "alternateGloss": "Alternate gloss",
+    "semanticRole": "Semantic role",
+    "include": "Include",
+    "multiword": "Multiword",
+    "notes": "Notes"
   },
   "exitHandler": {
     "exitTo": "Exit to {{ title }}"

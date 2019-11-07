@@ -47,7 +47,7 @@
     },
 
     "morphologyService" : {
-      "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+      "route" : "http://morph.perseids.org/analysis/word?lang=grc&engine=morpheusgrc"
     }
   },
 

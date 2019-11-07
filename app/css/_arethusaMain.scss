@@ -14,16 +14,18 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
 }
 
 #canvas {
-  overflow: hidden;
   width: 100%;
 }
 
 .scrollable {
   overflow: auto;
+}
+
+.not-scrollable {
+  overflow: hidden;
 }
 
 #sidepanel {

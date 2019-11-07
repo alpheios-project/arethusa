@@ -1,6 +1,6 @@
 {
   "perseidsResource" : {
-    "route" : "http://localhost/dmm_api/item/TreebankCite/:doc",
+    "route" : "http://localhost:8080/dmm_api/item/TreebankCite/:doc",
     "params" : [
       "doc"
     ],
@@ -8,7 +8,7 @@
   },
 
   "perseidsComments" : {
-    "route" : "http://localhost/dmm_api/item/TreebankCite/:doc/comments",
+    "route" : "http://localhost:8080/dmm_api/item/TreebankCite/:doc/comments",
     "params" : [
       "doc"
     ],
@@ -20,11 +20,19 @@
   },
 
   "morphologyServiceLat" : {
-    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=lat&engine=morpheuslat"
+    "route" : "http://morph.perseids.org/analysis/word?lang=lat&engine=morpheuslat"
+  },
+
+  "newMorphologyServiceLat" : {
+    "route" : "http://morph.perseids.org/analysis/word?lang=lat&engine=morpheuslat"
   },
 
   "morphologyServiceGrc" : {
-    "route" : "http://services.perseids.org/bsp/morphologyservice/analysis/word?lang=grc&engine=morpheusgrc"
+    "route" : "http://morph.perseids.org/analysis/word?lang=grc&engine=morpheusgrc"
+  },
+
+  "newMorphologyServiceGrc" : {
+    "route" : "http://morph.perseids.org/analysis/word?lang=grc&engine=morpheusgrc"
   },
 
   "sgGrammar" : {
