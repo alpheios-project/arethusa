@@ -35,7 +35,7 @@ angular.module('arethusa').config([
 
     $translateProvider
       .useStaticFilesLoader({
-        prefix: window.i18npath, 
+        prefix: window.i18npath,
         suffix: '.json'
       })
 
@@ -84,6 +84,8 @@ function Arethusa() {
     self.conf.then(function(conf) {
       var injector = angular.bootstrap(self.id,['arethusa']);
       var configurator = injector.get('configurator');
+      var state = injector.get('state')
+      self.state = state
 
       for (var k in resourceConf) {
         var locator = injector.get('locator');
@@ -94,4 +96,17 @@ function Arethusa() {
     });
   };
 
-}
+  this.api = function() {
+    if (self.state && self.state.arethusaLoaded) {
+      return {
+        getTokens: function() { return self.state.tokens },
+        getToken: function(id) {
+          // TODO 0000 pad the id
+          return self.state.getToken(id)
+        }
+      }
+    } else {
+      console.error("api called before arethusa was loaded")
+    }
+  };
+};
