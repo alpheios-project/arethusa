@@ -92,7 +92,7 @@ angular.module('arethusa.core').factory('apiOutputter', [
             rest: { entry: entry } 
           }
         }
-        return  resp
+        return resp
       };
     };
   }
