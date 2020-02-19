@@ -64,7 +64,8 @@ angular.module('arethusa.core').factory('apiOutputter', [
             entry.dict = { hdwd: { lang: lang, $: infl.lemma } }
           }
           if (angular.isDefined(infl.postag)) {
-            entry.infl = this._attributesToAlpheios(infl.attributes,morph)
+            entry.infl = this._attributesToAlpheios(infl.attributes,morph);
+            entry.infl.term = { form: { $: token.string } };
           }
           var glosses = []
           if (angular.isDefined(infl.gloss)) {
