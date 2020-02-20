@@ -33,6 +33,14 @@ angular.module('arethusa.core').service('api', [
       return lazyLang;
     }
 
+    /**
+     * get the morphology and gloss for a specific word
+     * @param {String} sentenceId sentence (chunk) identifier
+     * @param {String} wordId word (token) identifier
+     * @return {Object} an object adhering to a JSON representation of Alpheios Lexicon Schema wrapped in 
+     *                  the BSP Morphology Service RDF Annotation Wrapper 
+     *                  (i.e. the same format as parsed by the BSPMorphRetriever)
+     */
     this.getMorph = function(sentenceId,wordId) {
       /** TODO figure out how to be sure the api service is only instantiated after Arethusa is loaded **/
       if (!state.arethusaLoaded) {
@@ -41,18 +49,32 @@ angular.module('arethusa.core').service('api', [
       return this.outputter.outputMorph(state.getToken(idHandler.getId(wordId,sentenceId)),lang(),morph());
     };
 
+    /** 
+     * rerenders the tree
+     * can be useful to call the tree is first loaded in a iframe that isn't visible
+     */
     this.refreshView = function() {
       navigator.triggerRefreshEvent();
     }
 
+    /** 
+     * navigates application state to the next sentence
+     */
     this.nextSentence = function() {
       navigator.nextChunk();
     };
 
+    /**  
+     * navigates application state to the previous sentence
+     */
     this.prevSentence = function() {
       navigator.prevChunk();
     };
 
+    /**  
+     * navigates application state to supplied sentenceId
+     * @param {String} sentenceId 
+     */
     this.gotoSentence = function(sentenceId) {
       navigator.goTo(sentenceId);
     };

@@ -5,6 +5,13 @@ angular.module('arethusa.core').factory('apiOutputter', [
     return function (uuid2) {
       var self = this;
 
+      // this is essentially just the reverse of the mapping
+      // that can be found in the various morph attributes
+      // config files. Ideally we would delegate back to a 
+      // config file which defines Arethusa internal to 
+      // Alpheios external lexicon format but for now 
+      // since we currently only support one api output format we can 
+      // just hard code it
       this._attributesToAlpheios = function(attributes,morph) {
         var infl = {}
         angular.forEach(attributes, function (value, key) {
@@ -32,11 +39,14 @@ angular.module('arethusa.core').factory('apiOutputter', [
       }
 
       this.outputMorph = function (token,lang,morph) {
-        // TODO Decide whether or not to bother with the whole OAC Annotation Wrapper or not
+        // if we were to follow the Arethusa design more 
+        // closely, this would be handled via a BSPMorphPersister
+        // but it's easier to just do it here for now
         var resp = { 
           RDF: { 
             Annotation: { 
               about: "urn:uuid:" + uuid2.newuuid(),
+              // TODO we should fill in the creator, created, rights and target info
               creator: {
                 Agent: { 
                   about: ""
@@ -88,7 +98,7 @@ angular.module('arethusa.core').factory('apiOutputter', [
           resp.RDF.Annotation.Body = { 
             about: uuid,
             type: { 
-              resource: "cnt:ContentAsXML"
+              resource: "cnt:ContentAsXML" // this is not technically correct but this is legacy code
             },
             rest: { entry: entry } 
           }
