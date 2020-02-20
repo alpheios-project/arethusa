@@ -41,6 +41,10 @@ angular.module('arethusa.core').service('api', [
       return this.outputter.outputMorph(state.getToken(idHandler.getId(wordId,sentenceId)),lang(),morph());
     };
 
+    this.refreshView = function() {
+      navigator.triggerRefreshEvent();
+    }
+
     this.nextSentence = function() {
       navigator.nextChunk();
     };

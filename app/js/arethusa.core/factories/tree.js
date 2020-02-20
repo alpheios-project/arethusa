@@ -737,6 +737,11 @@ angular.module('arethusa.core').factory('Tree', [
         applyViewMode();
       });
 
+      navigator.onRefresh(function() {
+        render();
+        $timeout(applyViewMode, transitionDuration);
+      });
+
 
       // Keybindings for this directive
       function keyBindings(kC) {
