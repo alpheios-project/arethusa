@@ -9,6 +9,7 @@ docs/*
 docs/custom/plato
 data/
 dist/
+dist_widget/
 .idea/
 deployment/
 .sass-cache

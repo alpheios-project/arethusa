@@ -63,10 +63,6 @@ angular.module('arethusa.core').directive('arethusaNavbar', [
           return conf.navigation;
         };
 
-        // Foundation's topbar doesn't seem to work properly - could be an issue
-        // with angular. If we make it fixed, it overlaps our body and no padding
-        // is added. We do it manually through this directive.
-        angular.element(document.body).css({ padding: '45px'});
       },
       template: '<div ng-if="!disable" ng-include="template"></div>'
     };
