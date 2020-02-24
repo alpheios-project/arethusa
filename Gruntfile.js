@@ -202,7 +202,7 @@ function arethusaUglify() {
       sourceMap: true,
       banner: Z.var.misc.banner
     },
-    dagred3: { files: { "vendor/d3-3.4.13/d3.min.js": "vendor/d3-3.4.13/dagre-d3.js"} },
+    dagred3: { files: { "vendor/d3-3.4.13.min.js": "vendor/d3-3.4.13.js"} },
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
     templates: { files: { "dist/templates.min.js": "app/js/templates/compiled/*.js"} },
