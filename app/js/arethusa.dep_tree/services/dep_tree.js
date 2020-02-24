@@ -31,7 +31,7 @@ angular.module('arethusa.depTree').service('depTree', [
 
     this.externalDependencies = {
       ordered: [
-        "../../vendor/d3-3.4.13.js",
+        "../../vendor/d3-3.4.13/d3.js",
         window.dagred3path
       ]
     };
