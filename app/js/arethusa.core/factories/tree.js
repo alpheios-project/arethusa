@@ -737,6 +737,14 @@ angular.module('arethusa.core').factory('Tree', [
         applyViewMode();
       });
 
+     
+      // if a tree was rendered before it is visible
+      // refreshing will rerender it and fix display bugs
+      navigator.onRefresh(function() {
+        render();
+        $timeout(applyViewMode, transitionDuration);
+      });
+
 
       // Keybindings for this directive
       function keyBindings(kC) {

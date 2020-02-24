@@ -202,7 +202,7 @@ function arethusaUglify() {
       sourceMap: true,
       banner: Z.var.misc.banner
     },
-    dagred3: { files: { "vendor/dagre-d3/dagre-d3.min.js": "vendor/dagre-d3/dagre-d3.js"} },
+    dagred3: { files: { "vendor/d3-3.4.13/d3.min.js": "vendor/d3-3.4.13/d3.js"} },
     uservoice: { files: { "vendor/uservoice/uservoice.min.js": "vendor/uservoice/uservoice.js"} },
     toasts: { files: { "vendor/angularJS-toaster/toaster.min.js": "vendor/angularJS-toaster/toaster.js"} },
     templates: { files: { "dist/templates.min.js": "app/js/templates/compiled/*.js"} },
@@ -392,7 +392,7 @@ module.exports = function(grunt) {
             './bower_components/angular-uuid2/dist/angular-uuid2.min.js',
             './vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.js',
             './vendor/mm-foundation/mm-foundation-tpls-0.1.0.min.js',
-            './vendor/dagre-d3/dagre-d3.min.js',
+            './vendor/d3-3.4.13/d3.min.js',
             './vendor/angularJS-toaster/toaster.min.js',
             "./vendor/highlight/highlight.pack.js",
             "./bower_components/angular-highlightjs/angular-highlightjs.min.js",

@@ -15,7 +15,7 @@ angular.module('arethusa', [
   'arethusa.core',
   'arethusa.contextMenu',
   'arethusa.history',
-  'arethusa.tools',
+  'arethusa.tools'
 ]);
 
 angular.module('arethusa').constant('_', window._);
@@ -35,7 +35,7 @@ angular.module('arethusa').config([
 
     $translateProvider
       .useStaticFilesLoader({
-        prefix: window.i18npath, 
+        prefix: window.i18npath,
         suffix: '.json'
       })
 
@@ -84,6 +84,7 @@ function Arethusa() {
     self.conf.then(function(conf) {
       var injector = angular.bootstrap(self.id,['arethusa']);
       var configurator = injector.get('configurator');
+      self._api = injector.get('api')
 
       for (var k in resourceConf) {
         var locator = injector.get('locator');
@@ -94,4 +95,7 @@ function Arethusa() {
     });
   };
 
-}
+  this.api = function() {
+    return this._api
+  };
+};

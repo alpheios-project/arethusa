@@ -10,6 +10,7 @@ angular.module('arethusa.core').service('navigator', [
             keyCapture, $rootScope, globalSettings) {
 
     var MOVE_EVENT = 'navigator:move';
+    var REFRESH_EVENT = 'navigator:refresh';
     var self = this;
     var citeMapper;
     var context = {};
@@ -326,6 +327,17 @@ angular.module('arethusa.core').service('navigator', [
     }
     function triggerMoveEvent() {
       $rootScope.$broadcast(MOVE_EVENT);
+    }
+
+    this.onRefresh = onRefresh;
+
+    function onRefresh(cb) {
+      return $rootScope.$on(REFRESH_EVENT, cb);
+    }
+
+    this.triggerRefreshEvent = triggerRefreshEvent;
+    function triggerRefreshEvent() {
+      $rootScope.$broadcast(REFRESH_EVENT);
     }
 
     // Probably could deregister/reregister that watch, but it doesn't hurt...
