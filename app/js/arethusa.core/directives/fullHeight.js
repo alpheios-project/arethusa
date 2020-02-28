@@ -17,9 +17,6 @@ angular.module('arethusa.core').directive('fullHeight', [
           var fullHeight = body.height();
           element.height(fullHeight - margin - padding - additionalBorder);
         }
-        win.bind('resize', function() {
-          resize();
-        });
 
         resize();
       }
