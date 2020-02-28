@@ -49,6 +49,14 @@ angular.module('arethusa.core').service('api', [
       return this.outputter.outputMorph(state.getToken(idHandler.getId(wordId,sentenceId)),lang(),morph());
     };
 
+    /**
+     * returns subdoc of the current sentence
+     * @return {String} the subdoc of the current sentence (may also be undefined or '')
+     */
+    this.getSubdoc = function() {
+      return navigator.currentSubdocs()[0];
+    };
+
     /** 
      * rerenders the tree
      * can be useful to call the tree is first loaded in a iframe that isn't visible

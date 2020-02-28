@@ -71,11 +71,12 @@ angular.module('arethusa.util').service('commons', [
     this.doc = function(x, j, c) { return new Doc(x, j, c); };
 
     // Used by retrievers to define sentences
-    function Sentence(tokens, cite) {
+    function Sentence(tokens, cite, subdoc) {
       var self = this;
 
       this.tokens = tokens;
       this.cite = cite || '';
+      this.subdoc = subdoc || '';
 
       this.toString = function() {
         return arethusaUtil.inject([], self.tokens, function(memo, id, token) {
@@ -93,7 +94,7 @@ angular.module('arethusa.util').service('commons', [
      * TODO
      *
      */
-    this.sentence = function(t, cite) { return new Sentence(t, cite); };
+    this.sentence = function(t, cite, subdoc) { return new Sentence(t, cite, subdoc); };
 
     // Used by retrievers to define constituents
     function Constituent(cl, role, id, sentenceId, parentId) { // might want to add more here

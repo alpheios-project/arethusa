@@ -37,12 +37,13 @@ angular.module('arethusa').factory('TreebankRetriever', [
     function parseSentences(sentences, docId) {
       return sentences.map(function(sentence) {
         var cite = extractCiteInfo(sentence);
+        var subdoc = sentence._subdoc || '';
         var words = arethusaUtil.toAry(sentence.word);
-        return parseSentence(sentence, sentence._id, docId, cite);
+        return parseSentence(sentence, sentence._id, docId, cite, subdoc);
       });
     }
 
-    function parseSentence(sentence, id, docId, cite) {
+    function parseSentence(sentence, id, docId, cite, subdoc) {
       var words = aU.toAry(sentence.word);
       var tokens = {};
 
@@ -55,7 +56,7 @@ angular.module('arethusa').factory('TreebankRetriever', [
         tokens[token.id] = token;
       });
 
-      var sentenceObj = commons.sentence(tokens, cite);
+      var sentenceObj = commons.sentence(tokens, cite, subdoc);
       retrieverHelper.generateId(sentenceObj, id, id, docId);
 
       return sentenceObj;
