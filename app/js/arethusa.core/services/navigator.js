@@ -95,6 +95,9 @@ angular.module('arethusa.core').service('navigator', [
     function currentIds () {
       return arethusaUtil.map(currentSentenceObjs(), 'id');
     }
+    this.currentSubdocs = function() {
+      return arethusaUtil.map(currentSentenceObjs(), 'subdoc');
+    }
     this.sentenceToString = function(sentence) {
       return arethusaUtil.inject([], sentence.tokens, function(memo, id, token) {
         memo.push(token.string);
