@@ -33,6 +33,15 @@ angular.module('arethusa.core').service('api', [
       return lazyLang;
     }
 
+
+    /** 
+     * check ready state
+     * @return {Boolean} true if arethusa is loaded and ready otherwise false
+     */
+    this.isReady = function () {
+      return state.arethusaLoaded
+    };
+
     /**
      * get the morphology and gloss for a specific word
      * @param {String} sentenceId sentence (chunk) identifier
@@ -42,10 +51,6 @@ angular.module('arethusa.core').service('api', [
      *                  (i.e. the same format as parsed by the BSPMorphRetriever)
      */
     this.getMorph = function(sentenceId,wordId) {
-      /** TODO figure out how to be sure the api service is only instantiated after Arethusa is loaded **/
-      if (!state.arethusaLoaded) {
-        console.error("Api called before Arethusa was loaded")
-      }
       return this.outputter.outputMorph(state.getToken(idHandler.getId(wordId,sentenceId)),lang(),morph());
     };
 
