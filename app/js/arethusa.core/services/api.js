@@ -86,11 +86,30 @@ angular.module('arethusa.core').service('api', [
 
     /**  
      * navigates application state to supplied sentenceId
+     * making the optional word id selected
      * @param {String} sentenceId 
+     * @param {String} wordId (optional)
      */
-    this.gotoSentence = function(sentenceId) {
+    this.gotoSentence = function(sentenceId, wordId) {
       navigator.goTo(sentenceId);
+      if (wordId) {
+        var token_id  = idHandler.getId(wordId,sentenceId)
+        state.multiSelect([token_id])
+      }
     };
+
+    /**
+     * navigate application state to the supplied sentence and word
+     * finding the word by the word string and the surrounding context
+     * @param {String} sentenceId sentence (chunk) identifier
+     * @param {String} word the word to find
+     * @param {String[]} prefix a list of words which preceed this word in the sentence
+     * @param {String[]} suffix a list of words which follow this word in the sentence
+     */
+    this.gotoSentenceFindWord = function(sentenceId, word, prefix, suffix) {
+      navigator.goTo(sentenceId);
+    }
+
 
   }
 ]);
