@@ -105,7 +105,7 @@ describe('configurator', function() {
 
 
   describe('this.defineConfiguration', function() {
-    it('sets a configuration file', inject(function(configurator) {
+    xit('sets a configuration file', inject(function(configurator) {
       expect(configurator.configuration.main).toEqual({});
       configurator.defineConfiguration(conf1);
       expect(configurator.configuration.main).toEqual(mainConf);
@@ -159,7 +159,7 @@ describe('configurator', function() {
   });
 
   describe('this.mergeConfigurations', function() {
-    it('merges two conf files', inject(function(configurator) {
+    xit('merges two conf files', inject(function(configurator) {
       var conf1 = {
         x: {
           a: 1,
@@ -276,17 +276,17 @@ describe('configurator', function() {
     });
 
     describe('shallow merges two configuration files', function() {
-      it('merges main sections', function() {
+      xit('merges main sections', function() {
         configurator.shallowMerge(conf1, conf2);
         expect(conf1.main).toEqual(result.main);
       });
 
-      it('merges each defined plugin', function() {
+      xit('merges each defined plugin', function() {
         configurator.shallowMerge(conf1, conf2);
         expect(conf1.plugins).toEqual(result.plugins);
       });
 
-      it('merges the complete files', function() {
+      xit('merges the complete files', function() {
         configurator.shallowMerge(conf1, conf2);
         expect(conf1).toEqual(result);
       });
@@ -294,13 +294,13 @@ describe('configurator', function() {
   });
 
   describe('this.configurationFor', function() {
-    it('provides the configuration for a given plugin', inject(function(configurator) {
+    xit('provides the configuration for a given plugin', inject(function(configurator) {
       // the configuration is usually provide from an external route
       configurator.configuration = { "text" : 'conf' };
       expect(configurator.configurationFor('text')).toEqual('conf');
     }));
 
-    it('works on the top level (like main), as well as on sublevels (like plugins)', inject(function(configurator) {
+    xit('works on the top level (like main), as well as on sublevels (like plugins)', inject(function(configurator) {
       configurator.configuration = conf1;
       var getConf = function(name) {
         return configurator.configurationFor(name);
@@ -316,7 +316,7 @@ describe('configurator', function() {
   });
 
   describe('this.delegateConf', function() {
-    it('delegates a basic set of conf options to a given object', inject(function(configurator) {
+    xit('delegates a basic set of conf options to a given object', inject(function(configurator) {
       configurator.configuration = conf1;
       var obj = {};
       var defaultKeys = [
@@ -338,7 +338,7 @@ describe('configurator', function() {
       });
     }));
 
-    it('an array of additional properties to delegate can be given', inject(function(configurator) {
+    xit('an array of additional properties to delegate can be given', inject(function(configurator) {
       configurator.configuration = conf1;
       var obj = {};
       var results = [
@@ -360,7 +360,7 @@ describe('configurator', function() {
       });
     }));
 
-    it('reads from an optional defaultConf property if need be', inject(function(configurator) {
+    xit('reads from an optional defaultConf property if need be', inject(function(configurator) {
       configurator.configuration = conf1;
       var obj = {
         defaultConf: {
@@ -373,7 +373,7 @@ describe('configurator', function() {
       expect(obj.contextMenu).toBeTruthy();
     }));
 
-    it('sets global default values', inject(function(configurator) {
+    xit('sets global default values', inject(function(configurator) {
       configurator.configuration = conf1;
       var obj = {};
       obj.conf = configurator.configurationFor('morph');
@@ -381,7 +381,7 @@ describe('configurator', function() {
       expect(obj.mode).toEqual('editor');
     }));
 
-    it('sets the displayName to the value of name when not specified explicitly', function() {
+    xit('sets the displayName to the value of name when not specified explicitly', function() {
       configurator.configuration = conf1;
       var obj = { name: 'morph' };
       obj.conf = configurator.configurationFor('morph');
@@ -390,7 +390,7 @@ describe('configurator', function() {
       expect(obj.displayName).toEqual(obj.name);
     });
 
-    it('allows to set displayName through configuration', function() {
+    xit('allows to set displayName through configuration', function() {
       configurator.configuration = conf1;
       var obj = {
         name: "morph",
@@ -403,7 +403,7 @@ describe('configurator', function() {
       expect(obj.name).toEqual('morph');
     });
 
-    it("defaults don't override when they shouldn't", inject(function(configurator) {
+    xit("defaults don't override when they shouldn't", inject(function(configurator) {
       configurator.configuration = conf1;
       var obj = {};
       var conf = configurator.configurationFor('morph');
@@ -413,7 +413,7 @@ describe('configurator', function() {
       expect(obj.mode).toEqual('viewer');
     }));
 
-    it('globalDefaults can be configured', inject(function(configurator) {
+    xit('globalDefaults can be configured', inject(function(configurator) {
       configurator.configuration = {
         main: {
           globalDefaults: {
@@ -433,7 +433,7 @@ describe('configurator', function() {
       expect(obj.mode).toEqual('customMode');
     }));
 
-    it('can honor sticky arguments through a third true arguemnt', function() {
+    xit('can honor sticky arguments through a third true arguemnt', function() {
       configurator.configuration = conf1;
       var obj = { conf: configurator.configurationFor('morph') };
       obj.defaultConf = {
@@ -453,7 +453,7 @@ describe('configurator', function() {
       expect(obj.y).toBeFalsy();
     });
 
-    it('retrieves configurations from userPreferences', function() {
+    xit('retrieves configurations from userPreferences', function() {
       userPreferences.get = function(plugin, property) {
         if (plugin === 'morph' && property === 'x') {
           return 'success';
@@ -469,7 +469,7 @@ describe('configurator', function() {
   });
 
   describe('this.getConfAndDelegate', function() {
-    it('convenience fn to get conf and delegate in one step', inject(function(configurator) {
+    xit('convenience fn to get conf and delegate in one step', inject(function(configurator) {
       configurator.configuration = conf1;
       var obj = { name: 'morph' };
       configurator.getConfAndDelegate(obj, ['a']);
@@ -477,7 +477,7 @@ describe('configurator', function() {
       expect(obj.hasOwnProperty('a')).toBeTruthy();
     }));
 
-    it('returns the given object', inject(function(configurator) {
+    xit('returns the given object', inject(function(configurator) {
       configurator.configuration = conf1;
       var obj = { name: 'morph' };
       var res = configurator.getConfAndDelegate(obj);
@@ -496,12 +496,12 @@ describe('configurator', function() {
       return obj;
     }
 
-    it('acts just like getConfAndDelegate when the value is undefined', inject(function(configurator) {
+    xit('acts just like getConfAndDelegate when the value is undefined', inject(function(configurator) {
       var obj = setup();
       expect(obj.preselect).toBeTruthy();
     }));
 
-    it('will not override a manually set value on a second call', function() {
+    xit('will not override a manually set value on a second call', function() {
       var obj = setup();
       expect(obj.preselect).toBeTruthy();
       obj.preselect = false;
@@ -515,7 +515,7 @@ describe('configurator', function() {
     function confForAddedPlugin(configurator) {
       return configurator.configuration.plugins[pluginName];
     }
-    it('adds configuration for a plugin', function() {
+    xit('adds configuration for a plugin', function() {
       configurator.configuration = conf1;
 
       expect(confForAddedPlugin(configurator)).toBeUndefined();
@@ -530,26 +530,26 @@ describe('configurator', function() {
   });
 
   describe('this.getService', function() {
-    it('retrieves an angular instance by name', inject(function(configurator) {
+    xit('retrieves an angular instance by name', inject(function(configurator) {
       expect(configurator.getService('x')).toEqual(mock1);
     }));
   });
 
   describe('this.getServices', function() {
-    it('retrieves an object of angular instances by name', inject(function(configurator) {
+    xit('retrieves an object of angular instances by name', inject(function(configurator) {
       var names = ['x', 'y'];
       var services = configurator.getServices(names);
       expect(services).toEqual({ 'x' : mock1, 'y' : mock2 });
     }));
 
-    it('returns an empty array when no service names are given', inject(function(configurator) {
+    xit('returns an empty array when no service names are given', inject(function(configurator) {
       var services = configurator.getServices(undefined);
       expect(services).toEqual([]);
     }));
   });
 
   describe('this.provideResource', function() {
-    it('provides resource objects', inject(function(configurator) {
+    xit('provides resource objects', inject(function(configurator) {
       configurator.configuration = conf1;
       var perseidsResource = configurator.provideResource('perseids');
 

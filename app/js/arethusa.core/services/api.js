@@ -33,6 +33,12 @@ angular.module('arethusa.core').service('api', [
       return lazyLang;
     }
 
+    var lazySearch;
+    function search() {
+      if (!lazySearch) lazySearch = plugins.get('search');
+      return lazySearch;
+    }
+
 
     /** 
      * check ready state
@@ -88,28 +94,38 @@ angular.module('arethusa.core').service('api', [
      * navigates application state to supplied sentenceId
      * making the optional word id selected
      * @param {String} sentenceId 
-     * @param {String} wordId (optional)
+     * @param {String[]} wordIds (optional)
      */
-    this.gotoSentence = function(sentenceId, wordId) {
+    this.gotoSentence = function(sentenceId, wordIds) {
       navigator.goTo(sentenceId);
-      if (wordId) {
-        var token_id  = idHandler.getId(wordId,sentenceId)
-        state.multiSelect([token_id])
+      var tokenIds = [];
+      if (wordIds && wordIds.length > 0) {
+        arethusaUtil.inject(tokenIds, wordIds, function (memo, wordId) {
+         var id = idHandler.getId(wordId,sentenceId);
+         arethusaUtil.pushAll(memo, [id]);
+        });
+        state.multiSelect(tokenIds)
       }
     };
 
     /**
-     * navigate application state to the supplied sentence and word
-     * finding the word by the word string and the surrounding context
-     * @param {String} sentenceId sentence (chunk) identifier
-     * @param {String} word the word to find
-     * @param {String[]} prefix a list of words which preceed this word in the sentence
-     * @param {String[]} suffix a list of words which follow this word in the sentence
+     * find a word by the word string and the surrounding context
      */
-    this.gotoSentenceFindWord = function(sentenceId, word, prefix, suffix) {
+    this.findWord = function(sentenceId, word, prefix, suffix) {
       navigator.goTo(sentenceId);
+      if (prefix == null) {
+        prefix = '';
+      }  
+      if (suffix == null) {
+        suffix = '';
+      }
+      var ids = search().queryWordInContext(word,prefix,suffix);
+      var sourceIds = [];
+      angular.forEach(ids, function (id) {
+        sourceIds.push(state.getToken(id).idMap.mappings.treebank.sourceId);
+      });
+      return sourceIds;
     }
-
 
   }
 ]);

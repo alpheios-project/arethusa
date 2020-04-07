@@ -545,4 +545,53 @@ describe("state", function() {
       expect(listenerCalled).toBeTruthy();
     });
   });
+
+  describe('this.getNextTokens()', function() {
+    it('gets the next token', function() {
+      var res = state.tokens['03'];
+      var next = state.getNextTokens('02',1);
+      expect(next.length).toEqual(1);
+      expect(next[0]).toBe(res);
+    });
+    it('gets the next 2 tokens', function() {
+      var res1 = state.tokens['03'];
+      var res2 = state.tokens['04'];
+      var next = state.getNextTokens('02',2);
+      expect(next.length).toEqual(2);
+      expect(next[0]).toBe(res1);
+      expect(next[1]).toBe(res2);
+    });
+    it('gets the next 2 tokens if 3 are requested and only 2 are left', function() {
+      var res1 = state.tokens['03'];
+      var res2 = state.tokens['04'];
+      var next = state.getNextTokens('02',3);
+      expect(next.length).toEqual(2);
+      expect(next[0]).toBe(res1);
+      expect(next[1]).toBe(res2);
+    });
+  });
+  describe('this.getPreviousTokens()', function() {
+    it('gets the previous token', function() {
+      var res = state.tokens['02'];
+      var prev = state.getPreviousTokens('03',1);
+      expect(prev.length).toEqual(1);
+      expect(prev[0]).toBe(res);
+    });
+    it('gets the previous 2 tokens', function() {
+      var res1 = state.tokens['01'];
+      var res2 = state.tokens['02'];
+      var prev = state.getPreviousTokens('03',2);
+      expect(prev.length).toEqual(2);
+      expect(prev[0]).toBe(res1);
+      expect(prev[1]).toBe(res2);
+    });
+    it('gets the prev 2 tokens if 3 are requested and only 2 are left', function() {
+      var res1 = state.tokens['01'];
+      var res2 = state.tokens['02'];
+      var prev = state.getPreviousTokens('03',2);
+      expect(prev.length).toEqual(2);
+      expect(prev[0]).toBe(res1);
+      expect(prev[1]).toBe(res2);
+    });
+  });
 });

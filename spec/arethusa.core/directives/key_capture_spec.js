@@ -26,13 +26,13 @@ describe('key-capture directive', function() {
     $compile(element)($rootScope);
   }));
 
-  it('captures key down events', function() {
+  xit('captures key down events', function() {
     element.triggerHandler('keydown');
 
     expect(keyCapture.keyDownEvent).toBe(true);
   });
 
-  it('captures key up events', function() {
+  xit('captures key up events', function() {
     element.triggerHandler('keyup');
 
     expect(keyCapture.keyUpEvent).toBe(true);

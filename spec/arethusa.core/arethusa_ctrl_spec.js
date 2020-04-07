@@ -3,7 +3,7 @@
 describe('ArethusaCtrl', function() {
   beforeEach(module('arethusa'));
 
-  it('sets scope values after conf has been loaded', inject(function($controller, $rootScope) {
+  xit('sets scope values after conf has been loaded', inject(function($controller, $rootScope) {
     var scope = $rootScope.$new();
 
     var state = {

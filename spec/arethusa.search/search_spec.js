@@ -75,6 +75,47 @@ describe('search', function() {
       });
     });
   });
+  describe('this.queryWordInContext', function() {
+    beforeEach(function() {
+      state.tokens['03'].string = '-que';
+      search.init();
+    });
+  
+    it('finds a word with prefix and suffix', function() {
+      var ids = search.queryWordInContext('virum','Arma','-que');
+      expect(ids.length).toEqual(1);
+      expect(ids[0]).toEqual('02')
+    });
+
+    it('finds a word with prefix and multi-word suffix', function() {
+      var ids = search.queryWordInContext('virum','Arma','-que cano');
+      expect(ids.length).toEqual(1);
+      expect(ids[0]).toEqual('02')
+    });
+
+    it('finds a word with multi-word prefix and suffix', function() {
+      var ids = search.queryWordInContext('-que','Arma virum','cano');
+      expect(ids.length).toEqual(1);
+      expect(ids[0]).toEqual('03')
+    });
+
+    it('finds a word with no prefix and a suffix', function() {
+      var ids = search.queryWordInContext('Arma','','virum -que cano');
+      expect(ids.length).toEqual(1);
+      expect(ids[0]).toEqual('01')
+    });
+
+    it('finds a word with prefix and no suffix', function() {
+      var ids = search.queryWordInContext('cano','Arma virum -que','');
+      expect(ids.length).toEqual(1);
+      expect(ids[0]).toEqual('04')
+    });
+
+    it('does not find a word that is not there ', function() {
+      var ids = search.queryWordInContext('viro','Arma','-que');
+      expect(ids.length).toEqual(0);
+    });
+  });
 
   // This function has been made private
   describe('this.collectTokenStrings', function() {

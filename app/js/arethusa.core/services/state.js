@@ -452,6 +452,32 @@ angular.module('arethusa.core').service('state', [
       selectSurroundingToken('prev');
     };
 
+    this.getPreviousTokens = function(id,numTokens) {
+      var tokens = [];
+      var allIds = Object.keys(self.tokens);
+      var index = allIds.indexOf(id);
+      for (var i=1; i<=numTokens; i++) {
+        var prevIndex = index - i;
+        if (prevIndex >= 0 && allIds[prevIndex]) {
+          tokens.push(self.getToken(allIds[prevIndex]));
+        }
+      }
+      return tokens.reverse();
+    };
+
+    this.getNextTokens = function(id,numTokens) {
+      var tokens = [];
+      var allIds = Object.keys(self.tokens);
+      var index = allIds.indexOf(id);
+      for (var i=1; i<=numTokens; i++) {
+        var nextIndex = index + i;
+        if (allIds[nextIndex]) {
+          tokens.push(self.getToken(allIds[nextIndex]));
+        }
+      }
+      return tokens;
+    };
+
 // tokens stuff
     this.toTokenStrings = function(ids) {
       var nonSequentials = idHandler.nonSequentialIds(ids);
