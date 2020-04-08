@@ -77,43 +77,106 @@ describe('search', function() {
   });
   describe('this.queryWordInContext', function() {
     beforeEach(function() {
-      state.tokens['03'].string = '-que';
+      state.tokens = {
+        '01': {
+           id: '01',
+           string: 'primus'
+         },
+        '02': {
+          id: '02',
+          string: 'Arma',
+         },
+         '03': {
+           id: '03',
+           string: 'virum',
+         },
+         '04': {
+           id: '04',
+           string: '-que',
+         },
+         '05': {
+           id: '05',
+           string: 'cano',
+         },
+         '06': {
+           id: '06',
+           string: 'Troiae',
+         },
+         '07': {
+           id: '07',
+           string: 'qui'
+         },
+         '08': {
+           id: '08',
+           string: 'primus'
+         },
+         '09': {
+           id: '09',
+           string: 'ab'
+         }
+       }
       search.init();
     });
   
     it('finds a word with prefix and suffix', function() {
-      var ids = search.queryWordInContext('virum','Arma','-que');
+      var ids = search.queryWordInContext('Troiae','cano','qui');
       expect(ids.length).toEqual(1);
-      expect(ids[0]).toEqual('02')
+      expect(ids[0]).toEqual('06');
     });
 
     it('finds a word with prefix and multi-word suffix', function() {
-      var ids = search.queryWordInContext('virum','Arma','-que cano');
+      var ids = search.queryWordInContext('Troiae','cano','qui primus');
       expect(ids.length).toEqual(1);
-      expect(ids[0]).toEqual('02')
+      expect(ids[0]).toEqual('06');
     });
 
     it('finds a word with multi-word prefix and suffix', function() {
-      var ids = search.queryWordInContext('-que','Arma virum','cano');
+      var ids = search.queryWordInContext('primus','Troiae qui','ab');
       expect(ids.length).toEqual(1);
-      expect(ids[0]).toEqual('03')
+      expect(ids[0]).toEqual('08');
     });
 
     it('finds a word with no prefix and a suffix', function() {
-      var ids = search.queryWordInContext('Arma','','virum -que cano');
+      var ids = search.queryWordInContext('primus','','Arma');
       expect(ids.length).toEqual(1);
-      expect(ids[0]).toEqual('01')
+      expect(ids[0]).toEqual('01');
     });
 
     it('finds a word with prefix and no suffix', function() {
-      var ids = search.queryWordInContext('cano','Arma virum -que','');
+      var ids = search.queryWordInContext('ab','primus','');
       expect(ids.length).toEqual(1);
-      expect(ids[0]).toEqual('04')
+      expect(ids[0]).toEqual('09');
     });
 
     it('does not find a word that is not there ', function() {
-      var ids = search.queryWordInContext('viro','Arma','-que');
+      var ids = search.queryWordInContext('prime','qui','ab');
       expect(ids.length).toEqual(0);
+    });
+    it('finds a word with enclytics', function() {
+      var ids = search.queryWordInContext('virumque','Arma','cano');
+      expect(ids.length).toEqual(2);
+      expect(ids[0]).toEqual('03');
+      expect(ids[1]).toEqual('04');
+    });
+    it('finds a word with shifted enclytics', function() {
+      state.tokens['03'].string = '-que';
+      state.tokens['04'].string = 'virum';
+      search.init();
+      var ids = search.queryWordInContext('virumque','Arma','cano');
+      expect(ids.length).toEqual(2);
+      expect(ids[0]).toEqual('04');
+      expect(ids[1]).toEqual('03');
+    });
+    it('finds a word with krasis', function() {
+      state.tokens['01'].string = 'κ-';
+      state.tokens['02'].string = 'ἄπειτα';
+      state.tokens['03'].string = 'τῆς';
+      state.tokens['04'].string = 'περὶ';
+      search.init();
+      var ids = search.queryWordInContext('κἄπειτα','', 'τῆς περὶ')
+      expect(ids.length).toEqual(2);
+      expect(ids[0]).toEqual('02');
+      expect(ids[1]).toEqual('01');
     });
   });
 

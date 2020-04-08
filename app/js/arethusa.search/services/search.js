@@ -41,32 +41,76 @@ angular.module('arethusa.search').service('search', [
     };
 
     this.findWordInContext = function(query) {
-      console.info("QUERY",query);
+
       return arethusaUtil.inject([], self.strings, function (memo, string, ids) {
-        var matchedIds = []
-        if (self.compareWords(string,query.word)) {
-          angular.forEach(ids, function(id) {
+        var matchedIds = [];
+        angular.forEach(ids, function(id) {
+          var prefixWords;
+          var suffixWords;
+          if (query.prefix) {
+            prefixWords = query.prefix.split(' ').length; 
+          } else {
+            prefixWords = 1;
+          }
+          if (query.suffix) {
+            suffixWords = query.suffix.split(' ').length; 
+          }  else {
+            suffixWords = 1;
+          }
+          var previousTokens = state.getPreviousTokens(id,prefixWords);
+          var nextTokens = state.getNextTokens(id,suffixWords);
+          var match = self.compareWords(string,query.word);
+          try {
+          } catch (e) {
+          }
+          var extraId = null;
+      	  // handle split enclytics  - 
+          // test to see if next or preceding word has begins or ends with - and test combined
+          if (!match && nextTokens.length > 0 && nextTokens[0].string.substring(0,1) === '-') {
+            match = self.compareWords(string + nextTokens[0].string.substring(1),query.word);
+            if (match) {
+              extraId = nextTokens[0].id;
+              // recalulate nextTokens based upon the next id if we need them for suffix testing
+              if (query.suffix) {
+                nextTokens = state.getNextTokens(extraId,suffixWords);
+              }
+            }
+          }
+          if (!match && previousTokens.length > 0) {
+            var previous = previousTokens[previousTokens.length-1];
+            // when its the previous token it might have the - at the beginning or end of the word
+            if (previous.string.match(/-$/)) {
+              match = self.compareWords(previous.string.replace(/-$/,'') + string,query.word);
+            } 
+            else if (previous.string.match(/^-/)) {
+              match = self.compareWords(string + previous.string.replace(/^-/,''),query.word);
+            }
+            if (match) {
+              extraId = previous.id;
+              // recalulate previousTokens based upon the previous id if we need them for prefix testing
+              if (query.prefix) {
+                previousTokens = state.getPreviousTokens(extraId,prefixWords);
+              }
+            }
+          }
+          if (match) {
             var matchedPrefix = false;
             var matchedSuffix = false;
             if (query.prefix) {
-              var prefixWords = query.prefix.split(' '); 
-              var previousTokens = state.getPreviousTokens(id,prefixWords.length);
               var previousTokenStrings = arethusaUtil.map(previousTokens, function(t) { 
-                return t.string
+                return t.string;
               });
               
               if (self.compareWords(previousTokenStrings.join(' '),query.prefix)) {
-                matchedPrefix = true
+                matchedPrefix = true;
               }
 
             } else {
               matchedPrefix = true;
             }
             if (query.suffix) {
-              var suffixWords = query.suffix.split(' '); 
-              var nextTokens = state.getNextTokens(id,suffixWords.length);
               var nextTokenStrings = arethusaUtil.map(nextTokens, function(t) { 
-                return t.string
+                return t.string;
               });
               if (self.compareWords(nextTokenStrings.join(' '),query.suffix)) {
                 matchedSuffix = true;
@@ -76,15 +120,19 @@ angular.module('arethusa.search').service('search', [
             }
             if (matchedPrefix && matchedSuffix) {
               matchedIds.push(id);
+              if (extraId) {
+                matchedIds.push(extraId);
+              }
             }
-          });
-        } 
+          } 
+        });
         arethusaUtil.pushAll(memo, matchedIds);
       });
     };
 
     this.compareWords = function(wordA,wordB) {
       // todo we need to support language specific normalization
+      // and punctuation
       return wordA === wordB;
     };
 
@@ -103,9 +151,8 @@ angular.module('arethusa.search').service('search', [
 
     this.queryWordInContext = function(word,prefix,suffix) {
       var queries = [ { word: word, prefix: prefix, suffix: suffix } ]
-      console.info("QUERIES",queries);
       var ids = arethusaUtil.inject([], queries, function (memo, query) {
-         var hits = self.findWordInContext(query)
+         var hits = self.findWordInContext(query);
          arethusaUtil.pushAll(memo, hits);
        });
        return ids;  
