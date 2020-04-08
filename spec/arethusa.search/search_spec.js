@@ -178,6 +178,16 @@ describe('search', function() {
       expect(ids[0]).toEqual('02');
       expect(ids[1]).toEqual('01');
     });
+    it('finds a word with enclytics in suffix', function() {
+      var ids = search.queryWordInContext('Arma','', 'virumque cano Troiae');
+      expect(ids.length).toEqual(1);
+      expect(ids[0]).toEqual('02');
+    });
+    it('finds a word with enclytics in prefix', function() {
+      var ids = search.queryWordInContext('cano','Arma virumque','Troiae');
+      expect(ids.length).toEqual(1);
+      expect(ids[0]).toEqual('05');
+    });
   });
 
   // This function has been made private

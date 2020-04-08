@@ -45,80 +45,69 @@ angular.module('arethusa.search').service('search', [
       return arethusaUtil.inject([], self.strings, function (memo, string, ids) {
         var matchedIds = [];
         angular.forEach(ids, function(id) {
-          var prefixWords;
-          var suffixWords;
+          var prefixWords = [];
+          var suffixWords = [];
           if (query.prefix) {
-            prefixWords = query.prefix.split(' ').length; 
-          } else {
-            prefixWords = 1;
-          }
+            prefixWords = query.prefix.split(' ');
+          } 
           if (query.suffix) {
-            suffixWords = query.suffix.split(' ').length; 
-          }  else {
-            suffixWords = 1;
+            suffixWords = query.suffix.split(' ');
           }
-          var previousTokens = state.getPreviousTokens(id,prefixWords);
-          var nextTokens = state.getNextTokens(id,suffixWords);
-          var match = self.compareWords(string,query.word);
-          try {
-          } catch (e) {
-          }
+          var previousToken = state.getPreviousTokens(id,1);
+          var nextToken = state.getNextTokens(id,1);
+          var nextString = nextToken.length > 0 ? nextToken[0].string : null;
+          var prevString = previousToken.length > 0 ? previousToken[0].string : null;
+          var match = self.compareWordsWithContext(string,prevString,nextString,query.word,false);
           var extraId = null;
-      	  // handle split enclytics  - 
-          // test to see if next or preceding word has begins or ends with - and test combined
-          if (!match && nextTokens.length > 0 && nextTokens[0].string.substring(0,1) === '-') {
-            match = self.compareWords(string + nextTokens[0].string.substring(1),query.word);
-            if (match) {
-              extraId = nextTokens[0].id;
-              // recalulate nextTokens based upon the next id if we need them for suffix testing
-              if (query.suffix) {
-                nextTokens = state.getNextTokens(extraId,suffixWords);
-              }
+          if (match.match) {
+            if (match.combine < 0) { 
+              extraId = previousToken[0].id;
+            } else if (match.combine > 0) {
+              extraId = nextToken[0].id;
             }
-          }
-          if (!match && previousTokens.length > 0) {
-            var previous = previousTokens[previousTokens.length-1];
-            // when its the previous token it might have the - at the beginning or end of the word
-            if (previous.string.match(/-$/)) {
-              match = self.compareWords(previous.string.replace(/-$/,'') + string,query.word);
-            } 
-            else if (previous.string.match(/^-/)) {
-              match = self.compareWords(string + previous.string.replace(/^-/,''),query.word);
-            }
-            if (match) {
-              extraId = previous.id;
-              // recalulate previousTokens based upon the previous id if we need them for prefix testing
-              if (query.prefix) {
-                previousTokens = state.getPreviousTokens(extraId,prefixWords);
-              }
-            }
-          }
-          if (match) {
-            var matchedPrefix = false;
-            var matchedSuffix = false;
+            var matchedPrefixWords = 0;
+            var matchedSuffixWords = 0;
+            var previousTokens = [];
+            var prefixIndex = 0;
             if (query.prefix) {
-              var previousTokenStrings = arethusaUtil.map(previousTokens, function(t) { 
-                return t.string;
-              });
-              
-              if (self.compareWords(previousTokenStrings.join(' '),query.prefix)) {
-                matchedPrefix = true;
+              var startingId = match.combine < 0 ? extraId : id;
+              previousTokens = state.getPreviousTokens(startingId,prefixWords.length);
+              for (var i=0; i<previousTokens.length; i++) {
+                var nextString = previousTokens[i+1] ? previousTokens[i+1].string : null;
+                var prevString = i > 0 && previousTokens[i-1] ? previousTokens[i-1].string : null;
+                var matchP = self.compareWordsWithContext(previousTokens[i].string,prevString,nextString,prefixWords[prefixIndex],true);
+                if (matchP.match) {
+                  matchedPrefixWords++;
+                  if (matchP.combine != 0) {
+                    matchedPrefixWords++;
+                    prefixIndex = prefixIndex - matchP.combine;
+                  } 
+                }
+                prefixIndex++
               }
-
-            } else {
-              matchedPrefix = true;
-            }
+            } 
+            var nextTokens = [];
             if (query.suffix) {
-              var nextTokenStrings = arethusaUtil.map(nextTokens, function(t) { 
-                return t.string;
-              });
-              if (self.compareWords(nextTokenStrings.join(' '),query.suffix)) {
-                matchedSuffix = true;
+              var startingId = match.combine > 0 ? extraId : id;
+              nextTokens = state.getNextTokens(startingId,suffixWords.length);
+              var suffixIndex = 0;
+              for (var i=0; i<nextTokens.length; i++) {
+                var nextString = nextTokens[i+1] ? nextTokens[i+1].string : null;
+                var prevString = i > 0 && nextTokens[i-1] > 0 ? nextTokens[i-1].string : null;
+                var matchS = self.compareWordsWithContext(nextTokens[i].string,prevString,nextString,suffixWords[suffixIndex],true);
+                if (matchS.match) {
+                  matchedSuffixWords++;
+                  if (matchS.combine != 0) {
+                    matchedSuffixWords++;
+                    suffixIndex = suffixIndex - matchS.combine;
+                  } 
+                }
+                suffixIndex++
               }
-            } else {
-              matchedSuffix = true;
             }
-            if (matchedPrefix && matchedSuffix) {
+            console.info("Matched Prefix Words for",query.word,matchedPrefixWords,previousTokens.length);
+            console.info("Matched Suffix Words for",query.word,matchedSuffixWords,nextTokens.length);
+            if (matchedPrefixWords == previousTokens.length && matchedSuffixWords == nextTokens.length) {
               matchedIds.push(id);
               if (extraId) {
                 matchedIds.push(extraId);
@@ -130,9 +119,58 @@ angular.module('arethusa.search').service('search', [
       });
     };
 
+    this.compareWordsWithContext = function(wordA,wordAPrev,wordANext,wordB,testWordEnclytics) {
+      var match = self.compareWords(wordA,wordB);
+      var combine = 0;
+      // handle split enclytics  - 
+      // test to see if next or preceding word has begins or ends with - and test combined
+      if (!match && wordANext && wordANext.match(/^-/)) {
+        match = self.compareWords(wordA + wordANext.replace(/^-/,''),wordB);
+        if (match) {
+          combine = 1;
+        }
+      }
+      if (!match ) {
+        if (wordAPrev && wordAPrev.match(/-$/)) {
+          match = self.compareWords(wordAPrev.replace(/-$/,'') + wordA, wordB);
+        } else if (wordAPrev && wordAPrev.match(/^-/)) {
+           match = self.compareWords(wordA + wordAPrev.replace(/^-/,''),wordB);
+        }
+        if (match) {
+          combine = -1;
+        } 
+      }
+      if (!match && testWordEnclytics && (wordA.match(/^-/) || wordA.match(/-$/))) {
+        var testWord;
+        if (wordA.match(/^-/)) {
+          wordA = wordA.replace(/^-/,'');
+        } else {
+          wordA = wordA.replace(/-$/,'');
+        }
+        if (wordAPrev) {
+          match = self.compareWords(wordAPrev + wordA,wordB);
+          if (!match) {
+            match = self.compareWords(wordA + wordAPrev,wordB);
+          }
+          if (match) {
+            combine = -1;
+          } 
+        } else if (wordANext) {
+          match = self.compareWords(wordA + wordANext,wordB);
+          if (!match) {
+            match = self.compareWords(wordANext + wordA,wordB);
+          }
+          if (match) {
+            combine = 1;
+          }
+        }
+      }
+      return { match: match, combine: combine };
+    };
+
+
     this.compareWords = function(wordA,wordB) {
       // todo we need to support language specific normalization
-      // and punctuation
       return wordA === wordB;
     };
 
