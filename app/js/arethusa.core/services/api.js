@@ -92,7 +92,7 @@ angular.module('arethusa.core').service('api', [
 
     /**  
      * navigates application state to supplied sentenceId
-     * making the optional word id selected
+     * making the optional word id(s) selected
      * @param {String} sentenceId 
      * @param {String[]} wordIds (optional)
      */
@@ -109,7 +109,14 @@ angular.module('arethusa.core').service('api', [
     };
 
     /**
-     * find a word by the word string and the surrounding context
+     * navigates the application to the supplied sentenceId
+     * and finds a word given a specific context. 
+     * Found words are NOT preselected.
+     * @param {String} sentenceId
+     * @param {String} word the word to find
+     * @param {String} prefix the preceding word or words
+     * @param {String} suffix the following word or words
+     * @return {Array} a list of the matching wordids
      */
     this.findWord = function(sentenceId, word, prefix, suffix) {
       navigator.goTo(sentenceId);
