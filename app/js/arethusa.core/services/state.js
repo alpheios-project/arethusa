@@ -455,25 +455,29 @@ angular.module('arethusa.core').service('state', [
     this.getPreviousTokens = function(id,numTokens) {
       var tokens = [];
       var allIds = Object.keys(self.tokens);
-      var index = allIds.indexOf(id);
-      for (var i=1; i<=numTokens; i++) {
-        var prevIndex = index - i;
-        if (prevIndex >= 0 && allIds[prevIndex]) {
-          tokens.push(self.getToken(allIds[prevIndex]));
+      var endIndex = allIds.indexOf(id) - 1;
+      if (endIndex >= 0) {
+        var startIndex = 0;
+        if (numTokens && startIndex !== endIndex) {
+          startIndex = startIndex + numTokens;
+        }
+        for (var i=startIndex; i<= endIndex; i++) {
+          tokens.push(self.getToken(allIds[i]));
         }
       }
-      return tokens.reverse();
+      return tokens;
     };
 
     this.getNextTokens = function(id,numTokens) {
       var tokens = [];
       var allIds = Object.keys(self.tokens);
-      var index = allIds.indexOf(id);
-      for (var i=1; i<=numTokens; i++) {
-        var nextIndex = index + i;
-        if (allIds[nextIndex]) {
-          tokens.push(self.getToken(allIds[nextIndex]));
-        }
+      var startIndex = allIds.indexOf(id) + 1;
+      var endIndex = allIds.length - 1;
+      if (numTokens && startIndex !== endIndex) {
+        endIndex = startIndex + numTokens;
+      }
+      for (var i=startIndex; i<= endIndex; i++) {
+        tokens.push(self.getToken(allIds[i]));
       }
       return tokens;
     };
@@ -847,7 +851,7 @@ angular.module('arethusa.core').service('state', [
      * @param {*} [arg] Optional argument transmitted alongside the event
      */
     this.broadcast = function(event, arg) {
-       // broadcast here iterates through all 
+       // broadcast here iterates through all
        // handlers which have registered a listener
        // on the broadcasted event and executes them
        // before returning

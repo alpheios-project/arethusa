@@ -75,6 +75,38 @@ describe('search', function() {
       });
     });
   });
+  describe('this.compareWordsWithContext', function() {
+    it('finds a word with shifted enclytic', function()  {
+      var res = search.compareWordsWithContext('virum','-que','any','virumque');
+      expect(res).toBeTruthy();
+      expect(res.match).toBeTruthy();
+      expect(res.combine).toEqual(-1);
+    });
+    it('finds a word with post enclytic', function()  {
+      var res = search.compareWordsWithContext('virum','any','-que','virumque');
+      expect(res).toBeTruthy();
+      expect(res.match).toBeTruthy();
+      expect(res.combine).toEqual(1);
+    });
+    it('finds a word with pre krasis', function()  {
+      var res = search.compareWordsWithContext('ἄπειτα','κ-','τῆς','κἄπειτα');
+      expect(res).toBeTruthy();
+      expect(res.match).toBeTruthy();
+      expect(res.combine).toEqual(-1);
+    });
+    it('finds a word with pre enclytic where enclytic is tested', function()  {
+      var res = search.compareWordsWithContext('-que','virum','any','virumque',true);
+      expect(res).toBeTruthy();
+      expect(res.match).toBeTruthy();
+      expect(res.combine).toEqual(-1);
+    });
+    it('finds a word with shifted enclytic where enclytic is tested', function()  {
+      var res = search.compareWordsWithContext('-que','any','virum','virumque',true);
+      expect(res).toBeTruthy();
+      expect(res.match).toBeTruthy();
+      expect(res.combine).toEqual(1);
+    });
+  });
   describe('this.queryWordInContext', function() {
     beforeEach(function() {
       state.tokens = {
@@ -113,11 +145,29 @@ describe('search', function() {
          '09': {
            id: '09',
            string: 'ab'
-         }
+         },
+         '10': {
+           id: '10',
+           string: 'veni'
+         },
+         '11': {
+           id: '11',
+           string: 'cano'
+         },
+         '12': {
+           id: '12',
+           string: 'Troiae'
+         },
+         '13': {
+           id: '13',
+           string: 'mare'
+         },
+
        }
       search.init();
     });
-  
+
+
     it('finds a word with prefix and suffix', function() {
       var ids = search.queryWordInContext('Troiae','cano','qui');
       expect(ids.length).toEqual(1);
@@ -164,19 +214,8 @@ describe('search', function() {
       search.init();
       var ids = search.queryWordInContext('virumque','Arma','cano');
       expect(ids.length).toEqual(2);
-      expect(ids[0]).toEqual('04');
-      expect(ids[1]).toEqual('03');
-    });
-    it('finds a word with krasis', function() {
-      state.tokens['01'].string = 'κ-';
-      state.tokens['02'].string = 'ἄπειτα';
-      state.tokens['03'].string = 'τῆς';
-      state.tokens['04'].string = 'περὶ';
-      search.init();
-      var ids = search.queryWordInContext('κἄπειτα','', 'τῆς περὶ')
-      expect(ids.length).toEqual(2);
-      expect(ids[0]).toEqual('02');
-      expect(ids[1]).toEqual('01');
+      expect(ids[0]).toEqual('03');
+      expect(ids[1]).toEqual('04');
     });
     it('finds a word with enclytics in suffix', function() {
       var ids = search.queryWordInContext('Arma','', 'virumque cano Troiae');
@@ -187,6 +226,16 @@ describe('search', function() {
       var ids = search.queryWordInContext('cano','Arma virumque','Troiae');
       expect(ids.length).toEqual(1);
       expect(ids[0]).toEqual('05');
+    });
+    it('finds a word with prefix mismatch', function() {
+      var ids = search.queryWordInContext('cano','veni','Troiae');
+      expect(ids.length).toEqual(1);
+      expect(ids[0]).toEqual('11');
+    });
+    it('finds a word with suffix mismatch', function() {
+      var ids = search.queryWordInContext('Troiae','cano','qui');
+      expect(ids.length).toEqual(1);
+      expect(ids[0]).toEqual('06');
     });
   });
 

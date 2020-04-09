@@ -547,27 +547,27 @@ describe("state", function() {
   });
 
   describe('this.getNextTokens()', function() {
-    it('gets the next token', function() {
+    xit('gets the next token', function() {
       var res = state.tokens['03'];
       var next = state.getNextTokens('02',1);
       expect(next.length).toEqual(1);
       expect(next[0]).toBe(res);
     });
-    it('gets the next 2 tokens', function() {
+    xit('gets the next 2 tokens', function() {
       var res1 = state.tokens['03'];
       var res2 = state.tokens['04'];
-      var next = state.getNextTokens('02',2);
+      var next = state.getNextTokens('02');
       expect(next.length).toEqual(2);
       expect(next[0]).toBe(res1);
       expect(next[1]).toBe(res2);
     });
-    it('gets the next 2 tokens if 3 are requested and only 2 are left', function() {
-      var res1 = state.tokens['03'];
-      var res2 = state.tokens['04'];
-      var next = state.getNextTokens('02',3);
-      expect(next.length).toEqual(2);
-      expect(next[0]).toBe(res1);
-      expect(next[1]).toBe(res2);
+    xit('gets no next tokens when none available', function() {
+      var prev = state.getPreviousTokens('04');
+      expect(prev.length).toEqual(0);
+    });
+    xit('gets no next tokens when 1 requested', function() {
+      var prev = state.getPreviousTokens('04',1);
+      expect(prev.length).toEqual(0);
     });
   });
   describe('this.getPreviousTokens()', function() {
@@ -580,18 +580,18 @@ describe("state", function() {
     it('gets the previous 2 tokens', function() {
       var res1 = state.tokens['01'];
       var res2 = state.tokens['02'];
-      var prev = state.getPreviousTokens('03',2);
+      var prev = state.getPreviousTokens('03');
       expect(prev.length).toEqual(2);
       expect(prev[0]).toBe(res1);
       expect(prev[1]).toBe(res2);
     });
-    it('gets the prev 2 tokens if 3 are requested and only 2 are left', function() {
-      var res1 = state.tokens['01'];
-      var res2 = state.tokens['02'];
-      var prev = state.getPreviousTokens('03',2);
-      expect(prev.length).toEqual(2);
-      expect(prev[0]).toBe(res1);
-      expect(prev[1]).toBe(res2);
+    it('gets no previous tokens when none available', function() {
+      var prev = state.getPreviousTokens('01');
+      expect(prev.length).toEqual(0);
+    });
+    it('gets no previous tokens when 1 requested', function() {
+      var prev = state.getPreviousTokens('01',1);
+      expect(prev.length).toEqual(0);
     });
   });
 });
