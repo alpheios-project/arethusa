@@ -547,13 +547,13 @@ describe("state", function() {
   });
 
   describe('this.getNextTokens()', function() {
-    xit('gets the next token', function() {
+    it('gets the next token', function() {
       var res = state.tokens['03'];
       var next = state.getNextTokens('02',1);
       expect(next.length).toEqual(1);
       expect(next[0]).toBe(res);
     });
-    xit('gets the next 2 tokens', function() {
+    it('gets the next 2 tokens', function() {
       var res1 = state.tokens['03'];
       var res2 = state.tokens['04'];
       var next = state.getNextTokens('02');
@@ -561,12 +561,32 @@ describe("state", function() {
       expect(next[0]).toBe(res1);
       expect(next[1]).toBe(res2);
     });
-    xit('gets no next tokens when none available', function() {
-      var prev = state.getPreviousTokens('04');
+    it('gets the rest of the tokens', function() {
+      var res1 = state.tokens['02'];
+      var res2 = state.tokens['03'];
+      var res3 = state.tokens['04'];
+      var next = state.getNextTokens('01');
+      expect(next.length).toEqual(3);
+      expect(next[0]).toBe(res1);
+      expect(next[1]).toBe(res2);
+      expect(next[2]).toBe(res3);
+    });
+    it('gets only the rest of the tokens', function() {
+      var res1 = state.tokens['02'];
+      var res2 = state.tokens['03'];
+      var res3 = state.tokens['04'];
+      var next = state.getNextTokens('01',4);
+      expect(next.length).toEqual(3);
+      expect(next[0]).toBe(res1);
+      expect(next[1]).toBe(res2);
+      expect(next[2]).toBe(res3);
+    });
+    it('gets no next tokens when none available', function() {
+      var prev = state.getNextTokens('04');
       expect(prev.length).toEqual(0);
     });
-    xit('gets no next tokens when 1 requested', function() {
-      var prev = state.getPreviousTokens('04',1);
+    it('gets no next tokens when 1 requested', function() {
+      var prev = state.getNextTokens('04',1);
       expect(prev.length).toEqual(0);
     });
   });

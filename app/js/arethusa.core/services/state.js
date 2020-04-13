@@ -497,8 +497,8 @@ angular.module('arethusa.core').service('state', [
       var allIds = Object.keys(self.tokens);
       var startIndex = allIds.indexOf(id) + 1;
       var endIndex = allIds.length - 1;
-      if (numTokens && startIndex !== endIndex) {
-        endIndex = startIndex + numTokens;
+      if (numTokens && (startIndex + numTokens -1 < endIndex) ) {
+        endIndex = startIndex + numTokens - 1;
       }
       for (var i=startIndex; i<= endIndex; i++) {
         tokens.push(self.getToken(allIds[i]));
