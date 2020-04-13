@@ -40,7 +40,7 @@ angular.module('arethusa.core').service('api', [
     }
 
 
-    /** 
+    /**
      * check ready state
      * @return {Boolean} true if arethusa is loaded and ready otherwise false
      */
@@ -52,8 +52,8 @@ angular.module('arethusa.core').service('api', [
      * get the morphology and gloss for a specific word
      * @param {String} sentenceId sentence (chunk) identifier
      * @param {String} wordId word (token) identifier
-     * @return {Object} an object adhering to a JSON representation of Alpheios Lexicon Schema wrapped in 
-     *                  the BSP Morphology Service RDF Annotation Wrapper 
+     * @return {Object} an object adhering to a JSON representation of Alpheios Lexicon Schema wrapped in
+     *                  the BSP Morphology Service RDF Annotation Wrapper
      *                  (i.e. the same format as parsed by the BSPMorphRetriever)
      */
     this.getMorph = function(sentenceId,wordId) {
@@ -68,7 +68,7 @@ angular.module('arethusa.core').service('api', [
       return navigator.currentSubdocs()[0];
     };
 
-    /** 
+    /**
      * rerenders the tree
      * can be useful to call the tree is first loaded in a iframe that isn't visible
      */
@@ -76,24 +76,24 @@ angular.module('arethusa.core').service('api', [
       navigator.triggerRefreshEvent();
     }
 
-    /** 
+    /**
      * navigates application state to the next sentence
      */
     this.nextSentence = function() {
       navigator.nextChunk();
     };
 
-    /**  
+    /**
      * navigates application state to the previous sentence
      */
     this.prevSentence = function() {
       navigator.prevChunk();
     };
 
-    /**  
+    /**
      * navigates application state to supplied sentenceId
      * making the optional word id(s) selected
-     * @param {String} sentenceId 
+     * @param {String} sentenceId
      * @param {String[]} wordIds (optional)
      */
     this.gotoSentence = function(sentenceId, wordIds) {
@@ -110,19 +110,19 @@ angular.module('arethusa.core').service('api', [
 
     /**
      * navigates the application to the supplied sentenceId
-     * and finds a word given a specific context. 
+     * and finds a word given a specific context.
      * Found words are NOT preselected.
      * @param {String} sentenceId
      * @param {String} word the word to find
-     * @param {String} prefix the preceding word or words
-     * @param {String} suffix the following word or words
-     * @return {Array} a list of the matching wordids
+     * @param {String} prefix the preceding word or words (optional)
+     * @param {String} suffix the following word or words (optional)
+     * @return {String[]} a list of the matching wordids
      */
     this.findWord = function(sentenceId, word, prefix, suffix) {
       navigator.goTo(sentenceId);
       if (prefix == null) {
         prefix = '';
-      }  
+      }
       if (suffix == null) {
         suffix = '';
       }
