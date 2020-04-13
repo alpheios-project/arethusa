@@ -452,14 +452,29 @@ angular.module('arethusa.core').service('state', [
       selectSurroundingToken('prev');
     };
 
+    /*
+     * Gets a list of the tokens which precede the supplied tokens
+     * in the current chunk.
+     * @param {String} id the supplied token
+     * @param {int} numTokens {optional} number of preceding tokens
+     *                        to retrieve. If not supplied, it will
+     *                        retrieve all preceding tokens in the chunk.
+     * @return {Object[]} list of preceding token objects
+     */
     this.getPreviousTokens = function(id,numTokens) {
       var tokens = [];
       var allIds = Object.keys(self.tokens);
       var endIndex = allIds.indexOf(id) - 1;
       if (endIndex >= 0) {
+        // if the end index is not already the first token
+        // and numTokens is supplied, the start index should be
+        // endIndex - numTokens, with a floor of 0
         var startIndex = 0;
-        if (numTokens && startIndex !== endIndex) {
-          startIndex = startIndex + numTokens;
+        if (numTokens) {
+          startIndex = endIndex - numTokens + 1;
+        }
+        if (startIndex < 0) {
+           startIndex = 0;
         }
         for (var i=startIndex; i<= endIndex; i++) {
           tokens.push(self.getToken(allIds[i]));
@@ -468,6 +483,15 @@ angular.module('arethusa.core').service('state', [
       return tokens;
     };
 
+    /*
+     * Gets a list of the tokens which follow the supplied tokens
+     * in the current chunk.
+     * @param {String} id the supplied token
+     * @param {int} numTokens {optional} number of following tokens
+     *                        to retrieve. If not supplied, it will
+     *                        retrieve all following tokens in the chunk.
+     * @return {Object[]} list of following token objects
+     */
     this.getNextTokens = function(id,numTokens) {
       var tokens = [];
       var allIds = Object.keys(self.tokens);
