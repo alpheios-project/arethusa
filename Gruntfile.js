@@ -368,7 +368,11 @@ module.exports = function(grunt) {
     karma: {
       spec: {
         autoWatch: false,
+        logLevel: 'INFO',
         singleRun: true,
+        client: { 
+          captureConsole: true
+        },
         options: {
           files : [
             './bower_components/angular/angular.js',

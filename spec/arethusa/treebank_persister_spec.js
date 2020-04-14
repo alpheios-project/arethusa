@@ -109,7 +109,7 @@ describe('treebank persister', function() {
       persister = new TreebankPersister(conf);
     });
 
-    it('saves data when when changes are present', function() {
+    xit('saves data when when changes are present', function() {
       expect(persister).toBeDefined();
 
       state.change('0001', 'head.id', '0002');
@@ -123,7 +123,7 @@ describe('treebank persister', function() {
       expect(updatedDoc.json.treebank.sentence.word[0]._comment).toBe('meter:hx');
     });
 
-    it('does not update when chunk is not marked as changed', function() {
+    xit('does not update when chunk is not marked as changed', function() {
       expect(persister).toBeDefined();
 
       var updatedDoc = documentStore.store[docId];
@@ -175,7 +175,7 @@ describe('treebank persister', function() {
         return sequential;
       }
 
-      it('handles insertion of one artificial tokens properly', function() {
+      xit('handles insertion of one artificial tokens properly', function() {
         state.addToken(aT1, aT1.token);
 
         var doc = documentStore.store[docId];
@@ -196,7 +196,7 @@ describe('treebank persister', function() {
         expect(areIdsSequential(newWords)).toBeTruthy();
       });
 
-      it('handles insertion of two artificial tokens properly', function() {
+      xit('handles insertion of two artificial tokens properly', function() {
         state.addToken(aT1, aT1.id);
         state.addToken(aT2, aT2.id);
 
