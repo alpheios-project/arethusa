@@ -185,11 +185,17 @@ angular.module('arethusa.search').service('search', [
        // iterate through the matches, keeping only the ones with the highest number
        // of matching prefix and suffix words
        angular.forEach(matches,function (match) {
-         if (match.matchedPrefix >= maxPrefix && match.matchedSuffix >= maxSuffix) {
+         if ((match.matchedPrefix > maxPrefix && match.matchedSuffix > maxSuffix) ||
+             (match.matchedPrefix == maxPrefix && match.matchedSuffix > maxSuffix) ||
+             (match.matchedPrefix > maxPrefix && match.matchedSuffix == maxSuffix)) {
+            // if at least one of maxPrefix or maxSuffix is higher than previously
+            // seen then we can discard the other matches
             maxPrefix = match.matchedPrefix;
             maxSuffix = match.matchedSuffix;
             bestMatches = [match]
          } else if (match.matchedPrefix == maxPrefix && match.matchedSuffix == maxSuffix) {
+            // both maxPrefix and maxSuffix are the same as previously seen
+            // then we have to *add* this to the possible matches
             bestMatches.push(match);
          }
        });

@@ -237,6 +237,12 @@ describe('search', function() {
       expect(ids.length).toEqual(1);
       expect(ids[0]).toEqual('06');
     });
+    it('returns multiple matches', function() {
+      var ids = search.queryWordInContext('primus','','');
+      expect(ids.length).toEqual(2);
+      expect(ids[0]).toEqual('01');
+      expect(ids[1]).toEqual('08');
+    });
   });
 
   // This function has been made private
