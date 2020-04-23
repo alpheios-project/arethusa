@@ -143,7 +143,7 @@ Z.fun = {
         "./bower_components/angular-uuid2/dist/angular-uuid2.min.js",
         //"./vendor/angular-foundation-colorpicker/js/foundation-colorpicker-module.min.js",
         "./vendor/uservoice/uservoice.min.js",
-        "./vendor/angularJS-toaster/toaster.min.js",
+        //"./vendor/angularJS-toaster/toaster.min.js",
         "./bower_components/angular-highlightjs/angular-highlightjs.min.js",
         "./bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js",
         "./vendor/highlight/highlight.pack.js"
