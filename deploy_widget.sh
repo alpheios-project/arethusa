@@ -10,5 +10,6 @@ mkdir -p $deploy_dir/../vendor/d3-3.4.13/
 
 cp dist/arethusa.min.js $deploy_dir
 cp dist/arethusa.min.map $deploy_dir
+cp dist/arethusa_packages.min.js $deploy_dir/arethusa.packages.min.js
 cp dist/* $deploy_dir/dist
 cp vendor/d3-3.4.13/d3.min.js $deploy_dir/../vendor/d3-3.4.13/d3.min.js

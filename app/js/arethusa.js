@@ -46,6 +46,19 @@ angular.module('arethusa').config([
 
     localStorageServiceProvider.setPrefix('arethusa');
   },
+]).config([
+  // This config prevents URL changes done using the browser's History API
+  // from causing Angular to enter an infinite loop.
+  // See https://stackoverflow.com/questions/18611214/turn-off-url-manipulation-in-angularjs
+  '$provide',
+  function ($provide) {
+    $provide.decorator('$browser', ['$delegate', function ($delegate) {
+      $delegate.onUrlChange = function () {};
+      $delegate.url = function () { return '' };
+
+      return $delegate;
+    }]);
+  }
 ]);
 
 angular.module('arethusa').value('CONF_PATH', '/configs');
