@@ -49,10 +49,7 @@ angular.module('arethusa.core').service('errorDialog', [
     this.sendError = function(message, exception) {
       // this comes from the stacktrace-js library
       var trace = exception ? printStackTrace({e: exception}) : printStackTrace();
-      // it's a little pointless to do this as a modal dialog really
-      // the idea was to send the stack trace on accept but it is a pain
-      // to get the coordination of the modal dialog with the uservoice widget right
-      // so the errordialog has the user voice widget embedded in it for now
+
       ask(message,trace).then((function(){ }));
     };
   }
