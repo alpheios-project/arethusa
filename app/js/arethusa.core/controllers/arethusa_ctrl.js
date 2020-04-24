@@ -83,9 +83,6 @@ angular.module('arethusa.core').controller('ArethusaCtrl', [
           state.arethusaLoaded = true;
           notifier.success(translations.loadComplete());
           angular.element(document.body)[0].dispatchEvent(new CustomEvent("ArethusaLoaded",{detail: { currentTokenCount: state.totalTokens } }));
-          if (aU.isArethusaMainApplication()) {
-            UserVoice.push(['addTrigger', '#uservoicebutton', { mode: 'contact' }]);
-          }
 
           // start listening for events
           state.silent = false;
