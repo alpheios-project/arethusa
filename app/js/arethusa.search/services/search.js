@@ -215,6 +215,16 @@ angular.module('arethusa.search').service('search', [
     return finalMatches;
    };
 
+
+    /**
+     * strip enclytic/proclytic markers from a word
+     * @param {String} word
+     * @return {String} the stripped word
+     */
+    function stripEnclytics(word) {
+      return word.replace(/^-/,'').replace(/-$/,'');
+    }
+
     /**
      * compare two words, account for the fact that wordB may be represented by a combination
      * of wordA with an enclytic that appears before or after it
@@ -230,14 +240,14 @@ angular.module('arethusa.search').service('search', [
       // latin enclytics usually are preceded with a '-' and may be
       // either right after the base word or shifted to right before it
       if (!match && wordANext) {
-        var cleanWordANext = wordANext.replace(/^-/,'').replace(/-$/,'');
+        var cleanWordANext = stripEnclytics(wordANext);
         match = compareWords(wordA + cleanWordANext,wordB);
         if (match) {
           combine = 1;
         }
       }
       if (!match && wordAPrev) {
-        var cleanWordAPrev = wordAPrev.replace(/^-/,'').replace(/-$/,'');
+        var cleanWordAPrev = stripEnclytics(wordAPrev);
         // greek krasis is postfixed with a - and should appear before the
         // base word
         if (wordAPrev) {
@@ -253,7 +263,7 @@ angular.module('arethusa.search').service('search', [
       }
       // recheck to see if the word we're testing is the enclytic
       if (!match) {
-        var cleanWordA = wordA.replace(/^-/,'').replace(/-$/,'');
+        var cleanWordA = stripEnclytics(wordA);
         if (wordAPrev) {
           match = compareWords(wordAPrev + cleanWordA,wordB);
           if (!match) {
