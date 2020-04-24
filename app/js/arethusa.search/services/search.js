@@ -215,6 +215,16 @@ angular.module('arethusa.search').service('search', [
     return finalMatches;
    };
 
+
+    /**
+     * strip enclytic/proclytic markers from a word
+     * @param {String} word
+     * @return {String} the stripped word
+     */
+    function stripEnclytics(word) {
+      return word.replace(/^-/,'').replace(/-$/,'');
+    }
+
     /**
      * compare two words, account for the fact that wordB may be represented by a combination
      * of wordA with an enclytic that appears before or after it
@@ -229,46 +239,44 @@ angular.module('arethusa.search').service('search', [
       var combine = 0;
       // latin enclytics usually are preceded with a '-' and may be
       // either right after the base word or shifted to right before it
-      if (!match && wordANext && wordANext.match(/^-/)) {
-        match = compareWords(wordA + wordANext.replace(/^-/,''),wordB);
+      if (!match && wordANext) {
+        var cleanWordANext = stripEnclytics(wordANext);
+        match = compareWords(wordA + cleanWordANext,wordB);
         if (match) {
           combine = 1;
         }
       }
-      if (!match ) {
+      if (!match && wordAPrev) {
+        var cleanWordAPrev = stripEnclytics(wordAPrev);
         // greek krasis is postfixed with a - and should appear before the
         // base word
-        if (wordAPrev && wordAPrev.match(/-$/)) {
-          match = compareWords(wordAPrev.replace(/-$/,'') + wordA, wordB);
-        } else if (wordAPrev && wordAPrev.match(/^-/)) {
-           // handles the case where the enclytic is shifted to before the word
-           match = compareWords(wordA + wordAPrev.replace(/^-/,''),wordB);
+        if (wordAPrev) {
+          match = compareWords(cleanWordAPrev + wordA, wordB);
+          if (!match) {
+            // handles the case where the enclytic is shifted to before the word
+            match = compareWords(wordA + cleanWordAPrev, wordB);
+          }
         }
         if (match) {
           combine = -1;
         }
       }
       // recheck to see if the word we're testing is the enclytic
-      if (!match && (wordA.match(/^-/) || wordA.match(/-$/))) {
-        var testWord;
-        if (wordA.match(/^-/)) {
-          wordA = wordA.replace(/^-/,'');
-        } else {
-          wordA = wordA.replace(/-$/,'');
-        }
+      if (!match) {
+        var cleanWordA = stripEnclytics(wordA);
         if (wordAPrev) {
-          match = compareWords(wordAPrev + wordA,wordB);
+          match = compareWords(wordAPrev + cleanWordA,wordB);
           if (!match) {
-            match = compareWords(wordA + wordAPrev,wordB);
+            match = compareWords(cleanWordA + wordAPrev,wordB);
           }
           if (match) {
             combine = -1;
           }
         }
         if (! match && wordANext) {
-          match = compareWords(wordA + wordANext,wordB);
+          match = compareWords(cleanWordA + wordANext,wordB);
           if (!match) {
-            match = compareWords(wordANext + wordA,wordB);
+            match = compareWords(wordANext + cleanWordA,wordB);
           }
           if (match) {
             combine = 1;

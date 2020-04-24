@@ -243,6 +243,23 @@ describe('search', function() {
       expect(ids[0]).toEqual('01');
       expect(ids[1]).toEqual('08');
     });
+    it('finds a word with unmarked enclytics', function() {
+      state.tokens['04'].string = 'que';
+      search.init();
+      var ids = search.queryWordInContext('virumque','Arma','cano');
+      expect(ids.length).toEqual(2);
+      expect(ids[0]).toEqual('03');
+      expect(ids[1]).toEqual('04');
+    });
+    it('finds a word with shifted unmarked enclytics', function() {
+      state.tokens['03'].string = 'que';
+      state.tokens['04'].string = 'virum';
+      search.init();
+      var ids = search.queryWordInContext('virumque','Arma','cano');
+      expect(ids.length).toEqual(2);
+      expect(ids[0]).toEqual('03');
+      expect(ids[1]).toEqual('04');
+    });
   });
 
   // This function has been made private
