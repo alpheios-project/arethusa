@@ -514,11 +514,13 @@ angular.module('arethusa.core').factory('Tree', [
       };
 
       scope.perfectWidth = function() {
-        setViewModeFn(scope.perfectWidth);
         var gWidth  = graphSize().width;
         var targetW = width - treeMargin * 2;
-        var scale = targetW / gWidth;
-        moveGraph(treeMargin, treeMargin, scale);
+        if (targetW !== 0 && gWidth !== 0) {
+          setViewModeFn(scope.perfectWidth);
+          var scale = targetW / gWidth;
+          moveGraph(treeMargin, treeMargin, scale);
+        }
       };
 
       scope.focusRoot = function() {
