@@ -625,6 +625,7 @@ module.exports = function(grunt) {
   // These three server tasks are usually everything you need!
   grunt.registerTask('server', ['clean:dist', 'version', 'minify:all', 'express:server']);
   grunt.registerTask('reloading-server', ['clean:dist', 'version', 'concurrent:server']);
+  grunt.registerTask('build', ['clean:dist', 'version', 'minify:all']);
   grunt.registerTask('doc-server', ['concurrent:docs']);
 
   grunt.registerTask('reloader', 'concurrent:watches');
