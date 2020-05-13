@@ -18,6 +18,7 @@ cp dist/arethusa_packages.min.js $deploy_dir/arethusa.packages.min.js
 cp dist/* $deploy_dir/dist
 cp dist/i18n/* $deploy_dir/i18n/
 
+mv $deploy_dir/dist/arethusa.min.css $deploy_dir/css/arethusa.min.css
 cp vendor/angular-foundation-colorpicker/css/colorpicker.css $deploy_dir/css/colorpicker.css
 cp vendor/font-awesome-4.1.0/css/font-awesome.min.css $deploy_dir/css/font-awesome.min.css
 cp vendor/foundation-icons/foundation-icons.* $deploy_dir/css/
