@@ -4,7 +4,8 @@ angular.module('arethusa.search').service('search', [
   'configurator',
   'keyCapture',
   'plugins',
-  function (state, configurator, keyCapture, plugins) {
+  'languageSettings',
+  function (state, configurator, keyCapture, plugins, languageSettings) {
     var self = this;
     this.name = 'search';
 
@@ -288,10 +289,38 @@ angular.module('arethusa.search').service('search', [
 
 
     function compareWords(wordA,wordB) {
-      // todo we may want to support additional language
-      // specific normalization
-      return wordA === wordB;
+      return normalize(wordA) === normalize(wordB);
     };
+
+    function normalize (text) {
+      if (text && self.language) {
+        // These normalizations functions come from the Alpheios core
+        // language models (https://github.com/alpheios-project/alpheios-core)
+        if(self.language.lang === 'gr') {
+          // we normalize greek to NFC - Normalization Form Canonical Composition
+          text = text.normalize('NFC');
+          // normalize the right single quotation at the end (elision) to Greek Koronois \u1fbd
+          text = text.replace(/\u2019$/, '\u1fbd');
+        } else if (self.language.lang === 'la') {
+          // strip accents from Latin
+          text = text.replace(/[\u00c0\u00c1\u00c2\u00c3\u00c4\u0100\u0102]/g, 'A');
+          text = text.replace(/[\u00c8\u00c9\u00ca\u00cb\u0112\u0114]/g, 'E');
+          text = text.replace(/[\u00cc\u00cd\u00ce\u00cf\u012a\u012c]/g, 'I');
+          text = text.replace(/[\u00d2\u00d3\u00d4\u00df\u00d6\u014c\u014e]/g, 'O');
+          text = text.replace(/[\u00d9\u00da\u00db\u00dc\u016a\u016c]/g, 'U');
+          text = text.replace(/[\u00c6\u01e2]/g, 'AE');
+          text = text.replace(/[\u0152]/g, 'OE');
+          text = text.replace(/[\u00e0\u00e1\u00e2\u00e3\u00e4\u0101\u0103]/g, 'a');
+          text = text.replace(/[\u00e8\u00e9\u00ea\u00eb\u0113\u0115]/g, 'e');
+          text = text.replace(/[\u00ec\u00ed\u00ee\u00ef\u012b\u012d\u0129]/g, 'i');
+          text = text.replace(/[\u00f2\u00f3\u00f4\u00f5\u00f6\u014d\u014f]/g, 'o');
+          text = text.replace(/[\u00f9\u00fa\u00fb\u00fc\u016b\u016d]/g, 'u');
+          text = text.replace(/[\u00e6\u01e3]/g, 'ae');
+          text = text.replace(/[\u0153]/g, 'oe');
+        }
+      }
+      return text;
+    }
 
     function tokenize(text) {
       // TODO we might want to handle punctuation, etc.
@@ -368,6 +397,7 @@ angular.module('arethusa.search').service('search', [
       self.searchPlugins = getSearchPlugins();
       self.strings = collectTokenStrings();
       self.tokenQuery = '';  // model used by the input form
+      self.language = languageSettings.getFor('treebank');
     };
   }
 ]);
