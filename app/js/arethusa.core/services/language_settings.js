@@ -21,6 +21,11 @@ angular.module('arethusa.core').service('languageSettings', [
         name: 'Hebrew',
         lang: 'he',
         leftToRight: false
+      },
+      'lat': {
+        name: 'Latin',
+        lang: 'la',
+        leftToRight: true
       }
     };
 

@@ -1,0 +1,18 @@
+<div class="tree-canvas">
+  <div class="tree-settings">
+    <span
+      class="note right settings-span-button"
+      ng-show="plugin.diffPresent"
+      ng-click="plugin.toggleDiff()">
+      Toggle Diff
+    </span>
+  </div>
+
+  <div
+    lang-specific
+    dependency-tree
+    tokens="state.tokens"
+    styles="plugin.diffStyles()"
+    to-bottom>
+  </div>
+</div>
