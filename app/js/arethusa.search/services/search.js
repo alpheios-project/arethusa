@@ -293,15 +293,14 @@ angular.module('arethusa.search').service('search', [
     };
 
     function normalize (text) {
-      if (text && self.language) {
+      if (text) {
+        text = text.normalize('NFC');
         // These normalizations functions come from the Alpheios core
         // language models (https://github.com/alpheios-project/alpheios-core)
-        if(self.language.lang === 'gr') {
-          // we normalize greek to NFC - Normalization Form Canonical Composition
-          text = text.normalize('NFC');
+        if(self.language && self.language.lang === 'gr') {
           // normalize the right single quotation at the end (elision) to Greek Koronois \u1fbd
           text = text.replace(/\u2019$/, '\u1fbd');
-        } else if (self.language.lang === 'la') {
+        } else if (self.language && self.language.lang === 'la') {
           // strip accents from Latin
           text = text.replace(/[\u00c0\u00c1\u00c2\u00c3\u00c4\u0100\u0102]/g, 'A');
           text = text.replace(/[\u00c8\u00c9\u00ca\u00cb\u0112\u0114]/g, 'E');
