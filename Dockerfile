@@ -1,9 +1,9 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV QT_QPA_PLATFORM=offscreen
 
-RUN apt-get update -qq && apt-get install -qq -y build-essential nodejs-legacy npm git phantomjs ruby-dev
+RUN apt-get update -qq && apt-get install -qq -y build-essential nodejs npm git ruby-dev
 
 ADD . /arethusa
 WORKDIR /arethusa
