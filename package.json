@@ -48,7 +48,7 @@
     "load-grunt-tasks": "^0.6.0",
     "plato": "^1.2.2",
     "protractor": "~0.23.1",
-    "shelljs": "^0.3.0",
+    "shelljs": "^0.8.5",
     "grunt-bump": "0.0.16"
   },
   "scripts": {
